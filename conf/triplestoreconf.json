@@ -1,1765 +1,2327 @@
 [
-  {
-    "name": "Atlantgis",
-    "type": "geosparqlendpoint",
-    "prefixes": {
-      "geosparql": "http://www.opengis.net/ont/geosparql#",
-      "atlantgis": "http://atlantgis.squirrel.link/ontology#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "spatial": "http://geovocab.org/spatial#",
-      "dcterms": "http://purl.org/dc/terms/"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  } }  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.opengis.net/ont/geosparql#hasGeometry"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Limes",
+        "prefixes": {
+            "brick": "https://brickschema.org/schema/Brick#",
+            "csvw": "http://www.w3.org/ns/csvw#",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "dcam": "http://purl.org/dc/dcam/",
+            "dcat": "http://www.w3.org/ns/dcat#",
+            "dcmitype": "http://purl.org/dc/dcmitype/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "doap": "http://usefulinc.com/ns/doap#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "ns1": "http://archaeoinformatics.link/ontology#",
+            "odrl": "http://www.w3.org/ns/odrl/2/",
+            "org": "http://www.w3.org/ns/org#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "prof": "http://www.w3.org/ns/dx/prof/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "qb": "http://purl.org/linked-data/cube#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "https://schema.org/",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "sh": "http://www.w3.org/ns/shacl#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "sosa": "http://www.w3.org/ns/sosa/",
+            "ssn": "http://www.w3.org/ns/ssn/",
+            "time": "http://www.w3.org/2006/time#",
+            "vann": "http://purl.org/vocab/vann/",
+            "void": "http://rdfs.org/ns/void#",
+            "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xml": "http://www.w3.org/XML/1998/namespace",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "prefixesrev": {
+            "http://archaeoinformatics.link/ontology#": "ns1",
+            "http://purl.org/dc/dcam/": "dcam",
+            "http://purl.org/dc/dcmitype/": "dcmitype",
+            "http://purl.org/dc/elements/1.1/": "dc",
+            "http://purl.org/dc/terms/": "dcterms",
+            "http://purl.org/linked-data/cube#": "qb",
+            "http://purl.org/vocab/vann/": "vann",
+            "http://rdfs.org/ns/void#": "void",
+            "http://usefulinc.com/ns/doap#": "doap",
+            "http://www.opengis.net/def/function/geosparql/": "geof",
+            "http://www.opengis.net/def/rule/geosparql/": "geor",
+            "http://www.opengis.net/ont/geosparql#": "geo",
+            "http://www.opengis.net/ont/sf#": "sf",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+            "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+            "http://www.w3.org/2001/XMLSchema#": "xsd",
+            "http://www.w3.org/2002/07/owl#": "owl",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos",
+            "http://www.w3.org/2004/02/skos/core#": "skos",
+            "http://www.w3.org/2006/time#": "time",
+            "http://www.w3.org/ns/csvw#": "csvw",
+            "http://www.w3.org/ns/dcat#": "dcat",
+            "http://www.w3.org/ns/dx/prof/": "prof",
+            "http://www.w3.org/ns/odrl/2/": "odrl",
+            "http://www.w3.org/ns/org#": "org",
+            "http://www.w3.org/ns/prov#": "prov",
+            "http://www.w3.org/ns/shacl#": "sh",
+            "http://www.w3.org/ns/sosa/": "sosa",
+            "http://www.w3.org/ns/ssn/": "ssn",
+            "http://www.w3.org/XML/1998/namespace": "xml",
+            "http://xmlns.com/foaf/0.1/": "foaf",
+            "https://brickschema.org/schema/Brick#": "brick",
+            "https://schema.org/": "schema",
+            "https://www.w3.org/2003/01/geo/wgs84_pos#": "wgs"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  } }  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "type": "file",
+            "url": "https://research-squirrel-engineers.github.io/limes/index.ttl"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://digits.mainzed.org/atlantgis/sparql"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.opengis.net/ont/geosparql#hasGeometry"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label",
+            "http://purl.org/dc/terms/title"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "AtlantGIS",
+        "prefixes": {
+            "brick": "https://brickschema.org/schema/Brick#",
+            "csvw": "http://www.w3.org/ns/csvw#",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "dcam": "http://purl.org/dc/dcam/",
+            "dcat": "http://www.w3.org/ns/dcat#",
+            "dcmitype": "http://purl.org/dc/dcmitype/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "doap": "http://usefulinc.com/ns/doap#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "ns1": "http://atlantgis.squirrel.link/ontology#",
+            "ns2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+            "ns3": "http://ldf.fi/void-ext#",
+            "odrl": "http://www.w3.org/ns/odrl/2/",
+            "org": "http://www.w3.org/ns/org#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "prof": "http://www.w3.org/ns/dx/prof/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "qb": "http://purl.org/linked-data/cube#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "https://schema.org/",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "sh": "http://www.w3.org/ns/shacl#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "sosa": "http://www.w3.org/ns/sosa/",
+            "ssn": "http://www.w3.org/ns/ssn/",
+            "time": "http://www.w3.org/2006/time#",
+            "vann": "http://purl.org/vocab/vann/",
+            "void": "http://rdfs.org/ns/void#",
+            "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xml": "http://www.w3.org/XML/1998/namespace",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "prefixesrev": {
+            "http://atlantgis.squirrel.link/ontology#": "ns1",
+            "http://ldf.fi/void-ext#": "ns3",
+            "http://purl.org/dc/dcam/": "dcam",
+            "http://purl.org/dc/dcmitype/": "dcmitype",
+            "http://purl.org/dc/elements/1.1/": "dc",
+            "http://purl.org/dc/terms/": "dcterms",
+            "http://purl.org/linked-data/cube#": "qb",
+            "http://purl.org/vocab/vann/": "vann",
+            "http://rdfs.org/ns/void#": "void",
+            "http://usefulinc.com/ns/doap#": "doap",
+            "http://www.ontology-of-units-of-measure.org/resource/om-2/": "om",
+            "http://www.opengis.net/def/function/geosparql/": "geof",
+            "http://www.opengis.net/def/rule/geosparql/": "geor",
+            "http://www.opengis.net/ont/geosparql#": "geo",
+            "http://www.opengis.net/ont/sf#": "sf",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+            "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+            "http://www.w3.org/2001/XMLSchema#": "xsd",
+            "http://www.w3.org/2002/07/owl#": "owl",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos",
+            "http://www.w3.org/2004/02/skos/core#": "skos",
+            "http://www.w3.org/2006/time#": "time",
+            "http://www.w3.org/ns/csvw#": "csvw",
+            "http://www.w3.org/ns/dcat#": "dcat",
+            "http://www.w3.org/ns/dx/prof/": "prof",
+            "http://www.w3.org/ns/odrl/2/": "odrl",
+            "http://www.w3.org/ns/org#": "org",
+            "http://www.w3.org/ns/prov#": "prov",
+            "http://www.w3.org/ns/shacl#": "sh",
+            "http://www.w3.org/ns/sosa/": "sosa",
+            "http://www.w3.org/ns/ssn/": "ssn",
+            "http://www.w3.org/XML/1998/namespace": "xml",
+            "http://xmlns.com/foaf/0.1/": "foaf",
+            "https://brickschema.org/schema/Brick#": "brick",
+            "https://schema.org/": "schema",
+            "https://www.w3.org/2003/01/geo/wgs84_pos#": "wgs"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "type": "file",
+            "url": "https://situx.github.io/AtlantGIS/data/index.ttl"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "geoclasses": {
-      "http://atlantgis.squirrel.link/ontology/Find": [
-        "http://atlantgis.squirrel.link/ontology/site"
-      ]
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  } }  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.opengis.net/ont/geosparql#hasGeometry"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Ancient Ports",
+        "prefixes": {
+            "bibo": "http://purl.org/ontology/bibo/",
+            "brick": "https://brickschema.org/schema/Brick#",
+            "csvw": "http://www.w3.org/ns/csvw#",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "dcam": "http://purl.org/dc/dcam/",
+            "dcat": "http://www.w3.org/ns/dcat#",
+            "dcmitype": "http://purl.org/dc/dcmitype/",
+            "doap": "http://usefulinc.com/ns/doap#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "ns4": "http://purl.org/dc/terms/",
+            "odrl": "http://www.w3.org/ns/odrl/2/",
+            "org": "http://www.w3.org/ns/org#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "prof": "http://www.w3.org/ns/dx/prof/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "qb": "http://purl.org/linked-data/cube#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "https://schema.org/",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "sh": "http://www.w3.org/ns/shacl#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "sosa": "http://www.w3.org/ns/sosa/",
+            "ssn": "http://www.w3.org/ns/ssn/",
+            "time": "http://www.w3.org/2006/time#",
+            "vann": "http://purl.org/vocab/vann/",
+            "void": "http://rdfs.org/ns/void#",
+            "wdt": "http://www.wikidata.org/prop/direct/",
+            "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xml": "http://www.w3.org/XML/1998/namespace",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "prefixesrev": {
+            "http://purl.org/dc/dcam/": "dcam",
+            "http://purl.org/dc/dcmitype/": "dcmitype",
+            "http://purl.org/dc/elements/1.1/": "dc",
+            "http://purl.org/dc/terms/": "ns4",
+            "http://purl.org/linked-data/cube#": "qb",
+            "http://purl.org/ontology/bibo/": "bibo",
+            "http://purl.org/vocab/vann/": "vann",
+            "http://rdfs.org/ns/void#": "void",
+            "http://usefulinc.com/ns/doap#": "doap",
+            "http://www.opengis.net/def/function/geosparql/": "geof",
+            "http://www.opengis.net/def/rule/geosparql/": "geor",
+            "http://www.opengis.net/ont/geosparql#": "geo",
+            "http://www.opengis.net/ont/sf#": "sf",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+            "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+            "http://www.w3.org/2001/XMLSchema#": "xsd",
+            "http://www.w3.org/2002/07/owl#": "owl",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos",
+            "http://www.w3.org/2004/02/skos/core#": "skos",
+            "http://www.w3.org/2006/time#": "time",
+            "http://www.w3.org/ns/csvw#": "csvw",
+            "http://www.w3.org/ns/dcat#": "dcat",
+            "http://www.w3.org/ns/dx/prof/": "prof",
+            "http://www.w3.org/ns/odrl/2/": "odrl",
+            "http://www.w3.org/ns/org#": "org",
+            "http://www.w3.org/ns/prov#": "prov",
+            "http://www.w3.org/ns/shacl#": "sh",
+            "http://www.w3.org/ns/sosa/": "sosa",
+            "http://www.w3.org/ns/ssn/": "ssn",
+            "http://www.w3.org/XML/1998/namespace": "xml",
+            "http://www.wikidata.org/prop/direct/": "wdt",
+            "http://xmlns.com/foaf/0.1/": "foaf",
+            "https://brickschema.org/schema/Brick#": "brick",
+            "https://schema.org/": "schema",
+            "https://www.w3.org/2003/01/geo/wgs84_pos#": "wgs"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  } }  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "type": "file",
+            "url": "https://raw.githubusercontent.com/archaeolink/AncientPorts_RDF/refs/heads/main/ap_result.ttl"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
-    "geoobjproperty": [
-      "http://atlantgis.squirrel.link/ontology/site"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": "http://www.opengis.net/ont/geosparql#hasGeometry",
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}",
-    "geotriplepattern": [
-      " ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
-    ],
-    "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . }",
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) }\n  GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
-    "geocollectionquery": "SELECT DISTINCT ?colinstance ?label (count(distinct ?memb) as ?members)  WHERE { OPTIONAL {?colinstance rdfs:member ?memb . } ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } } GROUP BY ?colinstance ?label",
-    "querytemplate": [
-      {
-        "label": "100 Random Geometries",
-        "query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n } LIMIT 100"
-      },
-      {
-        "label": "Load AtlantGIS",
-        "query": "SELECT ?item ?geo WHERE {\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
-      }
-    ],
-    "crs": 4326,
-    "staticconcepts": [],
-    "active": true
-  },
-  {
-    "name": "Wikidata",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "geo": "http://www.opengis.net/ont/geosparql#",
-      "wd": "http://www.wikidata.org/entity/",
-      "wds": "http://www.wikidata.org/entity/statement/",
-      "wdv": "http://www.wikidata.org/value/",
-      "wdt": "http://www.wikidata.org/prop/direct/",
-      "wikibase": "http://wikiba.se/ontology#",
-      "p": "http://www.wikidata.org/prop/",
-      "ps": "http://www.wikidata.org/prop/statement/",
-      "pq": "http://www.wikidata.org/prop/qualifier/",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "bd": "http://www.bigdata.com/rdf#",
-      "wdref": "http://www.wikidata.org/reference/",
-      "psv": "http://www.wikidata.org/prop/statement/value/",
-      "psn": "http://www.wikidata.org/prop/statement/value-normalized/",
-      "pqv": "http://www.wikidata.org/prop/qualifier/value/",
-      "pqn": "http://www.wikidata.org/prop/qualifier/value-normalized/",
-      "pr": "http://www.wikidata.org/prop/reference/",
-      "prv": "http://www.wikidata.org/prop/reference/value/",
-      "prn": "http://www.wikidata.org/prop/reference/value-normalized/",
-      "wdno": "http://www.wikidata.org/prop/novalue/",
-      "wdata": "http://www.wikidata.org/wiki/Special:EntityData/",
-      "schema": "http://schema.org/",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "skos": "http://www.w3.org/2004/02/skos/core#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "prov": "http://www.w3.org/ns/prov#",
-      "bds": "http://www.bigdata.com/rdf/search#",
-      "gas": "http://www.bigdata.com/rdf/gas#",
-      "hint": "http://www.bigdata.com/queryHints#"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }",
+            "type": "minmax"
+        },
+        "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=item",
+        "classlabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=%%language%%|en&languagefallback=true&format=json&ids=%%concepts%%",
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }",
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.wikidata.org/prop/direct/P31> ?class .\n ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .\n} LIMIT 500",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": "http://www.wikidata.org/prop/direct/P625",
+        "geotriplepattern": [
+            " ?item <http://www.wikidata.org/prop/direct/P625> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Wikidata",
+        "prefixes": {
+            "bd": "http://www.bigdata.com/rdf#",
+            "bds": "http://www.bigdata.com/rdf/search#",
+            "gas": "http://www.bigdata.com/rdf/gas#",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "hint": "http://www.bigdata.com/queryHints#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "p": "http://www.wikidata.org/prop/",
+            "pq": "http://www.wikidata.org/prop/qualifier/",
+            "pqn": "http://www.wikidata.org/prop/qualifier/value-normalized/",
+            "pqv": "http://www.wikidata.org/prop/qualifier/value/",
+            "pr": "http://www.wikidata.org/prop/reference/",
+            "prn": "http://www.wikidata.org/prop/reference/value-normalized/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "prv": "http://www.wikidata.org/prop/reference/value/",
+            "ps": "http://www.wikidata.org/prop/statement/",
+            "psn": "http://www.wikidata.org/prop/statement/value-normalized/",
+            "psv": "http://www.wikidata.org/prop/statement/value/",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "http://schema.org/",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "wd": "http://www.wikidata.org/entity/",
+            "wdata": "http://www.wikidata.org/wiki/Special:EntityData/",
+            "wdno": "http://www.wikidata.org/prop/novalue/",
+            "wdref": "http://www.wikidata.org/reference/",
+            "wds": "http://www.wikidata.org/entity/statement/",
+            "wdt": "http://www.wikidata.org/prop/direct/",
+            "wdv": "http://www.wikidata.org/value/",
+            "wikibase": "http://wikiba.se/ontology#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
+        "propertylabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=labels&languages=%%language%%|en&languagefallback=true&uselang=%%language%%&ids=%%concepts%%",
+        "querytemplate": [
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P31 %%concept%% .\n ?item wdt:P625 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
+            },
+            {
+                "label": "All Attributes",
+                "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P31 %%concept%% .\n ?item wdt:P625 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
+            },
+            {
+                "label": "100 Hospitals",
+                "query": "SELECT ?label ?geo ?item WHERE {\n ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917; #Hospital\n wdt:P625 ?geo;\n rdfs:label ?label.\n  FILTER((LANG(?label)) = \"en\")}"
+            },
+            {
+                "label": "Castles as archaeological sites",
+                "query": "SELECT ?label ?geo ?item WHERE {\n ?item wdt:P31 wd:Q839954; #archaeologicalSite\n (wdt:P31/(wdt:P279*)) wd:Q23413; #Castle\n wdt:P625 ?geo;\n rdfs:label ?label.\n FILTER((LANG(?label)) = \"en\")\n}"
+            },
+            {
+                "label": "Ogham Stones",
+                "query": "SELECT ?label ?geo ?item WHERE {\n ?item wdt:P31 wd:Q2016147; #Ogam Stone\n wdt:P361 wd:Q67978809;\n wdt:P195 ?collection.\nOPTIONAL { ?item wdt:P625 ?geo. }\nOPTIONAL {\n?item rdfs:label ?label.\nFILTER((LANG(?label)) = \"en\")\n}\nOPTIONAL {\n?collection rdfs:label ?collectionLabel.\nFILTER((LANG(?collectionLabel)) = \"en\")\n}\n}"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "https://query.wikidata.org/sparql"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.wikidata.org/prop/direct/P279",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.wikidata.org/prop/direct/P31",
+        "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con wdt:P31 %%concept%% . ?con wdt:P625 ?coord . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
     },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "https://query.wikidata.org/sparql"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "SERVICE wikibase:box {\n ?item wdt:P48 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }",
+            "type": "minmax"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <https://database.factgrid.de/prop/direct/P2> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <https://database.factgrid.de/prop/direct/P2> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <https://database.factgrid.de/prop/direct/P2> ?class .\n ?a <https://database.factgrid.de/prop/direct/P48> ?a_geom .\n} LIMIT 500",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": "https://database.factgrid.de/prop/direct/P48",
+        "geotriplepattern": [
+            " ?item <https://database.factgrid.de/prop/direct/P48> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Factgrid",
+        "prefixes": {
+            "bd": "http://www.bigdata.com/rdf#",
+            "bds": "http://www.bigdata.com/rdf/search#",
+            "gas": "http://www.bigdata.com/rdf/gas#",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "hint": "http://www.bigdata.com/queryHints#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "p": "https://database.factgrid.de/prop/",
+            "pq": "https://database.factgrid.de/prop/qualifier/",
+            "pqn": "http://www.wikidata.org/prop/qualifier/value-normalized/",
+            "pqv": "http://www.wikidata.org/prop/qualifier/value/",
+            "pr": "http://www.wikidata.org/prop/reference/",
+            "prn": "http://www.wikidata.org/prop/reference/value-normalized/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "prv": "http://www.wikidata.org/prop/reference/value/",
+            "ps": "https://database.factgrid.de/prop/statement/",
+            "psn": "http://www.wikidata.org/prop/statement/value-normalized/",
+            "psv": "http://www.wikidata.org/prop/statement/value/",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "http://schema.org/",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "wd": "https://database.factgrid.de/entity/",
+            "wdata": "http://www.wikidata.org/wiki/Special:EntityData/",
+            "wdno": "http://www.wikidata.org/prop/novalue/",
+            "wdref": "http://www.wikidata.org/reference/",
+            "wds": "http://www.wikidata.org/entity/statement/",
+            "wdt": "https://database.factgrid.de/prop/direct/",
+            "wdv": "http://www.wikidata.org/value/",
+            "wikibase": "http://wikiba.se/ontology#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
+        "querytemplate": [
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
+            },
+            {
+                "label": "All Attributes",
+                "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "https://database.factgrid.de/sparql"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "https://database.factgrid.de/prop/direct/P3",
+        "type": "sparqlendpoint",
+        "typeproperty": "https://database.factgrid.de/prop/direct/P2",
+        "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con wdt:P2 %%concept%% . OPTIONAL {?con wdt:P48 ?coord . } ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
     },
-    "bboxquery": {
-      "type": "minmax",
-      "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }"
+    {
+        "active": true,
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 27700,
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "easting",
+            "northing"
+        ],
+        "name": "Ordnance Survey UK",
+        "prefixes": {
+            "gaz": "http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "spatial": "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/"
+        },
+        "querytemplate": [
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item spatial:easting ?easting .\n ?item spatial:northing ?northing .\n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql"
+        },
+        "staticconcepts": [
+            "http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/NamedPlace",
+            "http://data.ordnancesurvey.co.uk/ontology/OpenNames/namedPlace",
+            "http://data.ordnancesurvey.co.uk/ontology/postcode/PostcodeUnit",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/DistrictWard",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/Parish",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/UnitaryAuthorityElectoralDivision",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/CountyElectoralDivision",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/WelshAssemblyConstituency",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/WestminsterConstituency",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/District",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/ScottishParliamentConstituency",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/WelshAssemblyElectoralRegion",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/ScottishParliamentElectoralRegion",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/County",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/EuropeanRegion",
+            "http://data.ordnancesurvey.co.uk/ontology/admingeo/GreaterLondonAuthorityAssemblyConstituency"
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
     },
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "geocollectionquery": "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }",
-    "typeproperty": "http://www.wikidata.org/prop/direct/P31",
-    "subclassproperty": "http://www.wikidata.org/prop/direct/P279",
-    "geometryproperty": "http://www.wikidata.org/prop/direct/P625",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "querytemplate": [
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P31 %%concept%% .\n ?item wdt:P625 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
-      },
-      {
-        "label": "All Attributes",
-        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P31 %%concept%% .\n ?item wdt:P625 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
-      },
-      {
-        "label": "100 Hospitals",
-        "query": "SELECT ?label ?geo ?item WHERE {\n ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917; #Hospital\n wdt:P625 ?geo;\n rdfs:label ?label.\n  FILTER((LANG(?label)) = \"en\")}"
-      },
-      {
-        "label": "Castles as archaeological sites",
-        "query": "SELECT ?label ?geo ?item WHERE {\n ?item wdt:P31 wd:Q839954; #archaeologicalSite\n (wdt:P31/(wdt:P279*)) wd:Q23413; #Castle\n wdt:P625 ?geo;\n rdfs:label ?label.\n FILTER((LANG(?label)) = \"en\")\n}"
-      },
-      {
-        "label": "Ogham Stones",
-        "query": "SELECT ?label ?geo ?item WHERE {\n ?item wdt:P31 wd:Q2016147; #Ogam Stone\n wdt:P361 wd:Q67978809;\n wdt:P195 ?collection.\nOPTIONAL { ?item wdt:P625 ?geo. }\nOPTIONAL {\n?item rdfs:label ?label.\nFILTER((LANG(?label)) = \"en\")\n}\nOPTIONAL {\n?collection rdfs:label ?collectionLabel.\nFILTER((LANG(?collectionLabel)) = \"en\")\n}\n}"
-      }
-    ],
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.wikidata.org/prop/direct/P31> ?class .\n ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .\n} LIMIT 500",
-    "geotriplepattern": [
-      " ?item <http://www.wikidata.org/prop/direct/P625> ?geo . "
-    ],
-    "classlabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=%%language%%|en&languagefallback=true&format=json&ids=%%concepts%%",
-    "propertylabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=labels&languages=%%language%%|en&languagefallback=true&uselang=%%language%%&ids=%%concepts%%",
-    "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=item",
-    "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con wdt:P31 %%concept%% . ?con wdt:P625 ?coord . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "staticconcepts": [],
-    "active": true
-  },
-  {
-    "name": "Factgrid",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "geo": "http://www.opengis.net/ont/geosparql#",
-      "wd": "https://database.factgrid.de/entity/",
-      "wds": "http://www.wikidata.org/entity/statement/",
-      "wdv": "http://www.wikidata.org/value/",
-      "wdt": "https://database.factgrid.de/prop/direct/",
-      "wikibase": "http://wikiba.se/ontology#",
-      "p": "https://database.factgrid.de/prop/",
-      "ps": "https://database.factgrid.de/prop/statement/",
-      "pq": "https://database.factgrid.de/prop/qualifier/",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "bd": "http://www.bigdata.com/rdf#",
-      "wdref": "http://www.wikidata.org/reference/",
-      "psv": "http://www.wikidata.org/prop/statement/value/",
-      "psn": "http://www.wikidata.org/prop/statement/value-normalized/",
-      "pqv": "http://www.wikidata.org/prop/qualifier/value/",
-      "pqn": "http://www.wikidata.org/prop/qualifier/value-normalized/",
-      "pr": "http://www.wikidata.org/prop/reference/",
-      "prv": "http://www.wikidata.org/prop/reference/value/",
-      "prn": "http://www.wikidata.org/prop/reference/value-normalized/",
-      "wdno": "http://www.wikidata.org/prop/novalue/",
-      "wdata": "http://www.wikidata.org/wiki/Special:EntityData/",
-      "schema": "http://schema.org/",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "skos": "http://www.w3.org/2004/02/skos/core#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "prov": "http://www.w3.org/ns/prov#",
-      "bds": "http://www.bigdata.com/rdf/search#",
-      "gas": "http://www.bigdata.com/rdf/gas#",
-      "hint": "http://www.bigdata.com/queryHints#"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "?loc spatial:nearby (%%lat%% %%lon%% %%width%% 'km') .",
+            "type": "pointdistance"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "lat",
+            "lon"
+        ],
+        "name": "Nomisma",
+        "prefixes": {
+            "dcterms": "http://purl.org/dc/terms/",
+            "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "nm": "http://nomisma.org/id/",
+            "nmo": "http://nomisma.org/ontology#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "spatial": "http://jena.apache.org/spatial#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "querytemplate": [
+            {
+                "label": "100 Random Places",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc wgs84_pos:lat ?lat .\n ?loc wgs84_pos:long ?lon .\n} LIMIT 100"
+            },
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc wgs84_pos:lat ?lat .\n ?loc wgs84_pos:long ?lon .\n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "http://nomisma.org/query"
+        },
+        "staticconcepts": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing",
+            "http://www.w3.org/2004/02/skos/core#Concept",
+            "http://nomisma.org/ontology#Mint",
+            "http://nomisma.org/ontology#Region"
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con %%typeproperty%% %%concept%% . ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)"
     },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "https://database.factgrid.de/sparql"
+    {
+        "active": true,
+        "areaconcepts": [
+            {
+                "concept": "",
+                "label": "country",
+                "property": ""
+            },
+            {
+                "concept": "",
+                "label": "city",
+                "property": ""
+            }
+        ],
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "lat",
+            "lon"
+        ],
+        "name": "Kerameikos",
+        "prefixes": {
+            "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+            "crmgeo": "http://www.ics.forth.gr/isl/CRMgeo/",
+            "crmsci": "http://www.ics.forth.gr/isl/CRMsci/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "kid": "http://kerameikos.org/id/",
+            "kon": "http://kerameikos.org/ontology#",
+            "org": "http://www.w3.org/ns/org#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "querytemplate": [
+            {
+                "label": "All Attributes",
+                "query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
+            },
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "http://kerameikos.org/query"
+        },
+        "staticconcepts": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing",
+            "http://www.cidoc-crm.org/cidoc-crm/E53_Place",
+            "http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression"
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con %%typeproperty%% %%concept%% . ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)"
     },
-    "bboxquery": {
-      "type": "minmax",
-      "query": "SERVICE wikibase:box {\n ?item wdt:P48 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "Filter(bif:st_intersects (?geo, bif:st_point (%%lat%%,%%lon%%),%%width%%))",
+            "type": "pointdistance"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 500",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
+        ],
+        "geotriplepattern": [
+            " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "lat",
+            "lon"
+        ],
+        "name": "LinkedGeoData",
+        "prefixes": {
+            "geom": "http://geovocab.org/geometry#",
+            "lgdo": "http://linkedgeodata.org/ontology/",
+            "ogc": "http://www.opengis.net/ont/geosparql#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+        },
+        "querytemplate": [
+            {
+                "label": "All Attributes",
+                "query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
+            },
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
+            },
+            {
+                "label": "Restaurants in Mainz",
+                "query": "SELECT ?item ?label ?geo FROM <http://linkedgeodata.org> WHERE {\n ?item a lgdo:Restaurant ;\n rdfs:label ?label ;\ngeom:geometry [ ogc:asWKT ?geo ] .\nFilter (bif:st_intersects (?geo, bif:st_point (8.274167,49.998889),0.5)) .\n}"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "http://linkedgeodata.org/sparql"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )}\n  GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
     },
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "geocollectionquery": "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <https://database.factgrid.de/prop/direct/P2> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }",
-    "typeproperty": "https://database.factgrid.de/prop/direct/P2",
-    "subclassproperty": "https://database.factgrid.de/prop/direct/P3",
-    "geometryproperty": "https://database.factgrid.de/prop/direct/P48",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "querytemplate": [
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
-      },
-      {
-        "label": "All Attributes",
-        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
-      }
-    ],
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <https://database.factgrid.de/prop/direct/P2> ?class .\n ?a <https://database.factgrid.de/prop/direct/P48> ?a_geom .\n} LIMIT 500",
-    "geotriplepattern": [
-      " ?item <https://database.factgrid.de/prop/direct/P48> ?geo . "
-    ],
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <https://database.factgrid.de/prop/direct/P2> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con wdt:P2 %%concept%% . OPTIONAL {?con wdt:P48 ?coord . } ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
-    "staticconcepts": [],
-    "active": true
-  },
-  {
-    "name": "Ordnance Survey UK",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "spatial": "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/",
-      "gaz": "http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point(%%lon%%,%%lat%%),%%width%%))",
+            "type": "pointdistance"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label WHERE { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class  . ?class rdfs:label ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label, \"%%label%%\")) } LIMIT 10",
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
+        ],
+        "geotriplepattern": [
+            " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "lat",
+            "lon"
+        ],
+        "name": "DBPedia",
+        "prefixes": {
+            "dbo": "http://dbpedia.org/ontology/",
+            "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "geom": "http://geovocab.org/geometry#",
+            "lgdo": "http://linkedgeodata.org/ontology/",
+            "ogc": "http://www.opengis.net/ont/geosparql#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+        },
+        "querytemplate": [
+            {
+                "label": "100 Random Places",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
+            },
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "http://dbpedia.org/sparql"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )}\n  GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
     },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point(%%lon%%,%%lat%%),%%width%%))",
+            "type": "pointdistance"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .} LIMIT 100",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
+        ],
+        "geotriplepattern": [
+            " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "lat",
+            "lon"
+        ],
+        "name": "Geonames",
+        "prefixes": {
+            "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "geom": "http://geovocab.org/geometry#",
+            "gn": "http://www.geonames.org/ontology#",
+            "ogc": "http://www.opengis.net/ont/geosparql#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+        },
+        "querytemplate": [
+            {
+                "label": "All Attributes",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a gn:Feature .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
+            },
+            {
+                "label": "Item+Label",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a gn:Feature.\n ?item gn:featureCode gn:%%concept%% .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "http://factforge.net/repositories/ff-news"
+        },
+        "staticconcepts": [
+            "ADM1",
+            "ADM1H",
+            "ADM2",
+            "ADM2H",
+            "ADM3",
+            "ADM3H",
+            "ADM4",
+            "ADM4H",
+            "ADM5",
+            "ADM5H",
+            "ADMD",
+            "ADMDH",
+            "ADMF",
+            "AGRC",
+            "AGRF",
+            "AIRB",
+            "AIRF",
+            "AIRH",
+            "AIRP",
+            "AIRQ",
+            "AIRS",
+            "AIRT",
+            "AMTH",
+            "AMUS",
+            "ANCH",
+            "ANS",
+            "APNU",
+            "AQC",
+            "ARCH",
+            "ARCHV",
+            "ARCU",
+            "AREA",
+            "ARRU",
+            "ART",
+            "ASPH",
+            "ASTR",
+            "ASYL",
+            "ATHF",
+            "ATM",
+            "ATOL",
+            "BANK",
+            "BAR",
+            "BAY",
+            "BAYS",
+            "BCH",
+            "BCHS",
+            "BCN",
+            "BDG",
+            "BDGQ",
+            "BDLD",
+            "BDLU",
+            "BGHT",
+            "BKSU",
+            "BLDA",
+            "BLDG",
+            "BLDO",
+            "BLDR",
+            "BLHL",
+            "BLOW",
+            "BNCH",
+            "BNK",
+            "BNKR",
+            "BNKU",
+            "BNKX",
+            "BOG",
+            "BP",
+            "BRKS",
+            "BRKW",
+            "BSND",
+            "BSNP",
+            "BSNU",
+            "BSTN",
+            "BTL",
+            "BTYD",
+            "BUR",
+            "BUSH",
+            "BUSTN",
+            "BUSTP",
+            "BUTE",
+            "CAPE",
+            "CAPG",
+            "CARN",
+            "CAVE",
+            "CDAU",
+            "CFT",
+            "CH",
+            "CHN",
+            "CHNL",
+            "CHNM",
+            "CHNN",
+            "CLDA",
+            "CLF",
+            "CLG",
+            "CMN",
+            "CMP",
+            "CMPL",
+            "CMPLA",
+            "CMPMN",
+            "CMPO",
+            "CMPQ",
+            "CMPRF",
+            "CMTY",
+            "CNFL",
+            "CNL",
+            "CNLA",
+            "CNLB",
+            "CNLD",
+            "CNLI",
+            "CNLN",
+            "CNLQ",
+            "CNLSB",
+            "CNLX",
+            "CNS",
+            "CNSU",
+            "CNYN",
+            "CNYU",
+            "COLF",
+            "COMC",
+            "CONE",
+            "CONT",
+            "COVE",
+            "CRDR",
+            "CRKT",
+            "CRNT",
+            "CRQ",
+            "CRQS",
+            "CRRL",
+            "CRSU",
+            "CRTR",
+            "CSNO",
+            "CST",
+            "CSTL",
+            "CSTM",
+            "CSWY",
+            "CTHSE",
+            "CTRA",
+            "CTRB",
+            "CTRCM",
+            "CTRF",
+            "CTRM",
+            "CTRR",
+            "CTRS",
+            "CUET",
+            "CULT",
+            "CUTF",
+            "CVNT",
+            "DAM",
+            "DAMQ",
+            "DAMSB",
+            "DARY",
+            "DCK",
+            "DCKB",
+            "DCKD",
+            "DCKY",
+            "DEPU",
+            "DEVH",
+            "DIKE",
+            "DIP",
+            "DLTA",
+            "DOMG",
+            "DPOF",
+            "DPR",
+            "DPRG",
+            "DSRT",
+            "DTCH",
+            "DTCHD",
+            "DTCHI",
+            "DTCHM",
+            "DUNE",
+            "DVD",
+            "EDGU",
+            "ERG",
+            "ESCU",
+            "EST",
+            "ESTO",
+            "ESTR",
+            "ESTSG",
+            "ESTT",
+            "ESTX",
+            "ESTY",
+            "FAN",
+            "FANU",
+            "FCL",
+            "FISH",
+            "FJD",
+            "FJDS",
+            "FLD",
+            "FLDI",
+            "FLLS",
+            "FLLSX",
+            "FLTM",
+            "FLTT",
+            "FLTU",
+            "FNDY",
+            "FORD",
+            "FRM",
+            "FRMQ",
+            "FRMS",
+            "FRMT",
+            "FRST",
+            "FRSTF",
+            "FRZU",
+            "FSR",
+            "FT",
+            "FURU",
+            "FY",
+            "FYT",
+            "GAP",
+            "GAPU",
+            "GASF",
+            "GATE",
+            "GDN",
+            "GHAT",
+            "GHSE",
+            "GLCR",
+            "GLYU",
+            "GOSP",
+            "GOVL",
+            "GRAZ",
+            "GRGE",
+            "GROVE",
+            "GRSLD",
+            "GRVC",
+            "GRVE",
+            "GRVO",
+            "GRVP",
+            "GRVPN",
+            "GULF",
+            "GVL",
+            "GYSR",
+            "H",
+            "HBR",
+            "HBRX",
+            "HDLD",
+            "HERM",
+            "HLL",
+            "HLLS",
+            "HLLU",
+            "HLSU",
+            "HLT",
+            "HMCK",
+            "HMDA",
+            "HMSD",
+            "HOLU",
+            "HSE",
+            "HSEC",
+            "HSP",
+            "HSPC",
+            "HSPD",
+            "HSPL",
+            "HSTS",
+            "HTH",
+            "HTL",
+            "HUT",
+            "HUTS",
+            "INDS",
+            "INLT",
+            "INLTQ",
+            "INSM",
+            "INTF",
+            "ISL",
+            "ISLET",
+            "ISLF",
+            "ISLM",
+            "ISLS",
+            "ISLT",
+            "ISLX",
+            "ISTH",
+            "ITTR",
+            "JTY",
+            "KNLU",
+            "KNSU",
+            "KRST",
+            "L",
+            "LAND",
+            "LAVA",
+            "LBED",
+            "LCTY",
+            "LDGU",
+            "LDNG",
+            "LEPC",
+            "LEV",
+            "LEVU",
+            "LGN",
+            "LGNS",
+            "LGNX",
+            "LIBR",
+            "LK",
+            "LKC",
+            "LKI",
+            "LKN",
+            "LKNI",
+            "LKO",
+            "LKOI",
+            "LKS",
+            "LKSB",
+            "LKSC",
+            "LKSI",
+            "LKSN",
+            "LKSNI",
+            "LKX",
+            "LNDF",
+            "LOCK",
+            "LTER",
+            "LTHSE",
+            "MALL",
+            "MAR",
+            "MDW",
+            "MESA",
+            "MESU",
+            "MFG",
+            "MFGB",
+            "MFGC",
+            "MFGCU",
+            "MFGLM",
+            "MFGM",
+            "MFGN",
+            "MFGPH",
+            "MFGQ",
+            "MFGSG",
+            "MGV",
+            "MILB",
+            "MKT",
+            "ML",
+            "MLM",
+            "MLO",
+            "MLSG",
+            "MLSGQ",
+            "MLSW",
+            "MLWND",
+            "MLWTR",
+            "MN",
+            "MNA",
+            "MNAU",
+            "MNC",
+            "MNCR",
+            "MNCU",
+            "MND",
+            "MNDU",
+            "MNFE",
+            "MNMT",
+            "MNN",
+            "MNQ",
+            "MNQR",
+            "MOLE",
+            "MOOR",
+            "MOTU",
+            "MRN",
+            "MRSH",
+            "MRSHN",
+            "MSQE",
+            "MSSN",
+            "MSSNQ",
+            "MSTY",
+            "MT",
+            "MTRO",
+            "MTS",
+            "MTU",
+            "MUS",
+            "MVA",
+            "NKM",
+            "NOV",
+            "NRWS",
+            "NSY",
+            "NTK",
+            "NTKS",
+            "NVB",
+            "OAS",
+            "OBPT",
+            "OBS",
+            "OBSR",
+            "OCH",
+            "OCN",
+            "OILF",
+            "OILJ",
+            "OILP",
+            "OILQ",
+            "OILR",
+            "OILT",
+            "OILW",
+            "OPRA",
+            "OVF",
+            "P",
+            "PAL",
+            "PAN",
+            "PANS",
+            "PASS",
+            "PCL",
+            "PCLD",
+            "PCLF",
+            "PCLH",
+            "PCLI",
+            "PCLIX",
+            "PCLS",
+            "PEAT",
+            "PEN",
+            "PENX",
+            "PGDA",
+            "PIER",
+            "PK",
+            "PKLT",
+            "PKS",
+            "PKSU",
+            "PKU",
+            "PLAT",
+            "PLATX",
+            "PLDR",
+            "PLN",
+            "PLNU",
+            "PLNX",
+            "PLTU",
+            "PMPO",
+            "PMPW",
+            "PND",
+            "PNDI",
+            "PNDN",
+            "PNDNI",
+            "PNDS",
+            "PNDSF",
+            "PNDSI",
+            "PNDSN",
+            "PNLU",
+            "PO",
+            "POOL",
+            "POOLI",
+            "PP",
+            "PPL",
+            "PPLA",
+            "PPLA2",
+            "PPLA3",
+            "PPLA4",
+            "PPLA5",
+            "PPLC",
+            "PPLCH",
+            "PPLF",
+            "PPLG",
+            "PPLH",
+            "PPLL",
+            "PPLQ",
+            "PPLR",
+            "PPLS",
+            "PPLW",
+            "PPLX",
+            "PPQ",
+            "PRK",
+            "PRKGT",
+            "PRKHQ",
+            "PRMN",
+            "PRN",
+            "PRNJ",
+            "PRNQ",
+            "PROM",
+            "PRSH",
+            "PRT",
+            "PRVU",
+            "PS",
+            "PSH",
+            "PSN",
+            "PSTB",
+            "PSTC",
+            "PSTP",
+            "PT",
+            "PTGE",
+            "PTS",
+            "PYR",
+            "PYRS",
+            "QCKS",
+            "QUAY",
+            "R",
+            "RCH",
+            "RD",
+            "RDA",
+            "RDB",
+            "RDCR",
+            "RDCUT",
+            "RDGB",
+            "RDGE",
+            "RDGG",
+            "RDGU",
+            "RDIN",
+            "RDJCT",
+            "RDST",
+            "RDSU",
+            "RECG",
+            "RECR",
+            "REG",
+            "RES",
+            "RESA",
+            "RESF",
+            "RESH",
+            "RESN",
+            "RESP",
+            "REST",
+            "RESV",
+            "RESW",
+            "RET",
+            "RF",
+            "RFC",
+            "RFSU",
+            "RFU",
+            "RFX",
+            "RGN",
+            "RGNE",
+            "RGNH",
+            "RGNL",
+            "RHSE",
+            "RISU",
+            "RJCT",
+            "RK",
+            "RKFL",
+            "RKRY",
+            "RKS",
+            "RLG",
+            "RLGR",
+            "RNCH",
+            "RNGA",
+            "RPDS",
+            "RR",
+            "RRQ",
+            "RSD",
+            "RSGNL",
+            "RSRT",
+            "RSTN",
+            "RSTNQ",
+            "RSTP",
+            "RSTPQ",
+            "RSV",
+            "RSVI",
+            "RSVT",
+            "RTE",
+            "RUIN",
+            "RVN",
+            "RYD",
+            "S",
+            "SALT",
+            "SAND",
+            "SBED",
+            "SBKH",
+            "SCH",
+            "SCHA",
+            "SCHC",
+            "SCHL",
+            "SCHM",
+            "SCHN",
+            "SCHT",
+            "SCNU",
+            "SCRB",
+            "SCRP",
+            "SCSU",
+            "SD",
+            "SDL",
+            "SDLU",
+            "SEA",
+            "SECP",
+            "SHFU",
+            "SHLU",
+            "SHOL",
+            "SHOR",
+            "SHPF",
+            "SHRN",
+            "SHSE",
+            "SHSU",
+            "SHVU",
+            "SILL",
+            "SILU",
+            "SINK",
+            "SLCE",
+            "SLID",
+            "SLP",
+            "SLPU",
+            "SMSU",
+            "SMU",
+            "SNOW",
+            "SNTR",
+            "SPA",
+            "SPIT",
+            "SPLY",
+            "SPNG",
+            "SPNS",
+            "SPNT",
+            "SPRU",
+            "SPUR",
+            "SQR",
+            "ST",
+            "STBL",
+            "STDM",
+            "STKR",
+            "STLMT",
+            "STM",
+            "STMA",
+            "STMB",
+            "STMC",
+            "STMD",
+            "STMH",
+            "STMI",
+            "STMIX",
+            "STMM",
+            "STMQ",
+            "STMS",
+            "STMSB",
+            "STMX",
+            "STNB",
+            "STNC",
+            "STNE",
+            "STNF",
+            "STNI",
+            "STNM",
+            "STNR",
+            "STNS",
+            "STNW",
+            "STPS",
+            "STRT",
+            "SWMP",
+            "SWT",
+            "SYG",
+            "SYSI",
+            "T",
+            "TAL",
+            "TERR",
+            "TERU",
+            "THTR",
+            "TMB",
+            "TMPL",
+            "TMSU",
+            "TMTU",
+            "TNGU",
+            "TNKD",
+            "TNL",
+            "TNLC",
+            "TNLN",
+            "TNLRD",
+            "TNLRR",
+            "TNLS",
+            "TOLL",
+            "TOWR",
+            "TRAM",
+            "TRANT",
+            "TRB",
+            "TREE",
+            "TRGD",
+            "TRGU",
+            "TRIG",
+            "TRL",
+            "TRMO",
+            "TRNU",
+            "TRR",
+            "TUND",
+            "TWO",
+            "U",
+            "UNIP",
+            "UNIV",
+            "UPLD",
+            "USGE",
+            "V",
+            "VAL",
+            "VALG",
+            "VALS",
+            "VALU",
+            "VALX",
+            "VETF",
+            "VIN",
+            "VINS",
+            "VLC",
+            "VLSU",
+            "WAD",
+            "WADB",
+            "WADJ",
+            "WADM",
+            "WADS",
+            "WADX",
+            "WALL",
+            "WALLA",
+            "WEIR",
+            "WHRF",
+            "WHRL",
+            "WLL",
+            "WLLQ",
+            "WLLS",
+            "WRCK",
+            "WTLD",
+            "WTLDI",
+            "WTRC",
+            "WTRH",
+            "WTRW",
+            "ZN",
+            "ZNB",
+            "ZNF",
+            "ZOO"
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
     },
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "mandatoryvariables": [
-      "item",
-      "easting",
-      "northing"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#long",
-      "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-    ],
-    "staticconcepts": [
-      "http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/NamedPlace",
-      "http://data.ordnancesurvey.co.uk/ontology/OpenNames/namedPlace",
-      "http://data.ordnancesurvey.co.uk/ontology/postcode/PostcodeUnit",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/DistrictWard",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/Parish",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/UnitaryAuthorityElectoralDivision",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/CountyElectoralDivision",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/WelshAssemblyConstituency",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/WestminsterConstituency",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/District",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/ScottishParliamentConstituency",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/WelshAssemblyElectoralRegion",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/ScottishParliamentElectoralRegion",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/County",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/EuropeanRegion",
-      "http://data.ordnancesurvey.co.uk/ontology/admingeo/GreaterLondonAuthorityAssemblyConstituency"
-    ],
-    "querytemplate": [
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item spatial:easting ?easting .\n ?item spatial:northing ?northing .\n } LIMIT 10"
-      }
-    ],
-    "crs": 27700,
-    "active": true
-  },
-  {
-    "name": "Nomisma",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "dcterms": "http://purl.org/dc/terms/",
-      "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
-      "nm": "http://nomisma.org/id/",
-      "nmo": "http://nomisma.org/ontology#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "skos": "http://www.w3.org/2004/02/skos/core#",
-      "spatial": "http://jena.apache.org/spatial#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.opengis.net/ont/geosparql#hasGeometry"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label",
+            "http://purl.org/dc/terms/title"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "SPP Harbours",
+        "prefixes": {
+            "brick": "https://brickschema.org/schema/Brick#",
+            "csvw": "http://www.w3.org/ns/csvw#",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "dcam": "http://purl.org/dc/dcam/",
+            "dcat": "http://www.w3.org/ns/dcat#",
+            "dcmitype": "http://purl.org/dc/dcmitype/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "doap": "http://usefulinc.com/ns/doap#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "ns1": "http://www.spp-haefen.de/ont#",
+            "ns2": "http://www.wikidata.org/prop/direct/",
+            "ns3": "http://purl.org/cerif/frapo/",
+            "ns4": "http://purl.org/ontology/bibo/",
+            "ns5": "http://www.w3.org/2006/vcard/ns#",
+            "ns6": "http://ldf.fi/void-ext#",
+            "odrl": "http://www.w3.org/ns/odrl/2/",
+            "org": "http://www.w3.org/ns/org#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "prof": "http://www.w3.org/ns/dx/prof/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "qb": "http://purl.org/linked-data/cube#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "https://schema.org/",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "sh": "http://www.w3.org/ns/shacl#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "sosa": "http://www.w3.org/ns/sosa/",
+            "ssn": "http://www.w3.org/ns/ssn/",
+            "time": "http://www.w3.org/2006/time#",
+            "vann": "http://purl.org/vocab/vann/",
+            "void": "http://rdfs.org/ns/void#",
+            "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xml": "http://www.w3.org/XML/1998/namespace",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "prefixesrev": {
+            "http://ldf.fi/void-ext#": "ns6",
+            "http://purl.org/cerif/frapo/": "ns3",
+            "http://purl.org/dc/dcam/": "dcam",
+            "http://purl.org/dc/dcmitype/": "dcmitype",
+            "http://purl.org/dc/elements/1.1/": "dc",
+            "http://purl.org/dc/terms/": "dcterms",
+            "http://purl.org/linked-data/cube#": "qb",
+            "http://purl.org/ontology/bibo/": "ns4",
+            "http://purl.org/vocab/vann/": "vann",
+            "http://rdfs.org/ns/void#": "void",
+            "http://usefulinc.com/ns/doap#": "doap",
+            "http://www.opengis.net/def/function/geosparql/": "geof",
+            "http://www.opengis.net/def/rule/geosparql/": "geor",
+            "http://www.opengis.net/ont/geosparql#": "geo",
+            "http://www.opengis.net/ont/sf#": "sf",
+            "http://www.spp-haefen.de/ont#": "ns1",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+            "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+            "http://www.w3.org/2001/XMLSchema#": "xsd",
+            "http://www.w3.org/2002/07/owl#": "owl",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos",
+            "http://www.w3.org/2004/02/skos/core#": "skos",
+            "http://www.w3.org/2006/time#": "time",
+            "http://www.w3.org/2006/vcard/ns#": "ns5",
+            "http://www.w3.org/ns/csvw#": "csvw",
+            "http://www.w3.org/ns/dcat#": "dcat",
+            "http://www.w3.org/ns/dx/prof/": "prof",
+            "http://www.w3.org/ns/odrl/2/": "odrl",
+            "http://www.w3.org/ns/org#": "org",
+            "http://www.w3.org/ns/prov#": "prov",
+            "http://www.w3.org/ns/shacl#": "sh",
+            "http://www.w3.org/ns/sosa/": "sosa",
+            "http://www.w3.org/ns/ssn/": "ssn",
+            "http://www.w3.org/XML/1998/namespace": "xml",
+            "http://www.wikidata.org/prop/direct/": "ns2",
+            "http://xmlns.com/foaf/0.1/": "foaf",
+            "https://brickschema.org/schema/Brick#": "brick",
+            "https://schema.org/": "schema",
+            "https://www.w3.org/2003/01/geo/wgs84_pos#": "wgs"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "type": "file",
+            "url": "https://archaeolink.github.io/SPP1630Harbours-RDF/index.ttl"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://nomisma.org/query"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://www.w3.org/2004/02/skos/core#prefLabel> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoclasses": {
+            "http://fuzzy-sl.squirrel.link/ontology/ExternalRepository": [
+                "http://www.w3.org/ns/prov#used"
+            ],
+            "http://fuzzy-sl.squirrel.link/ontology/Georeferencing": [
+                "http://www.w3.org/ns/prov#used"
+            ],
+            "http://www.w3.org/ns/prov#Activity": [
+                "http://www.w3.org/ns/prov#used"
+            ]
+        },
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.opengis.net/ont/geosparql#hasGeometry"
+        ],
+        "geoobjproperty": [
+            "http://www.w3.org/ns/prov#used"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label",
+            "http://www.w3.org/2004/02/skos/core#prefLabel"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Croton",
+        "prefixes": {
+            "brick": "https://brickschema.org/schema/Brick#",
+            "csvw": "http://www.w3.org/ns/csvw#",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "dcam": "http://purl.org/dc/dcam/",
+            "dcat": "http://www.w3.org/ns/dcat#",
+            "dcmitype": "http://purl.org/dc/dcmitype/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "doap": "http://usefulinc.com/ns/doap#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "ns1": "http://fuzzy-sl.squirrel.link/ontology/",
+            "odrl": "http://www.w3.org/ns/odrl/2/",
+            "org": "http://www.w3.org/ns/org#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "prof": "http://www.w3.org/ns/dx/prof/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "qb": "http://purl.org/linked-data/cube#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "https://schema.org/",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "sh": "http://www.w3.org/ns/shacl#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "sosa": "http://www.w3.org/ns/sosa/",
+            "ssn": "http://www.w3.org/ns/ssn/",
+            "time": "http://www.w3.org/2006/time#",
+            "vann": "http://purl.org/vocab/vann/",
+            "void": "http://rdfs.org/ns/void#",
+            "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xml": "http://www.w3.org/XML/1998/namespace",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://www.w3.org/2004/02/skos/core#prefLabel> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "type": "file",
+            "url": "https://research-squirrel-engineers.github.io/croton-geo/index.ttl"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
-    "mandatoryvariables": [
-      "item",
-      "lat",
-      "lon"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#long",
-      "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con %%typeproperty%% %%concept%% . ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
-    "geotriplepattern": [
-      "?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."
-    ],
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "100 Random Places",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc wgs84_pos:lat ?lat .\n ?loc wgs84_pos:long ?lon .\n} LIMIT 100"
-      },
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc wgs84_pos:lat ?lat .\n ?loc wgs84_pos:long ?lon .\n } LIMIT 10"
-      }
-    ],
-    "staticconcepts": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing",
-      "http://www.w3.org/2004/02/skos/core#Concept",
-      "http://nomisma.org/ontology#Mint",
-      "http://nomisma.org/ontology#Region"
-    ],
-    "bboxquery": {
-      "type": "pointdistance",
-      "query": "?loc spatial:nearby (%%lat%% %%lon%% %%width%% 'km') ."
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.opengis.net/ont/geosparql#hasGeometry"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label",
+            "http://purl.org/dc/terms/title"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Research Squirrels",
+        "prefixes": {
+            "brick": "https://brickschema.org/schema/Brick#",
+            "csvw": "http://www.w3.org/ns/csvw#",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "dcam": "http://purl.org/dc/dcam/",
+            "dcat": "http://www.w3.org/ns/dcat#",
+            "dcmitype": "http://purl.org/dc/dcmitype/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "doap": "http://usefulinc.com/ns/doap#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "ns1": "http://www.spp-haefen.de/ontology#",
+            "ns2": "http://ldf.fi/void-ext#",
+            "odrl": "http://www.w3.org/ns/odrl/2/",
+            "org": "http://www.w3.org/ns/org#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "prof": "http://www.w3.org/ns/dx/prof/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "qb": "http://purl.org/linked-data/cube#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "https://schema.org/",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "sh": "http://www.w3.org/ns/shacl#",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "sosa": "http://www.w3.org/ns/sosa/",
+            "ssn": "http://www.w3.org/ns/ssn/",
+            "time": "http://www.w3.org/2006/time#",
+            "vann": "http://purl.org/vocab/vann/",
+            "void": "http://rdfs.org/ns/void#",
+            "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            "xml": "http://www.w3.org/XML/1998/namespace",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+        },
+        "prefixesrev": {
+            "http://ldf.fi/void-ext#": "ns2",
+            "http://purl.org/dc/dcam/": "dcam",
+            "http://purl.org/dc/dcmitype/": "dcmitype",
+            "http://purl.org/dc/elements/1.1/": "dc",
+            "http://purl.org/dc/terms/": "dcterms",
+            "http://purl.org/linked-data/cube#": "qb",
+            "http://purl.org/vocab/vann/": "vann",
+            "http://rdfs.org/ns/void#": "void",
+            "http://usefulinc.com/ns/doap#": "doap",
+            "http://www.opengis.net/def/function/geosparql/": "geof",
+            "http://www.opengis.net/def/rule/geosparql/": "geor",
+            "http://www.opengis.net/ont/geosparql#": "geo",
+            "http://www.opengis.net/ont/sf#": "sf",
+            "http://www.spp-haefen.de/ontology#": "ns1",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+            "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+            "http://www.w3.org/2001/XMLSchema#": "xsd",
+            "http://www.w3.org/2002/07/owl#": "owl",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos",
+            "http://www.w3.org/2004/02/skos/core#": "skos",
+            "http://www.w3.org/2006/time#": "time",
+            "http://www.w3.org/ns/csvw#": "csvw",
+            "http://www.w3.org/ns/dcat#": "dcat",
+            "http://www.w3.org/ns/dx/prof/": "prof",
+            "http://www.w3.org/ns/odrl/2/": "odrl",
+            "http://www.w3.org/ns/org#": "org",
+            "http://www.w3.org/ns/prov#": "prov",
+            "http://www.w3.org/ns/shacl#": "sh",
+            "http://www.w3.org/ns/sosa/": "sosa",
+            "http://www.w3.org/ns/ssn/": "ssn",
+            "http://www.w3.org/XML/1998/namespace": "xml",
+            "http://xmlns.com/foaf/0.1/": "foaf",
+            "https://brickschema.org/schema/Brick#": "brick",
+            "https://schema.org/": "schema",
+            "https://www.w3.org/2003/01/geo/wgs84_pos#": "wgs"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "type": "file",
+            "url": "https://research-squirrel-engineers.github.io/HadriansWall/index.ttl"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
-    "active": true
-  },
-  {
-    "name": "Kerameikos",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "crm": "http://www.cidoc-crm.org/cidoc-crm/",
-      "crmgeo": "http://www.ics.forth.gr/isl/CRMgeo/",
-      "crmsci": "http://www.ics.forth.gr/isl/CRMsci/",
-      "dcterms": "http://purl.org/dc/terms/",
-      "foaf": "http://xmlns.com/foaf/0.1/",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
-      "kid": "http://kerameikos.org/id/",
-      "kon": "http://kerameikos.org/ontology#",
-      "org": "http://www.w3.org/ns/org#",
-      "skos": "http://www.w3.org/2004/02/skos/core#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+    {
+        "active": true,
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoclasses": {
+            "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Country": [
+                "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"
+            ],
+            "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#ModernSpot": [
+                "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"
+            ]
+        },
+        "geoconceptlimit": 500,
+        "geoconceptquery": "",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude",
+            "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude"
+        ],
+        "geoobjproperty": [
+            "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"
+        ],
+        "geotriplepattern": [
+            " ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude> ?lat .\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude> ?lon . "
+        ],
+        "labelproperty": [
+            "http://purl.org/dc/terms/title"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "lat",
+            "lon"
+        ],
+        "name": "Roman Open Data",
+        "prefixes": {
+            "ads": "http://data.archaeologydataservice.ac.uk/romanamphorae/",
+            "amphsect": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#amphsect/",
+            "co": "http://purl.org/co/",
+            "coctura": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#coctura/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "edh": "http://edh-www.adw.uni-heidelberg.de/edh/inschrift/",
+            "fabio": "http://purl.org/spar/fabio/",
+            "graffito": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#sketch/",
+            "ink": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#ink/",
+            "ont": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "placefunc": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#placefunc/",
+            "pleiades": "http://pleiades.stoa.org/places/",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "readir": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#readir/",
+            "relief": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#relief/",
+            "shape": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#shape/"
+        },
+        "querytemplate": [
+            {
+                "label": "100 Random Geometries",
+                "query": "SELECT * WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude> ?lat.\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude> ?lon.\n ?item dcterms:title ?title .\n }\n ORDER BY ASC(?title)\n LIMIT 100"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "http://romanopendata.eu/sparql-endpoint"
+        },
+        "staticconcepts": [
+            "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Place",
+            "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Municipality"
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } \n GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
     },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://kerameikos.org/query"
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://www.w3.org/2004/02/skos/core#prefLabel> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoclasses": {
+            "http://archaeology.link/ontology#ActorEntity": [
+                "http://archaeology.link/ontology#worksAtPlace"
+            ],
+            "http://archaeology.link/ontology#InformationCarrier": [
+                "http://archaeology.link/ontology#disclosedAt",
+                "http://archaeology.link/ontology#hasKilnsite"
+            ],
+            "http://archaeology.link/ontology#Location": [
+                "http://archaeology.link/ontology#clusteredAs"
+            ],
+            "http://archaeology.link/ontology#ProductionCentre": [
+                "http://archaeology.link/ontology#clusteredAs"
+            ],
+            "http://www.w3.org/ns/oa#Annotation": [
+                "http://www.w3.org/ns/oa#hasTarget",
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#object"
+            ]
+        },
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
+        ],
+        "geoobjproperty": [
+            "http://archaeology.link/ontology#disclosedAt",
+            "http://www.w3.org/ns/oa#hasTarget",
+            "http://archaeology.link/ontology#clusteredAs",
+            "http://archaeology.link/ontology#hasKilnsite",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#object",
+            "http://archaeology.link/ontology#worksAtPlace"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label",
+            "http://www.w3.org/2004/02/skos/core#prefLabel"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "NFDI4Objects Knowledge Graph",
+        "prefixes": {
+            "dcat": "http://www.w3.org/ns/dcat#",
+            "fabio": "http://purl.org/spar/fabio/",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "ns0": "http://objekte-im-netz.fau.de/ontology/palaeo/",
+            "ns1": "http://bartoc.org/en/node/",
+            "ns2": "http://objekte-im-netz.fau.de/ufg/id/",
+            "ns3": "http://objekte-im-netz.fau.de/palaeo/id/",
+            "ns4": "http://www.w3.org/2004/02/skos/",
+            "ns5": "http://objekte-im-netz.fau.de/ontology/common/",
+            "ns6": "http://objekte-im-netz.fau.de/palaeo/gna/icsc/",
+            "ns7": "http://objekte-im-netz.fau.de/musik/id/",
+            "ns8": "http://objekte-im-netz.fau.de/graphik/id/",
+            "ns9": "http://objekte-im-netz.fau.de/ontology/ufg/",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "shema": "http://schema.org/",
+            "skos": "http://www.w3.org/2004/02/skos/core#",
+            "terms": "http://purl.org/dc/terms/",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+        },
+        "prefixesrev": {
+            "http://bartoc.org/en/node/": "ns1",
+            "http://objekte-im-netz.fau.de/graphik/id/": "ns8",
+            "http://objekte-im-netz.fau.de/musik/id/": "ns7",
+            "http://objekte-im-netz.fau.de/ontology/common/": "ns5",
+            "http://objekte-im-netz.fau.de/ontology/palaeo/": "ns0",
+            "http://objekte-im-netz.fau.de/ontology/ufg/": "ns9",
+            "http://objekte-im-netz.fau.de/palaeo/gna/icsc/": "ns6",
+            "http://objekte-im-netz.fau.de/palaeo/id/": "ns3",
+            "http://objekte-im-netz.fau.de/ufg/id/": "ns2",
+            "http://purl.org/dc/terms/": "terms",
+            "http://purl.org/spar/fabio/": "fabio",
+            "http://schema.org/": "shema",
+            "http://www.opengis.net/def/function/geosparql/": "geof",
+            "http://www.opengis.net/def/rule/geosparql/": "geor",
+            "http://www.opengis.net/ont/geosparql#": "geosparql",
+            "http://www.opengis.net/ont/sf#": "sf",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+            "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+            "http://www.w3.org/2002/07/owl#": "owl",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos",
+            "http://www.w3.org/2004/02/skos/": "ns4",
+            "http://www.w3.org/2004/02/skos/core#": "skos",
+            "http://www.w3.org/ns/dcat#": "dcat",
+            "http://xmlns.com/foaf/0.1/": "foaf"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://www.w3.org/2004/02/skos/core#prefLabel> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "geosparql10": true,
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "https://graph.nfdi4objects.net/api/sparql"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
-    "mandatoryvariables": [
-      "item",
-      "lat",
-      "lon"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#long",
-      "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con %%typeproperty%% %%concept%% . ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
-    "geotriplepattern": [
-      "?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."
-    ],
-    "querytemplate": [
-      {
-        "label": "All Attributes",
-        "query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
-      },
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
-      }
-    ],
-    "geoconceptlimit": 500,
-    "areaconcepts": [
-      {
-        "label": "country",
-        "concept": "",
-        "property": ""
-      },
-      {
-        "label": "city",
-        "concept": "",
-        "property": ""
-      }
-    ],
-    "staticconcepts": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing",
-      "http://www.cidoc-crm.org/cidoc-crm/E53_Place",
-      "http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression"
-    ],
-    "active": true
-  },
-  {
-    "name": "LinkedGeoData",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "lgdo": "http://linkedgeodata.org/ontology/",
-      "geom": "http://geovocab.org/geometry#",
-      "ogc": "http://www.opengis.net/ont/geosparql#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://linkedgeodata.org/sparql"
-    },
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "mandatoryvariables": [
-      "item",
-      "lat",
-      "lon"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#long",
-      "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )}\n  GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 500",
-    "geotriplepattern": [
-      " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."
-    ],
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "All Attributes",
-        "query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
-      },
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
-      },
-      {
-        "label": "Restaurants in Mainz",
-        "query": "SELECT ?item ?label ?geo FROM <http://linkedgeodata.org> WHERE {\n ?item a lgdo:Restaurant ;\n rdfs:label ?label ;\ngeom:geometry [ ogc:asWKT ?geo ] .\nFilter (bif:st_intersects (?geo, bif:st_point (8.274167,49.998889),0.5)) .\n}"
-      }
-    ],
-    "staticconcepts": [],
-    "bboxquery": {
-      "type": "pointdistance",
-      "query": "Filter(bif:st_intersects (?geo, bif:st_point (%%lat%%,%%lon%%),%%width%%))"
-    },
-    "active": true
-  },
-  {
-    "name": "DBPedia",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "dbo": "http://dbpedia.org/ontology/",
-      "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
-      "geom": "http://geovocab.org/geometry#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "ogc": "http://www.opengis.net/ont/geosparql#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "lgdo": "http://linkedgeodata.org/ontology/",
-      "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://dbpedia.org/sparql"
-    },
-    "mandatoryvariables": [
-      "item",
-      "lat",
-      "lon"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#long",
-      "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )}\n  GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "classfromlabelquery": "SELECT DISTINCT ?class ?label WHERE { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class  . ?class rdfs:label ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label, \"%%label%%\")) } LIMIT 10",
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
-    "geotriplepattern": [
-      " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."
-    ],
-    "querytemplate": [
-      {
-        "label": "100 Random Places",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
-      },
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
-      }
-    ],
-    "geoconceptlimit": 500,
-    "staticconcepts": [],
-    "bboxquery": {
-      "type": "pointdistance",
-      "query": "FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point(%%lon%%,%%lat%%),%%width%%))"
-    },
-    "active": true
-  },
-  {
-    "name": "Geonames",
-    "type": "sparqlendpoint",
-    "bboxquery": {
-      "type": "pointdistance",
-      "query": "FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point(%%lon%%,%%lat%%),%%width%%))"
-    },
-    "prefixes": {
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
-      "gn": "http://www.geonames.org/ontology#",
-      "geom": "http://geovocab.org/geometry#",
-      "ogc": "http://www.opengis.net/ont/geosparql#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://factforge.net/repositories/ff-news"
-    },
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "mandatoryvariables": [
-      "item",
-      "lat",
-      "lon"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": [
-      "http://www.w3.org/2003/01/geo/wgs84_pos#long",
-      "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .} LIMIT 100",
-    "geotriplepattern": [
-      " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."
-    ],
-    "querytemplate": [
-      {
-        "label": "All Attributes",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a gn:Feature .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
-      },
-      {
-        "label": "Item+Label",
-        "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a gn:Feature.\n ?item gn:featureCode gn:%%concept%% .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
-      }
-    ],
-    "geoconceptlimit": 500,
-    "staticconcepts": [
-      "ADM1",
-      "ADM1H",
-      "ADM2",
-      "ADM2H",
-      "ADM3",
-      "ADM3H",
-      "ADM4",
-      "ADM4H",
-      "ADM5",
-      "ADM5H",
-      "ADMD",
-      "ADMDH",
-      "ADMF",
-      "AGRC",
-      "AGRF",
-      "AIRB",
-      "AIRF",
-      "AIRH",
-      "AIRP",
-      "AIRQ",
-      "AIRS",
-      "AIRT",
-      "AMTH",
-      "AMUS",
-      "ANCH",
-      "ANS",
-      "APNU",
-      "AQC",
-      "ARCH",
-      "ARCHV",
-      "ARCU",
-      "AREA",
-      "ARRU",
-      "ART",
-      "ASPH",
-      "ASTR",
-      "ASYL",
-      "ATHF",
-      "ATM",
-      "ATOL",
-      "BANK",
-      "BAR",
-      "BAY",
-      "BAYS",
-      "BCH",
-      "BCHS",
-      "BCN",
-      "BDG",
-      "BDGQ",
-      "BDLD",
-      "BDLU",
-      "BGHT",
-      "BKSU",
-      "BLDA",
-      "BLDG",
-      "BLDO",
-      "BLDR",
-      "BLHL",
-      "BLOW",
-      "BNCH",
-      "BNK",
-      "BNKR",
-      "BNKU",
-      "BNKX",
-      "BOG",
-      "BP",
-      "BRKS",
-      "BRKW",
-      "BSND",
-      "BSNP",
-      "BSNU",
-      "BSTN",
-      "BTL",
-      "BTYD",
-      "BUR",
-      "BUSH",
-      "BUSTN",
-      "BUSTP",
-      "BUTE",
-      "CAPE",
-      "CAPG",
-      "CARN",
-      "CAVE",
-      "CDAU",
-      "CFT",
-      "CH",
-      "CHN",
-      "CHNL",
-      "CHNM",
-      "CHNN",
-      "CLDA",
-      "CLF",
-      "CLG",
-      "CMN",
-      "CMP",
-      "CMPL",
-      "CMPLA",
-      "CMPMN",
-      "CMPO",
-      "CMPQ",
-      "CMPRF",
-      "CMTY",
-      "CNFL",
-      "CNL",
-      "CNLA",
-      "CNLB",
-      "CNLD",
-      "CNLI",
-      "CNLN",
-      "CNLQ",
-      "CNLSB",
-      "CNLX",
-      "CNS",
-      "CNSU",
-      "CNYN",
-      "CNYU",
-      "COLF",
-      "COMC",
-      "CONE",
-      "CONT",
-      "COVE",
-      "CRDR",
-      "CRKT",
-      "CRNT",
-      "CRQ",
-      "CRQS",
-      "CRRL",
-      "CRSU",
-      "CRTR",
-      "CSNO",
-      "CST",
-      "CSTL",
-      "CSTM",
-      "CSWY",
-      "CTHSE",
-      "CTRA",
-      "CTRB",
-      "CTRCM",
-      "CTRF",
-      "CTRM",
-      "CTRR",
-      "CTRS",
-      "CUET",
-      "CULT",
-      "CUTF",
-      "CVNT",
-      "DAM",
-      "DAMQ",
-      "DAMSB",
-      "DARY",
-      "DCK",
-      "DCKB",
-      "DCKD",
-      "DCKY",
-      "DEPU",
-      "DEVH",
-      "DIKE",
-      "DIP",
-      "DLTA",
-      "DOMG",
-      "DPOF",
-      "DPR",
-      "DPRG",
-      "DSRT",
-      "DTCH",
-      "DTCHD",
-      "DTCHI",
-      "DTCHM",
-      "DUNE",
-      "DVD",
-      "EDGU",
-      "ERG",
-      "ESCU",
-      "EST",
-      "ESTO",
-      "ESTR",
-      "ESTSG",
-      "ESTT",
-      "ESTX",
-      "ESTY",
-      "FAN",
-      "FANU",
-      "FCL",
-      "FISH",
-      "FJD",
-      "FJDS",
-      "FLD",
-      "FLDI",
-      "FLLS",
-      "FLLSX",
-      "FLTM",
-      "FLTT",
-      "FLTU",
-      "FNDY",
-      "FORD",
-      "FRM",
-      "FRMQ",
-      "FRMS",
-      "FRMT",
-      "FRST",
-      "FRSTF",
-      "FRZU",
-      "FSR",
-      "FT",
-      "FURU",
-      "FY",
-      "FYT",
-      "GAP",
-      "GAPU",
-      "GASF",
-      "GATE",
-      "GDN",
-      "GHAT",
-      "GHSE",
-      "GLCR",
-      "GLYU",
-      "GOSP",
-      "GOVL",
-      "GRAZ",
-      "GRGE",
-      "GROVE",
-      "GRSLD",
-      "GRVC",
-      "GRVE",
-      "GRVO",
-      "GRVP",
-      "GRVPN",
-      "GULF",
-      "GVL",
-      "GYSR",
-      "H",
-      "HBR",
-      "HBRX",
-      "HDLD",
-      "HERM",
-      "HLL",
-      "HLLS",
-      "HLLU",
-      "HLSU",
-      "HLT",
-      "HMCK",
-      "HMDA",
-      "HMSD",
-      "HOLU",
-      "HSE",
-      "HSEC",
-      "HSP",
-      "HSPC",
-      "HSPD",
-      "HSPL",
-      "HSTS",
-      "HTH",
-      "HTL",
-      "HUT",
-      "HUTS",
-      "INDS",
-      "INLT",
-      "INLTQ",
-      "INSM",
-      "INTF",
-      "ISL",
-      "ISLET",
-      "ISLF",
-      "ISLM",
-      "ISLS",
-      "ISLT",
-      "ISLX",
-      "ISTH",
-      "ITTR",
-      "JTY",
-      "KNLU",
-      "KNSU",
-      "KRST",
-      "L",
-      "LAND",
-      "LAVA",
-      "LBED",
-      "LCTY",
-      "LDGU",
-      "LDNG",
-      "LEPC",
-      "LEV",
-      "LEVU",
-      "LGN",
-      "LGNS",
-      "LGNX",
-      "LIBR",
-      "LK",
-      "LKC",
-      "LKI",
-      "LKN",
-      "LKNI",
-      "LKO",
-      "LKOI",
-      "LKS",
-      "LKSB",
-      "LKSC",
-      "LKSI",
-      "LKSN",
-      "LKSNI",
-      "LKX",
-      "LNDF",
-      "LOCK",
-      "LTER",
-      "LTHSE",
-      "MALL",
-      "MAR",
-      "MDW",
-      "MESA",
-      "MESU",
-      "MFG",
-      "MFGB",
-      "MFGC",
-      "MFGCU",
-      "MFGLM",
-      "MFGM",
-      "MFGN",
-      "MFGPH",
-      "MFGQ",
-      "MFGSG",
-      "MGV",
-      "MILB",
-      "MKT",
-      "ML",
-      "MLM",
-      "MLO",
-      "MLSG",
-      "MLSGQ",
-      "MLSW",
-      "MLWND",
-      "MLWTR",
-      "MN",
-      "MNA",
-      "MNAU",
-      "MNC",
-      "MNCR",
-      "MNCU",
-      "MND",
-      "MNDU",
-      "MNFE",
-      "MNMT",
-      "MNN",
-      "MNQ",
-      "MNQR",
-      "MOLE",
-      "MOOR",
-      "MOTU",
-      "MRN",
-      "MRSH",
-      "MRSHN",
-      "MSQE",
-      "MSSN",
-      "MSSNQ",
-      "MSTY",
-      "MT",
-      "MTRO",
-      "MTS",
-      "MTU",
-      "MUS",
-      "MVA",
-      "NKM",
-      "NOV",
-      "NRWS",
-      "NSY",
-      "NTK",
-      "NTKS",
-      "NVB",
-      "OAS",
-      "OBPT",
-      "OBS",
-      "OBSR",
-      "OCH",
-      "OCN",
-      "OILF",
-      "OILJ",
-      "OILP",
-      "OILQ",
-      "OILR",
-      "OILT",
-      "OILW",
-      "OPRA",
-      "OVF",
-      "P",
-      "PAL",
-      "PAN",
-      "PANS",
-      "PASS",
-      "PCL",
-      "PCLD",
-      "PCLF",
-      "PCLH",
-      "PCLI",
-      "PCLIX",
-      "PCLS",
-      "PEAT",
-      "PEN",
-      "PENX",
-      "PGDA",
-      "PIER",
-      "PK",
-      "PKLT",
-      "PKS",
-      "PKSU",
-      "PKU",
-      "PLAT",
-      "PLATX",
-      "PLDR",
-      "PLN",
-      "PLNU",
-      "PLNX",
-      "PLTU",
-      "PMPO",
-      "PMPW",
-      "PND",
-      "PNDI",
-      "PNDN",
-      "PNDNI",
-      "PNDS",
-      "PNDSF",
-      "PNDSI",
-      "PNDSN",
-      "PNLU",
-      "PO",
-      "POOL",
-      "POOLI",
-      "PP",
-      "PPL",
-      "PPLA",
-      "PPLA2",
-      "PPLA3",
-      "PPLA4",
-      "PPLA5",
-      "PPLC",
-      "PPLCH",
-      "PPLF",
-      "PPLG",
-      "PPLH",
-      "PPLL",
-      "PPLQ",
-      "PPLR",
-      "PPLS",
-      "PPLW",
-      "PPLX",
-      "PPQ",
-      "PRK",
-      "PRKGT",
-      "PRKHQ",
-      "PRMN",
-      "PRN",
-      "PRNJ",
-      "PRNQ",
-      "PROM",
-      "PRSH",
-      "PRT",
-      "PRVU",
-      "PS",
-      "PSH",
-      "PSN",
-      "PSTB",
-      "PSTC",
-      "PSTP",
-      "PT",
-      "PTGE",
-      "PTS",
-      "PYR",
-      "PYRS",
-      "QCKS",
-      "QUAY",
-      "R",
-      "RCH",
-      "RD",
-      "RDA",
-      "RDB",
-      "RDCR",
-      "RDCUT",
-      "RDGB",
-      "RDGE",
-      "RDGG",
-      "RDGU",
-      "RDIN",
-      "RDJCT",
-      "RDST",
-      "RDSU",
-      "RECG",
-      "RECR",
-      "REG",
-      "RES",
-      "RESA",
-      "RESF",
-      "RESH",
-      "RESN",
-      "RESP",
-      "REST",
-      "RESV",
-      "RESW",
-      "RET",
-      "RF",
-      "RFC",
-      "RFSU",
-      "RFU",
-      "RFX",
-      "RGN",
-      "RGNE",
-      "RGNH",
-      "RGNL",
-      "RHSE",
-      "RISU",
-      "RJCT",
-      "RK",
-      "RKFL",
-      "RKRY",
-      "RKS",
-      "RLG",
-      "RLGR",
-      "RNCH",
-      "RNGA",
-      "RPDS",
-      "RR",
-      "RRQ",
-      "RSD",
-      "RSGNL",
-      "RSRT",
-      "RSTN",
-      "RSTNQ",
-      "RSTP",
-      "RSTPQ",
-      "RSV",
-      "RSVI",
-      "RSVT",
-      "RTE",
-      "RUIN",
-      "RVN",
-      "RYD",
-      "S",
-      "SALT",
-      "SAND",
-      "SBED",
-      "SBKH",
-      "SCH",
-      "SCHA",
-      "SCHC",
-      "SCHL",
-      "SCHM",
-      "SCHN",
-      "SCHT",
-      "SCNU",
-      "SCRB",
-      "SCRP",
-      "SCSU",
-      "SD",
-      "SDL",
-      "SDLU",
-      "SEA",
-      "SECP",
-      "SHFU",
-      "SHLU",
-      "SHOL",
-      "SHOR",
-      "SHPF",
-      "SHRN",
-      "SHSE",
-      "SHSU",
-      "SHVU",
-      "SILL",
-      "SILU",
-      "SINK",
-      "SLCE",
-      "SLID",
-      "SLP",
-      "SLPU",
-      "SMSU",
-      "SMU",
-      "SNOW",
-      "SNTR",
-      "SPA",
-      "SPIT",
-      "SPLY",
-      "SPNG",
-      "SPNS",
-      "SPNT",
-      "SPRU",
-      "SPUR",
-      "SQR",
-      "ST",
-      "STBL",
-      "STDM",
-      "STKR",
-      "STLMT",
-      "STM",
-      "STMA",
-      "STMB",
-      "STMC",
-      "STMD",
-      "STMH",
-      "STMI",
-      "STMIX",
-      "STMM",
-      "STMQ",
-      "STMS",
-      "STMSB",
-      "STMX",
-      "STNB",
-      "STNC",
-      "STNE",
-      "STNF",
-      "STNI",
-      "STNM",
-      "STNR",
-      "STNS",
-      "STNW",
-      "STPS",
-      "STRT",
-      "SWMP",
-      "SWT",
-      "SYG",
-      "SYSI",
-      "T",
-      "TAL",
-      "TERR",
-      "TERU",
-      "THTR",
-      "TMB",
-      "TMPL",
-      "TMSU",
-      "TMTU",
-      "TNGU",
-      "TNKD",
-      "TNL",
-      "TNLC",
-      "TNLN",
-      "TNLRD",
-      "TNLRR",
-      "TNLS",
-      "TOLL",
-      "TOWR",
-      "TRAM",
-      "TRANT",
-      "TRB",
-      "TREE",
-      "TRGD",
-      "TRGU",
-      "TRIG",
-      "TRL",
-      "TRMO",
-      "TRNU",
-      "TRR",
-      "TUND",
-      "TWO",
-      "U",
-      "UNIP",
-      "UNIV",
-      "UPLD",
-      "USGE",
-      "V",
-      "VAL",
-      "VALG",
-      "VALS",
-      "VALU",
-      "VALX",
-      "VETF",
-      "VIN",
-      "VINS",
-      "VLC",
-      "VLSU",
-      "WAD",
-      "WADB",
-      "WADJ",
-      "WADM",
-      "WADS",
-      "WADX",
-      "WALL",
-      "WALLA",
-      "WEIR",
-      "WHRF",
-      "WHRL",
-      "WLL",
-      "WLLQ",
-      "WLLS",
-      "WRCK",
-      "WTLD",
-      "WTLDI",
-      "WTRC",
-      "WTRH",
-      "WTRW",
-      "ZN",
-      "ZNB",
-      "ZNF",
-      "ZOO"
-    ],
-    "active": true
-  },
-  {
-    "name": "Ordnance Survey Ireland",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "geom": "http://geovocab.org/geometry#",
-      "ogc": "http://www.opengis.net/ont/geosparql#",
-      "osi": "http://ontologies.geohive.ie/osi#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    },
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) }  GROUP BY ?rel ?valtype ORDER BY DESC(?countrel)",
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://digits.mainzed.org/osi/sparql"
-    },
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": "http://www.opengis.net/ont/geosparql#hasGeometry",
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a wgs84_pos:lat ?lat . ?a wgs84_pos:long ?long .}",
-    "geotriplepattern": [
-      " ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."
-    ],
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "Default",
-        "query": "SELECT ?item ?label ?geo WHERE {\n ?item a <%%concept%%>.\n ?item rdfs:label ?label.\n FILTER (lang(?label) = 'en') ?item ogc:hasGeometry [ ogc:asWKT ?geo ] .\n } LIMIT 10"
-      }
-    ],
-    "staticconcepts": [
-      "http://www.opengis.net/ont/geosparql#Feature",
-      "http://ontologies.geohive.ie/osi#County",
-      "http://ontologies.geohive.ie/osi#Barony",
-      "http://ontologies.geohive.ie/osi#Council",
-      "http://ontologies.geohive.ie/osi#Townland",
-      "http://ontologies.geohive.ie/osi#ElectoralDivision",
-      "http://ontologies.geohive.ie/osi#GaeltachtRegion",
-      "http://ontologies.geohive.ie/osi#LocalElectoralArea",
-      "http://ontologies.geohive.ie/osi#MunicipalDistrict",
-      "http://ontologies.geohive.ie/osi#NationalConstituency",
-      "http://ontologies.geohive.ie/osi#CivilParish",
-      "http://ontologies.geohive.ie/osi#RuralArea"
-    ],
-    "crs": 2157,
-    "active": true
-  },
-  {
-    "name": "Pleiades",
-    "type": "geosparqlendpoint",
-    "prefixes": {
-      "geosparql": "http://www.opengis.net/ont/geosparql#",
-      "pleiades": "http://pleiades.stoa.org/places/vocab#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "spatial": "http://geovocab.org/spatial#",
-      "placetype": "http://pleiades.stoa.org//plone/vocabularies/place-types/",
-      "timeperiod": "http://pleiades.stoa.org/vocabularies/time-periods/",
-      "dcterms": "http://purl.org/dc/terms/"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://digits.mainzed.org/pleiades/sparql"
-    },
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://purl.org/dc/terms/title"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": "http://www.opengis.net/ont/geosparql#hasGeometry",
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}",
-    "geotriplepattern": [
-      " ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
-    ],
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) }\n  GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "Random Places with Locations",
-        "query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n } LIMIT 100"
-      },
-      {
-        "label": "Places with Forts",
-        "query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?place pleiades:hasFeatureType placetype:fort.\n }"
-      },
-      {
-        "label": "Places with Churches",
-        "query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?place pleiades:hasFeatureType placetype:church.\n }"
-      },
-      {
-        "label": "Places in Roman Period",
-        "query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?item pleiades:during timeperiod:roman.\n }"
-      },
-      {
-        "label": "Forts in Roman Period",
-        "query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?item pleiades:during timeperiod:roman.\n ?place pleiades:hasFeatureType placetype:fort.\n }"
-      }
-    ],
-    "staticconcepts": [],
-    "active": true
-  },
-  {
-    "name": "Linked Ogham Data",
-    "type": "geosparqlendpoint",
-    "prefixes": {
-      "ogham": "http://lod.ogham.link/data/",
-      "oghamonto": "http://ontology.ogham.link/",
-      "prov": "http://www.w3.org/ns/prov#",
-      "sf": "http://www.opengis.net/ont/sf#",
-      "geof": "http://www.opengis.net/def/function/geosparql/",
-      "dc": "http://purl.org/dc/elements/1.1/",
-      "geosparql": "http://www.opengis.net/ont/geosparql#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "https://digits.mainzed.org/ogham/sparql"
-    },
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": "http://www.opengis.net/ont/geosparql#hasGeometry",
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . }",
-    "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}",
-    "geotriplepattern": [
-      " ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
-    ],
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) }  GROUP BY ?rel ?valtype \nORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "Concept + Label",
-        "query": "SELECT ?item ?geo ?label WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n OPTIONAL{ ?item rdfs:label ?label. } \n }"
-      },
-      {
-        "label": "Ogham CIIC Stones",
-        "query": "SELECT ?item ?geo WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> oghamonto:Stone.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n OPTIONAL{ ?item rdfs:label ?label. } \n }"
-      }
-    ],
-    "crs": 4326,
-    "staticconcepts": [],
-    "bboxquery": {
-      "type": "geosparql",
-      "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
-    },
-    "active": true
-  },
-  {
-    "name": "COVID-19",
-    "type": "geosparqlendpoint",
-    "prefixes": {
-      "geosparql": "http://www.opengis.net/ont/geosparql#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "spatial": "http://geovocab.org/spatial#",
-      "dcterms": "http://purl.org/dc/terms/",
-      "covid19": "http://covid19.squirrel.link/ontology#",
-      "world": "http://world.squirrel.link/ontology#"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://digits.mainzed.org/covid19/sparql"
-    },
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": "http://www.opengis.net/ont/geosparql#hasGeometry",
-    "geoconceptquery": "",
-    "geotriplepattern": [
-      " ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) }\n  GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "10 Random Geometries",
-        "query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n } LIMIT 10"
-      },
-      {
-        "label": "Load Germany Federal States",
-        "query": "SELECT ?item ?geo WHERE {\n ?item a world:CountryUnit. \n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
-      },
-      {
-        "label": "Load World",
-        "query": "SELECT ?item ?geo WHERE {\n ?item a world:Country. \n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
-      },
-      {
-        "label": "Johns Hopkins Data 25/04/2020",
-        "query": "SELECT ?label ?confirmed ?recovered ?deaths ?geo WHERE { ?dataset a covid19:JHU_Dataset. \n ?dataset covid19:country ?item. \n ?dataset covid19:date '2020-04-25T00:00:00.000Z'. \n ?dataset covid19:confirmed ?confirmed. \n ?dataset covid19:recovered ?recovered. \n ?dataset covid19:deaths ?deaths. \n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . \n ?item rdfs:label ?label. \n ?item_geom geosparql:asWKT ?geo . \n }\n ORDER BY ASC(?label)"
-      }
-    ],
-    "crs": 4326,
-    "staticconcepts": [
-      "http://world.squirrel.link/ontology#Country",
-      "http://world.squirrel.link/ontology#CountryUnit"
-    ],
-    "active": true
-  },
-  {
-    "name": "Research Squirrel Engineers Triplestore",
-    "type": "geosparqlendpoint",
-    "prefixes": {
-      "geosparql": "http://www.opengis.net/ont/geosparql#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "spatial": "http://geovocab.org/spatial#",
-      "hw": "http://hadrianswall.squirrel.link/ontology#",
-      "hw_fort": "http://hadrianswall.squirrel.link/fort#",
-      "hw_site": "http://hadrianswall.squirrel.link/site#",
-      "hw_road": "http://hadrianswall.squirrel.link/road#",
-      "hw_wall": "http://hadrianswall.squirrel.link/wall#"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://digits.mainzed.org/squirrels/sparql"
-    },
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": "http://www.opengis.net/ont/geosparql#hasGeometry",
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "geoconceptquery": "",
-    "geotriplepattern": [
-      " ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
-    ],
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )} \n GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "10 Random Geometries",
-        "query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n } LIMIT 10"
-      },
-      {
-        "label": "Hadrian's Wall Forts",
-        "query": "SELECT ?a ?wkt_geom WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> hw:Fort .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom geosparql:asWKT ?wkt_geom .\n }"
-      }
-    ],
-    "crs": 4326,
-    "staticconcepts": [
-      "http://onto.squirrel.link/ontology#Watchtower",
-      "http://hadrianswall.squirrel.link/ontology#Milefortlet",
-      "http://hadrianswall.squirrel.link/ontology#CoastalSite",
-      "http://hadrianswall.squirrel.link/ontology#Tower",
-      "http://hadrianswall.squirrel.link/ontology#Fort",
-      "http://hadrianswall.squirrel.link/ontology#Hadrian%27s_Wall",
-      "http://hadrianswall.squirrel.link/ontology#Stanegate",
-      "http://hadrianswall.squirrel.link/ontology#Cumbrian_Coast",
-      "http://hadrianswall.squirrel.link/ontology#Support_Fort",
-      "http://hadrianswall.squirrel.link/ontology#Outpost_Fort",
-      "http://hadrianswall.squirrel.link/ontology#HadriansWall",
-      "http://hadrianswall.squirrel.link/ontology#Curtain_wall",
-      "http://hadrianswall.squirrel.link/ontology#Wall_ditch",
-      "http://hadrianswall.squirrel.link/ontology#Vallum",
-      "http://hadrianswall.squirrel.link/ontology#RomanRoad",
-      "http://hadrianswall.squirrel.link/ontology#Major_Road",
-      "http://hadrianswall.squirrel.link/ontology#Minor_Road"
-    ],
-    "active": true
-  },
-  {
-    "name": "Roman Open Data",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "ont": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "dcterms": "http://purl.org/dc/terms/",
-      "pleiades": "http://pleiades.stoa.org/places/",
-      "edh": "http://edh-www.adw.uni-heidelberg.de/edh/inschrift/",
-      "ads": "http://data.archaeologydataservice.ac.uk/romanamphorae/",
-      "fabio": "http://purl.org/spar/fabio/",
-      "co": "http://purl.org/co/",
-      "shape": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#shape/",
-      "relief": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#relief/",
-      "placefunc": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#placefunc/",
-      "readir": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#readir/",
-      "amphsect": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#amphsect/",
-      "ink": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#ink/",
-      "coctura": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#coctura/",
-      "graffito": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#sketch/"
-    },
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } \n GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "http://romanopendata.eu/sparql-endpoint"
-    },
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "mandatoryvariables": [
-      "item",
-      "lat",
-      "lon"
-    ],
-    "geoclasses": {
-      "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Country": [
-        "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"
-      ],
-      "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#ModernSpot": [
-        "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"
-      ]
-    },
-    "geoobjproperty": [
-      "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"
-    ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://purl.org/dc/terms/title"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": [
-      "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude",
-      "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude"
-    ],
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "geoconceptquery": "",
-    "geotriplepattern": [
-      " ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude> ?lat .\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude> ?lon . "
-    ],
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "100 Random Geometries",
-        "query": "SELECT * WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude> ?lat.\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude> ?lon.\n ?item dcterms:title ?title .\n }\n ORDER BY ASC(?title)\n LIMIT 100"
-      }
-    ],
-    "crs": 4326,
-    "staticconcepts": [
-      "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Place",
-      "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Municipality"
-    ],
-    "active": true
-  },
-  {
-    "name": "Sophox",
-    "type": "sparqlendpoint",
-    "prefixes": {
-      "osmnode": "https://www.openstreetmap.org/node/",
-      "osmway": "https://www.openstreetmap.org/way/",
-      "osmrel": "https://www.openstreetmap.org/relation/",
-      "pageviews": "https://dumps.wikimedia.org/other/pageviews/",
-      "osmd": "http://wiki.openstreetmap.org/entity/",
-      "osmdt": "http://wiki.openstreetmap.org/prop/direct/",
-      "osmp": "http://wiki.openstreetmap.org/prop/",
-      "osmps": "http://wiki.openstreetmap.org/prop/statement/",
-      "osmpq": "http://wiki.openstreetmap.org/prop/qualifier/",
-      "osmt": "https://wiki.openstreetmap.org/wiki/Key:",
-      "osmm": "https://www.openstreetmap.org/meta/",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
-    },
-    "resource": {
-      "type": "endpoint",
-      "sparql11": true,
-      "url": "https://sophox.org/sparql"
-    },
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "typeproperty": "http://wiki.openstreetmap.org/prop/statement/P2",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label","http://www.openstreetmap.org/meta/name"],
-    "subclassproperty": "http://wiki.openstreetmap.org/prop/statement/P3",
-    "geometryproperty": "http://www.openstreetmap.org/meta/loc",
-    "featurecollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#FeatureCollection"
-    ],
-    "geometrycollectionclasses": [
-      "http://www.opengis.net/ont/geosparql#GeometryCollection"
-    ],
-    "geotriplepattern": [
-      " ?item <https://www.openstreetmap.org/meta/loc> ?geo . "
-    ],
-    "geoconceptquery": "",
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "10 Random Geometries",
-        "query": "SELECT ?item ?type ?geo WHERE {\n ?item osmm:type ?type.\n ?item osmm:loc ?geo. }\n LIMIT 10"
-      }
-    ],
-    "crs": 4326,
-    "staticconcepts": [],
-    "active": true
-  }
+    {
+        "active": true,
+        "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "crs": 4326,
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoconceptlimit": 500,
+        "geoconceptquery": "",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": "http://www.openstreetmap.org/meta/loc",
+        "geotriplepattern": [
+            " ?item <https://www.openstreetmap.org/meta/loc> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label",
+            "http://www.openstreetmap.org/meta/name"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Sophox",
+        "prefixes": {
+            "osmd": "http://wiki.openstreetmap.org/entity/",
+            "osmdt": "http://wiki.openstreetmap.org/prop/direct/",
+            "osmm": "https://www.openstreetmap.org/meta/",
+            "osmnode": "https://www.openstreetmap.org/node/",
+            "osmp": "http://wiki.openstreetmap.org/prop/",
+            "osmpq": "http://wiki.openstreetmap.org/prop/qualifier/",
+            "osmps": "http://wiki.openstreetmap.org/prop/statement/",
+            "osmrel": "https://www.openstreetmap.org/relation/",
+            "osmt": "https://wiki.openstreetmap.org/wiki/Key:",
+            "osmway": "https://www.openstreetmap.org/way/",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "pageviews": "https://dumps.wikimedia.org/other/pageviews/",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+        },
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT ?item ?type ?geo WHERE {\n ?item osmm:type ?type.\n ?item osmm:loc ?geo. }\n LIMIT 10"
+            }
+        ],
+        "resource": {
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "https://sophox.org/sparql"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://wiki.openstreetmap.org/prop/statement/P3",
+        "type": "sparqlendpoint",
+        "typeproperty": "http://wiki.openstreetmap.org/prop/statement/P2"
+    }
 ]
