@@ -6,10 +6,10 @@ authors:
   - family-names: Homburg
     given-names: Timo
     orcid: https://orcid.org/0000-0002-9499-5840
-  - name: "SPARQLing Unicorn QGIS Plugin by the Research Squirrel Engineers Network"
+  - name: "SPARQLing Unicorn QGIS Plugin"
 title: "SPARQLing Unicorn QGIS Plugin"
 abstract: This plugin adds a GeoJSON layer from SPARQL endpoint queries.
-version: 0.17
+version: 0.17.2
 type: software
 doi: 10.5281/zenodo.3786814
 date-released: 2024-03-04
@@ -17,6 +17,14 @@ identifiers:
   - description: This is the collection of archived snapshots of all versions
     type: doi
     value: "10.5281/zenodo.3786814"
+  - description: This is the archived snapshot of version 0.17.2
+    type: doi
+    value: "10.5281/zenodo.3786814"
+    date-released: "2025-02-15"
+  - description: This is the archived snapshot of version 0.17.1
+    type: doi
+    value: "10.5281/zenodo.13828632"
+    date-released: "2024-09-23"
   - description: This is the archived snapshot of version 0.17
     type: doi
     value: "10.5281/zenodo.10779466"
@@ -76,4 +84,4 @@ preferred-citation:
       orcid: https://orcid.org/0000-0002-9499-5840
   title: "SPARQLing Unicorn QGIS Plugin"
   type: software
-  year: 2024
+  year: 2025
