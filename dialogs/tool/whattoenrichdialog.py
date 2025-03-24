@@ -70,17 +70,17 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         """
         UIUtils.createLanguageSelectionCBox(self.languageComboBox,self.languagemap)
         self.tablemodel=QStandardItemModel()
-        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
-        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
-        self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.tablemodel.setHeaderData(0, Qt.Orientation.Horizontal, "Selection")
+        self.tablemodel.setHeaderData(1, Qt.Orientation.Horizontal, "Attribute")
+        self.tablemodel.setHeaderData(2, Qt.Orientation.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.searchResult.setModel(self.filter_proxy_model)
         self.tablemodel2=QStandardItemModel()
-        self.tablemodel2.setHeaderData(0, Qt.Horizontal, "Concept")
-        self.tablemodel2.setHeaderData(1, Qt.Horizontal, "Matching Attribute")
+        self.tablemodel2.setHeaderData(0, Qt.Orientation.Horizontal, "Concept")
+        self.tablemodel2.setHeaderData(1, Qt.Orientation.Horizontal, "Matching Attribute")
         self.tablemodel2.insertRow(0)
         self.selected=True
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
@@ -108,7 +108,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 self.tripleStoreEdit.addItem(triplestore["name"])
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
-        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegularExpression)
         self.filterMatchingConceptsTableEdit.textChanged.connect(self.filter_proxy_model2.setFilterRegExp)
         self.conceptSearchEdit.textChanged.connect(self.searchResultObtained)
         self.filterTableComboBox.currentIndexChanged.connect(
@@ -117,7 +117,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
             lambda: self.filter_proxy_model2.setFilterKeyColumn(self.filterMatchingConceptsComboBox.currentIndex()))
         self.applyButton.clicked.connect(self.applyConceptToColumn)
         header =self.searchResult.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.searchResult.clicked.connect(self.loadSamples)
 
     def searchResultObtained(self,text):
@@ -153,9 +153,9 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.selected=not self.selected
         for row in range(self.tablemodel.rowCount()):
             if self.selected:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Checked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Checked)
             else:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Unchecked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Unchecked)
 
 
     def loadSamples(self,modelindex):
@@ -201,7 +201,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         if self.conceptSearchEdit.text() == "":
             return
         progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         conceptstoenrich=[]
@@ -228,7 +228,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     def applyConceptToColumn(self, costumURI=False):
         fieldnames = [field.name() for field in self.layer.fields()]
         for row in range(self.tablemodel.rowCount()):
-            if self.tablemodel.item(row, 0).checkState()==Qt.Checked:
+            if self.tablemodel.item(row, 0).checkState()==Qt.CheckState.Checked:
                 relation = self.tablemodel.item(row, 1).data(UIUtils.dataslot_conceptURI)
                 text=self.tablemodel.item(row, 1).text()
                 item = QTableWidgetItem(

@@ -80,7 +80,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...\nIf autodetection takes very long (>1 minute), try to disable namespace detection...\nCurrent Task: Initial Detection",
                                        "Abort", 0, 0, self)
             progress.setWindowTitle("Triple Store Autoconfiguration")
-            progress.setWindowModality(Qt.WindowModal)
+            progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.show()
             self.qtask = DetectTripleStoreTask(
                 "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
@@ -92,7 +92,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             if self.tripleStoreEdit.text() != "":
                 progress = QProgressDialog("Loading Graph from " + self.tripleStoreEdit.text(), "Abort", 0, 0, self)
                 progress.setWindowTitle("Loading Graph")
-                progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowModality(Qt.WindowModality.WindowModal)
                 progress.setCancelButton(None)
                 self.qtask = LoadGraphTask("Loading Graph: " + self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(),
                                            self.tripleStoreEdit.text(), self,
@@ -108,7 +108,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                 self.justloadingfromfile = True
                 progress = QProgressDialog("Loading Graph: " + fileNames[0], "Abort", 0, 0, self)
                 progress.setWindowTitle("Loading Graph")
-                progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowModality(Qt.WindowModality.WindowModal)
                 progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], self.rdfResourceNameEdit.text(), fileNames, self,

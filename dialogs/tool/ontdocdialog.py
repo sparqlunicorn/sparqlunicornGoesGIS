@@ -63,9 +63,9 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
             item = QStandardItem(str(lay)+" <"+str(baselayers[lay]["url"])+">")
             item.setCheckable(True)
             if baselayers[lay]["default"]:
-                item.setCheckState(Qt.Checked)
+                item.setCheckState(Qt.CheckState.Checked)
             else:
-                item.setCheckState(Qt.Unchecked)
+                item.setCheckState(Qt.CheckState.Unchecked)
             item.setData(baselayers[lay]["url"],265)
             item.setData(lay,266)
             model.appendRow(item)
@@ -91,7 +91,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
     def createDocumentation(self):
         progress = QProgressDialog("Creating ontology documentation... ", "Abort",0, 0, self)
         progress.setWindowTitle("Ontology Documentation")
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         maincolor=self.mainColorSelector.color().name()
@@ -108,12 +108,12 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         model=self.baseLayerListView.model()
         for index in range(model.rowCount()):
             item = model.item(index)
-            if item.isCheckable() and item.checkState() == Qt.Checked:
+            if item.isCheckable() and item.checkState() == Qt.CheckState.Checked:
                 baselayerss[item.data(266)]=baselayers[item.data(266)]
         tobeaddedperInd={}
-        if self.metadataCheckBox.checkState()==Qt.Checked:
+        if self.metadataCheckBox.checkState()==Qt.CheckState.Checked:
             tobeaddedperInd["http://purl.org/dc/terms/creator"]={"value":self.creatorLineEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
-            tobeaddedperInd["http://purl.org/dc/terms/date"] = {"value":self.creationTimeEdit.dateTime().toString(Qt.ISODate),"type":"http://www.w3.org/2001/XMLSchema#dateTime"}
+            tobeaddedperInd["http://purl.org/dc/terms/date"] = {"value":self.creationTimeEdit.dateTime().toString(Qt.DateFormat.ISODate),"type":"http://www.w3.org/2001/XMLSchema#dateTime"}
             tobeaddedperInd["http://purl.org/dc/terms/rightsHolder"] = {"value":self.rightsHolderEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/publisher"] = {"value":self.publisherLineEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/contributor"] = {"value":self.contributorEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}

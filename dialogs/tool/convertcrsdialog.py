@@ -53,7 +53,7 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def loadFile(self):
         dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
+        dialog.setFileMode(QFileDialog.FileMode.AnyFile)
         self.justloadingfromfile = True
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
@@ -64,7 +64,7 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         fileNames = self.convertCRSFileWidget.splitFilePaths(self.convertCRSFileWidget.filePath())
         progress = QProgressDialog("Loading Graph and converting CRS of graph: " + str(fileNames), "Abort",
                                    0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setWindowTitle("Modifying graph")
         progress.setCancelButton(None)
         if self.convertCRSFileWidget.filePath()!="":
@@ -85,7 +85,7 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
     def loadURI(self):
         if self.graphURIEdit.text() != "":
             progress = QProgressDialog("Loading Graph from " + self.graphURIEdit.text(), "Abort", 0, 0, self)
-            progress.setWindowModality(Qt.WindowModal)
+            progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.setWindowTitle("Load Graph")
             progress.setCancelButton(None)
             self.qtask = LoadGraphTask("Loading Graph: " + self.graphURIEdit.text(), self.graphURIEdit.text(), self,

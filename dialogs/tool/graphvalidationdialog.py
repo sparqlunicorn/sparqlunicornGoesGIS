@@ -52,7 +52,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def loadFile(self):
         dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
+        dialog.setFileMode(QFileDialog.FileMode.AnyFile)
         self.justloadingfromfile = True
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
@@ -66,7 +66,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
                 progress = QProgressDialog("Validating graph: " + str(fileNames), "Abort",
                                            0, 0, self)
                 progress.setWindowTitle("Graph Validation")
-                progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowModality(Qt.WindowModality.WindowModal)
                 progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = GraphValidationTask("Validating graph: "+str(fileNames),
@@ -83,7 +83,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
                 progress = QProgressDialog("Validating graph: " + self.validationFileEdit.text(), "Abort",
                                            0, 0, self)
                 progress.setWindowTitle("Graph Validation")
-                progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowModality(Qt.WindowModality.WindowModal)
                 progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = GraphValidationTask("Validating graph: "+str(self.validationFileEdit.text()),
@@ -99,7 +99,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
     def loadURI(self):
         if self.graphURIEdit.text() != "":
             progress = QProgressDialog("Loading Graph from " + self.graphURIEdit.text(), "Abort", 0, 0, self)
-            progress.setWindowModality(Qt.WindowModal)
+            progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.setWindowIcon(UIUtils.sparqlunicornicon)
             progress.setCancelButton(None)
             self.qtask = LoadGraphTask("Loading Graph: " + self.graphURIEdit.text(), self.graphURIEdit.text(), self,
