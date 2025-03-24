@@ -4,7 +4,7 @@ from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIcon
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
 from qgis.PyQt.QtGui import QDesktopServices, QStandardItemModel, QStandardItem, QIntValidator, QDoubleValidator
-from qgis.PyQt.QtCore import Qt, QSize
+from qgis.PyQt.QtCore import Qt, QSize, QRegularExpression
 from qgis.PyQt.QtWidgets import QCompleter, QLineEdit
 from qgis.core import QgsMessageLog
 from qgis.core import Qgis
@@ -15,15 +15,15 @@ MESSAGE_CATEGORY="UIUtils"
 class UIUtils:
 
 
-    urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+    urlregex = QRegularExpression("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
 
-    baselayerurlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\)\{\},]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+    baselayerurlregex = QRegularExpression("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\)\{\},]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
 
-    prefixregex = QRegExp("[a-z]+")
+    prefixregex = QRegularExpression("[a-z]+")
 
     nominatimurl='https://nominatim.openstreetmap.org/search?format=json&q={address}'
 
-    sparqlvarregex=QRegExp("[A-Z] | [a-z] | [#x00C0-#x00D6] | [#x00D8-#x00F6] | [#x00F8-#x02FF] | [#x0370-#x037D] | [#x037F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]")
+    sparqlvarregex=QRegularExpression("[A-Z] | [a-z] | [#x00C0-#x00D6] | [#x00D8-#x00F6] | [#x00F8-#x02FF] | [#x0370-#x037D] | [#x037F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]")
 
     dataslot_conceptURI=256
 
