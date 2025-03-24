@@ -212,7 +212,7 @@ class ConceptContextMenu(QMenu):
             concept,
             self.triplestoreconf["resource"],
             "SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n ?item <"+str(typeproperty)+"> <"+str(concept)+"> . \n ?item ?rel ?val .\n ?item <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n } ORDER BY ?item",
-            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
+            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,None,0,True,None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def queryLinkedGeoInstance(self):
@@ -225,7 +225,7 @@ class ConceptContextMenu(QMenu):
             concept,
             self.triplestoreconf["resource"],
             thequery+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n <"+str(concept)+"> ?rel ?val .\n <"+str(concept)+"> <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n }",
-            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
+            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,None,0,True,None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def advancedQueryDialog(self):
