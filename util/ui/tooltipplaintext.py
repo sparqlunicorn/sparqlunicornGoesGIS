@@ -311,7 +311,7 @@ class ToolTipPlainText(QPlainTextEdit):
             selection = QTextEdit.ExtraSelection()
             lineColor = QColor(Qt.GlobalColor.blue).lighter(190)
             selection.format.setBackground(lineColor)
-            selection.format.setProperty(QTextFormat.FullWidthSelection, True)
+            selection.format.setProperty(QTextFormat.Property.FullWidthSelection, True)
             selection.cursor = self.textCursor()
             selection.cursor.clearSelection()
             extraSelections.append(selection)
