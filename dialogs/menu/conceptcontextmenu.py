@@ -148,7 +148,7 @@ class ConceptContextMenu(QMenu):
         #actionapplicablestyles = QAction("Find applicable styles")
         #menu.addAction(actionapplicablestyles)
         #actionapplicablestyles.triggered.connect(self.appStyles)
-        menu.exec_(context.viewport().mapToGlobal(position))
+        menu.exec(context.viewport().mapToGlobal(position))
 
     @staticmethod
     def createListContextMenu(item,menu=None):
