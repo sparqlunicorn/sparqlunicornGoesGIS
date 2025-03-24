@@ -29,8 +29,8 @@ class SPARQLCompleter(QCompleter):
 
     def __init__(self, autocomplete, parent=None):
         QCompleter.__init__(self, autocomplete, parent)
-        self.setCompletionMode(QCompleter.PopupCompletion)
-        self.setFilterMode(Qt.MatchContains)
+        self.setCompletionMode(QCompleter.CompletionMode.PopupCompletion)
+        self.setFilterMode(Qt.MatchFlag.MatchContains)
         self.source_model=None
         self.setModel(QStandardItemModel())
         # self.highlighted.connect(self.setHighlighted)

@@ -279,7 +279,7 @@ class FindRelatedConceptQueryTask(QgsTask):
         self.searchResultModel.setHeaderData(0, Qt.Orientation.Horizontal, "Incoming Concept")
         self.searchResultModel.setHeaderData(1, Qt.Orientation.Horizontal, "Incoming Relation")
         self.searchResultModel.setHeaderData(2, Qt.Orientation.Horizontal, "Concept")
-        self.searchResultModel.setHeaderData(3, Qt.Orientatíon.Horizontal, "Outgoing Relation")
+        self.searchResultModel.setHeaderData(3, Qt.Orientation.Horizontal, "Outgoing Relation")
         self.searchResultModel.setHeaderData(4, Qt.Orientation.Horizontal, "Outgoing Concept")
         header=self.searchResult.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
