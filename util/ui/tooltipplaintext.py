@@ -233,7 +233,7 @@ class ToolTipPlainText(QPlainTextEdit):
         self.interlinkdialog = VarInputDialog(self, self, self.columnvars,self.languagemap)
         self.interlinkdialog.setMinimumSize(650, 120)
         self.interlinkdialog.setWindowTitle("Select Column as Variable")
-        self.interlinkdialog.exec_()
+        self.interlinkdialog.exec()
 
     def mouseMoveEvent(self, event):
         textCursor = self.cursorForPosition(event.pos())

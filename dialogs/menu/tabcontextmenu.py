@@ -22,7 +22,7 @@ class TabContextMenu(QMenu):
         actionsaveVisibleRDF.setIcon(UIUtils.linkeddataicon)
         self.addAction(actionsaveVisibleRDF)
         actionsaveVisibleRDF.triggered.connect(self.saveVisibleTreeToRDF)
-        self.exec_(position)
+        self.exec(position)
 
     def saveClassesTreeToRDF(self, context):
         filename, _filter = QFileDialog.getSaveFileName(

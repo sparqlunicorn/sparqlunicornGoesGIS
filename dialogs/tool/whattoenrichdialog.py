@@ -109,7 +109,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegularExpression)
-        self.filterMatchingConceptsTableEdit.textChanged.connect(self.filter_proxy_model2.setFilterRegExp)
+        self.filterMatchingConceptsTableEdit.textChanged.connect(self.filter_proxy_model2.setFilterRegularExpression)
         self.conceptSearchEdit.textChanged.connect(self.searchResultObtained)
         self.filterTableComboBox.currentIndexChanged.connect(
             lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
