@@ -263,8 +263,8 @@ class UIUtils:
             curconcept = queryresult[att]["concept"]
             searchResultModel.insertRow(counter)
             itemchecked = QStandardItem()
-            itemchecked.setFlags(Qt.ItemIsUserCheckable |
-                                 Qt.ItemIsEnabled)
+            itemchecked.setFlags(Qt.ItemFlag.ItemIsUserCheckable |
+                                 Qt.ItemFlag.ItemIsEnabled)
             itemchecked.setCheckState(checkstate)
             itemchecked.setToolTip(checkboxtooltip)
             if isclasstable:
