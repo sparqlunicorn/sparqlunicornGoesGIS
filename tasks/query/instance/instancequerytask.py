@@ -67,8 +67,8 @@ class InstanceQueryTask(QgsTask):
             if rel!="geo":
                 self.searchResultModel.insertRow(counter)
             itemchecked = QStandardItem()
-            itemchecked.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
-            itemchecked.setCheckState(Qt.Checked)
+            itemchecked.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+            itemchecked.setCheckState(Qt.CheckState.Checked)
             if rel in DocConfig.geoproperties:
                 if DocConfig.geoproperties[rel] == "DatatypeProperty":
                     itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
@@ -178,7 +178,7 @@ class InstanceQueryTask(QgsTask):
                 itembutton.setData(self.queryresult[rel]["valtype"],UIUtils.dataslot_conceptURI)
                 self.searchResultModel.setItem(counter, 2, itembutton)
                 counter+=1
-        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
-        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
-        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Value")
+        self.searchResultModel.setHeaderData(0, Qt.Orientation.Horizontal, "Selection")
+        self.searchResultModel.setHeaderData(1, Qt.Orientation.Horizontal, "Attribute")
+        self.searchResultModel.setHeaderData(2, Qt.Orientation.Horizontal, "Value")
         SPARQLUtils.handleException(MESSAGE_CATEGORY)
