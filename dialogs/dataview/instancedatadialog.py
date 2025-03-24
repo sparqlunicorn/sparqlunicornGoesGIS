@@ -131,7 +131,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
             "Instance to Layer: " + str(self.concept),
             self.concept,
             self.triplestoreconf["resource"],query,
-            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,None,self.graphQueryDepthBox.value(),
                 self.shortenURICheckBox.isChecked())
         else:
             self.qlayerinstance = QueryLayerTask(
@@ -141,7 +141,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
             "SELECT ?" + " ?".join(self.triplestoreconf["mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
                 self.concept) + "> AS ?item)\n "+str(relstatement)+" " +
             self.triplestoreconf["geotriplepattern"][0] + "\n }",
-            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,None,self.graphQueryDepthBox.value(),
                 self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
