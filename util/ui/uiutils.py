@@ -144,8 +144,8 @@ class UIUtils:
             curitem.setData(lang,UIUtils.dataslot_language)
             model.appendRow(curitem)
         comp=QCompleter(languagemap.values(), cbox)
-        comp.setCaseSensitivity(Qt.CaseInsensitive)
-        comp.setCompletionMode(QCompleter.PopupCompletion)
+        comp.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        comp.setCompletionMode(QCompleter.CompletionMode.PopupCompletion)
         cbox.setCompleter(comp)
         cbox.setCurrentIndex(0)
 
