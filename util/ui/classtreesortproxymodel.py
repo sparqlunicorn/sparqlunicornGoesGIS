@@ -7,7 +7,7 @@ class ClassTreeSortProxyModel(QSortFilterProxyModel):
     def __init__(self, sourcemodel=None):
         super().__init__()
         self.sort(0)
-        self.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         if sourcemodel!=None:
             self.setSourceModel(sourcemodel)
 
