@@ -62,7 +62,7 @@ class GeoConceptsQueryTask(QgsTask):
     def finished(self, result):
         self.geoClassList.clear()
         self.geoTreeViewModel.clear()
-        self.geoClassListGui.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.geoClassListGui.header().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.geoClassListGui.header().setStretchLastSection(True)
         self.geoClassListGui.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         self.rootNode=self.geoTreeViewModel.invisibleRootItem()
