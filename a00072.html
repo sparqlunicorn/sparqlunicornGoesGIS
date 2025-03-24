@@ -268,7 +268,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   64</span>        <span class="keywordflow">if</span> filename[0] == <span class="stringliteral">&quot;&quot;</span>:</div>
 <div class="line"><span class="lineno">   65</span>            <span class="keywordflow">return</span></div>
 <div class="line"><span class="lineno">   66</span>        progress = QProgressDialog(<span class="stringliteral">&quot;Loading Layer and converting it to : &quot;</span> + str(filename), <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self.dlg)</div>
-<div class="line"><span class="lineno">   67</span>        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><span class="lineno">   67</span>        progress.setWindowModality(Qt.WindowModality.WindowModal)</div>
 <div class="line"><span class="lineno">   68</span>        progress.setWindowTitle(<span class="stringliteral">&quot;Converting layer&quot;</span>)</div>
 <div class="line"><span class="lineno">   69</span>        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
 <div class="line"><span class="lineno">   70</span>        self.qtask = ConvertLayerTask(<span class="stringliteral">&quot;Converting Layer to graph: &quot;</span> + str(filename),</div>
@@ -468,7 +468,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  139</span>            <span class="comment">#columntypes=LayerUtils.detectLayerColumnTypes(layer)</span></div>
 <div class="line"><span class="lineno">  140</span>            <span class="keywordflow">for</span> field <span class="keywordflow">in</span> fieldnames:</div>
 <div class="line"><span class="lineno">  141</span>                item = QTableWidgetItem(field)</div>
-<div class="line"><span class="lineno">  142</span>                item.setFlags(QtCore.Qt.ItemIsEnabled)</div>
+<div class="line"><span class="lineno">  142</span>                item.setFlags(QtCore.Qt.ItemFlag.ItemIsEnabled)</div>
 <div class="line"><span class="lineno">  143</span>                item2 = QTableWidgetItem()</div>
 <div class="line"><span class="lineno">  144</span>                item2.setCheckState(<span class="keyword">True</span>)</div>
 <div class="line"><span class="lineno">  145</span>                item3 = QTableWidgetItem()</div>
@@ -597,7 +597,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  206</span>                                self.dlg.interlinkTable.setItem(row, 4, item)</div>
 <div class="line"><span class="lineno">  207</span>                                comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)</div>
 <div class="line"><span class="lineno">  208</span>                                comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  209</span>                                    comboboxx.findText(<span class="stringliteral">&quot;TypeProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  209</span>                                    comboboxx.findText(<span class="stringliteral">&quot;TypeProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  210</span>                                item = QTableWidgetItem(<span class="stringliteral">&quot;owl:Class&quot;</span>)</div>
 <div class="line"><span class="lineno">  211</span>                                item.setText(<span class="stringliteral">&quot;owl:Class&quot;</span>)</div>
 <div class="line"><span class="lineno">  212</span>                                item.setData(1, <span class="stringliteral">&quot;http://www.w3.org/2002/07/owl#Class&quot;</span>)</div>
@@ -612,31 +612,31 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  221</span>                                proptype=column[<span class="stringliteral">&quot;prop&quot;</span>]</div>
 <div class="line"><span class="lineno">  222</span>                                <span class="keywordflow">if</span> proptype == <span class="stringliteral">&quot;annotation&quot;</span>:</div>
 <div class="line"><span class="lineno">  223</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  224</span>                                        comboboxx.findText(<span class="stringliteral">&quot;AnnotationProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  224</span>                                        comboboxx.findText(<span class="stringliteral">&quot;AnnotationProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  225</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;obj&quot;</span>:</div>
 <div class="line"><span class="lineno">  226</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  227</span>                                        comboboxx.findText(<span class="stringliteral">&quot;ObjectProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  227</span>                                        comboboxx.findText(<span class="stringliteral">&quot;ObjectProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  228</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;data&quot;</span>:</div>
 <div class="line"><span class="lineno">  229</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  230</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DataProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  230</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DataProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  231</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;label&quot;</span>:</div>
 <div class="line"><span class="lineno">  232</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  233</span>                                        comboboxx.findText(<span class="stringliteral">&quot;LabelProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  233</span>                                        comboboxx.findText(<span class="stringliteral">&quot;LabelProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  234</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;geo&quot;</span>:</div>
 <div class="line"><span class="lineno">  235</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  236</span>                                        comboboxx.findText(<span class="stringliteral">&quot;GeoProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  236</span>                                        comboboxx.findText(<span class="stringliteral">&quot;GeoProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  237</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;type&quot;</span>:</div>
 <div class="line"><span class="lineno">  238</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  239</span>                                        comboboxx.findText(<span class="stringliteral">&quot;TypeProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  239</span>                                        comboboxx.findText(<span class="stringliteral">&quot;TypeProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  240</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;desc&quot;</span>:</div>
 <div class="line"><span class="lineno">  241</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  242</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DescriptionProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  242</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DescriptionProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  243</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;subclass&quot;</span>:</div>
 <div class="line"><span class="lineno">  244</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  245</span>                                        comboboxx.findText(<span class="stringliteral">&quot;SubClass&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  245</span>                                        comboboxx.findText(<span class="stringliteral">&quot;SubClass&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  246</span>                                <span class="keywordflow">else</span>:</div>
 <div class="line"><span class="lineno">  247</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  248</span>                                        comboboxx.findText(<span class="stringliteral">&quot;Automatic&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  248</span>                                        comboboxx.findText(<span class="stringliteral">&quot;Automatic&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  249</span>                            <span class="keywordflow">if</span> <span class="stringliteral">&quot;concept&quot;</span> <span class="keywordflow">in</span> column <span class="keywordflow">and</span> column[<span class="stringliteral">&quot;concept&quot;</span>] <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><span class="lineno">  250</span>                                item = QTableWidgetItem(column[<span class="stringliteral">&quot;concept&quot;</span>])</div>
 <div class="line"><span class="lineno">  251</span>                                item.setText(column[<span class="stringliteral">&quot;concept&quot;</span>])</div>
@@ -671,29 +671,29 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  280</span>                                comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)</div>
 <div class="line"><span class="lineno">  281</span>                                <span class="keywordflow">if</span> proptype == <span class="stringliteral">&quot;annotation&quot;</span>:</div>
 <div class="line"><span class="lineno">  282</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  283</span>                                        comboboxx.findText(<span class="stringliteral">&quot;AnnotationProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  283</span>                                        comboboxx.findText(<span class="stringliteral">&quot;AnnotationProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  284</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;obj&quot;</span>:</div>
 <div class="line"><span class="lineno">  285</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  286</span>                                        comboboxx.findText(<span class="stringliteral">&quot;ObjectProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  286</span>                                        comboboxx.findText(<span class="stringliteral">&quot;ObjectProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  287</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;data&quot;</span>:</div>
 <div class="line"><span class="lineno">  288</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  289</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DataProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  289</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DataProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  290</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;label&quot;</span>:</div>
 <div class="line"><span class="lineno">  291</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  292</span>                                        comboboxx.findText(<span class="stringliteral">&quot;LabelProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  292</span>                                        comboboxx.findText(<span class="stringliteral">&quot;LabelProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  293</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;geo&quot;</span>:</div>
 <div class="line"><span class="lineno">  294</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  295</span>                                        comboboxx.findText(<span class="stringliteral">&quot;GeoProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  295</span>                                        comboboxx.findText(<span class="stringliteral">&quot;GeoProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  296</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;type&quot;</span>:</div>
 <div class="line"><span class="lineno">  297</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  298</span>                                        comboboxx.findText(<span class="stringliteral">&quot;TypeProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  298</span>                                        comboboxx.findText(<span class="stringliteral">&quot;TypeProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  299</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;desc&quot;</span>:</div>
 <div class="line"><span class="lineno">  300</span>                                    comboboxx.setCurrentIndex(</div>
-<div class="line"><span class="lineno">  301</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DescriptionProperty&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  301</span>                                        comboboxx.findText(<span class="stringliteral">&quot;DescriptionProperty&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  302</span>                                <span class="keywordflow">elif</span> proptype == <span class="stringliteral">&quot;subclass&quot;</span>:</div>
-<div class="line"><span class="lineno">  303</span>                                    comboboxx.setCurrentIndex(comboboxx.findText(<span class="stringliteral">&quot;SubClass&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  303</span>                                    comboboxx.setCurrentIndex(comboboxx.findText(<span class="stringliteral">&quot;SubClass&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  304</span>                                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  305</span>                                    comboboxx.setCurrentIndex(comboboxx.findText(<span class="stringliteral">&quot;Automatic&quot;</span>, QtCore.Qt.MatchFixedString))</div>
+<div class="line"><span class="lineno">  305</span>                                    comboboxx.setCurrentIndex(comboboxx.findText(<span class="stringliteral">&quot;Automatic&quot;</span>, QtCore.Qt.MatchFlag.MatchFixedString))</div>
 <div class="line"><span class="lineno">  306</span>                            <span class="keywordflow">if</span> concept <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><span class="lineno">  307</span>                                item = QTableWidgetItem(concept)</div>
 <div class="line"><span class="lineno">  308</span>                                item.setText(concept)</div>

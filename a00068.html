@@ -581,7 +581,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  250</span>            <span class="keywordflow">if</span> strategy != <span class="stringliteral">&quot;No Enrichment&quot;</span> <span class="keywordflow">and</span> propertyy <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><span class="lineno">  251</span>                progress = QProgressDialog(<span class="stringliteral">&quot;Enriching column &quot;</span> + self.dlg.enrichTable.item(row, 0).text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0,</div>
 <div class="line"><span class="lineno">  252</span>                                           0, self.dlg)</div>
-<div class="line"><span class="lineno">  253</span>                progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><span class="lineno">  253</span>                progress.setWindowModality(Qt.WindowModality.WindowModal)</div>
 <div class="line"><span class="lineno">  254</span>                progress.setWindowIcon(UIUtils.sparqlunicornicon)</div>
 <div class="line"><span class="lineno">  255</span>                progress.setCancelButton(<span class="keywordtype">None</span>)</div>
 <div class="line"><span class="lineno">  256</span>                self.qtask = EnrichmentQueryTask(<span class="stringliteral">&quot;Enriching column: &quot;</span> + self.dlg.enrichTable.item(row, 0).text(),</div>
@@ -745,7 +745,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  130</span>                 <span class="stringliteral">&quot;ID Domain&quot;</span>, <span class="stringliteral">&quot;Language&quot;</span>])</div>
 <div class="line"><span class="lineno">  131</span>            <span class="keywordflow">for</span> field <span class="keywordflow">in</span> fieldnames:</div>
 <div class="line"><span class="lineno">  132</span>                item = QTableWidgetItem(field)</div>
-<div class="line"><span class="lineno">  133</span>                item.setFlags(QtCore.Qt.ItemIsEnabled)</div>
+<div class="line"><span class="lineno">  133</span>                item.setFlags(QtCore.Qt.ItemFlag.ItemIsEnabled)</div>
 <div class="line"><span class="lineno">  134</span>                currentRowCount = self.enrichTable.rowCount()</div>
 <div class="line"><span class="lineno">  135</span>                self.enrichTable.insertRow(row)</div>
 <div class="line"><span class="lineno">  136</span>                self.enrichTable.setItem(row, 0, item)</div>
