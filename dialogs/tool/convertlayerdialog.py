@@ -57,7 +57,7 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         if filename[0] == "":
             return
         progress = QProgressDialog("Loading Layer and converting it to : " + str(filename), "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setWindowTitle("Converting layer")
         progress.setCancelButton(None)
         self.qtask = ConvertLayerTask("Converting Layer to graph: " + str(filename),
