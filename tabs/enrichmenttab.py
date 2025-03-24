@@ -130,7 +130,7 @@ class EnrichmentTab:
                  "ID Domain", "Language"])
             for field in fieldnames:
                 item = QTableWidgetItem(field)
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                item.setFlags(QtCore.Qt.ItemFlag.ItemIsEnabled)
                 currentRowCount = self.enrichTable.rowCount()
                 self.enrichTable.insertRow(row)
                 self.enrichTable.setItem(row, 0, item)
@@ -250,7 +250,7 @@ class EnrichmentTab:
             if strategy != "No Enrichment" and propertyy is not None:
                 progress = QProgressDialog("Enriching column " + self.dlg.enrichTable.item(row, 0).text(), "Abort", 0,
                                            0, self.dlg)
-                progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowModality(Qt.WindowModality.WindowModal)
                 progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = EnrichmentQueryTask("Enriching column: " + self.dlg.enrichTable.item(row, 0).text(),

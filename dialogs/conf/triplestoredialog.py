@@ -82,7 +82,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.removePrefixButton.clicked.connect(self.removePrefixFromList)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.varInfoButton.clicked.connect(self.createVarInfoDialog)
-        self.varInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.varInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, 'SP_MessageBoxInformation'))))
         self.loadTripleStoreConfig()
 
     def saveConfigurationAsJSON(self):
@@ -92,14 +92,14 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             file.write(json.dumps(ConfigUtils.removeInstanceKeys(self.triplestoreconf[self.tripleStoreChooser.currentIndex()],"instance"),indent=2))
             file.close()
             msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
+            msg.setIcon(QMessageBox.Icon.Information)
             msg.setText("Configuration File for "+str(self.tripleStoreChooser.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
             msg.exec()
 
     def createVarInfoDialog(self):
         msgBox = QMessageBox()
         msgBox.setWindowTitle("SPARQL Query Templates Variables")
-        msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
+        msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap,'SP_MessageBoxInformation'))))
         thetext="<html><h3>Template Variables for the usage in example queries</h3><table border=1 cellspacing=0><tr><th>Variable</th><th>Value</th></tr>"
         thetext+="<tr><td>%%concept%%</td><td>The currently selected concept in the class tree</td></tr>"
         if "typeproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
@@ -223,7 +223,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         progress = QProgressDialog("Checking connection to triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setCancelButton(None)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.show()
@@ -237,7 +237,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 
     def detectTripleStoreConfiguration(self):	
         progress = QProgressDialog("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setCancelButton(None)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.show()

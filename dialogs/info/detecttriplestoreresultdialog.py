@@ -16,7 +16,7 @@ class DetectTripleStoreResultDialog(QDialog, FORM_CLASS):
         QDialog.__init__(self,parentdialog)
         self.setupUi(self)
         self.setWindowTitle("Triple Store Detection Result")
-        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, 'SP_MessageBoxInformation'))))
         self.parentdialog=parentdialog
         self.permanentAdd=permanentAdd
         self.missingproperties=missingproperties

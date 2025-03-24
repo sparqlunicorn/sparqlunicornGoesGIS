@@ -64,7 +64,7 @@ class InterlinkingTab:
         if filename[0] == "":
             return
         progress = QProgressDialog("Loading Layer and converting it to : " + str(filename), "Abort", 0, 0, self.dlg)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setWindowTitle("Converting layer")
         progress.setCancelButton(None)
         self.qtask = ConvertLayerTask("Converting Layer to graph: " + str(filename),
@@ -139,7 +139,7 @@ class InterlinkingTab:
             #columntypes=LayerUtils.detectLayerColumnTypes(layer)
             for field in fieldnames:
                 item = QTableWidgetItem(field)
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                item.setFlags(QtCore.Qt.ItemFlag.ItemIsEnabled)
                 item2 = QTableWidgetItem()
                 item2.setCheckState(True)
                 item3 = QTableWidgetItem()
@@ -206,7 +206,7 @@ class InterlinkingTab:
                                 self.dlg.interlinkTable.setItem(row, 4, item)
                                 comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
                                 comboboxx.setCurrentIndex(
-                                    comboboxx.findText("TypeProperty", QtCore.Qt.MatchFixedString))
+                                    comboboxx.findText("TypeProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 item = QTableWidgetItem("owl:Class")
                                 item.setText("owl:Class")
                                 item.setData(1, "http://www.w3.org/2002/07/owl#Class")
@@ -221,31 +221,31 @@ class InterlinkingTab:
                                 proptype=column["prop"]
                                 if proptype == "annotation":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "obj":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "data":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("DataProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("DataProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "label":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("LabelProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("LabelProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "geo":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("GeoProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("GeoProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "type":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("TypeProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("TypeProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "desc":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("DescriptionProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("DescriptionProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "subclass":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("SubClass", QtCore.Qt.MatchFlag.MatchFixedString))
                                 else:
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("Automatic", QtCore.Qt.MatchFlag.MatchFixedString))
                             if "concept" in column and column["concept"] is not None:
                                 item = QTableWidgetItem(column["concept"])
                                 item.setText(column["concept"])
@@ -280,29 +280,29 @@ class InterlinkingTab:
                                 comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
                                 if proptype == "annotation":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "obj":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "data":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("DataProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("DataProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "label":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("LabelProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("LabelProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "geo":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("GeoProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("GeoProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "type":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("TypeProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("TypeProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "desc":
                                     comboboxx.setCurrentIndex(
-                                        comboboxx.findText("DescriptionProperty", QtCore.Qt.MatchFixedString))
+                                        comboboxx.findText("DescriptionProperty", QtCore.Qt.MatchFlag.MatchFixedString))
                                 elif proptype == "subclass":
-                                    comboboxx.setCurrentIndex(comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
+                                    comboboxx.setCurrentIndex(comboboxx.findText("SubClass", QtCore.Qt.MatchFlag.MatchFixedString))
                                 else:
-                                    comboboxx.setCurrentIndex(comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
+                                    comboboxx.setCurrentIndex(comboboxx.findText("Automatic", QtCore.Qt.MatchFlag.MatchFixedString))
                             if concept is not None:
                                 item = QTableWidgetItem(concept)
                                 item.setText(concept)

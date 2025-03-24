@@ -14,7 +14,7 @@ class PreferencesDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Preferences")
-        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
+        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, 'SP_ComputerIcon'))))
         self.cancelButton.clicked.connect(self.close)
         self.show()
 
