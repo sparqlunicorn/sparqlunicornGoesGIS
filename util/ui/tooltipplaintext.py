@@ -336,7 +336,7 @@ class ToolTipPlainText(QPlainTextEdit):
                     painter.setPen(Qt.GlobalColor.red)
                 else:
                     painter.setPen(Qt.GlobalColor.black)
-                painter.drawText(0, int(top), int(self.lineNumberArea.width()), int(height), Qt.AlignRight, number)
+                painter.drawText(0, int(top), int(self.lineNumberArea.width()), int(height), Qt.AlignmentFlag.AlignRight, number)
 
             block = block.next()
             top = bottom
