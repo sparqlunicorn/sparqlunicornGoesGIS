@@ -150,7 +150,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()],self.languagemap)
         self.gridLayout.addWidget(self.inp_sparql2,5,0,1,4)
-        self.inp_sparql2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.inp_sparql2.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n} LIMIT 10")
         self.inp_sparql2.columnvars = {}
