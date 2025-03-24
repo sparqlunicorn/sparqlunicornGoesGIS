@@ -4,7 +4,7 @@ from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QFileDialog
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 
 from ...dialogs.util.prefixdialog import PrefixDialog
 from ...dialogs.util.examplequerydialog import ExampleQueryDialog
@@ -35,28 +35,28 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStoreChooser.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.geometryVariableComboBox.currentIndexChanged.connect(self.switchQueryVariableInput)
         self.exampleQueryComboBox.currentIndexChanged.connect(lambda: self.exampleQuery.setPlainText(self.exampleQueryComboBox.itemData(self.exampleQueryComboBox.currentIndex())))
-        self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.tripleStoreEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
-        self.typePropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.typePropertyEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.typePropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.typePropertyEdit))
-        self.labelPropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.labelPropertyEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.labelPropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.labelPropertyEdit))
-        self.classURIEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.classURIEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.classURIEdit.textChanged.connect(lambda: UIUtils.check_state(self.classURIEdit))
-        self.geometryClassURIEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.geometryClassURIEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.geometryClassURIEdit.textChanged.connect(lambda: UIUtils.check_state(self.geometryClassURIEdit))
-        self.featureCollectionURIEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.featureCollectionURIEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.featureCollectionURIEdit.textChanged.connect(lambda: UIUtils.check_state(self.featureCollectionURIEdit))
-        self.geometryCollectionURIEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.geometryCollectionURIEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.geometryCollectionURIEdit.textChanged.connect(lambda: UIUtils.check_state(self.geometryCollectionURIEdit))
-        self.collectionMemberPropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.collectionMemberPropertyEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.collectionMemberPropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.collectionMemberPropertyEdit))
-        self.subclassPropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.subclassPropertyEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.subclassPropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.subclassPropertyEdit))
-        self.geometryPropertyEdit1.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.geometryPropertyEdit1.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.geometryPropertyEdit1.textChanged.connect(lambda: UIUtils.check_state(self.geometryPropertyEdit1))
-        self.geometryPropertyEdit2.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.geometryPropertyEdit2.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.geometryPropertyEdit2.textChanged.connect(lambda: UIUtils.check_state(self.geometryPropertyEdit2))
         self.authenticationComboBox.hide()
         self.credentialUserName.hide()

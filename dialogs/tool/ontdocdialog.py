@@ -5,7 +5,7 @@ from qgis.core import QgsApplication
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt, QSize
 from qgis.PyQt.QtGui import QStandardItemModel, QStandardItem
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 
 from ..util.baselayerdialog import BaseLayerDialog
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
@@ -54,7 +54,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.baseLayerListView.setModel(model)
         self.createCCLicenseCBOX()
         #self.createExportCBox()
-        self.deploymentURLEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.deploymentURLEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.deploymentURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.deploymentURLEdit))
         self.deploymentURLEdit.textChanged.emit(self.deploymentURLEdit.text())
         self.addbaseLayerButton.clicked.connect(lambda: BaseLayerDialog(self.baseLayerListView,baselayers).exec())

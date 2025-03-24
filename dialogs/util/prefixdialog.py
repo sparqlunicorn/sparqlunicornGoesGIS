@@ -1,7 +1,7 @@
 import os
 from qgis.PyQt import uic
 from qgis.PyQt.QtWidgets import QDialog, QCompleter
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 from qgis.PyQt.QtWidgets import QListWidgetItem
 
 from ...util.ui.uiutils import UIUtils
@@ -17,11 +17,11 @@ class PrefixDialog(QDialog, FORM_CLASS):
         self.setupUi(self)
         self.prefixList=prefixList
         self.globalPrefixList=globalPrefixList
-        self.prefixEdit.setValidator(QRegExpValidator(UIUtils.prefixregex, self))
+        self.prefixEdit.setValidator(QRegularExpressionValidator(UIUtils.prefixregex, self))
         self.prefixEdit.textChanged.connect(lambda: self.checkSuggestion())
         if globalPrefixList is not None and "normal" in globalPrefixList:
             self.prefixEdit.setCompleter(QCompleter(globalPrefixList["normal"].keys()))
-        self.uriEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.uriEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.uriEdit.textChanged.connect(lambda: UIUtils.check_state(self.uriEdit))
         if globalPrefixList is not None and "reversed" in globalPrefixList:
             self.uriEdit.setCompleter(QCompleter(globalPrefixList["reversed"].keys()))

@@ -4,7 +4,7 @@ from qgis.PyQt.QtGui import QIcon
 from ...util.ui.uiutils import UIUtils
 import os
 import json
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 from qgis.PyQt import uic
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -30,16 +30,16 @@ class DetectTripleStoreResultDialog(QDialog, FORM_CLASS):
             self.propertiesMissingLabel.setText("<html><font color=red><b>The plugin could not detect type or subclass properties for this triple store.<br/> Please provide them for the ClassTree View to work properly</font></b></html>")
             if "typeproperty" not in self.missingproperties:
                 self.typePropertyEdit.setText(self.configuration["typeproperty"])
-            self.typePropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+            self.typePropertyEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
             self.typePropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.typePropertyEdit))
             self.typePropertyEdit.textChanged.emit(self.typePropertyEdit.text())
             if "subclassproperty" not in self.missingproperties:
                 self.typePropertyEdit.setText(self.configuration["subclassproperty"])
             self.subClassOfEdit.setText(self.configuration["subclassproperty"])
-            self.subClassOfEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+            self.subClassOfEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
             self.subClassOfEdit.textChanged.connect(lambda: UIUtils.check_state(self.subClassOfEdit))
             self.subClassOfEdit.textChanged.emit(self.subClassOfEdit.text())
-            self.geoPropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+            self.geoPropertyEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
             self.geoPropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.geoPropertyEdit))
             self.geoPropertyEdit.textChanged.emit(self.geoPropertyEdit.text())
             self.stackedWidget.show()

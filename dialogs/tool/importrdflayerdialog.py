@@ -3,8 +3,8 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox
 from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtCore import QRegularExpression
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
 from ...tasks.processing.extractlayertask import ExtractLayerTask
 

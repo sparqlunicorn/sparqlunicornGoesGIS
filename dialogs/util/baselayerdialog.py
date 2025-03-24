@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QMessageBox
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QDialog, QCompleter
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 from qgis.PyQt.QtGui import QStandardItem
 
 from ...util.ui.uiutils import UIUtils
@@ -20,7 +20,7 @@ class BaseLayerDialog(QDialog, FORM_CLASS):
         self.item=item
         self.baseurlstore=baseurlstore
         self.prefixList = baseurlList
-        self.baseLayerURLEdit.setValidator(QRegExpValidator(UIUtils.baselayerurlregex, self))
+        self.baseLayerURLEdit.setValidator(QRegularExpressionValidator(UIUtils.baselayerurlregex, self))
         self.baseLayerURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.baseLayerURLEdit))
         self.addOrEdit = True
         self.name=name

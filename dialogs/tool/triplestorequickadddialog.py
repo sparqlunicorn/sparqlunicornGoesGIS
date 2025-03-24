@@ -4,7 +4,7 @@ from qgis.PyQt import uic
 from qgis.core import Qgis, QgsMessageLog
 from qgis._gui import QgsFileWidget
 from qgis.core import QgsApplication
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 
 from ...tasks.query.util.triplestorerepotask import TripleStoreRepositoryTask
 from ...util.ui.uiutils import UIUtils
@@ -32,7 +32,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.setWindowIcon(UIUtils.linkeddataicon)
         self.rdfResourceComboBox.removeItem(3)
         self.tripleStoreEdit.show()
-        self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.tripleStoreEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)

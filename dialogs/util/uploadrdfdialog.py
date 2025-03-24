@@ -2,7 +2,7 @@ from qgis.PyQt.QtWidgets import QDialog, QCompleter,QMessageBox, QProgressDialog
 from qgis.core import QgsProject, QgsApplication
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.util.detecttriplestoretask import DetectTripleStoreTask
@@ -35,7 +35,7 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         self.setWindowIcon(UIUtils.linkeddataicon)
         if "resource" in triplestoreconf[currentindex]:
             self.tripleStoreURLEdit.setText(triplestoreconf[currentindex]["resource"])
-        self.tripleStoreURLEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.tripleStoreURLEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.tripleStoreURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreURLEdit))
         self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())
         layers = QgsProject.instance().layerTreeRoot().children()
