@@ -1,7 +1,7 @@
 from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip, QMessageBox, QWidget, QTextEdit, QCompleter
 from qgis.PyQt.QtGui import QTextCursor, QPainter, QColor, QTextFormat
-from PyQt5.QtCore import Qt, QRect, QSize, QStringListModel
-from PyQt5 import QtCore
+from qgis.PyQt.QtCore import Qt, QRect, QSize, QStringListModel
+from qgis.PyQt import QtCore
 from qgis.core import QgsProject, QgsMapLayer
 from ...dialogs.util.varinputdialog import VarInputDialog
 from ...dialogs.util.searchdialog import SearchDialog
