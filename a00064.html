@@ -402,7 +402,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  132</span>        self.geoTreeViewModel.clear()</div>
 <div class="line"><span class="lineno">  133</span>        self.addLayerButton.clicked.connect(self.create_unicorn_layer)</div>
 <div class="line"><span class="lineno">  134</span>        self.comboBox.currentIndexChanged.connect(self.endpointselectaction)</div>
-<div class="line"><span class="lineno">  135</span>        self.comboBox.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)</div>
+<div class="line"><span class="lineno">  135</span>        self.comboBox.view().setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)</div>
 <div class="line"><span class="lineno">  136</span>        self.detectMapping.hide()</div>
 <div class="line"><span class="lineno">  137</span>        self.rootNode = self.geoTreeViewModel.invisibleRootItem()</div>
 <div class="line"><span class="lineno">  138</span>        self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)</div>
@@ -825,7 +825,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  313</span>                    self)</div>
 <div class="line"><span class="lineno">  314</span>            progress.setWindowTitle(<span class="stringliteral">&quot;Query layer&quot;</span>)</div>
 <div class="line"><span class="lineno">  315</span>            progress.setWindowIcon(UIUtils.sparqlunicornicon)</div>
-<div class="line"><span class="lineno">  316</span>            progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><span class="lineno">  316</span>            progress.setWindowModality(Qt.WindowModality.WindowModal)</div>
 <div class="line"><span class="lineno">  317</span>            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
 <div class="line"><span class="lineno">  318</span>            progress.show()</div>
 <div class="line"><span class="lineno">  319</span>        queryprefixes = []</div>
@@ -958,7 +958,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  807</span>        progress = QProgressDialog(</div>
 <div class="line"><span class="lineno">  808</span>            <span class="stringliteral">&quot;Querying all instances for &quot;</span> + concept,<span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
 <div class="line"><span class="lineno">  809</span>        progress.setWindowTitle(<span class="stringliteral">&quot;Query all instances&quot;</span>)</div>
-<div class="line"><span class="lineno">  810</span>        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><span class="lineno">  810</span>        progress.setWindowModality(Qt.WindowModality.WindowModal)</div>
 <div class="line"><span class="lineno">  811</span>        thequery=<span class="stringliteral">&quot;&quot;</span></div>
 <div class="line"><span class="lineno">  812</span>        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoclassnode <span class="keywordflow">or</span> nodetype==SPARQLUtils.halfgeoclassnode:</div>
 <div class="line"><span class="lineno">  813</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
