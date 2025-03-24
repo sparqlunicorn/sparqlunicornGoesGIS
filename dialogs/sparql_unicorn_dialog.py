@@ -174,11 +174,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionImport_RDF_Layer.triggered.connect(lambda: ImportRDFLayerDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf[self.comboBox.currentIndex()]).exec())
-        self.actionPreferences.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
-        self.actionCache_Settings.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
-        self.actionAbout.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.actionPreferences.setIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixMap, 'SP_ComputerIcon'))))
+        self.actionCache_Settings.setIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixMap, 'SP_ComputerIcon'))))
+        self.actionAbout.setIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixMap, 'SP_MessageBoxInformation'))))
         self.actionAbout.triggered.connect(lambda: AboutDialog().exec())
-        self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
+        self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixMap,'SP_MessageBoxInformation'))))
         self.tripleStoreInfoButton.clicked.connect(self.tripleStoreInfoDialog)
         self.loadQuery.clicked.connect(self.loadQueryFunc)
         self.saveQueryButton.clicked.connect(self.saveQueryFunc)
@@ -198,7 +198,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def tripleStoreInfoDialog(self):
         msgBox = ErrorMessageBox("RDF Resource Information","")
-        msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
+        msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixMap,'SP_MessageBoxInformation'))))
         thetext="<html height=100%><h3 align=center>Information about "+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</h3><table border=1 cellspacing=0 align=center><tr><th>Information</th><th>Value</th></tr>"
         thetext+="<tr><td>Name</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</td></tr>"
         thetext+="<tr><td>Type</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["type"])+"</td></tr>"
