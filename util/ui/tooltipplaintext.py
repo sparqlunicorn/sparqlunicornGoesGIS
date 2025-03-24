@@ -87,13 +87,13 @@ class ToolTipPlainText(QPlainTextEdit):
         if tc.atStart() or (tc.positionInBlock() == 0):
             isStartOfWord = True
         while not isStartOfWord:
-            tc.movePosition(QTextCursor.PreviousCharacter, QTextCursor.KeepAnchor)
+            tc.movePosition(QTextCursor.MoveOperation.PreviousCharacter, QTextCursor.MoveMode.KeepAnchor)
             if tc.atStart() or (tc.positionInBlock() == 0):
                 isStartOfWord = True
             elif len(tc.selectedText()) > 0 and tc.selectedText()[0] == " ":
                 isStartOfWord = True
         if len(tc.selectedText()) > 0 and tc.selectedText()[0] == " ":
-            tc.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor)
+            tc.movePosition(QTextCursor.MoveOperation.NextCharacter, QTextCursor.MoveMode.KeepAnchor)
         return tc.selectedText()
 
     def keyPressEvent(self, event):
@@ -128,7 +128,7 @@ class ToolTipPlainText(QPlainTextEdit):
             return
         QPlainTextEdit.keyPressEvent(self, event)
         seltext = self.textUnderCursor(tc)
-        tc.select(QTextCursor.LineUnderCursor)
+        tc.select(QTextCursor.SelectionType.LineUnderCursor)
         selline = tc.selectedText().strip()
         sellinearr = selline.split(" ")
         if len(sellinearr) == 2 and (sellinearr[0].startswith("?")):
@@ -176,10 +176,10 @@ class ToolTipPlainText(QPlainTextEdit):
     def insertCompletion(self, completion):
         tc = self.textCursor()
         if completion in self.autocomplete["completerClassList"]:
-            tc.movePosition(QTextCursor.Left)
-            tc.movePosition(QTextCursor.EndOfWord)
-            tc.setPosition(tc.position() - len(self.completer.completionPrefix()), QTextCursor.MoveAnchor)
-            tc.setPosition(tc.position() + len(self.completer.completionPrefix()), QTextCursor.KeepAnchor)
+            tc.movePosition(QTextCursor.MoveOperation.Left)
+            tc.movePosition(QTextCursor.MoveOperation.EndOfWord)
+            tc.setPosition(tc.position() - len(self.completer.completionPrefix()), QTextCursor.MoveMode.MoveAnchor)
+            tc.setPosition(tc.position() + len(self.completer.completionPrefix()), QTextCursor.MoveMode.KeepAnchor)
             tc.removeSelectedText()
             tc.insertText(self.autocomplete["completerClassList"][completion] + " ")
             self.setTextCursor(tc)
@@ -188,10 +188,10 @@ class ToolTipPlainText(QPlainTextEdit):
         extra = (len(completion) - len(self.completer.completionPrefix()))
         prefix = completion.index(":")
         sub = completion[0:prefix]
-        tc.movePosition(QTextCursor.Left)
-        tc.movePosition(QTextCursor.EndOfWord)
-        tc.setPosition(tc.position() - len(self.completer.completionPrefix()), QTextCursor.MoveAnchor)
-        tc.setPosition(tc.position() + len(self.completer.completionPrefix()), QTextCursor.KeepAnchor)
+        tc.movePosition(QTextCursor.MoveOperation.Left)
+        tc.movePosition(QTextCursor.MoveOperation.EndOfWord)
+        tc.setPosition(tc.position() - len(self.completer.completionPrefix()), QTextCursor.MoveMode.MoveAnchor)
+        tc.setPosition(tc.position() + len(self.completer.completionPrefix()), QTextCursor.MoveMode.KeepAnchor)
         tc.removeSelectedText()
         newprefix = True
         if not sub in self.prefixes[self.selector.currentIndex()]:
