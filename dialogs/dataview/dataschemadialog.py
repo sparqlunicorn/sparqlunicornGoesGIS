@@ -96,7 +96,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.tablemodel.setHeaderData(2, Qt.Orientation.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
-        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.dataSchemaTableView.setModel(self.filter_proxy_model)

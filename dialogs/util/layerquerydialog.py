@@ -12,6 +12,6 @@ class LayerQueryDialog(QDialog, FORM_CLASS):
     def __init__(self,):
         super(QDialog, self).__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, 'SP_MessageBoxInformation'))))
         self.chooseField.setLayer(self.chooseLayer.currentLayer())
         self.show()

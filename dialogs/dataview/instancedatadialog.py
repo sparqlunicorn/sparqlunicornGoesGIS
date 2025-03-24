@@ -93,7 +93,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.tablemodel.setItem(0,0,item)
         self.instanceDataTableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex,self.instanceDataTableView,self.statusBarLabel))
         self.instanceDataTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex,self.instanceDataTableView))
-        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegularExpression)
         self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
