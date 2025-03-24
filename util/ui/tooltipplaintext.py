@@ -242,18 +242,18 @@ class ToolTipPlainText(QPlainTextEdit):
         word = textCursor.selectedText()
         # print(textCursor.position())
         if not word.endswith(' '):
-            textCursor.setPosition(textCursor.position() + 1, QTextCursor.KeepAnchor)
+            textCursor.setPosition(textCursor.position() + 1, QTextCursor.MoveMode.KeepAnchor)
             word = textCursor.selectedText()
         if word.strip() != "" and (word.startswith("wd:") or word.startswith("wdt:") or re.match("[:]?(Q|P)[0-9]+$",
                                                                                                  word.replace(":",
                                                                                                               ""))):
             while re.match("[QP:0-9]", word[-1]):
-                textCursor.setPosition(textCursor.position() + 1, QTextCursor.KeepAnchor)
+                textCursor.setPosition(textCursor.position() + 1, QTextCursor.MoveMode.KeepAnchor)
                 word = textCursor.selectedText()
-            textCursor.setPosition(textCursor.position() - 1, QTextCursor.KeepAnchor)
+            textCursor.setPosition(textCursor.position() - 1, QTextCursor.MoveMode.KeepAnchor)
             word = textCursor.selectedText()
             if word.endswith(">"):
-                textCursor.setPosition(textCursor.position() - 1, QTextCursor.KeepAnchor)
+                textCursor.setPosition(textCursor.position() - 1, QTextCursor.MoveMode.KeepAnchor)
             word = textCursor.selectedText()
             print("Tooltip Word")
             if word in self.savedLabels:
@@ -309,7 +309,7 @@ class ToolTipPlainText(QPlainTextEdit):
         extraSelections = []
         if not self.isReadOnly():
             selection = QTextEdit.ExtraSelection()
-            lineColor = QColor(Qt.blue).lighter(190)
+            lineColor = QColor(Qt.GlobalColor.blue).lighter(190)
             selection.format.setBackground(lineColor)
             selection.format.setProperty(QTextFormat.FullWidthSelection, True)
             selection.cursor = self.textCursor()
@@ -319,7 +319,7 @@ class ToolTipPlainText(QPlainTextEdit):
 
     def lineNumberAreaPaintEvent(self, event):
         painter = QPainter(self.lineNumberArea)
-        borderColor = QColor(Qt.lightGray).lighter(120)
+        borderColor = QColor(Qt.GlobalColor.lightGray).lighter(120)
         painter.fillRect(event.rect(), borderColor)
 
         block = self.firstVisibleBlock()
@@ -332,7 +332,7 @@ class ToolTipPlainText(QPlainTextEdit):
         while block.isValid() and (top <= event.rect().bottom()):
             if block.isVisible() and (bottom >= event.rect().top()):
                 number = str(blockNumber + 1)
-                if self.errorline != None and blockNumber == self.errorline:
+                if self.errorline is not None and blockNumber == self.errorline:
                     painter.setPen(Qt.red)
                 else:
                     painter.setPen(Qt.black)
