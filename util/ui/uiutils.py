@@ -153,9 +153,9 @@ class UIUtils:
     def check_state(sender):
         validator = sender.validator()
         state = validator.validate(sender.text(), 0)[0]
-        if state == QValidator.Acceptable:
+        if state == QValidator.State.Acceptable:
             color = '#c4df9b'  # green
-        elif state == QValidator.Intermediate:
+        elif state == QValidator.State.Intermediate:
             color = '#fff79a'  # yellow
         else:
             color = '#f6989d'  # red
