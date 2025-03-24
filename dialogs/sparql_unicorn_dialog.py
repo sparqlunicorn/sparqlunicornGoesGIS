@@ -132,7 +132,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geoTreeViewModel.clear()
         self.addLayerButton.clicked.connect(self.create_unicorn_layer)
         self.comboBox.currentIndexChanged.connect(self.endpointselectaction)
-        self.comboBox.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.comboBox.view().setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.detectMapping.hide()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
@@ -313,7 +313,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self)
             progress.setWindowTitle("Query layer")
             progress.setWindowIcon(UIUtils.sparqlunicornicon)
-            progress.setWindowModality(Qt.WindowModal)
+            progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.setCancelButton(None)
             progress.show()
         queryprefixes = []
@@ -807,7 +807,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         progress = QProgressDialog(
             "Querying all instances for " + concept,"Abort", 0, 0, self)
         progress.setWindowTitle("Query all instances")
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         thequery=""
         if nodetype==SPARQLUtils.geoclassnode or nodetype==SPARQLUtils.halfgeoclassnode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
