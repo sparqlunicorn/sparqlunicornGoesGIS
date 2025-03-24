@@ -735,7 +735,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                             propOrClass, bothOptions, currentprefixes, addVocabConf)
         self.interlinkdialog.setMinimumSize(650, 400)
         self.interlinkdialog.setWindowTitle("Search Interlink Concept")
-        self.interlinkdialog.exec_()
+        self.interlinkdialog.exec()
 
     ##
     #  @brief Builds a value mapping dialog window for ther interlinking dialog.
@@ -755,7 +755,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                                   table.item(row, 3).text(), layer, valuemap)
         self.interlinkdialog.setMinimumSize(650, 400)
         self.interlinkdialog.setWindowTitle("Get Value Mappings for column " + table.item(row, 3).text())
-        self.interlinkdialog.exec_()
+        self.interlinkdialog.exec()
 
     def dataInstanceAsLayer(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
