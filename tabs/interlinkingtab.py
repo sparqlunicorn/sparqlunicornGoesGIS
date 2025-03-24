@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 from qgis.utils import iface
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
 from qgis.core import QgsApplication
 from qgis.core import Qgis,QgsTask, QgsMessageLog
@@ -31,7 +31,7 @@ class InterlinkingTab:
         self.searchClass=dlg.searchClass
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
         self.interlinkNameSpace=dlg.interlinkNameSpace
-        self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
+        self.interlinkNameSpace.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self.dlg))
         self.interlinkNameSpace.textChanged.connect(lambda: UIUtils.check_state(self.interlinkNameSpace))
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
         self.exportInterlink = dlg.exportInterlink
