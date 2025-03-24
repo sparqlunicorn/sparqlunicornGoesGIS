@@ -205,13 +205,13 @@ class FindRelatedConceptQueryTask(QgsTask):
             curitem.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
             self.searchResultModel.setItem(counter, 2, curitem)
             counter+=1
-        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Incoming Concept")
-        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Relation")
-        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Outgoing Concept")
+        self.searchResultModel.setHeaderData(0, Qt.Orientation.Horizontal, "Incoming Concept")
+        self.searchResultModel.setHeaderData(1, Qt.Orientation.Horizontal, "Relation")
+        self.searchResultModel.setHeaderData(2, Qt.Orientation.Horizontal, "Outgoing Concept")
         header=self.searchResult.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(1, QHeaderView.Stretch)
-        header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
 
     def processClassResult(self):
         counter=0
@@ -276,17 +276,17 @@ class FindRelatedConceptQueryTask(QgsTask):
                 self.searchResultModel.setItem(counter, 0, QStandardItem())
                 self.searchResultModel.setItem(counter, 1, QStandardItem())
                 counter+=1
-        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Incoming Concept")
-        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Incoming Relation")
-        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Concept")
-        self.searchResultModel.setHeaderData(3, Qt.Horizontal, "Outgoing Relation")
-        self.searchResultModel.setHeaderData(4, Qt.Horizontal, "Outgoing Concept")
+        self.searchResultModel.setHeaderData(0, Qt.Orientation.Horizontal, "Incoming Concept")
+        self.searchResultModel.setHeaderData(1, Qt.Orientation.Horizontal, "Incoming Relation")
+        self.searchResultModel.setHeaderData(2, Qt.Orientation.Horizontal, "Concept")
+        self.searchResultModel.setHeaderData(3, Qt.Orientatíon.Horizontal, "Outgoing Relation")
+        self.searchResultModel.setHeaderData(4, Qt.Orientation.Horizontal, "Outgoing Concept")
         header=self.searchResult.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2, QHeaderView.Stretch)
-        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
 
     def finished(self, result):
         #QgsMessageLog.logMessage('Started task "{}"'.format(
