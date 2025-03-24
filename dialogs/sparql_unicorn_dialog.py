@@ -604,7 +604,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def tabchanged(self,index):
         #QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
         if self.currentProxyModel is not None:
-            self.currentProxyModel.setFilterRegExp("")
+            self.currentProxyModel.setFilterRegularExpression("")
         self.filterConcepts.setText("")
         if index==0:
             self.currentProxyModel=self.geoTreeViewProxyModel
