@@ -3,7 +3,7 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageBox
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegularExpressionValidator
 
 from ...util.ui.uiutils import UIUtils
 from ...tasks.processing.graphvalidationtask import GraphValidationTask
@@ -34,7 +34,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dlg = parent
         self.maindlg = maindlg
         self.validationFileEdit=QLineEdit()
-        self.validationFileEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.validationFileEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.validationFileEdit.textChanged.connect(lambda: UIUtils.check_state(self.validationFileEdit))
         self.validationFileEdit.textChanged.emit(self.validationFileEdit.text())
         self.gridLayout.addWidget(self.validationFileEdit,1,1,1,1)

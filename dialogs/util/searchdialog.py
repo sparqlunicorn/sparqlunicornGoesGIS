@@ -4,7 +4,7 @@ from qgis.PyQt import uic
 from qgis.core import (
     QgsApplication
 )
-from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel
+from qgis.PyQt.QtGui import QRegularExpressionValidator, QStandardItemModel
 
 from ...dialogs.dataview.dataschemadialog import DataSchemaDialog
 from ...dialogs.menu.conceptcontextmenu import ConceptContextMenu
@@ -75,7 +75,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.searchButton.clicked.connect(self.getClassesFromLabel)
         self.searchResult.customContextMenuRequested.connect(self.onContext)
         self.searchResult.itemDoubleClicked.connect(UIUtils.openListURL)
-        self.costumproperty.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.costumproperty.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
         self.costumproperty.textChanged.connect(lambda: UIUtils.check_state(self.costumproperty))
         self.costumproperty.textChanged.emit(self.costumproperty.text())
         self.costumpropertyButton.clicked.connect(lambda: self.applyConceptToColumn(True))
