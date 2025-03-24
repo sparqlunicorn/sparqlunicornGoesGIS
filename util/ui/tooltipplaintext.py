@@ -333,9 +333,9 @@ class ToolTipPlainText(QPlainTextEdit):
             if block.isVisible() and (bottom >= event.rect().top()):
                 number = str(blockNumber + 1)
                 if self.errorline is not None and blockNumber == self.errorline:
-                    painter.setPen(Qt.red)
+                    painter.setPen(Qt.GlobalColor.red)
                 else:
-                    painter.setPen(Qt.black)
+                    painter.setPen(Qt.GlobalColor.black)
                 painter.drawText(0, int(top), int(self.lineNumberArea.width()), int(height), Qt.AlignRight, number)
 
             block = block.next()
