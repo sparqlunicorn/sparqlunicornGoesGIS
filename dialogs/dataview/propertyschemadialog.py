@@ -87,14 +87,14 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.map_canvas.setMapTool(self.toolPan)
         header =self.dataSchemaTableView.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.tablemodel=QStandardItemModel()
-        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Type")
-        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Class")
-        self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.tablemodel.setHeaderData(0, Qt.Orientation.Horizontal, "Type")
+        self.tablemodel.setHeaderData(1, Qt.Orientation.Horizontal, "Class")
+        self.tablemodel.setHeaderData(2, Qt.Orientation.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
-        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.dataSchemaTableView.setModel(self.filter_proxy_model)
@@ -115,9 +115,9 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
         self.selected=not self.selected
         for row in range(self.tablemodel.rowCount()):
             if self.selected:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Checked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Checked)
             else:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Unchecked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Unchecked)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
@@ -128,7 +128,7 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
             return
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         thequery="""SELECT (COUNT(distinct ?val) AS ?countval) (COUNT(?rel) AS ?countrel) ?reltype ?valtype

@@ -89,11 +89,11 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.map_canvas.setMapTool(self.toolPan)
         header =self.dataSchemaTableView.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.tablemodel=QStandardItemModel()
-        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
-        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
-        self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.tablemodel.setHeaderData(0, Qt.Orientation.Horizontal, "Selection")
+        self.tablemodel.setHeaderData(1, Qt.Orientation.Horizontal, "Attribute")
+        self.tablemodel.setHeaderData(2, Qt.Orientation.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
         self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
@@ -117,15 +117,15 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.selected=not self.selected
         for row in range(self.tablemodel.rowCount()):
             if self.selected:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Checked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Checked)
             else:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Unchecked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Unchecked)
 
     def queryAllInstances(self):
         querydepth=self.graphQueryDepthBox.value()
         checkeditems=[]
         for row in range(self.tablemodel.rowCount()):
-            if self.tablemodel.item(row, 0).checkState()==Qt.Checked:
+            if self.tablemodel.item(row, 0).checkState()==Qt.CheckState.Checked:
                 relation = self.tablemodel.item(row, 1).data(UIUtils.dataslot_conceptURI)
                 checkeditems.append(relation)
         relstatement=" ?item ?rel ?val . "
@@ -192,7 +192,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
             return
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         thequery=self.triplestoreconf["whattoenrichquery"]

@@ -77,14 +77,14 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.map_canvas.setMapTool(self.toolPan)
         self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"])+"</a>)")
         header =self.instanceDataTableView.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.tablemodel=QStandardItemModel()
-        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
-        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
-        self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.tablemodel.setHeaderData(0, Qt.Orientation.Horizontal, "Selection")
+        self.tablemodel.setHeaderData(1, Qt.Orientation.Horizontal, "Attribute")
+        self.tablemodel.setHeaderData(2, Qt.Orientation.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
-        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.instanceDataTableView.setModel(self.filter_proxy_model)
@@ -104,15 +104,15 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.selected=not self.selected
         for row in range(self.tablemodel.rowCount()):
             if self.selected:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Checked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Checked)
             else:
-                self.tablemodel.item(row, 0).setCheckState(Qt.Unchecked)
+                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Unchecked)
 
     def queryInstance(self):
         querydepth = self.graphQueryDepthBox.value()
         checkeditems=[]
         for row in range(self.tablemodel.rowCount()):
-            if self.tablemodel.item(row, 0).checkState()==Qt.Checked:
+            if self.tablemodel.item(row, 0).checkState()==Qt.CheckState.Checked:
                 relation = self.tablemodel.item(row, 1).data(256)
                 checkeditems.append(relation)
         relstatement = " ?item ?rel ?val . "
