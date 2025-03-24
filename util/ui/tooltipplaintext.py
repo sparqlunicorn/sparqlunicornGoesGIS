@@ -14,7 +14,7 @@ class SPARQLCompleter(QCompleter):
 
     def __init__(self, autocomplete, parent=None):
         QCompleter.__init__(self, list(autocomplete["clsdict"].keys()) + list(autocomplete["propdict"].keys()), parent)
-        self.setFilterMode(Qt.MatchContains)
+        self.setFilterMode(Qt.MatchFlag.MatchContains)
         self.highlighted.connect(self.setHighlighted)
 
     def setHighlighted(self, text):
@@ -105,11 +105,11 @@ class ToolTipPlainText(QPlainTextEdit):
         # msgBox=QMessageBox()
         # msgBox.setText(str(selection))
         # msgBox.exec()
-        if len(layers) > 0 and event.key() == Qt.Key_Space and event.modifiers() == Qt.ControlModifier:
+        if len(layers) > 0 and event.key() == Qt.Key.Key_Space and event.modifiers() == Qt.KeyboardModifier.ControlModifier:
             self.createVarInputDialog()
             event.accept()
             return
-        elif len(layers) == 0 and event.key() == Qt.Key_Space and event.modifiers() == Qt.ControlModifier:
+        elif len(layers) == 0 and event.key() == Qt.Key.Key_Space and event.modifiers() == Qt.KeyboardModifier.ControlModifier:
             msgBox = QMessageBox()
             msgBox.setText(
                 "No layer has been loaded in QGIS. Therefore no query variables may be created from a given QGIS layer.")
@@ -117,11 +117,11 @@ class ToolTipPlainText(QPlainTextEdit):
             event.accept()
             return
         elif (
-                event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and not self.completer.popup().isVisible() and event.modifiers() == Qt.ControlModifier:
+                event.key() == Qt.Key.Key_Enter or event.key() == Qt.Key.Key_Return) and not self.completer.popup().isVisible() and event.modifiers() == Qt.KeyboardModifier.ControlModifier:
             self.buildSearchDialog(-1, -1, -1, self, True, True)
             event.accept()
             return
-        elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.completer.popup().isVisible():
+        elif (event.key() == Qt.Key.Key_Enter or event.key() == Qt.Key.Key_Return) and self.completer.popup().isVisible():
             self.completer.insertText.emit(self.completer.getSelected())
             self.completer.setCompletionMode(QCompleter.PopupCompletion)
             event.accept()
