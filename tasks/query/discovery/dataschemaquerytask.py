@@ -95,7 +95,7 @@ class DataSchemaQueryTask(QgsTask):
                 self.searchResultModel.setItem(0,0,item)
             else:
                 UIUtils.fillAttributeTable(self.sortedatt, self.invprefixes, self.dlg, self.searchResultModel,
-                                           SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried",Qt.Checked)
+                                           SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried",Qt.CheckState.Checked)
         else:
             SPARQLUtils.handleException(MESSAGE_CATEGORY,"Dataschema search query not successful","The dataschema search query did not yield any results!")
         self.searchResultModel.setHeaderData(0, Qt.Orientation.Horizontal, "Selection")

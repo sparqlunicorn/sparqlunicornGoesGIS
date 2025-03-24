@@ -30,7 +30,7 @@ class GraphRelationViewDialog(QWidget, FORM_CLASS):
             self.setWindowTitle("Related Concepts to "+str(concept))
         self.triplestoreconf=triplestoreconf
         self.concept=concept
-        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, 'SP_MessageBoxInformation'))))
         self.tablemodel=QStandardItemModel()
         self.tablemodel.setHeaderData(0, Qt.Orientation.Horizontal, "Ingoing Concept")
         self.tablemodel.setHeaderData(1, Qt.Orientation.Horizontal, "Ingoing Relation")
