@@ -1,6 +1,6 @@
 import os
 
-from PyQt5.QtWidgets import QMessageBox
+from PyQt.QtWidgets import QMessageBox
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QDialog, QCompleter
