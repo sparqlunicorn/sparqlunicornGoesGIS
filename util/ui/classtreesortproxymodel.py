@@ -17,15 +17,15 @@ class ClassTreeSortProxyModel(QSortFilterProxyModel):
         Since we know the sort order, we can ensure that folders always come first.
         """
         left_is_class = (left.data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode or left.data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode)
-        left_data = str(left.data(Qt.DisplayRole))
+        left_data = str(left.data(Qt.ItemDataRole.DisplayRole))
         right_is_class = (right.data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode or right.data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode)
-        right_data = str(right.data(Qt.DisplayRole))
+        right_data = str(right.data(Qt.ItemDataRole.DisplayRole))
         sort_order = self.sortOrder()
 
         if left_is_class and not right_is_class:
-            result = sort_order == Qt.AscendingOrder
+            result = sort_order == Qt.SortOrder.AscendingOrder
         elif not left_is_class and right_is_class:
-            result = sort_order != Qt.AscendingOrder
+            result = sort_order != Qt.SortOrder.AscendingOrder
         else:
             result = left_data < right_data
         return result
