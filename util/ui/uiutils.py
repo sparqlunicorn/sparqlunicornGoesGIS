@@ -1,9 +1,8 @@
 from ..sparqlutils import SPARQLUtils
 from ..doc.docconfig import DocConfig
 from qgis.PyQt.QtGui import QRegularExpressionValidator, QValidator, QIcon
-from qgis.PyQt.QtCore import Qt, QUrl, QEvent
+from qgis.PyQt.QtCore import Qt, QUrl, QEvent,QSize, QRegularExpression
 from qgis.PyQt.QtGui import QDesktopServices, QStandardItemModel, QStandardItem, QIntValidator, QDoubleValidator
-from qgis.PyQt.QtCore import Qt, QSize, QRegularExpression
 from qgis.PyQt.QtWidgets import QCompleter, QLineEdit
 from qgis.core import QgsMessageLog
 from qgis.core import Qgis
@@ -258,7 +257,7 @@ class UIUtils:
         return itemchecked
 
     @staticmethod
-    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.Unchecked,isclasstable=False):
+    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.CheckState.Unchecked,isclasstable=False):
         counter = 0
         for att in queryresult:
             curconcept = queryresult[att]["concept"]
