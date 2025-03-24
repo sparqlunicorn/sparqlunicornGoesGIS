@@ -3,7 +3,7 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox
 from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QRegExp
+from qgis.PyQt.QtCore import QRegularExpression
 from qgis.PyQt.QtGui import QRegularExpressionValidator
 
 from ...util.ui.uiutils import UIUtils
@@ -35,7 +35,7 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dlg = parent
         self.maindlg = maindlg
         self.projectionSelect.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+        urlregex = QRegularExpression("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegularExpressionValidator(urlregex, self)
         self.startConversionButton.clicked.connect(self.startConversion)
         self.convertAllCheckBox.stateChanged.connect(self.toggleComboBoxes)
