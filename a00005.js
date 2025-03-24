@@ -1,4 +1,5 @@
 var a00005 =
 [
-    [ "classFactory", "a00005.html#a40bac62b67685702aa7481114cf25760", null ]
+    [ "SPARQLunicorn", "a00060.html", "a00060" ],
+    [ "geoconcepts", "a00005.html#a5f22e1b4de849e4e3b481e62f8fb8e7d", null ]
 ];
