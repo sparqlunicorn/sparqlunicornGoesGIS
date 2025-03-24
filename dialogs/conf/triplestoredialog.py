@@ -32,7 +32,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.prefixes=prefixes
         UIUtils.createTripleStoreCBox(self.tripleStoreChooser,triplestoreconf)
         self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)
-        self.tripleStoreChooser.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.tripleStoreChooser.view().setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.geometryVariableComboBox.currentIndexChanged.connect(self.switchQueryVariableInput)
         self.exampleQueryComboBox.currentIndexChanged.connect(lambda: self.exampleQuery.setPlainText(self.exampleQueryComboBox.itemData(self.exampleQueryComboBox.currentIndex())))
         self.tripleStoreEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
