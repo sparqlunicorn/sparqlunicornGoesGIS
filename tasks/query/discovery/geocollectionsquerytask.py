@@ -60,7 +60,7 @@ class GeoCollectionsQueryTask(QgsTask):
 
     def finished(self, result):
         self.geoClassList.clear()
-        self.geoClassListGui.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.geoClassListGui.header().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.geoClassListGui.header().setStretchLastSection(True)
         self.geoClassListGui.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         if len(self.resultlist) > 0:
@@ -89,7 +89,7 @@ class GeoCollectionsQueryTask(QgsTask):
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
-                                                                  QItemSelectionModel.SelectCurrent)
+                                                                  QItemSelectionModel.SelectionFlag.SelectCurrent)
             if self.featureOrGeoCollection:
                     self.dlg.viewselectactionFeatureCollection()
             else:
@@ -121,6 +121,6 @@ class GeoCollectionsQueryTask(QgsTask):
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
-                                                                  QItemSelectionModel.SelectCurrent)
+                                                                  QItemSelectionModel.SelectionFlag.SelectCurrent)
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")
