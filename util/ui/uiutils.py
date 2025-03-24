@@ -1,6 +1,6 @@
 from ..sparqlutils import SPARQLUtils
 from ..doc.docconfig import DocConfig
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIcon
+from qgis.PyQt.QtGui import QRegularExpressionValidator, QValidator, QIcon
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
 from qgis.PyQt.QtGui import QDesktopServices, QStandardItemModel, QStandardItem, QIntValidator, QDoubleValidator
 from qgis.PyQt.QtCore import Qt, QSize, QRegularExpression
