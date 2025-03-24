@@ -238,7 +238,7 @@ class ToolTipPlainText(QPlainTextEdit):
     def mouseMoveEvent(self, event):
         textCursor = self.cursorForPosition(event.pos())
         # word=self.textUnderCursor(textCursor)
-        textCursor.select(QTextCursor.WordUnderCursor)
+        textCursor.select(QTextCursor.SelectionType.WordUnderCursor)
         word = textCursor.selectedText()
         # print(textCursor.position())
         if not word.endswith(' '):
