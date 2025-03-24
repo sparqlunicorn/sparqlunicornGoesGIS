@@ -149,8 +149,8 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><span class="lineno">   30</span>    <span class="keyword">def </span>__init__(self, autocomplete, parent=None):</div>
 <div class="line"><span class="lineno">   31</span>        QCompleter.__init__(self, autocomplete, parent)</div>
-<div class="line"><span class="lineno">   32</span>        self.setCompletionMode(QCompleter.PopupCompletion)</div>
-<div class="line"><span class="lineno">   33</span>        self.setFilterMode(Qt.MatchContains)</div>
+<div class="line"><span class="lineno">   32</span>        self.setCompletionMode(QCompleter.CompletionMode.PopupCompletion)</div>
+<div class="line"><span class="lineno">   33</span>        self.setFilterMode(Qt.MatchFlag.MatchContains)</div>
 <div class="line"><span class="lineno">   34</span>        self.source_model=<span class="keywordtype">None</span></div>
 <div class="line"><span class="lineno">   35</span>        self.setModel(QStandardItemModel())</div>
 <div class="line"><span class="lineno">   36</span>        <span class="comment"># self.highlighted.connect(self.setHighlighted)</span></div>
