@@ -420,7 +420,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  150</span>        self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,</div>
 <div class="line"><span class="lineno">  151</span>                                            self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()],self.languagemap)</div>
 <div class="line"><span class="lineno">  152</span>        self.gridLayout.addWidget(self.inp_sparql2,5,0,1,4)</div>
-<div class="line"><span class="lineno">  153</span>        self.inp_sparql2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)</div>
+<div class="line"><span class="lineno">  153</span>        self.inp_sparql2.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)</div>
 <div class="line"><span class="lineno">  154</span>        self.inp_sparql2.document().defaultFont().setPointSize(16)</div>
 <div class="line"><span class="lineno">  155</span>        self.inp_sparql2.setPlainText(<span class="stringliteral">&quot;SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n} LIMIT 10&quot;</span>)</div>
 <div class="line"><span class="lineno">  156</span>        self.inp_sparql2.columnvars = {}</div>
