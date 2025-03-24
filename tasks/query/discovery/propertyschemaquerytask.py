@@ -96,9 +96,9 @@ class PropertySchemaQueryTask(QgsTask):
                 UIUtils.fillAttributeTable(self.sortedatt, self.invprefixes, self.dlg, self.searchResultModel,SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried",Qt.Checked,True)
         else:
             SPARQLUtils.handleException(MESSAGE_CATEGORY,"Dataschema search query not successful","The dataschema search query did not yield any results!")
-        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Type")
-        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Class")
-        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.searchResultModel.setHeaderData(0, Qt.Orientation.Horizontal, "Type")
+        self.searchResultModel.setHeaderData(1, Qt.Orientation.Horizontal, "Class")
+        self.searchResultModel.setHeaderData(2, Qt.Orientation.Horizontal, "Sample Instances")
         self.progress.close()
         if self.conceptstoenrich is not None:
             self.dlg.propertyMatchingResultLabel.setText("<html><b>The following properties can be enriched for the "+str(len(self.conceptstoenrich))+" matched concepts</b></html>")
