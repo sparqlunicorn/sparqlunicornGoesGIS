@@ -18,7 +18,7 @@ class SettingsDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Cache Settings")
-        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
+        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, 'SP_ComputerIcon'))))
         self.closeButton.clicked.connect(self.close)
         self.clearGraphCacheButton.clicked.connect(self.delGraphCache)
         self.clearClassTreeCacheButton.clicked.connect(self.delClassTreeCache)
