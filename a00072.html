@@ -177,7 +177,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   31</span>        self.searchClass=dlg.searchClass</div>
 <div class="line"><span class="lineno">   32</span>        self.searchClass.clicked.connect(self.createInterlinkSearchDialog)</div>
 <div class="line"><span class="lineno">   33</span>        self.interlinkNameSpace=dlg.interlinkNameSpace</div>
-<div class="line"><span class="lineno">   34</span>        self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))</div>
+<div class="line"><span class="lineno">   34</span>        self.interlinkNameSpace.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self.dlg))</div>
 <div class="line"><span class="lineno">   35</span>        self.interlinkNameSpace.textChanged.connect(<span class="keyword">lambda</span>: UIUtils.check_state(self.interlinkNameSpace))</div>
 <div class="line"><span class="lineno">   36</span>        self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())</div>
 <div class="line"><span class="lineno">   37</span>        self.exportInterlink = dlg.exportInterlink</div>
