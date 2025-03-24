@@ -48,7 +48,7 @@ class GraphRelationViewDialog(QWidget, FORM_CLASS):
         self.tableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.tableView, self.statusBarLabel))
         self.tableView.doubleClicked.connect(self.showRelatedFromIndex)
         self.tableView.customContextMenuRequested.connect(self.onContext)
-        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegularExpression)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.show()
         self.currentItem=None

@@ -105,7 +105,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.tablemodel.setItem(0,0,item)
         self.dataSchemaTableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.dataSchemaTableView, self.statusBarLabel))
         self.dataSchemaTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.dataSchemaTableView))
-        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegularExpression)
         self.dataSchemaTableView.clicked.connect(self.loadSamples)
         self.geospatialConstraintButton.clicked.connect(self.loadBBOXDialog)
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
