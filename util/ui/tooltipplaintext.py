@@ -62,7 +62,7 @@ class ToolTipPlainText(QPlainTextEdit):
         self.curtriplestoreconf=curtriplestoreconf
         self.completer = SPARQLCompleter(autocomplete)
         self.completer.setWidget(self)
-        self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
+        self.completer.setModelSorting(QCompleter.ModelSorting.CaseInsensitivelySortedModel)
         self.completer.insertText.connect(self.insertCompletion)
         self.blockCountChanged.connect(self.updateLineNumberAreaWidth)
         self.updateRequest.connect(self.updateLineNumberArea)
@@ -123,7 +123,7 @@ class ToolTipPlainText(QPlainTextEdit):
             return
         elif (event.key() == Qt.Key.Key_Enter or event.key() == Qt.Key.Key_Return) and self.completer.popup().isVisible():
             self.completer.insertText.emit(self.completer.getSelected())
-            self.completer.setCompletionMode(QCompleter.PopupCompletion)
+            self.completer.setCompletionMode(QCompleter.CompletionMode.PopupCompletion)
             event.accept()
             return
         QPlainTextEdit.keyPressEvent(self, event)
