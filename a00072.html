@@ -230,9 +230,9 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  175</span>        <span class="keywordflow">if</span> column &gt; 3 <span class="keywordflow">and</span> column &lt; 7:</div>
 <div class="line"><span class="lineno">  176</span>            self.dlg.buildSearchDialog(row, column, <span class="keyword">True</span>, self.interlinkTable, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>, self.addVocabConf)</div>
 <div class="line"><span class="lineno">  177</span>        <span class="keywordflow">elif</span> column &gt;= 7:</div>
-<div class="line"><span class="lineno">  178</span>            layers = QgsProject.instance().layerTreeRoot().children()</div>
-<div class="line"><span class="lineno">  179</span>            selectedLayerIndex = self.chooseLayerInterlink.currentIndex()</div>
-<div class="line"><span class="lineno">  180</span>            layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><span class="lineno">  178</span>            <span class="comment">#layers = QgsProject.instance().layerTreeRoot().children()</span></div>
+<div class="line"><span class="lineno">  179</span>            layer = self.chooseLayerInterlink.currentLayer()</div>
+<div class="line"><span class="lineno">  180</span>            <span class="comment">#layer = layers[selectedLayerIndex].layer()</span></div>
 <div class="line"><span class="lineno">  181</span>            self.dlg.buildValueMappingDialog(row, column, <span class="keyword">True</span>, self.interlinkTable, layer)</div>
 <div class="line"><span class="lineno">  182</span>        <span class="keywordflow">elif</span> column == -1:</div>
 <div class="line"><span class="lineno">  183</span>            self.dlg.buildSearchDialog(row, column, -1, self.dlg.interlinkOwlClassInput, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>, self.addVocabConf)</div>
