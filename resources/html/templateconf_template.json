@@ -1,0 +1,56 @@
+{
+  "templatefiles": {
+    "stylesheet": {
+      "path": "/css/style.css"
+    },
+    "startscripts": {
+      "path": "/js/startscripts.js"
+    },
+    "epsgdefs": {
+      "path": "/js/epsgdefs.js"
+    },
+    "3dtemplate": {
+      "path": "/templates/3dtemplate.css"
+    },
+    "audiotemplate": {
+      "path": "/templates/audiotemplate.html"
+    },
+    "htmltemplate": {
+      "path": "/templates/header.html"
+    },
+    "footer": {
+      "path": "/templates/footer.html"
+    },
+    "geoexports": {
+      "path": "/templates/geoexports.html"
+    },
+    "imagegrid": {
+      "path": "/templates/imagegrid.html"
+    },
+    "imagetemplate": {
+      "path": "/templates/imagetemplate.html",
+      "target": ""
+    },
+    "imagetemplatesvg": {
+      "path": "/templates/imagetemplatesvg.html"
+    },
+    "imagewithannotemplate": {
+      "path": "/templates/imagewithannotemplate.html"
+    },
+    "nongeoexports": {
+      "path": "/templates/nongeoexports.html"
+    },
+    "sparql": {
+      "path": "/templates/sparql.html"
+    },
+    "threejstemplate": {
+      "path": "/templates/threejstemplate.html"
+    },
+    "videotemplate": {
+      "path": "/templates/videotemplate.html"
+    },
+    "vowlwrapper": {
+      "path": "/templates/vowlwrapper.html"
+    }
+  }
+}
