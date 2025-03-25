@@ -1102,8 +1102,8 @@ Static Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">  426</span>    <span class="keyword">def </span>endpointselectaction(self,endpointIndex,fromtask=False):</div>
 <div class="line"><span class="lineno">  427</span>        self.queryTemplates.clear()</div>
 <div class="line"><span class="lineno">  428</span>        self.filterConcepts.setText(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">  429</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;ENDPOINTSELECT INDEX &#39;</span>+str(endpointIndex), <span class="stringliteral">&quot;SPARQLUnicorn&quot;</span>, Qgis.Info)</div>
-<div class="line"><span class="lineno">  430</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;ENDPOINTSELECT CONF &#39;</span> + str(self.triplestoreconf[endpointIndex]), <span class="stringliteral">&quot;SPARQLUnicorn&quot;</span>, Qgis.Info)</div>
+<div class="line"><span class="lineno">  429</span>        <span class="comment">#QgsMessageLog.logMessage(&#39;ENDPOINTSELECT INDEX &#39;+str(endpointIndex), &quot;SPARQLUnicorn&quot;, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  430</span>        <span class="comment">#QgsMessageLog.logMessage(&#39;ENDPOINTSELECT CONF &#39; + str(self.triplestoreconf[endpointIndex]), &quot;SPARQLUnicorn&quot;, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  431</span>        self.geoTreeViewModel.clear()</div>
 <div class="line"><span class="lineno">  432</span>        self.classTreeViewModel.clear()</div>
 <div class="line"><span class="lineno">  433</span>        self.geometryCollectionClassListModel.clear()</div>
@@ -1205,7 +1205,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  529</span>            <span class="keywordflow">if</span> (isinstance(self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>], str) <span class="keywordflow">and</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span></div>
 <div class="line"><span class="lineno">  530</span>                self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>]) <span class="keywordflow">or</span> (<span class="keywordflow">not</span> isinstance(</div>
 <div class="line"><span class="lineno">  531</span>                self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>], str) <span class="keywordflow">and</span> <span class="stringliteral">&quot;instance&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;resource&quot;</span>]):</div>
-<div class="line"><span class="lineno">  532</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot;THE SECOND TIME GET NEW TREE&quot;</span>, <span class="stringliteral">&quot;ClassTreeQueryTask&quot;</span>, Qgis.Info)</div>
+<div class="line"><span class="lineno">  532</span>                <span class="comment">#QgsMessageLog.logMessage(&quot;THE SECOND TIME GET NEW TREE&quot;, &quot;ClassTreeQueryTask&quot;, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  533</span>                self.getClassTree()</div>
 <div class="line"><span class="lineno">  534</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geocollectionquery&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[endpointIndex]:</div>
 <div class="line"><span class="lineno">  535</span>                query = str(self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;geocollectionquery&quot;</span>])</div>
@@ -1287,21 +1287,21 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  367</span>        item2.setText(<span class="stringliteral">&quot;Loading...&quot;</span>)</div>
 <div class="line"><span class="lineno">  368</span>        self.classTreeViewModel.appendRow(item2)</div>
 <div class="line"><span class="lineno">  369</span>        <span class="keywordflow">if</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;sparlendpoint&quot;</span>:</div>
-<div class="line"><span class="lineno">  370</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;GETCLASS TREE SPARQLENDPOINT&quot;</span>, <span class="stringliteral">&quot;SPARQL Unicorn&quot;</span>, Qgis.Info)</div>
+<div class="line"><span class="lineno">  370</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;GETCLASS TREE SPARQLENDPOINT&quot;, &quot;SPARQL Unicorn&quot;, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  371</span>            self.qtaskctree = ClassTreeQueryTask(</div>
 <div class="line"><span class="lineno">  372</span>                <span class="stringliteral">&quot;Getting classtree for &quot;</span> + str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>]),</div>
 <div class="line"><span class="lineno">  373</span>                self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
 <div class="line"><span class="lineno">  374</span>                self, self.classTreeViewModel.invisibleRootItem(),</div>
 <div class="line"><span class="lineno">  375</span>                self.triplestoreconf[self.comboBox.currentIndex()])</div>
 <div class="line"><span class="lineno">  376</span>        <span class="keywordflow">elif</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;file&quot;</span>:</div>
-<div class="line"><span class="lineno">  377</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;GETCLASS TREE FILE&quot;</span>, <span class="stringliteral">&quot;SPARQL Unicorn&quot;</span>, Qgis.Info)</div>
+<div class="line"><span class="lineno">  377</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;GETCLASS TREE FILE&quot;, &quot;SPARQL Unicorn&quot;, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  378</span>            self.qtaskctree = ClassTreeQueryTask(</div>
 <div class="line"><span class="lineno">  379</span>                <span class="stringliteral">&quot;Getting classtree...&quot;</span>,</div>
 <div class="line"><span class="lineno">  380</span>                self.currentgraph,</div>
 <div class="line"><span class="lineno">  381</span>                self, self.classTreeViewModel.invisibleRootItem(),</div>
 <div class="line"><span class="lineno">  382</span>                self.triplestoreconf[self.comboBox.currentIndex()])</div>
 <div class="line"><span class="lineno">  383</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  384</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;GETCLASS TREE ELSE&quot;</span>, <span class="stringliteral">&quot;SPARQL Unicorn&quot;</span>, Qgis.Info)</div>
+<div class="line"><span class="lineno">  384</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;GETCLASS TREE ELSE&quot;, &quot;SPARQL Unicorn&quot;, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  385</span>            self.qtaskctree = ClassTreeQueryTask(</div>
 <div class="line"><span class="lineno">  386</span>                <span class="stringliteral">&quot;Getting classtree for &quot;</span> + str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>]),</div>
 <div class="line"><span class="lineno">  387</span>                self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
