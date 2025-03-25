@@ -44,7 +44,7 @@ class GeoConceptsQueryTask(QgsTask):
             self.loadfromfile=True
         else:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
-            QgsMessageLog.logMessage('Started task "{}"'.format(results),MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(results),MESSAGE_CATEGORY, Qgis.Info)
             if results==False:
                 return False
             for result in results["results"]["bindings"]:
@@ -107,6 +107,6 @@ class GeoConceptsQueryTask(QgsTask):
                 str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("\\","_").replace("['","").replace("']","").replace(":", "_")) + ".json"), "w")
             res = {"text": "root"}
             UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
-            QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
             f.write(json.dumps(res, indent=2, default=ConfigUtils.dumper, sort_keys=True))
             f.close()

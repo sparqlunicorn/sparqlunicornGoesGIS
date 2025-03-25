@@ -53,7 +53,7 @@ class OntDocGeneration:
         self.progress=progress
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
-        QgsMessageLog.logMessage("Exports: " + str(exports), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("Exports: " + str(exports), "OntdocGeneration", Qgis.Info)
         if startconcept!="No Start Concept":
             self.pubconfig["startconcept"]=startconcept
         else:
