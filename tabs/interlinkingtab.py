@@ -175,9 +175,9 @@ class InterlinkingTab:
         if column > 3 and column < 7:
             self.dlg.buildSearchDialog(row, column, True, self.interlinkTable, True, False, None, self.addVocabConf)
         elif column >= 7:
-            layers = QgsProject.instance().layerTreeRoot().children()
-            selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
-            layer = layers[selectedLayerIndex].layer()
+            #layers = QgsProject.instance().layerTreeRoot().children()
+            layer = self.chooseLayerInterlink.currentLayer()
+            #layer = layers[selectedLayerIndex].layer()
             self.dlg.buildValueMappingDialog(row, column, True, self.interlinkTable, layer)
         elif column == -1:
             self.dlg.buildSearchDialog(row, column, -1, self.dlg.interlinkOwlClassInput, False, False, None, self.addVocabConf)
