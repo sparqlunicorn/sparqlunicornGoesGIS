@@ -133,13 +133,19 @@ class SPARQLHighlighter(QSyntaxHighlighter):
         # else:
         #    # Do other syntax formatting
         for expression, nth, format in self.rules:
-            index = expression.indexIn(text, 0)
-            while index >= 0:
+            matchresult=expression.globalMatch(text)
+            #index = expression.indexIn(text, 0)
+            while matchresult.hasNext():
+                curmatch=matchresult.next()
+                startindex=curmatch.capturedStart()
+                endindex=curmatch.capturedEnd()
+                length=endindex-startindex
+
                 # We actually want the index of the nth match
-                index = expression.pos(nth)
-                length = expression.matchedLength()
-                self.setFormat(index, length, format)
-                index = expression.indexIn(text, index + length)
+                #index = expression.pos(nth)
+                #length = expression.matchedLength()
+                self.setFormat(startindex, length, format)
+                #index = expression.indexIn(text, index + length)
 
         self.setCurrentBlockState(0)
         # Do multi-line strings
@@ -155,14 +161,28 @@ class SPARQLHighlighter(QSyntaxHighlighter):
         inside a multi-line string when this function is finished.
         """
         # If inside triple-single quotes, start at 0
-        if self.previousBlockState() == in_state:
-            start = 0
-            add = 0
+        #if self.previousBlockState() == in_state:
+        start = 0
+        matchres=delimiter.globalMatch(text)
+        while matchres.hasNext():
+            match=matchres.next()
+            if self.currentBlockState() == in_state:
+                end=match.capturedEnd()
+                self.setFormat(start, end-start, style)
+                self.setCurrentBlockState(0)
+            else:
+                self.setCurrentBlockState(in_state)
+                start=match.capturedStart()
+
+        """
         # Otherwise, look for the delimiter on this line
         else:
-            start = delimiter.indexIn(text)
-            # Move past this match
-            add = delimiter.matchedLength()
+            mresult=delimiter.match(text)
+            if mresult.hasMatch():
+                start = mresult.capturedStart()#delimiter.indexIn(text)
+                end = mresult.capturedEnd()
+                # Move past this match
+                add = end-start #delimiter.matchedLength()
 
         # As long as there's a delimiter match on this line...
         while start >= 0:
@@ -180,7 +200,7 @@ class SPARQLHighlighter(QSyntaxHighlighter):
             self.setFormat(start, length, style)
             # Look for the next match
             start = delimiter.indexIn(text, start + length)
-
+        """
         # Return True if still inside a multi-line string, False otherwise
         if self.currentBlockState() == in_state:
             return True

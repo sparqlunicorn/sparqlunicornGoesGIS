@@ -172,7 +172,7 @@ class ConceptContextMenu(QMenu):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
         nodetype = self.item.data(UIUtils.dataslot_nodetype)
         dia= QueryLimitedInstancesDialog(self.triplestoreconf,concept,nodetype)
-        if dia.exec_():
+        if dia.exec():
             if dia.thequery is not None:
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(concept),

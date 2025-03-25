@@ -8,6 +8,7 @@ qgisMinimumVersion=3.0
 supportsQt6=yes
 description=This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs are bundled with the plugin.
 version=0.17.2
+supportsQt6=yes
 author=Florian Thiery, Timo Homburg, SPARQL Unicorn, Research Squirrel Engineers Network
 email=qgisplugin@sparqlunicorn.link
 
