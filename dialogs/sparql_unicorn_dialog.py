@@ -367,21 +367,21 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         item2.setText("Loading...")
         self.classTreeViewModel.appendRow(item2)
         if self.triplestoreconf[self.comboBox.currentIndex()]["type"] == "sparlendpoint":
-            QgsMessageLog.logMessage("GETCLASS TREE SPARQLENDPOINT", "SPARQL Unicorn", Qgis.Info)
+            #QgsMessageLog.logMessage("GETCLASS TREE SPARQLENDPOINT", "SPARQL Unicorn", Qgis.Info)
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree for " + str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]),
                 self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
                 self, self.classTreeViewModel.invisibleRootItem(),
                 self.triplestoreconf[self.comboBox.currentIndex()])
         elif self.triplestoreconf[self.comboBox.currentIndex()]["type"] == "file":
-            QgsMessageLog.logMessage("GETCLASS TREE FILE", "SPARQL Unicorn", Qgis.Info)
+            #QgsMessageLog.logMessage("GETCLASS TREE FILE", "SPARQL Unicorn", Qgis.Info)
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree...",
                 self.currentgraph,
                 self, self.classTreeViewModel.invisibleRootItem(),
                 self.triplestoreconf[self.comboBox.currentIndex()])
         else:
-            QgsMessageLog.logMessage("GETCLASS TREE ELSE", "SPARQL Unicorn", Qgis.Info)
+            #QgsMessageLog.logMessage("GETCLASS TREE ELSE", "SPARQL Unicorn", Qgis.Info)
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree for " + str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]),
                 self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
@@ -426,8 +426,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def endpointselectaction(self,endpointIndex,fromtask=False):
         self.queryTemplates.clear()
         self.filterConcepts.setText("")
-        QgsMessageLog.logMessage('ENDPOINTSELECT INDEX '+str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
-        QgsMessageLog.logMessage('ENDPOINTSELECT CONF ' + str(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn", Qgis.Info)
+        #QgsMessageLog.logMessage('ENDPOINTSELECT INDEX '+str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
+        #QgsMessageLog.logMessage('ENDPOINTSELECT CONF ' + str(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn", Qgis.Info)
         self.geoTreeViewModel.clear()
         self.classTreeViewModel.clear()
         self.geometryCollectionClassListModel.clear()
@@ -529,7 +529,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if (isinstance(self.triplestoreconf[endpointIndex]["resource"]["url"], str) and "wikidata" not in
                 self.triplestoreconf[endpointIndex]["resource"]["url"]) or (not isinstance(
                 self.triplestoreconf[endpointIndex]["resource"]["url"], str) and "instance" in self.triplestoreconf[endpointIndex]["resource"]):
-                QgsMessageLog.logMessage("THE SECOND TIME GET NEW TREE", "ClassTreeQueryTask", Qgis.Info)
+                #QgsMessageLog.logMessage("THE SECOND TIME GET NEW TREE", "ClassTreeQueryTask", Qgis.Info)
                 self.getClassTree()
             if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
                 query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
