@@ -470,11 +470,11 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  141</span>                item = QTableWidgetItem(field)</div>
 <div class="line"><span class="lineno">  142</span>                item.setFlags(QtCore.Qt.ItemFlag.ItemIsEnabled)</div>
 <div class="line"><span class="lineno">  143</span>                item2 = QTableWidgetItem()</div>
-<div class="line"><span class="lineno">  144</span>                item2.setCheckState(<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  144</span>                item2.setCheckState(QtCore.Qt.CheckState.Checked)</div>
 <div class="line"><span class="lineno">  145</span>                item3 = QTableWidgetItem()</div>
-<div class="line"><span class="lineno">  146</span>                item3.setCheckState(<span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  146</span>                item3.setCheckState(QtCore.Qt.CheckState.Unchecked)</div>
 <div class="line"><span class="lineno">  147</span>                item4 = QTableWidgetItem()</div>
-<div class="line"><span class="lineno">  148</span>                item4.setCheckState(<span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  148</span>                item4.setCheckState(QtCore.Qt.CheckState.Unchecked)</div>
 <div class="line"><span class="lineno">  149</span>                self.interlinkTable.insertRow(row)</div>
 <div class="line"><span class="lineno">  150</span>                self.interlinkTable.setItem(row, 3, item)</div>
 <div class="line"><span class="lineno">  151</span>                self.interlinkTable.setItem(row, 0, item2)</div>
