@@ -493,10 +493,10 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  164</span>                self.interlinkTable.setCellWidget(row, 5, cbox)</div>
 <div class="line"><span class="lineno">  165</span>                currentRowCount = self.interlinkTable.rowCount()</div>
 <div class="line"><span class="lineno">  166</span>                row += 1</div>
-<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
 <div class="line"><span class="lineno">  168</span>            msgBox = QMessageBox()</div>
 <div class="line"><span class="lineno">  169</span>            msgBox.setWindowTitle(<span class="stringliteral">&quot;Layer not compatible for interlinking!&quot;</span>)</div>
-<div class="line"><span class="lineno">  170</span>            msgBox.setText(<span class="stringliteral">&quot;The chosen layer is not supported for interlinking. You possibly selected a raster layer&quot;</span>)</div>
+<div class="line"><span class="lineno">  170</span>            msgBox.setText(<span class="stringliteral">&quot;The chosen layer is not supported for interlinking. You possibly selected a raster layer\n\n&quot;</span>+str(e))</div>
 <div class="line"><span class="lineno">  171</span>            msgBox.exec()</div>
 <div class="line"><span class="lineno">  172</span>            <span class="keywordflow">return</span></div>
 <div class="line"><span class="lineno">  173</span> </div>
