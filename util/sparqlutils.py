@@ -246,10 +246,10 @@ class SPARQLUtils:
     @staticmethod
     def handleException(callingtask="",title=None,text=None):
         if SPARQLUtils.exception is not None:
-            ErrorMessageBox(callingtask+" An error occurred!","<html>"+str(SPARQLUtils.exception).replace("\n","<br/>")+"</html>").exec_()
+            ErrorMessageBox(callingtask+" An error occurred!","<html>"+str(SPARQLUtils.exception).replace("\n","<br/>")+"</html>").exec()
             return True
         if title is not None and text is not None:
-            ErrorMessageBox(callingtask+" "+title,"<html>"+text.replace("\n","<br/>")+"</html>").exec_()
+            ErrorMessageBox(callingtask+" "+title,"<html>"+text.replace("\n","<br/>")+"</html>").exec()
             return True
         return False
 
