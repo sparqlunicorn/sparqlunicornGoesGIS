@@ -164,10 +164,10 @@ class InterlinkingTab:
                 self.interlinkTable.setCellWidget(row, 5, cbox)
                 currentRowCount = self.interlinkTable.rowCount()
                 row += 1
-        except:
+        except Exception as e:
             msgBox = QMessageBox()
             msgBox.setWindowTitle("Layer not compatible for interlinking!")
-            msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
+            msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer\n\n"+str(e))
             msgBox.exec()
             return
 
