@@ -292,5 +292,5 @@ class ConceptContextMenu(QMenu):
     def copyClipBoard(item):
         concept = item.data(UIUtils.dataslot_conceptURI)
         cb = QApplication.clipboard()
-        cb.clear(mode=cb.Clipboard)
+        cb.clear(mode=cb.Mode.Clipboard)
         cb.setText(concept, mode=cb.Mode.Clipboard)
