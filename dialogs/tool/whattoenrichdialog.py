@@ -188,7 +188,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                             True)
         self.interlinkdialog.setMinimumSize(650, 500)
         self.interlinkdialog.setWindowTitle("Search Property or Class")
-        self.interlinkdialog.exec_()
+        self.interlinkdialog.exec()
 
     ## 
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.

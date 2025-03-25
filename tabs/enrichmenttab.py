@@ -58,7 +58,7 @@ class EnrichmentTab:
                                                         None, None)
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Enrichment Search")
-        self.searchTripleStoreDialog.exec_()
+        self.searchTripleStoreDialog.exec()
 
     def createEnrichSearchDialog(self, row=-1, column=-1):
         if column == 1:
