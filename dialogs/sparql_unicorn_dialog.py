@@ -463,7 +463,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #        self.geoTreeViewModel.appendRow(item)
         #    self.inp_sparql2.updateNewClassList()
         #    if len(conceptlist) > 0:
-        #        self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectCurrent)
+        #        self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectionFlag.SelectCurrent)
         #    if "examplequery" in self.triplestoreconf[endpointIndex]:
         #        self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
         #        self.inp_sparql2.columnvars = {}
@@ -522,7 +522,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.geoTreeViewModel.appendRow(item)
                 self.inp_sparql2.updateNewClassList()
                 if len(conceptlist) > 0:
-                    self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectCurrent)
+                    self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectionFlag.SelectCurrent)
                 if "examplequery" in self.triplestoreconf[endpointIndex]:
                     self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
                     self.inp_sparql2.columnvars = {}
