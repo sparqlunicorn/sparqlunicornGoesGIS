@@ -23,7 +23,7 @@ class CircleMapTool(QgsMapTool):
         self.rb.setColor(QColor(255, 0, 0, 100))
 
     def canvasPressEvent(self, e):
-        if not e.button() == Qt.LeftButton:
+        if not e.button() == Qt.MouseButton.LeftButton:
             return
         self.status = 1
         self.center = self.toMapCoordinates(e.pos())
@@ -41,7 +41,7 @@ class CircleMapTool(QgsMapTool):
 
     def canvasReleaseEvent(self, e):
         '''La sélection est faîte'''
-        if not e.button() == Qt.LeftButton:
+        if not e.button() == Qt.MouseButton.LeftButton:
             return None
         self.status = 0
         if self.rb.numberOfVertices() > 3:
@@ -96,7 +96,7 @@ class PolygonMapTool(QgsMapTool):
                 self.rb.removeLastPoint()
 
     def canvasPressEvent(self, e):
-        if e.button() == Qt.LeftButton:
+        if e.button() == Qt.MouseButton.LeftButton:
             if self.status == 0:
                 self.rb.reset(QgsWkbTypes.PolygonGeometry)
                 self.status = 1
