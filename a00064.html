@@ -1139,7 +1139,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  463</span>        <span class="comment">#        self.geoTreeViewModel.appendRow(item)</span></div>
 <div class="line"><span class="lineno">  464</span>        <span class="comment">#    self.inp_sparql2.updateNewClassList()</span></div>
 <div class="line"><span class="lineno">  465</span>        <span class="comment">#    if len(conceptlist) &gt; 0:</span></div>
-<div class="line"><span class="lineno">  466</span>        <span class="comment">#        self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectCurrent)</span></div>
+<div class="line"><span class="lineno">  466</span>        <span class="comment">#        self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectionFlag.SelectCurrent)</span></div>
 <div class="line"><span class="lineno">  467</span>        <span class="comment">#    if &quot;examplequery&quot; in self.triplestoreconf[endpointIndex]:</span></div>
 <div class="line"><span class="lineno">  468</span>        <span class="comment">#        self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex][&quot;examplequery&quot;])</span></div>
 <div class="line"><span class="lineno">  469</span>        <span class="comment">#        self.inp_sparql2.columnvars = {}</span></div>
@@ -1198,7 +1198,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  522</span>                    self.geoTreeViewModel.appendRow(item)</div>
 <div class="line"><span class="lineno">  523</span>                self.inp_sparql2.updateNewClassList()</div>
 <div class="line"><span class="lineno">  524</span>                <span class="keywordflow">if</span> len(conceptlist) &gt; 0:</div>
-<div class="line"><span class="lineno">  525</span>                    self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectCurrent)</div>
+<div class="line"><span class="lineno">  525</span>                    self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectionFlag.SelectCurrent)</div>
 <div class="line"><span class="lineno">  526</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;examplequery&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[endpointIndex]:</div>
 <div class="line"><span class="lineno">  527</span>                    self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;examplequery&quot;</span>])</div>
 <div class="line"><span class="lineno">  528</span>                    self.inp_sparql2.columnvars = {}</div>
