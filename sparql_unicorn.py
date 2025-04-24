@@ -43,7 +43,6 @@ from .util.conf.cacheutils import CacheUtils
 from .util.export.layer.layerexporter import LayerExporter
 from .util.conf.configutils import ConfigUtils
 from .tasks.query.util.triplestorereposynctask import TripleStoreRepositorySyncTask
-from .tasks.query.discovery.findfeaturesinbbox import FindFeaturesInBBOXTask
 from .tasks.query.data.querylayertask import QueryLayerTask
 from .util.layerutils import LayerUtils
 from .util.sparqlutils import SPARQLUtils
