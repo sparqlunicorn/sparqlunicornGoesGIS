@@ -216,11 +216,11 @@ class SPARQLunicorn:
         bbox = LayerUtils.reprojectGeometry(self.mptool.rb.asGeometry(), iface.mapCanvas().mapSettings().destinationCrs())
         QgsMessageLog.logMessage("Finished query " + str(self.triplestoreconf), "Find Feature in BBOX Unicorn", Qgis.Info)
         if "bboxquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]:
-            self.thequery = "SELECT ?item ?itemLabel ?geo WHERE { ?item rdfs:label ?itemLabel . FILTER(lang(?itemLabel)=\"en\")\n" + \
+            self.thequery = "SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?type; separator=\";\") as ?types) (GROUP_CONCAT(DISTINCT ?typeLabel; separator=\";\") as ?typeLabels) ?geo WHERE { ?item rdfs:label ?itemLabel . OPTIONAL {?item %%typeproperty%% ?type . ?type rdfs:label ?typeLabel . FILTER(lang(?typeLabel)=\"en\")} FILTER(lang(?itemLabel)=\"en\")\n" + \
                             self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["query"].replace("%%minPoint%%", "Point(" + str(
                                 bbox.boundingBox().xMinimum()) + " " + str(
                                 bbox.boundingBox().yMinimum()) + ")").replace("%%maxPoint%%", "Point(" + str(
-                                bbox.boundingBox().xMaximum()) + " " + str(bbox.boundingBox().yMaximum()) + ")") + "\n}"
+                                bbox.boundingBox().xMaximum()) + " " + str(bbox.boundingBox().yMaximum()) + ")") + "\n} GROUP BY ?item ?itemLabel ?geo"
         QgsMessageLog.logMessage("The Query " + str(self.thequery), "Find Feature in BBOX Unicorn", Qgis.Info)
         self.thequery = SPARQLUtils.queryPreProcessing(self.thequery, self.triplestoreconf[self.dlg.comboBox.currentIndex()])
         self.qlayerinstance = QueryLayerTask(
