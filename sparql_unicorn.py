@@ -43,6 +43,11 @@ from .util.conf.cacheutils import CacheUtils
 from .util.export.layer.layerexporter import LayerExporter
 from .util.conf.configutils import ConfigUtils
 from .tasks.query.util.triplestorereposynctask import TripleStoreRepositorySyncTask
+from .tasks.query.discovery.findfeaturesinbbox import FindFeaturesInBBOXTask
+from .tasks.query.data.querylayertask import QueryLayerTask
+from .util.layerutils import LayerUtils
+from .util.sparqlutils import SPARQLUtils
+from .util.ui.mappingtools import PolygonSelectMapTool
 
 import json
 
@@ -179,8 +184,14 @@ class SPARQLunicorn:
         # iface.messageBar().pushMessage("load libs", a, level=Qgis.Success)
         self.add_action(
             UIUtils.sparqlunicornicon,
-            text=self.tr(u'Adds GeoJSON layer from a Wikidata'),
+            text=self.tr(u'SPARQL Unicorn  QGIS Plugin'),
             callback=self.run,
+            parent=self.iface.mainWindow())
+
+        self.add_action(
+            UIUtils.sparqlunicornicon,
+            text=self.tr(u'SPARQL Unicorn Wikidata Picker'),
+            callback=self.choose_point_mapping_tool,
             parent=self.iface.mainWindow())
 
         # will be set False in run()
@@ -191,9 +202,38 @@ class SPARQLunicorn:
     def unload(self):
         for action in self.actions:
             self.iface.removePluginVectorMenu(
-                self.tr(u'&SPARQL Unicorn Wikidata Plugin'),
+                self.tr(u'&SPARQL Unicorn QGIS Plugin'),
                 action)
             self.iface.removeToolBarIcon(action)
+
+    def choose_point_mapping_tool(self):
+        QgsMessageLog.logMessage("Selected polygon mapping tool", "SPARQL Unicorn", Qgis.Info)
+        self.mptool=PolygonSelectMapTool(self.iface.mapCanvas())
+        self.iface.mapCanvas().setMapTool(self.mptool)
+        self.mptool.selectionDone.connect(self.onTSInfo)
+
+    def onTSInfo(self):
+        QgsMessageLog.logMessage("Selected polygon centroid "+str(self.mptool.rb.asGeometry().centroid().asWkt()), "SPARQL Unicorn", Qgis.Info)
+        bbox = LayerUtils.reprojectGeometry(self.mptool.rb.asGeometry(), iface.mapCanvas().mapSettings().destinationCrs())
+        QgsMessageLog.logMessage("Finished query " + str(self.triplestoreconf), "Find Feature in BBOX Unicorn", Qgis.Info)
+        if "bboxquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]:
+            self.thequery = "SELECT ?item ?itemLabel ?geo WHERE { ?item rdfs:label ?itemLabel . FILTER(lang(?itemLabel)=\"en\")\n" + \
+                            self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["query"].replace("%%minPoint%%", "Point(" + str(
+                                bbox.boundingBox().xMinimum()) + " " + str(
+                                bbox.boundingBox().yMinimum()) + ")").replace("%%maxPoint%%", "Point(" + str(
+                                bbox.boundingBox().xMaximum()) + " " + str(bbox.boundingBox().yMaximum()) + ")") + "\n}"
+        QgsMessageLog.logMessage("The Query " + str(self.thequery), "Find Feature in BBOX Unicorn", Qgis.Info)
+        self.thequery = SPARQLUtils.queryPreProcessing(self.thequery, self.triplestoreconf[self.dlg.comboBox.currentIndex()])
+        self.qlayerinstance = QueryLayerTask(
+            "Get instances from BBOX "+str(bbox.boundingBox()),
+            None,
+            self.triplestoreconf[self.dlg.comboBox.currentIndex()]["resource"],
+            self.thequery,
+            self.triplestoreconf[self.dlg.comboBox.currentIndex()], True, str(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["name"])+"_bbox_["+str(bbox.boundingBox().xMinimum())+","+str(bbox.boundingBox().yMinimum())+","+str(bbox.boundingBox().xMaximum())+","+str(bbox.boundingBox().yMaximum())+"]", None, None)
+        self.mptool.reset()
+        #self.qlayerinstance = FindFeaturesInBBOXTask(
+        #    "Syncing triplestore conf with repository",self.triplestoreconf[self.dlg.comboBox.currentIndex()]["resource"],self.dlg,self.mptool.rb.asGeometry(),iface.mapCanvas().mapSettings().destinationCrs(), self.triplestoreconf[self.dlg.comboBox.currentIndex()])
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
 
 
     def exportLayer2(self):

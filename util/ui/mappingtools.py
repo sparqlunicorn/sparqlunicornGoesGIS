@@ -76,7 +76,7 @@ class CircleMapTool(QgsMapTool):
         return
 
 
-class PolygonMapTool(QgsMapTool):
+class PolygonSelectMapTool(QgsMapTool):
 
     selectionDone = pyqtSignal()
     move = pyqtSignal()
@@ -118,10 +118,10 @@ class PolygonMapTool(QgsMapTool):
 
     def reset(self):
         self.status = 0
-        self.rb.reset(True)
+        self.rb.reset()
 
     def deactivate(self):
-        self.rb.reset(True)
+        self.rb.reset()
         QgsMapTool.deactivate(self)
 
 
@@ -210,3 +210,36 @@ class RectangleMapTool(QgsMapToolEmitPoint):
     def deactivate(self):
         QgsMapTool.deactivate(self)
         self.deactivated.emit()
+
+
+class PointMapTool(QgsMapTool):
+
+    selectionDone = pyqtSignal()
+    move = pyqtSignal()
+
+    def __init__(self, iface,triplestoreconf,languagemap):
+        canvas = iface.mapCanvas()
+        self.triplestoreconf=triplestoreconf
+        self.languagemap=languagemap
+        QgsMapTool.__init__(self, canvas)
+        self.canvas = canvas
+        self.iface = iface
+        self.point=None
+        self.rb = QgsRubberBand(self.canvas, QgsWkbTypes.PointGeometry)
+        self.rb.setColor(QColor(255, 0, 0, 100))
+        self.rb.setWidth(3)
+
+    def canvasReleaseEvent(self, e):
+        #QgsMessageLog.logMessage("Canvas Released Event!!! ", MESSAGE_CATEGORY, Qgis.Info)
+        if e.button() == Qt.MouseButton.LeftButton:
+            self.point=self.toMapCoordinates(e.pos())
+            self.rb.addPoint(self.point)
+            #QgsMessageLog.logMessage("Selected point: " + str(self.point), MESSAGE_CATEGORY, Qgis.Info)
+            self.selectionDone.emit()
+
+    def reset(self):
+        self.rb.reset(QgsWkbTypes.PointGeometry)
+
+    def deactivate(self):
+        self.rb.reset(QgsWkbTypes.PointGeometry)
+        QgsMapTool.deactivate(self)
