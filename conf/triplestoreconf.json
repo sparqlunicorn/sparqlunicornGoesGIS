@@ -398,7 +398,7 @@
     {
         "active": true,
         "bboxquery": {
-            "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }",
+            "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}",
             "type": "minmax"
         },
         "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=item",
@@ -494,7 +494,7 @@
     {
         "active": true,
         "bboxquery": {
-            "query": "SERVICE wikibase:box {\n ?item wdt:P48 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }",
+            "query": "SERVICE wikibase:box {\n ?item wdt:P48 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}",
             "type": "minmax"
         },
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <https://database.factgrid.de/prop/direct/P2> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
