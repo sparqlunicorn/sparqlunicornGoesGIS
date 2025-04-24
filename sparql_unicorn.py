@@ -216,12 +216,29 @@ class SPARQLunicorn:
         bbox = LayerUtils.reprojectGeometry(self.mptool.rb.asGeometry(), iface.mapCanvas().mapSettings().destinationCrs())
         QgsMessageLog.logMessage("Finished query " + str(self.triplestoreconf), "Find Feature in BBOX Unicorn", Qgis.Info)
         if "bboxquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]:
-            self.thequery = "SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?type; separator=\";\") as ?types) (GROUP_CONCAT(DISTINCT ?typeLabel; separator=\";\") as ?typeLabels) ?geo WHERE { ?item rdfs:label ?itemLabel . OPTIONAL {?item %%typeproperty%% ?type . ?type rdfs:label ?typeLabel . FILTER(lang(?typeLabel)=\"en\")} FILTER(lang(?itemLabel)=\"en\")\n" + \
-                            self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["query"].replace("%%minPoint%%", "Point(" + str(
-                                bbox.boundingBox().xMinimum()) + " " + str(
-                                bbox.boundingBox().yMinimum()) + ")").replace("%%maxPoint%%", "Point(" + str(
-                                bbox.boundingBox().xMaximum()) + " " + str(bbox.boundingBox().yMaximum()) + ")") + "\n} GROUP BY ?item ?itemLabel ?geo"
-        QgsMessageLog.logMessage("The Query " + str(self.thequery), "Find Feature in BBOX Unicorn", Qgis.Info)
+            if "type" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"] and self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["type"]=="latlonbbox":
+                self.thequery = ("SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?type; separator=\";\") as ?types) (GROUP_CONCAT(DISTINCT ?typeLabel; separator=\";\") as ?typeLabels) ?lon ?lat \nWHERE {\n ?item <http://www.w3.org/2000/01/rdf-schema#label> ?itemLabel .\n" + \
+                                 self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["query"]
+                                 .replace("%%x1%%", str(bbox.boundingBox().xMinimum()))
+                                 .replace("%%x2%%", str(bbox.boundingBox().xMaximum()))
+                                 .replace("%%y1%%", str(bbox.boundingBox().yMinimum()))
+                                 .replace("%%y2%%", str(bbox.boundingBox().yMaximum())))+ " \nOPTIONAL {?item %%typeproperty%% ?type . ?type <http://www.w3.org/2000/01/rdf-schema#label> ?typeLabel . FILTER(lang(?typeLabel)=\"en\")}\n FILTER(lang(?itemLabel)=\"en\")\n} GROUP BY ?item ?itemLabel ?lon ?lat"
+                QgsMessageLog.logMessage("The Query " + str(self.thequery), "Find Feature in BBOX Unicorn", Qgis.Info)
+            elif "type" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"] and self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["type"]=="geosparql":
+                self.thequery = ("SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?type; separator=\";\") as ?types) (GROUP_CONCAT(DISTINCT ?typeLabel; separator=\";\") as ?typeLabels) ?geo \nWHERE {\n ?item <http://www.w3.org/2000/01/rdf-schema#label> ?itemLabel .\n" + \
+                                 self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["query"]
+                                 .replace("%%x1%%", str(bbox.boundingBox().xMinimum()))
+                                 .replace("%%x2%%", str(bbox.boundingBox().xMaximum()))
+                                 .replace("%%y1%%", str(bbox.boundingBox().yMinimum()))
+                                 .replace("%%y2%%", str(bbox.boundingBox().yMaximum())))+ " \nOPTIONAL {?item %%typeproperty%% ?type . ?type <http://www.w3.org/2000/01/rdf-schema#label> ?typeLabel . FILTER(lang(?typeLabel)=\"en\")}\n FILTER(lang(?itemLabel)=\"en\")\n} GROUP BY ?item ?itemLabel ?geo"
+                QgsMessageLog.logMessage("The Query " + str(self.thequery), "Find Feature in BBOX Unicorn", Qgis.Info)
+            elif "type" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"] and self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["type"]=="minmax":
+                self.thequery = "SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?type; separator=\";\") as ?types) (GROUP_CONCAT(DISTINCT ?typeLabel; separator=\";\") as ?typeLabels) ?geo \nWHERE {\n ?item <http://www.w3.org/2000/01/rdf-schema#label> ?itemLabel .\n" + \
+                                self.triplestoreconf[self.dlg.comboBox.currentIndex()]["bboxquery"]["query"].replace("%%minPoint%%", "Point(" + str(
+                                    bbox.boundingBox().xMinimum()) + " " + str(
+                                    bbox.boundingBox().yMinimum()) + ")").replace("%%maxPoint%%", "Point(" + str(
+                                    bbox.boundingBox().xMaximum()) + " " + str(bbox.boundingBox().yMaximum()) + ")") + "\nOPTIONAL {?item %%typeproperty%% ?type . ?type <http://www.w3.org/2000/01/rdf-schema#label> ?typeLabel . FILTER(lang(?typeLabel)=\"en\")}\n FILTER(lang(?itemLabel)=\"en\")\n} GROUP BY ?item ?itemLabel ?geo"
+                QgsMessageLog.logMessage("The Query " + str(self.thequery), "Find Feature in BBOX Unicorn", Qgis.Info)
         self.thequery = SPARQLUtils.queryPreProcessing(self.thequery, self.triplestoreconf[self.dlg.comboBox.currentIndex()])
         self.qlayerinstance = QueryLayerTask(
             "Get instances from BBOX "+str(bbox.boundingBox()),
