@@ -9,7 +9,7 @@ from qgis.core import QgsMessageLog
 
 from ...util.sparqlutils import SPARQLUtils
 from ...util.ui.uiutils import UIUtils
-from ...util.ui.mappingtools import RectangleMapTool,CircleMapTool,PolygonMapTool
+from ...util.ui.mappingtools import RectangleMapTool,CircleMapTool,PolygonSelectMapTool
 from ...util.geocodingutils import GeocodingUtils, SPARQLCompleter
 import os.path
 import json
@@ -56,7 +56,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             print("Layer failed to load!")
         self.rect_tool = RectangleMapTool(self.map_canvas)
         self.circ_tool = CircleMapTool(self.map_canvas, 1)
-        self.poly_tool = PolygonMapTool(self.map_canvas)
+        self.poly_tool = PolygonSelectMapTool(self.map_canvas)
         self.map_canvas.setMapTool(self.rect_tool)
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas_geocoding.setExtent(self.mts_layer.extent())
