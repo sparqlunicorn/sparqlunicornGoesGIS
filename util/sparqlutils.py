@@ -88,6 +88,13 @@ class SPARQLUtils:
         collectionmemberproperty="http://www.w3.org/2000/01/rdf-schema#member"
         if "collectionmemberproperty" in triplestoreconf:
             collectionmemberproperty=triplestoreconf["collectionmemberproperty"]
+        if "geometryproperty" in triplestoreconf:
+            for prop in triplestoreconf["geometryproperty"]:
+                if "%%lat%%" in query and "lat" in prop:
+                    query=query.replace("%%lat%%"," <"+prop+"> ")
+                if ("%%lon%%" in query or "%%long%%" in query) and "lon" in prop:
+                    query=query.replace("%%long%%"," <"+prop+"> ")
+                    query=query.replace("%%lon%%", " <" + prop + "> ")
         query=query.replace("%%subclassproperty%%","<"+subclassproperty+">")\
             .replace("%%typeproperty%%","<"+typeproperty+">")\
             .replace("%%labelproperty%%","<"+labelproperty[0]+">")\
