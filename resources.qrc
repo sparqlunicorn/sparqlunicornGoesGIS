@@ -38,10 +38,12 @@
     <file>resources/icons/searchclass.png</file>
     <file>resources/icons/columnasvar.png</file>
     <file>resources/icons/classlink.png</file>
+    <file>resources/icons/pickericon.png</file>
     <file>resources/icons/layerFromRDF.png</file>
     <file>resources/icons/labelannotationproperty.png</file>
     <file>resources/icons/commentannotationproperty.png</file>
     <file>resources/icons/add.png</file>
+    <file>resources/icons/pickericon.png</file>
     <file>resources/icons/remove.png</file>
     <file>resources/icons/classschema.png</file>
     <file>resources/icons/geoclassschema.png</file>
