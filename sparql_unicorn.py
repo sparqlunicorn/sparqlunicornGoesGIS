@@ -188,7 +188,7 @@ class SPARQLunicorn:
             parent=self.iface.mainWindow())
 
         self.add_action(
-            UIUtils.sparqlunicornicon,
+            UIUtils.pickericon,
             text=self.tr(u'SPARQL Unicorn Wikidata Picker'),
             callback=self.choose_point_mapping_tool,
             parent=self.iface.mainWindow())
