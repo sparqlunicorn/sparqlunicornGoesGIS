@@ -42,6 +42,7 @@
     <file>resources/icons/labelannotationproperty.png</file>
     <file>resources/icons/commentannotationproperty.png</file>
     <file>resources/icons/add.png</file>
+    <file>resources/icons/pickericon.png</file>
     <file>resources/icons/remove.png</file>
     <file>resources/icons/classschema.png</file>
     <file>resources/icons/geoclassschema.png</file>
