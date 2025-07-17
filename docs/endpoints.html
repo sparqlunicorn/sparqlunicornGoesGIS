@@ -19,7 +19,7 @@ function buildTable(config){
   result=""
   for(item of config){
       if("active" in item && item["active"]){
-         result+="<tr><td>"+item["name"]+"</td><td>"+item["type"]+"</td><td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</td></tr>
+         result+="<tr><td>"+item["name"]+"</td><td>"+item["type"]+"</td><td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</td></tr>"
       }
   }
   document.getElementById("tablecontent").innerHTML=result
