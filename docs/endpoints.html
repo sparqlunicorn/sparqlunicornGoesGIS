@@ -9,7 +9,7 @@
   </head>
   <body>
     <h2 style="text-align:center">Automatically Configured RDF Resources in the SPARQLing Unicorn QGIS Plugin</h2>
-  <table id="table"><thead><th>Name</th><th>Type</th><th>URL</th></thead>
+  <table id="table"><thead><th>Name</th><th>Capabilities</th><th>Resource Type</th><th>URL</th></thead>
   <tbody id="tablecontent">
     
   </tbody></table>  
@@ -19,7 +19,13 @@ function buildTable(config){
   result=""
   for(item of config){
       if("active" in item && item["active"]){
-         result+="<tr><td>"+item["name"]+"</td><td>"+item["type"]+"</td><td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</a></td></tr>"
+         result+="<tr><td>"+item["name"]+"</td>"
+         if(item["type"]=="geosparqlendpoint"){
+          result+="<td>GeoSPARQL</td>"
+         }else{
+          result+="<td>SPARQL</td>"
+         }
+         result+="<td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</a></td></tr>"
       }
   }
   document.getElementById("tablecontent").innerHTML=result
