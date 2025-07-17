@@ -1,0 +1,41 @@
+<html>
+  <head>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+  </head>
+  <body>
+    <h1>Automatically Configured RDF Resources in the SPARQLing Unicorn QGIS Plugin</h1>
+  <table id="table"><thead><th>Name</th><th>Type</th><th>URL</th></thead>
+  <tbody id="tablecontent">
+    
+  </tbody></table>  
+  </body>
+<script>
+function buildTable(config){
+  result=""
+  for(item of config){
+      if("active" in item && item["active"]){
+         result+="<tr><td>"+item["name"]+"</td><td>"+item["type"]+"</td><td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</td></tr>
+      }
+  }
+  document.getElementById("tablecontent").innerHTML=result
+  $('#table').DataTable();
+}
+  fetch('https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/refs/heads/ldregistry/ldregistry.json')
+   .then(response => {
+       if (!response.ok) {
+           throw new Error("HTTP error " + response.status);
+       }
+       return response.json();
+   })
+   .then(json => {
+       var config = json;
+       buildTable(config)
+       //console.log(this.users);
+   })
+   .catch(function () {
+       this.dataError = true;
+   })
+</script>
+</html>
