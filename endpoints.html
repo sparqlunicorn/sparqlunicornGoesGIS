@@ -25,7 +25,7 @@ function buildTable(config){
          }else{
           result+="<td>SPARQL</td>"
          }
-         result+="<td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</a></td></tr>"
+         result+="<td>"+item["resource"]["type"]+"</td><td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</a></td></tr>"
       }
   }
   document.getElementById("tablecontent").innerHTML=result
