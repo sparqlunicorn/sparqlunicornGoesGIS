@@ -7,8 +7,8 @@ from ...sparqlutils import SPARQLUtils
 
 from .owltimepage import OWLTimePage
 
-import shapely.wkt
-import shapely.geometry
+#import shapely.wkt
+#import shapely.geometry
 import json
 
 
@@ -16,11 +16,11 @@ class GeometryViewPage:
 
     def createSVGFromWKT(self, templates, features, f):
         thepath = "<svg>"
-        geomcoll = shapely.geometry.GeometryCollection(
-            [shapely.geometry.shape(feature["geometry"]) for feature in features["features"]])
-        svgpath = geomcoll.svg()
+        #geomcoll = shapely.geometry.GeometryCollection(
+        #    [shapely.geometry.shape(feature["geometry"]) for feature in features["features"]])
+        #svgpath = geomcoll.svg()
         # print(svgpath)
-        thepath += svgpath
+        #thepath += svgpath
         thepath += "</svg>"
         # print(thepath)
         f.write(templates["imagestemplatesvg"].replace("{{carousel}}", "image").replace("{{image}}",
