@@ -61,7 +61,7 @@ class ClassTreeQueryTask(QgsTask):
                 return False
             hasparent={}
             #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
-            QgsMessageLog.logMessage('Got results! ' + str(results), MESSAGE_CATEGORY,Qgis.Info)
+            #QgsMessageLog.logMessage('Got results! ' + str(results), MESSAGE_CATEGORY,Qgis.Info)
             for result in results["results"]["bindings"]:
                 subval=result["subject"]["value"]
                 if subval is None or subval=="" or subval in notforclasstree:
@@ -111,7 +111,7 @@ class ClassTreeQueryTask(QgsTask):
         return True
 
     def buildTree(self,curNode,classtreemap,subclassmap,mypath):
-        QgsMessageLog.logMessage("CurNode: "+str(curNode)+" "+str(self.alreadyprocessed), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("CurNode: "+str(curNode)+" "+str(self.alreadyprocessed), MESSAGE_CATEGORY, Qgis.Info)
         if curNode not in self.alreadyprocessed:
             for item in subclassmap[curNode]:
                 if item in classtreemap and item not in self.alreadyprocessed:
@@ -144,12 +144,11 @@ class ClassTreeQueryTask(QgsTask):
                 #QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
                 #             "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
                 if not os.path.exists(path):
-                    f = open(path, "w")
-                    res={"text": "root"}
-                    UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
-                    QgsMessageLog.logMessage("SAVING CLASS TREE "+str(path), MESSAGE_CATEGORY, Qgis.Info)
-                    f.write(json.dumps(res,indent=2,default=ConfigUtils.dumper,sort_keys=True))
-                    f.close()
+                    with open(path, "w",encoding="utf-8") as f:
+                        res={"text": "root"}
+                        UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
+                        QgsMessageLog.logMessage("SAVING CLASS TREE "+str(path), MESSAGE_CATEGORY, Qgis.Info)
+                        json.dump(res,f,indent=2,default=ConfigUtils.dumper,sort_keys=True)
             self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
             self.dlg.classTreeView.header().setStretchLastSection(True)
             self.dlg.classTreeView.header().setMinimumSectionSize(self.dlg.classTreeView.width())

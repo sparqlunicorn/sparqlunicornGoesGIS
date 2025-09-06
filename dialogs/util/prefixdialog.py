@@ -43,14 +43,14 @@ class PrefixDialog(QDialog, FORM_CLASS):
     def savePrefix(self):
         if self.addOrEdit:
             item=QListWidgetItem()
-            item.setText(self.prefixEdit.text() + ": <" + str(self.uriEdit.text()) + ">")
+            item.setText(f"{self.prefixEdit.text()}: <{self.uriEdit.text()}>")
             item.setData(256, self.uriEdit.text())
             item.setData(257, self.prefixEdit.text())
             self.prefixList.addItem(item)
             self.prefixList.sortItems()
         else:
             for item in self.prefixList.selectedItems():
-                item.setText(self.prefixEdit.text()+": <"+str(self.uriEdit.text())+">")
+                item.setText(f"{self.prefixEdit.text()}: <{self.uriEdit.text()}>")
                 item.setData(256,self.uriEdit.text())
                 item.setData(257, self.prefixEdit.text())
         self.close()

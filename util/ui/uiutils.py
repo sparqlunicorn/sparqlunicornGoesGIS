@@ -278,18 +278,17 @@ class UIUtils:
             searchResultModel.setItem(counter, 0, itemchecked)
             item = QStandardItem()
             if "label" in queryresult[att] and queryresult[att]["label"]!="":
-                thetext=str(queryresult[att]["label"]) + " (" + SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes) + ")"
+                thetext=f'{queryresult[att]["label"]} ({SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes)} + ")'
                 if "amount" in queryresult[att]:
-                    thetext+=" [" + str(queryresult[att]["amount"]) + "%]"
+                    thetext+=f' [{queryresult[att]["amount"]}%]'
                 item.setText(thetext)
             else:
                 thetext=SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes)
                 if "amount" in queryresult[att]:
-                    thetext+=" [" + str(queryresult[att]["amount"]) + "%]"
+                    thetext+=f' [{queryresult[att]["amount"]}%]'
                 item.setText(thetext)
             item.setData(str(queryresult[att]["concept"]), UIUtils.dataslot_conceptURI)
-            item.setToolTip("<html><b>Property URI</b> " + str(
-                queryresult[att]["concept"]) + "<br>Double click to view definition in web browser")
+            item.setToolTip(f'<html><b>Property URI</b> {queryresult[att]["concept"]}<br>Double click to view definition in web browser')
             searchResultModel.setItem(counter, 1, item)
             itembutton = QStandardItem()
             if nodetype is not SPARQLUtils.instancenode and nodetype is not SPARQLUtils.geoinstancenode:
@@ -337,16 +336,16 @@ class UIUtils:
             if node.data(UIUtils.dataslot_conceptURI) is None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
             if node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode:
-                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)),None))+"\" .\n")
-                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)),None))+"\" .\n")
-                result.add("<"+str(node.child(i).data(UIUtils.dataslot_conceptURI))+"> <"+subclassproperty+"> <"+str(node.data(UIUtils.dataslot_conceptURI))+"> .\n")
+                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)),None)}\" .\n")
+                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)),None)}\" .\n")
+                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{subclassproperty}> <{node.data(UIUtils.dataslot_conceptURI)}> .\n")
             elif not classesonly and node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoinstancenode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.instancenode:
-                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)), None)) + "\" .\n")
-                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)), None)) + "\" .\n")
-                result.add("<"+str(node.child(i).data(UIUtils.dataslot_conceptURI))+"> <"+typeproperty+"> <"+str(node.data(UIUtils.dataslot_conceptURI))+"> .\n")
+                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)), None)}\" .\n")
+                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)), None)}\" .\n")
+                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <{node.data(UIUtils.dataslot_conceptURI)}> .\n")
 
     @staticmethod
     def iterateTreeToJSON(node,result,visible,classesonly,triplestoreconf,currentContext):
@@ -395,7 +394,7 @@ class UIUtils:
     @staticmethod
     def loadTreeFromJSONFile(rootNode,filepath):
         #QgsMessageLog.logMessage("FILEPATH: " + str(filepath), MESSAGE_CATEGORY, Qgis.Info)
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r',encoding="utf-8") as f:
             jsontree = json.load(f)
         #QgsMessageLog.logMessage("JSONTREE: " + str(jsontree), MESSAGE_CATEGORY, Qgis.Info)
         elemcount=0
@@ -428,7 +427,7 @@ class UIUtils:
                 curitem.setData(elem["conceptURI"],UIUtils.dataslot_conceptURI)
             if "instanceamount" in elem:
                 curitem.setData(elem["instanceamount"],UIUtils.dataslot_instanceamount)
-                curitem.setText(curitem.text()+"["+elem["instanceamount"]+"]")
+                curitem.setText(f'{curitem.text()}[{elem["instanceamount"]}]')
             curnode.appendRow(curitem)
             if "children" in elem and not isinstance(elem, str) and isinstance(elem["children"], list) and elem[
                 "children"] != []:

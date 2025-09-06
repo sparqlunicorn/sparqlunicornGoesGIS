@@ -41,11 +41,10 @@ class ConvertCRSTask(QgsTask):
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self.dialog, "QFileDialog.getSaveFileName()", "", "All Files (*);;Text Files (*.ttl)", options=options)
         if fileName and self.graph is not None:
-            fo = open(fileName, "w")
-            fo.write(ConvertCRS().ttlhead)
-            fo.write(self.graph.serialize(format="turtle"))
-            for crs in self.crsdefs:
-                fo.write(self.crsdefs[crs])
-            fo.close()
+            with open(fileName, "w",encoding="utf-8") as fo:
+                fo.write(ConvertCRS().ttlhead)
+                fo.write(self.graph.serialize(format="turtle"))
+                for crs in self.crsdefs:
+                    fo.write(self.crsdefs[crs])
         iface.messageBar().pushMessage("Save converted file", "OK", level=Qgis.Success)
         self.dialog.close()

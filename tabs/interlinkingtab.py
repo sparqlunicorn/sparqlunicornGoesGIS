@@ -338,7 +338,7 @@ class InterlinkingTab:
             if filename == "":
                 return
             exportstring = self.exportMappingProcess("json" in filename)
-            with open(filename, 'w') as output_file:
+            with open(filename, 'w',encoding="utf-8") as output_file:
                 output_file.write(exportstring)
                 iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
         else:

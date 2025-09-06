@@ -35,8 +35,8 @@ class BibPage:
                           }
         bibtexitem = {"type": "@misc"}
         for tup in predobjs:
-            tupstr=str(tup[0])
-            tupstrobj=str(tup[1])
+            tupstr = str(tup[0])
+            tupstrobj = str(tup[1])
             if tupstr == "http://purl.org/dc/elements/1.1/creator" or tupstr == "http://purl.org/dc/terms/creator":
                 if "author" not in bibtexitem:
                     bibtexitem["author"] = []
@@ -71,11 +71,11 @@ class BibPage:
                         res += author + " "
                         first = False
                     else:
-                        res += "and " + author + " "
+                        res += f"and {author} "
                 res = res[0:-1]
                 res += "},\n"
             elif bibpart == "pages":
-                res += bibtexitem[bibpart]["start"] + "--" + bibtexitem[bibpart]["end"] + "},\n"
+                res += f'{bibtexitem[bibpart]["start"]}--{bibtexitem[bibpart]["end"]}' + "},\n"
             else:
                 res += str(bibtexitem[bibpart]) + "},\n"
         res = res[0:-2]
@@ -83,14 +83,14 @@ class BibPage:
         return res
 
     @staticmethod
-    def generatePageWidget(graph,memberid,templates,f,pageWidget=False):
-        return BibPage.resolveBibtexReference(graph.predicate_objects(memberid),memberid,graph)
+    def generatePageWidget(graph, memberid, templates, f, pageWidget=False):
+        return BibPage.resolveBibtexReference(graph.predicate_objects(memberid), memberid, graph)
 
     @staticmethod
-    def generateCollectionWidget(graph,subject,templates, f):
+    def generateCollectionWidget(graph, subject, templates, f):
         f.write("<details><summary>[BIBTEX]</summary><pre>")
         for bibentry in graph.objects(subject, RDFS.member, True):
-            f.write(BibPage.generatePageWidget(graph,bibentry,templates,f,True))
+            f.write(BibPage.generatePageWidget(graph, bibentry, templates, f, True))
             f.write("\n")
         f.write("</pre></details>")
 

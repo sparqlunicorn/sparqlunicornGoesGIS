@@ -91,10 +91,9 @@ class InstanceSampleQueryTask(QgsTask):
                             encounteredcrs.add(myGeometryInstanceJSON["crs"])
                         del myGeometryInstanceJSON["crs"]
                 elif type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
-                    myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(rel["value"])) + " " + str(
-                        float(rel["value2"])) + ")", "wkt", True,None, self.triplestoreconf)
+                    myGeometryInstanceJSON=LayerUtils.processLiteral(f'POINT({str(float(rel["value"]))} {float(rel["value2"])})', "wkt", True,None, self.triplestoreconf)
                 if myGeometryInstanceJSON is not None:
-                    geojson = {'id': str(self.concept)+"_"+str(counter), 'type': 'Feature', 'properties': {},
+                    geojson = {'id': f'{self.concept}_{counter}', 'type': 'Feature', 'properties': {},
                         'geometry': myGeometryInstanceJSON}
                     geocollection["features"].append(geojson)
                     counter+=1
@@ -125,11 +124,11 @@ class InstanceSampleQueryTask(QgsTask):
             reslabelprop="value2label"
         for res in self.queryresult:
             if "http" in res:
-                resstring+=str(res[reslabelprop])+" ["+str(res["amount"])+"] "
+                resstring+=f'{res[reslabelprop]} [{res["amount"]}] '
             elif "datatype" in res:
-                resstring+=str(res[reslabelprop])+" ["+str(res["amount"])+"] "
+                resstring+=f'{res[reslabelprop]} [{res["amount"]}] '
             else:
-                resstring+=str(res[reslabelprop])+" ["+str(res["amount"])+"] "
+                resstring+=f'{res[reslabelprop]} [{res["amount"]}] '
             if counter%5==0:
                 resstring+="\n"
             counter+=1

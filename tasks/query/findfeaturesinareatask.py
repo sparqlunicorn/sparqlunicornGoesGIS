@@ -28,5 +28,5 @@ class FindFeaturesInAreaTask(QgsTask):
 
     def finished(self, result):
         if self.amount!=-1:
-            self.treeNode.setText(self.treeNode.text()+" ["+str(self.amount)+"]")
+            self.treeNode.setText(f'{self.treeNode.text()} [{self.amount}]')
             self.treeNode.setData(str(self.amount),UIUtils.dataslot_instanceamount)

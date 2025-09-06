@@ -21,22 +21,21 @@ class IIIFAPIExporter:
                     # print(ur)
                     sur = DocUtils.shortenURI(ur)
                     # print("Getting "+outpath+"/iiif/mf/"+sur+"/manifest.json")
-                    if os.path.exists(outpath + "/iiif/mf/" + sur + "/manifest.json") and "anno" in imagetoURI[imgpath]:
-                        f = open(outpath + "/iiif/mf/" + sur + "/manifest.json", 'r', encoding="utf-8")
-                        curmanifest = json.loads(f.read())
-                        f.close()
+                    mf=f'{outpath}/iiif/mf/{sur}/manifest.json'
+                    if os.path.exists(mf) and "anno" in imagetoURI[imgpath]:
+                        with open(mf, 'r', encoding="utf-8") as f:
+                            curmanifest = json.load(f)
                         annocounter = 2
                         for anno in imagetoURI[imgpath]["anno"]:
-                            anno["id"] = imgpath + "/canvas/p2/anno-" + str(annocounter)
-                            anno["target"]["source"] = imgpath + "/canvas/p1"
+                            anno["id"] = f"{imgpath}/canvas/p2/anno-{annocounter}"
+                            anno["target"]["source"] = f"{imgpath}/canvas/p1"
                             if "bodies" in imagetoURI[imgpath]["uri"]:
                                 anno["body"] = [anno["body"]]
                                 anno["body"] += imagetoURI[imgpath]["uri"]["bodies"]
                             curmanifest["items"][0]["annotations"][0]["items"].append(anno)
                             annocounter += 1
-                        f = open(outpath + "/iiif/mf/" + sur + "/manifest.json", 'w', encoding="utf-8")
-                        f.write(json.dumps(curmanifest))
-                        f.close()
+                        with open(mf, 'w', encoding="utf-8") as f:
+                            json.dump(curmanifest,f)
 
     @staticmethod
     def generateIIIFManifest(g, outpath, deploypath, imgpaths, annos, annobodies, curind, prefixnamespace, imagetoURI, imagemetadata,metadatanamespaces, label="",
@@ -47,7 +46,8 @@ class IIIFAPIExporter:
         #print(outpath)
         #print(curind)
         #print(DocUtils.shortenURI(curind))
-        if not os.path.exists(outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json"):
+        curinduri = DocUtils.shortenURI(curind)
+        if not os.path.exists(outpath + "/iiif/mf/" + curinduri + "/manifest.json"):
             if not os.path.exists(outpath + "/iiif/mf/"):
                 os.makedirs(outpath + "/iiif/mf/")
             if not os.path.exists(outpath + "/iiif/images/"):
@@ -57,26 +57,26 @@ class IIIFAPIExporter:
             #print(label)
             if label != "":
                 curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                   "id": deploypath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json",
+                                   "id": deploypath + "/iiif/mf/" + curinduri + "/manifest.json",
                                    "type": "Manifest",
-                                   "label": {"en": [str(label) + " (" + DocUtils.shortenURI(curind) + ")"]}, "homepage": [
+                                   "label": {"en": [f"{label} ({curinduri})"]}, "homepage": [
                         {"id": str(curind).replace(prefixnamespace, deploypath + "/"), "type": "Text",
                          "label": {"en": [str(curind).replace(prefixnamespace, deploypath + "/")]},
                          "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
             else:
                 curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                   "id": deploypath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json",
-                                   "type": "Manifest", "label": {"en": [DocUtils.shortenURI(curind)]}, "homepage": [
+                                   "id": deploypath + "/iiif/mf/" + curinduri + "/manifest.json",
+                                   "type": "Manifest", "label": {"en": [curinduri]}, "homepage": [
                         {"id": str(curind).replace(prefixnamespace, deploypath + "/"), "type": "Text",
                          "label": {"en": [str(curind).replace(prefixnamespace, deploypath + "/")]},
                          "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
             pagecounter = 1
             for imgpath in imgpaths:
+                pcstr=str(pagecounter)
                 if imgpath.startswith("<svg") and "http" not in imgpath:
-                    f = open(outpath + "/iiif/svg/" + DocUtils.shortenURI(curind) + "_" + str(pagecounter) + ".svg", "w", encoding="utf-8")
-                    f.write(str(imgpath).replace("<svg>","<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">"))
-                    f.close()
-                    imgpath = outpath + "/iiif/svg/" + DocUtils.shortenURI(curind) + "_" + str(pagecounter) + ".svg"
+                    with open(f"{outpath}/iiif/svg/{curinduri}_{pcstr}.svg", "w", encoding="utf-8") as f:
+                        f.write(str(imgpath).replace("<svg","<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" "))
+                    imgpath = f"{deploypath}/iiif/svg/{curinduri}_{pcstr}.svg"
                 if imgpath not in imagetoURI:
                     imagetoURI[imgpath] = {}
                 if "anno" not in imagetoURI[imgpath]:
@@ -110,15 +110,15 @@ class IIIFAPIExporter:
                 else:
                     height = imagetoURI[imgpath]["height"]
                     width = imagetoURI[imgpath]["width"]
-                curitem = {"id": imgpath + "/canvas/p" + str(pagecounter), "height": height, "width": width,
+                curitem = {"id": f"{imgpath}/canvas/p{pcstr}", "height": height, "width": width,
                            "type": "Canvas",
-                           "label": {"en": [str(label) + " " + str(maintype) + " " + str(pagecounter + 1)]}, "items": [
-                        {"id": imgpath + "/canvas/p" + str(pagecounter) + "/1", "type": "AnnotationPage", "items": [
-                            {"id": imgpath + "/annotation/p" + str(pagecounter) + "/1", "type": "Annotation",
+                           "label": {"en": [f'{label} {maintype} {pagecounter + 1}']}, "items": [
+                        {"id": f"{imgpath}/canvas/p{pcstr}/1", "type": "AnnotationPage", "items": [
+                            {"id": f"{imgpath}/annotation/p{pcstr}/1", "type": "Annotation",
                              "motivation": "painting",
                              "body": {"id": imgpath, "type": str(maintype), "format": "image/png"},
-                             "target": imgpath + "/canvas/p" + str(pagecounter)}]}], "annotations": [
-                        {"id": imgpath + "/canvas/p" + str(pagecounter) + "/annopage-2", "type": "AnnotationPage",
+                             "target": f'{imgpath}/canvas/p{pcstr}'}]}], "annotations": [
+                        {"id": f"{imgpath}/canvas/p{pcstr}/annopage-2", "type": "AnnotationPage",
                          "items": []}]}
                 curiiifmanifest["items"].append(curitem)
                 pagecounter += 1
@@ -126,17 +126,15 @@ class IIIFAPIExporter:
                 for objs in predobjmap[pred]:
                     if isinstance(objs, URIRef):
                         curiiifmanifest["metadata"].append({"label": {"en": [DocUtils.shortenURI(str(pred))]}, "value": {
-                            "en": ["<a href=\"" + str(objs) + "\">" + str(objs) + "</a>"]}})
+                            "en": [f"<a href=\"{objs}\">{objs}</a>"]}})
                     else:
-                        curiiifmanifest["metadata"].append(
-                            {"label": {"en": [DocUtils.shortenURI(str(pred))]}, "value": {"en": [str(objs)]}})
+                        curiiifmanifest["metadata"].append({"label": {"en": [DocUtils.shortenURI(str(pred))]}, "value": {"en": [str(objs)]}})
             # print(curiiifmanifest["metadata"])
-            if summary != None and summary != "" and summary != {}:
+            if summary is not None and summary != "" and summary != {}:
                 curiiifmanifest["summary"] = {"en": [str(summary)]}
-            os.makedirs(outpath + "/iiif/mf/" + DocUtils.shortenURI(curind))
-            f = open(outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json", "w", encoding="utf-8")
-            f.write(json.dumps(curiiifmanifest))
-            f.close()
+            os.makedirs(f"{outpath}/iiif/mf/{curinduri}")
+            with open(f"{outpath}/iiif/mf/{curinduri}/manifest.json", "w", encoding="utf-8") as f:
+                json.dump(curiiifmanifest,f)
         # if annos!=None:
         #    self.generateIIIFAnnotations(self.outpath,annos,curind,next(iter(imgpaths)))
         besttype = ""
@@ -147,7 +145,7 @@ class IIIFAPIExporter:
                 break
         if besttype == "" and len(thetypes) > 0:
             besttype = next(iter(thetypes))
-        return {"url": outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json", "imgpath": list(imgpaths.keys()), "label": str(label),
+        return {"url": f"{outpath}/iiif/mf/{curinduri}/manifest.json", "imgpath": list(imgpaths.keys()), "label": str(label),
                 "class": besttype,"ind":curind}
 
     @staticmethod
@@ -158,19 +156,18 @@ class IIIFAPIExporter:
             #print("IMAGEPATH: "+str(imgpath))
             categories.add(DocUtils.shortenURI(imgpath["class"]))
             for imgp in imgpath["imgpath"]:
+                induri=DocUtils.shortenURI(imgpath["ind"])
                 imghtml+="<li data-groups='[\"all\",\"red\",\""+str(imgpath["class"])+"\"]' style=\"width:25%;background-color:white;border-radius:25px;\"><figure class=\"col-3@sm picture-item\"><div class=\"aspect aspect--16x9\"><div class=\"aspect__inner\">"
-                imghtml+="<a href=\""+str(deploypath)+"/"+DocUtils.shortenURI(imgpath["ind"])+"\" target=\"_blank\"><img src=\""+str(imgp)+"\" loading=\"lazy\" class=\"imgborder\" alt=\""+str(imgpath["label"])+"\"/></a></div></div>"
-                imghtml+="<figcaption style=\"color:black\"><a href=\""+str(deploypath)+"/"+DocUtils.shortenURI(imgpath["ind"])+"\" style=\"font-weight:bold;color:black\" target=\"_blank\">"
+                imghtml+=f'<a href={deploypath}/{induri}" target="_blank"><img src="{imgp}" loading="lazy" class="imgborder" alt="{imgpath["label"]}"/></a></div></div><figcaption style="color:black"><a href="{deploypath}/{induri}" style="font-weight:bold;color:black" target="_blank">'
                 if imgpath["label"]!="":
-                   imghtml+=str(imgpath["label"])+"</a></figcaption></figure></li>"
+                   imghtml+=f'{imgpath["label"]}</a></figcaption></figure></li>'
                 else:
-                   imghtml += DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", "")) + "</a></figcaption></figure></li>"
-        if targetfile!=None:
-            f = open(targetfile, "w")
-            f.write(headertemplate)
-            f.write(imagegridtemplate.replace("{{imagecontainers}}",imghtml).replace("{{categories}}",str(categories).replace("{","").replace("}","")))
-            f.write(footertemplate)
-            f.close()
+                   imghtml += f'{DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", ""))}</a></figcaption></figure></li>'
+        if targetfile is not None:
+            with open(targetfile, "w",encoding="utf-8") as f:
+                f.write(headertemplate)
+                f.write(imagegridtemplate.replace("{{imagecontainers}}",imghtml).replace("{{categories}}",str(categories).replace("{","").replace("}","")))
+                f.write(footertemplate)
         else:
             imggrid=headertemplate
             imggrid+=imagegridtemplate.replace("{{imagecontainers}}",imghtml).replace("{{categories}}",str(categories).replace("{","").replace("}",""))
@@ -179,98 +176,70 @@ class IIIFAPIExporter:
 
     @staticmethod
     def generateIIIFCollections(outpath, deploypath, imagespaths, prefixnamespace):
-        apihtml = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><metaname=\"description\" content=\"SwaggerUI\"/><title>SwaggerUI</title><link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist/swagger-ui.css\" /></head><body><div id=\"swagger-ui\"></div><script src=\"https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js\" crossorigin></script><script>const swaggerUrl = \"" + str(deploypath) + "/iiif/api.json\"; const apiUrl = \"" + str(deploypath) + "/\";  window.onload = () => {let swaggerJson = fetch(swaggerUrl).then(r => r.json().then(j => {j.servers[0].url = apiUrl; window.ui = SwaggerUIBundle({spec: j,dom_id: '#swagger-ui'});}));};</script></body></html>"
-        apijson = {"openapi": "3.0.1", "info": {"title": str(deploypath) + " IIIF", "description": "IIIF API of " + str(deploypath)},"servers": [{"url": str(deploypath)}], "paths": {}}
+        deploypath=str(deploypath)
+        apihtml = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><metaname=\"description\" content=\"SwaggerUI\"/><title>SwaggerUI</title><link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist/swagger-ui.css\" /></head><body><div id=\"swagger-ui\"></div><script src=\"https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js\" crossorigin></script><script>const swaggerUrl = \"" + deploypath + "/iiif/api.json\"; const apiUrl = \"" + deploypath + "/\";  window.onload = () => {let swaggerJson = fetch(swaggerUrl).then(r => r.json().then(j => {j.servers[0].url = apiUrl; window.ui = SwaggerUIBundle({spec: j,dom_id: '#swagger-ui'});}));};</script></body></html>"
+        apijson = {"openapi": "3.0.1", "info": {"title": deploypath + " IIIF", "description": "IIIF API of " + deploypath},"servers": [{"url": deploypath}], "paths": {}}
         apijson["paths"]["/iiif/collection/"] = {"get": {"tags": ["IIIF"],
-                                                                                "summary": "Retrieves IIIF Collections of "+str(deploypath),
+                                                                                "summary": "Retrieves IIIF Collections of "+deploypath,
                                                                                 "description": "Retrieves the IIIF Collections of this IIIF API",
-                                                                                "operationId": "iiif-collections",
-                                                                                "parameters": [],
+                                                                                "operationId": "iiif-collections","parameters": [],
                                                                                 "responses": {
-                                                                                    "200": {
-                                                                                        "description": "Success",
-                                                                                        "content": {
-                                                                                            "text/plain": {
-                                                                                                "example": None}},
-                                                                                        "application/json": {
-                                                                                            "schema": {
-                                                                                                "example": None},
-                                                                                            "example": None},
-                                                                                        "text/json": {
-                                                                                            "schema": {
-                                                                                                "example": None},
-                                                                                            "example": None}}}}}
+                                                                                    "200": {"description": "Success",
+                                                                                        "content": {"text/plain": {"example": None}},
+                                                                                        "application/json": {"schema": {"example": None},"example": None},
+                                                                                        "text/json": {"schema": {"example": None},"example": None}}}}}
         apijson["paths"]["/iiif/{id}/manifest"] = {"get": {"tags": ["IIIF"],
                                                                                 "summary": "Retrieves a IIIF manifest with a given ID",
                                                                                 "description": "Retrieves a IIIF manifest with a given ID",
-                                                                                "operationId": "iiif-manifest",
-                                                                                "parameters": [{"in":"path","name":"id","required":True,"schema": {"type": "string"}}],
+                                                                                "operationId": "iiif-manifest","parameters": [{"in":"path","name":"id","required":True,"schema": {"type": "string"}}],
                                                                                 "responses": {
                                                                                     "200": {
                                                                                         "description": "Success",
-                                                                                        "content": {
-                                                                                            "text/plain": {
-                                                                                                "example": None}},
-                                                                                        "application/json": {
-                                                                                            "schema": {
-                                                                                                "example": None},
-                                                                                            "example": None},
-                                                                                        "text/json": {
-                                                                                            "schema": {
-                                                                                                "example": None},
-                                                                                            "example": None}}}}}
+                                                                                        "content": {"text/plain": {"example": None}},
+                                                                                        "application/json": {"schema": {"example": None},"example": None},
+                                                                                        "text/json": {"schema": {"example": None},"example": None}}}}}
         if not os.path.exists(outpath + "/iiif/collection/"):
             os.makedirs(outpath + "/iiif/collection/")
         if os.path.exists(outpath + "/iiif/collection/iiifcoll.json"):
-            f=open(outpath+"/iiif/collection/iiifcoll.json","r",encoding="utf-8")
-            collections={}
-            collections["main"]=json.loads(f.read())
-            f.close()
+            collections = {}
+            with open(outpath+"/iiif/collection/iiifcoll.json","r",encoding="utf-8") as f:
+                collections["main"]=json.load(f)
         else:
             collections = {"main": {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                    "id": deploypath + "/iiif/collection/iiifcoll.json", "type": "Collection",
+                                    "id": f"{deploypath}/iiif/collection/iiifcoll.json", "type": "Collection",
                                     "label": {"en": ["Collection: " + DocUtils.shortenURI(str(prefixnamespace))]},
                                     "items": []}}
         seenurls = set()
         for imgpath in sorted(imagespaths, key=lambda k: k['label'], reverse=False):
             curclass = "main"
-            if "main" not in collections:
-                collections["main"]={"items":[]}
+            collections.setdefault("main",{"items":[]})
             if "class" in imgpath and imgpath["class"] != "":
                 curclass = imgpath["class"]
                 if curclass not in collections:
                     collections[curclass] = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                             "id": deploypath + "/iiif/collection/" + DocUtils.shortenURI(curclass) + ".json",
+                                             "id": f"{deploypath}/iiif/collection/{DocUtils.shortenURI(curclass)}.json",
                                              "type": "Collection", "label": {"en": ["Collection: " + str(curclass)]},
                                              "items": []}
             if imgpath["url"] not in seenurls:
                 if imgpath["label"] != "":
-                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + DocUtils.shortenURI(
-                        imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg","id": imgpath["url"].replace(outpath, deploypath),
+                    collections[curclass]["items"].append({"full": f'{outpath}/iiif/images/{DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", ""))}/full/full/0/default.jpg',"id": imgpath["url"].replace(outpath, deploypath),
                                                            "type": "Manifest", "label": {"en": [
-                            imgpath["label"] + " (" + DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", "")[
-                                                                      0:imgpath["url"].replace("/manifest.json","").rfind(".")]) + ")"]}})
+                            f'{imgpath["label"]} ({DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", "")[ 0:imgpath["url"].replace("/manifest.json","").rfind(".")])})']}})
                 else:
-                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + DocUtils.shortenURI(
-                        imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg","id": imgpath["url"].replace(outpath, deploypath),
+                    collections[curclass]["items"].append({"full": f'{outpath}/iiif/images/{DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", ""))}/full/full/0/default.jpg',"id": imgpath["url"].replace(outpath, deploypath),
                         "type": "Manifest", "label": {"en": [DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", ""))]}})
             seenurls = imgpath["url"]
         for coll in collections:
             if coll!="main":
                 collections["main"]["items"].append(collections[coll])
-                f=open(outpath+"/iiif/collection/"+str(DocUtils.shortenURI(coll))+".json","w",encoding="utf-8")
-                f.write(json.dumps(collections[coll]))
-                f.close()
-        f = open(outpath + "/iiif/collection/iiifcoll.json", "w", encoding="utf-8")
-        f.write(json.dumps(collections["main"]))
-        f.close()
+                with open(f"{outpath}/iiif/collection/{DocUtils.shortenURI(coll)}.json","w",encoding="utf-8") as f:
+                    json.dump(collections[coll],f)
+        with open(f"{outpath}/iiif/collection/iiifcoll.json", "w", encoding="utf-8") as f:
+            json.dump(collections["main"],f)
         iiifindex = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"></script></head><body><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"><div id="my-mirador"/><script type="text/javascript">var mirador = Mirador.viewer({"id": "my-mirador","manifests": {"collection/iiifcoll.json": {"provider": "Harvard University"}},"windows": [{"loadedManifest": "collection/iiifcoll.json","canvasIndex": 2,"thumbnailNavigationPosition": 'far-bottom'}]});</script></body></html>"""
-        f = open(outpath + "/iiif/index.html", "w", encoding="utf-8")
-        f.write(iiifindex)
-        f.close()
-        f = open(outpath + "/iiif/api.html", "w", encoding="utf-8")
-        f.write(apihtml)
-        f.close()
-        f = open(outpath + "/iiif/api.json", "w", encoding="utf-8")
-        f.write(json.dumps(apijson))
-        f.close()
+        with open(f"{outpath}/iiif/index.html", "w", encoding="utf-8") as f:
+            f.write(iiifindex)
+        with open(f"{outpath}/iiif/api.html", "w", encoding="utf-8") as f:
+            f.write(apihtml)
+        with open(f"{outpath}/iiif/api.json", "w", encoding="utf-8") as f:
+            json.dump(apijson,f)

@@ -296,8 +296,8 @@ class SPARQLunicorn:
     #  @param self The object pointer.
     def saveTripleStoreConfig(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-        with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
-            myfile.write(json.dumps(self.triplestoreconf, indent=2))
+        with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w',encoding="utf-8") as myfile:
+            json.dump(self.triplestoreconf,myfile, indent=2)
 
     def syncTripleStoreConfig(self,combobox=None,dlg=None):
         self.qlayerinstance = TripleStoreRepositorySyncTask(
@@ -309,11 +309,10 @@ class SPARQLunicorn:
     #  @param self The object pointer.
     def resetTripleStoreConfig(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-        with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
-            data = myfile.read()
-        self.triplestoreconf = json.loads(data)
-        with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
-            myfile.write(json.dumps(self.triplestoreconf, indent=2))
+        with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r',encoding="utf-8") as myfile:
+            self.triplestoreconf=json.load(myfile)
+        with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w',encoding="utf-8") as myfile:
+            json.dump(self.triplestoreconf,myfile, indent=2)
 
     def manageTripleStoreConfFiles(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -336,39 +335,41 @@ class SPARQLunicorn:
         if not os.path.exists(os.path.join(__location__, "tmp/graphcache")):
             os.mkdir(os.path.join(__location__, "tmp/graphcache"))
         if os.path.isfile(os.path.join(__location__, 'conf/triplestoreconf_personal.json')):
-            with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'r') as myfile:
+            with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'r',encoding="utf-8") as myfile:
                 data = myfile.read()
                 if ConfigUtils.isOldConfigurationFile(json.loads(data)):
-                    with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
-                        data = myfile.read()
+                    with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r',encoding="utf-8") as myfile:
+                        self.triplestoreconf=json.load(myfile)
+                else:
+                    self.triplestoreconf = json.loads(data)
         else:
-            with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
-                data = myfile.read()
+            with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r',encoding="utf-8") as myfile:
+                self.triplestoreconf=json.load(myfile)
         # parse file
-        with open(os.path.join(__location__, 'owl/addvocabconf.json'), 'r') as myfile:
-            data2 = myfile.read()
-        with open(os.path.join(__location__, 'owl/languages.json'), 'r') as myfile:
-            datalangs = myfile.read()
-        with open(os.path.join(__location__, 'owl/vocabs.json'), 'r') as myfile:
-            data3 = myfile.read()
-        with open(os.path.join(__location__, 'owl/prefixes.json'), 'r') as myfile:
-            data4 = myfile.read()
+        with open(os.path.join(__location__, 'owl/addvocabconf.json'), 'r',encoding="utf-8") as myfile:
+            self.addVocabConf = json.load(myfile)
+        with open(os.path.join(__location__, 'owl/languages.json'), 'r',encoding="utf-8") as myfile:
+            self.languagemap = json.load(myfile)
+        with open(os.path.join(__location__, 'owl/vocabs.json'), 'r',encoding="utf-8") as myfile:
+            self.autocomplete = json.load(myfile)
+        with open(os.path.join(__location__, 'owl/prefixes.json'), 'r',encoding="utf-8") as myfile:
+            self.prefixstore = json.load(myfile)
         if os.path.isfile(os.path.join(__location__, 'conf/savedqueries.json')):
-            with open(os.path.join(__location__, 'conf/savedqueries.json'), 'r') as myfile:
-                data5 = myfile.read()
-            self.savedQueriesJSON = json.loads(data5)
-        self.triplestoreconf = json.loads(data)
-        self.addVocabConf = json.loads(data2)
-        self.languagemap = json.loads(datalangs)
-        self.autocomplete = json.loads(data3)
-        self.prefixstore = json.loads(data4)
+            with open(os.path.join(__location__, 'conf/savedqueries.json'), 'r',encoding="utf-8") as myfile:
+                self.savedQueriesJSON=json.load(myfile)
+            #self.savedQueriesJSON = json.loads(data5)
+        #self.triplestoreconf = json.loads(data)
+        #self.addVocabConf = json.loads(data2)
+        #self.languagemap = json.loads(datalangs)
+        #self.autocomplete = json.loads(data3)
+        #self.prefixstore = json.loads(data4)
         counter = 0
         for store in self.triplestoreconf:
             self.prefixes.append("")
             for prefix in store["prefixes"]:
-                self.prefixes[counter] += "PREFIX " + prefix + ":<" + store["prefixes"][prefix] + ">\n"
+                self.prefixes[counter] += f'PREFIX {prefix}:<{store["prefixes"][prefix]}>\n'
             counter += 1
-        self.addVocabConf = json.loads(data2)
+        #self.addVocabConf = json.loads(data2)
         self.saveTripleStoreConfig()
 
 

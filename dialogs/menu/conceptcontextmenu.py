@@ -281,7 +281,7 @@ class ConceptContextMenu(QMenu):
                 query=self.triplestoreconf["subclassquery"].replace("%%concept%%","<"+str(concept)+">").replace("%%subclassproperty%%",str(subclassproperty))
             prefixestoadd=""
             for endpoint in self.triplestoreconf["prefixes"]:
-                    prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf["prefixes"][endpoint] + "> \n"
+                    prefixestoadd += f'PREFIX {endpoint}: <{self.triplestoreconf["prefixes"][endpoint]}> \n'
             self.qtasksub = SubClassQueryTask("Querying subclasses of " + str(concept),
                                     self.triplestoreconf["resource"],
                                     prefixestoadd + query,None,self,

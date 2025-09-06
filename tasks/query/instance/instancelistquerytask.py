@@ -85,7 +85,7 @@ class InstanceListQueryTask(QgsTask):
                 else:
                     self.queryresult[result["con"]["value"]]["linkedgeo"] = False
                 if "label" in result:
-                    self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
+                    self.queryresult[result["con"]["value"]]["label"] = f'{result["label"]["value"]} ({SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])})'
                 else:
                     self.queryresult[result["con"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])
         return True
@@ -115,16 +115,16 @@ class InstanceListQueryTask(QgsTask):
                     and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,UIUtils.dataslot_nodetype)
                 item.setIcon(UIUtils.geoinstanceicon)
-                item.setToolTip("GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                item.setToolTip(f"GeoInstance {item.text()}: <br>{SPARQLUtils.treeNodeToolTip}")
             elif self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.linkedgeoclassnode \
                     and self.queryresult[concept]["linkedgeo"]:
                 item.setData(SPARQLUtils.linkedgeoinstancenode,UIUtils.dataslot_nodetype)
                 item.setIcon(UIUtils.linkedgeoinstanceicon)
                 item.setData(self.treeNode.data(UIUtils.dataslot_linkedconceptrel),UIUtils.dataslot_linkedconceptrel)
-                item.setToolTip("Linked GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                item.setToolTip(f"Linked GeoInstance {item.text()}: <br>{SPARQLUtils.treeNodeToolTip}")
             else:
                 item.setData(SPARQLUtils.instancenode,UIUtils.dataslot_nodetype)
                 item.setIcon(UIUtils.instanceicon)
-                item.setToolTip("Instance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                item.setToolTip(f"Instance {item.text()}: <br>{SPARQLUtils.treeNodeToolTip}")
             self.treeNode.appendRow(item)
         SPARQLUtils.handleException(MESSAGE_CATEGORY)
