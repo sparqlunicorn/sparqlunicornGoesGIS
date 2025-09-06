@@ -323,7 +323,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  338</span>            <span class="keywordflow">if</span> filename == <span class="stringliteral">&quot;&quot;</span>:</div>
 <div class="line"><span class="lineno">  339</span>                <span class="keywordflow">return</span></div>
 <div class="line"><span class="lineno">  340</span>            exportstring = self.exportMappingProcess(<span class="stringliteral">&quot;json&quot;</span> <span class="keywordflow">in</span> filename)</div>
-<div class="line"><span class="lineno">  341</span>            <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
+<div class="line"><span class="lineno">  341</span>            <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> output_file:</div>
 <div class="line"><span class="lineno">  342</span>                output_file.write(exportstring)</div>
 <div class="line"><span class="lineno">  343</span>                iface.messageBar().pushMessage(<span class="stringliteral">&quot;export mapping successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
 <div class="line"><span class="lineno">  344</span>        <span class="keywordflow">else</span>:</div>
@@ -802,7 +802,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00072.html#aaebaa784dd52ca69569441a5aac60eb9">InterlinkingTab.createInterlinkSearchDialog()</a>, and <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00072.html#aaebaa784dd52ca69569441a5aac60eb9">InterlinkingTab.createInterlinkSearchDialog()</a>, <a class="el" href="a00060.html#a6395e96c45122b751122be67664ba078">SPARQLunicorn.manageTripleStoreConfFiles()</a>, and <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>.</p>
 
 </div>
 </div>

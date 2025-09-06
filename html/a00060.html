@@ -148,14 +148,14 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a372686b3ca59f062b995140d963fadd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ee3c07560eb98d17a382b71105bf98" id="r_ad2ee3c07560eb98d17a382b71105bf98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00060.html#ad2ee3c07560eb98d17a382b71105bf98">dlg</a></td></tr>
 <tr class="separator:ad2ee3c07560eb98d17a382b71105bf98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fd6d186f2768ffa13a632afa1d938af" id="r_a5fd6d186f2768ffa13a632afa1d938af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00060.html#a5fd6d186f2768ffa13a632afa1d938af">savedQueriesJSON</a></td></tr>
-<tr class="separator:a5fd6d186f2768ffa13a632afa1d938af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a399a9e2610a521ee23b0655ac3324037" id="r_a399a9e2610a521ee23b0655ac3324037"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00060.html#a399a9e2610a521ee23b0655ac3324037">languagemap</a></td></tr>
 <tr class="separator:a399a9e2610a521ee23b0655ac3324037"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0232b0ed4680bf785a599c4495843783" id="r_a0232b0ed4680bf785a599c4495843783"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00060.html#a0232b0ed4680bf785a599c4495843783">autocomplete</a></td></tr>
 <tr class="separator:a0232b0ed4680bf785a599c4495843783"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d9e45fd666bc36c0602e3a0c6244b3c" id="r_a4d9e45fd666bc36c0602e3a0c6244b3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00060.html#a4d9e45fd666bc36c0602e3a0c6244b3c">prefixstore</a></td></tr>
 <tr class="separator:a4d9e45fd666bc36c0602e3a0c6244b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fd6d186f2768ffa13a632afa1d938af" id="r_a5fd6d186f2768ffa13a632afa1d938af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00060.html#a5fd6d186f2768ffa13a632afa1d938af">savedQueriesJSON</a></td></tr>
+<tr class="separator:a5fd6d186f2768ffa13a632afa1d938af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -580,64 +580,68 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  318</span>    <span class="keyword">def </span>manageTripleStoreConfFiles(self):</div>
-<div class="line"><span class="lineno">  319</span>        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
-<div class="line"><span class="lineno">  320</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp&quot;</span>)):</div>
-<div class="line"><span class="lineno">  321</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp&quot;</span>))</div>
-<div class="line"><span class="lineno">  322</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp/classtree&quot;</span>)):</div>
-<div class="line"><span class="lineno">  323</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp/classtree&quot;</span>))</div>
-<div class="line"><span class="lineno">  324</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  325</span>            dir = os.path.join(__location__, <span class="stringliteral">&quot;tmp/classtree&quot;</span>)</div>
-<div class="line"><span class="lineno">  326</span>            <span class="keywordflow">for</span> f <span class="keywordflow">in</span> os.listdir(dir):</div>
-<div class="line"><span class="lineno">  327</span>                <span class="keywordflow">if</span> CacheUtils.is_file_older_than_x_days(os.path.join(dir,f),CacheUtils.CLASSTREECACHE_EXPIRY):</div>
-<div class="line"><span class="lineno">  328</span>                    os.remove(os.path.join(dir, f))</div>
-<div class="line"><span class="lineno">  329</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp/geoconcepts&quot;</span>)):</div>
-<div class="line"><span class="lineno">  330</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp/geoconcepts&quot;</span>))</div>
-<div class="line"><span class="lineno">  331</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  332</span>            dir = os.path.join(__location__, <span class="stringliteral">&quot;tmp/geoconcepts&quot;</span>)</div>
-<div class="line"><span class="lineno">  333</span>            <span class="keywordflow">for</span> f <span class="keywordflow">in</span> os.listdir(dir):</div>
-<div class="line"><span class="lineno">  334</span>                <span class="keywordflow">if</span> CacheUtils.is_file_older_than_x_days(os.path.join(dir,f),CacheUtils.GEOCONCEPTS_EXPIRY):</div>
-<div class="line"><span class="lineno">  335</span>                    os.remove(os.path.join(dir, f))</div>
-<div class="line"><span class="lineno">  336</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp/graphcache&quot;</span>)):</div>
-<div class="line"><span class="lineno">  337</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp/graphcache&quot;</span>))</div>
-<div class="line"><span class="lineno">  338</span>        <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>)):</div>
-<div class="line"><span class="lineno">  339</span>            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  340</span>                data = myfile.read()</div>
-<div class="line"><span class="lineno">  341</span>                <span class="keywordflow">if</span> ConfigUtils.isOldConfigurationFile(json.loads(data)):</div>
-<div class="line"><span class="lineno">  342</span>                    <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  343</span>                        data = myfile.read()</div>
-<div class="line"><span class="lineno">  344</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  345</span>            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  346</span>                data = myfile.read()</div>
-<div class="line"><span class="lineno">  347</span>        <span class="comment"># parse file</span></div>
-<div class="line"><span class="lineno">  348</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/addvocabconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  349</span>            data2 = myfile.read()</div>
-<div class="line"><span class="lineno">  350</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/languages.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  351</span>            datalangs = myfile.read()</div>
-<div class="line"><span class="lineno">  352</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/vocabs.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  353</span>            data3 = myfile.read()</div>
-<div class="line"><span class="lineno">  354</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/prefixes.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  355</span>            data4 = myfile.read()</div>
-<div class="line"><span class="lineno">  356</span>        <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>)):</div>
-<div class="line"><span class="lineno">  357</span>            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  358</span>                data5 = myfile.read()</div>
-<div class="line"><span class="lineno">  359</span>            self.savedQueriesJSON = json.loads(data5)</div>
-<div class="line"><span class="lineno">  360</span>        self.triplestoreconf = json.loads(data)</div>
-<div class="line"><span class="lineno">  361</span>        self.addVocabConf = json.loads(data2)</div>
-<div class="line"><span class="lineno">  362</span>        self.languagemap = json.loads(datalangs)</div>
-<div class="line"><span class="lineno">  363</span>        self.autocomplete = json.loads(data3)</div>
-<div class="line"><span class="lineno">  364</span>        self.prefixstore = json.loads(data4)</div>
-<div class="line"><span class="lineno">  365</span>        counter = 0</div>
-<div class="line"><span class="lineno">  366</span>        <span class="keywordflow">for</span> store <span class="keywordflow">in</span> self.triplestoreconf:</div>
-<div class="line"><span class="lineno">  367</span>            self.prefixes.append(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">  368</span>            <span class="keywordflow">for</span> prefix <span class="keywordflow">in</span> store[<span class="stringliteral">&quot;prefixes&quot;</span>]:</div>
-<div class="line"><span class="lineno">  369</span>                self.prefixes[counter] += <span class="stringliteral">&quot;PREFIX &quot;</span> + prefix + <span class="stringliteral">&quot;:&lt;&quot;</span> + store[<span class="stringliteral">&quot;prefixes&quot;</span>][prefix] + <span class="stringliteral">&quot;&gt;\n&quot;</span></div>
-<div class="line"><span class="lineno">  370</span>            counter += 1</div>
-<div class="line"><span class="lineno">  371</span>        self.addVocabConf = json.loads(data2)</div>
-<div class="line"><span class="lineno">  372</span>        self.saveTripleStoreConfig()</div>
-<div class="line"><span class="lineno">  373</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  317</span>    <span class="keyword">def </span>manageTripleStoreConfFiles(self):</div>
+<div class="line"><span class="lineno">  318</span>        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
+<div class="line"><span class="lineno">  319</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp&quot;</span>)):</div>
+<div class="line"><span class="lineno">  320</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp&quot;</span>))</div>
+<div class="line"><span class="lineno">  321</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp/classtree&quot;</span>)):</div>
+<div class="line"><span class="lineno">  322</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp/classtree&quot;</span>))</div>
+<div class="line"><span class="lineno">  323</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  324</span>            dir = os.path.join(__location__, <span class="stringliteral">&quot;tmp/classtree&quot;</span>)</div>
+<div class="line"><span class="lineno">  325</span>            <span class="keywordflow">for</span> f <span class="keywordflow">in</span> os.listdir(dir):</div>
+<div class="line"><span class="lineno">  326</span>                <span class="keywordflow">if</span> CacheUtils.is_file_older_than_x_days(os.path.join(dir,f),CacheUtils.CLASSTREECACHE_EXPIRY):</div>
+<div class="line"><span class="lineno">  327</span>                    os.remove(os.path.join(dir, f))</div>
+<div class="line"><span class="lineno">  328</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp/geoconcepts&quot;</span>)):</div>
+<div class="line"><span class="lineno">  329</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp/geoconcepts&quot;</span>))</div>
+<div class="line"><span class="lineno">  330</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  331</span>            dir = os.path.join(__location__, <span class="stringliteral">&quot;tmp/geoconcepts&quot;</span>)</div>
+<div class="line"><span class="lineno">  332</span>            <span class="keywordflow">for</span> f <span class="keywordflow">in</span> os.listdir(dir):</div>
+<div class="line"><span class="lineno">  333</span>                <span class="keywordflow">if</span> CacheUtils.is_file_older_than_x_days(os.path.join(dir,f),CacheUtils.GEOCONCEPTS_EXPIRY):</div>
+<div class="line"><span class="lineno">  334</span>                    os.remove(os.path.join(dir, f))</div>
+<div class="line"><span class="lineno">  335</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(os.path.join(__location__, <span class="stringliteral">&quot;tmp/graphcache&quot;</span>)):</div>
+<div class="line"><span class="lineno">  336</span>            os.mkdir(os.path.join(__location__, <span class="stringliteral">&quot;tmp/graphcache&quot;</span>))</div>
+<div class="line"><span class="lineno">  337</span>        <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>)):</div>
+<div class="line"><span class="lineno">  338</span>            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  339</span>                data = myfile.read()</div>
+<div class="line"><span class="lineno">  340</span>                <span class="keywordflow">if</span> ConfigUtils.isOldConfigurationFile(json.loads(data)):</div>
+<div class="line"><span class="lineno">  341</span>                    <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  342</span>                        self.triplestoreconf=json.load(myfile)</div>
+<div class="line"><span class="lineno">  343</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  344</span>                    self.triplestoreconf = json.loads(data)</div>
+<div class="line"><span class="lineno">  345</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  346</span>            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  347</span>                self.triplestoreconf=json.load(myfile)</div>
+<div class="line"><span class="lineno">  348</span>        <span class="comment"># parse file</span></div>
+<div class="line"><span class="lineno">  349</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/addvocabconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  350</span>            self.addVocabConf = json.load(myfile)</div>
+<div class="line"><span class="lineno">  351</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/languages.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  352</span>            self.languagemap = json.load(myfile)</div>
+<div class="line"><span class="lineno">  353</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/vocabs.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  354</span>            self.autocomplete = json.load(myfile)</div>
+<div class="line"><span class="lineno">  355</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/prefixes.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  356</span>            self.prefixstore = json.load(myfile)</div>
+<div class="line"><span class="lineno">  357</span>        <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>)):</div>
+<div class="line"><span class="lineno">  358</span>            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  359</span>                self.savedQueriesJSON=json.load(myfile)</div>
+<div class="line"><span class="lineno">  360</span>            <span class="comment">#self.savedQueriesJSON = json.loads(data5)</span></div>
+<div class="line"><span class="lineno">  361</span>        <span class="comment">#self.triplestoreconf = json.loads(data)</span></div>
+<div class="line"><span class="lineno">  362</span>        <span class="comment">#self.addVocabConf = json.loads(data2)</span></div>
+<div class="line"><span class="lineno">  363</span>        <span class="comment">#self.languagemap = json.loads(datalangs)</span></div>
+<div class="line"><span class="lineno">  364</span>        <span class="comment">#self.autocomplete = json.loads(data3)</span></div>
+<div class="line"><span class="lineno">  365</span>        <span class="comment">#self.prefixstore = json.loads(data4)</span></div>
+<div class="line"><span class="lineno">  366</span>        counter = 0</div>
+<div class="line"><span class="lineno">  367</span>        <span class="keywordflow">for</span> store <span class="keywordflow">in</span> self.triplestoreconf:</div>
+<div class="line"><span class="lineno">  368</span>            self.prefixes.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  369</span>            <span class="keywordflow">for</span> prefix <span class="keywordflow">in</span> store[<span class="stringliteral">&quot;prefixes&quot;</span>]:</div>
+<div class="line"><span class="lineno">  370</span>                self.prefixes[counter] += f<span class="stringliteral">&#39;PREFIX {prefix}:&lt;{store[&quot;prefixes&quot;][prefix]}&gt;\n&#39;</span></div>
+<div class="line"><span class="lineno">  371</span>            counter += 1</div>
+<div class="line"><span class="lineno">  372</span>        <span class="comment">#self.addVocabConf = json.loads(data2)</span></div>
+<div class="line"><span class="lineno">  373</span>        self.saveTripleStoreConfig()</div>
 <div class="line"><span class="lineno">  374</span> </div>
+<div class="line"><span class="lineno">  375</span> </div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00064.html#a1c0f392d53979b034116808ade371029">SPARQLunicornDialog.addVocabConf</a>, <a class="el" href="a00060.html#a1c0f392d53979b034116808ade371029">SPARQLunicorn.addVocabConf</a>, <a class="el" href="a00072.html#a1c0f392d53979b034116808ade371029">InterlinkingTab.addVocabConf</a>, <a class="el" href="a00064.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00060.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
+
 <p class="reference">Referenced by <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>.</p>
 
 </div>
@@ -728,12 +732,11 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <div class="fragment"><div class="line"><span class="lineno">  310</span>    <span class="keyword">def </span>resetTripleStoreConfig(self):</div>
 <div class="line"><span class="lineno">  311</span>        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
-<div class="line"><span class="lineno">  312</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  313</span>            data = myfile.read()</div>
-<div class="line"><span class="lineno">  314</span>        self.triplestoreconf = json.loads(data)</div>
-<div class="line"><span class="lineno">  315</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  316</span>            myfile.write(json.dumps(self.triplestoreconf, indent=2))</div>
-<div class="line"><span class="lineno">  317</span> </div>
+<div class="line"><span class="lineno">  312</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  313</span>            self.triplestoreconf=json.load(myfile)</div>
+<div class="line"><span class="lineno">  314</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  315</span>            json.dump(self.triplestoreconf,myfile, indent=2)</div>
+<div class="line"><span class="lineno">  316</span> </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00064.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00060.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -754,30 +757,30 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Run method that performs all the real work</pre> <div class="fragment"><div class="line"><span class="lineno">  375</span>    <span class="keyword">def </span>run(self):</div>
-<div class="line"><span class="lineno">  376</span>        <span class="stringliteral">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  377</span>        <span class="comment"># Create the dialog with elements (after translation) and keep reference</span></div>
-<div class="line"><span class="lineno">  378</span>        <span class="comment"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span></div>
-<div class="line"><span class="lineno">  379</span>        self.first_start=<span class="keyword">True</span></div>
-<div class="line"><span class="lineno">  380</span>        <span class="keywordflow">if</span> self.first_start:</div>
-<div class="line"><span class="lineno">  381</span>            self.first_start = <span class="keyword">False</span></div>
-<div class="line"><span class="lineno">  382</span>            self.manageTripleStoreConfFiles()</div>
-<div class="line"><span class="lineno">  383</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(str(len(self.triplestoreconf))), &quot;SPARQL Unicorn&quot;,</span></div>
-<div class="line"><span class="lineno">  384</span>            <span class="comment">#                         Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  385</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(str(len(self.triplestoreconf))), &quot;SPARQL Unicorn&quot;, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  386</span>            self.dlg = SPARQLunicornDialog(self.languagemap,self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,</div>
-<div class="line"><span class="lineno">  387</span>                                           self.prefixstore, self.savedQueriesJSON, self)</div>
-<div class="line"><span class="lineno">  388</span>            self.dlg.comboBox.clear()</div>
-<div class="line"><span class="lineno">  389</span>            UIUtils.createLanguageSelectionCBox(self.dlg.queryResultLanguageCBox,self.languagemap)</div>
-<div class="line"><span class="lineno">  390</span>            UIUtils.createTripleStoreCBox(self.dlg.comboBox,self.triplestoreconf)</div>
-<div class="line"><span class="lineno">  391</span>            self.syncTripleStoreConfig(self.dlg.comboBox,self.dlg)</div>
-<div class="line"><span class="lineno">  392</span>            self.dlg.comboBox.setCurrentIndex(0)</div>
-<div class="line"><span class="lineno">  393</span>            self.dlg.oauthTestButton.hide()</div>
-<div class="line"><span class="lineno">  394</span>            self.dlg.oauthTestButton.clicked.connect(<span class="keyword">lambda</span>: LoginWindowDialog(self).exec())</div>
-<div class="line"><span class="lineno">  395</span>            self.dlg.tabchanged(self.dlg.tabWidget.currentIndex())</div>
-<div class="line"><span class="lineno">  396</span>            <span class="comment">#self.dlg.endpointselectaction()</span></div>
-<div class="line"><span class="lineno">  397</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  398</span>            self.dlg.show()</div>
+<pre class="fragment">Run method that performs all the real work</pre> <div class="fragment"><div class="line"><span class="lineno">  376</span>    <span class="keyword">def </span>run(self):</div>
+<div class="line"><span class="lineno">  377</span>        <span class="stringliteral">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  378</span>        <span class="comment"># Create the dialog with elements (after translation) and keep reference</span></div>
+<div class="line"><span class="lineno">  379</span>        <span class="comment"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span></div>
+<div class="line"><span class="lineno">  380</span>        self.first_start=<span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  381</span>        <span class="keywordflow">if</span> self.first_start:</div>
+<div class="line"><span class="lineno">  382</span>            self.first_start = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  383</span>            self.manageTripleStoreConfFiles()</div>
+<div class="line"><span class="lineno">  384</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(str(len(self.triplestoreconf))), &quot;SPARQL Unicorn&quot;,</span></div>
+<div class="line"><span class="lineno">  385</span>            <span class="comment">#                         Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  386</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(str(len(self.triplestoreconf))), &quot;SPARQL Unicorn&quot;, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  387</span>            self.dlg = SPARQLunicornDialog(self.languagemap,self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,</div>
+<div class="line"><span class="lineno">  388</span>                                           self.prefixstore, self.savedQueriesJSON, self)</div>
+<div class="line"><span class="lineno">  389</span>            self.dlg.comboBox.clear()</div>
+<div class="line"><span class="lineno">  390</span>            UIUtils.createLanguageSelectionCBox(self.dlg.queryResultLanguageCBox,self.languagemap)</div>
+<div class="line"><span class="lineno">  391</span>            UIUtils.createTripleStoreCBox(self.dlg.comboBox,self.triplestoreconf)</div>
+<div class="line"><span class="lineno">  392</span>            self.syncTripleStoreConfig(self.dlg.comboBox,self.dlg)</div>
+<div class="line"><span class="lineno">  393</span>            self.dlg.comboBox.setCurrentIndex(0)</div>
+<div class="line"><span class="lineno">  394</span>            self.dlg.oauthTestButton.hide()</div>
+<div class="line"><span class="lineno">  395</span>            self.dlg.oauthTestButton.clicked.connect(<span class="keyword">lambda</span>: LoginWindowDialog(self).exec())</div>
+<div class="line"><span class="lineno">  396</span>            self.dlg.tabchanged(self.dlg.tabWidget.currentIndex())</div>
+<div class="line"><span class="lineno">  397</span>            <span class="comment">#self.dlg.endpointselectaction()</span></div>
+<div class="line"><span class="lineno">  398</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  399</span>            self.dlg.show()</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00064.html#a1c0f392d53979b034116808ade371029">SPARQLunicornDialog.addVocabConf</a>, <a class="el" href="a00060.html#a1c0f392d53979b034116808ade371029">SPARQLunicorn.addVocabConf</a>, <a class="el" href="a00072.html#a1c0f392d53979b034116808ade371029">InterlinkingTab.addVocabConf</a>, <a class="el" href="a00064.html#a0232b0ed4680bf785a599c4495843783">SPARQLunicornDialog.autocomplete</a>, <a class="el" href="a00060.html#a0232b0ed4680bf785a599c4495843783">SPARQLunicorn.autocomplete</a>, <a class="el" href="a00060.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00068.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00072.html#ad2ee3c07560eb98d17a382b71105bf98">InterlinkingTab.dlg</a>, <a class="el" href="a00060.html#aad1fed1f698792145456d4f39e711766">SPARQLunicorn.first_start</a>, <a class="el" href="a00064.html#a399a9e2610a521ee23b0655ac3324037">SPARQLunicornDialog.languagemap</a>, <a class="el" href="a00060.html#a399a9e2610a521ee23b0655ac3324037">SPARQLunicorn.languagemap</a>, <a class="el" href="a00060.html#a6395e96c45122b751122be67664ba078">SPARQLunicorn.manageTripleStoreConfFiles()</a>, <a class="el" href="a00064.html#a302e350558edcbbd7b85927b33550548">SPARQLunicornDialog.prefixes</a>, <a class="el" href="a00060.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>, <a class="el" href="a00064.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicornDialog.prefixstore</a>, <a class="el" href="a00060.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicorn.prefixstore</a>, <a class="el" href="a00064.html#a5fd6d186f2768ffa13a632afa1d938af">SPARQLunicornDialog.savedQueriesJSON</a>, <a class="el" href="a00060.html#a9a3d79916e86e00d703e4f6610681195">SPARQLunicorn.savedQueriesJSON</a>, <a class="el" href="a00060.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>, <a class="el" href="a00064.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00060.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -810,8 +813,8 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <div class="fragment"><div class="line"><span class="lineno">  297</span>    <span class="keyword">def </span>saveTripleStoreConfig(self):</div>
 <div class="line"><span class="lineno">  298</span>        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
-<div class="line"><span class="lineno">  299</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><span class="lineno">  300</span>            myfile.write(json.dumps(self.triplestoreconf, indent=2))</div>
+<div class="line"><span class="lineno">  299</span>        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><span class="lineno">  300</span>            json.dump(self.triplestoreconf,myfile, indent=2)</div>
 <div class="line"><span class="lineno">  301</span> </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00064.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00060.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
@@ -987,7 +990,7 @@ We implement this ourselves since we do not inherit QObject.
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00072.html#aaebaa784dd52ca69569441a5aac60eb9">InterlinkingTab.createInterlinkSearchDialog()</a>, and <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00072.html#aaebaa784dd52ca69569441a5aac60eb9">InterlinkingTab.createInterlinkSearchDialog()</a>, <a class="el" href="a00060.html#a6395e96c45122b751122be67664ba078">SPARQLunicorn.manageTripleStoreConfFiles()</a>, and <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>.</p>
 
 </div>
 </div>
@@ -1501,7 +1504,7 @@ We implement this ourselves since we do not inherit QObject.
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00064.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00064.html#a640f83a139093e4cd7c0c0edc07880f3">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00064.html#a488b082deca106964ac586bb4c06a3a3">SPARQLunicornDialog.create_unicorn_layer()</a>, <a class="el" href="a00064.html#a34182ed155a2611f2df9112ff50f2ad7">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00064.html#adab0cda44548df35e3e7dd3049580865">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00064.html#a80cfcaa85177e2170e6e64b8c3e062ad">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00064.html#a59f6e6b65a1e6932f071d4a6d7e82704">SPARQLunicornDialog.endpointselectaction()</a>, <a class="el" href="a00060.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a00064.html#a735ba8a407edd44f0e0664d083bf34f1">SPARQLunicornDialog.getClassTree()</a>, <a class="el" href="a00064.html#a5f47fed089eefda414b6cbc628573625">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a00064.html#ab83f6f0cdb299fad1d892b60cae1f9ea">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00060.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a00060.html#a8088d0909d308fa97732e9eadb9cde10">SPARQLunicorn.resetTripleStoreConfig()</a>, <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a00064.html#adda3daeac9ce97c8a4afe703d5bf5e64">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a00060.html#a7298f06e56968fbd9b0d9dceac26fb2d">SPARQLunicorn.saveTripleStoreConfig()</a>, <a class="el" href="a00064.html#adfc267ff822e0bd0394155be4a1f66b9">SPARQLunicornDialog.subclassQuerySelectAction()</a>, <a class="el" href="a00060.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>, and <a class="el" href="a00064.html#a2fcd56fef625d562a0cbc6256e5c775a">SPARQLunicornDialog.tripleStoreInfoDialog()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00064.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00064.html#a640f83a139093e4cd7c0c0edc07880f3">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00064.html#a488b082deca106964ac586bb4c06a3a3">SPARQLunicornDialog.create_unicorn_layer()</a>, <a class="el" href="a00064.html#a34182ed155a2611f2df9112ff50f2ad7">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00064.html#adab0cda44548df35e3e7dd3049580865">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00064.html#a80cfcaa85177e2170e6e64b8c3e062ad">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00064.html#a59f6e6b65a1e6932f071d4a6d7e82704">SPARQLunicornDialog.endpointselectaction()</a>, <a class="el" href="a00060.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a00064.html#a735ba8a407edd44f0e0664d083bf34f1">SPARQLunicornDialog.getClassTree()</a>, <a class="el" href="a00064.html#a5f47fed089eefda414b6cbc628573625">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a00064.html#ab83f6f0cdb299fad1d892b60cae1f9ea">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00060.html#a6395e96c45122b751122be67664ba078">SPARQLunicorn.manageTripleStoreConfFiles()</a>, <a class="el" href="a00060.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a00060.html#a8088d0909d308fa97732e9eadb9cde10">SPARQLunicorn.resetTripleStoreConfig()</a>, <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a00064.html#adda3daeac9ce97c8a4afe703d5bf5e64">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a00060.html#a7298f06e56968fbd9b0d9dceac26fb2d">SPARQLunicorn.saveTripleStoreConfig()</a>, <a class="el" href="a00064.html#adfc267ff822e0bd0394155be4a1f66b9">SPARQLunicornDialog.subclassQuerySelectAction()</a>, <a class="el" href="a00060.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>, and <a class="el" href="a00064.html#a2fcd56fef625d562a0cbc6256e5c775a">SPARQLunicornDialog.tripleStoreInfoDialog()</a>.</p>
 
 </div>
 </div>
