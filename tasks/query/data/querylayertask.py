@@ -243,8 +243,7 @@ class QueryLayerTask(QgsTask):
                 {'id':result["item"]["value"], 'type': 'Feature','properties': self.dropUnwantedKeys(properties),'geometry': {}},
                 self.triplestoreconf),features,nongeofeatures,crsset)
             elif "lat" in properties and "lon" in properties:
-                self.addFeatureToCorrectCollection(LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
-                                                                   + " " + str(float(result[latval]["value"])) + ")",
+                self.addFeatureToCorrectCollection(LayerUtils.processLiteral(f'POINT({float(result[lonval]["value"])} {float(result[latval]["value"])})',
                 "wkt", reproject,{'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
             else:
                 self.addFeatureToCorrectCollection({'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)

@@ -30,7 +30,7 @@ class DataSampleQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation+" "+str(self.nodetype)),MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(f"{self.concept} {self.relation} {self.nodetype}"),MESSAGE_CATEGORY, Qgis.Info)
         #""""SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?val LIMIT 100"""
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
@@ -38,14 +38,14 @@ class DataSampleQueryTask(QgsTask):
         typepattern=f"?con <{typeproperty}> <{self.concept}> ."
         if self.nodetype==SPARQLUtils.collectionclassnode:
             typepattern=f"<{self.concept}>  <http://www.w3.org/2000/01/rdf-schema#member> ?con . "
-        query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?val LIMIT 100"
+        query = f"SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE {{ {typepattern} ?con <{self.relation}> ?val }} GROUP BY ?val LIMIT 100"
         if "geometryproperty" in self.triplestoreconf and self.relation in self.triplestoreconf["geometryproperty"]:
             if type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
-                query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val ?val2 WHERE { "+str(typepattern)+" ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?val ?val2 LIMIT 100"
+                query = f'SELECT DISTINCT (COUNT(?val) as ?amount) ?val ?val2 WHERE {{ {typepattern} ?con <{self.triplestoreconf["geometryproperty"][0]}> ?val . ?con <{self.triplestoreconf["geometryproperty"][1]}> ?val2 . }} GROUP BY ?val ?val2 LIMIT 100'
             elif "geotriplepattern" in self.triplestoreconf:
-                query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" "
+                query = f"SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE {{ {typepattern} "
                 for geotriplepat in self.triplestoreconf["geotriplepattern"]:
-                    query+="OPTIONAL {"+geotriplepat.replace("?geo","?val").replace("?item","?con")+" }\n"
+                    query+=f'OPTIONAL {{{geotriplepat.replace("?geo","?val").replace("?item","?con")} }}\n'
                 #+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")\
                 query+=" } GROUP BY ?val LIMIT 100"
         QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
@@ -93,8 +93,7 @@ class DataSampleQueryTask(QgsTask):
                 elif type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
                     myGeometryInstanceJSON=LayerUtils.processLiteral(f'POINT({float(rel["value"])} {float(rel["value2"])})', "wkt", True,None, self.triplestoreconf)
                 if myGeometryInstanceJSON is not None:
-                    geojson = {'id': f'{self.concept}_{counter}', 'type': 'Feature', 'properties': {},
-                        'geometry': myGeometryInstanceJSON}
+                    geojson = {'id': f'{self.concept}_{counter}', 'type': 'Feature', 'properties': {},'geometry': myGeometryInstanceJSON}
                     geocollection["features"].append(geojson)
                     counter+=1
             #QgsMessageLog.logMessage(str(geocollection), MESSAGE_CATEGORY, Qgis.Info)

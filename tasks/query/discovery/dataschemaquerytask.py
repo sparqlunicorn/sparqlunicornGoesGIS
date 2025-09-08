@@ -50,7 +50,7 @@ class DataSchemaQueryTask(QgsTask):
         if self.conceptstoenrich is not None:
             cons="VALUES ?con {"
             for con in self.conceptstoenrich:
-                cons+="<"+str(con)+"> "
+                cons+=f"<{con}> "
             cons+="}\n"
             self.query=whattoenrichquery.replace("?con %%typeproperty%% %%concept%% .",cons)
         if isinstance(self.prefixes, Iterable):
