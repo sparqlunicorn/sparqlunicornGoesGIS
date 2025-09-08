@@ -59,7 +59,7 @@ class ExtractLayerTask(QgsTask):
                                      MESSAGE_CATEGORY, Qgis.Info)
             for layer in self.layers:
                 QgsProject.instance().addMapLayer(layer)
-            iface.messageBar().pushMessage("Successfully extracted layers from "+str(self.graphname)+"!", "OK",level=Qgis.Success)
+            iface.messageBar().pushMessage(f"Successfully extracted layers from {self.graphname}!", "OK",level=Qgis.Success)
             msgBox = QMessageBox()
             msgBox.setText("Layer extracted from "+str(self.graphname))
             msgBox.exec()

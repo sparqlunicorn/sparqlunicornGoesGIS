@@ -1,5 +1,6 @@
 from ...util.doc.ontdocgeneration import OntDocGeneration
 from ...util.sparqlutils import SPARQLUtils
+from ...util.doc.docutils import DocUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsTask
@@ -55,6 +56,7 @@ class OntDocTask(QgsTask):
         #try:
         ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.nonNSPagesCBox,self.createMetadataTable,self.createVOWL,self.apis,self.imagemetadata,self.startconcept,self.deploymenturl,self.logopath,self.offlinecompat,self.exports)
         ontdoc.generateOntDocForNameSpace(self.namespace)
+        DocUtils.writeExecutionStats(ontdoc.exectimes, self.outpath+ "/buildlog.txt")
         #except Exception as e:
         #    self.exception=e
         #    return False

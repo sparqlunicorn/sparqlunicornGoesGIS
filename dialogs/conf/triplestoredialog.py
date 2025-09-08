@@ -88,9 +88,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     def saveConfigurationAsJSON(self):
         conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["name"])+".json")
         if conffilename!="" and conffilename[0]!="":
-            file=open(conffilename[0],"w")
-            file.write(json.dumps(ConfigUtils.removeInstanceKeys(self.triplestoreconf[self.tripleStoreChooser.currentIndex()],"instance"),indent=2))
-            file.close()
+            with open(conffilename[0],"w") as file:
+                json.dump(ConfigUtils.removeInstanceKeys(self.triplestoreconf[self.tripleStoreChooser.currentIndex()],"instance"),file,indent=2)
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Icon.Information)
             msg.setText("Configuration File for "+str(self.tripleStoreChooser.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
@@ -218,7 +217,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                 self.exampleQueryComboBox.clear()
                 for template in curstore["querytemplate"]:
                     self.exampleQueryComboBox.addItem(template["label"],template["query"])
-            if "querytemplate" in curstore and curstore["querytemplate"]!=None and len(curstore["querytemplate"])>0:
+            if "querytemplate" in curstore and curstore["querytemplate"] is not None and len(curstore["querytemplate"])>0:
                 self.exampleQuery.setPlainText(curstore["querytemplate"][0]["query"])
 
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):

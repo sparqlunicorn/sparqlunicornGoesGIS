@@ -15,16 +15,17 @@ class MiscExporter:
         subjectsToType={}
         typeToFields={}
         for sub in subjectstorender:
-            typeToFields[str(sub)]=set()
+            substr=str(sub)
+            typeToFields[substr]=set()
             for tup in g.predicate_objects(sub):
                 if str(tup[0])=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
-                    subjectsToType[str(sub)]=str(tup[1])
-                typeToFields[str(sub)].add(str(tup[0]))
-            if str(sub) in subjectsToType:
-                if subjectsToType[str(sub)] not in typeToFields:
-                    typeToFields[subjectsToType[str(sub)]]=set()
-                typeToFields[subjectsToType[str(sub)]]=typeToFields[subjectsToType[str(sub)]].union(typeToFields[str(sub)])
-                del typeToFields[str(sub)]
+                    subjectsToType[substr]=str(tup[1])
+                typeToFields[substr].add(str(tup[0]))
+            if substr in subjectsToType:
+                if subjectsToType[substr] not in typeToFields:
+                    typeToFields[subjectsToType[substr]]=set()
+                typeToFields[subjectsToType[substr]]=typeToFields[subjectsToType[substr]].union(typeToFields[substr])
+                del typeToFields[substr]
         return [subjectsToType,typeToFields]
 
     @staticmethod
@@ -32,7 +33,7 @@ class MiscExporter:
         sepchar=","
         if formatt=="tsv":
             sepchar="\t"
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         res=MiscExporter.detectSubjectType(g,subjectstorender)
         subjectsToType=res[0]
@@ -43,52 +44,48 @@ class MiscExporter:
         for sub in subjectstorender:
             if str(sub) not in subjectsToType:
                 continue
-            res={}
-            for tup in g.predicate_objects(sub):
-                res[str(tup[0])]=str(tup[1])
+            res={str(tup[0]):str(tup[1]) for tup in g.predicate_objects(sub)}
+            #for tup in g.predicate_objects(sub):
+            #    res[str(tup[0])]=str(tup[1])
             typeToRes[subjectsToType[str(sub)]].append(res)
         for type in typeToFields:
-            f=open(os.path.realpath(file.name).replace("."+formatt,"")+"_"+DocUtils.shortenURI(type)+"."+formatt,"w")
-            tlist=list(typeToFields[type])
-            tlistlen=len(tlist)
-            for i in range(0,tlistlen):
-                f.write("\""+tlist[i]+"\"")
-                if i<len(tlist)-1:
-                    f.write(sepchar)
-            f.write("\n")
-            for res in typeToRes[type]:
+            with open(f'{os.path.realpath(file.name).replace("."+formatt,"")}_{DocUtils.shortenURI(type)}.{formatt}',"w") as f:
+                tlist=list(typeToFields[type])
+                tlistlen=len(tlist)
                 for i in range(0,tlistlen):
-                    col=tlist[i]
-                    if col in res:
-                        f.write("\""+res[col]+"\"")
+                    f.write(f'"{tlist[i]}"')
                     if i<len(tlist)-1:
                         f.write(sepchar)
                 f.write("\n")
-            f.close()
+                for res in typeToRes[type]:
+                    for i in range(0,tlistlen):
+                        col=tlist[i]
+                        if col in res:
+                            f.write(f'"{res[col]}"')
+                        if i<len(tlist)-1:
+                            f.write(sepchar)
+                    f.write("\n")
         return None
 
     @staticmethod
+    @staticmethod
     def convertTTLToJSON(g, file, subjectstorender=None,classlist=None, formatt="json"):
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None, None, True)
         res = MiscExporter.detectSubjectType(g, subjectstorender)
         subjectsToType = res[0]
         typeToFields = res[1]
-        typeToRes = {}
-        for type in typeToFields:
-            typeToRes[type] = []
+        typeToRes = dict((el,[]) for el in typeToFields)
         for sub in subjectstorender:
             if str(sub) not in subjectsToType:
                 continue
-            res = {}
-            for tup in g.predicate_objects(sub):
-                res[str(tup[0])] = str(tup[1])
+            res={str(tup[0]):str(tup[1]) for tup in g.predicate_objects(sub)}
+            #for tup in g.predicate_objects(sub):
+            #    res[str(tup[0])] = str(tup[1])
             typeToRes[subjectsToType[str(sub)]].append(res)
         for type in typeToFields:
-            f = open(os.path.realpath(file.name).replace("." + formatt, "") + "_" + DocUtils.shortenURI(
-                type) + "." + formatt, "w")
-            f.write("\n")
-            for res in typeToRes[type]:
-                f.write(json.dumps(res))
-            f.close()
+            with open(f'{os.path.realpath(file.name).replace("." + formatt, "")}_{DocUtils.shortenURI(type)}.{formatt}', "w") as f:
+                f.write("\n")
+                for res in typeToRes[type]:
+                    json.dump(res,f)
         return None

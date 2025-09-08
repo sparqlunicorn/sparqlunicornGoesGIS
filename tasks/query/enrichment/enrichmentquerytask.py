@@ -90,21 +90,20 @@ class EnrichmentQueryTask(QgsTask):
             MESSAGE_CATEGORY, Qgis.Info)
         for it in attlist[self.idfield]:
             if str(it).startswith("http"):
-                query += "<" + str(it) + "> "
+                query += f"<{it}> "
             elif self.idprop == "http://www.w3.org/2000/01/rdf-schema#label" and self.language is not None and self.language != "":
-                query += "\"" + str(it) + "\"@" + self.language + " "
+                query += f'"{it}"@{self.language} '
             else:
-                query += "\"" + str(it) + "\" "
+                query += f'"{it}" '
         query += " } . \n"
         proppp = self.propertyy.data(UIUtils.dataslot_conceptURI)
         if proppp is not None and self.propertyy.data(UIUtils.dataslot_conceptURI).startswith("//"):
             proppp = "http:" + proppp
         if self.table.item(self.row, 7).text() != "" and "wikidata" in curtriplestoreconf["resource"]["url"]:
-            query += "?item wdt:P31 <" + str(self.table.item(self.row, 7).text()) + "> .\n"
+            query += f"?item wdt:P31 <{self.table.item(self.row, 7).text()}> .\n"
         else:
-            query += "?item rdf:type <" + str(self.table.item(self.row, 7).text()) + "> .\n"
-        query += "?item <" + str(self.idprop) + "> ?vals .\n"
-        query += "?item <" + str(proppp) + "> ?val . \n"
+            query += f"?item rdf:type <{self.table.item(self.row, 7).text()}> .\n"
+        query += f"?item <{self.idprop}> ?vals .\n?item <{proppp}> ?val . \n"
         if (self.content == "Enrich Value" or self.content == "Enrich Both") and not "wikidata" in curtriplestoreconf["resource"]["url"]:
             query += "OPTIONAL{ ?val rdfs:label ?valLabel }"
         elif (self.content == "Enrich Value" or self.content == "Enrich Both") and "wikidata" in curtriplestoreconf["resource"]["url"]:

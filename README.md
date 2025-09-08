@@ -68,6 +68,12 @@ This short documentation should help users and developers to get a better unders
 
 Please also consult the [Wiki](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/wiki) of this project for further information. 
 
+## RDF Resources
+
+The SPARQLing Unicorn QGIS plugin curates a list of resources for geospatial data querying in a linked data registry.
+Current resources can be visualized on this repository's [GitHub page](https://sparqlunicorn.github.io/sparqlunicornGoesGIS/endpoints.html)
+Requests to add other RDF resources can be submitted by opening issues in this repository where we might consider them for inclusion.
+
 ## Querying geospatial data
 
 The  `SPARQLing Unicorn QGIS Plugin` returns QGIS layers from specifically formatted SPARQL queries. In this section the kinds of queries which are supported are presented.

@@ -30,12 +30,15 @@ class DetectTripleStoreResultDialog(QDialog, FORM_CLASS):
             self.propertiesMissingLabel.setText("<html><font color=red><b>The plugin could not detect type or subclass properties for this triple store.<br/> Please provide them for the ClassTree View to work properly</font></b></html>")
             if "typeproperty" not in self.missingproperties:
                 self.typePropertyEdit.setText(self.configuration["typeproperty"])
+            else:
+                self.typePropertyEdit.setText("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
             self.typePropertyEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
             self.typePropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.typePropertyEdit))
             self.typePropertyEdit.textChanged.emit(self.typePropertyEdit.text())
             if "subclassproperty" not in self.missingproperties:
-                self.typePropertyEdit.setText(self.configuration["subclassproperty"])
-            self.subClassOfEdit.setText(self.configuration["subclassproperty"])
+                self.subClassOfEdit.setText(self.configuration["subclassproperty"])
+            else:
+                self.subClassOfEdit.setText("http://www.w3.org/2000/01/rdf-schema#subClassOf")
             self.subClassOfEdit.setValidator(QRegularExpressionValidator(UIUtils.urlregex, self))
             self.subClassOfEdit.textChanged.connect(lambda: UIUtils.check_state(self.subClassOfEdit))
             self.subClassOfEdit.textChanged.emit(self.subClassOfEdit.text())
@@ -74,9 +77,8 @@ class DetectTripleStoreResultDialog(QDialog, FORM_CLASS):
                 prefix] + ">\n"
         if self.permanentAdd is not None and self.permanentAdd:
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            f = open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w")
-            f.write(json.dumps(self.triplestoreconf, indent=2))
-            f.close()
+            with open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w") as f:
+                json.dump(self.triplestoreconf,f, indent=2)
         if self.tripleStoreChooser is not None:
             # self.tripleStoreChooser.addItem(self.triplestorename)
             self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count() - 1)

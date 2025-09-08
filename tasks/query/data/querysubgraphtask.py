@@ -68,7 +68,6 @@ class QuerySubGraphTask(QgsTask):
                 if ex not in ExporterUtils.rdfformats:
                     with open(filename[0], 'w', encoding='utf-8') as f:
                         ExporterUtils.exportToFunction[ex](self.results, f, None,None, ex)
-                        f.close()
                 else:
                     ExporterUtils.exportToFunction[ex](self.results, filename[0], None,None, ex)
 

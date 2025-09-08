@@ -68,9 +68,9 @@ class SearchTask(QgsTask):
                 elif "http://www.wikidata.org/wiki/" in qid and self.findConcept.isChecked():
                     qid = "http://www.wikidata.org/entity/" + ent["id"]
                 self.qids.append(qid)
-                label = ent["label"] + " (" + ent["id"] + ") "
+                label = f'{ent["label"]} ({ent["id"]}) '
                 if "description" in ent:
-                    label += "[" + ent["description"] + "]"
+                    label += f'[{ent["description"]}]'
                 self.results[qid] = label
         return True
 
@@ -99,7 +99,7 @@ class SearchTask(QgsTask):
                 item.setToolTip(res["class"]["value"])
                 item.setData(256, str(res["class"]["value"]))
                 if "label" in res:
-                    item.setText(str(res["label"]["value"] + " (" + res["class"]["value"] + ")"))
+                    item.setText(f'{res["label"]["value"]} ({res["class"]["value"]})')
                 else:
                     item.setText(str(res["class"]["value"]))
                 self.searchResult.addItem(item)

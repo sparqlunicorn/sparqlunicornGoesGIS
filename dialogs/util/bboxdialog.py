@@ -289,7 +289,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             if "bboxquery" in self.triplestoreconf and \
                     self.triplestoreconf["bboxquery"]["type"] == "geosparql":
                 self.curquery = self.curquery[0:self.curquery.rfind(
-                    '}')] + "FILTER(geof:sfIntersects(?geo,\"" + polygon.asWkt() + "\"^^geo:wktLiteral))"
+                    '}')] + f'FILTER(geof:sfIntersects(?geo,"{polygon.asWkt()}"^^geo:wktLiteral))'
             else:
                 QgsMessageLog.logMessage(polygon,MESSAGE_CATEGORY,Qgis.Info)
                 self.curquery = SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf, polygon.boundingBox(),

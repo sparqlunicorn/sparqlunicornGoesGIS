@@ -171,7 +171,7 @@ class InstanceQueryTask(QgsTask):
                 item = QStandardItem()
                 item.setText(SPARQLUtils.labelFromURI(rel,self.prefixes))
                 item.setData(str(rel),UIUtils.dataslot_conceptURI)
-                item.setToolTip("<html><b>Property URI</b> " + str(rel) + "<br>Double click to view definition in web browser")
+                item.setToolTip(f"<html><b>Property URI</b> {rel}<br>Double click to view definition in web browser")
                 self.searchResultModel.setItem(counter, 1, item)
                 itembutton = QStandardItem()
                 itembutton.setText(self.queryresult[rel]["val"])

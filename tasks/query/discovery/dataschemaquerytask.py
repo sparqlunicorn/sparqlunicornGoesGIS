@@ -104,4 +104,4 @@ class DataSchemaQueryTask(QgsTask):
         #self.searchResultModel.setHeaderData(3, Qt.Orientation.Horizontal, "Constraints")
         self.progress.close()
         if self.conceptstoenrich is not None:
-            self.dlg.propertyMatchingResultLabel.setText("<html><b>The following properties can be enriched for the "+str(len(self.conceptstoenrich))+" matched concepts</b></html>")
+            self.dlg.propertyMatchingResultLabel.setText(f"<html><b>The following properties can be enriched for the {len(self.conceptstoenrich)} matched concepts</b></html>")

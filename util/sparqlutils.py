@@ -280,14 +280,14 @@ class SPARQLUtils:
         if "#" in uri:
             prefix=uri[:uri.rfind("#")+1]
             if prefixlist is not None and prefix in prefixlist:
-                return str(prefixlist[prefix])+":"+str(uri[uri.rfind("#") + 1:])
+                return f'{prefixlist[prefix]}:{uri[uri.rfind("#") + 1:]}'
             return uri[uri.rfind("#") + 1:]
         if uri.endswith("/"):
             uri=uri[0:-1]
         if "/" in uri:
             prefix=uri[:uri.rfind("/")+1]
             if prefixlist is not None and prefix in prefixlist:
-                return str(prefixlist[prefix])+":"+str(uri[uri.rfind("/") + 1:])
+                return f'{prefixlist[prefix]}:{uri[uri.rfind("/") + 1:]}'
             return uri[uri.rfind("/") + 1:]
         return uri
 
@@ -306,7 +306,7 @@ class SPARQLUtils:
         optionals="?item ?rel ?val . "
         if amount>1:
             for i in range(1,amount+1):
-                selectpart+=" ?rel"+str(i)+" ?val"+str(i)+" "
+                selectpart+=f" ?rel{i} ?val{i} "
                 if i==1:
                     optionals += "OPTIONAL { ?val ?rel" + str(i) + " ?val" + str(i) + " . "
                 else:
@@ -412,7 +412,7 @@ class SPARQLUtils:
                     if onlygeo and "properties" in feat:
                         del feat["properties"]
                     if "id" in feat and curcounter > 0:
-                        feat["id"] = feat["id"] + "_" + str(curcounter)
+                        feat["id"] = f'{feat["id"]}_{curcounter}'
                     if "properties" in currentlayergeojson:
                         if "properties" not in feat:
                             feat["properties"] = {}
@@ -427,32 +427,30 @@ class SPARQLUtils:
             if uri.endswith(".map") or uri.endswith("geojson"):
                 try:
                     f = urlopen(uri)
-                    myjson = json.loads(f.read())
+                    myjson = json.load(f)
                     return SPARQLUtils.handleGeoJSONFile(myjson,currentlayergeojson,onlygeo)
                 except Exception as e:
-                    QgsMessageLog.logMessage("Error getting geoshape " + str(uri) + " - " + str(e))
+                    QgsMessageLog.logMessage(f"Error getting geoshape {uri} - {e}")
             elif uri.startswith("http") and uri.endswith(".kml"):
                 try:
                     f = urlopen(uri)
                     kmlfile=f.read()
-                    f=open("temp.kml","w")
-                    f.write(kmlfile)
-                    f.close()
+                    with open("temp.kml","w",encoding="utf-8") as f:
+                        f.write(kmlfile)
                     vlayer = QgsVectorLayer("temp.kml", "layer", "ogr")
                     return SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)
                 except Exception as e:
-                    QgsMessageLog.logMessage("Error getting kml " + str(uri) + " - " + str(e))
+                    QgsMessageLog.logMessage(f"Error getting kml {uri} - {e}")
             elif uri.startswith("http") and uri.endswith(".gml"):
                 try:
                     f = urlopen(uri)
                     gmlfile=f.read()
-                    f=open("temp.gml","w")
-                    f.write(gmlfile)
-                    f.close()
+                    with open("temp.gml","w",encoding="utf-8") as f:
+                        f.write(gmlfile)
                     vlayer = QgsVectorLayer("temp.gml", "layer", "ogr")
                     return SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)
                 except Exception as e:
-                    QgsMessageLog.logMessage("Error getting gml " + str(uri) + " - " + str(e))
+                    QgsMessageLog.logMessage(f"Error getting gml {uri} - {e}")
         return None
 
     ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.

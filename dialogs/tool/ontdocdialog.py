@@ -60,7 +60,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addbaseLayerButton.clicked.connect(lambda: BaseLayerDialog(self.baseLayerListView,baselayers).exec())
         self.baseLayerListView.doubleClicked.connect(lambda item: BaseLayerDialog(self.baseLayerListView,baselayers,item,item.data(266),item.data(265)).exec())
         for lay in baselayers:
-            item = QStandardItem(str(lay)+" <"+str(baselayers[lay]["url"])+">")
+            item = QStandardItem(f'{lay} <{baselayers[lay]["url"]}>')
             item.setCheckable(True)
             if baselayers[lay]["default"]:
                 item.setCheckState(Qt.CheckState.Checked)

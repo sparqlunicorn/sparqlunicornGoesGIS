@@ -39,9 +39,9 @@ class LayerMatchingTask(QgsTask):
             matchvalstatement="VALUES ?val { "
             for val in self.columnvallist:
                 if self.matchinglanguage is not None:
-                    matchvalstatement += "\"" + val + "\"@"+str(self.matchinglanguage)+" "
+                    matchvalstatement += f'"{val}"@{self.matchinglanguage} '
                 else:
-                    matchvalstatement+="\""+val+"\" "
+                    matchvalstatement+=f'"{val}" '
             matchvalstatement+="}"
             thequery+=matchvalstatement+" }"
         else:
@@ -87,6 +87,6 @@ class LayerMatchingTask(QgsTask):
                 counter+=1
         if self.columnvallist is not None:
             self.dlg.enrichmentSearchResultLabel.setText(
-                "<html><b>The matching task found "+str(len(self.resmap))+" results for your selection. That is "+str(round(((len(self.resmap)/len(self.columnvallist))*100),2))+"% ("+str(len(self.resmap))+"/"+str(len(self.columnvallist))+") of all instances in the original layer</html>")
+                f"<html><b>The matching task found {len(self.resmap)} results for your selection. That is {round(((len(self.resmap)/len(self.columnvallist))*100),2)}% ({len(self.resmap)}/{len(self.columnvallist)}) of all instances in the original layer</html>")
         self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))
         SPARQLUtils.handleException(MESSAGE_CATEGORY)

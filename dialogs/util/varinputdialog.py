@@ -57,7 +57,7 @@ class VarInputDialog(QDialog, FORM_CLASS):
         if self.varNameEdit.text() != "":
             varname = "?_" + self.varNameEdit.text()
         else:
-            varname = "?_" + layername.replace(" ", "") + "_" + fieldname.replace(" ", "")
+            varname = f'?_{layername.replace(" ", "")}_{fieldname.replace(" ", "")}'
         self.inputfield.insertPlainText(varname)
         queryinsert = "VALUES " + varname + " {"
         attlist = {""}
@@ -67,7 +67,7 @@ class VarInputDialog(QDialog, FORM_CLASS):
             if att != "":
                 if self.varType.currentText() == "URI" or (
                         self.varType.currentText() == "Automatic" and att.startswith("http")):
-                    queryinsert += "<" + att + ">"
+                    queryinsert += f"<{att}>"
                 elif self.varType.currentText() == "Integer" or self.varType.currentText() == "Double":
                     queryinsert += att
                 elif self.varType.currentText() == "Date":

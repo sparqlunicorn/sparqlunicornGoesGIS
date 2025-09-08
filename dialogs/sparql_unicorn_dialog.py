@@ -199,9 +199,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def tripleStoreInfoDialog(self):
         msgBox = ErrorMessageBox("RDF Resource Information","")
         msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap,'SP_MessageBoxInformation'))))
-        thetext="<html height=100%><h3 align=center>Information about "+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</h3><table border=1 cellspacing=0 align=center><tr><th>Information</th><th>Value</th></tr>"
-        thetext+="<tr><td>Name</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</td></tr>"
-        thetext+="<tr><td>Type</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["type"])+"</td></tr>"
+        thetext=f'<html height=100%><h3 align=center>Information about {self.triplestoreconf[self.comboBox.currentIndex()]["name"]}</h3><table border=1 cellspacing=0 align=center><tr><th>Information</th><th>Value</th></tr>'
+        thetext+=f'<tr><td>Name</td><td>{self.triplestoreconf[self.comboBox.currentIndex()]["name"]}</td></tr>'
+        thetext+=f'<tr><td>Type</td><td>{self.triplestoreconf[self.comboBox.currentIndex()]["type"]}</td></tr>'
         if "sparql11" in self.triplestoreconf[self.comboBox.currentIndex()]["resource"] and self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["sparql11"]:
             thetext += "<tr><td>SPARQL 1.1</td><td>Supported</td></tr>"
         else:
@@ -229,18 +229,18 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if "equivalentClasses" in self.triplestoreconf and self.triplestoreconf["equivalentClasses"]!={}:
             eqvcls="<tr><td>Eqv Classes</td><td><ul>"
             for item in self.triplestoreconf["equivalentClasses"]:
-                eqvcls+="<li>"+str(item)+"<ul>"
+                eqvcls+=f"<li>{item}<ul>"
                 for cls in self.triplestoreconf["equivalentClasses"][item]:
-                    eqvcls+="<li>"+str(cls)+"</li>"
+                    eqvcls+=f"<li>{cls}</li>"
                 eqvcls+="</ul></li>"
             eqvcls+="</ul></td></tr>"
             thetext += eqvcls
         if "equivalentProperties" in self.triplestoreconf and self.triplestoreconf["equivalentProperties"]!={}:
             eqvcls="<tr><td>Eqv Properties</td><td><ul>"
             for item in self.triplestoreconf["equivalentProperties"]:
-                eqvcls+="<li>"+str(item)+"<ul>"
+                eqvcls+=f"<li>{item}<ul>"
                 for cls in self.triplestoreconf["equivalentProperties"][item]:
-                    eqvcls+="<li>"+str(cls)+"</li>"
+                    eqvcls+=f"<li>{cls}</li>"
                 eqvcls+="</ul></li>"
             eqvcls+="</ul></td></tr>"
             thetext+=eqvcls
@@ -263,9 +263,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"]].append(
                 {"label": queryName, "query": self.inp_sparql2.toPlainText()})
             self.savedQueries.addItem(queryName)
-            f = open(os.path.join(__location__, 'savedqueries.json'), "w")
-            f.write(json.dumps(self.savedQueriesJSON))
-            f.close()
+            with open(os.path.join(__location__, 'savedqueries.json'), "w",encoding="utf-8") as f:
+                json.dump(self.savedQueriesJSON,f)
 
     def onContext(self,position):
         self.currentContext=self.geoTreeView
@@ -804,8 +803,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
-        progress = QProgressDialog(
-            "Querying all instances for " + concept,"Abort", 0, 0, self)
+        progress = QProgressDialog("Querying all instances for " + concept,"Abort", 0, 0, self)
         progress.setWindowTitle("Query all instances")
         progress.setWindowModality(Qt.WindowModality.WindowModal)
         thequery=""

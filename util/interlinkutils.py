@@ -112,9 +112,9 @@ class InterlinkUtils:
     def exportMappingXML(mappingdict):
         xmlmappingheader = "<?xml version=\"1.0\" ?>\n<data>\n<file "
         xmlmapping = ""
-        xmlmappingheader += "class=\"" + str(mappingdict.get("class")) + "\" "
-        xmlmappingheader += "namespace=\"" + str(mappingdict.get("namespace")) + "\" "
-        xmlmappingheader += "indid=\"" + str(mappingdict.get("indid")) + "\" >"
+        xmlmappingheader += f'class="{mappingdict.get("class")}" '
+        xmlmappingheader += f'namespace="{mappingdict.get("namespace")}" '
+        xmlmappingheader += f'indid="{mappingdict.get("indid")}" >'
         for row in mappingdict["column"]:
             item = row
             if item.checkState():
@@ -123,7 +123,7 @@ class InterlinkUtils:
                 {"key": "query", "prefix":"query=\"", "suffix":"\" "}, {"key": "triplestoreurl", "prefix":"triplestoreurl=\"", "suffix":"\" "}],row)+">"
                 if "valuemapping" in mappingdict:
                     for key in mappingdict:
-                        xmlmapping += "<valuemapping from=\"" + key + "\" to=\"" + mappingdict["valuemapping"][key] + "\"/>\n"
+                        xmlmapping += f'<valuemapping from="{key}" to="{mappingdict["valuemapping"][key]}"/>\n'
                 xmlmapping += "</column>\n"
         xmlmapping += "</file>\n</data>"
         return xmlmappingheader + ">\n" + xmlmapping

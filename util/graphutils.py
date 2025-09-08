@@ -91,7 +91,7 @@ class GraphUtils:
     def createCapabilityMessage(self,capabilitylist):
         capabilitymessage="A valid SPARQL Endpoint with the following capabilities: <ul>"
         for cap in capabilitylist:
-            capabilitymessage+="<li>"+cap+"</li>"
+            capabilitymessage+=f"<li>{cap}</li>"
         capabilitymessage+="</ul>"
         return capabilitymessage
 
@@ -253,9 +253,9 @@ class GraphUtils:
     def detectTypeProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
         #QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        #QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results==True or isinstance(results,dict) and "boolean" in results and results["boolean"]==True:
-            #QgsMessageLog.logMessage("Detected RDFTYPE PROPERTY", MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("Detected RDFTYPE PROPERTY", MESSAGE_CATEGORY, Qgis.Info)
             if configuration is not None:
                 configuration["typeproperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
             return "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
@@ -263,7 +263,7 @@ class GraphUtils:
             results = SPARQLUtils.executeQuery(triplestoreurl,
                     self.testQueries["hasPropEquivalent"].replace("%%proplabels%%","\"instance of\"@en \"Instance of\"@en \"Instance Of\"@en"),
                     {"auth": {"method": authmethod, "userCredential": credentialUserName,"userPassword": credentialPassword}})
-            #QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             if results!=False:
                 for res in results["results"]["bindings"]:
                     if "prop" in res:
@@ -337,7 +337,7 @@ class GraphUtils:
                                        credentialUserName, credentialPassword, authmethod)
         for result in results["results"]["bindings"]:
             if "rel" in result and result["rel"]["value"] not in DocConfig.geoproperties:
-                configuration["geotriplepattern"].append(" ?item <"+result["rel"]["value"]+"> ?geo . ")
+                configuration["geotriplepattern"].append(f' ?item <{result["rel"]["value"]}> ?geo . ')
                 newrels.append(result["rel"]["value"])
         return newrels
 

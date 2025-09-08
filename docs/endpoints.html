@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Automatically Configured RDF Resources in the SPARQLing Unicorn QGIS Plugin</title>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+  </head>
+  <body>
+    <h2 style="text-align:center">Automatically Configured RDF Resources in the SPARQLing Unicorn QGIS Plugin</h2>
+  <table id="table"><thead><th>Name</th><th>Capabilities</th><th>Resource Type</th><th>URL</th></thead>
+  <tbody id="tablecontent">
+    
+  </tbody></table>  
+  </body>
+<script>
+function buildTable(config){
+  result=""
+  for(item of config){
+      if("active" in item && item["active"]){
+         result+="<tr><td>"+item["name"]+"</td>"
+         if(item["type"]=="geosparqlendpoint"){
+          result+="<td>GeoSPARQL</td>"
+         }else{
+          result+="<td>SPARQL</td>"
+         }
+         result+="<td>"+item["resource"]["type"]+"</td><td><a href=\""+item["resource"]["url"]+"\">"+item["resource"]["url"]+"</a></td></tr>"
+      }
+  }
+  document.getElementById("tablecontent").innerHTML=result
+  $('#table').DataTable();
+}
+  fetch('https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/refs/heads/ldregistry/ldregistry.json')
+   .then(response => {
+       if (!response.ok) {
+           throw new Error("HTTP error " + response.status);
+       }
+       return response.json();
+   })
+   .then(json => {
+       var config = json;
+       buildTable(config)
+       //console.log(this.users);
+   })
+   .catch(function () {
+       this.dataError = true;
+   })
+</script>
+</html>

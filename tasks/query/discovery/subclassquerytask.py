@@ -35,8 +35,7 @@ class SubClassQueryTask(QgsTask):
         for result in results["results"]["bindings"]:
             self.resultlist[str(result["subclass"]["value"])]={"concept":str(result["subclass"]["value"])}
         # self.layercount.setText("["+str(len(viewlist))+"]")
-        if "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
-            "classlabelquery"] != "":
+        if "classlabelquery" in self.triplestoreconf and self.triplestoreconf["classlabelquery"] != "":
             self.resultlist = SPARQLUtils.getLabelsForClasses(self.resultlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
             #print(labels)
             #self.amountoflabels = len(labels)
@@ -53,7 +52,7 @@ class SubClassQueryTask(QgsTask):
                 item = QStandardItem()
                 item.setData(concept, UIUtils.dataslot_conceptURI)
                 if "label" in self.resultlist[concept]:
-                    item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"])+")")
+                    item.setText(f'{self.resultlist[concept]["label"]} ({SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"])})')
                 else:
                     item.setText(SPARQLUtils.labelFromURI(self.resultlist[concept]))
                 item.setForeground(QColor(0,0,0))
@@ -62,5 +61,5 @@ class SubClassQueryTask(QgsTask):
                 item.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
                 self.treeNode.appendRow(item)
         if self.amountoflabels != -1:
-            self.layercount.setText("[" + str(self.amountoflabels) + "]")
+            self.layercount.setText(f'[{self.amountoflabels}]')
         SPARQLUtils.handleException(MESSAGE_CATEGORY)

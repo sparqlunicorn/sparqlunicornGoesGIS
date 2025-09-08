@@ -37,14 +37,14 @@ class ConvertLayerTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             fileext),
             "Convert Layer Dialog", Qgis.Info)
-        with open(self.filename[0], 'w') as output_file:
+        with open(self.filename[0], 'w',encoding="utf-8") as output_file:
             LayerExporter.exportToFormat(ttlstring, output_file, self.filename[0], fileext,self.prefixes)
         return True
 
     def finished(self, result):
         self.progress.close()
         if result:
-            iface.messageBar().pushMessage("Exported layer successfully to " + str(self.filename[0]) + "!", "OK",
+            iface.messageBar().pushMessage(f"Exported layer successfully to {self.filename[0]}!", "OK",
                                            level=Qgis.Success)
             msgBox = QMessageBox()
             msgBox.setText("Layer converted to and saved as "+str(self.filename[0]))

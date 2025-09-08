@@ -66,9 +66,9 @@ class GeoCollectionsQueryTask(QgsTask):
         if len(self.resultlist) > 0:
             first = True
             if self.featureOrGeoCollection:
-                self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections (" + str(len(self.resultlist)) + ")")
+                self.dlg.conceptViewTabWidget.setTabText(1, f"FeatureCollections ({len(self.resultlist)})")
             else:
-                self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections (" + str(len(self.resultlist)) + ")")
+                self.dlg.conceptViewTabWidget.setTabText(2, f"GeometryCollections ({len(self.resultlist)})")
             for concept in self.resultlist:
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
@@ -80,11 +80,11 @@ class GeoCollectionsQueryTask(QgsTask):
                     item.setIcon(UIUtils.geometrycollectionicon)
                 itemtext=""
                 if "label" in concept:
-                    itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
+                    itemtext=f'{concept["label"]} ({concept["uri"][concept["uri"].rfind("/") + 1:]})'
                 else:
                     itemtext=SPARQLUtils.labelFromURI(concept["uri"])
                 if "members" in concept:
-                    itemtext+=" ["+str(concept["members"])+"]"
+                    itemtext+=f' [{concept["members"]}]'
                 item.setText(itemtext)
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
@@ -96,9 +96,9 @@ class GeoCollectionsQueryTask(QgsTask):
                     self.dlg.viewselectactionGeometryCollection()
         elif len(self.viewlist) > 0:
             if self.featureOrGeoCollection:
-                self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections (" + str(len(self.viewlist)) + ")")
+                self.dlg.conceptViewTabWidget.setTabText(1, f"FeatureCollections ({len(self.viewlist)})")
             else:
-                self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections (" + str(len(self.viewlist)) + ")")
+                self.dlg.conceptViewTabWidget.setTabText(2, f"GeometryCollections ({len(self.viewlist)})")
             for concept in self.viewlist:
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
@@ -106,18 +106,18 @@ class GeoCollectionsQueryTask(QgsTask):
                 item.setData(SPARQLUtils.collectionclassnode, UIUtils.dataslot_nodetype)
                 itemtext=""
                 if "label" in concept:
-                    itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
+                    itemtext=f'{concept["label"]} ({concept["uri"][concept["uri"].rfind("/") + 1:]})'
                 else:
                     itemtext=SPARQLUtils.labelFromURI(concept["uri"])
                 if "members" in concept:
-                    itemtext+=" ["+str(concept["members"])+"]"
+                    itemtext+=f' [{concept["members"]}]'
                 item.setText(itemtext)
                 if self.featureOrGeoCollection:
                     item.setIcon(UIUtils.featurecollectionicon)
-                    item.setToolTip("FeatureCollection " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                    item.setToolTip(f"FeatureCollection {item.text()}: <br>{SPARQLUtils.treeNodeToolTip}")
                 else:
                     item.setIcon(UIUtils.geometrycollectionicon)
-                    item.setToolTip("GeometryCollection " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                    item.setToolTip(f"GeometryCollection {item.text()}: <br>{SPARQLUtils.treeNodeToolTip}")
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),

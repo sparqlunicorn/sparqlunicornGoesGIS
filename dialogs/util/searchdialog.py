@@ -167,7 +167,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             if haschanged:
                 self.table.insertPlainText(toinsert)
             else:
-                self.table.insertPlainText("<" + toinsert + ">")
+                self.table.insertPlainText(f"<{toinsert}>")
         elif self.interlinkOrEnrich == -1:
             self.table.setText(str(self.tripleStoreEdit.currentIndex())+"_"+str(toinsert))
         else:

@@ -32,7 +32,7 @@ class TabContextMenu(QMenu):
         result=set()
         UIUtils.iterateTree(context.invisibleRootItem(),result,False,True,self.triplestoreconf,context)
         #QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
-        with open(filename, 'w') as output_file:
+        with open(filename, 'w',encoding="utf-8") as output_file:
             output_file.write("".join(result))
         return result
 
@@ -44,7 +44,7 @@ class TabContextMenu(QMenu):
         result=set()
         UIUtils.iterateTree(context.invisibleRootItem(),result,True,False,self.triplestoreconf,context)
         #QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
-        with open(filename, 'w') as output_file:
+        with open(filename, 'w',encoding="utf-8") as output_file:
             output_file.write("".join(result))
         return result
 
@@ -56,6 +56,6 @@ class TabContextMenu(QMenu):
         result=set()
         UIUtils.iterateTree(context.invisibleRootItem(),result,False,False,self.triplestoreconf,context)
         #QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
-        with open(filename, 'w') as output_file:
+        with open(filename, 'w',encoding="utf-8") as output_file:
             output_file.write("".join(result))
         return result

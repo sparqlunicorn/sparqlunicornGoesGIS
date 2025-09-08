@@ -126,8 +126,9 @@ class LayerExporter:
                 curid = namespace + str(f[idcol])
             else:
                 curid = f[idcol]
+            curiduri=URIRef(str(curid))
             if classcol not in fieldnames:
-                graph.add((URIRef(str(curid)),RDF.type,URIRef(curclassid)))
+                graph.add((curiduri,RDF.type,URIRef(curclassid)))
                 if first == 0:
                     graph.add((URIRef(str(curclassid)), RDFS.subClassOf, GEO.Feature))
                     graph.add((URIRef(str(curclassid)), RDF.type, OWL.Class))
@@ -144,6 +145,7 @@ class LayerExporter:
                 if includelist is not None and fieldcounter < len(includelist) and includelist[fieldcounter] == False:
                     continue
                 prop = propp
+                propuri=URIRef(prop)
                 #print(str(fieldcounter))
                 #print(str(urilist) + "\n")
                 #print(str(classurilist) + "\n")
@@ -161,9 +163,10 @@ class LayerExporter:
                 if not prop.startswith("http"):
                     prop = namespace + prop
                 if prop == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in str(f[propp]):
-                    graph.add((URIRef(str(f[propp])),URIRef(str(prop)),OWL.Class))
-                    graph.add((URIRef(str(f[propp])), RDFS.subClassOf, GEO.Feature))
-                    graph.add((URIRef(str(curid)), RDF.type, URIRef(str(f[propp]))))
+                    fpropuri=URIRef(str(f[propp]))
+                    graph.add((fpropuri,URIRef(str(prop)),OWL.Class))
+                    graph.add((fpropuri, RDFS.subClassOf, GEO.Feature))
+                    graph.add((curiduri, RDF.type, fpropuri))
                 # elif urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
                 #   ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
                 #    if first<10:
@@ -173,60 +176,60 @@ class LayerExporter:
                 #           ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 elif prop == "http://www.w3.org/2000/01/rdf-schema#label" or prop == "http://www.w3.org/2000/01/rdf-schema#comment" or (
                         proptypelist is not None and proptypelist[fieldcounter] == "AnnotationProperty"):
-                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]).replace('"','\\"'),datatype=XSD.string)))
+                    graph.add((curiduri,propuri,Literal(str(f[propp]).replace('"','\\"'),datatype=XSD.string)))
                     if first < 10:
-                        graph.add((URIRef(prop),RDF.type,OWL.AnnotationProperty))
-                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
+                        graph.add((propuri,RDF.type,OWL.AnnotationProperty))
+                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))
                 elif not f[propp] or f[propp] is None or f[propp] == "":
                     continue
                 elif proptypelist is not None and proptypelist[fieldcounter] == "SubClass":
-                    graph.add((URIRef(curid),RDF.type,URIRef(str(f[propp]))))
-                    graph.add((URIRef(curid),RDFS.subClassOf,URIRef(curclassid)))
+                    graph.add((curiduri,RDF.type,URIRef(str(f[propp]))))
+                    graph.add((curiduri,RDFS.subClassOf,URIRef(curclassid)))
                     if first < 10:
                         graph.add((URIRef(str(f[propp])),RDF.type,OWL.Class))
                 elif valuequeries is not None and propp in valuequeries:
                     # ttlstring += ""
                     results = SPARQLUtils.executeQuery(valuequeries[propp][1], "".join(
                         prefixes + valuequeries[propp][0].replace("%%" + propp + "%%", "\"" + str(f[propp]) + "\"")))
-                    graph.add((URIRef(curid),URIRef(prop),URIRef(results["results"]["bindings"][0]["item"]["value"])))
+                    graph.add((curiduri,propuri,URIRef(results["results"]["bindings"][0]["item"]["value"])))
                     if first < 10:
-                        graph.add((URIRef(prop),RDF.type, OWL.ObjectProperty))
-                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
+                        graph.add((propuri,RDF.type, OWL.ObjectProperty))
+                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))
                         if classurilist[fieldcounter] != "":
-                            graph.add((URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter])))
+                            graph.add((propuri,RDFS.range,URIRef(classurilist[fieldcounter])))
                 elif valuemappings is not None and propp in valuemappings and f[propp] in valuemappings[propp]:
-                    graph.add((URIRef(curid),URIRef(prop),URIRef(str(valuemappings[propp][f[propp]]))))
+                    graph.add((curiduri,propuri,URIRef(str(valuemappings[propp][f[propp]]))))
                     if first < 10:
-                        graph.add((URIRef(prop),RDF.type,OWL.ObjectProperty))
-                        graph.add((URIRef(prop), RDF.domain, URIRef(curclassid)))
+                        graph.add((propuri,RDF.type,OWL.ObjectProperty))
+                        graph.add((propuri, RDF.domain, URIRef(curclassid)))
                         if classurilist[fieldcounter] != "":
-                            graph.add((URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter])))
+                            graph.add((propuri,RDFS.range,URIRef(classurilist[fieldcounter])))
                 elif "http" in str(f[propp]) or (
                         proptypelist is not None and proptypelist[fieldcounter] == "ObjectProperty"):
-                    graph.add((URIRef(curid),URIRef(prop),URIRef(str(f[propp]))))
+                    graph.add((curiduri,propuri,URIRef(str(f[propp]))))
                     if first < 10:
-                        graph.add((URIRef(prop),RDF.type,OWL.ObjectProperty))
-                        graph.add((URIRef(prop),RDFS.domain,URIRef(curclassid)))
+                        graph.add((propuri,RDF.type,OWL.ObjectProperty))
+                        graph.add((propuri,RDFS.domain,URIRef(curclassid)))
                         if classurilist is not None and fieldcounter < len(classurilist) and classurilist[fieldcounter] != "":
-                            graph.add((URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter])))
+                            graph.add((propuri,RDFS.range,URIRef(classurilist[fieldcounter])))
                 elif re.match(r'^-?\d+$', str(f[propp])):
-                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]),datatype=XSD.integer)))
+                    graph.add((curiduri,propuri,Literal(str(f[propp]),datatype=XSD.integer)))
                     if first < 10:
-                        graph.add((URIRef(prop), RDF.type, OWL.DatatypeProperty))
-                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
-                        graph.add((URIRef(prop), RDFS.range, XSD.integer))
+                        graph.add((propuri, RDF.type, OWL.DatatypeProperty))
+                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))
+                        graph.add((propuri, RDFS.range, XSD.integer))
                 elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[propp])):
-                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]),datatype=XSD.double)))
+                    graph.add((curiduri,propuri,Literal(str(f[propp]),datatype=XSD.double)))
                     if first:
-                        graph.add((URIRef(prop),RDF.type,OWL.DatatypeProperty))
-                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
-                        graph.add((URIRef(prop), RDFS.range, XSD.double))
+                        graph.add((propuri,RDF.type,OWL.DatatypeProperty))
+                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))
+                        graph.add((propuri, RDFS.range, XSD.double))
                 else:
-                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]).replace('"','\\"'),datatype=XSD.string)))
+                    graph.add((curiduri,propuri,Literal(str(f[propp]).replace('"','\\"'),datatype=XSD.string)))
                     if first < 10:
-                        graph.add((URIRef(prop),RDF.type,OWL.DatatypeProperty))
-                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
-                        graph.add((URIRef(prop), RDFS.range, XSD.string))
+                        graph.add((propuri,RDF.type,OWL.DatatypeProperty))
+                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))
+                        graph.add((propuri, RDFS.range, XSD.string))
             if first < 10:
                 first = first + 1
         return graph
@@ -269,44 +272,27 @@ class LayerExporter:
                 "rdfs:subClassOf") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
         for f in layer.getFeatures():
             geom = f.geometry()
-            nodeset.add("<node id=\"fid_" + str(
-                fidcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">fid_" + str(
-                fidcounter) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
+            nodeset.add(f"<node id=\"fid_{fidcounter}\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">fid_{fidcounter}</y:NodeLabel></y:ShapeNode></data></node>\n")
             fieldcounter = 0
             for propp in fieldnames:
                 fieldcounter += 1
                 prop = propp
                 if prop.startswith("http"):
-                    toadd = "<node id=\"" + str(prop) + "\" uri=\"" + str(
-                        prop) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">"
+                    toadd = f"<node id=\"{prop}\" uri=\"{prop}\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">"
                     if f[propp].startswith("http"):
                         toadd += SPARQLUtils.labelFromURI(str(f[propp]).replace("<", "").replace(">",
                                                                                                  "")) + "</y:NodeLabel></y:ShapeNode></data></node>\n"
                     else:
-                        toadd += "<!CDATA[" + str(f[propp]).replace("<", "").replace(">",
-                                                                                     "") + "]]></y:NodeLabel></y:ShapeNode></data></node>\n"
+                        toadd += f'<!CDATA[{str(f[propp]).replace("<", "").replace(">","")}]]></y:NodeLabel></y:ShapeNode></data></node>\n'
                     nodeset.add(toadd)
-                    edgeset.add(
-                        "<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(propp) + "\" source=\"fid_" + str(
-                            fidcounter) + "\" target=\"" + str(
-                            prop) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                            propp) + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+                    edgeset.add(f"<edge id=\"e{edgecounter}\" uri=\"{propp}\" source=\"fid_{fidcounter}\" target=\"{prop}\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">{propp}</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
                     edgecounter += 1
                 else:
-                    nodeset.add("<node id=\"literal" + str(
-                        literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                        f[propp]).replace("<", "").replace(">", "")[
-                                                                                                                                                                                                                                                                                                                                    0:10] + "</y:NodeLabel></y:ShapeNode></data></node>\n")
-                    edgeset.add(
-                        "<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(propp) + "\" source=\"fid_" + str(
-                            fidcounter) + "\" target=\"literal" + str(
-                            literalcounter) + "\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                            propp) + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+                    nodeset.add(f'<node id="literal{literalcounter}"><data key="nodekey"><y:ShapeNode><y:Shape shape="ellipse"></y:Shape><y:Fill color="#008000" transparent="false"></y:Fill><y:NodeLabel alignment="center" autoSizePolicy="content" fontSize="12" fontStyle="plain" hasText="true" visible="true" width="4.0">{str(f[propp]).replace("<", "").replace(">", "")[0:10]}</y:NodeLabel></y:ShapeNode></data></node>\n')
+                    edgeset.add(f"<edge id=\"e{edgecounter}\" uri=\"{propp}\" source=\"fid_{fidcounter}\" target=\"literal{literalcounter}\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">{propp}</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
                     literalcounter += 1
                     edgecounter += 1
-            nodeset.add("<node id=\"fid_" + str(fidcounter
-                                                ) + "_geom\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">fid_" + str(
-                fidcounter) + "_geom</y:NodeLabel></y:ShapeNode></data></node>\n")
+            nodeset.add(f"<node id=\"fid_{fidcounter}_geom\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">fid_{fidcounter}_geom</y:NodeLabel></y:ShapeNode></data></node>\n")
             nodeset.add("<node id=\"literal" + str(
                 literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
                 geom.asWkt())[0:10] + "</y:NodeLabel></y:ShapeNode></data></node>\n")
