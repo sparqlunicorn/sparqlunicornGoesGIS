@@ -195,8 +195,7 @@ class ToolTipPlainText(QPlainTextEdit):
         tc.removeSelectedText()
         newprefix = True
         if not sub in self.prefixes[self.selector.currentIndex()]:
-            self.prefixes[self.selector.currentIndex()] += "PREFIX " + sub + ":<" + self.autocomplete["namespaces"][
-                sub] + ">\n"
+            self.prefixes[self.selector.currentIndex()] += f'PREFIX {sub}:<{self.autocomplete["namespaces"][sub]}>\n'
         if completion in self.autocomplete["clsdict"]:
             tc.insertText(self.autocomplete["clsdict"][completion] + " ")
         elif completion in self.autocomplete["propdict"]:

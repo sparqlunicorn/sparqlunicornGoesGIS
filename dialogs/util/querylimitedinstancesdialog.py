@@ -33,10 +33,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
             limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
         if self.nodetype == SPARQLUtils.geoclassnode:
             if "geotriplepattern" in self.triplestoreconf:
-                self.thequery="SELECT ?" + " ?".join(self.triplestoreconf[
-                                               "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
-                        self.triplestoreconf["typeproperty"]) + "> <" + str(
-                        self.concept) + "> . } "+limitstatement+" } ?item ?rel ?val . " +self.triplestoreconf["geotriplepattern"][0] + "\n }"
+                self.thequery=f'SELECT ?"{" ?".join(self.triplestoreconf["mandatoryvariables"])} ?rel ?val\n WHERE\n {{\n {{ SELECT ?item WHERE {{ ?item <{self.triplestoreconf["typeproperty"]}> <{self.concept}> . }} {limitstatement} }} ?item ?rel ?val . {self.triplestoreconf["geotriplepattern"][0]}\n }}'
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.concept,
@@ -44,9 +41,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                     self.thequery,
                     self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self)
             else:
-                self.thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
-                        self.triplestoreconf["typeproperty"]) + "> <" + str(
-                        self.concept) + "> . } "+limitstatement+" }\n ?item ?rel ?val .\n }"
+                self.thequery=f'SELECT ?item ?rel ?val\n WHERE\n {{\n {{ SELECT ?item WHERE {{ ?item <{self.triplestoreconf["typeproperty"]}> <{self.concept}> . }} {limitstatement} }}\n ?item ?rel ?val .\n }}'
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.concept,
@@ -54,9 +49,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                     self.thequery,
                     self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None,self)
         else:
-            self.thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
-                    self.triplestoreconf["typeproperty"]) + "> <" + str(
-                    self.concept) + "> . } "+limitstatement+" } ?item ?rel ?val .\n }"
+            self.thequery=f'SELECT ?item ?rel ?val\n WHERE\n {{\n {{ SELECT ?item WHERE {{ ?item <{self.triplestoreconf["typeproperty"]}> <{self.concept}> . }} {limitstatement} }} ?item ?rel ?val .\n }}'
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(self.concept),
                 self.concept,
