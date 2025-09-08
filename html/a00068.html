@@ -150,8 +150,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a69f706a761ec89c3b902ee489e8d7408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4455f94d42a811b5c7c626152327590" id="r_ad4455f94d42a811b5c7c626152327590"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00068.html#ad4455f94d42a811b5c7c626152327590">showConfigTable</a></td></tr>
 <tr class="separator:ad4455f94d42a811b5c7c626152327590"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae415d71d8e7cfbfc9a8dcf9f76922ef5" id="r_ae415d71d8e7cfbfc9a8dcf9f76922ef5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00068.html#ae415d71d8e7cfbfc9a8dcf9f76922ef5">enrichLayerCounter</a></td></tr>
-<tr class="separator:ae415d71d8e7cfbfc9a8dcf9f76922ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28e8c8cab7654b472c43f25f3005b3ad" id="r_a28e8c8cab7654b472c43f25f3005b3ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00068.html#a28e8c8cab7654b472c43f25f3005b3ad">exportIdCol</a></td></tr>
 <tr class="separator:a28e8c8cab7654b472c43f25f3005b3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53c91b53a9e6f8aa2e992e979da8af83" id="r_a53c91b53a9e6f8aa2e992e979da8af83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00068.html#a53c91b53a9e6f8aa2e992e979da8af83">exportNameSpace</a></td></tr>
@@ -257,7 +255,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  296</span>            <span class="comment">#selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()</span></div>
 <div class="line"><span class="lineno">  297</span>            self.enrichLayer = self.chooseLayerEnrich.currentLayer().clone()</div>
 <div class="line"><span class="lineno">  298</span>        self.enrichLayerCounter += 1</div>
-<div class="line"><span class="lineno">  299</span>        self.enrichLayer.setName(self.enrichLayer.name() + <span class="stringliteral">&quot;_enrich&quot;</span> + str(self.enrichLayerCounter))</div>
+<div class="line"><span class="lineno">  299</span>        self.enrichLayer.setName(f<span class="stringliteral">&quot;{self.enrichLayer.name()}_enrich{self.enrichLayerCounter}&quot;</span>)</div>
 <div class="line"><span class="lineno">  300</span>        self.enrichLayer.startEditing()</div>
 <div class="line"><span class="lineno">  301</span>        row = 0</div>
 <div class="line"><span class="lineno">  302</span>        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> self.enrichLayer.fields()]</div>
@@ -280,7 +278,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  319</span>        self.dlg.close()</div>
 <div class="line"><span class="lineno">  320</span> </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00068.html#ac3b35c93890e49ff3f0c12e45ab19fa1">EnrichmentTab.chooseLayerEnrich</a>, <a class="el" href="a00060.html#afe27f37e04aafb99a9b48eae8506bc9a">SPARQLunicorn.enrichLayer</a>, <a class="el" href="a00068.html#afe27f37e04aafb99a9b48eae8506bc9a">EnrichmentTab.enrichLayer</a>, <a class="el" href="a00072.html#afe27f37e04aafb99a9b48eae8506bc9a">InterlinkingTab.enrichLayer</a>, <a class="el" href="a00060.html#a52fdefb870f38c907e9fede14b52425f">SPARQLunicorn.enrichLayerCounter</a>, and <a class="el" href="a00068.html#a52fdefb870f38c907e9fede14b52425f">EnrichmentTab.enrichLayerCounter</a>.</p>
+<p class="reference">References <a class="el" href="a00068.html#ac3b35c93890e49ff3f0c12e45ab19fa1">EnrichmentTab.chooseLayerEnrich</a>, <a class="el" href="a00060.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00068.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00072.html#ad2ee3c07560eb98d17a382b71105bf98">InterlinkingTab.dlg</a>, <a class="el" href="a00060.html#afe27f37e04aafb99a9b48eae8506bc9a">SPARQLunicorn.enrichLayer</a>, <a class="el" href="a00068.html#afe27f37e04aafb99a9b48eae8506bc9a">EnrichmentTab.enrichLayer</a>, <a class="el" href="a00072.html#afe27f37e04aafb99a9b48eae8506bc9a">InterlinkingTab.enrichLayer</a>, <a class="el" href="a00060.html#a52fdefb870f38c907e9fede14b52425f">SPARQLunicorn.enrichLayerCounter</a>, and <a class="el" href="a00068.html#a52fdefb870f38c907e9fede14b52425f">EnrichmentTab.enrichLayerCounter</a>.</p>
 
 </div>
 </div>
@@ -956,7 +954,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00068.html#a47f40e16c3c758738a40dd88650d9ac5">EnrichmentTab.__init__()</a>, <a class="el" href="a00072.html#a47f40e16c3c758738a40dd88650d9ac5">InterlinkingTab.__init__()</a>, <a class="el" href="a00068.html#ad17d902e02b2a983a6f4805c98e8355d">EnrichmentTab.addEnrichRow()</a>, <a class="el" href="a00068.html#a4782caaa08755cd16dbb16470a7c969f">EnrichmentTab.createEnrichSearchDialog()</a>, <a class="el" href="a00068.html#a52ea277bbb8fcef5938b3e61464721be">EnrichmentTab.createEnrichSearchDialogProp()</a>, <a class="el" href="a00072.html#aaebaa784dd52ca69569441a5aac60eb9">InterlinkingTab.createInterlinkSearchDialog()</a>, <a class="el" href="a00068.html#aaa94069381ac845fbd6592b15a9764c5">EnrichmentTab.enrichLayerProcess()</a>, <a class="el" href="a00072.html#ad2c8961a836965e6db69187947df4461">InterlinkingTab.exportInterlinkedLayer()</a>, <a class="el" href="a00060.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a00060.html#af8c58ecbe6afb26c8212086206b4d004">SPARQLunicorn.exportLayer2()</a>, <a class="el" href="a00072.html#a6bd060c97f701a40aa10cdd930b92f4d">InterlinkingTab.exportMapping()</a>, <a class="el" href="a00072.html#a503cde2c17df59afdaad2db0cf9d5f0f">InterlinkingTab.exportMappingProcess()</a>, <a class="el" href="a00068.html#a4a57b7ed2a306518e674d3bf00e8bef3">EnrichmentTab.loadLayerForEnrichment()</a>, <a class="el" href="a00072.html#af9f1c1e304b7a1f3449ddf86c21e8b45">InterlinkingTab.loadMapping()</a>, <a class="el" href="a00060.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a00072.html#a956718d367bc265e6cc2e31b524c3690">InterlinkingTab.readMapping()</a>, <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a00068.html#aecf70e6380fd19faf6baf30f23e3bb5e">EnrichmentTab.showConfigTable()</a>, <a class="el" href="a00072.html#a4b4e20bf80956e600c5edc7af3b68847">InterlinkingTab.suggestSchema()</a>, and <a class="el" href="a00060.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00068.html#a47f40e16c3c758738a40dd88650d9ac5">EnrichmentTab.__init__()</a>, <a class="el" href="a00072.html#a47f40e16c3c758738a40dd88650d9ac5">InterlinkingTab.__init__()</a>, <a class="el" href="a00068.html#a52616a3bfbd8a7e7e5503dae743d63e5">EnrichmentTab.addEnrichedLayer()</a>, <a class="el" href="a00068.html#ad17d902e02b2a983a6f4805c98e8355d">EnrichmentTab.addEnrichRow()</a>, <a class="el" href="a00068.html#a4782caaa08755cd16dbb16470a7c969f">EnrichmentTab.createEnrichSearchDialog()</a>, <a class="el" href="a00068.html#a52ea277bbb8fcef5938b3e61464721be">EnrichmentTab.createEnrichSearchDialogProp()</a>, <a class="el" href="a00072.html#aaebaa784dd52ca69569441a5aac60eb9">InterlinkingTab.createInterlinkSearchDialog()</a>, <a class="el" href="a00068.html#aaa94069381ac845fbd6592b15a9764c5">EnrichmentTab.enrichLayerProcess()</a>, <a class="el" href="a00072.html#ad2c8961a836965e6db69187947df4461">InterlinkingTab.exportInterlinkedLayer()</a>, <a class="el" href="a00060.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a00060.html#af8c58ecbe6afb26c8212086206b4d004">SPARQLunicorn.exportLayer2()</a>, <a class="el" href="a00072.html#a6bd060c97f701a40aa10cdd930b92f4d">InterlinkingTab.exportMapping()</a>, <a class="el" href="a00072.html#a503cde2c17df59afdaad2db0cf9d5f0f">InterlinkingTab.exportMappingProcess()</a>, <a class="el" href="a00068.html#a4a57b7ed2a306518e674d3bf00e8bef3">EnrichmentTab.loadLayerForEnrichment()</a>, <a class="el" href="a00072.html#af9f1c1e304b7a1f3449ddf86c21e8b45">InterlinkingTab.loadMapping()</a>, <a class="el" href="a00060.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a00072.html#a956718d367bc265e6cc2e31b524c3690">InterlinkingTab.readMapping()</a>, <a class="el" href="a00060.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a00068.html#aecf70e6380fd19faf6baf30f23e3bb5e">EnrichmentTab.showConfigTable()</a>, <a class="el" href="a00072.html#a4b4e20bf80956e600c5edc7af3b68847">InterlinkingTab.suggestSchema()</a>, and <a class="el" href="a00060.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>.</p>
 
 </div>
 </div>
@@ -1021,7 +1019,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a52fdefb870f38c907e9fede14b52425f" name="a52fdefb870f38c907e9fede14b52425f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52fdefb870f38c907e9fede14b52425f">&#9670;&#160;</a></span>enrichLayerCounter <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a52fdefb870f38c907e9fede14b52425f">&#9670;&#160;</a></span>enrichLayerCounter</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1038,22 +1036,6 @@ Static Public Attributes</h2></td></tr>
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00068.html#a52616a3bfbd8a7e7e5503dae743d63e5">EnrichmentTab.addEnrichedLayer()</a>.</p>
-
-</div>
-</div>
-<a id="ae415d71d8e7cfbfc9a8dcf9f76922ef5" name="ae415d71d8e7cfbfc9a8dcf9f76922ef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae415d71d8e7cfbfc9a8dcf9f76922ef5">&#9670;&#160;</a></span>enrichLayerCounter <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enrichLayerCounter</td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 <p class="reference">Referenced by <a class="el" href="a00068.html#a52616a3bfbd8a7e7e5503dae743d63e5">EnrichmentTab.addEnrichedLayer()</a>.</p>
