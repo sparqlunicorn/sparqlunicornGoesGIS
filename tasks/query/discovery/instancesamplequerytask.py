@@ -29,21 +29,21 @@ class InstanceSampleQueryTask(QgsTask):
         self.queryresult=[]
         self.encounteredtypes=set()
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation+" "+str(self.nodetype)),MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(f"{self.concept} {self.relation} {self.nodetype}"),MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]
-        typepattern="?con <"+typeproperty+"> <" + str(self.concept) + "> ."
+        typepattern=f"?con <{typeproperty}> <{self.concept}> ."
         if self.nodetype==SPARQLUtils.collectionclassnode:
-            typepattern="<" + str(self.concept) + ">  <http://www.w3.org/2000/01/rdf-schema#member> ?con . "
-        self.query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?con LIMIT 10"
+            typepattern=f"<{self.concept}>  <http://www.w3.org/2000/01/rdf-schema#member> ?con . "
+        self.query = f"SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE {{ {typepattern} ?con <{self.relation}> ?val }} GROUP BY ?con LIMIT 10"
         if "geometryproperty" in self.triplestoreconf and self.relation in self.triplestoreconf["geometryproperty"]:
             if type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
-                self.query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con ?con2 WHERE { "+str(typepattern)+" ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?con LIMIT 100"
+                self.query = f'SELECT DISTINCT (COUNT(?con) as ?amount) ?con ?con2 WHERE {{ {typepattern} ?con <{self.triplestoreconf["geometryproperty"][0]}> ?val . ?con <{self.triplestoreconf["geometryproperty"][1]}> ?val2 . }} GROUP BY ?con LIMIT 100'
             elif "geotriplepattern" in self.triplestoreconf:
-                self.query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE { "+str(typepattern)+" "
+                self.query = f"SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE {{ {typepattern} "
                 for geotriplepat in self.triplestoreconf["geotriplepattern"]:
-                    self.query+="OPTIONAL {"+geotriplepat.replace("?geo","?val").replace("?item","?con")+" }\n"
+                    self.query+=f'OPTIONAL {{{geotriplepat.replace("?geo","?val").replace("?item","?con")} }}\n'
                 #+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")\
                 self.query+=" } GROUP BY ?con LIMIT 10"
         if triplestoreurl["type"]=="file":

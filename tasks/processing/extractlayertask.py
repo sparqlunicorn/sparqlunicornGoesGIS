@@ -37,12 +37,12 @@ class ExtractLayerTask(QgsTask):
                 #QgsMessageLog.logMessage(str(toex),MESSAGE_CATEGORY, Qgis.Info)
                 layergraph = Graph()
                 for sub in g.subjects(RDF.type, URIRef(toex),True):
-                    QgsMessageLog.logMessage(str(sub),MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage(str(sub),MESSAGE_CATEGORY, Qgis.Info)
                     for trip in g.triples((sub,None,None)):
                         layergraph.add(trip)
                 res=LayerUtils.subGraphToLayer(layergraph,g,False, self.triplestoreconf, True, False)
                 #QgsMessageLog.logMessage(str(res[0]), MESSAGE_CATEGORY, Qgis.Info)
-                self.layers.append(QgsVectorLayer(json.dumps(res[0], sort_keys=True), "unicorn_" + str(SPARQLUtils.labelFromURI(str(toex))), "ogr"))
+                self.layers.append(QgsVectorLayer(json.dumps(res[0]), "unicorn_" + str(SPARQLUtils.labelFromURI(str(toex))), "ogr"))
         return True
         #except Exception as e:
         #    self.exception = e

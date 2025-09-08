@@ -70,8 +70,7 @@ class ClassTreeQueryTask(QgsTask):
                     self.classtreemap[subval]=QStandardClassTreeItem()
                     self.classtreemap[subval].setData(subval,UIUtils.dataslot_conceptURI)
                     if "label" in result:
-                        self.classtreemap[subval].setText(
-                            result["label"]["value"] + " (" + SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]) + ")")
+                        self.classtreemap[subval].setText(f'{result["label"]["value"]} ({SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"])})')
                     else:
                         self.classtreemap[subval].setText(
                             SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
@@ -79,21 +78,18 @@ class ClassTreeQueryTask(QgsTask):
                         #QgsMessageLog.logMessage("HGEO: "+str(result["hgeo"])+" "+str(subval),MESSAGE_CATEGORY, Qgis.Info)
                         self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
-                        self.classtreemap[subval].setToolTip(
-                            "GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                        self.classtreemap[subval].setToolTip(f"GeoClass {self.classtreemap[subval].text()}: <br>{SPARQLUtils.treeNodeToolTip}")
                     elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
                         self.classtreemap[subval].setIcon(UIUtils.linkedgeoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, UIUtils.dataslot_nodetype)
                         #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["geoclasses"]), MESSAGE_CATEGORY,
                         #                         Qgis.Info)
                         self.classtreemap[subval].setData(self.triplestoreconf["geoclasses"][subval][0],260)
-                        self.classtreemap[subval].setToolTip(
-                            "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                        self.classtreemap[subval].setToolTip(f"Class linked to a GeoClass {self.classtreemap[subval].text()}: <br>{SPARQLUtils.treeNodeToolTip}")
                     else:
                         self.classtreemap[subval].setIcon(UIUtils.classicon)
                         self.classtreemap[subval].setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
-                        self.classtreemap[subval].setToolTip(
-                            "Class " + str(self.classtreemap[subval].text()) + ": <br>" + str(SPARQLUtils.treeNodeToolTip))
+                        self.classtreemap[subval].setToolTip(f"Class {self.classtreemap[subval].text()}: <br>{SPARQLUtils.treeNodeToolTip}")
                 if subval not in self.subclassmap:
                     self.subclassmap[subval]=set()
                 if "supertype" in result:
@@ -135,10 +131,10 @@ class ClassTreeQueryTask(QgsTask):
             if self.classtreemap is None and self.subclassmap is None and exists(path):
                 QgsMessageLog.logMessage('CLASSTREE EXISTS: '+str(path), MESSAGE_CATEGORY, Qgis.Info)
                 elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,path)
-                self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")
+                self.dlg.conceptViewTabWidget.setTabText(3, f"ClassTree ({elemcount})")
             elif self.classtreemap is not None and self.subclassmap is not None:
                 self.alreadyprocessed=set()
-                self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
+                self.dlg.conceptViewTabWidget.setTabText(3, f"ClassTree ({len(self.classtreemap)})")
                 self.classtreemap["root"]=self.rootNode
                 self.buildTree("root",self.classtreemap,self.subclassmap,[])
                 #QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
