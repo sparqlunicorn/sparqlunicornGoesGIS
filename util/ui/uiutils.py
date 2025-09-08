@@ -333,16 +333,20 @@ class UIUtils:
             if node.data(UIUtils.dataslot_conceptURI) is None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
             if node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode:
-                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)),None)}\" .\n")
-                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)),None)}\" .\n")
-                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{subclassproperty}> <{node.data(UIUtils.dataslot_conceptURI)}> .\n")
+                ccuri=node.child(i).data(UIUtils.dataslot_conceptURI)
+                curi = node.data(UIUtils.dataslot_conceptURI)
+                result.add(f"<{ccuri}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add(f"<{ccuri}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(ccuri),None)}\" .\n")
+                result.add(f"<{curi}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add(f"<{curi}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(curi),None)}\" .\n")
+                result.add(f"<{ccuri}> <{subclassproperty}> <{curi}> .\n")
             elif not classesonly and node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoinstancenode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.instancenode:
-                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add(f"<{node.data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)), None)}\" .\n")
-                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)), None)}\" .\n")
-                result.add(f"<{node.child(i).data(UIUtils.dataslot_conceptURI)}> <{typeproperty}> <{node.data(UIUtils.dataslot_conceptURI)}> .\n")
+                ccuri = node.child(i).data(UIUtils.dataslot_conceptURI)
+                curi = node.data(UIUtils.dataslot_conceptURI)
+                result.add(f"<{curi}> <{typeproperty}> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add(f"<{curi}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(curi), None)}\" .\n")
+                result.add(f"<{ccuri}> <{labelproperty}> \"{SPARQLUtils.labelFromURI(str(ccuri), None)}\" .\n")
+                result.add(f"<{ccuri}> <{typeproperty}> <{curi}> .\n")
 
     @staticmethod
     def iterateTreeToJSON(node,result,visible,classesonly,triplestoreconf,currentContext):
