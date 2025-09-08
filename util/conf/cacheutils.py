@@ -1,4 +1,4 @@
-git from qgis.core import Qgis,QgsTask, QgsMessageLog
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 import os
 import time
 
