@@ -81,7 +81,7 @@ class GraphRelationViewDialog(QWidget, FORM_CLASS):
     def getRelatedClassStatistics(self):
         if self.concept == "" or self.concept is None:
             return
-        self.qtask = FindRelatedConceptQueryTask("Querying related classes.... (" + str(self.concept) + ")",
+        self.qtask = FindRelatedConceptQueryTask(f"Querying related classes.... ({self.concept})",
                                self.triplestoreconf["resource"],
                                self.tablemodel,
                                self.concept,

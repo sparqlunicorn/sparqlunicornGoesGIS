@@ -24,12 +24,12 @@ class BaseLayerDialog(QDialog, FORM_CLASS):
         self.baseLayerURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.baseLayerURLEdit))
         self.addOrEdit = True
         self.name=name
-        if name != None:
+        if name is not None:
             self.addOrEdit = False
             self.baseLayerNameEdit.setText(name)
         else:
             self.baseLayerNameEdit.setText("My new baselayer")
-        if uri != None:
+        if uri is not None:
             self.addOrEdit = False
             self.baseLayerURLEdit.setText(uri)
         else:
@@ -44,7 +44,7 @@ class BaseLayerDialog(QDialog, FORM_CLASS):
         else:
             if self.addOrEdit and self.baseLayerNameEdit.text() not in self.baseurlstore:
                 item=QStandardItem()
-                item.setText(self.baseLayerNameEdit.text() + ": <" + str(self.baseLayerURLEdit.text()) + ">")
+                item.setText(f"{self.baseLayerNameEdit.text()}: <{self.baseLayerURLEdit.text()}>")
                 item.setData(self.baseLayerURLEdit.text(),265)
                 item.setData(self.baseLayerNameEdit.text(),266)
                 item.setCheckable(True)
@@ -54,7 +54,7 @@ class BaseLayerDialog(QDialog, FORM_CLASS):
             else:
                 self.prefixList.model().itemFromIndex(self.item).setData(self.baseLayerURLEdit.text(),265)
                 self.prefixList.model().itemFromIndex(self.item).setData(self.baseLayerNameEdit.text(),266)
-                self.prefixList.model().itemFromIndex(self.item).setText(self.baseLayerNameEdit.text()+": <"+str(self.baseLayerURLEdit.text())+">")
+                self.prefixList.model().itemFromIndex(self.item).setText(f"{self.baseLayerNameEdit.text()}: <{self.baseLayerURLEdit.text()}>")
                 del self.baseurlstore[self.name]
                 self.baseurlstore[self.baseLayerNameEdit.text()]={"url":self.baseLayerURLEdit.text()}
             self.close()

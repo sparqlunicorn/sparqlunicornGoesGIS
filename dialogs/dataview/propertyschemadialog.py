@@ -68,7 +68,7 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
             self.setWindowIcon(UIUtils.datatypepropertyicon)
             self.setWindowTitle(title+" (DatatypeProperty)")
             self.geospatialConstraintButton.hide()
-        self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(property)+"\">"+str(property[property.rfind('/')+1:])+"</a>)")
+        self.dataSchemaNameLabel.setText(f'{label} (<a href="{property}">{property[property.rfind("/")+1:]}</a>)')
         #self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:3857"))
@@ -139,7 +139,7 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
             OPTIONAL {BIND( datatype(?val) AS ?valtype ) } }
             GROUP BY ?reltype ?valtype
             ORDER BY DESC(?countrel)"""
-        self.qtask = PropertySchemaQueryTask("Querying property dataset schema.... (" + str(self.label) + ")",
+        self.qtask = PropertySchemaQueryTask(f"Querying property dataset schema.... ({self.label})",
                                self.triplestoreurl,
                                SPARQLUtils.queryPreProcessing(thequery,self.triplestoreconf,self.concept,self.concepttype==SPARQLUtils.collectionclassnode),
                                self.concept,
@@ -152,7 +152,7 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
         column=modelindex.column()
         if column==2 and row not in self.alreadyloadedSample:
             relation = str(self.dataSchemaTableView.model().index(row, column-1).data(UIUtils.dataslot_conceptURI))
-            self.qtask2 = InstanceSampleQueryTask("Querying dataset schema.... (" + str(self.label)+ ")",
+            self.qtask2 = InstanceSampleQueryTask(f"Querying dataset schema.... ({self.label})",
                                              self.triplestoreurl,
                                              self,
                                              self.concept,

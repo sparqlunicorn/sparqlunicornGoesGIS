@@ -163,7 +163,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         column=modelindex.column()
         if column==2 and row not in self.alreadyloadedSample and row!=self.searchResult.model().rowCount()-1:
             relation = str(self.searchResult.model().index(row, column-1).data(256))
-            self.qtask2 = DataSampleQueryTask("Querying data sample.... (" + str(relation) + ")",
+            self.qtask2 = DataSampleQueryTask(f"Querying data sample.... ({relation})",
                                              self.triplestoreurl,
                                              self,
                                              self.conceptSearchEdit.text(),
@@ -208,7 +208,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         for row in range(self.tablemodel2.rowCount(self.matchingConceptsResult.rootIndex())):
             child_index = self.tablemodel2.index(row, 0, self.matchingConceptsResult.rootIndex())
             conceptstoenrich.append(child_index.data(0))
-        self.qtask = DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
+        self.qtask = DataSchemaQueryTask(f"Get Property Enrichment Candidates ({self.conceptSearchEdit.text()})",
                                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
                                            SPARQLUtils.queryPreProcessing(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["whattoenrichquery"],self.triplestoreconf,self.conceptSearchEdit.text(),False),
                                            self.conceptSearchEdit.text(),

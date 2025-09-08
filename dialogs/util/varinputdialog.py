@@ -71,9 +71,9 @@ class VarInputDialog(QDialog, FORM_CLASS):
                 elif self.varType.currentText() == "Integer" or self.varType.currentText() == "Double":
                     queryinsert += att
                 elif self.varType.currentText() == "Date":
-                    queryinsert += "\"" + att + "\"^^xsd:date"
+                    queryinsert += f'"{att}"^^xsd:date'
                 elif self.varType.currentText() == "String" or self.varType.currentText() == "Automatic":
-                    queryinsert += "\"" + att + "\""
+                    queryinsert += f'"{att}"'
                     if self.isLabelLabel.isChecked():
                         queryinsert += "@" + self.labelLang.text()
                 queryinsert += " "

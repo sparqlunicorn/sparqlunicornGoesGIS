@@ -92,7 +92,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                 json.dump(ConfigUtils.removeInstanceKeys(self.triplestoreconf[self.tripleStoreChooser.currentIndex()],"instance"),file,indent=2)
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Icon.Information)
-            msg.setText("Configuration File for "+str(self.tripleStoreChooser.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
+            msg.setText(f"Configuration File for {self.tripleStoreChooser.currentText()}<br/>saved as<br/>{conffilename[0]}")
             msg.exec()
 
     def createVarInfoDialog(self):
@@ -157,7 +157,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                     self.rdfResourceComboBox.setCurrentIndex(2)
             for prefix in curstore["prefixes"]:
                 item=QListWidgetItem()
-                item.setText(str(prefix)+": <"+str(curstore["prefixes"][prefix])+">")
+                item.setText(f'{prefix}: <{curstore["prefixes"][prefix]}>')
                 item.setData(256,curstore["prefixes"][prefix])
                 item.setData(257,prefix)
                 self.prefixList.addItem(item)
@@ -221,12 +221,12 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                 self.exampleQuery.setPlainText(curstore["querytemplate"][0]["query"])
 
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
-        progress = QProgressDialog("Checking connection to triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
+        progress = QProgressDialog(f"Checking connection to triple store {self.tripleStoreEdit.text()}...", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setCancelButton(None)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.show()
-        self.qtask=DetectTripleStoreTask("Checking connection to triple store "+self.tripleStoreEdit.text()+"...",
+        self.qtask=DetectTripleStoreTask(f"Checking connection to triple store {self.tripleStoreEdit.text()}...",
                                          self.triplestoreconf,self.tripleStoreEdit.text(),
                                          self.tripleStoreNameEdit.text(),self.credentialUserName.text(),
             self.credentialPassword.text(), self.authenticationComboBox.currentText(),True,False,self.prefixes,
@@ -235,12 +235,12 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         QgsApplication.taskManager().addTask(self.qtask)
 
     def detectTripleStoreConfiguration(self):	
-        progress = QProgressDialog("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
+        progress = QProgressDialog(f"Detecting configuration for triple store {self.tripleStoreEdit.text()}...", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModality.WindowModal)
         progress.setCancelButton(None)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.show()
-        self.qtask=DetectTripleStoreTask("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),self.credentialUserName.text(),
+        self.qtask=DetectTripleStoreTask(f"Detecting configuration for triple store {self.tripleStoreEdit.text()}...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),self.credentialUserName.text(),
             self.credentialPassword.text(), self.authenticationComboBox.currentText(),False,True,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,False,None,self,progress)
         QgsApplication.taskManager().addTask(self.qtask)
 	
@@ -280,9 +280,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 
     def restoreFactory(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-        with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
-            data=myfile.read()
-        self.triplestoreconf=json.loads(data)
+        with open(os.path.join(__location__, 'triplestoreconf.json'),'r',encoding="utf-8") as myfile:
+            self.triplestoreconf=json.load(myfile)
         self.tripleStoreChooser.clear()
         for item in self.triplestoreconf:
             self.tripleStoreChooser.addItem(item["name"])
@@ -299,8 +298,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     #  @param [in] self The object pointer
     def addPrefixToList(self):	
         item=QListWidgetItem()	
-        item.setData(0,"PREFIX "+self.tripleStorePrefixNameEdit.text()+":<"+self.tripleStorePrefixEdit.text()+">")	
-        item.setText("PREFIX "+self.tripleStorePrefixNameEdit.text()+":<"+self.tripleStorePrefixEdit.text()+">")	
+        item.setData(0,f"PREFIX  {self.tripleStorePrefixNameEdit.text()}:<{self.tripleStorePrefixEdit.text()}>")
+        item.setText(f"PREFIX {self.tripleStorePrefixNameEdit.text()}:<{self.tripleStorePrefixEdit.text()}>")
         self.prefixList.addItem(item)	
 
     ## 
@@ -313,9 +312,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 
     def writeConfiguration(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-        f = open(os.path.join(__location__, "triplestoreconf_personal.json"), "w")
-        f.write(json.dumps(self.triplestoreconf,indent=2))
-        f.close()
+        with open(os.path.join(__location__, "triplestoreconf_personal.json"), "w",encoding="utf-8") as f:
+            json.dump(self.triplestoreconf,f,indent=2)
 
     def applyCustomSPARQLEndPoint(self):	
         if not self.testTripleStoreConnection(True):	

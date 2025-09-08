@@ -75,7 +75,7 @@ class SPARQLUtils:
             if "resource" in triplestoreconf and "url" in triplestoreconf["resource"] and ("wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"]["url"]) and concept[concept.find('(')+1:-1].startswith("Q"):
                 query=query.replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:]))
             else:
-                query = query.replace("%%concept%%", "<" + str(concept) + ">")
+                query = query.replace("%%concept%%", f"<{concept}>")
         typeproperty = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in triplestoreconf:
             typeproperty=triplestoreconf["typeproperty"]
@@ -92,14 +92,14 @@ class SPARQLUtils:
             for prop in triplestoreconf["geometryproperty"]:
                 prp=prop.lower()
                 if "%%lat%%" in query and "lat" in prp:
-                    query=query.replace("%%lat%%"," <"+prop+"> ")
+                    query=query.replace("%%lat%%",f" <{prop}> ")
                 if ("%%lon%%" in query or "%%long%%" in query) and "lon" in prp:
-                    query=query.replace("%%long%%"," <"+prop+"> ")
-                    query=query.replace("%%lon%%", " <" + prop + "> ")
-        query=query.replace("%%subclassproperty%%","<"+subclassproperty+">")\
-            .replace("%%typeproperty%%","<"+typeproperty+">")\
-            .replace("%%labelproperty%%","<"+labelproperty[0]+">")\
-            .replace("%%collectionmemberproperty%%","<"+collectionmemberproperty+">").replace("<<","<").replace(">>",">")
+                    query=query.replace("%%long%%",f" <{prop}> ")
+                    query=query.replace("%%lon%%", f" <{prop}> ")
+        query=query.replace("%%subclassproperty%%",f"<{subclassproperty}>")\
+            .replace("%%typeproperty%%",f"<{typeproperty}>")\
+            .replace("%%labelproperty%%",f"<{labelproperty[0]}>")\
+            .replace("%%collectionmemberproperty%%",f"<{collectionmemberproperty}>").replace("<<","<").replace(">>",">")
         QgsMessageLog.logMessage('Preprocessing finished"{}"'.format(query.replace("<", "").replace(">", "")), MESSAGE_CATEGORY,
                              Qgis.Info)
         if pquery:
@@ -114,7 +114,7 @@ class SPARQLUtils:
                 "query"].replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",str(bboxpoints[2].asPoint().x())).replace(
                 "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%", str(bboxpoints[2].asPoint().y())) + "\n"
             if curquery is not None:
-                return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
+                return f"{curquery[0:curquery.rfind('}')]}{filterstatement}{curquery[curquery.rfind('}') + 1:]}"
             else:
                 return filterstatement
         elif "bboxquery" in triplestoreconf and \
@@ -122,8 +122,7 @@ class SPARQLUtils:
             filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%minPoint%%", bboxpoints[1].asWkt()).replace("%%maxPoint%%", bboxpoints[3].asWkt())
             if curquery is not None:
-                curquery = curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
-                return curquery
+                return  f"{curquery[0:curquery.rfind('}')]}{filterstatement}{curquery[curquery.rfind('}') + 1:]}"
             else:
                 return filterstatement
         elif "bboxquery" in triplestoreconf and \
@@ -131,7 +130,7 @@ class SPARQLUtils:
             filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%lat%%", str(bboxpoints[0].asPoint().y())).replace("%%lon%%",str(bboxpoints[0].asPoint().x())).replace("%%distance%%", str(widthm / 1000))
             if curquery is not None:
-                return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
+                return f"{curquery[0:curquery.rfind('}')]}{filterstatement}{curquery[curquery.rfind('}') + 1:]}"
             else:
                 return filterstatement
         else:
@@ -140,7 +139,7 @@ class SPARQLUtils:
                                                                                str(bboxpoints[2].asPoint().x())).replace(
                 "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%",str(bboxpoints[2].asPoint().y())) + "\n"
             if curquery is not None:
-                return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
+                return f"{curquery[0:curquery.rfind('}')]}{filterstatement}{curquery[curquery.rfind('}') + 1:]}"
             else:
                 return filterstatement
 
@@ -242,7 +241,7 @@ class SPARQLUtils:
                     results=json.loads(res.serialize(format="json"))
                 #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
-            QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(f"Result: {len(results)} triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 
     @staticmethod
@@ -257,7 +256,7 @@ class SPARQLUtils:
             ErrorMessageBox(callingtask+" An error occurred!","<html>"+str(SPARQLUtils.exception).replace("\n","<br/>")+"</html>").exec()
             return True
         if title is not None and text is not None:
-            ErrorMessageBox(callingtask+" "+title,"<html>"+text.replace("\n","<br/>")+"</html>").exec()
+            ErrorMessageBox(f"{callingtask} {title}","<html>"+text.replace("\n","<br/>")+"</html>").exec()
             return True
         return False
 
@@ -299,7 +298,7 @@ class SPARQLUtils:
 
     @staticmethod
     def expandRelValToAmount(query,amount):
-        QgsMessageLog.logMessage('ExpandQuery '+str(amount)+"_" + str(query), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(f'ExpandQuery {amount}_{query}', MESSAGE_CATEGORY, Qgis.Info)
         if "?rel" not in query and "?val" not in query:
             return query
         selectpart=query[0:query.find("WHERE")]
@@ -308,9 +307,9 @@ class SPARQLUtils:
             for i in range(1,amount+1):
                 selectpart+=f" ?rel{i} ?val{i} "
                 if i==1:
-                    optionals += "OPTIONAL { ?val ?rel" + str(i) + " ?val" + str(i) + " . "
+                    optionals += f"OPTIONAL {{ ?val ?rel{i} ?val{i} . "
                 else:
-                    optionals+="OPTIONAL { ?val"+str(i-1)+" ?rel"+str(i)+" ?val"+str(i)+" . "
+                    optionals+=f"OPTIONAL {{ ?val{i-1} ?rel{i} ?val{i} . "
             for i in range(1,amount+1):
                 optionals+="}"
         query=query.replace(query[0:query.find("WHERE")],selectpart).replace("?item ?rel ?val . ",optionals)
@@ -344,7 +343,7 @@ class SPARQLUtils:
             graph = Graph()
         try:
             if graphuri.startswith("http"):
-                QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
+                QgsMessageLog.logMessage(f" Data: {graphuri}", MESSAGE_CATEGORY, Qgis.Info)
                 graph.parse(graphuri, format=graphuri[graphuri.rfind(".")+1:])
             else:
                 filepath = graphuri.split(".")
@@ -472,7 +471,7 @@ class SPARQLUtils:
                 or triplestoreconf["resource"]["type"]!="endpoint"):
             vals = "VALUES ?class {\n "
             for qid in classes.keys():
-                vals += "<"+qid + "> \n"
+                vals += f"<{qid}> \n"
             vals += "}\n"
             query = query.replace("%%concepts%%", vals)
             #QgsMessageLog.logMessage("Querying for "+str(len(vals))+" concepts", MESSAGE_CATEGORY, Qgis.Info)
@@ -560,9 +559,9 @@ class SPARQLUtils:
             for pat in patternarray:
                 if first:
                     first=False
-                    res+="{ "+str(itemvar)+" <"+str(pat)+"> "+str(propvar)+" . } "
+                    res+=f"{{ {itemvar} <{pat}> {propvar} . }} "
                 else:
-                    res+="UNION { "+str(itemvar)+" <"+str(pat)+"> "+str(propvar)+" . } "
+                    res+=f"UNION {{ {itemvar} <{pat}> {propvar} . }} "
             return res
         return res
 
@@ -585,7 +584,7 @@ class SPARQLUtils:
                 constructpart += line[0:line.rfind("}")].replace("OPTIONAL {","") + "\n"
             else:
                 constructpart+=line+"\n"
-        result="CONSTRUCT \n"+constructpart.replace("WHERE","")+"\n"+query
+        result=f'CONSTRUCT \n{constructpart.replace("WHERE","")}\n{query}'
         QgsMessageLog.logMessage('SELECT TO CONSTRUCT '+str(result), MESSAGE_CATEGORY,Qgis.Info)
         return result
 
@@ -600,19 +599,19 @@ class SPARQLUtils:
             if asUnion and patterntype=="OPTIONAL":
                 res+="OPTIONAL { "
             for propid in triplestoreconf[propidcleaned]:
-                thepattern=str(itemvar)+" <"+str(propid)+"> "+str(propvar)+" .\n "+filterstatement
+                thepattern=f"{itemvar} <{propid}> {propvar} .\n {filterstatement}"
                 if proplabel and "url" in triplestoreconf["resource"] and (
                         "wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"][
                     "url"]):
-                    thepattern="?prop <http://wikiba.se/ontology#directClaim> "+str(itemvar)+" . ?prop <"+str(propid)+"> "+str(propvar)+" .\n"+filterstatement
+                    thepattern=f"?prop <http://wikiba.se/ontology#directClaim> {itemvar} . ?prop <{propid}> {propvar} .\n{filterstatement}"
                 if patterntype=="OPTIONAL" and not asUnion:
-                    res+="OPTIONAL { "+thepattern+"}\n"
+                    res+=f"OPTIONAL {{ {thepattern} }}\n"
                 elif patterntype == "OPTIONAL" and  asUnion:
                     if first:
                         first=False
-                        res+=" { "+thepattern+" } "
+                        res+=f" {{ {thepattern} }} "
                     else:
-                        res += " UNION { " + thepattern + "}\n"
+                        res += f" UNION {{ {thepattern} }}\n"
                 else:
                     res+=thepattern
             if asUnion and patterntype=="OPTIONAL":
@@ -620,6 +619,6 @@ class SPARQLUtils:
             return res
         if proplabel and "url" in triplestoreconf["resource"] and (
                 "wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"]["url"]):
-            return "?prop <http://wikiba.se/ontology#directClaim> "+str(itemvar)+" . ?prop "+str(propertyid)+" "+str(propvar)+" .\n"
+            return f"?prop <http://wikiba.se/ontology#directClaim> {itemvar} . ?prop {propertyid} {propvar} .\n"
         else:
-            return str(itemvar)+" "+str(propertyid)+" "+str(propvar)+" .\n"
+            return f"{itemvar} {propertyid} {propvar} .\n"

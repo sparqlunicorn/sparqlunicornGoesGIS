@@ -77,7 +77,7 @@ class DetectTripleStoreResultDialog(QDialog, FORM_CLASS):
                 prefix] + ">\n"
         if self.permanentAdd is not None and self.permanentAdd:
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            with open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w") as f:
+            with open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w",encoding="utf-8") as f:
                 json.dump(self.triplestoreconf,f, indent=2)
         if self.tripleStoreChooser is not None:
             # self.tripleStoreChooser.addItem(self.triplestorename)

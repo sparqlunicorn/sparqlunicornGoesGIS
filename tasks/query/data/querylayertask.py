@@ -62,12 +62,12 @@ class QueryLayerTask(QgsTask):
         self.geojson=res[0]
         self.nongeojson=res[1]
         if self.nongeojson is not None:
-            self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
+            self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson), "unicorn_" + self.filename, "ogr")
         if self.geojson is not None:
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    self.geojson),
             #    MESSAGE_CATEGORY, Qgis.Info)
-            self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
+            self.vlayer = QgsVectorLayer(json.dumps(self.geojson), "unicorn_" + self.filename, "ogr")
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    len(self.vlayer)),
             #    MESSAGE_CATEGORY, Qgis.Info)
@@ -161,8 +161,7 @@ class QueryLayerTask(QgsTask):
                     #QgsMessageLog.logMessage('Add New Feature Lat/Lon ' + str(item), MESSAGE_CATEGORY, Qgis.Info)
                     if item != "":
                         self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
-                            "POINT(" + str(float(result[lonval]["value"])) + " " + str(
-                                float(result[latval]["value"])) + ")", "wkt", reproject,{'id':item,'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                            f'POINT({float(result[lonval]["value"])} {float(result[latval]["value"])})', "wkt", reproject,{'id':item,'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
                                    'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
                         lastaddeditem = item
                     properties = {}
@@ -225,7 +224,7 @@ class QueryLayerTask(QgsTask):
                     #QgsMessageLog.logMessage('Not rel val + lat lon' + str(len(features)),
                     #                         MESSAGE_CATEGORY, Qgis.Info)
                     self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
-                        "POINT(" + str(float(result[lonval]["value"])) + " " + str(float(result[latval]["value"])) + ")",
+                        f'POINT({float(result[lonval]["value"])} {float(result[latval]["value"])})',
                         "wkt", reproject,
                         {'id': result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
                          'geometry': {}},

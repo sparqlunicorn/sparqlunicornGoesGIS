@@ -70,7 +70,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
             self.setWindowIcon(UIUtils.classschemaicon)
             self.setWindowTitle(title+" (Class)")
             self.geospatialConstraintButton.hide()
-        self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
+        self.dataSchemaNameLabel.setText(f'{label} (<a href="{concept}">{concept[concept.rfind("/")+1:]}</a>)')
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:3857"))
@@ -132,7 +132,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         if len(checkeditems)!=self.tablemodel.rowCount():
             relstatement+=" VALUES ?rel {\n"
             for item in checkeditems:
-                relstatement+=" <"+item+"> "
+                relstatement+=f" <{item}> "
             relstatement+="}"
         if len(checkeditems)==0:
             relstatement=""
@@ -173,7 +173,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         column=modelindex.column()
         if column==2 and row not in self.alreadyloadedSample:
             relation = str(self.dataSchemaTableView.model().index(row, column-1).data(UIUtils.dataslot_conceptURI))
-            self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + str(self.label)+ ")",
+            self.qtask2 = DataSampleQueryTask(f"Querying dataset schema.... ({self.label})",
                                              self.triplestoreurl,
                                              self,
                                              self.concept,
@@ -202,7 +202,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
             and "sparql11" in self.triplestoreconf["resource"] \
             and self.triplestoreconf["resource"]["sparql11"] == False:
                 thequery = "SELECT ?rel \nWHERE\n{ ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val.}\nGROUP BY ?rel\nORDER BY ?rel"
-        self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + str(self.label) + ")",
+        self.qtask = DataSchemaQueryTask(f"Querying dataset schema.... ({self.label})",
                                self.triplestoreurl,
                                SPARQLUtils.queryPreProcessing(thequery,self.triplestoreconf,self.concept,self.concepttype==SPARQLUtils.collectionclassnode),
                                self.concept,

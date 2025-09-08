@@ -136,7 +136,7 @@ class SearchDialog(QDialog, FORM_CLASS):
                 item.setText(res)
                 self.searchResult.addItem(item)
         else:
-            self.qtask=SearchTask("Searching classes/properties for "+str(label)+" in "+str(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"]["url"]),
+            self.qtask=SearchTask(f'Searching classes/properties for {label} in {self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"]["url"]}',
                             self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
                query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,
                                   self.searchResult,self.prefixes,label,language,None)
@@ -169,7 +169,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             else:
                 self.table.insertPlainText(f"<{toinsert}>")
         elif self.interlinkOrEnrich == -1:
-            self.table.setText(str(self.tripleStoreEdit.currentIndex())+"_"+str(toinsert))
+            self.table.setText(f"{self.tripleStoreEdit.currentIndex()}_{toinsert}")
         else:
             if costumURI:
                 item = QTableWidgetItem(toinsert)
@@ -185,5 +185,5 @@ class SearchDialog(QDialog, FORM_CLASS):
                 item2.setText(self.tripleStoreEdit.currentText())
                 item2.setData(UIUtils.dataslot_nodetype, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"])
                 self.table.setItem(self.currentrow, self.currentcol, item)
-                self.table.setItem(self.currentrow, (self.currentcol), item2)
+                self.table.setItem(self.currentrow, self.currentcol, item2)
         self.close()
