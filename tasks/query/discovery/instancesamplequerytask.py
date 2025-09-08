@@ -74,7 +74,7 @@ class InstanceSampleQueryTask(QgsTask):
     def finished(self,result):
         resstring=""
         counter=1
-        if "geometryproperty" in self.triplestoreconf and self.mymap!=None and self.relation in self.triplestoreconf["geometryproperty"]:
+        if "geometryproperty" in self.triplestoreconf and self.mymap is not None and self.relation in self.triplestoreconf["geometryproperty"]:
             counter=1
             geocollection = {'type': 'FeatureCollection', 'features': []}
             encounteredcrs=set()

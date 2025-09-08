@@ -62,12 +62,12 @@ class QueryLayerTask(QgsTask):
         self.geojson=res[0]
         self.nongeojson=res[1]
         if self.nongeojson is not None:
-            self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson), "unicorn_" + self.filename, "ogr")
+            self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson,sort_keys=True), "unicorn_" + self.filename, "ogr")
         if self.geojson is not None:
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    self.geojson),
             #    MESSAGE_CATEGORY, Qgis.Info)
-            self.vlayer = QgsVectorLayer(json.dumps(self.geojson), "unicorn_" + self.filename, "ogr")
+            self.vlayer = QgsVectorLayer(json.dumps(self.geojson,sort_keys=True), "unicorn_" + self.filename, "ogr")
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    len(self.vlayer)),
             #    MESSAGE_CATEGORY, Qgis.Info)

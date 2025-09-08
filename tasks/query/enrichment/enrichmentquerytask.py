@@ -107,7 +107,7 @@ class EnrichmentQueryTask(QgsTask):
         if (self.content == "Enrich Value" or self.content == "Enrich Both") and not "wikidata" in curtriplestoreconf["resource"]["url"]:
             query += "OPTIONAL{ ?val rdfs:label ?valLabel }"
         elif (self.content == "Enrich Value" or self.content == "Enrich Both") and "wikidata" in curtriplestoreconf["resource"]["url"]:
-            query += "SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE]," + self.language + "\". }\n"
+            query += f"SERVICE wikibase:label {{ bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],{self.language}\". }}\n"
         query += "} "
         QgsMessageLog.logMessage("proppp: " + str(proppp),
                                  MESSAGE_CATEGORY, Qgis.Info)
@@ -160,22 +160,22 @@ class EnrichmentQueryTask(QgsTask):
                 #QgsMessageLog.logMessage(str(f[self.idfield]) + " - " + str(self.resultmap[f[self.idfield]]),
                 #                        MESSAGE_CATEGORY, Qgis.Info)
                 if self.strategy == "Merge":
-                    newitem = QTableWidgetItem(str(f[self.item]) + str(self.resultmap[f[self.idfield]]))
+                    newitem = QTableWidgetItem(f"{f[self.item]}{self.resultmap[f[self.idfield]]}")
                 elif self.strategy == "Keep Local":
                     if f[self.item] is None:
                         newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))
                     else:
                         newitem = QTableWidgetItem(str(f[self.item]))
                 elif self.strategy == "Ask User":
-                    newitem = QTableWidgetItem(str(f[self.item]) + ";" + str(self.resultmap[f[self.idfield]]))
+                    newitem = QTableWidgetItem(f"{f[self.item]};{self.resultmap[f[self.idfield]]}")
                 elif self.strategy == "Keep Remote":
-                    if not f[self.idfield] in self.resultmap or self.resultmap[f[self.idfield]] == None:
+                    if not f[self.idfield] in self.resultmap or self.resultmap[f[self.idfield]] is None:
                         newitem = QTableWidgetItem(str(f[self.item]))
                     else:
                         newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))
                 else:
                     newitem = QTableWidgetItem(str(value))
-                QgsMessageLog.logMessage(str(rowww) + " - " + str(self.row) + " - " + str(newitem), MESSAGE_CATEGORY,
+                QgsMessageLog.logMessage(f"{rowww} - {self.row} - {newitem}", MESSAGE_CATEGORY,
                                          Qgis.Info)
                 self.resulttable.setItem(rowww, counter, newitem)
                 counter+=1
