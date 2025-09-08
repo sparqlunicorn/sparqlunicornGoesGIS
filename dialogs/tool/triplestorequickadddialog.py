@@ -77,20 +77,20 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             uri = False
             file=True
         if triplestore:
-            progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...\nIf autodetection takes very long (>1 minute), try to disable namespace detection...\nCurrent Task: Initial Detection",
+            progress = QProgressDialog(f"Detecting configuration for triple store {self.tripleStoreEdit.text()}...\nIf autodetection takes very long (>1 minute), try to disable namespace detection...\nCurrent Task: Initial Detection",
                                        "Abort", 0, 0, self)
             progress.setWindowTitle("Triple Store Autoconfiguration")
             progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.show()
             self.qtask = DetectTripleStoreTask(
-                "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
+                f"Detecting configuration for triple store {self.tripleStoreEdit.text()}...", self.triplestoreconf,
                 self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),
                 self.credentialPassword.text(),self.authenticationComboBox.currentText(), False, True, self.prefixes, self.prefixstore,
                 self.comboBox, self.permanentAddCBox.isChecked(),self.detectNamespacesCBox.isChecked(), self,self.maindlg, progress)
             QgsApplication.taskManager().addTask(self.qtask)
         elif uri:
             if self.tripleStoreEdit.text() != "":
-                progress = QProgressDialog("Loading Graph from " + self.tripleStoreEdit.text(), "Abort", 0, 0, self)
+                progress = QProgressDialog(f"Loading Graph from {self.tripleStoreEdit.text()}", "Abort", 0, 0, self)
                 progress.setWindowTitle("Loading Graph")
                 progress.setWindowModality(Qt.WindowModality.WindowModal)
                 progress.setCancelButton(None)

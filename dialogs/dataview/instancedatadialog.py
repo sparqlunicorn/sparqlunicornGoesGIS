@@ -75,7 +75,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.map_canvas.setLayers([self.mts_layer])
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.map_canvas.setMapTool(self.toolPan)
-        self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"])+"</a>)")
+        self.instanceDataNameLabel.setText(f'{label} (<a href="{concept}">{SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"])}</a>)')
         header =self.instanceDataTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.tablemodel=QStandardItemModel()
@@ -119,7 +119,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         if len(checkeditems)!=self.tablemodel.rowCount():
             relstatement+=" VALUES ?rel {\n"
             for item in checkeditems:
-                relstatement+=" <"+item+"> "
+                relstatement+=f" <{item}> "
             relstatement+="}"
         if len(checkeditems)==0:
             relstatement=""
@@ -153,7 +153,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
     def getAttributes(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
         if self.concept == "" or self.concept is None:
             return
-        self.qtask = InstanceQueryTask("Querying dataset schema.... (" + self.label + ")",
+        self.qtask = InstanceQueryTask(f"Querying dataset schema.... ({self.label})",
                                            self.triplestoreurl,
                                            self.concept,
                                            self.triplestoreconf,

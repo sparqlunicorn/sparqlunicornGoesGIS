@@ -25,16 +25,16 @@ class InstanceQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.parentwindow=parentwindow
         self.queryresult={}
-        self.thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val . }"
+        self.thequery=f"SELECT ?rel ?val WHERE {{ <{self.searchTerm}>  ?rel ?val . }}"
         if "geotriplepattern" in self.triplestoreconf:
             self.thequery = "SELECT ?rel ?val "
             if "mandatoryvariables" in self.triplestoreconf and len(self.triplestoreconf["mandatoryvariables"])>0:
                 self.thequery+="?"
                 self.thequery+="?".join(self.triplestoreconf["mandatoryvariables"][1:])
-            self.thequery+=" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . "
+            self.thequery+=f" WHERE {{ <{self.searchTerm}> ?rel ?val . "
             if "geotriplepattern" in self.triplestoreconf and len(self.triplestoreconf["geotriplepattern"])>0:
                 for geopat in self.triplestoreconf["geotriplepattern"]:
-                    self.thequery += "OPTIONAL { " + str(geopat).replace("?item ","<" + str(self.searchTerm) + "> ") + " } "
+                    self.thequery += f'OPTIONAL {{ {str(geopat).replace("?item ","<" + str(self.searchTerm) + "> ")} }} '
             self.thequery+="}"
         if triplestoreurl["type"]=="file":
             self.thequery=prepareQuery(self.thequery)

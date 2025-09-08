@@ -111,18 +111,19 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
             results=SPARQLUtils.executeQuery(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],query)
             self.searchResultMap = {}
             for res in results["results"]["bindings"]:
+                cval=str(res["class"]["value"])
                 item = QListWidgetItem()
-                item.setData(0, str(res["class"]["value"]))
-                item.setText(str(res["label"]["value"]))
-                self.searchResultMap[res["label"]["value"]] = res["class"]["value"]
+                item.setData(0, cval)
+                item.setText(cval)
+                self.searchResultMap[res["label"]["value"]] = cval
                 self.searchResult.addItem(item)
         else:
             myResponse = json.loads(requests.get(query).text)
             for ent in myResponse["search"]:
                 qid = ent["url"]
-                label = ent["label"] + " (" + ent["id"] + ") "
+                label = f'{ent["label"]} ({ent["id"]}) '
                 if "description" in ent:
-                    label += "[" + ent["description"] + "]"
+                    label += "["+ent["description"]+"]"
                 results[qid] = label
                 self.searchResultMap[label] = ent["url"]
             for result in results:

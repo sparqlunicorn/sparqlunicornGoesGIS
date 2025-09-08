@@ -296,7 +296,7 @@ class EnrichmentTab:
             #selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
             self.enrichLayer = self.chooseLayerEnrich.currentLayer().clone()
         self.enrichLayerCounter += 1
-        self.enrichLayer.setName(self.enrichLayer.name() + "_enrich" + str(self.enrichLayerCounter))
+        self.enrichLayer.setName(f"{self.enrichLayer.name()}_enrich{self.enrichLayerCounter}")
         self.enrichLayer.startEditing()
         row = 0
         fieldnames = [field.name() for field in self.enrichLayer.fields()]

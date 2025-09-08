@@ -201,13 +201,13 @@ class GraphUtils:
                             capabilitylist.append("Custom Geometry Property")
                             configuration["mandatoryvariables"] = ["item", "geo"]
                             configuration["geometryproperty"] = [res["prop"]["value"]]
-                            configuration["geotriplepattern"].append(" ?item <"+str(res["prop"]["value"])+"> ?geo . ")
+                            configuration["geotriplepattern"].append(f' ?item <{res["prop"]["value"]}> ?geo . ')
                             gottype=True
                         break
         #self.detectGeometryLiteralRelations(configuration, credentialUserName, credentialPassword, authmethod) #Does not terminate on most triple stores
         geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
         if len(configuration["geotriplepattern"])==1:
-            geoconceptquery+="?item %%typeproperty%% ?class . "+str(configuration["geotriplepattern"][0])
+            geoconceptquery+=f'?item %%typeproperty%% ?class . {configuration["geotriplepattern"][0]}'
         else:
             index=0
             for pat in configuration["geotriplepattern"]:

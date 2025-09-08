@@ -35,7 +35,7 @@ class LayerMatchingTask(QgsTask):
             self.matchproperty="http://www.w3.org/2000/01/rdf-schema#label"
         self.columnvallist = LayerUtils.getLayerColumnAsList(self.matchlayer, self.matchcolumn)
         if "Exact Matching" in self.matchingmethod or "1:1 Matching" in self.matchingmethod or "Regular Expression" in self.matchingmethod:
-            thequery="SELECT ?con ?val WHERE { ?con <"+typeproperty+"> <" + str(self.matchingtype) + "> . ?con <"+self.matchproperty+"> ?val . "
+            thequery=f'SELECT ?con ?val WHERE {{ ?con <{typeproperty}> <{self.matchingtype}> . ?con <{self.matchproperty}> ?val . '
             matchvalstatement="VALUES ?val { "
             for val in self.columnvallist:
                 if self.matchinglanguage is not None:
@@ -45,7 +45,7 @@ class LayerMatchingTask(QgsTask):
             matchvalstatement+="}"
             thequery+=matchvalstatement+" }"
         else:
-            thequery="SELECT ?con ?val WHERE { ?con <"+typeproperty+"> <" + str(self.matchingtype) + "> . ?con <"+self.matchproperty+"> ?val . FILTER(lang(?val)=\""+self.matchinglanguage+"\") }"
+            thequery=f'SELECT ?con ?val WHERE {{ ?con <{typeproperty}> <{self.matchingtype}> . ?con <{self.matchproperty}> ?val . FILTER(lang(?val)="{self.matchinglanguage}") }}'
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         self.resmap={}
         for result in results["results"]["bindings"]:

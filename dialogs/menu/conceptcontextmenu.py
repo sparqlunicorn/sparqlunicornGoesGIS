@@ -278,7 +278,7 @@ class ConceptContextMenu(QMenu):
             if "wikidata" in self.triplestoreconf["resource"]:
                 query=self.triplestoreconf["subclassquery"].replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1])).replace("%%subclassproperty%%",str(subclassproperty))
             else:
-                query=self.triplestoreconf["subclassquery"].replace("%%concept%%","<"+str(concept)+">").replace("%%subclassproperty%%",str(subclassproperty))
+                query=self.triplestoreconf["subclassquery"].replace("%%concept%%",f"<{concept}>").replace("%%subclassproperty%%",str(subclassproperty))
             prefixestoadd=""
             for endpoint in self.triplestoreconf["prefixes"]:
                     prefixestoadd += f'PREFIX {endpoint}: <{self.triplestoreconf["prefixes"][endpoint]}> \n'
