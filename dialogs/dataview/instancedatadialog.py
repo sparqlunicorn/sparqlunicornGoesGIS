@@ -124,9 +124,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         if len(checkeditems)==0:
             relstatement=""
         if int(querydepth)>1:
-            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf["mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
-                self.concept) + "> AS ?item)\n" +
-            self.triplestoreconf["geotriplepattern"][0] + "\n "+str(relstatement)+" }",querydepth)
+            query=SPARQLUtils.expandRelValToAmount(f'SELECT ?{" ?".join(self.triplestoreconf["mandatoryvariables"])} ?rel ?val\n WHERE\n {{\n BIND( <{self.concept}> AS ?item)\n{self.triplestoreconf["geotriplepattern"][0]}\n {relstatement} }}',querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.concept,
@@ -138,9 +136,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
             "Instance to Layer: " + str(self.concept),
             self.concept,
             self.triplestoreconf["resource"],
-            "SELECT ?" + " ?".join(self.triplestoreconf["mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
-                self.concept) + "> AS ?item)\n "+str(relstatement)+" " +
-            self.triplestoreconf["geotriplepattern"][0] + "\n }",
+            f'SELECT ?{" ?".join(self.triplestoreconf["mandatoryvariables"])} ?rel ?val\n WHERE\n {{\n BIND( <{self.concept}> AS ?item)\n {relstatement} " {self.triplestoreconf["geotriplepattern"][0]}\n }}',
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),
                 self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)

@@ -278,7 +278,7 @@ class UIUtils:
             searchResultModel.setItem(counter, 0, itemchecked)
             item = QStandardItem()
             if "label" in queryresult[att] and queryresult[att]["label"]!="":
-                thetext=f'{queryresult[att]["label"]} ({SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes)} + ")'
+                thetext=f'{queryresult[att]["label"]} ({SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes)})'
                 if "amount" in queryresult[att]:
                     thetext+=f' [{queryresult[att]["amount"]}%]'
                 item.setText(thetext)
@@ -293,10 +293,7 @@ class UIUtils:
             itembutton = QStandardItem()
             if nodetype is not SPARQLUtils.instancenode and nodetype is not SPARQLUtils.geoinstancenode:
                 if "valtype" in queryresult[att]:
-                    itembutton.setText("Click to load samples... [" + str(queryresult[att]["valtype"]).replace(
-                        "http://www.w3.org/2001/XMLSchema#", "xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                                                                             "rdf:").replace(
-                        "http://www.opengis.net/ont/geosparql#", "geo:") + "]")
+                    itembutton.setText(f'Click to load samples... [{str(queryresult[att]["valtype"]).replace("http://www.w3.org/2001/XMLSchema#", "xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:").replace("http://www.opengis.net/ont/geosparql#", "geo:")}]')
                     itembutton.setData(str(queryresult[att]["valtype"]), UIUtils.dataslot_conceptURI)
                 else:
                     itembutton.setText("Click to load samples... [xsd:anyURI]")

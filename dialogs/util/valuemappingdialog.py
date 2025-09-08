@@ -47,7 +47,7 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
                 row, column).data(2) != "ValueMap{}":
             self.queryedit.setPlainText(self.table.item(row, column).data(2))
         else:
-            self.queryedit.setPlainText("SELECT ?item\n WHERE {\n ?item ?rel %%" + fieldname + "%% . \n}")
+            self.queryedit.setPlainText(f"SELECT ?item\n WHERE {{\n ?item ?rel %%{fieldname}%% . \n}}")
         for triplestore in self.triplestoreconf:
             if not "File" == triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
@@ -123,7 +123,7 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
                 qid = ent["url"]
                 label = f'{ent["label"]} ({ent["id"]}) '
                 if "description" in ent:
-                    label += "["+ent["description"]+"]"
+                    label += f'[{ent["description"]}]'
                 results[qid] = label
                 self.searchResultMap[label] = ent["url"]
             for result in results:
@@ -155,7 +155,7 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
         msgBox.exec()
         item = QTableWidgetItem("ValueMap{}")
         item.setData(1, str(json.dumps(resmap)))
-        if "SELECT ?item\n WHERE {\n ?item ?rel %%" + self.fieldname + "%% . \n}" != self.queryedit.toPlainText():
+        if f"SELECT ?item\n WHERE {{\n ?item ?rel %%{self.fieldname}%% . \n}}" != self.queryedit.toPlainText():
             item.setData(2, self.queryedit.toPlainText())
             item.setData(3, self.tripleStoreEdit.currentText())
         self.table.setItem(self.currentrow, self.currentcol, item)

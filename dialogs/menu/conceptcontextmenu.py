@@ -211,7 +211,7 @@ class ConceptContextMenu(QMenu):
             "Linked GeoClass to Layer: " + str(concept),
             concept,
             self.triplestoreconf["resource"],
-            "SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n ?item <"+str(typeproperty)+"> <"+str(concept)+"> . \n ?item ?rel ?val .\n ?item <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n } ORDER BY ?item",
+            f'SELECT ?{" ?".join(self.triplestoreconf["mandatoryvariables"])} ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {{\n ?item <{typeproperty}> <{concept}> . \n ?item ?rel ?val .\n ?item <{linkedproperty}> ?item2 .\n ?item2 ?rel2 ?val2 .\n {str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")}\n }} ORDER BY ?item',
             self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
@@ -224,7 +224,7 @@ class ConceptContextMenu(QMenu):
             "Linked Geo Instance to Layer: " + str(concept),
             concept,
             self.triplestoreconf["resource"],
-            thequery+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n <"+str(concept)+"> ?rel ?val .\n <"+str(concept)+"> <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n }",
+            f'{thequery} ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {{\n <{concept}> ?rel ?val .\n <{concept}> <{linkedproperty}> ?item2 .\n ?item2 ?rel2 ?val2 .\n {str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")} \n }}',
             self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
