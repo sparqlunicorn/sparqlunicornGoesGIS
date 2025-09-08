@@ -121,7 +121,7 @@ class SPARQLunicorn:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&SPARQL Unicorn Wikidata Plugin')
+        self.menu = self.tr(u'&SPARQL Unicorn QGIS Plugin')
 
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
@@ -183,13 +183,13 @@ class SPARQLunicorn:
         # iface.messageBar().pushMessage("load libs", a, level=Qgis.Success)
         self.add_action(
             UIUtils.sparqlunicornicon,
-            text=self.tr(u'SPARQL Unicorn  QGIS Plugin'),
+            text=self.tr(u'SPARQL Unicorn QGIS Plugin'),
             callback=self.run,
             parent=self.iface.mainWindow())
 
         self.add_action(
             UIUtils.pickericon,
-            text=self.tr(u'SPARQL Unicorn Wikidata Picker'),
+            text=self.tr(u'SPARQL Unicorn Triple Store Picker'),
             callback=self.choose_point_mapping_tool,
             parent=self.iface.mainWindow())
 
@@ -207,6 +207,7 @@ class SPARQLunicorn:
 
     def choose_point_mapping_tool(self):
         QgsMessageLog.logMessage("Selected polygon mapping tool", "SPARQL Unicorn", Qgis.Info)
+        #QgsMessageLog.logMessage(event, "SPARQL Unicorn", Qgis.Info)
         self.mptool=PolygonSelectMapTool(self.iface.mapCanvas())
         self.iface.mapCanvas().setMapTool(self.mptool)
         self.mptool.selectionDone.connect(self.onTSInfo)
