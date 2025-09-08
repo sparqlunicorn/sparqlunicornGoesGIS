@@ -155,8 +155,7 @@ class LayerUtils:
                                                    nongeofeatures, crsset)
             elif not "rel" in result and not "val" in result and latval in result and lonval in result:
                 LayerUtils.addFeatureToCorrectCollection(LayerUtils.processLiteral(
-                    "POINT(" + str(float(result[lonval]["value"])) + " " + str(
-                        float(result[latval]["value"])) + ")",
+                    f'POINT({float(result[lonval]["value"])} {float(result[latval]["value"])})',
                     "wkt", reproject,
                     {'id': result["item"]["value"], 'type': 'Feature',
                      'properties': LayerUtils.dropUnwantedKeys(properties),

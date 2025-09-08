@@ -212,20 +212,18 @@ class GraphUtils:
             index=0
             for pat in configuration["geotriplepattern"]:
                 if index==0:
-                    geoconceptquery += "{ ?item %%typeproperty%% ?class . " + str(pat)+"} "
+                    geoconceptquery += f"{{ ?item %%typeproperty%% ?class . {pat}}} "
                 else:
-                    geoconceptquery += " UNION { ?item %%typeproperty%% ?class . " + str(pat) + "} "
+                    geoconceptquery += f" UNION {{ ?item %%typeproperty%% ?class . {pat}}} "
                 index+=1
         geoconceptquery+="} ORDER BY ?class"
         configuration["geoconceptquery"] = geoconceptquery
         if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"])>0:
             self.configuration["querytemplate"].append(
                 {"label": "10 Random Geometries",
-                 "query": "SELECT "+str(mandvardef)+" WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n "+str(self.configuration["geotriplepattern"][0])+"\n } LIMIT 10"})
+                 "query": f'SELECT {mandvardef} WHERE {{\n ?item %%typeproperty%% <%%concept%%> .\n {self.configuration["geotriplepattern"][0]}\n }} LIMIT 10'})
             self.configuration[
-                "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . " + str(
-                configuration["geotriplepattern"][
-                    0]) + " ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt ."" OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }"
+                "subclassquery"] = f'SELECT DISTINCT ?subclass ?label WHERE {{ ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . {configuration["geotriplepattern"][0]} ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt ."" OPTIONAL {{ ?subclass %%labelproperty%% ?label . }} ?subclass %%subclassproperty%% %%concept%% . }}'
         self.configuration["geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }"
         return gottype
 
@@ -303,7 +301,7 @@ class GraphUtils:
 
     def detectEquivalentProperties(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentPropProperty="http://www.w3.org/2002/07/owl#equivalentProperty",query="SELECT DISTINCT ?prop ?equivprop ?label WHERE { ?prop %%equivprop%% ?equivprop . OPTIONAL { ?equivprop %%labelproperty%% ?label .} }"):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
-        query=query.replace("%%equivprop%%","<"+equivalentPropProperty+">").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
+        query=query.replace("%%equivprop%%",f"<{equivalentPropProperty}>").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
         #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         res={}
@@ -312,13 +310,13 @@ class GraphUtils:
                 if "prop" in restup and str(restup["prop"]) not in res:
                     res[str(restup["prop"])]=[]
                 res[str(restup["prop"])].append({"uri":restup["equivprop"]})
-        if configuration != None:
+        if configuration is not None:
             configuration["equivalentProperties"] = res
         return res
 
     def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
-        query=query.replace("%%equivprop%%","<"+equivalentClassProperty+">").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
+        query=query.replace("%%equivprop%%",f"<{equivalentClassProperty}>").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
         #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         res={}
@@ -327,7 +325,7 @@ class GraphUtils:
                 if str(restup["cls"]) not in res:
                     res[str(restup["cls"])]=[]
                 res[str(restup["cls"])].append({"uri":restup["equivcls"]})
-        if configuration!=None:
+        if configuration is not None:
             configuration["equivalentClasses"]=res
         return res
 
@@ -344,8 +342,7 @@ class GraphUtils:
 
     def detectGeometryObjectRelations(self):
         if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"]) > 0:
-            thequery = "SELECT DISTINCT ?acon ?rel WHERE { ?a <" + str(
-                self.configuration["typeproperty"]) + "> ?acon . ?a ?rel ?item. "
+            thequery = f'SELECT DISTINCT ?acon ?rel WHERE {{ ?a <{self.configuration["typeproperty"]}> ?acon . ?a ?rel ?item. '
             if len(self.configuration["geotriplepattern"]) > 0:
                 thequery += str(self.configuration["geotriplepattern"][0]) + " }"
             else:
@@ -353,9 +350,9 @@ class GraphUtils:
                 for pat in self.configuration["geotriplepattern"]:
                     if first:
                         first = False
-                        thequery += "{ " + pat + " }"
+                        thequery += f"{{ {pat} }}"
                     else:
-                        thequery += " UNION { " + pat + " }"
+                        thequery += f" UNION {{ {pat} }}"
                 thequery += "}}"
             results = SPARQLUtils.executeQuery(self.configuration["resource"], thequery)
             if results != False:
@@ -467,8 +464,8 @@ class GraphUtils:
                 self.configuration["labelproperty"].append("http://purl.org/dc/terms/title")
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasSKOSPrefLabel"]):
                 self.configuration["labelproperty"].append("http://www.w3.org/2004/02/skos/core#prefLabel")
-            self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
-            self.configuration["propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+            self.configuration["classfromlabelquery"] = f'SELECT DISTINCT ?class ?label {{ ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \n{SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")} FILTER(CONTAINS(?label,"%%label%%"))}} LIMIT 100 '
+            self.configuration["propertyfromlabelquery"] = f'SELECT DISTINCT ?class ?label {{ ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n{SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")} FILTER(CONTAINS(?label,"%%label%%"))}} LIMIT 100 '
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             if not isinstance(triplestoreurl,Graph):
                 self.detectGeometryObjectRelations()

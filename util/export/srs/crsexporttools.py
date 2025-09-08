@@ -240,86 +240,89 @@ class ConvertCRS:
 	@staticmethod
 	def crsToTTL(ttl,curcrs,x,geodcounter,crsclass):
 		epsgcode=str(x)
+		csuri=URIRef(GEOEPSG + epsgcode + "_cs")
+		crsuri=URIRef(GEOEPSG+str(x))
 		wkt=curcrs.to_wkt().replace("\"","'").strip()
 		if crsclass is not None:
-			ttl.add((URIRef(GEOEPSG+epsgcode),RDF.type,URIRef(crsclass)))
+			ttl.add((crsuri,RDF.type,URIRef(crsclass)))
 		elif "Projected CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.ProjectedCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.ProjectedCRS))
 		elif "Geographic 2D CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.GeographicCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.GeographicCRS))
 		elif "Geographic 3D CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.GeographicCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.GeographicCRS))
 		elif "Bound CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.BoundCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.BoundCRS))
 		elif "Vertical CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.VerticalCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.VerticalCRS))
 		elif "Geocentric CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.GeocentricCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.GeocentricCRS))
 		elif "Geographic 3D CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.GeographicCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.GeographicCRS))
 		elif "Compound CRS" in curcrs.type_name:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.CompoundCRS))
+			ttl.add((crsuri, RDF.type, GEOCRS.CompoundCRS))
 			for subcrs in curcrs.sub_crs_list:
-				ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.includesSRS,URIRef(GEOEPSG+str(subcrs.to_epsg()))))
+				ttl.add((crsuri, GEOCRS.includesSRS,URIRef(GEOEPSG+str(subcrs.to_epsg()))))
 		else:
-			ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, GEOCRS.CRS))
-		ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, PROV.Entity))
-		ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.isApplicableTo, URIRef(GEOCRSISBODY+"Earth")))
-		ttl.add((URIRef(GEOEPSG + epsgcode), RDF.type, OWL.NamedIndividual))
-		ttl.add((URIRef(GEOEPSG + epsgcode), RDFS.label, Literal(curcrs.name.strip(),lang="en")))
-		ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.isBound, Literal(str(curcrs.is_bound).lower(),datatype=XSD.boolean)))
+			ttl.add((crsuri, RDF.type, GEOCRS.CRS))
+		ttl.add((crsuri, RDF.type, PROV.Entity))
+		ttl.add((crsuri, GEOCRS.isApplicableTo, URIRef(GEOCRSISBODY+"Earth")))
+		ttl.add((crsuri, RDF.type, OWL.NamedIndividual))
+		ttl.add((crsuri, RDFS.label, Literal(curcrs.name.strip(),lang="en")))
+		ttl.add((crsuri, GEOCRS.isBound, Literal(str(curcrs.is_bound).lower(),datatype=XSD.boolean)))
 		if curcrs.coordinate_system is not None and curcrs.coordinate_system.name in coordinatesystem:
-			ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), RDF.type, coordinatesystem[curcrs.coordinate_system.name]))
+			ttl.add((csuri, RDF.type, coordinatesystem[curcrs.coordinate_system.name]))
 			if len(curcrs.coordinate_system.axis_list)==2:
-				ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), RDF.type, GEOCRS.PlanarCoordinateSystem))
+				ttl.add((csuri, RDF.type, GEOCRS.PlanarCoordinateSystem))
 			elif len(curcrs.coordinate_system.axis_list)==3:
-				ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), RDF.type, URIRef(GEOCRS+"3DCoordinateSystem")))
-			ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), RDFS.label, Literal("EPSG:"+epsgcode+" CS: "+curcrs.coordinate_system.name)))
+				ttl.add((csuri, RDF.type, URIRef(GEOCRS+"3DCoordinateSystem")))
+			ttl.add((csuri, RDFS.label, Literal("EPSG:"+epsgcode+" CS: "+curcrs.coordinate_system.name)))
 			if curcrs.coordinate_system.remarks is not None:
-				ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), RDFS.comment, Literal(str(curcrs.coordinate_system.remarks),lang="en")))
+				ttl.add((csuri, RDFS.comment, Literal(str(curcrs.coordinate_system.remarks),lang="en")))
 			if curcrs.coordinate_system.scope is not None:
-				ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), GEOCRS.scope,  Literal(str(curcrs.coordinate_system.scope),datatype=XSD.string)))
+				ttl.add((csuri, GEOCRS.scope,  Literal(str(curcrs.coordinate_system.scope),datatype=XSD.string)))
 			for axis in curcrs.coordinate_system.axis_list:
 				axisid=axis.name.replace(" ","_").replace("(","_").replace(")","_").replace("/","_").replace("'","_")+"_"+axis.unit_name.replace(" ","_").replace("(","_").replace(")","_").replace("/","_").replace("'","_")+"_"+axis.direction.replace(" ","_").replace("(","_").replace(")","_").replace("/","_").replace("'","_")
-				ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), GEOCRS.axis, URIRef(GEOCRSAXIS+axisid)))
-				ttl.add((URIRef(GEOCRSAXIS+axisid), RDF.type, GEOCRS.CoordinateSystemAxis))
-				ttl.add((URIRef(GEOCRSAXIS+axisid), GEOCRS.direction, URIRef(GEOCRS+axis.direction)))
-				ttl.add((URIRef(GEOCRSAXIS+axisid), GEOCRS.abbreviation, Literal(str(axis.abbrev).replace("\"","'"),datatype=XSD.string)))
-				ttl.add((URIRef(GEOCRSAXIS+axisid), GEOCRS.unit_conversion_factor, Literal(str(axis.unit_conversion_factor),datatype=XSD.double)))
-				ttl.add((URIRef(GEOCRSAXIS+axisid), GEOCRS.unit_auth_code,Literal(str(axis.unit_auth_code),datatype=XSD.string)))
-				ttl.add((URIRef(GEOCRSAXIS+axisid), GEOCRS.unit_code, Literal(str(axis.unit_code),datatype=XSD.string)))
+				axisuri=URIRef(GEOCRSAXIS+axisid)
+				ttl.add((csuri, GEOCRS.axis, axisuri))
+				ttl.add((axisuri, RDF.type, GEOCRS.CoordinateSystemAxis))
+				ttl.add((axisuri, GEOCRS.direction, URIRef(GEOCRS+axis.direction)))
+				ttl.add((axisuri, GEOCRS.abbreviation, Literal(str(axis.abbrev).replace("\"","'"),datatype=XSD.string)))
+				ttl.add((axisuri, GEOCRS.unit_conversion_factor, Literal(str(axis.unit_conversion_factor),datatype=XSD.double)))
+				ttl.add((axisuri, GEOCRS.unit_auth_code,Literal(str(axis.unit_auth_code),datatype=XSD.string)))
+				ttl.add((axisuri, GEOCRS.unit_code, Literal(str(axis.unit_code),datatype=XSD.string)))
 				ttl.add((URIRef(GEOCRSAXIS+axis.direction), RDF.type, GEOCRS.AxisDirection))
 				if axis.unit_name in units:
-					ttl.add((URIRef(GEOCRSAXIS+axisid), GEOCRS.unit, URIRef(units[axis.unit_name])))
-					ttl.add((URIRef(GEOCRSAXIS+axisid), RDFS.label, Literal(axis.name+" ("+SPARQLUtils.labelFromURI(str(units[axis.unit_name]))+")",lang="en")))
+					ttl.add((axisuri, GEOCRS.unit, URIRef(units[axis.unit_name])))
+					ttl.add((axisuri, RDFS.label, Literal(f"{axis.name} ({SPARQLUtils.labelFromURI(str(units[axis.unit_name]))})",lang="en")))
 				else:
-					ttl.add((URIRef(GEOCRSAXIS+axisid),GEOCRS.unit, Literal(str(axis.unit_name),datatype=XSD.string)))
-					ttl.add((URIRef(GEOCRSAXIS+axisid), RDFS.label, Literal(axis.name+" ("+str(axis.unit_name)+")",lang="en")))
-			ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), GEOCRS.asWKT, Literal(str(curcrs.coordinate_system.to_wkt()).replace("\"","'").replace("\n",""))))
-			ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), GEOCRS.asProjJSON, Literal(str(curcrs.coordinate_system.to_json()).replace("\"","'").replace("\n",""))))
-			ttl.add((URIRef(GEOEPSG + epsgcode),GEOCRS.coordinateSystem, URIRef(GEOEPSG+epsgcode+"_cs")))
+					ttl.add((axisuri,GEOCRS.unit, Literal(str(axis.unit_name),datatype=XSD.string)))
+					ttl.add((axisuri, RDFS.label, Literal(f"{axis.name} ({axis.unit_name})",lang="en")))
+			ttl.add((csuri, GEOCRS.asWKT, Literal(str(curcrs.coordinate_system.to_wkt()).replace("\"","'").replace("\n",""))))
+			ttl.add((csuri, GEOCRS.asProjJSON, Literal(str(curcrs.coordinate_system.to_json()).replace("\"","'").replace("\n",""))))
+			ttl.add((crsuri,GEOCRS.coordinateSystem, URIRef(GEOEPSG+epsgcode+"_cs")))
 		elif curcrs.coordinate_system is not None:
-			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.coordinateSystem, Literal(str(curcrs.coordinate_system),datatype=XSD.string)))
+			ttl.add((crsuri, GEOCRS.coordinateSystem, Literal(str(curcrs.coordinate_system),datatype=XSD.string)))
 		if curcrs.source_crs is not None:
-			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.sourceCRS, URIRef(GEOEPSG+curcrs.source_crs.to_epsg())))
+			ttl.add((crsuri, GEOCRS.sourceCRS, URIRef(GEOEPSG+curcrs.source_crs.to_epsg())))
 		if curcrs.target_crs is not None:
-			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.targetCRS, URIRef(GEOEPSG+str(curcrs.target_crs.to_epsg()))))
+			ttl.add((crsuri, GEOCRS.targetCRS, URIRef(GEOEPSG+str(curcrs.target_crs.to_epsg()))))
 		if curcrs.scope is not None:
 			if "," in curcrs.scope:
 				for scp in curcrs.scope.split(","):
 					#print("Scope: "+scp)
 					if scp.lower().strip().replace(".","") in scope:
-						ttl.add((URIRef(GEOEPSG + epsgcode),GEOCRS.usage, URIRef(scope[scp.lower().strip().replace(".","")])))
+						ttl.add((crsuri,GEOCRS.usage, URIRef(scope[scp.lower().strip().replace(".","")])))
 						ttl.add(URIRef(scope[scp.lower().strip().replace(".","")]), RDFS.subClassOf, GEOCRS.SRSApplication)
 					else:
-						ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.usage, Literal(str(curcrs.datum.scope),datatype=XSD.string)))
-			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.scope, Literal(str(curcrs.scope).replace("\"","'"),datatype=XSD.string)))
+						ttl.add((crsuri, GEOCRS.usage, Literal(str(curcrs.datum.scope),datatype=XSD.string)))
+			ttl.add((crsuri, GEOCRS.scope, Literal(str(curcrs.scope).replace("\"","'"),datatype=XSD.string)))
 		if curcrs.area_of_use is not None:
-			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.area_of_use, URIRef(GEOEPSG+epsgcode+"_area_of_use")))
+			ttl.add((crsuri, GEOCRS.area_of_use, URIRef(GEOEPSG+epsgcode+"_area_of_use")))
 			ttl.add((URIRef(GEOEPSG + epsgcode+"_area_of_use"), RDF.type, GEOCRS.AreaOfUse))
 			ttl.add((URIRef(GEOEPSG + epsgcode+"_area_of_use"), RDFS.label,  Literal(str(curcrs.area_of_use.name).replace("\"","'"),lang="en")))
 			#b = box(curcrs.area_of_use.west, curcrs.area_of_use.south, curcrs.area_of_use.east, curcrs.area_of_use.north)
-			#ttl.add(URIRef(GEOEPSG + epsgcode)+"_area_of_use"+" geocrs:extent   \"<http://www.opengis.net/def/crs/OGC/1.3/CRS84> "+str(b.wkt)+"\"^^geo:wktLiteral . \n")
+			#ttl.add(crsuri+"_area_of_use"+" geocrs:extent   \"<http://www.opengis.net/def/crs/OGC/1.3/CRS84> "+str(b.wkt)+"\"^^geo:wktLiteral . \n")
 			#\"ENVELOPE("+str(curcrs.area_of_use.west)+" "+str(curcrs.area_of_use.south)+","+str(curcrs.area_of_use.east)+" "+str(curcrs.area_of_use.north)+")\"^^geo:wktLiteral . \n")
 		if curcrs.get_geod() is not None:
 			geoid= GEOCRSGEOD+""+str(geodcounter)
@@ -340,7 +343,7 @@ class ConvertCRS:
 					ttl.add((geoid, RDFS.label, Literal(str(curcrs.datum.ellipsoid.name),lang="en")))
 					ttl.add((geoid, GEOCRS.approximates, URIRef(GEOCRSISBODY+"Earth")))
 			else:
-				ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.ellipsoid, URIRef(GEOCRSGEOD+str(geodcounter))))
+				ttl.add((crsuri, GEOCRS.ellipsoid, URIRef(GEOCRSGEOD+str(geodcounter))))
 				ttl.add((URIRef(GEOCRSGEOD+str(geodcounter)), RDF.type, GEOCRS.Geoid))
 				ttl.add((geoid, RDFS.label, Literal("Geoid "+str(geodcounter),lang="en")))
 				ttl.add((geoid, GEOCRS.approximates, URIRef(GEOCRSISBODY+"Earth")))
@@ -353,19 +356,20 @@ class ConvertCRS:
 			geodcounter+=1
 		if curcrs.coordinate_operation is not None:
 			coordoperationid=curcrs.coordinate_operation.name.replace(" ","_").replace("(","_").replace(")","_").replace("/","_").replace("'","_").replace(",","_").replace("&","and").strip()
-			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.coordinateOperation,URIRef(GEOCRSOPERATION+str(coordoperationid))))
-			ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)), GEOCRS.accuracy, Literal(str(curcrs.coordinate_operation.accuracy),datatype=XSD.double)))
-			ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)),GEOCRS.method_name,Literal(str(curcrs.coordinate_operation.method_name))))
-			ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)),GEOCRS.asProj4, Literal(str(curcrs.coordinate_operation.to_proj4()).strip().replace("\"","'").replace("\n",""))))
-			ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)),GEOCRS.asProjJSON,Literal(str(curcrs.coordinate_operation.to_json()).strip().replace("\"","'").replace("\n",""))))
-			ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)),GEOCRS.asWKT, Literal(str(curcrs.coordinate_operation.to_wkt()).replace("\"","'").replace("\n",""),datatype=GEOCRS.wktLiteral)))
+			csopuri=URIRef(GEOCRSOPERATION+str(coordoperationid))
+			ttl.add((crsuri, GEOCRS.coordinateOperation,csopuri))
+			ttl.add((csopuri, GEOCRS.accuracy, Literal(str(curcrs.coordinate_operation.accuracy),datatype=XSD.double)))
+			ttl.add((csopuri,GEOCRS.method_name,Literal(str(curcrs.coordinate_operation.method_name))))
+			ttl.add((csopuri,GEOCRS.asProj4, Literal(str(curcrs.coordinate_operation.to_proj4()).strip().replace("\"","'").replace("\n",""))))
+			ttl.add((csopuri,GEOCRS.asProjJSON,Literal(str(curcrs.coordinate_operation.to_json()).strip().replace("\"","'").replace("\n",""))))
+			ttl.add((csopuri,GEOCRS.asWKT, Literal(str(curcrs.coordinate_operation.to_wkt()).replace("\"","'").replace("\n",""),datatype=GEOCRS.wktLiteral)))
 			if curcrs.coordinate_operation.scope is not None:
-				ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)), GEOCRS.scope, Literal(str(curcrs.coordinate_operation.scope).replace("\"","'"),datatype=XSD.string)))
+				ttl.add((csopuri, GEOCRS.scope, Literal(str(curcrs.coordinate_operation.scope).replace("\"","'"),datatype=XSD.string)))
 			if curcrs.coordinate_operation.remarks is not None:
-				ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)),RDFS.comment, Literal(str(curcrs.coordinate_operation.remarks).replace("\"","'").replace("\n",""),datatype=XSD.string)))
-			ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)), GEOCRS.has_ballpark_transformation, Literal(str(curcrs.coordinate_operation.has_ballpark_transformation),datatype=XSD.boolean)))
+				ttl.add((csopuri,RDFS.comment, Literal(str(curcrs.coordinate_operation.remarks).replace("\"","'").replace("\n",""),datatype=XSD.string)))
+			ttl.add((csopuri, GEOCRS.has_ballpark_transformation, Literal(str(curcrs.coordinate_operation.has_ballpark_transformation),datatype=XSD.boolean)))
 			if curcrs.coordinate_operation.area_of_use is not None:
-				ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)),GEOCRS.area_of_use,URIRef(GEOCRSAOU+str(coordoperationid)+"_area_of_use")))
+				ttl.add((csopuri,GEOCRS.area_of_use,URIRef(GEOCRSAOU+str(coordoperationid)+"_area_of_use")))
 				ttl.add(URIRef(GEOCRSAOU+str(coordoperationid)+"_area_of_use"),RDF.type, GEOCRS.AreaOfUse)
 				ttl.add(URIRef(GEOCRSAOU+str(coordoperationid)+"_area_of_use"), RDFS.label, Literal(str(curcrs.coordinate_operation.area_of_use.name).replace("\"","'"),lang="en"))
 				#b = box(curcrs.coordinate_operation.area_of_use.west, curcrs.coordinate_operation.area_of_use.south, curcrs.coordinate_operation.area_of_use.east, curcrs.coordinate_operation.area_of_use.north)
@@ -378,9 +382,9 @@ class ConvertCRS:
 				ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]), RDFS.range, XSD.double)
 				ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]), RDFS.domain, GEOCRS.CoordinateOperation)
 				ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]), RDFS.label, Literal(str(par.name),lang="en"))
-				ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]),Literal(str(par.value),datatype=XSD.double))
+				ttl.add(csopuri, URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]),Literal(str(par.value),datatype=XSD.double))
 			for grid in curcrs.coordinate_operation.grids:
-				ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)), GEOCRS.grid, URIRef(GEOCRSGRID+str(grid.name).replace(" ","_"))))
+				ttl.add((csopuri, GEOCRS.grid, URIRef(GEOCRSGRID+str(grid.name).replace(" ","_"))))
 				ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(" ","_")), RDF.type, GEOCRS.Grid))
 				ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(" ","_")), RDFS.label, Literal(str(grid.full_name),lang="en")))
 				ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(" ","_")), RDFS.label, Literal(str(grid.short_name),lang="en")))
@@ -388,30 +392,30 @@ class ConvertCRS:
 				ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(" ","_")), RDFS.comment, Literal(str(grid.url),lang="en")))
 			if curcrs.coordinate_operation.operations is not None:
 				for operation in curcrs.coordinate_operation.operations:
-					ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), GEOCRS.operation, Literal(str(operation).replace("\n","").replace("\"","'"),datatype=XSD.string))
-			if curcrs.coordinate_operation.type_name==None:
-				ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)), RDF.type, GEOCRS.CoordinateOperation))
+					ttl.add(csopuri, GEOCRS.operation, Literal(str(operation).replace("\n","").replace("\"","'"),datatype=XSD.string))
+			if curcrs.coordinate_operation.type_name is None:
+				ttl.add(csopuri, RDF.type, GEOCRS.CoordinateOperation)
 			elif curcrs.coordinate_operation.type_name=="Conversion":
 				found=False
 				if curcrs.coordinate_operation.to_proj4() is not None:
 					proj4string=curcrs.coordinate_operation.to_proj4().strip().replace("\"","'").replace("\n","")
 					for prj in projections:
 						if prj in proj4string:
-							ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), RDF.type,projections[prj])
+							ttl.add((csopuri, RDF.type,projections[prj]))
 							found=True
 							break
 				if not found:
-					ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)),RDF.type, GEOCRS.CoordinateConversionOperation))
+					ttl.add((csopuri,RDF.type, GEOCRS.CoordinateConversionOperation))
 			elif curcrs.coordinate_operation.type_name=="Transformation":
-				ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), RDF.type, GEOCRS.CoordinateTransformationOperation)
+				ttl.add(csopuri, RDF.type, GEOCRS.CoordinateTransformationOperation)
 			elif curcrs.coordinate_operation.type_name=="Concatenated Operation":
-				ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), RDF.type, GEOCRS.CoordinateConcatenatedOperation)
+				ttl.add(csopuri, RDF.type, GEOCRS.CoordinateConcatenatedOperation)
 			elif curcrs.coordinate_operation.type_name=="Other Coordinate Operation":
-				ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), RDF.type, GEOCRS.OtherCoordinateOperation)
-			ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), RDFS.label, Literal(curcrs.coordinate_operation.name+": "+curcrs.coordinate_operation.method_name,lang="en"))
+				ttl.add(csopuri, RDF.type, GEOCRS.OtherCoordinateOperation)
+			ttl.add((csopuri), RDFS.label, Literal(curcrs.coordinate_operation.name+": "+curcrs.coordinate_operation.method_name,lang="en"))
 		if curcrs.datum is not None:
 			datumid=str(curcrs.datum.name.replace(" ","_").replace("(","_").replace(")","_").replace("/","_").replace("'","_").replace("+","_plus").replace("[","_").replace("]","_"))
-			ttl.add(URIRef(GEOEPSG + epsgcode), GEOCRS.datum, URIRef(GEOCRSDATUM+str(datumid)))
+			ttl.add(crsuri, GEOCRS.datum, URIRef(GEOCRSDATUM+str(datumid)))
 			if "Geodetic Reference Frame" in curcrs.datum.type_name:
 				ttl.add((URIRef(GEOCRSDATUM+str(datumid)), RDF.type, GEOCRS.GeodeticReferenceFrame))
 			elif "Dynamic Vertical Reference Frame" in curcrs.datum.type_name:
@@ -461,17 +465,17 @@ class ConvertCRS:
 					ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")),RDFS.comment,Literal(str(curcrs.prime_meridian.remarks),lang="en")))
 				if curcrs.prime_meridian.scope is not None:
 					ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")), GEOCRS.scope, Literal(str(curcrs.prime_meridian.scope),datatype=XSD.string)))
-		ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.isVertical, URIRef(str(curcrs.is_vertical).lower(),datatype=XSD.boolean)))
-		ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.isProjected, Literal(str(curcrs.is_projected).lower(),datatype=XSD.boolean)))
-		ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.isGeocentric, Literal(str(curcrs.is_geocentric).lower(),datatype=XSD.boolean)))
-		ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.isGeographic, Literal(str(curcrs.is_geographic).lower(),datatype=XSD.boolean)))
+		ttl.add((crsuri, GEOCRS.isVertical, URIRef(str(curcrs.is_vertical).lower(),datatype=XSD.boolean)))
+		ttl.add((crsuri, GEOCRS.isProjected, Literal(str(curcrs.is_projected).lower(),datatype=XSD.boolean)))
+		ttl.add((crsuri, GEOCRS.isGeocentric, Literal(str(curcrs.is_geocentric).lower(),datatype=XSD.boolean)))
+		ttl.add((crsuri, GEOCRS.isGeographic, Literal(str(curcrs.is_geographic).lower(),datatype=XSD.boolean)))
 		if curcrs.utm_zone is not None:
-			ttl.add((URIRef(GEOEPSG + epsgcode),GEOCRS.utm_zone, Literal(str(curcrs.utm_zone),datatype=XSD.string)))
+			ttl.add((crsuri,GEOCRS.utm_zone, Literal(str(curcrs.utm_zone),datatype=XSD.string)))
 		if curcrs.to_proj4() is not None:
-			ttl.add((URIRef(GEOEPSG + epsgcode),GEOCRS.asProj4, Literal(curcrs.to_proj4().strip().replace("\"","'"),datatype=XSD.string)))
+			ttl.add((crsuri,GEOCRS.asProj4, Literal(curcrs.to_proj4().strip().replace("\"","'"),datatype=XSD.string)))
 		if curcrs.to_json() is not None:
-			ttl.add((URIRef(GEOEPSG + epsgcode),GEOCRS.asProjJSON, Literal(str(curcrs.to_json().strip().replace("\"","'")),datatype=XSD.string)))
+			ttl.add((crsuri,GEOCRS.asProjJSON, Literal(str(curcrs.to_json().strip().replace("\"","'")),datatype=XSD.string)))
 		if wkt!="":
-			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.asWKT, Literal(wkt,datatype=GEOCRS.wktLiteral)))
-		ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.epsgCode,Literal("EPSG:"+epsgcode,datatype=XSD.string)))
+			ttl.add((crsuri, GEOCRS.asWKT, Literal(wkt,datatype=GEOCRS.wktLiteral)))
+		ttl.add((crsuri, GEOCRS.epsgCode,Literal("EPSG:"+epsgcode,datatype=XSD.string)))
 		return ttl
