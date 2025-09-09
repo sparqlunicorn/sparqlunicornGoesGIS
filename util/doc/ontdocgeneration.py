@@ -280,6 +280,7 @@ class OntDocGeneration:
             end=time.time()
             self.exectimes["NonNS Pages"] = {"time": end - start,"items":len(nonnsmap)}
             print(f"NonNS Page Generation time {end-start} seconds")
+        self.updateProgressBar(None, None, "Finalizing Exports")
         with open(classtreepath, 'w', encoding='utf-8') as f:
             f.write("var tree=")
             json.dump(tree,f, indent=2)

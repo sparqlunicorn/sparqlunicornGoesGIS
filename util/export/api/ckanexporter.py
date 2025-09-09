@@ -118,36 +118,36 @@ class CKANExporter:
             json.dump({"success": True, "result": ["ttl", "json", "geojson", "html"]}, f)
         colls = []
         for coll in featurecollectionspaths:
-            op = f'{outpath}/dataset/{coll.replace(outpath, "").replace("index.geojson", "")}'
+            op = f'{outpath}/dataset/{DocUtils.replaceColonFromWinPath(coll).replace(outpath, "").replace("index.geojson", "")}'
             op = op.replace(".geojson", "")
             op = op.replace("//", "/")
             curcollname = coll.replace(outpath, "").replace("index.geojson", "")
             if curcollname.endswith("/"):
                 curcollname = curcollname[0:-1]
             curcollname = curcollname.replace(".geojson", "")
-            if op.endswith("/"):
-                op = op[0:-1]
-            if not os.path.exists(op):
-                os.makedirs(op)
-            dataset = {"success": True,
-                       "result": {"id": curcollname, "type": "dataset", "num_resources": 3, "title": curcollname,
-                                  "license_id": license, "license_title": license, "name": curcollname, "notes": "",
-                                  "tags": [], "groups": [], "resources": [
-                               {"name": curcollname + " (text/ttl)", "format": "TTL", "id": curcollname,
-                                "package_id": curcollname, "mimetype": "text/ttl", "resource_type": "file",
-                                "url": deploypath + "/dataset/" + curcollname + ".ttl", "state": "active",
-                                "url_type": ""},
-                               {"name": curcollname + " (application/json)", "id": curcollname, "format": "JSON",
-                                "package_id": curcollname, "mimetype": "application/json", "resource_type": "file",
-                                "url": deploypath + "/dataset/" + curcollname + ".json", "state": "active",
-                                "url_type": ""},
-                               {"name": curcollname + " (text/html)", "id": curcollname, "format": "HTML",
-                                "package_id": curcollname, "mimetype": "text/html", "resource_type": "file",
-                                "url": deploypath + "/dataset/" + curcollname + ".html", "state": "active",
-                                "url_type": ""}]}}
-            with open(f"{outpath}/dataset/{curcollname}_", "w", encoding="utf-8") as f:
-                json.dump(dataset, f)
             try:
+                if op.endswith("/"):
+                    op = op[0:-1]
+                if not os.path.exists(op):
+                    os.makedirs(op)
+                dataset = {"success": True,
+                           "result": {"id": curcollname, "type": "dataset", "num_resources": 3, "title": curcollname,
+                                      "license_id": license, "license_title": license, "name": curcollname, "notes": "",
+                                      "tags": [], "groups": [], "resources": [
+                                   {"name": curcollname + " (text/ttl)", "format": "TTL", "id": curcollname,
+                                    "package_id": curcollname, "mimetype": "text/ttl", "resource_type": "file",
+                                    "url": deploypath + "/dataset/" + curcollname + ".ttl", "state": "active",
+                                    "url_type": ""},
+                                   {"name": curcollname + " (application/json)", "id": curcollname, "format": "JSON",
+                                    "package_id": curcollname, "mimetype": "application/json", "resource_type": "file",
+                                    "url": deploypath + "/dataset/" + curcollname + ".json", "state": "active",
+                                    "url_type": ""},
+                                   {"name": curcollname + " (text/html)", "id": curcollname, "format": "HTML",
+                                    "package_id": curcollname, "mimetype": "text/html", "resource_type": "file",
+                                    "url": deploypath + "/dataset/" + curcollname + ".html", "state": "active",
+                                    "url_type": ""}]}}
+                with open(f"{outpath}/dataset/{curcollname}_", "w", encoding="utf-8") as f:
+                    json.dump(dataset, f)
                 cpath = str(op + ".json").replace("//", "/")
                 if not os.path.exists(cpath):
                     targetpath = DocUtils.generateRelativeSymlink(coll.replace("//", "/"), str(op + ".json"), outpath)
@@ -171,9 +171,10 @@ class CKANExporter:
                     p.symlink_to(targetpath)
                     p = Path(f"{outpath}/api/{version}/action/package_show?id={curcollname}.html")
                     p.symlink_to("../../" + targetpath)
+                colls.append(dataset["result"])
             except Exception as e:
                 print(e)
                 print("Symlink creation might not be allowed")
-            colls.append(dataset["result"])
+
         with open(f"{outpath}/api/{version}/action/package_list/index.json", "w", encoding="utf-8") as f:
             json.dump({"success": True, "result": {"count": len(colls), "results": colls}}, f)

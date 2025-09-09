@@ -113,7 +113,7 @@ class UIUtils:
                 if "mandatoryvariables" in triplestore and len(triplestore["mandatoryvariables"]) > 0:
                     item += " --> "
                     for mandvar in triplestore["mandatoryvariables"]:
-                        item += "?" + mandvar + " "
+                        item += f"?{mandvar} "
                 isfile=False
                 if "resource" in triplestore and "type" in triplestore["resource"] and triplestore["resource"]["type"]=="file":
                     if triplestore["resource"]["url"].startswith("http"):

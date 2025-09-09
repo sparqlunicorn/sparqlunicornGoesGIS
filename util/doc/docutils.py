@@ -136,6 +136,18 @@ class DocUtils:
         print(f"Total measured execution time: {totaltime} seconds")
 
     @staticmethod
+    def getExecutionStats(timeexec):
+        res=f"\nSelected Execution Statistics in order of execution:\n"
+        totaltime=0
+        for entry in timeexec:
+            res+=f"{entry}: {timeexec[entry]['time']} seconds\n"
+            totaltime+=timeexec[entry]['time']
+            if "items" in timeexec[entry]:
+                res+=f" for {timeexec[entry]['items']} items, about {timeexec[entry]['time']/timeexec[entry]['items']} seconds per item\n"
+            #print("\n",end="")
+        return f"{res} Total measured execution time: {totaltime} seconds"
+
+    @staticmethod
     def writeExecutionStats(timeexec,filename="buildlog.txt"):
         with open(filename,"w",encoding="utf-8") as f:
             f.write(f"Selected Execution Statistics in order of execution:\n")

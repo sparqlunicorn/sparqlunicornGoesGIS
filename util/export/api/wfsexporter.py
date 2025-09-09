@@ -1,5 +1,6 @@
 import os
 import json
+from ...doc.docutils import DocUtils
 
 class WFSExporter:
 
@@ -13,42 +14,45 @@ class WFSExporter:
             if os.path.exists(coll):
                 with open(coll, 'r', encoding="utf-8") as infile:
                     curcoll = json.load(infile)
-                op = f'{outpath}wfs/DescribeFeatureType/%3FSERVICE=WFS&REQUEST=DescribeFeatureType&VERSION={version}&typeName={coll.replace(outpath, "").replace("index.geojson", "")}'
-                if not os.path.exists(op):
-                    os.mkdir(op)
-                op = op.replace(".geojson", "")
-                op = op.replace("//", "/")
-                if not os.path.exists(op):
-                    os.makedirs(op)
-                opweb = op.replace(outpath, deploypath)
-                opwebcoll = opweb
-                if opwebcoll.endswith("/"):
-                    opwebcoll = opwebcoll[0:-1]
-                opwebcoll = opwebcoll.replace("//", "/")
-                collid=coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]
-                currentcollection = {"title": featurecollectionspaths[coll]["name"],
-                                     "id": collid,
-                                     "links": [], "itemType": "feature"}
-                if "bbox" in curcoll:
-                    currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
-                if "crs" in curcoll:
-                    currentcollection["crs"] = curcoll["crs"]
-                    if "extent" in currentcollection:
-                        currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
-                if "features" in curcoll and len(curcoll["features"])>0:
-                    firstfeat=curcoll["features"][0]
-                    if "properties" in firstfeat:
-                        result+=f'<complexType name="{coll}"><complexContent><extension base="gml:AbstractFeatureType"><sequence>'
-                        for prop in firstfeat["properties"]:
-                            result+=f"""<element name="{prop}" minOccurs="0"/>"""
-                        result+="</sequence></extension></complexContent></complexType>"
-                result+="</schema>"
-                with open(op + "/index.xml", "w", encoding="utf-8") as f:
-                    f.write(result)
-                with open(op + "/indexc.html", "w", encoding="utf-8") as f:
-                    f.write("<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /></head><body><h1>" + featurecollectionspaths[coll][
-                        "name"] + "</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>" #+ str(curcollrow)
-                         + "</tbody></table></html>")
+                try:
+                    op = f'{outpath}wfs/DescribeFeatureType/%3FSERVICE=WFS&REQUEST=DescribeFeatureType&VERSION={version}&typeName={DocUtils.replaceColonFromWinPath(coll).replace(outpath, "").replace("index.geojson", "")}'
+                    if not os.path.exists(op):
+                        os.mkdir(op)
+                    op = op.replace(".geojson", "")
+                    op = op.replace("//", "/")
+                    if not os.path.exists(op):
+                        os.makedirs(op)
+                    opweb = op.replace(outpath, deploypath)
+                    opwebcoll = opweb
+                    if opwebcoll.endswith("/"):
+                        opwebcoll = opwebcoll[0:-1]
+                    opwebcoll = opwebcoll.replace("//", "/")
+                    collid=coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]
+                    currentcollection = {"title": featurecollectionspaths[coll]["name"],
+                                         "id": collid,
+                                         "links": [], "itemType": "feature"}
+                    if "bbox" in curcoll:
+                        currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
+                    if "crs" in curcoll:
+                        currentcollection["crs"] = curcoll["crs"]
+                        if "extent" in currentcollection:
+                            currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
+                    if "features" in curcoll and len(curcoll["features"])>0:
+                        firstfeat=curcoll["features"][0]
+                        if "properties" in firstfeat:
+                            result+=f'<complexType name="{coll}"><complexContent><extension base="gml:AbstractFeatureType"><sequence>'
+                            for prop in firstfeat["properties"]:
+                                result+=f"""<element name="{prop}" minOccurs="0"/>"""
+                            result+="</sequence></extension></complexContent></complexType>"
+                    result+="</schema>"
+                    with open(op + "/index.xml", "w", encoding="utf-8") as f:
+                        f.write(result)
+                    with open(op + "/indexc.html", "w", encoding="utf-8") as f:
+                        f.write("<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /></head><body><h1>" + featurecollectionspaths[coll][
+                            "name"] + "</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>" #+ str(curcollrow)
+                             + "</tbody></table></html>")
+                except Exception as e:
+                    print(e)
 
 
     @staticmethod
@@ -64,48 +68,51 @@ class WFSExporter:
             if os.path.exists(coll):
                 with open(coll, 'r', encoding="utf-8") as infile:
                     curcoll = json.load(infile)
-                op = f'{outpath}wfs/GetFeature/SERVICE=WFS&REQUEST=GetFeature&VERSION={version}&TYPENAME={coll.replace(outpath, "").replace("index.geojson", "")}'
-                if not os.path.exists(op):
-                    os.mkdir(op)
-                op = op.replace(".geojson", "")
-                op = op.replace("//", "/")
-                if not os.path.exists(op):
-                    os.makedirs(op)
-                opweb = op.replace(outpath, deploypath)
-                opwebcoll = opweb
-                if opwebcoll.endswith("/"):
-                    opwebcoll = opwebcoll[0:-1]
-                opwebcoll = opwebcoll.replace("//", "/")
-                collid=coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]
-                currentcollection = {"title": featurecollectionspaths[coll]["name"],
-                                     "id": collid,
-                                     "links": [], "itemType": "feature"}
-                if "bbox" in curcoll:
-                    currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
-                if "crs" in curcoll:
-                    currentcollection["crs"] = curcoll["crs"]
-                    if "extent" in currentcollection:
-                        currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
-                #apijson["paths"]["/collections/" + str(
-                #    coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]).rstrip("/")] = {
-                #    "get": {"tags": ["Collections"], "summary": "describes collection " + str(
-                #        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
-                #        "/"), "description": "Describes the collection with the id " + str(
-                #        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
-                #        "/"), "operationId": "collection-" + str(
-                #        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]),
-                #            "parameters": [], "responses": {"default": {"description": "default response", "content": {
-                #            "application/json": {"schema": {"$ref": "#/components/schemas/Collections"},"example": None}}}}}}
-                #curcollrow = "<tr><td><a href=\"" + opweb.replace(".geojson", "") + "/items/"+collectionhtmlname+"\">" + str(
-                #    featurecollectionspaths[coll]["name"]) + "</a></td><td>"+str(len(curcoll["features"]))+"</td><td><a href=\"" + opweb.replace(".geojson",
-                #                                                                                       "") + "/items/"+collectionhtmlname+"\">[Collection as HTML]</a>&nbsp;<a href=\"" + opweb.replace(
-                #    ".geojson", "") + "/items/\">[Collection as JSON]</a>&nbsp;<a href=\"" + opweb.replace(".geojson",
-                #                                                                                           "") + "/items/index.ttl\">[Collection as TTL]</a></td></tr>"
-                with open(op + "/index.json", "w", encoding="utf-8") as f:
-                    json.dump(currentcollection,f)
-                with open(op + "/indexc.html", "w", encoding="utf-8") as f:
-                    f.write(f'<html><head><meta name="viewport" content="width=device-width, initial-scale=1" /></head><body><h1>{featurecollectionspaths[coll]["name"]}</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>' #+ str(curcollrow)
-                        + "</tbody></table></html>")
+                try:
+                    op = f'{outpath}wfs/GetFeature/SERVICE=WFS&REQUEST=GetFeature&VERSION={version}&TYPENAME={DocUtils.replaceColonFromWinPath(coll).replace(outpath, "").replace("index.geojson", "")}'
+                    if not os.path.exists(op):
+                        os.mkdir(op)
+                    op = op.replace(".geojson", "")
+                    op = op.replace("//", "/")
+                    if not os.path.exists(op):
+                        os.makedirs(op)
+                    opweb = op.replace(outpath, deploypath)
+                    opwebcoll = opweb
+                    if opwebcoll.endswith("/"):
+                        opwebcoll = opwebcoll[0:-1]
+                    opwebcoll = opwebcoll.replace("//", "/")
+                    collid=coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]
+                    currentcollection = {"title": featurecollectionspaths[coll]["name"],
+                                         "id": collid,
+                                         "links": [], "itemType": "feature"}
+                    if "bbox" in curcoll:
+                        currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
+                    if "crs" in curcoll:
+                        currentcollection["crs"] = curcoll["crs"]
+                        if "extent" in currentcollection:
+                            currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
+                    #apijson["paths"]["/collections/" + str(
+                    #    coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]).rstrip("/")] = {
+                    #    "get": {"tags": ["Collections"], "summary": "describes collection " + str(
+                    #        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
+                    #        "/"), "description": "Describes the collection with the id " + str(
+                    #        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
+                    #        "/"), "operationId": "collection-" + str(
+                    #        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]),
+                    #            "parameters": [], "responses": {"default": {"description": "default response", "content": {
+                    #            "application/json": {"schema": {"$ref": "#/components/schemas/Collections"},"example": None}}}}}}
+                    #curcollrow = "<tr><td><a href=\"" + opweb.replace(".geojson", "") + "/items/"+collectionhtmlname+"\">" + str(
+                    #    featurecollectionspaths[coll]["name"]) + "</a></td><td>"+str(len(curcoll["features"]))+"</td><td><a href=\"" + opweb.replace(".geojson",
+                    #                                                                                       "") + "/items/"+collectionhtmlname+"\">[Collection as HTML]</a>&nbsp;<a href=\"" + opweb.replace(
+                    #    ".geojson", "") + "/items/\">[Collection as JSON]</a>&nbsp;<a href=\"" + opweb.replace(".geojson",
+                    #                                                                                           "") + "/items/index.ttl\">[Collection as TTL]</a></td></tr>"
+                    with open(op + "/index.json", "w", encoding="utf-8") as f:
+                        json.dump(currentcollection,f)
+                    with open(op + "/indexc.html", "w", encoding="utf-8") as f:
+                        f.write(f'<html><head><meta name="viewport" content="width=device-width, initial-scale=1" /></head><body><h1>{featurecollectionspaths[coll]["name"]}</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>' #+ str(curcollrow)
+                            + "</tbody></table></html>")
+                except Exception as e:
+                    print(e)
 
 
     @staticmethod

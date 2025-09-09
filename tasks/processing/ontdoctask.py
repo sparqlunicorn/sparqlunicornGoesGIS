@@ -36,6 +36,7 @@ class OntDocTask(QgsTask):
         self.graphname=graphname
         self.namespace=namespace
         self.outpath=outpath
+        self.execstatsstr=""
 
     def run(self):
         #QgsMessageLog.logMessage("Graph "+str(self.graphname), MESSAGE_CATEGORY, Qgis.Info)
@@ -57,6 +58,7 @@ class OntDocTask(QgsTask):
         ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.nonNSPagesCBox,self.createMetadataTable,self.createVOWL,self.apis,self.imagemetadata,self.startconcept,self.deploymenturl,self.logopath,self.offlinecompat,self.exports)
         ontdoc.generateOntDocForNameSpace(self.namespace)
         DocUtils.writeExecutionStats(ontdoc.exectimes, self.outpath+ "/buildlog.txt")
+        self.execstatsstr=DocUtils.getExecutionStats(ontdoc.exectimes)
         #except Exception as e:
         #    self.exception=e
         #    return False
@@ -66,7 +68,7 @@ class OntDocTask(QgsTask):
         self.progress.close()
         if result == True:
             msgBox = QMessageBox()
-            msgBox.setText("Ontology documentation finished in folder "+str(self.outpath))
+            msgBox.setText(f"Ontology documentation finished in folder {self.outpath}\n{self.execstatsstr}")
             msgBox.exec()
         else:
             msgBox = QMessageBox()

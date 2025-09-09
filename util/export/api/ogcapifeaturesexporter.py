@@ -152,56 +152,59 @@ class OGCAPIFeaturesExporter:
                 with open(coll, 'r', encoding="utf-8") as infile:
                     curcoll = json.load(infile)
             if ogcapi:
-                op = f'{outpath}/collections/{coll.replace(outpath, "").replace("index.geojson", "")}/'
+                op = f'{outpath}/collections/{DocUtils.replaceColonFromWinPath(coll).replace(outpath, "").replace("index.geojson", "")}/'
                 op = op.replace(".geojson", "")
                 op = op.replace("//", "/")
-                os.makedirs(op,exist_ok=True)
-                os.makedirs(op + "/items/",exist_ok=True)
-                opweb = op.replace(outpath, deploypath)
-                opwebcoll = opweb
-                if opwebcoll.endswith("/"):
-                    opwebcoll = opwebcoll[0:-1]
-                opwebcoll = opwebcoll.replace("//", "/")
-                collid=coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]
-                collectionsjson["collections"].append(
-                    {"id": collid,
-                     "title": featurecollectionspaths[coll]["name"], "links": [
-                        {"href": str(opweb.replace(".geojson", "") + "/index.json").replace("//", "/"),
-                         "rel": "collection", "type": "application/json", "title": "Collection as JSON"},
-                        {"href": str(opweb.replace(".geojson", "") + "/").replace("//", "/"), "rel": "collection",
-                         "type": "text/html", "title": "Collection as HTML"},
-                        {"href": str(opweb.replace(".geojson", "") + "/index.ttl").replace("//", "/"),
-                         "rel": "collection", "type": "text/ttl", "title": "Collection as TTL"}]})
-                currentcollection = {"title": featurecollectionspaths[coll]["name"],"id": collid,"links": [], "itemType": "feature"}
-                currentcollection["links"] = [
-                    {"href": opwebcoll + "/items/index.json", "rel": "items", "type": "application/json",
-                     "title": "Collection as JSON"},
-                    {"href": f"{opwebcoll}/items/{collectionhtmlname}", "rel": "items", "type": "text/html",
-                     "title": "Collection as HTML"},
-                    {"href": opwebcoll + "/items/index.ttl", "rel": "collection", "type": "text/ttl",
-                     "title": "Collection as TTL"}]
-                if "bbox" in curcoll:
-                    currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
-                    collectionsjson["collections"][-1]["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
-                if "crs" in curcoll:
-                    currentcollection["crs"] = curcoll["crs"]
-                    collectionsjson["collections"][-1]["crs"] = curcoll["crs"]
-                    if "extent" in currentcollection:
-                        currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
-                        collectionsjson["collections"][-1]["extent"]["spatial"]["crs"] = curcoll["crs"]
-                cname=str(coll).replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:].rstrip("/")
-                apijson["paths"]["/collections/" + cname] = {
-                    "get": {"tags": ["Collections"], "summary": "describes collection " + cname, "description": "Describes the collection with the id " + cname, "operationId": "collection-" + str(
-                        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]),
-                            "parameters": [], "responses": {"default": {"description": "default response", "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/Collections"},"example": None}}}}}}
-                opwebrep=opweb.replace(".geojson","")
-                curcollrow = f'<tr><td><a href="{opwebrep}/items/{collectionhtmlname}">"{featurecollectionspaths[coll]["name"]}</a></td><td>{len(curcoll["features"])}</td><td><a href="{opwebrep}/items/{collectionhtmlname}">[Collection as HTML]</a>&nbsp;<a href="{opwebrep}/items/">[Collection as JSON]</a>&nbsp;<a href="{opwebrep}/items/index.ttl">[Collection as TTL]</a></td></tr>'
-                with open(op + "index.json", "w", encoding="utf-8") as f:
-                    json.dump(currentcollection,f)
-                with open(op + collectionhtmlname, "w", encoding="utf-8") as f:
-                    f.write(f'<html><head><meta name="viewport" content="width=device-width, initial-scale=1" /></head><body><h1>{featurecollectionspaths[coll]["name"]}</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>{curcollrow}</tbody></table></html>')
-                collectiontable += curcollrow
+                try:
+                    os.makedirs(op,exist_ok=True)
+                    os.makedirs(op + "/items/",exist_ok=True)
+                    opweb = op.replace(outpath, deploypath)
+                    opwebcoll = opweb
+                    if opwebcoll.endswith("/"):
+                        opwebcoll = opwebcoll[0:-1]
+                    opwebcoll = opwebcoll.replace("//", "/")
+                    collid=coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]
+                    collectionsjson["collections"].append(
+                        {"id": collid,
+                         "title": featurecollectionspaths[coll]["name"], "links": [
+                            {"href": str(opweb.replace(".geojson", "") + "/index.json").replace("//", "/"),
+                             "rel": "collection", "type": "application/json", "title": "Collection as JSON"},
+                            {"href": str(opweb.replace(".geojson", "") + "/").replace("//", "/"), "rel": "collection",
+                             "type": "text/html", "title": "Collection as HTML"},
+                            {"href": str(opweb.replace(".geojson", "") + "/index.ttl").replace("//", "/"),
+                             "rel": "collection", "type": "text/ttl", "title": "Collection as TTL"}]})
+                    currentcollection = {"title": featurecollectionspaths[coll]["name"],"id": collid,"links": [], "itemType": "feature"}
+                    currentcollection["links"] = [
+                        {"href": opwebcoll + "/items/index.json", "rel": "items", "type": "application/json",
+                         "title": "Collection as JSON"},
+                        {"href": f"{opwebcoll}/items/{collectionhtmlname}", "rel": "items", "type": "text/html",
+                         "title": "Collection as HTML"},
+                        {"href": opwebcoll + "/items/index.ttl", "rel": "collection", "type": "text/ttl",
+                         "title": "Collection as TTL"}]
+                    if "bbox" in curcoll:
+                        currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
+                        collectionsjson["collections"][-1]["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
+                    if "crs" in curcoll:
+                        currentcollection["crs"] = curcoll["crs"]
+                        collectionsjson["collections"][-1]["crs"] = curcoll["crs"]
+                        if "extent" in currentcollection:
+                            currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
+                            collectionsjson["collections"][-1]["extent"]["spatial"]["crs"] = curcoll["crs"]
+                    cname=str(coll).replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:].rstrip("/")
+                    apijson["paths"]["/collections/" + cname] = {
+                        "get": {"tags": ["Collections"], "summary": "describes collection " + cname, "description": "Describes the collection with the id " + cname, "operationId": "collection-" + str(
+                            coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]),
+                                "parameters": [], "responses": {"default": {"description": "default response", "content": {
+                                "application/json": {"schema": {"$ref": "#/components/schemas/Collections"},"example": None}}}}}}
+                    opwebrep=opweb.replace(".geojson","")
+                    curcollrow = f'<tr><td><a href="{opwebrep}/items/{collectionhtmlname}">"{featurecollectionspaths[coll]["name"]}</a></td><td>{len(curcoll["features"])}</td><td><a href="{opwebrep}/items/{collectionhtmlname}">[Collection as HTML]</a>&nbsp;<a href="{opwebrep}/items/">[Collection as JSON]</a>&nbsp;<a href="{opwebrep}/items/index.ttl">[Collection as TTL]</a></td></tr>'
+                    with open(op + "index.json", "w", encoding="utf-8") as f:
+                        json.dump(currentcollection,f)
+                    with open(op + collectionhtmlname, "w", encoding="utf-8") as f:
+                        f.write(f'<html><head><meta name="viewport" content="width=device-width, initial-scale=1" /></head><body><h1>{featurecollectionspaths[coll]["name"]}</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>{curcollrow}</tbody></table></html>')
+                    collectiontable += curcollrow
+                except Exception as e:
+                    print(e)
                 if os.path.exists(coll):
                     try:
                         oppath=str(op + "/items/index.json").replace("//", "/")
