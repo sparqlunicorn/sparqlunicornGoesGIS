@@ -49,7 +49,7 @@ class DocUtils:
 
     @staticmethod
     def replaceCitationLink(template, foundlabel,uri,pubconfig):
-        return template.replace("{{citationlink}}","<details><summary>[CITE]</summary><pre>@misc{"+DocUtils.shortenURI(uri)+"\nauthor=\""+str(pubconfig["datasettitle"])+" Contributors\",\ntitle=\""+str(foundlabel)+"\",\n\"url=\""+str(uri)+"\",\nnote=\"[Online; documentation generated at "+str(date.today())+"]\"}</pre></details>")
+        return template.replace("{{citationlink}}",f'<details><summary>[CITE]</summary><pre>@misc{{{DocUtils.shortenURI(uri)}\nauthor={pubconfig["datasettitle"]} Contributors",\ntitle="{foundlabel}",\n"url="{uri}",\nnote="[Online; documentation generated at {date.today()}]"}}</pre></details>')
 
     @staticmethod
     def getLDFilesFromFolder(folder):
