@@ -229,7 +229,7 @@ class GraphUtils:
 
     ## Detects namespaces available in the given triple store in subject, predicate and object position
     def detectNamespaces(self, subpredobj,progress,triplestoreurl,credentialUserName=None,credentialPassword=None,authmethod=None):
-        if subpredobj < 0 or subpredobj == None:
+        if subpredobj < 0 or subpredobj is None:
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         elif subpredobj == 0:
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
@@ -453,7 +453,7 @@ class GraphUtils:
                             self.configuration["prefixes"][prefixstore["reversed"][ns]] = ns
                         else:
                             self.configuration["prefixes"]["ns" + str(i)] = ns
-                            i = i + 1
+                            i += 1
             self.feasibleConfiguration = True
             QgsMessageLog.logMessage(str(self.configuration))
             if rdftype=="":

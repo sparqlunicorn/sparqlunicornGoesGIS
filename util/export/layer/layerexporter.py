@@ -107,10 +107,8 @@ class LayerExporter:
         else:
             curclassid = urllib.parse.quote(exportSetClass)
         layercrs = layer.crs()
-        graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
-                                                                                          "_")),RDF.type,URIRef("http://www.opengis.net/ont/crs/SpatialReferenceSystem")))
-        graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
-                                                                                          "_")),URIRef("http://www.opengis.net/ont/crs/asWKT"),Literal(str(
+        graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ","_")),RDF.type,URIRef("http://www.opengis.net/ont/crs/SpatialReferenceSystem")))
+        graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ", "_")),URIRef("http://www.opengis.net/ont/crs/asWKT"),Literal(str(
             layercrs.toWkt()).replace("\"", "\\\""),datatype="http://www.opengis.net/ont/crs/wktLiteral")))
         graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
                                                                                           "_")),URIRef("http://www.opengis.net/ont/crs/asProj"),Literal(str(
@@ -190,7 +188,7 @@ class LayerExporter:
                 elif valuequeries is not None and propp in valuequeries:
                     # ttlstring += ""
                     results = SPARQLUtils.executeQuery(valuequeries[propp][1], "".join(
-                        prefixes + valuequeries[propp][0].replace("%%" + propp + "%%", "\"" + str(f[propp]) + "\"")))
+                        prefixes + valuequeries[propp][0].replace(f"%%{propp}%%", f'"{f[propp]}"')))
                     graph.add((curiduri,propuri,URIRef(results["results"]["bindings"][0]["item"]["value"])))
                     if first < 10:
                         graph.add((propuri,RDF.type, OWL.ObjectProperty))
@@ -257,19 +255,11 @@ class LayerExporter:
         fidcounter = 0
         edgecounter = 0
         literalcounter = 1
-        nodeset.add(
-            "<node id=\"geo:SpatialObject\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#ff8800\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">geo:SpatialObject</y:NodeLabel></y:ShapeNode></data></node>\n")
-
-        nodeset.add(
-            "<node id=\"geo:Feature\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#ff8800\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">geo:Feature</y:NodeLabel></y:ShapeNode></data></node>\n")
-        nodeset.add(
-            "<node id=\"geo:Geometry\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#ff8800\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">geo:Geometry</y:NodeLabel></y:ShapeNode></data></node>\n")
-        edgeset.add(
-            "<edge id=\"eFeature\" source=\"geo:Feature\" target=\"geo:SpatialObject\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "rdfs:subClassOf") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
-        edgeset.add(
-            "<edge id=\"eGeometry\" source=\"geo:Geometry\" target=\"geo:SpatialObject\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "rdfs:subClassOf") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+        nodeset.add("<node id=\"geo:SpatialObject\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#ff8800\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">geo:SpatialObject</y:NodeLabel></y:ShapeNode></data></node>\n")
+        nodeset.add("<node id=\"geo:Feature\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#ff8800\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">geo:Feature</y:NodeLabel></y:ShapeNode></data></node>\n")
+        nodeset.add("<node id=\"geo:Geometry\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#ff8800\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">geo:Geometry</y:NodeLabel></y:ShapeNode></data></node>\n")
+        edgeset.add("<edge id=\"eFeature\" source=\"geo:Feature\" target=\"geo:SpatialObject\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">rdfs:subClassOf</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+        edgeset.add("<edge id=\"eGeometry\" source=\"geo:Geometry\" target=\"geo:SpatialObject\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">rdfs:subClassOf</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
         for f in layer.getFeatures():
             geom = f.geometry()
             nodeset.add(f"<node id=\"fid_{fidcounter}\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">fid_{fidcounter}</y:NodeLabel></y:ShapeNode></data></node>\n")
@@ -280,8 +270,7 @@ class LayerExporter:
                 if prop.startswith("http"):
                     toadd = f"<node id=\"{prop}\" uri=\"{prop}\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">"
                     if f[propp].startswith("http"):
-                        toadd += SPARQLUtils.labelFromURI(str(f[propp]).replace("<", "").replace(">",
-                                                                                                 "")) + "</y:NodeLabel></y:ShapeNode></data></node>\n"
+                        toadd += SPARQLUtils.labelFromURI(str(f[propp]).replace("<", "").replace(">","")) + "</y:NodeLabel></y:ShapeNode></data></node>\n"
                     else:
                         toadd += f'<!CDATA[{str(f[propp]).replace("<", "").replace(">","")}]]></y:NodeLabel></y:ShapeNode></data></node>\n'
                     nodeset.add(toadd)
@@ -293,23 +282,12 @@ class LayerExporter:
                     literalcounter += 1
                     edgecounter += 1
             nodeset.add(f"<node id=\"fid_{fidcounter}_geom\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">fid_{fidcounter}_geom</y:NodeLabel></y:ShapeNode></data></node>\n")
-            nodeset.add("<node id=\"literal" + str(
-                literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                geom.asWkt())[0:10] + "</y:NodeLabel></y:ShapeNode></data></node>\n")
-            edgeset.add("<edge id=\"e" + str(edgecounter) + "\" source=\"fid_" + str(
-                fidcounter) + "\" target=\"fid_" + str(
-                fidcounter) + "_geom\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "geom:asWkt") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
-            edgeset.add("<edge id=\"e" + str(edgecounter) + "type\" source=\"fid_" + str(
-                fidcounter) + "_geom\" target=\"geo:Geometry\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "rdf:type") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
-            edgeset.add("<edge id=\"e" + str(edgecounter) + "\" source=\"fid_" + str(
-                fidcounter) + "_geom\" target=\"literal" + str(
-                literalcounter) + "\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "geom:asWkt") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+            nodeset.add(f"<node id=\"literal{literalcounter}\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">{geom.asWkt()[0:10]}</y:NodeLabel></y:ShapeNode></data></node>\n")
+            edgeset.add(f"<edge id=\"e{edgecounter}\" source=\"fid_{fidcounter}\" target=\"fid_{fidcounter}_geom\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">geom:asWkt</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+            edgeset.add(f"<edge id=\"e{edgecounter}type\" source=\"fid_{fidcounter}_geom\" target=\"geo:Geometry\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">rdf:type</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+            edgeset.add(f"<edge id=\"e{edgecounter}\" source=\"fid_{fidcounter}_geom\" target=\"literal{literalcounter}\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">geom:asWkt</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
             edgecounter += 1
-            edgeset.add(f"<edge id=\"e{edgecounter}\" source=\"fid_{fidcounter}\" target=\"geo:Feature\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "rdf:type") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+            edgeset.add(f"<edge id=\"e{edgecounter}\" source=\"fid_{fidcounter}\" target=\"geo:Feature\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">rdf:type</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
             literalcounter += 1
             edgecounter += 1
             fidcounter += 1

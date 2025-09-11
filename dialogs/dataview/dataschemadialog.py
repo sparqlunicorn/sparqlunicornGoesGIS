@@ -130,32 +130,24 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
                 checkeditems.append(relation)
         relstatement=" ?item ?rel ?val . "
         if len(checkeditems)!=self.tablemodel.rowCount():
-            relstatement+=" VALUES ?rel {\n"
-            for item in checkeditems:
-                relstatement+=f" <{item}> "
-            relstatement+="}"
+            relstatement+=f' VALUES ?rel {{\n{"".join(f" <{item}> " for item in checkeditems)}}}'
+            #for item in checkeditems:
+            #    relstatement+=f" <{item}> "
+            #relstatement+="}"
         if len(checkeditems)==0:
             relstatement=""
         if int(querydepth)>1:
-            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
-                self.concept) + "> .\n " +
-            self.triplestoreconf["geotriplepattern"][0] + "\n  "+str(relstatement)+" }",querydepth)
-            self.qlayerinstance = QueryLayerTask(
-            "Instance to Layer: " + str(self.concept),
+            query=SPARQLUtils.expandRelValToAmount(f'SELECT ?{" ?".join(self.triplestoreconf["mandatoryvariables"])} ?rel ?val\n WHERE\n {{\n ?item <{self.triplestoreconf["typeproperty"]}> <{self.concept}> .\n {self.triplestoreconf["geotriplepattern"][0]}\n  {relstatement} }}',querydepth)
+            self.qlayerinstance = QueryLayerTask("Instance to Layer: " + str(self.concept),
             self.concept,
             self.triplestoreconf["resource"],
             query,
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,None, self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         else:
-            self.qlayerinstance = QueryLayerTask(
-            "Instance to Layer: " + str(self.concept),
+            self.qlayerinstance = QueryLayerTask("Instance to Layer: " + str(self.concept),
                 self.concept,
             self.triplestoreconf["resource"],
-            "SELECT ?" + " ?".join(self.triplestoreconf[
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
-                self.concept) + "> .\n "+str(relstatement)+" "+
-            self.triplestoreconf["geotriplepattern"][0] + "\n }",
+            f'SELECT ?{" ?".join(self.triplestoreconf["mandatoryvariables"])} ?rel ?val\n WHERE\n {{\n ?item <{self.triplestoreconf["typeproperty"]}> <{self.concept}> .\n {relstatement} {self.triplestoreconf["geotriplepattern"][0]}\n }}',
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
 
         QgsApplication.taskManager().addTask(self.qlayerinstance)

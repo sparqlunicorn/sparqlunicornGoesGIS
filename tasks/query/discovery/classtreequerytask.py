@@ -41,7 +41,7 @@ class ClassTreeQueryTask(QgsTask):
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
                     SELECT DISTINCT ?subject ?label ?supertype \n
                     WHERE {\n"""
-        self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> rdfs:Class . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + "> ?supertype . } \n"
+        self.query += f' ?individual <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> ?subject . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> owl:Class . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> rdfs:Class . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]}> ?supertype . }} \n'
         self.query += """OPTIONAL { ?subject <""" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + """> ?supertype . }\n""" + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "")+ """ }"""
 
     def run(self):

@@ -72,9 +72,9 @@ class DetectTripleStoreResultDialog(QDialog, FORM_CLASS):
         self.triplestoreconf[index] = self.configuration
         self.addTripleStore = False
         self.prefixes.append("")
-        for prefix in self.configuration["prefixes"]:
-            self.prefixes[len(self.prefixes) - 1] += "PREFIX " + prefix + ":<" + self.configuration["prefixes"][
-                prefix] + ">\n"
+        self.prefixes[len(self.prefixes) - 1]+="".join(f'PREFIX {prefix}:<{self.configuration["prefixes"][prefix]}>\n' for prefix in self.configuration["prefixes"])
+        #for prefix in self.configuration["prefixes"]:
+        #    self.prefixes[len(self.prefixes) - 1] += f'PREFIX {prefix}:<{self.configuration["prefixes"][prefix]}>\n'
         if self.permanentAdd is not None and self.permanentAdd:
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
             with open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w",encoding="utf-8") as f:

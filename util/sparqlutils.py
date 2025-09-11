@@ -117,16 +117,14 @@ class SPARQLUtils:
                 return f"{curquery[0:curquery.rfind('}')]}{filterstatement}{curquery[curquery.rfind('}') + 1:]}"
             else:
                 return filterstatement
-        elif "bboxquery" in triplestoreconf and \
-                triplestoreconf["bboxquery"]["type"] == "minmax":
+        elif "bboxquery" in triplestoreconf and triplestoreconf["bboxquery"]["type"] == "minmax":
             filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%minPoint%%", bboxpoints[1].asWkt()).replace("%%maxPoint%%", bboxpoints[3].asWkt())
             if curquery is not None:
                 return  f"{curquery[0:curquery.rfind('}')]}{filterstatement}{curquery[curquery.rfind('}') + 1:]}"
             else:
                 return filterstatement
-        elif "bboxquery" in triplestoreconf and \
-                triplestoreconf["bboxquery"]["type"] == "pointdistance":
+        elif "bboxquery" in triplestoreconf and triplestoreconf["bboxquery"]["type"] == "pointdistance":
             filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%lat%%", str(bboxpoints[0].asPoint().y())).replace("%%lon%%",str(bboxpoints[0].asPoint().x())).replace("%%distance%%", str(widthm / 1000))
             if curquery is not None:
@@ -256,7 +254,7 @@ class SPARQLUtils:
             ErrorMessageBox(f"{callingtask} An error occurred!","<html>"+str(SPARQLUtils.exception).replace("\n","<br/>")+"</html>").exec()
             return True
         if title is not None and text is not None:
-            ErrorMessageBox(f"{callingtask} {title}","<html>"+text.replace("\n","<br/>")+"</html>").exec()
+            ErrorMessageBox(f"{callingtask} {title}",f'<html>'+text.replace("\n","<br/>")+'</html>').exec()
             return True
         return False
 

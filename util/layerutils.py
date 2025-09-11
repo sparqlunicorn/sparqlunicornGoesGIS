@@ -68,21 +68,17 @@ class LayerUtils:
 
     @staticmethod
     def queryResultToLayer(results, reproject, triplestoreconf, mandatoryvars, geooptional, shortenURIs,concept):
-        latval = "lat"
-        lonval = "lon"
-        features = []
-        nongeofeatures = []
+        latval,lonval = "lat","lon"
+        features,nongeofeatures = [],[]
         properties = {}
-        first = True
-        newobject = True
+        first, newobject = True, True
         item = ""
         relval = False
         crsset = set()
         QgsMessageLog.logMessage('Processing results....',MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             if concept is not None and "item" not in result:
-                result["item"] = {}
-                result["item"]["value"] = concept
+                result["item"] = {"value":concept}
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (
                     item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
                 relval = True
@@ -306,7 +302,6 @@ class LayerUtils:
                                         SPARQLUtils.labelFromURI(ginst0)] = SPARQLUtils.labelFromURI(
                                         str(geoinst[1]))
                                 else:
-
                                     curfeat["properties"][SPARQLUtils.labelFromURI(ginst0)] = LayerUtils.detectDataType(geoinst[1])
                             else:
                                 if isinstance(predobj[1], Literal):
@@ -336,12 +331,8 @@ class LayerUtils:
     # the column to consider
     @staticmethod
     def detectColumnType(resultmap,columnname=""):
-        intcount = 0
-        doublecount = 0
-        datecount=0
-        uricount=0
-        stringcount=0
-        tokencount=0
+        intcount,doublecount,datecount,uricount = 0,0,0,0
+        stringcount,tokencount=0,0
         uniquestrings=set()
         #QgsMessageLog.logMessage(str(resultmap), MESSAGE_CATEGORY, Qgis.Info)
         for res in resultmap:
@@ -350,21 +341,22 @@ class LayerUtils:
                 intcount += 1
                 doublecount += 1
                 continue
-            uniquestrings.add(str(resultmap[res]))
+            resstr=str(resultmap[res])
+            uniquestrings.add(resstr)
             tokencount+=1
             if isinstance(resultmap[res],QDateTime):
                 datecount+=1
                 continue
-            if str(resultmap[res]).isdigit():
+            if resstr.isdigit():
                 intcount += 1
                 continue
             try:
-                float(resultmap[res])
+                float(resstr)
                 doublecount += 1
                 continue
             except:
                 print("")
-            if str(resultmap[res]).startswith("http"):
+            if resstr.startswith("http"):
                 uricount+=1
                 continue
             stringcount+=1
@@ -394,13 +386,14 @@ class LayerUtils:
 
     @staticmethod
     def getLayerColumnAsList(layer,columnindex):
-        features = layer.getFeatures()
-        result=[]
-        counter=0
-        for feat in features:
-            attrs = feat.attributes()
-            result.append(attrs[columnindex])
-        return result
+        #features =
+        #result=[]
+        #counter=0
+        #for feat in features:
+        #    attrs = feat.attributes()
+        #    result.append(attrs[columnindex])
+        #return result
+        return [feat.attributes()[columnindex] for feat in layer.getFeatures()]
 
     @staticmethod
     def findColumnNameProperties(layer,triplestoreconf,prefixes):

@@ -41,11 +41,12 @@ class InterlinkUtils:
         idcols=set()
         for column in layer.fields().names():
             thetype=LayerUtils.detectLayerColumnType(layer,counter)
+            name = layer.fields().names()[counter]
             if thetype["unique"]:
-                idcols.add(layer.fields().names()[counter])
+                idcols.add(name)
                 thetype["id"]=True
-                thetype["name"]=layer.fields().names()[counter]
-            columntypes.append(InterlinkUtils.checkTypeFromColumnName(layer.fields().names()[counter],thetype))
+                thetype["name"]=name
+            columntypes.append(InterlinkUtils.checkTypeFromColumnName(name,thetype))
             counter+=1
         #QgsMessageLog.logMessage("IDCols: "+str(columntypes),"InterlinkUtils", Qgis.Info)
         #QgsMessageLog.logMessage("Columntypes: "+str(columntypes),"InterlinkUtils", Qgis.Info)
@@ -96,25 +97,23 @@ class InterlinkUtils:
 
     @staticmethod
     def constructStrIfListElemsExist(exists,map):
-        result=""
-        for obj in exists:
-            if obj["key"] in map:
-                result+=str(obj.get("prefix"))+str(obj["key"])+str(obj.get("suffix"))
-        return result
+        #result=""
+        #for obj in exists:
+        #    if obj["key"] in map:
+        #        result+=
+        #return result
+        return "".join(f'{obj.get("prefix")}{obj["key"]}{obj.get("suffix")}' for obj in exists if obj["key"] in map)
 
     @staticmethod
     def constructStrIfExists(exists,map,prefixstr="",suffixstr=""):
         if exists in map:
-            return str(prefixstr)+str(exists)+str(suffixstr)
+            return f"{prefixstr}{exists}{suffixstr}"
         return ""
 
     @staticmethod
     def exportMappingXML(mappingdict):
-        xmlmappingheader = "<?xml version=\"1.0\" ?>\n<data>\n<file "
+        xmlmappingheader = f'<?xml version=\"1.0\" ?>\n<data>\n<file class="{mappingdict.get("class")}" namespace="{mappingdict.get("namespace")}" indid="{mappingdict.get("indid")}">'
         xmlmapping = ""
-        xmlmappingheader += f'class="{mappingdict.get("class")}" '
-        xmlmappingheader += f'namespace="{mappingdict.get("namespace")}" '
-        xmlmappingheader += f'indid="{mappingdict.get("indid")}" >'
         for row in mappingdict["column"]:
             item = row
             if item.checkState():

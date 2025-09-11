@@ -41,31 +41,19 @@ class InstanceListQueryTask(QgsTask):
                 geometryproperty = self.triplestoreconf["geometryproperty"]
         if nodetype==SPARQLUtils.collectionclassnode:
             if "geometryproperty" in self.triplestoreconf:
-                thequery="SELECT ?con ?label ?hasgeo WHERE {  <" + str(
-                        self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con .\n "+str(labelpattern)+"\n BIND(EXISTS { ""?con <" + str(
-                            geometryproperty) + "> ?wkt"" } AS ?hasgeo) }"
+                thequery=f"SELECT ?con ?label ?hasgeo WHERE {{  <{self.treeNode.data(UIUtils.dataslot_conceptURI)}> <http://www.w3.org/2000/01/rdf-schema#member> ?con .\n {labelpattern}\n BIND(EXISTS {{ ?con <{geometryproperty}> ?wkt }} AS ?hasgeo) }}"
             else:
                 thequery=f"SELECT ?con ?label WHERE {{  <{self.treeNode.data(UIUtils.dataslot_conceptURI)}> <http://www.w3.org/2000/01/rdf-schema#member> ?con . {labelpattern} }}"
         elif nodetype==SPARQLUtils.linkedgeoclassnode:
-            thequery = "SELECT ?con ?label ?hasgeo ?linkedgeo WHERE {\n ?con <" + typeproperty + "> <" + str(
-                self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> .\n " + str(labelpattern) + "\n OPTIONAL {?con <" + str(
-                geometryproperty) + "> ?hasgeo . }\n  OPTIONAL {?con <" + str(
-                self.treeNode.data(UIUtils.dataslot_linkedconceptrel)) + "> ?linkedgeo . }\n }"
+            thequery = f"SELECT ?con ?label ?hasgeo ?linkedgeo WHERE {{\n ?con <{typeproperty}> <{self.treeNode.data(UIUtils.dataslot_conceptURI)}> .\n {labelpattern}\n OPTIONAL {{?con <{geometryproperty}> ?hasgeo . }}\n  OPTIONAL {{?con <{self.treeNode.data(UIUtils.dataslot_linkedconceptrel)}> ?linkedgeo . }}\n }}"
         else:
             if "geometryproperty" in self.triplestoreconf:
                 if geotriplepattern is not None:
-                    thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
-                        self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . " + str(
-                        labelpattern) + " "+str(geotriplepattern)+" }"
+                    thequery = f"SELECT ?con ?label ?hasgeo WHERE {{ ?con <{typeproperty}> <{self.treeNode.data(UIUtils.dataslot_conceptURI)}> . {labelpattern} {geotriplepattern} }}"
                 else:
-                    thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
-                        self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . " + str(
-                        labelpattern) + " OPTIONAL { ?con <" + str(
-                        geometryproperty) + "> ?hasgeo } }"
+                    thequery = f"SELECT ?con ?label ?hasgeo WHERE {{ ?con <{typeproperty}> <{self.treeNode.data(UIUtils.dataslot_conceptURI)}> . {labelpattern} OPTIONAL {{ ?con <{geometryproperty}> ?hasgeo }} }}"
             else:
-                thequery = "SELECT ?con ?label WHERE { ?con <" + typeproperty + "> <" + str(
-                    self.treeNode.data(
-                        UIUtils.dataslot_conceptURI)) + "> . "+str(labelpattern)+" }"
+                thequery = f"SELECT ?con ?label WHERE {{ ?con <{typeproperty}> <{self.treeNode.data(UIUtils.dataslot_conceptURI)}> . {labelpattern} }}"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         #QgsMessageLog.logMessage("Process literal: " + str(results),
         #                         MESSAGE_CATEGORY, Qgis.Info)

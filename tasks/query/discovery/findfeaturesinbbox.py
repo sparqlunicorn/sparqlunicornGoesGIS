@@ -19,7 +19,7 @@ class FindFeaturesInBBOXTask(QgsTask):
         bbox=LayerUtils.reprojectGeometry(bbox,fromcrs)
         QgsMessageLog.logMessage("Finished query " + str(self.triplestoreconf), MESSAGE_CATEGORY, Qgis.Info)
         if "bboxquery" in triplestoreconf:
-            self.thequery="SELECT ?item ?itemLabel ?geo WHERE { ?item <http://www.w3.org/2000/01/rdf-schema#label> ?itemLabel . FILTER(lang(?itemLabel)=\"en\")\n"+triplestoreconf["bboxquery"]["query"].replace("%%minPoint%%","Point("+str(bbox.boundingBox().xMinimum())+" "+str(bbox.boundingBox().yMinimum())+")").replace("%%maxPoint%%","Point("+str(bbox.boundingBox().xMaximum())+" "+str(bbox.boundingBox().yMaximum())+")")+"\n}"
+            self.thequery=f"SELECT ?item ?itemLabel ?geo WHERE {{ ?item <http://www.w3.org/2000/01/rdf-schema#label> ?itemLabel . FILTER(lang(?itemLabel)=\"en\")\n"+triplestoreconf["bboxquery"]["query"].replace("%%minPoint%%","Point("+str(bbox.boundingBox().xMinimum())+" "+str(bbox.boundingBox().yMinimum())+")").replace("%%maxPoint%%","Point("+str(bbox.boundingBox().xMaximum())+" "+str(bbox.boundingBox().yMaximum())+")")+"\n}"
         QgsMessageLog.logMessage("The Query " + str(self.thequery), MESSAGE_CATEGORY, Qgis.Info)
         self.thequery=SPARQLUtils.queryPreProcessing(self.thequery,self.triplestoreconf)
 
