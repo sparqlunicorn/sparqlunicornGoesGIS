@@ -830,7 +830,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Detects namespaces available in the given triple store in subject, predicate and object position. </p>
 <div class="fragment"><div class="line"><span class="lineno">  231</span>    <span class="keyword">def </span>detectNamespaces(self, subpredobj,progress,triplestoreurl,credentialUserName=None,credentialPassword=None,authmethod=None):</div>
-<div class="line"><span class="lineno">  232</span>        <span class="keywordflow">if</span> subpredobj &lt; 0 <span class="keywordflow">or</span> subpredobj == <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  232</span>        <span class="keywordflow">if</span> subpredobj &lt; 0 <span class="keywordflow">or</span> subpredobj <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><span class="lineno">  233</span>            query = <span class="stringliteral">&quot;select distinct ?ns where { ?s ?p ?o . bind( replace( str(?s), \&quot;(#|/)[^#/]*$\&quot;, \&quot;$1\&quot; ) as ?ns )} limit 10&quot;</span></div>
 <div class="line"><span class="lineno">  234</span>        <span class="keywordflow">elif</span> subpredobj == 0:</div>
 <div class="line"><span class="lineno">  235</span>            query = <span class="stringliteral">&quot;select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \&quot;(#|/)[^#/]*$\&quot;, \&quot;$1\&quot; ) as ?ns )} limit 10&quot;</span></div>
@@ -1102,7 +1102,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  453</span>                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][prefixstore[<span class="stringliteral">&quot;reversed&quot;</span>][ns]] = ns</div>
 <div class="line"><span class="lineno">  454</span>                        <span class="keywordflow">else</span>:</div>
 <div class="line"><span class="lineno">  455</span>                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][<span class="stringliteral">&quot;ns&quot;</span> + str(i)] = ns</div>
-<div class="line"><span class="lineno">  456</span>                            i = i + 1</div>
+<div class="line"><span class="lineno">  456</span>                            i += 1</div>
 <div class="line"><span class="lineno">  457</span>            self.feasibleConfiguration = <span class="keyword">True</span></div>
 <div class="line"><span class="lineno">  458</span>            QgsMessageLog.logMessage(str(self.configuration))</div>
 <div class="line"><span class="lineno">  459</span>            <span class="keywordflow">if</span> rdftype==<span class="stringliteral">&quot;&quot;</span>:</div>
