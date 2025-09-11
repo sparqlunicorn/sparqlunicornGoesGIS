@@ -1,6 +1,7 @@
 import os
 import re
 import shutil
+from collections import defaultdict
 from datetime import date
 import urllib.request
 from rdflib import URIRef, Literal
@@ -64,10 +65,10 @@ class DocUtils:
     @staticmethod
     def getDataNamespace(g):
         print("Automatic data namespace detection")
-        namespacetosub = {}
+        namespacetosub = defaultdict(set)
         for sub in g.subjects(None, None, True):
             ns = DocUtils.instanceToNS(sub)
-            namespacetosub.setdefault(ns,set()).add(sub)
+            namespacetosub[ns].add(sub)
             #if ns not in namespacetosub:
             #    namespacetosub[ns] = set()
             #namespacetosub[ns].add(sub)
@@ -270,9 +271,10 @@ class DocUtils:
         for tup in graph.predicate_objects(obj):
             if str(tup[0]) in DocConfig.labelproperties:
                 # Check for label property
+                tupstr=str(tup[1])
                 if tup[1].language==labellang:
-                    label=str(tup[1])
-                onelabel=str(tup[1])
+                    label=tupstr
+                onelabel=tupstr
         if label=="":
             if onelabel is not None and onelabel!="":
                 if prefixes is not None:
