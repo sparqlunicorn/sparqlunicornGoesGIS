@@ -8,8 +8,8 @@ class CardDAVExporter:
         with open(path,"w",encoding="utf-8") as f:
             f.write("BEGIN:VCARD\nVERSION:4.0\n")
             f.write("PROFILE:VCARD\n")
-            for key in vcard:
-                f.write(f"{str(key).upper()}:{str(vcard[key])}\n")
+            #for key in vcard:
+            f.write("".join(""f"{str(key).upper()}:{str(vcard[key])}\n" for key in vcard))
             f.write("END:VCARD\n")
 
 

@@ -1,16 +1,16 @@
 from .docconfig import DocConfig
 from .docutils import DocUtils
 from rdflib import URIRef
+from collections import defaultdict
 
 class ClassTreeUtils:
 
 
     @staticmethod
-    def getClassTree(graph, uritolabel, uritotreeitem, typeproperty, prefixes, preparedclassquery, instancecount,
-                     outpath,
+    def getClassTree(graph, uritolabel, uritotreeitem, typeproperty, prefixes, preparedclassquery, instancecount, outpath,
                      pubconfig):
         results = graph.query(preparedclassquery)
-        classidset = set()
+        classidset=set()
         ldcontext = {"@context": {
             "@version": 1.1,
             "foaf": "http://xmlns.com/foaf/0.1/",
@@ -70,20 +70,21 @@ class ClassTreeUtils:
                 objstr = str(obj)
                 res = DocUtils.replaceNameSpacesInLabel(prefixes, objstr)
                 if objstr in uritolabel:
-                    restext = f"{uritolabel[objstr]['label']} ({DocUtils.shortenURI(objstr)})"
                     if res is not None:
                         restext = f"{uritolabel[objstr]['label']} ({res['uri']})"
+                    else:
+                        restext = f"{uritolabel[objstr]['label']} ({DocUtils.shortenURI(objstr)})"
                 else:
-                    restext = DocUtils.shortenURI(objstr)
                     if res is not None:
-                        restext += f" ({res['uri']})"
-                if objstr not in DocConfig.collectionclasses:
-                    result.append({"id": objstr, "parent": cls, "type": "instance", "text": restext,
-                                   "data": {"from": {}, "to": {}}})
-                else:
-                    result.append(
-                        {"id": objstr, "parent": cls, "type": "class", "text": restext, "data": {"from": {}, "to": {}}})
-                uritotreeitem.setdefault(objstr, []).append(result[-1])
+                        restext = f" ({res['uri']})"
+                    else:
+                        restext = DocUtils.shortenURI(objstr)
+                result.append({"id": objstr, "parent": cls, "type": f'{"instance" if objstr not in DocConfig.collectionclasses else "class"}', "text": restext, "data": {"from": {}, "to": {}}})
+                #if objstr not in DocConfig.collectionclasses:
+                #    result.append({"id": objstr, "parent": cls, "type": "instance", "text": restext, "data": {"from":{},"to":{}}})
+                #else:
+                #    result.append({"id": objstr, "parent": cls, "type": "class", "text": restext, "data": {"from":{},"to":{}}})
+                uritotreeitem[objstr].append(result[-1])
             # print(ress[cls])
             res = DocUtils.replaceNameSpacesInLabel(prefixes, clsstr)
             if ress[cls]["super"] is None:
@@ -93,31 +94,29 @@ class ClassTreeUtils:
                 if cls not in uritotreeitem:
                     # print("SUPER NOT NONE: " + str({"id": cls, "parent": "#", "type": "class", "text": restext, "data": {}}))
                     if cls in instancecount:
-                        result.append({"id": cls, "parent": "#", "type": "class", "instancecount": instancecount[cls],
-                                       "text": restext,
-                                       "data": {"from": {}, "to": {}}})
+                        result.append({"id": cls, "parent": "#", "type": "class","instancecount":instancecount[cls], "text": restext,
+                                       "data": {"from": defaultdict(lambda: defaultdict(int)), "to": defaultdict(lambda: defaultdict(int))}})
                     else:
-                        result.append({"id": cls, "parent": "#", "type": "class", "text": restext,
-                                       "data": {"from": {}, "to": {}}})
-                    uritotreeitem.setdefault(cls, []).append(result[-1])
+                        result.append({"id": cls, "parent": "#", "type": "class", "text": restext, "data": {"from":defaultdict(lambda: defaultdict(int)),"to":defaultdict(lambda: defaultdict(int))}})
+                    uritotreeitem[cls].append(result[-1])
             else:
                 if "label" in cls and ress[cls]["label"] is not None:
-                    restext = f"{ress[cls]['label']} ({DocUtils.shortenURI(clsstr)})"
                     if res is not None:
                         restext = f"{ress[cls]['label']} ({res['uri']})"
+                    else:
+                        restext = f"{ress[cls]['label']} ({DocUtils.shortenURI(clsstr)})"
                 else:
-                    restext = DocUtils.shortenURI(clsstr)
                     if res is not None:
-                        restext += f" ({res['uri']})"
+                        restext = f" ({res['uri']})"
+                    else:
+                        restext = DocUtils.shortenURI(clsstr)
                 if cls not in uritotreeitem:
                     if cls in instancecount:
-                        result.append({"id": cls, "parent": ress[cls]["super"], "instancecount": instancecount[cls],
-                                       "type": "class", "text": restext,
-                                       "data": {"from": {}, "to": {}}})
+                        result.append({"id": cls, "parent": ress[cls]["super"],"instancecount":instancecount[cls], "type": "class", "text": restext,
+                                       "data": {"from": defaultdict(lambda: defaultdict(int)), "to": defaultdict(lambda: defaultdict(int))}})
                     else:
-                        result.append({"id": cls, "parent": ress[cls]["super"], "type": "class", "text": restext,
-                                       "data": {"from": {}, "to": {}}})
-                    uritotreeitem.setdefault(cls, []).append(result[-1])
+                        result.append({"id": cls, "parent": ress[cls]["super"], "type": "class", "text": restext, "data": {"from":defaultdict(lambda: defaultdict(int)),"to":defaultdict(lambda: defaultdict(int))}})
+                    uritotreeitem[cls].append(result[-1])
                 else:
                     uritotreeitem[cls][-1]["parent"] = ress[cls]["super"]
                 ressuperstr = str(ress[cls]["super"])
@@ -127,11 +126,10 @@ class ClassTreeUtils:
                     clsres = DocUtils.replaceNameSpacesInLabel(prefixes, ressuperstr)
                     if clsres is not None:
                         theitem = {"id": ressuperstr, "parent": "#", "type": "class",
-                                   "text": f'{DocUtils.shortenURI(ressuperstr)} ({clsres["uri"]})',
-                                   "data": {"from": {}, "to": {}}}
+                                   "text": f'{DocUtils.shortenURI(ressuperstr)} ({clsres["uri"]})', "data": {"from":defaultdict(lambda: defaultdict(int)),"to":defaultdict(lambda: defaultdict(int))}}
                     else:
                         theitem = {"id": ressuperstr, "parent": "#", "type": "class",
-                                   "text": DocUtils.shortenURI(ressuperstr), "data": {"from": {}, "to": {}}}
+                                   "text": DocUtils.shortenURI(ressuperstr), "data": {"from":defaultdict(lambda: defaultdict(int)),"to":defaultdict(lambda: defaultdict(int))}}
                     uritotreeitem[ressuperstr].append(theitem)
                     result.append(theitem)
                 classidset.add(ressuperstr)
@@ -155,14 +153,12 @@ class ClassTreeUtils:
         for item in classlist:
             if classlist[item]["items"] > 0:
                 if classlist[item]["item"]["text"].endswith("]"):
-                    classlist[item]["item"][
-                        "text"] = f'{classlist[item]["item"]["text"][0:classlist[item]["item"]["text"].rfind("[") - 1]} [{classlist[item]["items"]}]'
+                    classlist[item]["item"]["text"] = f'{classlist[item]["item"]["text"][0:classlist[item]["item"]["text"].rfind("[") - 1]} [{classlist[item]["items"]}]'
                 else:
                     classlist[item]["item"]["text"] = f'{classlist[item]["item"]["text"]} [{classlist[item]["items"]}]'
             if item in DocConfig.collectionclasses:
                 classlist[item]["item"]["type"] = "collectionclass"
-            elif classlist[item]["items"] == classlist[item]["geoitems"] and classlist[item]["items"] > 0 and \
-                    classlist[item]["geoitems"] > 0:
+            elif classlist[item]["items"] == classlist[item]["geoitems"] and classlist[item]["items"] > 0 and classlist[item]["geoitems"] > 0:
                 classlist[item]["item"]["type"] = "geoclass"
             elif classlist[item]["items"] > classlist[item]["geoitems"] > 0:
                 classlist[item]["item"]["type"] = "halfgeoclass"

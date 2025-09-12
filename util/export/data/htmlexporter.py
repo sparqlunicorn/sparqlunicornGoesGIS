@@ -8,6 +8,7 @@ from rdflib import URIRef, Graph, BNode, Literal, XSD
 from rdflib.namespace import RDF
 from collections import OrderedDict
 from qgis.core import Qgis, QgsMessageLog
+from colletions import defaultdict
 import re
 import os
 import json
@@ -141,7 +142,7 @@ class HTMLExporter:
                         thetable += f"<details><summary>{predobjtuplen} values</summary>"
                     if predobjtuplen > 1:
                         thetable += "<ul>"
-                    labelmap = {}
+                    labelmap = defaultdict(str)
                     itemcounter = 0
                     for item in predobjmap[tup]:
                         if itemcounter >= HTMLExporter.maxlistthreshold:
@@ -178,7 +179,7 @@ class HTMLExporter:
                         if res["timeobj"] is not None and res["timeobj"] != []:
                             # print("RESTIMEOBJ: "+str(timeobj))
                             timeobj = res["timeobj"]
-                        labelmap.setdefault(res["label"],"")
+                        #labelmap.setdefault(res["label"],"")
                         if predobjtuplen > 1:
                             labelmap[res["label"]] += f"<li>{res['html']}</li>"
                         else:
