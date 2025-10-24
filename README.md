@@ -68,6 +68,34 @@ This short documentation should help users and developers to get a better unders
 
 Please also consult the [Wiki](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/wiki) of this project for further information. 
 
+## Installation
+
+There are 2 ways to install this plugin in QGIS:
+
+1. from the QGS experimental plugins register 
+2. via the downloadable ZIP file
+
+### QGS experimental plugins register
+
+1. Go to QGIS' _Plugins_ main menu item and select _Manage and Install Plugins_
+2. Select _Settings_ from the left menu
+3. Check the box to _Show also Experimental Plugins_
+4. Select _All_ from the left menu
+5. Search for 'sparql' and you will see this plugin listed
+6. Select it to install - _Install Experimental Plugin_
+
+### ZIP file
+
+1. Download this plugin's latest ZIP file
+    * from https://plugins.qgis.org/plugins/sparqlunicorn/
+2. Go to QGIS' _Plugins_ main menu item and select _Manage and Install Plugins_
+3. From there, select _Install from ZIP_
+4. Select the zip file you downloaded and install
+
+### Use
+
+After installation, go to QGIS' main _Vector_ menu and select _SPARQL Unicorn Wikidata Plugin_ > _Add GeoJSON layer from a Wikidata_ to launch the plugin's UI.
+
 ## RDF Resources
 
 The SPARQLing Unicorn QGIS plugin curates a list of resources for geospatial data querying in a linked data registry.
