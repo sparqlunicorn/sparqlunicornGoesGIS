@@ -34,9 +34,7 @@ class ConvertLayerTask(QgsTask):
                                                        self.prefixes,
                                                        self.vocabulary, self.literaltype,
                                                        None, None, None, None, None, None)
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            fileext),
-            "Convert Layer Dialog", Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(fileext),"Convert Layer Dialog", Qgis.Info)
         with open(self.filename[0], 'w',encoding="utf-8") as output_file:
             LayerExporter.exportToFormat(ttlstring, output_file, self.filename[0], fileext,self.prefixes)
         return True

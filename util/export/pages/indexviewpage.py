@@ -41,16 +41,16 @@ class IndexViewPage:
                 if nslink in sub:
                     for tup in graph.predicate_objects(sub):
                         subgraph.add((sub, tup[0], tup[1]))
-                        if apis["solidexport"]:
-                            subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          RDF.type,
-                                          URIRef("http://www.w3.org/ns/ldp#Container")))
-                            subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          RDF.type,
-                                          URIRef("http://www.w3.org/ns/ldp#BasicContainer")))
-                            subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          RDF.type,
-                                          URIRef("http://www.w3.org/ns/ldp#Resource")))
+                    if apis["solidexport"]:
+                        subgraph.add((URIRef(sub.replace("nslink", "")),
+                                      RDF.type,
+                                      URIRef("http://www.w3.org/ns/ldp#Container")))
+                        subgraph.add((URIRef(sub.replace("nslink", "")),
+                                      RDF.type,
+                                      URIRef("http://www.w3.org/ns/ldp#BasicContainer")))
+                        subgraph.add((URIRef(sub.replace("nslink", "")),
+                                      RDF.type,
+                                      URIRef("http://www.w3.org/ns/ldp#Resource")))
             for ex in pubconfig["exports"]:
                 if ex in ExporterUtils.exportToFunction:
                     if ex not in ExporterUtils.rdfformats:

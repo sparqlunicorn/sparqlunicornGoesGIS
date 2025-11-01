@@ -9,6 +9,7 @@ import json
 import traceback
 import time
 from collections import OrderedDict
+from collections import defaultdict
 
 from .docutils import DocUtils
 from .docconfig import DocConfig
@@ -133,7 +134,7 @@ class OntDocGeneration:
             os.mkdir(outpath)
         labeltouri = {}
         uritolabel = {}
-        uritotreeitem = {}
+        uritotreeitem = defaultdict(list)
         if self.pubconfig["createvowl"]:
             vowlinstance = VOWLExporter()
             vowlinstance.convertOWL2VOWL(self.graph, outpath)

@@ -73,12 +73,12 @@ class GraphValidationTask(QgsTask):
                 msgBox.exec()
             else:
                 msgBox = QMessageBox()
-                msgBox.setText("The graph validation task detected "+str(len(self.errorlog))+"errors:\n"+("\n".join(self.errorlog))+"\nSHACL validation report: "+str(conforms)+"\n"+str(results_text))
+                msgBox.setText(f"The graph validation task detected {len(self.errorlog)}errors:\n"+"\n".join(self.errorlog)+f"\nSHACL validation report: {conforms}\n{results_text}")
                 msgBox.exec()
         else:
             if self.errorlog==set():
                 msgBox = QMessageBox()
-                msgBox.setText("The graph validation task detected no errors!<br>Validation detected the following attributes:<ul><li>"+str(self.processinglog["literals"]["geoliterals"]["amount"])+" Geoliterals</li></ul>")
+                msgBox.setText(f'The graph validation task detected no errors!<br>Validation detected the following attributes:<ul><li>{self.processinglog["literals"]["geoliterals"]["amount"]} Geoliterals</li></ul>')
                 msgBox.exec()
             else:
                 msgBox = QMessageBox()

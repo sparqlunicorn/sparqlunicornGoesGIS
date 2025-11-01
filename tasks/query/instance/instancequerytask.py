@@ -33,8 +33,9 @@ class InstanceQueryTask(QgsTask):
                 self.thequery+="?".join(self.triplestoreconf["mandatoryvariables"][1:])
             self.thequery+=f" WHERE {{ <{self.searchTerm}> ?rel ?val . "
             if "geotriplepattern" in self.triplestoreconf and len(self.triplestoreconf["geotriplepattern"])>0:
-                for geopat in self.triplestoreconf["geotriplepattern"]:
-                    self.thequery += f'OPTIONAL {{ {str(geopat).replace("?item ","<" + str(self.searchTerm) + "> ")} }} '
+                self.thequery+="".join(f'OPTIONAL {{ {str(geopat).replace("?item ",f"<{self.searchTerm}> ")} }} ' for geopat in self.triplestoreconf["geotriplepattern"])
+                #for geopat in self.triplestoreconf["geotriplepattern"]:
+                #    self.thequery += f'OPTIONAL {{ {str(geopat).replace("?item ",f"<{self.searchTerm}> ")} }} '
             self.thequery+="}"
         if triplestoreurl["type"]=="file":
             self.thequery=prepareQuery(self.thequery)
@@ -119,13 +120,9 @@ class InstanceQueryTask(QgsTask):
                 if isinstance(self.triplestoreconf["geometryproperty"],str) \
                         or (type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==1):
                     if "geo" in self.queryresult:
-                        myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult["geo"]["value"],
-                        (self.queryresult["geo"]["valtype"] if "valtype" in self.queryresult["geo"] else ""),
-                        True,None,self.triplestoreconf)
+                        myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult["geo"]["value"],(self.queryresult["geo"]["valtype"] if "valtype" in self.queryresult["geo"] else ""),True,None,self.triplestoreconf)
                     else:
-                        myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
-                        (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
-                        True,None,self.triplestoreconf)
+                        myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],(self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),True,None,self.triplestoreconf)
                     if myGeometryInstanceJSON is not None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"] is not None:
                         if myGeometryInstanceJSON["crs"]=="CRS84":
                             encounteredcrs="urn:ogc:def:crs:OGC:1.3:CRS84"
@@ -133,13 +130,9 @@ class InstanceQueryTask(QgsTask):
                             encounteredcrs=myGeometryInstanceJSON["crs"]
                         del myGeometryInstanceJSON["crs"]
                 elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
-                    myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + " " + str(
-                        float(self.queryresult[self.triplestoreconf["geometryproperty"][1]]["val"])) + ")", "wkt", True,None, self.triplestoreconf)
+                    myGeometryInstanceJSON=LayerUtils.processLiteral(f'POINT({float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])} {float(self.queryresult[self.triplestoreconf["geometryproperty"][1]]["val"])})', "wkt", True,None, self.triplestoreconf)
                 if myGeometryInstanceJSON is not None:
-                    geojson = {'type': 'FeatureCollection', 'features': [
-                    {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
-                        'geometry': myGeometryInstanceJSON}
-                    ]}
+                    geojson = {'type': 'FeatureCollection', 'features': [{'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},'geometry': myGeometryInstanceJSON}]}
                     self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),"ogr")
                     featuress = self.features.getFeatures()
                     geomcentroidpoint=None
