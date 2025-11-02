@@ -17,6 +17,7 @@ from .docdefaults import DocDefaults
 from .templateutils import TemplateUtils
 from ..export.pages.indexviewpage import IndexViewPage
 from ..export.pages.sparqlpage import SPARQLPage
+from ..export.pages.buildlogpage import BuildLogPage
 from ..export.api.ckanexporter import CKANExporter
 from ..export.api.solidexporter import SolidExporter
 from ..export.api.wfsexporter import WFSExporter
@@ -310,6 +311,9 @@ class OntDocGeneration:
         if "sparqltemplate" in templates:
             with open(outpath + "sparql.html", 'w', encoding='utf-8') as f:
                 SPARQLPage().generatePageView(templates, self.pubconfig, curlicense, self.voidstatshtml,self.graph, f)
+        if "buildlog" in templates:
+            with open(outpath + "buildlog.html", 'w', encoding='utf-8') as f:
+                BuildLogPage().generatePageView(templates, self.pubconfig, curlicense, self.voidstatshtml,self.graph, f)
         relpath = DocUtils.generateRelativePathFromGivenDepth(0)
         if len(self.htmlexporter.iiifmanifestpaths["default"]) > 0:
             start=time.time()

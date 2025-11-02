@@ -38,7 +38,7 @@ class ConvertCRSTask(QgsTask):
     def finished(self, result):
         self.progress.close()
         options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
+        options |= QFileDialog.Option.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self.dialog, "QFileDialog.getSaveFileName()", "", "All Files (*);;Text Files (*.ttl)", options=options)
         if fileName and self.graph is not None:
             with open(fileName, "w",encoding="utf-8") as fo:

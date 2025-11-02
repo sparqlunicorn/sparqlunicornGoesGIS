@@ -20,6 +20,9 @@ class ErrorMessageBox(QDialog, FORM_CLASS):
     def setTitle(self,text):
         self.errorLabel.setWindowTitle(text)
 
+    def setLabel(self,text):
+        self.errorTitle.setText(text)
+
     def setIcon(self,icon):
         self.errorLabel.setIcon(icon)
 

@@ -13,6 +13,26 @@ class DocDefaults:
     }
 
     templates = {
+        "buildlog":"""<script src="buildlog.js"></script>
+<table id="buildlog" border="1"><thead><tr><th>Process</th><th>Time</th><th>Comment</th></tr></thead><tbody id="buildlogtbody"></tbody></table>
+<script>
+    res=""
+    for(itemm in buildlog){
+        res+="<tr><td>"+itemm+"</td>"
+        if("time" in buildlog[itemm]){
+            res+="<td>"+buildlog[itemm]["time"]+"</td>"
+        }else{
+            res+="<td></td>"
+        }
+        if("items" in buildlog[itemm]){
+            res+="<td>for "+buildlog[itemm]["items"]+", about "+(parseFloat(buildlog[itemm]["time"])/parseInt(buildlog[itemm]["items"]))+" seconds per item</td>"
+        }else{
+            res+="<td></td>"
+        }
+        res+="</tr>"
+    }
+    document.getELementById("buildlogtbody").innerHTML=res
+</script>""",
         "epsgdefs": "var epsgdefs={}",
         "startscripts": """var namespaces={"rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xsd":"http://www.w3.org/2001/XMLSchema#","geo":"http://www.opengis.net/ont/geosparql#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/","skos":"http://www.w3.org/2004/02/skos/core#"}
     var annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]

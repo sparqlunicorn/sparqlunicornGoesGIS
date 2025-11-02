@@ -113,9 +113,10 @@ class IndexViewPage:
                 tempfoot = DocUtils.replaceStandardVariables(templates["footer"], "", checkdepth,str(nslink == pubconfig["prefixns"]).lower(),pubconfig).replace(
                     "{{license}}", curlicense).replace("{{exports}}", templates["nongeoexports"]).replace("{{bibtex}}","").replace("{{stats}}", voidstatshtml)
                 tempfoot=DocUtils.replaceCitationLink(tempfoot,"Index page for " + nslink,"",pubconfig)
-                tempfoot = DocUtils.conditionalArrayReplace(tempfoot, [True, apis["ogcapifeatures"], apis["iiif"],apis["ckan"]],
+                tempfoot = DocUtils.conditionalArrayReplace(tempfoot, [True,True, apis["ogcapifeatures"], apis["iiif"],apis["ckan"]],
                                                             [
                                                                 f"<a href=\"{DocUtils.generateRelativePathFromGivenDepth(checkdepth)}sparql.html?endpoint={pubconfig['deploypath']}\">[SPARQL]</a>&nbsp;",
+                                                                f"<a href=\"{relpath}/buildlog.html\">[BuildLog]</a>&nbsp;",
                                                                 f"<a href=\"{relpath}api/api.html\">[OGC API Features]</a>&nbsp;",
                                                                 f"<a href=\"{relpath}iiif/\">[IIIF]</a>&nbsp;",
                                                                 f"<a href=\"{relpath}api/3/\">[CKAN]</a>"

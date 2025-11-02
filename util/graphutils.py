@@ -258,7 +258,7 @@ class GraphUtils:
     def detectTypeProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
         #QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results==True or (isinstance(results,dict) and "boolean" in results and results["boolean"]==True):
             QgsMessageLog.logMessage("Detected RDFTYPE PROPERTY", MESSAGE_CATEGORY, Qgis.Info)
             if configuration is not None:
@@ -268,7 +268,7 @@ class GraphUtils:
             results = SPARQLUtils.executeQuery(triplestoreurl,
                     self.testQueries["hasPropEquivalent"].replace("%%proplabels%%","\"instance of\"@en \"Instance of\"@en \"Instance Of\"@en"),
                     {"auth": {"method": authmethod, "userCredential": credentialUserName,"userPassword": credentialPassword}})
-            QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             if results!=False:
                 for res in results["results"]["bindings"]:
                     if "prop" in res:

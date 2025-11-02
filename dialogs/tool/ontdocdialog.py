@@ -129,5 +129,5 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
                                 self.ogcapifeaturesCBox.checkState(),self.iiifCBox.checkState(),self.ckanCBox.checkState(),
                                 False,
                                 self.deploymentURLEdit.text(),self.startConceptCBox.currentText(),
-                                logoname,self.offlinecompatCBox.checkState(),exports)
+                                logoname,self.offlinecompatCBox.checkState(),self.overwriteDeployment.checkState(),exports)
         QgsApplication.taskManager().addTask(self.qtask)

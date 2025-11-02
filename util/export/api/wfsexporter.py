@@ -158,11 +158,11 @@ class WFSExporter:
                     <wfs:Title>{str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")).rstrip("/")}</wfs:Title>
                     <wfs:Abstract>FeatureCollection {str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")).rstrip("/")}</wfs:Abstract>
                     """
-            if "crs" in curcoll:
+            if curcoll!=None and "crs" in curcoll:
                 curftype += f"""<wfs:SRS>{curcoll["crs"]}</wfs:SRS>"""
             else:
                 curftype += "<wfs:SRS>EPSG:4326</wfs:SRS>"
-            if "extent" in curcoll:
+            if curcoll!=None and "extent" in curcoll:
                 bboxcoords = curcoll["extent"]["spatial"]["bbox"][0]
                 curftype += f"""<wfs:LatLongBoundingBox minx="{bboxcoords[0]}" miny="{bboxcoords[1]}" maxx="{bboxcoords[2]}" maxy="{bboxcoords[3]}"/>"""
             curftype += "</wfs:FeatureType>"
@@ -228,11 +228,11 @@ class WFSExporter:
                     <wfs:Title>{str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")).rstrip("/")}</wfs:Title>
                     <wfs:Abstract>FeatureCollection {str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")).rstrip("/")}</wfs:Abstract>
                     """
-            if "crs" in curcoll:
+            if curcoll!=None and "crs" in curcoll:
                 curftype += f"""<wfs:DefaultSRS>{curcoll["crs"]}</wfs:DefaultSRS>"""
             else:
                 curftype += "<wfs:DefaultSRS>EPSG:4326</wfs:DefaultSRS>"
-            if "extent" in curcoll:
+            if curcoll!=None and "extent" in curcoll:
                 bboxcoords = curcoll["extent"]["spatial"]["bbox"][0]
                 curftype += f"""<ows:WGS84BoundingBox><ows:LowerCorner>{bboxcoords[0]}" {bboxcoords[1]}"</ows:LowerCorner><ows:UpperCorner>"{bboxcoords[2]}" "{bboxcoords[3]}"</ows:UpperCorner></ows:WGS84BoundingBox>"""
             curftype += "</wfs:FeatureType>"
@@ -274,11 +274,11 @@ class WFSExporter:
                     <wfs:Title>{str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")).rstrip("/")}</wfs:Title>
                     <wfs:Abstract>FeatureCollection {str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")).rstrip("/")}</wfs:Abstract>
                     """
-            if "crs" in curcoll:
+            if curcoll!=None and "crs" in curcoll:
                 curftype += f"""<wfs:SRS>{curcoll["crs"]}</wfs:SRS>"""
             else:
                 curftype += "<wfs:SRS>EPSG:4326</wfs:SRS>"
-            if "extent" in curcoll:
+            if curcoll!=None and "extent" in curcoll:
                 bboxcoords = curcoll["extent"]["spatial"]["bbox"][0]
                 curftype += f"""<wfs:LatLongBoundingBox minx="{bboxcoords[0]}" miny="{bboxcoords[1]}" maxx="{bboxcoords[2]}" maxy="{bboxcoords[3]}"/>"""
             curftype += "</wfs:FeatureType>"

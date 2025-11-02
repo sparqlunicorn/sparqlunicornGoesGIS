@@ -87,7 +87,7 @@ class SearchTask(QgsTask):
                 msgBox.setText("An error occured while performing the search:\n"+str(SPARQLUtils.exception))
                 msgBox.exec()
                 return
-            if len(self.results["results"]) == 0 or len(self.results["results"]["bindings"]) == 0:
+            if "results" not in self.results or len(self.results["results"]) == 0 or len(self.results["results"]["bindings"]) == 0:
                 SPARQLUtils.handleException(MESSAGE_CATEGORY,"Empty search result","The search yielded no results")
                 return
             for res in self.results["results"]["bindings"]:

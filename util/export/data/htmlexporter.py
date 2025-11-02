@@ -457,10 +457,11 @@ class HTMLExporter:
             tempfoot=DocUtils.replaceCitationLink(tempfoot,foundlabel,subject,self.pubconfig)
             relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
             tempfoot = DocUtils.conditionalArrayReplace(tempfoot,
-                                                        [True, self.pubconfig["apis"]["ogcapifeatures"], self.pubconfig["apis"]["iiif"],
+                                                        [True,True, self.pubconfig["apis"]["ogcapifeatures"], self.pubconfig["apis"]["iiif"],
                                                          self.pubconfig["apis"]["ckan"]],
                                                         [
                                                             f'<a href="{relpath}/sparql.html?endpoint="{self.pubconfig["deploypath"]}">[SPARQL]</a>&nbsp;',
+                                                            f"<a href=\"{relpath}/buildlog.html\">[BuildLog]</a>&nbsp;",
                                                             f'<a href="{relpath}/api/api.html">[OGC API Features]</a>&nbsp;',
                                                             f'<a href="{relpath}/iiif/">[IIIF]</a>&nbsp;',
                                                             f'<a href="{relpath}/api/3/">[CKAN]</a>'
