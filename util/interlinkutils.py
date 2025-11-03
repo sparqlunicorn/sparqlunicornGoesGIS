@@ -115,14 +115,26 @@ class InterlinkUtils:
         xmlmappingheader = f'<?xml version=\"1.0\" ?>\n<data>\n<file class="{mappingdict.get("class")}" namespace="{mappingdict.get("namespace")}" indid="{mappingdict.get("indid")}">'
         xmlmapping = ""
         for row in mappingdict["columns"]:
-            item = row
-            xmlmapping += "<column "+InterlinkUtils.constructStrIfListElemsExist([{"key":"name","prefix":"name=\"","suffix":"\" "},
-            {"key": "propiri", "prefix":"propiri=\"", "suffix":"\" "}, {"key": "concept", "prefix":"concept=\"", "suffix":"\" "},
-            {"key": "query", "prefix":"query=\"", "suffix":"\" "}, {"key": "triplestoreurl", "prefix":"triplestoreurl=\"", "suffix":"\" "}],row)+">"
+            item = mappingdict["columns"][row]
+            QgsMessageLog.logMessage("ROW: " + str(row), "InterlinkUtils", Qgis.Info)
+            xmlmapping += "<column "
+            if "name" in item:
+                xmlmapping+="\"name\"=\""+item["name"]+"\" "
+            if "prop" in item:
+                xmlmapping += "prop=\"" + item["prop"] + "\" "
+            if "propiri" in item:
+                xmlmapping += "propiri=\"" + item["propiri"] + "\" "
+            if "concept" in item:
+                xmlmapping += "concept=\"" + item["concept"] + "\" "
+            if "query" in item:
+                xmlmapping += "query=\"" + item["query"] + "\" "
+            if "triplestoreurl" in item:
+                xmlmapping += "triplestoreurl=\"" + item["triplestoreurl"]
+            xmlmapping+=">"
             if "valuemapping" in mappingdict:
                 for key in mappingdict:
                     xmlmapping += f'<valuemapping from="{key}" to="{mappingdict["valuemapping"][key]}"/>\n'
             xmlmapping += "</column>\n"
         xmlmapping += "</file>\n</data>"
-        return xmlmappingheader + ">\n" + xmlmapping
+        return xmlmappingheader + "\n" + xmlmapping
 
