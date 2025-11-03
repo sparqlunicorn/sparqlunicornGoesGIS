@@ -114,16 +114,15 @@ class InterlinkUtils:
     def exportMappingXML(mappingdict):
         xmlmappingheader = f'<?xml version=\"1.0\" ?>\n<data>\n<file class="{mappingdict.get("class")}" namespace="{mappingdict.get("namespace")}" indid="{mappingdict.get("indid")}">'
         xmlmapping = ""
-        for row in mappingdict["column"]:
+        for row in mappingdict["columns"]:
             item = row
-            if item.checkState():
-                xmlmapping += "<column "+InterlinkUtils.constructStrIfListElemsExist([{"key":"name","prefix":"name=\"","suffix":"\" "},
-                {"key": "propiri", "prefix":"propiri=\"", "suffix":"\" "}, {"key": "concept", "prefix":"concept=\"", "suffix":"\" "},
-                {"key": "query", "prefix":"query=\"", "suffix":"\" "}, {"key": "triplestoreurl", "prefix":"triplestoreurl=\"", "suffix":"\" "}],row)+">"
-                if "valuemapping" in mappingdict:
-                    for key in mappingdict:
-                        xmlmapping += f'<valuemapping from="{key}" to="{mappingdict["valuemapping"][key]}"/>\n'
-                xmlmapping += "</column>\n"
+            xmlmapping += "<column "+InterlinkUtils.constructStrIfListElemsExist([{"key":"name","prefix":"name=\"","suffix":"\" "},
+            {"key": "propiri", "prefix":"propiri=\"", "suffix":"\" "}, {"key": "concept", "prefix":"concept=\"", "suffix":"\" "},
+            {"key": "query", "prefix":"query=\"", "suffix":"\" "}, {"key": "triplestoreurl", "prefix":"triplestoreurl=\"", "suffix":"\" "}],row)+">"
+            if "valuemapping" in mappingdict:
+                for key in mappingdict:
+                    xmlmapping += f'<valuemapping from="{key}" to="{mappingdict["valuemapping"][key]}"/>\n'
+            xmlmapping += "</column>\n"
         xmlmapping += "</file>\n</data>"
         return xmlmappingheader + ">\n" + xmlmapping
 
