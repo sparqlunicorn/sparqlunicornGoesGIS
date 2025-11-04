@@ -1,6 +1,8 @@
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt.QtWidgets import QStyle
 from qgis.PyQt.QtGui import QIcon
+
+from ...util.conf.configutils import ConfigUtils
 from ...util.ui.uiutils import UIUtils
 import os
 import json
@@ -77,8 +79,8 @@ class DetectTripleStoreResultDialog(QDialog, FORM_CLASS):
         #    self.prefixes[len(self.prefixes) - 1] += f'PREFIX {prefix}:<{self.configuration["prefixes"][prefix]}>\n'
         if self.permanentAdd is not None and self.permanentAdd:
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            with open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w",encoding="utf-8") as f:
-                json.dump(self.triplestoreconf,f, indent=2)
+            with open(os.path.join(__location__, '../../conf/triplestoreconf_personal.json'), "w",encoding="utf-8") as f:
+                json.dump(ConfigUtils.removeGraphInstancesToSave(self.triplestoreconf),f, indent=2)
         if self.tripleStoreChooser is not None:
             # self.tripleStoreChooser.addItem(self.triplestorename)
             self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count() - 1)

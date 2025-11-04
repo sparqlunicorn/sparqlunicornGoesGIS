@@ -88,10 +88,10 @@ class QueryLayerTask(QgsTask):
                 myStyleDoc.setContent(mystyle, False)
                 errormsg=""
                 self.vlayer.readSld(myStyleDoc,errormsg)
-                QgsMessageLog.logMessage( "Querying style definition III " + str(errormsg), MESSAGE_CATEGORY,Qgis.Info)
-            QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.name()), MESSAGE_CATEGORY, Qgis.Info)
-            QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.isValid()), MESSAGE_CATEGORY, Qgis.Info)
-            QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.featureCount()), MESSAGE_CATEGORY, Qgis.Info)
+                QgsMessageLog.logMessage(f"Querying style definition III {errormsg}", MESSAGE_CATEGORY,Qgis.Info)
+            QgsMessageLog.logMessage(f"Layer valid: {self.vlayer.name()}", MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(f"Layer valid: {self.vlayer.isValid()}", MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(f"Layer valid: {self.vlayer.featureCount()}", MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def dropUnwantedKeys(self,properties):

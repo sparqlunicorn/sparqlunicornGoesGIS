@@ -48,6 +48,18 @@ class ConfigUtils:
         except:
             return obj.__dict__
 
+    @staticmethod
+    def removeGraphInstancesToSave(triplestoreconf):
+        for conf in triplestoreconf:
+            if "resource" in conf and conf["resource"]["type"] == "file":
+                QgsMessageLog.logMessage('NCONF ' + str(conf), MESSAGE_CATEGORY, Qgis.Info)
+                if "instance" in conf["resource"]:
+                    del conf["resource"]["instance"]
+                QgsMessageLog.logMessage('NCONF PAST ' + str(conf), MESSAGE_CATEGORY, Qgis.Info)
+            if "instance" in conf:
+                del conf["instance"]
+        return triplestoreconf
+
 
 
     @staticmethod

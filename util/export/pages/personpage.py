@@ -136,18 +136,19 @@ class PersonPage:
         print("create the name from differently mapped N values")
 
     @staticmethod
-    def extractPersonMetadata(subject, graph):
-        thevcard = {}
-        thehcard = {}
+    def extractPersonMetadata(subject,graph):
+        thevcard={}
+        thehcard={}
         for pprop in graph.predicate_objects(subject, True):
-            if str(pprop[0]) in PersonPage.vcardTohCard:
-                thehcard[str(PersonPage.vcardTohCard[str(pprop[0])])] = {"value": str(pprop[1]), "prop": str(pprop[0])}
-            if str(pprop[0]) in PersonPage.vcardprops:
-                if PersonPage.vcardprops[str(pprop[0])] in thevcard:
-                    thevcard[PersonPage.vcardprops[str(pprop[0])]]["value"] += " " + str(pprop[1])
+            ppropstr=str(pprop[0])
+            if ppropstr in PersonPage.vcardTohCard:
+                thehcard[str(PersonPage.vcardTohCard[ppropstr])]={"value":str(pprop[1]),"prop":ppropstr}
+            if ppropstr in PersonPage.vcardprops:
+                if PersonPage.vcardprops[ppropstr] in thevcard:
+                    thevcard[PersonPage.vcardprops[ppropstr]]["value"]+=" "+str(pprop[1])
                 else:
-                    thevcard[PersonPage.vcardprops[str(pprop[0])]] = {"value": str(pprop[1]), "prop": str(pprop[0])}
-        return {"vcard": thevcard, "hcard": thehcard}
+                    thevcard[PersonPage.vcardprops[ppropstr]]={"value":str(pprop[1]),"prop":ppropstr}
+        return {"vcard":thevcard,"hcard":thehcard}
 
     @staticmethod
     def hcardToHTMLTable(vcard, hcard):
@@ -181,10 +182,9 @@ class PersonPage:
 
     @staticmethod
     def vcardJSONToString(vcard):
-        res = "BEGIN:VCARD\nVERSION:4.0\nPROFILE:VCARD\n"
-        for key in vcard:
-            res += f'{str(key).upper()}:{vcard[key]["value"]}\n'
-        return res + "END:VCARD\n"
+        res=f'BEGIN:VCARD\nVERSION:4.0\nPROFILE:VCARD\n'
+        res+="".join(f'{str(key).upper()}:{vcard[key]["value"]}\n' for key in vcard)
+        return res+"END:VCARD\n"
 
     @staticmethod
     def collectionConstraint():

@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from qgis.core import QgsTask
 from rdflib import Graph
 from qgis.PyQt.QtCore import Qt
@@ -33,15 +35,15 @@ class ExtractNamespaceTask(QgsTask):
         try:
             g = Graph()
             g.parse(self.graphname, format="ttl")
-            namespacetosub={}
+            namespacetosub=defaultdict(set)
             for sub in g.subjects(None,None,True):
                 ns=SPARQLUtils.instanceToNS(sub)
                 if self.prefixes is not None and "reversed" in self.prefixes and ns in self.prefixes["reversed"]:
                     self.recognizedns.add(ns)
                 else:
                     self.namespaces.add(ns)
-                if ns not in namespacetosub:
-                    namespacetosub[ns]=set()
+                #if ns not in namespacetosub:
+                #    namespacetosub[ns]=set()
                 namespacetosub[ns].add(sub)
             res= self.identifyDataClasses(g, namespacetosub)
             self.nstodataclass=res["nsd"]
@@ -58,8 +60,7 @@ class ExtractNamespaceTask(QgsTask):
         for ns in namespacetosub:
             nstodataclass[ns] = 0
             for nssub in namespacetosub[ns]:
-                nondataclasses = 0
-                dataclasses = 0
+                nondataclasses,dataclasses = 0,0
                 #QgsMessageLog.logMessage(str(nssub), MESSAGE_CATEGORY, Qgis.Info)
                 for tup in graph.predicate_objects(nssub):
                     if str(tup[0])=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and (str(tup[1])=="http://www.w3.org/2000/01/rdf-schema#Class" or str(tup[1])=="http://www.w3.org/2002/07/owl#Class" or str(tup[1])=="http://www.w3.org/2002/07/owl#Ontology"):

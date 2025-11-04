@@ -189,7 +189,7 @@ class SPARQLunicorn:
 
         self.add_action(
             UIUtils.pickericon,
-            text=self.tr(u'SPARQL Unicorn Triple Store Picker'),
+            text=self.tr(u'SPARQL Unicorn Layer Picker'),
             callback=self.choose_point_mapping_tool,
             parent=self.iface.mainWindow())
 

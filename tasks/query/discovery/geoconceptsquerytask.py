@@ -50,8 +50,7 @@ class GeoConceptsQueryTask(QgsTask):
             for result in results["results"]["bindings"]:
                 if self.queryvar in result:
                     self.resultlist[str(result[self.queryvar]["value"])]={"concept":str(result[self.queryvar]["value"])}
-            if self.getlabels and "labelproperty" in self.triplestoreconf and self.triplestoreconf[
-                "labelproperty"] != "":
+            if self.getlabels and "labelproperty" in self.triplestoreconf and self.triplestoreconf["labelproperty"] != "":
                 if "classlabelquery" in self.triplestoreconf:
                     self.resultlist = SPARQLUtils.getLabelsForClasses(self.resultlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl,self.preferredlang)
                 else:

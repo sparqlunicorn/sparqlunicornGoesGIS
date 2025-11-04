@@ -1,0 +1,21 @@
+<script src="buildlog.js"></script>
+<h3></h3>
+<table id="buildlog" border="1"><thead><tr><th>Process</th><th>Time</th><th>Comment</th></tr></thead><tbody id="buildlogtbody"></tbody></table>
+<script>
+    res=""
+    for(itemm in buildlog){
+        res+="<tr><td>"+itemm+"</td>"
+        if("time" in buildlog[itemm]){
+            res+="<td>"+buildlog[itemm]["time"]+" seconds</td>"
+        }else{
+            res+="<td></td>"
+        }
+        if("items" in buildlog[itemm]){
+            res+="<td>for "+buildlog[itemm]["items"]+" items, about "+(parseFloat(buildlog[itemm]["time"])/parseInt(buildlog[itemm]["items"]))+" seconds per item</td>"
+        }else{
+            res+="<td></td>"
+        }
+        res+="</tr>"
+    }
+    document.getElementById("buildlogtbody").innerHTML=res
+</script>

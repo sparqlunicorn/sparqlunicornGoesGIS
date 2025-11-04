@@ -8,7 +8,7 @@ from rdflib import URIRef, Graph, BNode, Literal, XSD
 from rdflib.namespace import RDF
 from collections import OrderedDict
 from qgis.core import Qgis, QgsMessageLog
-from colletions import defaultdict
+from collections import defaultdict
 import re
 import os
 import json
@@ -42,10 +42,11 @@ class HTMLExporter:
     def createHTML(self, savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,
                    uritotreeitem, curlicense, subjectstorender, postprocessing, nonnsmap=None, nonns=False,
                    foundlabel=""):
-        tablecontents = ""
-        metadatatablecontents = ""
-        geojsonrep = None
-        epsgcode = ""
+        tablecontents,metadatatablecontents,epsgcode = "","",""
+        geojsonrep,parentclass,timeobj = None,None,None
+        textannos,imageannos,annobodies,image3dannos,dateprops = [],[],[],[],[]
+        foundvals,curtypes,hasnonns,thetypes,collections = set(),set(),set(),set(),set()
+        tablecontentcounter,metadatatablecontentcounter = -1,-1
         foundmedia = {"audio": {}, "video": {}, "image": {}, "mesh": {}}
         savepath = savepath.replace("\\", "/")
         checkdepth = 0
@@ -54,20 +55,9 @@ class HTMLExporter:
         logo = ""
         if self.pubconfig["logourl"] != None and self.pubconfig["logourl"] != "":
             logo = f"<img src=\"{self.pubconfig['logourl']}\" alt=\"logo\" width=\"25\" height=\"25\"/>&nbsp;&nbsp;"
-        textannos = []
-        foundvals = set()
-        imageannos = []
-        annobodies = []
-        image3dannos = []
         predobjmap = OrderedDict()#defaultdict(list)
-        curtypes = set()
         comment = {}
-        parentclass = None
         inverse = False
-        dateprops = []
-        timeobj = None
-        tablecontentcounter = -1
-        metadatatablecontentcounter = -1
         if uritotreeitem is not None and str(subject) in uritotreeitem and uritotreeitem[str(subject)][-1][
             "parent"].startswith("http"):
             parentclass = str(uritotreeitem[str(subject)][-1]["parent"])
@@ -90,17 +80,17 @@ class HTMLExporter:
                 tuppredstr = str(tup[0])
                 predobjmap.setdefault(tuppredstr,[]).append(tup[1])
                 if parentclass is not None:
-                    if tuppredstr not in uritotreeitem[parentclass][-1]["data"]["to"]:
-                        uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr] = {}
-                        uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr]["instancecount"] = 0
-                    else:
-                        uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr]["instancecount"] += 1
+                    #if tuppredstr not in uritotreeitem[parentclass][-1]["data"]["to"]:
+                    #    uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr] = defaultdict(int)
+                        #uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr]["instancecount"] = 0
+                    #else:
+                    uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr]["instancecount"] += 1
                         #uritotreeitem[parentclass][-1]["instancecount"] += 1
                 if isinstance(tup[1], URIRef):
                     for item in graph.objects(tup[1], URIRef(self.typeproperty)):
                         thetypes.add(str(item))
                         if parentclass is not None:
-                            uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr].setdefault(item,0)
+                            #uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr].setdefault(item,0)
                             uritotreeitem[parentclass][-1]["data"]["to"][tuppredstr][item] += 1
                     if baseurl not in tupobjstr and tuppredstr != self.typeproperty:
                         hasnonns.add(tupobjstr)
@@ -132,6 +122,7 @@ class HTMLExporter:
                     for lab in predobjmap[tup]:
                         if lab.language == self.pubconfig["labellang"]:
                             foundlabel = lab
+                            break
                     if foundlabel == "":
                         foundlabel = str(predobjmap[tup][0])
                 if tup in DocConfig.commentproperties:
@@ -139,35 +130,40 @@ class HTMLExporter:
                 if predobjtuplen > 0:
                     thetable += "<td class=\"wrapword\">"
                     if predobjtuplen > HTMLExporter.listthreshold:
-                        thetable += f"<details><summary>{predobjtuplen} values</summary>"
-                    if predobjtuplen > 1:
+                        thetable += f"<details><summary>{predobjtuplen} values</summary><ul>"
+                    elif predobjtuplen > 1:
                         thetable += "<ul>"
                     labelmap = defaultdict(str)
                     itemcounter = 0
                     for item in predobjmap[tup]:
                         if itemcounter >= HTMLExporter.maxlistthreshold:
                             break
-                        if tup in DocConfig.valueproperties and ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(
-                                item).upper()) and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
-                            image3dannos.append({"value": str(item)})
-                        elif "<svg" in str(item):
-                            foundmedia["image"][str(item)] = {}
-                        elif "http" in str(item):
+                        itemstr = str(item)
+                        itemup = itemstr.upper()
+                        if tup in DocConfig.valueproperties and (
+                                "POINT" in itemup or "POLYGON" in itemup or "LINESTRING" in itemup) and self.typeproperty in predobjmap and URIRef(
+                                "http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
+                            image3dannos.append({"value": itemstr})
+                        elif "<svg" in itemstr:
+                            foundmedia["image"][itemstr] = {}
+                        elif "http" in itemstr:
                             if isinstance(item, Literal):
                                 ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
                             else:
-                                ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
+                                ext = "." + ''.join(filter(str.isalpha, itemstr.split(".")[-1]))
                             if ext in DocConfig.fileextensionmap:
-                                foundmedia[DocConfig.fileextensionmap[ext]][str(item)] = {}
+                                foundmedia[DocConfig.fileextensionmap[ext]][itemstr] = {}
                         elif tup in DocConfig.valueproperties:
-                            foundvals.add((tup, str(item)))
+                            foundvals.add((tup, itemstr))
                         res = HTMLExporter.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
                                                                      baseurl, checkdepth, geojsonrep, foundmedia,
                                                                      imageannos,
                                                                      textannos, image3dannos, annobodies, dateprops,
                                                                      inverse,
-                                                                     nonns, self.pubconfig["labellang"], self.typeproperty,
-                                                                     self.pubconfig["namespaceshort"], self.pubconfig["nonnspages"],
+                                                                     nonns, self.pubconfig["labellang"],
+                                                                     self.typeproperty,
+                                                                     self.pubconfig["namespaceshort"],
+                                                                     self.pubconfig["nonnspages"],
                                                                      self.pubconfig["prefixes"])
                         geojsonrep = res["geojson"]
                         foundmedia = res["foundmedia"]
@@ -179,22 +175,23 @@ class HTMLExporter:
                         if res["timeobj"] is not None and res["timeobj"] != []:
                             # print("RESTIMEOBJ: "+str(timeobj))
                             timeobj = res["timeobj"]
-                        #labelmap.setdefault(res["label"],"")
+                        # labelmap.setdefault(res["label"],"")
                         if predobjtuplen > 1:
                             labelmap[res["label"]] += f"<li>{res['html']}</li>"
                         else:
                             labelmap[res["label"]] += f"{res['html']}"
                         itemcounter += 1
-                    thetable+="".join(labelmap[lab] for lab in sorted(labelmap))
-                    #for lab in sorted(labelmap):
+                    thetable += "".join(labelmap[lab] for lab in sorted(labelmap))
+                    # for lab in sorted(labelmap):
                     #    thetable += str(labelmap[lab])
-                    if predobjtuplen >= HTMLExporter.maxlistthreshold:
-                        tablecontents += "<li>(...)</li>"
-                    if predobjtuplen > 1:
-                        thetable += "</ul>"
-                    if predobjtuplen > HTMLExporter.listthreshold:
-                        thetable += "</details>"
-                    thetable += "</td>"
+                    thetable += f'{"<li>(...)</li>" if predobjtuplen >= HTMLExporter.maxlistthreshold else ""}{"</ul>" if predobjtuplen > 1 else ""}{"</details>" if predobjtuplen > HTMLExporter.listthreshold else ""}</td>'
+                    # if predobjtuplen >= HTMLExporter.maxlistthreshold:
+                    #    thetable += "<li>(...)</li>"
+                    # if predobjtuplen > 1:
+                    #    thetable += "</ul>"
+                    # if predobjtuplen > HTMLExporter.listthreshold:
+                    #    thetable += "</details>"
+                    # thetable += "</td>"
                 else:
                     thetable += "<td class=\"wrapword\"></td>"
                 thetable += "</tr>"
@@ -229,10 +226,10 @@ class HTMLExporter:
                 if subpredtuplen > 0:
                     tablecontents += "<td class=\"wrapword\">"
                     if subpredtuplen > HTMLExporter.listthreshold:
-                        tablecontents += f"<details><summary>{subpredtuplen} values</summary>"
-                    if subpredtuplen > 1:
+                        tablecontents += f"<details><summary>{subpredtuplen} values</summary><ul>"
+                    elif subpredtuplen > 1:
                         tablecontents += "<ul>"
-                    labelmap = {}
+                    labelmap = defaultdict(str)
                     itemcounter = 0
                     for item in subpredsmap[tup]:
                         if itemcounter >= HTMLExporter.maxlistthreshold:
@@ -255,7 +252,7 @@ class HTMLExporter:
                             hasnonns.add(str(item))
                         if nonns:
                             geojsonrep = res["geojson"]
-                        labelmap.setdefault(res["label"],"")
+                        #labelmap.setdefault(res["label"],"")
                         if subpredtuplen > 1:
                             labelmap[res["label"]] += f"<li>{res['html']}</li>"
                         else:
@@ -266,10 +263,10 @@ class HTMLExporter:
                     #    tablecontents += str(labelmap[lab])
                     if subpredtuplen >= HTMLExporter.maxlistthreshold:
                         tablecontents += "<li>(...)</li>"
-                    if subpredtuplen > 1:
-                        tablecontents += "</ul>"
                     if subpredtuplen > HTMLExporter.listthreshold:
-                        tablecontents += "</details>"
+                        tablecontents += "</ul></details>"
+                    elif subpredtuplen > 1:
+                        tablecontents += "</ul>"
                     tablecontents += "</td>"
                 else:
                     tablecontents += "<td class=\"wrapword\"></td>"
@@ -460,10 +457,11 @@ class HTMLExporter:
             tempfoot=DocUtils.replaceCitationLink(tempfoot,foundlabel,subject,self.pubconfig)
             relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
             tempfoot = DocUtils.conditionalArrayReplace(tempfoot,
-                                                        [True, self.pubconfig["apis"]["ogcapifeatures"], self.pubconfig["apis"]["iiif"],
+                                                        [True,True, self.pubconfig["apis"]["ogcapifeatures"], self.pubconfig["apis"]["iiif"],
                                                          self.pubconfig["apis"]["ckan"]],
                                                         [
                                                             f'<a href="{relpath}/sparql.html?endpoint="{self.pubconfig["deploypath"]}">[SPARQL]</a>&nbsp;',
+                                                            f"<a href=\"{relpath}/buildlog.html\">[BuildLog]</a>&nbsp;",
                                                             f'<a href="{relpath}/api/api.html">[OGC API Features]</a>&nbsp;',
                                                             f'<a href="{relpath}/iiif/">[IIIF]</a>&nbsp;',
                                                             f'<a href="{relpath}/api/3/">[CKAN]</a>'

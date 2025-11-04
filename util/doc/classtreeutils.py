@@ -100,7 +100,7 @@ class ClassTreeUtils:
                         result.append({"id": cls, "parent": "#", "type": "class", "text": restext, "data": {"from":defaultdict(lambda: defaultdict(int)),"to":defaultdict(lambda: defaultdict(int))}})
                     uritotreeitem[cls].append(result[-1])
             else:
-                if "label" in cls and ress[cls]["label"] is not None:
+                if cls in ress and "label" in cls and ress[cls]["label"] is not None:
                     if res is not None:
                         restext = f"{ress[cls]['label']} ({res['uri']})"
                     else:

@@ -140,10 +140,10 @@ class DocUtils:
 
     @staticmethod
     def getExecutionStats(timeexec):
-        res=f"\nSelected Execution Statistics in order of execution:\n"
+        res=f"Selected Execution Statistics in order of execution:\n\n"
         totaltime=0
         for entry in timeexec:
-            res+=f"{entry}: {timeexec[entry]['time']} seconds\n"
+            res+=f"{entry}: {timeexec[entry]['time']} seconds"
             totaltime+=timeexec[entry]['time']
             if "items" in timeexec[entry]:
                 res+=f" for {timeexec[entry]['items']} items, about {timeexec[entry]['time']/timeexec[entry]['items']} seconds per item\n"
@@ -151,10 +151,27 @@ class DocUtils:
         return f"{res} Total measured execution time: {totaltime} seconds"
 
     @staticmethod
-    def writeExecutionStats(timeexec,filename="buildlog.txt"):
+    def getExecutionStatsHTML(timeexec):
+        res=f"<html><head></head><body><h3 align=center>Selected Execution Statistics in order of execution</h3><table border=1><thead><tr><th>Process</th><th>Time</th><th>Comment</th></tr></thead><tbody>"
+        totaltime=0
+        for entry in timeexec:
+            res+=f"<tr><td><b>{entry}:</b></td><td>{timeexec[entry]['time']} seconds</td><td>"
+            totaltime+=timeexec[entry]['time']
+            if "items" in timeexec[entry]:
+                res+=f" for <b>{timeexec[entry]['items']}</b> items, about <b>{timeexec[entry]['time']/timeexec[entry]['items']} seconds</b> per item\n"
+            res+="</td></tr>"
+            #print("\n",end="")
+        return f"{res}<tr><td><b>Total measured execution time:</b></td><td>{totaltime} seconds</td></tr></tbody></table></body></html>"
+
+
+    @staticmethod
+    def writeExecutionStats(timeexec,filename="buildlog.json"):
         if filename.endswith(".json"):
             with open(filename, "w", encoding="utf-8") as f:
                 json.dump(timeexec,f)
+        elif filename.endswith(".js"):
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write("var buildlog="+json.dumps(timeexec))
         elif filename.endswith(".csv"):
             with open(filename,"w",encoding="utf-8") as f:
                 f.write(f"Task;ExecutionTime (seconds);Items Processed;TimePerItem (seconds);Comment\n")

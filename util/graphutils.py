@@ -16,23 +16,26 @@ class GraphUtils:
     }
 
     testQueries = {
+        "subClassTest":"ASK { ?a <{{subclassuri}}> ?c . }",
+        "geomRelTest": "ASK { ?a <{{geomreluri}}> ?c . }",
+        "labelTest": "ASK { ?a <{{labeluri}}> ?c . }",
         "geosparql": "PREFIX geof:<http://www.opengis.net/def/function/geosparql/> SELECT ?a ?b ?c WHERE { BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?a) BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?b) FILTER(geof:sfIntersects(?a,?b))}",
         "sparql11": "SELECT ?a ?b ?c WHERE { BIND( <http://www.opengis.net/ont/geosparql#test> AS ?b)  ?a ?b ?c . } LIMIT 1",
         "available": "SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",
         "discoverLiteralRels": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> SELECT DISTINCT ?rel WHERE { ?a ?rel ?c . filter (datatype(?c) = <http://www.opengis.net/ont/geosparql#wktLiteral> || datatype(?c) = <http://www.opengis.net/ont/geosparql#geoJSONLiteral> || datatype(?c) = <http://www.opengis.net/ont/geosparql#kmlLiteral>) } LIMIT 5",
-        "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
-        "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
-        "hasDCTermsTitleLabel": "PREFIX dc:<http://purl.org/dc/terms/> ASK { ?a dc:title ?c . }",
-        "hasRDFType": "ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
+        "hasRDFSLabel": "ASK { ?a <http://www.w3.org/2000/01/rdf-schema#label> ?c . }",
+        "hasSKOSPrefLabel": "ASK { ?a <http://www.w3.org/2004/02/skos/core#prefLabel> ?c . }",
+        "hasDCTermsTitleLabel": "ASK { ?a <http://purl.org/dc/terms/title> ?c . }",
+        "hasRDFType": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a rdf:type ?c . }",
         "hasPropEquivalent":"SELECT DISTINCT ?prop ?propLabel WHERE { VALUES ?propLabel { %%proplabels%% } . ?a ?prop ?b .{ ?ab <http://wikiba.se/ontology#directClaim> ?prop . ?ab <http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .} UNION { ?prop <http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .}}",
         "hassubClassOf": "ASK { ?a <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c . }",
         "hasSKOSTopConcept": "ASK { ?a <http://www.w3.org/2004/02/skos/core#hasTopConcept> ?c . }",
-        "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
-        "hasGeometry": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:hasGeometry ?c .}",
-        "hasJusoGeometry": "PREFIX juso:<http://rdfs.co/juso/> ASK { ?a juso:geometry ?c .}",
-        "hasGML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}",
-        "hasKML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asKML ?c .}",
-        "hasGeoJSON": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}",
+        "hasWKT": "ASK { ?a <http://www.opengis.net/ont/geosparql#asWKT> ?c .}",
+        "hasGeometry": "ASK { ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?c .}",
+        "hasJusoGeometry": "ASK { ?a <http://rdfs.co/juso/geometry> ?c .}",
+        "hasGML": "ASK { ?a <http://www.opengis.net/ont/geosparql#asGML> ?c .}",
+        "hasKML": "ASK { ?a <http://www.opengis.net/ont/geosparql#asKML> ?c .}",
+        "hasGeoJSON": "ASK { ?a <http://www.opengis.net/ont/geosparql#asGeoJSON> ?c .}",
         "hasWgs84LatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
         "hasWgs84Geometry": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:geometry ?c . }",
         "hasSchemaOrgGeoLatLonHTTPS": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c . ?c schema:latitude ?d . ?c schema:longitude ?e . }",
@@ -117,6 +120,8 @@ class GraphUtils:
             configuration["mandatoryvariables"] = ["item", "geo"]
             if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asWKT"]
+            else:
+                configuration["geometryproperty"].append("http://www.opengis.net/ont/geosparql#asWKT")
             configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ")
             configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ")
             gottype=True
@@ -128,6 +133,8 @@ class GraphUtils:
             configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asGML> ?geo . ")
             if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asGML"]
+            else:
+                configuration["geometryproperty"].append("http://www.opengis.net/ont/geosparql#asGML")
             gottype = True
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasKML"],
                                           credentialUserName, credentialPassword, authmethod):
@@ -251,8 +258,8 @@ class GraphUtils:
     def detectTypeProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
         #QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-        if results==True or isinstance(results,dict) and "boolean" in results and results["boolean"]==True:
+        #QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        if results==True or (isinstance(results,dict) and "boolean" in results and results["boolean"]==True):
             QgsMessageLog.logMessage("Detected RDFTYPE PROPERTY", MESSAGE_CATEGORY, Qgis.Info)
             if configuration is not None:
                 configuration["typeproperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
@@ -261,7 +268,7 @@ class GraphUtils:
             results = SPARQLUtils.executeQuery(triplestoreurl,
                     self.testQueries["hasPropEquivalent"].replace("%%proplabels%%","\"instance of\"@en \"Instance of\"@en \"Instance Of\"@en"),
                     {"auth": {"method": authmethod, "userCredential": credentialUserName,"userPassword": credentialPassword}})
-            QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             if results!=False:
                 for res in results["results"]["bindings"]:
                     if "prop" in res:
@@ -466,7 +473,9 @@ class GraphUtils:
                 self.configuration["labelproperty"].append("http://www.w3.org/2004/02/skos/core#prefLabel")
             self.configuration["classfromlabelquery"] = f'SELECT DISTINCT ?class ?label {{ ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \n{SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")} FILTER(CONTAINS(?label,"%%label%%"))}} LIMIT 100 '
             self.configuration["propertyfromlabelquery"] = f'SELECT DISTINCT ?class ?label {{ ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n{SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")} FILTER(CONTAINS(?label,"%%label%%"))}} LIMIT 100 '
-            #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
+            QgsMessageLog.logMessage(str("TYPE: ") + str(rdftype))
+            QgsMessageLog.logMessage(str("SUBCLASSOF: ") + str(subclassof))
+            QgsMessageLog.logMessage(str("MISSING PROPERTIES: ")+str(self.missingproperties))
             if not isinstance(triplestoreurl,Graph):
                 self.detectGeometryObjectRelations()
         else:

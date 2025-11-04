@@ -41,7 +41,7 @@ class ClassTreeQueryTask(QgsTask):
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
                     SELECT DISTINCT ?subject ?label ?supertype \n
                     WHERE {\n"""
-        self.query += f' ?individual <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> ?subject . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> owl:Class . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> rdfs:Class . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]}> ?supertype . }} \n'
+        self.query += f'{{ ?individual <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> ?subject . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> owl:Class . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]}> rdfs:Class . }} UNION {{ ?subject <{self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]}> ?supertype . }} \n'
         self.query += """OPTIONAL { ?subject <""" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + """> ?supertype . }\n""" + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "")+ """ }"""
 
     def run(self):
@@ -72,8 +72,7 @@ class ClassTreeQueryTask(QgsTask):
                     if "label" in result:
                         self.classtreemap[subval].setText(f'{result["label"]["value"]} ({SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"])})')
                     else:
-                        self.classtreemap[subval].setText(
-                            SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
+                        self.classtreemap[subval].setText(SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
                     if "hgeo" in result and (result["hgeo"]["value"]=="true" or result["hgeo"]["value"]==True or result["hgeo"]["value"]==1):
                         #QgsMessageLog.logMessage("HGEO: "+str(result["hgeo"])+" "+str(subval),MESSAGE_CATEGORY, Qgis.Info)
                         self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
@@ -102,8 +101,8 @@ class ClassTreeQueryTask(QgsTask):
                 if cls not in hasparent and cls!="root":
                     self.subclassmap["root"].add(cls)
         QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Resulting ClassTreeMap "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Resulting SubClassMap "{}"'.format(str(self.subclassmap)), MESSAGE_CATEGORY,Qgis.Info)
+        QgsMessageLog.logMessage(f'Resulting ClassTreeMap {self.classtreemap}', MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(f'Resulting SubClassMap {self.subclassmap}', MESSAGE_CATEGORY,Qgis.Info)
         return True
 
     def buildTree(self,curNode,classtreemap,subclassmap,mypath):

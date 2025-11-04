@@ -30,9 +30,7 @@ class QuerySubGraphTask(QgsTask):
 
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.query.replace("<","_").replace(">","_")),
-            MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.query.replace("<","_").replace(">","_")),MESSAGE_CATEGORY, Qgis.Info)
         self.results = SPARQLUtils.executeQuery(self.triplestoreurl,SPARQLUtils.selectQueryToConstructQuery(self.query),self.triplestoreconf)
         if self.results==False:
             self.exception=SPARQLUtils.exception
@@ -41,19 +39,15 @@ class QuerySubGraphTask(QgsTask):
             g = Graph()
             g.parse(data=self.results, format="ttl")
             self.results=g
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.results),
-            MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.results),MESSAGE_CATEGORY, Qgis.Info)
         if self.progress is not None and self.results!=False:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         return True
 
     def finished(self, result):
-        QgsMessageLog.logMessage('Finishing up..... ',
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage(str(self.results),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Finishing up..... ',MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(str(self.results),MESSAGE_CATEGORY, Qgis.Info)
         if self.progress is not None:
             self.progress.close()
         if self.exception is not None:

@@ -41,16 +41,16 @@ class IndexViewPage:
                 if nslink in sub:
                     for tup in graph.predicate_objects(sub):
                         subgraph.add((sub, tup[0], tup[1]))
-                        if apis["solidexport"]:
-                            subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          RDF.type,
-                                          URIRef("http://www.w3.org/ns/ldp#Container")))
-                            subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          RDF.type,
-                                          URIRef("http://www.w3.org/ns/ldp#BasicContainer")))
-                            subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          RDF.type,
-                                          URIRef("http://www.w3.org/ns/ldp#Resource")))
+                    if apis["solidexport"]:
+                        subgraph.add((URIRef(sub.replace("nslink", "")),
+                                      RDF.type,
+                                      URIRef("http://www.w3.org/ns/ldp#Container")))
+                        subgraph.add((URIRef(sub.replace("nslink", "")),
+                                      RDF.type,
+                                      URIRef("http://www.w3.org/ns/ldp#BasicContainer")))
+                        subgraph.add((URIRef(sub.replace("nslink", "")),
+                                      RDF.type,
+                                      URIRef("http://www.w3.org/ns/ldp#Resource")))
             for ex in pubconfig["exports"]:
                 if ex in ExporterUtils.exportToFunction:
                     if ex not in ExporterUtils.rdfformats:
@@ -113,9 +113,10 @@ class IndexViewPage:
                 tempfoot = DocUtils.replaceStandardVariables(templates["footer"], "", checkdepth,str(nslink == pubconfig["prefixns"]).lower(),pubconfig).replace(
                     "{{license}}", curlicense).replace("{{exports}}", templates["nongeoexports"]).replace("{{bibtex}}","").replace("{{stats}}", voidstatshtml)
                 tempfoot=DocUtils.replaceCitationLink(tempfoot,"Index page for " + nslink,"",pubconfig)
-                tempfoot = DocUtils.conditionalArrayReplace(tempfoot, [True, apis["ogcapifeatures"], apis["iiif"],apis["ckan"]],
+                tempfoot = DocUtils.conditionalArrayReplace(tempfoot, [True,True, apis["ogcapifeatures"], apis["iiif"],apis["ckan"]],
                                                             [
                                                                 f"<a href=\"{DocUtils.generateRelativePathFromGivenDepth(checkdepth)}sparql.html?endpoint={pubconfig['deploypath']}\">[SPARQL]</a>&nbsp;",
+                                                                f"<a href=\"{relpath}/buildlog.html\">[BuildLog]</a>&nbsp;",
                                                                 f"<a href=\"{relpath}api/api.html\">[OGC API Features]</a>&nbsp;",
                                                                 f"<a href=\"{relpath}iiif/\">[IIIF]</a>&nbsp;",
                                                                 f"<a href=\"{relpath}api/3/\">[CKAN]</a>"

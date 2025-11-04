@@ -43,8 +43,7 @@ class FindRelatedConceptQueryTask(QgsTask):
                                                                         "FILTER(LANG(?rellabel) = \"" + str(
                                                                             self.preferredlang) + "\")", True) + "\n " + \
                              SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel",
-                                                                        self.triplestoreconf, "OPTIONAL", "",
-                                                                        True) + "\n }"
+                                                                        self.triplestoreconf, "OPTIONAL", "",True) + "\n }"
             self.leftsidequery = f'SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE {{\n ?tocon <{self.triplestoreconf["typeproperty"]}> ?val .\n ?tocon ?rel ?con .\n ?con <{self.triplestoreconf["typeproperty"]}> <{self.concept}> .\n ' + \
                             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val",
                                                                        self.triplestoreconf, "OPTIONAL",
@@ -56,9 +55,7 @@ class FindRelatedConceptQueryTask(QgsTask):
                                                                        self.triplestoreconf, "OPTIONAL",
                                                                        "FILTER(LANG(?rellabel) = \"" + str(
                                                                            self.preferredlang) + "\")", True) + "\n " + \
-                            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel",
-                                                                       self.triplestoreconf, "OPTIONAL", "",
-                                                                       True) + "\n }"
+                            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel",self.triplestoreconf, "OPTIONAL", "",True) + "\n }"
         else:
             self.leftsidequery = "SELECT DISTINCT ?val ?label WHERE { ?sub <" + str(self.concept) + "> ?obj .\n" \
                             + " OPTIONAL { ?sub <" + str(self.triplestoreconf["typeproperty"]) + "> ?val . \n" \

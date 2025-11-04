@@ -44,8 +44,9 @@ class DataSampleQueryTask(QgsTask):
                 query = f'SELECT DISTINCT (COUNT(?val) as ?amount) ?val ?val2 WHERE {{ {typepattern} ?con <{self.triplestoreconf["geometryproperty"][0]}> ?val . ?con <{self.triplestoreconf["geometryproperty"][1]}> ?val2 . }} GROUP BY ?val ?val2 LIMIT 100'
             elif "geotriplepattern" in self.triplestoreconf:
                 query = f"SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE {{ {typepattern} "
-                for geotriplepat in self.triplestoreconf["geotriplepattern"]:
-                    query+=f'OPTIONAL {{{geotriplepat.replace("?geo","?val").replace("?item","?con")} }}\n'
+                query+="".join('OPTIONAL {{{geotriplepat.replace("?geo","?val").replace("?item","?con")} }}\n' for geotriplepat in self.triplestoreconf["geotriplepattern"])
+                #for geotriplepat in self.triplestoreconf["geotriplepattern"]:
+                #    query+=f'OPTIONAL {{{geotriplepat.replace("?geo","?val").replace("?item","?con")} }}\n'
                 #+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")\
                 query+=" } GROUP BY ?val LIMIT 100"
         QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)

@@ -1,3 +1,4 @@
+from ...dialogs.info.errormessagebox import ErrorMessageBox
 from ...util.doc.ontdocgeneration import OntDocGeneration
 from ...util.sparqlutils import SPARQLUtils
 from ...util.doc.docutils import DocUtils
@@ -5,12 +6,13 @@ from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsTask
 from rdflib import Graph
+import shutil
 
 MESSAGE_CATEGORY = 'OntDocTask'
 
 class OntDocTask(QgsTask):
 
-    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,tobeaddedperInd,maincolor,titlecolor, progress,createIndexPages,nonNSPagesCBox,createMetadataTable,createVOWL,ogcapifeatures,iiif,ckan,imagemetadata,deploymenturl,startconcept,logopath="",offlinecompat=False,exports=["ttl","json"]):
+    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,tobeaddedperInd,maincolor,titlecolor, progress,createIndexPages,nonNSPagesCBox,createMetadataTable,createVOWL,ogcapifeatures,iiif,ckan,imagemetadata,deploymenturl,startconcept,logopath="",offlinecompat=False,overwriteDeployment=False,exports=["ttl","json"]):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
@@ -37,9 +39,12 @@ class OntDocTask(QgsTask):
         self.namespace=namespace
         self.outpath=outpath
         self.execstatsstr=""
+        self.overwriteDeployment=overwriteDeployment
 
     def run(self):
         #QgsMessageLog.logMessage("Graph "+str(self.graphname), MESSAGE_CATEGORY, Qgis.Info)
+        if self.overwriteDeployment:
+            shutil.rmtree(self.outpath)
         if isinstance(self.graphname,str):
             self.graph=SPARQLUtils.loadGraph(self.graphname)
         else:
@@ -57,8 +62,8 @@ class OntDocTask(QgsTask):
         #try:
         ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.nonNSPagesCBox,self.createMetadataTable,self.createVOWL,self.apis,self.imagemetadata,self.startconcept,self.deploymenturl,self.logopath,self.offlinecompat,self.exports)
         ontdoc.generateOntDocForNameSpace(self.namespace)
-        DocUtils.writeExecutionStats(ontdoc.exectimes, self.outpath+ "/buildlog.txt")
-        self.execstatsstr=DocUtils.getExecutionStats(ontdoc.exectimes)
+        DocUtils.writeExecutionStats(ontdoc.exectimes, self.outpath+ "/buildlog.js")
+        self.execstatsstr=DocUtils.getExecutionStatsHTML(ontdoc.exectimes)
         #except Exception as e:
         #    self.exception=e
         #    return False
@@ -67,13 +72,14 @@ class OntDocTask(QgsTask):
     def finished(self, result):
         self.progress.close()
         if result == True:
-            msgBox = QMessageBox()
-            msgBox.setText(f"Ontology documentation finished in folder {self.outpath}\n{self.execstatsstr}")
+            msgBox = ErrorMessageBox("Ontology documentation finished",self.execstatsstr)
+            msgBox.setLabel(f"<html>Ontology documentation finished in folder <b>{self.outpath}</b></html>")
             msgBox.exec()
         else:
-            msgBox = QMessageBox()
             if self.exception!=None:
-                msgBox.setText("Ontology documentation failed!\n"+str(self.exception))
+                msgBox = ErrorMessageBox("Ontology documentation failed!", str(self.exception))
+                #msgBox.setText("Ontology documentation failed!\n"+str(self.exception))
             else:
+                msgBox = QMessageBox()
                 msgBox.setText("Ontology documentation failed!")
             msgBox.exec()

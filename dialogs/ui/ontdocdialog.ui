@@ -18,10 +18,41 @@
     <normaloff>:/icons/resources/icons/ontdoc.png</normaloff>:/icons/resources/icons/ontdoc.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="12" column="1">
+    <widget class="QPushButton" name="createDocumentationButton">
+     <property name="text">
+      <string>Create Documentation</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="ontdocTitleLabel">
+     <property name="text">
+      <string>Create ontology documentation for data instances in this dialog</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QgsFileWidget" name="outFolderWidget">
+     <property name="storageMode">
+      <enum>QgsFileWidget::GetDirectory</enum>
+     </property>
+    </widget>
+   </item>
    <item row="7" column="1">
     <widget class="QComboBox" name="licenseCBox">
      <property name="toolTip">
       <string>Choose a license for the linked open data you are publishing</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="exportPathLabel">
+     <property name="toolTip">
+      <string>Choose a folder to export the HTML documentation to</string>
+     </property>
+     <property name="text">
+      <string>Export Path:</string>
      </property>
     </widget>
    </item>
@@ -35,6 +66,57 @@
      </property>
      <property name="text">
       <string>RDF File:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCheckBox" name="additionalCollections">
+       <property name="toolTip">
+        <string>Generates additional collections in RDF which contain all instances of a respective class</string>
+       </property>
+       <property name="text">
+        <string>Create Additional Collections</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="createIndexPages">
+       <property name="text">
+        <string>Create Index Pages</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="dataLicenseLabel">
+     <property name="toolTip">
+      <string>Choose a data license statement for your data</string>
+     </property>
+     <property name="text">
+      <string>Data License:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="preferredLabelLangLabel">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The preferred language to be used in the HTML rendering (if available)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Preferred Language:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QComboBox" name="startConceptCBox">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose a concept which will be highlighted on the homepage of the HTML rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -66,22 +148,8 @@
      </item>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QLabel" name="ontdocTitleLabel">
-     <property name="text">
-      <string>Create ontology documentation for data instances in this dialog</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="dataLicenseLabel">
-     <property name="toolTip">
-      <string>Choose a data license statement for your data</string>
-     </property>
-     <property name="text">
-      <string>Data License:</string>
-     </property>
-    </widget>
+   <item row="2" column="1">
+    <widget class="QgsFileWidget" name="inputRDFFileWidget"/>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="namespaceLabel">
@@ -93,82 +161,17 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QgsFileWidget" name="outFolderWidget">
-     <property name="storageMode">
-      <enum>QgsFileWidget::GetDirectory</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="1">
-    <widget class="QPushButton" name="createDocumentationButton">
-     <property name="text">
-      <string>Create Documentation</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="preferredLabelLangLabel">
+   <item row="6" column="0">
+    <widget class="QLabel" name="startConceptLabel">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The preferred language to be used in the HTML rendering (if available)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A concept which is shown on the start page of the HTML documentation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
-      <string>Preferred Language:</string>
+      <string>Start Concept:</string>
      </property>
     </widget>
    </item>
-   <item row="9" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QCheckBox" name="createMetadataTableCBox">
-       <property name="toolTip">
-        <string>Creates a separate metadata table on the HTML page</string>
-       </property>
-       <property name="text">
-        <string>Create Metadata Table</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="nonNSPagesCBox">
-       <property name="toolTip">
-        <string>Creates pages for instances which are linked from instances in the chosen export namespace</string>
-       </property>
-       <property name="text">
-        <string>Create Pages for Non-Namespace URIs</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="8" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QCheckBox" name="additionalCollections">
-       <property name="toolTip">
-        <string>Generates additional collections in RDF which contain all instances of a respective class</string>
-       </property>
-       <property name="text">
-        <string>Create Additional Collections</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="createIndexPages">
-       <property name="text">
-        <string>Create Index Pages</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="1">
-    <widget class="QgsFileWidget" name="inputRDFFileWidget"/>
-   </item>
-   <item row="1" column="2" rowspan="11">
+   <item row="1" column="2" rowspan="12">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -669,42 +672,50 @@
      </widget>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="exportPathLabel">
-     <property name="toolTip">
-      <string>Choose a folder to export the HTML documentation to</string>
-     </property>
-     <property name="text">
-      <string>Export Path:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QComboBox" name="startConceptCBox">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose a concept which will be highlighted on the homepage of the HTML rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="startConceptLabel">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A concept which is shown on the start page of the HTML documentation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="text">
-      <string>Start Concept:</string>
-     </property>
-    </widget>
+   <item row="9" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="createMetadataTableCBox">
+       <property name="toolTip">
+        <string>Creates a separate metadata table on the HTML page</string>
+       </property>
+       <property name="text">
+        <string>Create Metadata Table</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="nonNSPagesCBox">
+       <property name="toolTip">
+        <string>Creates pages for instances which are linked from instances in the chosen export namespace</string>
+       </property>
+       <property name="text">
+        <string>Create Pages for Non-Namespace URIs</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item row="10" column="1">
-    <widget class="QCheckBox" name="offlinecompatCBox">
-     <property name="toolTip">
-      <string>Creates a portable, self-contained version of the HTML export</string>
-     </property>
-     <property name="text">
-      <string>Portable Version</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QCheckBox" name="offlinecompatCBox">
+       <property name="toolTip">
+        <string>Creates a portable, self-contained version of the HTML export</string>
+       </property>
+       <property name="text">
+        <string>Portable Version</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="overwriteDeployment">
+       <property name="text">
+        <string>Overwrite Existing Deployment</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
