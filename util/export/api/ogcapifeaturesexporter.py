@@ -20,7 +20,7 @@ class OGCAPIFeaturesExporter:
         if contentnegotiation:
             collectionhtmlname="index.html"
         apijson = {"openapi": "3.0.1", "info": {"title": f"{deploypath} Feature Collections",
-                                                "description": f"Feature Collections of {deploypath}"},
+                                                "description": f"Feature Collections of {deploypath}","version":"1.0"},
                    "servers": [{"url": str(deploypath)}], "paths": {}}
         conformancejson = {"conformsTo": ["http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core",
                                           "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/html",
