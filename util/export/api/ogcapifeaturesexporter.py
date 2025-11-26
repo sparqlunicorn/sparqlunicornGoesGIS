@@ -8,6 +8,7 @@ from ...doc.docutils import DocUtils
 
 class OGCAPIFeaturesExporter:
 
+
     @staticmethod
     def generateOGCAPIFeaturesPages(outpath,deploypath, featurecollectionspaths, prefixnamespace, ogcapi, mergeJSON, contentnegotiation=False):
         apihtml = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><metaname=\"description\" content=\"SwaggerUI\"/><title>SwaggerUI</title><link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist/swagger-ui.css\" /></head><body><div id=\"swagger-ui\"></div><script src=\"https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js\" crossorigin></script><script>const swaggerUrl = \"" + str(
@@ -19,7 +20,7 @@ class OGCAPIFeaturesExporter:
         if contentnegotiation:
             collectionhtmlname="index.html"
         apijson = {"openapi": "3.0.1", "info": {"title": f"{deploypath} Feature Collections",
-                                                "description": f"Feature Collections of {deploypath}"},
+                                                "description": f"Feature Collections of {deploypath}","version":"1.0"},
                    "servers": [{"url": str(deploypath)}], "paths": {}}
         conformancejson = {"conformsTo": ["http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core",
                                           "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/html",
@@ -126,9 +127,9 @@ class OGCAPIFeaturesExporter:
                         "application/json": {"schema": {"$ref": "#/components/schemas/Conformance"}},
                         "text/ttl": {"schema": {}}, "text/html": {"schema": {}}}}}}}
             collectionsjson = {"collections": [], "links": [
-                {"href": outpath + "collections/index.json", "rel": "self", "type": "application/json",
+                {"href": deploypath + "collections/index.json", "rel": "self", "type": "application/json",
                  "title": "this document as JSON"},
-                {"href": outpath + "collections/index.html", "rel": "self", "type": "text/html",
+                {"href": deploypath + "collections/index.html", "rel": "self", "type": "text/html",
                  "title": "this document as HTML"}]}
             collectionshtml = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><link rel=\"stylesheet\" href=\"../style.css\"/><link rel=\"stylesheet\" href=\"https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.css\" /><script src=\"https://code.jquery.com/jquery-3.7.1.js\"></script><script src=\"https://cdn.datatables.net/2.2.1/js/dataTables.js\"></script></head><body><header id=\"header\"><h1 id=\"title\">Collections of " + str(
                 deploypath) + "</h1></header>{{collectiontable}}<footer id=\"footer\"><a href=\"../\">Landing page</a>&nbsp;<a href=\"index.json\">This page as JSON</a></footer><script>$(document).ready( function () {$('#collectiontable').DataTable();} );</script></body></html>"
