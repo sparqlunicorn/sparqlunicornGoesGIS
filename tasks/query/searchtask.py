@@ -58,9 +58,11 @@ class SearchTask(QgsTask):
                 return False
         else:
             QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
-            myResponse = json.loads(requests.get(self.query).text)
+            res=requests.get(self.query,headers={'User-agent': 'Mozilla/5.0'})
+            QgsMessageLog.logMessage('Started task "{}" Query:'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+            myResponse = json.loads(res.text)
             self.qids = []
-            #QgsMessageLog.logMessage('Started task "{}" Query:'.format(myResponse), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}" Query:'.format(myResponse), MESSAGE_CATEGORY, Qgis.Info)
             for ent in myResponse["search"]:
                 qid = ent["concepturi"]
                 if "http://www.wikidata.org/entity/" in qid and self.findProperty.isChecked():
@@ -84,7 +86,7 @@ class SearchTask(QgsTask):
         if "SELECT" in self.query:
             if self.results==False:
                 msgBox = ErrorMessageBox("Error while performing search","")
-                msgBox.setText("An error occured while performing the search:\n"+str(SPARQLUtils.exception))
+                msgBox.setText("An error occurred while performing the search:\n"+str(SPARQLUtils.exception))
                 msgBox.exec()
                 return
             if "results" not in self.results or len(self.results["results"]) == 0 or len(self.results["results"]["bindings"]) == 0:

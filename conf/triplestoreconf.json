@@ -401,8 +401,8 @@
             "query": "SERVICE wikibase:box {\n ?item <http://www.wikidata.org/prop/direct/P625> ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}",
             "type": "minmax"
         },
-        "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=item",
-        "classlabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=%%language%%|en&languagefallback=true&format=json&ids=%%concepts%%",
+        "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&origin=*&languagefallback=true&uselang=%%language%%&type=item",
+        "classlabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=%%language%%|en&origin=*&languagefallback=true&format=json&ids=%%concepts%%",
         "featurecollectionclasses": [
             "http://www.opengis.net/ont/geosparql#FeatureCollection"
         ],
@@ -455,8 +455,8 @@
             "wikibase": "http://wikiba.se/ontology#",
             "xsd": "http://www.w3.org/2001/XMLSchema#"
         },
-        "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
-        "propertylabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=labels&languages=%%language%%|en&languagefallback=true&uselang=%%language%%&ids=%%concepts%%",
+        "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&origin=*&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
+        "propertylabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=labels&languages=%%language%%|en&origin=*&languagefallback=true&uselang=%%language%%&ids=%%concepts%%",
         "querytemplate": [
             {
                 "label": "Item+Label",
