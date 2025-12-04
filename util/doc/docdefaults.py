@@ -2370,7 +2370,7 @@ async function queryFile(){
 
         "htmltabletemplate": """<div style="overflow-x:auto;"><table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table></div>""",
 
-        "footer": """<div id="footer"><div class="container-fluid">{{apis}}{{license}}{{bibtex}}{{stats}}</div></div></body><script>$(document).ready(function(){setSVGDimensions()})</script></html>""",
+        "footer": """<div id="footer"><div class="container-fluid"><span id="citationlink">{{citationlink}}</span><span id="apis">{{apis}}</span>{{license}}{{bibtex}}{{stats}}</div></div><script>$(document).ready(function(){setSVGDimensions();})</script></body></html>""",
 
         "licensetemplate": """""",
         "chartviewtemplate": """<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
