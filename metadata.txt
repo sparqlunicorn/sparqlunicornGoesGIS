@@ -5,7 +5,7 @@
 [general]
 name=SPARQLing Unicorn QGIS Plugin
 qgisMinimumVersion=3.0
-description=This plugin adds a GeoJSON layer from SPARQL endpoint queries. The necessary python libs are bundled with the plugin.
+description=This plugin adds QGIS layers from SPARQL endpoint queries. The necessary python libs are bundled with the plugin.
 version=0.17.3
 supportsQt6=yes
 author=Florian Thiery, Timo Homburg, SPARQL Unicorn, Research Squirrel Engineers Network

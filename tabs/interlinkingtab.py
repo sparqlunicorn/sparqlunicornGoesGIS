@@ -58,9 +58,7 @@ class InterlinkingTab:
         columntypes=json.loads(self.exportMapping(True))
         filename = QFileDialog.getSaveFileName(
             self.dlg, "Select output file ", "", ExporterUtils.getExporterString())
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            filename),
-            "Convert Layer Dialog", Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(filename),"Convert Layer Dialog", Qgis.Info)
         if filename[0] == "":
             return
         progress = QProgressDialog("Loading Layer and converting it to : " + str(filename), "Abort", 0, 0, self.dlg)
@@ -353,46 +351,47 @@ class InterlinkingTab:
             item = self.dlg.interlinkTable.item(row, 0)
             if item.checkState():
                 column = {}
-                if self.dlg.interlinkTable.item(row, 1).checkState():
-                    result["indid"]=self.dlg.interlinkTable.item(row, 3).text()
-                else:
-                    column={"name":self.dlg.interlinkTable.item(row, 3).text(),"order":row}
-                    if self.dlg.interlinkTable.item(row, 4) is not None and self.dlg.interlinkTable.item(row, 4).data(1) is not None:
-                        column["propiri"]=self.dlg.interlinkTable.item(row, 4).data(1)
-                    if self.dlg.interlinkTable.cellWidget(row, 5) is not None and self.dlg.interlinkTable.cellWidget(row,
-                                                                                                                     5).currentText() != "Automatic":
-                        if self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "AnnotationProperty":
-                            column["prop"]="annotation"
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "DataProperty":
-                            column["prop"]="data"
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "ObjectProperty":
-                            column["prop"]="obj"
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "SubClass":
-                            column["prop"]="subclass"
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "GeoProperty":
-                            column["prop"]="geo"
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "LabelProperty":
-                            column["prop"] = "label"
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "DescriptionProperty":
-                            column["prop"] = "desc"
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "TypeProperty":
-                            column["prop"] = "type"
-                    if self.dlg.interlinkTable.item(row, 6) is not None:
-                        concept = self.dlg.interlinkTable.item(row, 6).data(0)
-                        #self.exportColConfig[column] = concept
-                        column["concept"]=concept
-                    if self.dlg.interlinkTable.item(row, 7) is not None:
-                        self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
-                        if self.dlg.interlinkTable.item(row, 7).data(2) is not None and self.dlg.interlinkTable.item(row,
-                                                                                                                     7).data(
-                                3) is not None:
-                            column["query"]=self.dlg.interlinkTable.item(row, 7).data(2).replace("\n", " ")
-                            column["triplestoreurl"]=self.dlg.interlinkTable.item(row, 7).data(3)
-                        if self.valueconcept is not None:
-                            column["valuemapping"]={}
-                            for key in self.valueconcept:
-                                column["valuemapping"][key]=self.valueconcept[key]
-                    result["columns"][column["name"]]=column
+                #if self.dlg.interlinkTable.item(row, 1).checkState():
+                #    result["indid"]=self.dlg.interlinkTable.item(row, 3).text()
+                #else:
+                column={"name":self.dlg.interlinkTable.item(row, 3).text(),"order":row}
+                if self.dlg.interlinkTable.item(row, 4) is not None and self.dlg.interlinkTable.item(row, 4).data(1) is not None:
+                    column["propiri"]=self.dlg.interlinkTable.item(row, 4).data(1)
+                if self.dlg.interlinkTable.cellWidget(row, 5) is not None and self.dlg.interlinkTable.cellWidget(row,
+                                                                                                                 5).currentText() != "Automatic":
+                    if self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "AnnotationProperty":
+                        column["prop"]="annotation"
+                    elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "DataProperty":
+                        column["prop"]="data"
+                    elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "ObjectProperty":
+                        column["prop"]="obj"
+                    elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "SubClass":
+                        column["prop"]="subclass"
+                    elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "GeoProperty":
+                        column["prop"]="geo"
+                    elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "LabelProperty":
+                        column["prop"] = "label"
+                    elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "DescriptionProperty":
+                        column["prop"] = "desc"
+                    elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "TypeProperty":
+                        column["prop"] = "type"
+                if self.dlg.interlinkTable.item(row, 6) is not None:
+                    concept = self.dlg.interlinkTable.item(row, 6).data(0)
+                    #self.exportColConfig[column] = concept
+                    column["concept"]=concept
+                if self.dlg.interlinkTable.item(row, 7) is not None:
+                    self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
+                    if self.dlg.interlinkTable.item(row, 7).data(2) is not None and self.dlg.interlinkTable.item(row,
+                                                                                                                 7).data(
+                            3) is not None:
+                        column["query"]=self.dlg.interlinkTable.item(row, 7).data(2).replace("\n", " ")
+                        column["triplestoreurl"]=self.dlg.interlinkTable.item(row, 7).data(3)
+                    if self.valueconcept is not None:
+                        column["valuemapping"]={}
+                        for key in self.valueconcept:
+                            column["valuemapping"][key]=self.valueconcept[key]
+                result["columns"][column["name"]]=column
+        QgsMessageLog.logMessage('Started task "{}"'.format(result),"Convert Layer Dialog", Qgis.Info)
         if jsonOrXML:
             return json.dumps(result,indent=2)
         return InterlinkUtils.exportMappingXML(result)
