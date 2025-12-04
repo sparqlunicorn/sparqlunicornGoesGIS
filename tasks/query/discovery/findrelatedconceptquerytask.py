@@ -210,7 +210,7 @@ class FindRelatedConceptQueryTask(QgsTask):
                 self.searchResultModel.insertRow(counter)
                 curitem=QStandardItem()
                 if self.queryresult[rel][val]["label"]!="":
-                    curitem.setText(f'{self.queryresult[rel][val]["label"]} ({SPARQLUtils.labelFromURI(str(val))}')
+                    curitem.setText(f'{self.queryresult[rel][val]["label"]} ({SPARQLUtils.labelFromURI(str(val))})')
                 else:
                     curitem.setText(SPARQLUtils.labelFromURI(str(val)))
                 curitem.setToolTip(str(val))
@@ -222,7 +222,7 @@ class FindRelatedConceptQueryTask(QgsTask):
                 UIUtils.detectItemNodeType(curitem, rel, self.triplestoreconf, None, None, None,
                                            SPARQLUtils.labelFromURI(rel)+"         ", rel)
                 if self.queryresult[rel][val]["rellabel"]!="":
-                    curitem.setText(f'{self.queryresult[rel][val]["rellabel"]} ({SPARQLUtils.labelFromURI(rel)}')
+                    curitem.setText(f'{self.queryresult[rel][val]["rellabel"]} ({SPARQLUtils.labelFromURI(rel)})')
                 self.searchResultModel.setItem(counter, 1, curitem)
                 curitem=QStandardItem()
                 if self.label is not None and self.label!= "":

@@ -506,7 +506,9 @@ class SPARQLUtils:
                     while qidquery.endswith("|"):
                         qidquery=qidquery[:-1]
                     #QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
-                    myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery).replace("%%language%%",preferredlang)).text)
+                    res = requests.get(url.replace("%%concepts%%", qidquery).replace("%%language%%",preferredlang), headers={'User-agent': 'Mozilla/5.0'})
+                    # QgsMessageLog.logMessage('Started task "{}" Query:'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+                    myResponse = json.loads(res.text)
                     #QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
                     #QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
                     if "entities" in myResponse:
