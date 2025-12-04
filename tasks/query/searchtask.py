@@ -57,9 +57,9 @@ class SearchTask(QgsTask):
             if self.results == False:
                 return False
         else:
-            QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
             res=requests.get(self.query,headers={'User-agent': 'Mozilla/5.0'})
-            QgsMessageLog.logMessage('Started task "{}" Query:'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}" Query:'.format(res), MESSAGE_CATEGORY, Qgis.Info)
             myResponse = json.loads(res.text)
             self.qids = []
             QgsMessageLog.logMessage('Started task "{}" Query:'.format(myResponse), MESSAGE_CATEGORY, Qgis.Info)
