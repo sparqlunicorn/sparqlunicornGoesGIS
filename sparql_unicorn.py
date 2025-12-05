@@ -187,11 +187,11 @@ class SPARQLunicorn:
             callback=self.run,
             parent=self.iface.mainWindow())
 
-        self.add_action(
-            UIUtils.pickericon,
-            text=self.tr(u'SPARQL Unicorn Layer Picker'),
-            callback=self.choose_point_mapping_tool,
-            parent=self.iface.mainWindow())
+        #self.add_action(
+        #    UIUtils.pickericon,
+        #    text=self.tr(u'SPARQL Unicorn Layer Picker'),
+        #    callback=self.choose_point_mapping_tool,
+        #    parent=self.iface.mainWindow())
 
         # will be set False in run()
         self.first_start = True
@@ -271,7 +271,7 @@ class SPARQLunicorn:
             uploaddialog.exec_()
         else:
             filename, _filter = QFileDialog.getSaveFileName(
-                self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+                self.dlg, "Select output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
             if filename == "":
                 return
             if filename.endswith("graphml"):
