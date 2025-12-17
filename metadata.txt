@@ -22,6 +22,7 @@ tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 hasProcessingProvider=no
 changelog=
 0.17.4: Update to rdflib version 7.5
+      - Update pySHACL to version 0.30.1
       - Ontology generation speed improved
       - Ontology generation log
       - Qt6 Compatibility Bugfixes
