@@ -3,11 +3,12 @@ This is a rdflib plugin for parsing NQuad files into Conjunctive
 graphs that can be used and queried. The store that backs the graph
 *must* be able to handle contexts.
 
+```python
 >>> from rdflib import ConjunctiveGraph, URIRef, Namespace
 >>> g = ConjunctiveGraph()
 >>> data = open("test/data/nquads.rdflib/example.nquads", "rb")
 >>> g.parse(data, format="nquads") # doctest:+ELLIPSIS
-<Graph identifier=... (<class 'rdflib.graph.Graph'>)>
+<Graph identifier=... (<class 'rdflib.graph.ConjunctiveGraph'>)>
 >>> assert len(g.store) == 449
 >>> # There should be 16 separate contexts
 >>> assert len([x for x in g.store.contexts()]) == 16
@@ -21,6 +22,8 @@ graphs that can be used and queried. The store that backs the graph
 >>> s = URIRef("http://bibliographica.org/entity/E10009")
 >>> FOAF = Namespace("http://xmlns.com/foaf/0.1/")
 >>> assert(g.value(s, FOAF.name).eq("Arco Publications"))
+
+```
 """
 
 from __future__ import annotations
@@ -52,16 +55,22 @@ class NQuadsParser(W3CNTriplesParser):
         skolemize: bool = False,
         **kwargs: Any,
     ):
-        """
-        Parse inputsource as an N-Quads file.
+        """Parse inputsource as an N-Quads file.
 
-        :type inputsource: `rdflib.parser.InputSource`
-        :param inputsource: the source of N-Quads-formatted data
-        :type sink: `rdflib.graph.Graph`
-        :param sink: where to send parsed triples
-        :type bnode_context: `dict`, optional
-        :param bnode_context: a dict mapping blank node identifiers to `~rdflib.term.BNode` instances.
-                              See `.W3CNTriplesParser.parse`
+        Args:
+            inputsource: The source of N-Quads-formatted data.
+            sink: The graph where parsed quads will be stored.
+            bnode_context: Optional dictionary mapping blank node identifiers to
+                [`BNode`][rdflib.term.BNode] instances.
+                See `.W3CNTriplesParser.parse` for more details.
+            skolemize: Whether to skolemize blank nodes.
+
+        Returns:
+            The Dataset containing the parsed quads.
+
+        Raises:
+            AssertionError: If the sink store is not context-aware.
+            ParseError: If the input is not a file-like object or contains invalid lines.
         """
         assert (
             sink.store.context_aware

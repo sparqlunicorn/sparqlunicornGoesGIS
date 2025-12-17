@@ -1,6 +1,6 @@
 """
 LongTurtle RDF graph serializer for RDFLib.
-See <http://www.w3.org/TeamSubmission/turtle/> for syntax specification.
+See http://www.w3.org/TeamSubmission/turtle/ for syntax specification.
 
 This variant, longturtle as opposed to just turtle, makes some small format changes
 to turtle - the original turtle serializer. It:
@@ -22,7 +22,7 @@ from typing import IO, Any, Optional
 
 from rdflib.compare import to_canonical_graph
 from rdflib.exceptions import Error
-from rdflib.graph import Graph
+from rdflib.graph import Graph, _TripleType
 from rdflib.namespace import RDF
 from rdflib.term import BNode, Literal, URIRef
 
@@ -39,21 +39,20 @@ _SPACIOUS_OUTPUT = False
 
 
 class LongTurtleSerializer(RecursiveSerializer):
+    """LongTurtle, a Turtle serialization format.
+
+    When the optional parameter `canon` is set to `True`, the graph is canonicalized
+    before serialization. This normalizes blank node identifiers and allows for
+    deterministic serialization of the graph. Useful when consistent outputs are required.
+    """
+
     short_name = "longturtle"
     indentString = "    "
 
     def __init__(self, store):
         self._ns_rewrite = {}
-        store = to_canonical_graph(store)
-        content = store.serialize(format="application/n-triples")
-        lines = content.split("\n")
-        lines.sort()
-        graph = Graph()
-        graph.parse(
-            data="\n".join(lines), format="application/n-triples", skolemize=True
-        )
-        graph = graph.de_skolemize()
-        super(LongTurtleSerializer, self).__init__(graph)
+        self._canon = False
+        super(LongTurtleSerializer, self).__init__(store)
         self.keywords = {RDF.type: "a"}
         self.reset()
         self.stream = None
@@ -83,11 +82,34 @@ class LongTurtleSerializer(RecursiveSerializer):
         super(LongTurtleSerializer, self).addNamespace(prefix, namespace)
         return prefix
 
+    def canonize(self):
+        """Apply canonicalization to the store.
+
+        This normalizes blank node identifiers and allows for deterministic
+        serialization of the graph.
+        """
+        if not self._canon:
+            return
+
+        namespace_manager = self.store.namespace_manager
+        store = to_canonical_graph(self.store)
+        content = store.serialize(format="application/n-triples")
+        lines = content.split("\n")
+        lines.sort()
+        graph = Graph()
+        graph.parse(
+            data="\n".join(lines), format="application/n-triples", skolemize=True
+        )
+        graph = graph.de_skolemize()
+        graph.namespace_manager = namespace_manager
+        self.store = graph
+
     def reset(self):
         super(LongTurtleSerializer, self).reset()
         self._shortNames = {}
         self._started = False
         self._ns_rewrite = {}
+        self.canonize()
 
     def serialize(
         self,
@@ -97,6 +119,7 @@ class LongTurtleSerializer(RecursiveSerializer):
         spacious: Optional[bool] = None,
         **kwargs: Any,
     ) -> None:
+        self._canon = kwargs.get("canon", False)
         self.reset()
         self.stream = stream
         # if base is given here, use, if not and a base is set for the graph use that
@@ -126,11 +149,22 @@ class LongTurtleSerializer(RecursiveSerializer):
 
         self.base = None
 
-    def preprocessTriple(self, triple):
+    def preprocessTriple(self, triple: _TripleType) -> None:
         super(LongTurtleSerializer, self).preprocessTriple(triple)
         for i, node in enumerate(triple):
-            if node in self.keywords:
-                continue
+            if i == VERB:
+                if node in self.keywords:
+                    # predicate is a keyword
+                    continue
+                if (
+                    self.base is not None
+                    and isinstance(node, URIRef)
+                    and node.startswith(self.base)
+                    and "#" not in node.replace(self.base, "")
+                    and "/" not in node.replace(self.base, "")
+                ):
+                    # predicate corresponds to base namespace
+                    continue
             # Don't use generated prefixes for subjects and objects
             self.getQName(node, gen_prefix=(i == VERB))
             if isinstance(node, Literal) and node.datatype:
@@ -156,6 +190,8 @@ class LongTurtleSerializer(RecursiveSerializer):
                 return None
 
         prefix, namespace, local = parts
+
+        local = local.replace(r"(", r"\(").replace(r")", r"\)")
 
         # QName cannot end with .
         if local.endswith("."):

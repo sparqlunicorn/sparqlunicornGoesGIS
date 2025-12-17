@@ -1,28 +1,26 @@
-"""
-Plugin support for rdf.
+"""Plugin support for rdf.
 
 There are a number of plugin points for rdf: parser, serializer,
 store, query processor, and query result. Plugins can be registered
 either through setuptools entry_points or by calling
 rdf.plugin.register directly.
 
-If you have a package that uses a setuptools based setup.py you can add the
-following to your setup::
+If you have a package that uses a setuptools based `setup.py` you can add the
+following to your setup:
 
-    entry_points = {
-        'rdf.plugins.parser': [
-            'nt =     rdf.plugins.parsers.ntriples:NTParser',
-            ],
-        'rdf.plugins.serializer': [
-            'nt =     rdf.plugins.serializers.NTSerializer:NTSerializer',
-            ],
-        }
+```python
+entry_points = {
+    'rdf.plugins.parser': [
+        'nt =     rdf.plugins.parsers.ntriples:NTParser',
+        ],
+    'rdf.plugins.serializer': [
+        'nt =     rdf.plugins.serializers.NTSerializer:NTSerializer',
+        ],
+    }
+```
 
-See the `setuptools dynamic discovery of services and plugins`__ for more
-information.
-
-.. __: http://peak.telecommunity.com/DevCenter/setuptools#dynamic-discovery-of-services-and-plugins
-
+See the [setuptools dynamic discovery of services and plugins](http://peak.telecommunity.com/DevCenter/setuptools#dynamic-discovery-of-services-and-plugins)
+for moreinformation.
 """
 
 from __future__ import annotations
@@ -580,18 +578,6 @@ register(
     "XMLResultParser",
 )
 register(
-    "application/sparql-results+xml; charset=UTF-8",
-    ResultParser,
-    "rdflib.plugins.sparql.results.xmlresults",
-    "XMLResultParser",
-)
-register(
-    "application/rdf+xml",
-    ResultParser,
-    "rdflib.plugins.sparql.results.graph",
-    "GraphResultParser",
-)
-register(
     "json",
     ResultParser,
     "rdflib.plugins.sparql.results.jsonresults",
@@ -627,3 +613,14 @@ register(
     "rdflib.plugins.sparql.results.tsvresults",
     "TSVResultParser",
 )
+
+graph_parsers = {parser.name for parser in plugins(kind=Parser)}
+result_parsers = {parser.name for parser in plugins(kind=ResultParser)}
+graph_result_parsers = graph_parsers - result_parsers
+for parser_name in graph_result_parsers:
+    register(
+        parser_name,
+        ResultParser,
+        "rdflib.plugins.sparql.results.graph",
+        "GraphResultParser",
+    )

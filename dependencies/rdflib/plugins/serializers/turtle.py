@@ -17,6 +17,8 @@ from typing import (
     Optional,
     Sequence,
     Tuple,
+    TypeVar,
+    Union,
 )
 
 from rdflib.exceptions import Error
@@ -25,6 +27,8 @@ from rdflib.namespace import RDF, RDFS
 from rdflib.serializer import Serializer
 from rdflib.term import BNode, Literal, Node, URIRef
 
+_StrT = TypeVar("_StrT", bound=str)
+
 if TYPE_CHECKING:
     from rdflib.graph import _PredicateType, _SubjectType, _TripleType
 
@@ -32,6 +36,8 @@ __all__ = ["RecursiveSerializer", "TurtleSerializer"]
 
 
 class RecursiveSerializer(Serializer):
+    """Base class for recursive serializers."""
+
     topClasses = [RDFS.Class]
     predicateOrder = [RDF.type, RDFS.label]
     maxDepth = 10
@@ -72,7 +78,8 @@ class RecursiveSerializer(Serializer):
 
         for classURI in self.topClasses:
             members = list(self.store.subjects(RDF.type, classURI))
-            members.sort()
+            # type error: All overload variants of "sort" of "list" require at least one argument
+            members.sort()  # type: ignore[call-overload]
 
             subjects.extend(members)
             for member in members:
@@ -139,7 +146,8 @@ class RecursiveSerializer(Serializer):
         Sort the lists of values.  Return a sorted list of properties."""
         # Sort object lists
         for prop, objects in properties.items():
-            objects.sort()
+            # type error: All overload variants of "sort" of "list" require at least one argument
+            objects.sort()  # type: ignore[call-overload]
 
         # Make sorted list of properties
         propList: List[_PredicateType] = []
@@ -149,7 +157,8 @@ class RecursiveSerializer(Serializer):
                 propList.append(prop)
                 seen[prop] = True
         props = list(properties.keys())
-        props.sort()
+        # type error: All overload variants of "sort" of "list" require at least one argument
+        props.sort()  # type: ignore[call-overload]
         for prop in props:
             if prop not in seen:
                 propList.append(prop)
@@ -169,6 +178,18 @@ class RecursiveSerializer(Serializer):
         # type error: Item "None" of "Optional[IO[bytes]]" has no attribute "write"
         self.stream.write(text.encode(self.encoding, "replace"))  # type: ignore[union-attr]
 
+    def relativize(self, uri: _StrT) -> Union[_StrT, URIRef]:
+        base = self.base
+        if (
+            base is not None
+            and uri.startswith(base)
+            and "#" not in uri.replace(base, "")
+            and "/" not in uri.replace(base, "")
+        ):
+            # type error: Incompatible types in assignment (expression has type "str", variable has type "Node")
+            uri = URIRef(uri.replace(base, "", 1))  # type: ignore[assignment]
+        return uri
+
 
 SUBJECT = 0
 VERB = 1
@@ -179,6 +200,8 @@ _SPACIOUS_OUTPUT = False
 
 
 class TurtleSerializer(RecursiveSerializer):
+    """Turtle RDF graph serializer."""
+
     short_name = "turtle"
     indentString = "    "
 
@@ -263,9 +286,19 @@ class TurtleSerializer(RecursiveSerializer):
     def preprocessTriple(self, triple: _TripleType) -> None:
         super(TurtleSerializer, self).preprocessTriple(triple)
         for i, node in enumerate(triple):
-            if i == VERB and node in self.keywords:
-                # predicate is a keyword
-                continue
+            if i == VERB:
+                if node in self.keywords:
+                    # predicate is a keyword
+                    continue
+                if (
+                    self.base is not None
+                    and isinstance(node, URIRef)
+                    and node.startswith(self.base)
+                    and "#" not in node.replace(self.base, "")
+                    and "/" not in node.replace(self.base, "")
+                ):
+                    # predicate corresponds to base namespace
+                    continue
             # Don't use generated prefixes for subjects and objects
             self.getQName(node, gen_prefix=(i == VERB))
             if isinstance(node, Literal) and node.datatype:

@@ -1,7 +1,5 @@
 """
-
 Code for carrying out Update Operations
-
 """
 
 from __future__ import annotations
@@ -181,8 +179,11 @@ def evalModify(ctx: QueryContext, u: CompValue) -> None:
             g = ctx.dataset.get_context(u.withClause)
             ctx = ctx.pushGraph(g)
 
-    for c in res:
-        dg = ctx.graph
+    for c in list(res):
+        # TODO: Make this more intentional and without the weird type checking logic
+        #       once ConjunctiveGraph is removed and Dataset no longer inherits from
+        #       Graph.
+        dg = ctx.graph if type(ctx.graph) is Graph else ctx.dataset.default_context
         if u.delete:
             # type error: Unsupported left operand type for - ("None")
             # type error: Unsupported operand types for - ("Graph" and "Generator[Tuple[Identifier, Identifier, Identifier], None, None]")
@@ -285,9 +286,7 @@ def evalUpdate(
     update: Update,
     initBindings: Optional[Mapping[str, Identifier]] = None,
 ) -> None:
-    """
-
-    http://www.w3.org/TR/sparql11-update/#updateLanguage
+    """http://www.w3.org/TR/sparql11-update/#updateLanguage
 
     'A request is a sequence of operations [...] Implementations MUST
     ensure that operations of a single request are executed in a
@@ -302,17 +301,17 @@ def evalUpdate(
 
     This will return None on success and raise Exceptions on error
 
-    .. caution::
+    !!! warning "Security Considerations"
 
         This method can access indirectly requested network endpoints, for
         example, query processing will attempt to access network endpoints
-        specified in ``SERVICE`` directives.
+        specified in `SERVICE` directives.
 
         When processing untrusted or potentially malicious queries, measures
         should be taken to restrict network and file access.
 
         For information on available security measures, see the RDFLib
-        :doc:`Security Considerations </security_considerations>`
+        [Security Considerations](../security_considerations.md)
         documentation.
 
     """

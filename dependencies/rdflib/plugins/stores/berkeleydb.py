@@ -4,7 +4,17 @@ import logging
 from os import mkdir
 from os.path import abspath, exists
 from threading import Thread
-from typing import TYPE_CHECKING, Any, Callable, Dict, Generator, List, Optional, Tuple
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Callable,
+    Dict,
+    Generator,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
 from urllib.request import pathname2url
 
 from rdflib.store import NO_STORE, VALID_STORE, Store
@@ -61,25 +71,23 @@ _ResultsFromKeyFunc = Callable[
 
 
 class BerkeleyDB(Store):
-    """\
-    A store that allows for on-disk persistent using BerkeleyDB, a fast
-    key/value DB.
+    """A store that allows for on-disk persistent using BerkeleyDB, a fast key/value DB.
 
     This store implementation used to be known, previous to rdflib 6.0.0
     as 'Sleepycat' due to that being the then name of the Python wrapper
     for BerkeleyDB.
 
     This store allows for quads as well as triples. See examples of use
-    in both the `examples.berkeleydb_example` and ``test/test_store/test_store_berkeleydb.py``
+    in both the `examples.berkeleydb_example` and `test/test_store/test_store_berkeleydb.py`
     files.
 
     **NOTE on installation**:
 
     To use this store, you must have BerkeleyDB installed on your system
-    separately to Python (``brew install berkeley-db`` on a Mac) and also have
-    the BerkeleyDB Python wrapper installed (``pip install berkeleydb``).
+    separately to Python (`brew install berkeley-db` on a Mac) and also have
+    the BerkeleyDB Python wrapper installed (`pip install berkeleydb`).
     You may need to install BerkeleyDB Python wrapper like this:
-    ``YES_I_HAVE_THE_RIGHT_TO_USE_THIS_BERKELEY_DB_VERSION=1 pip install berkeleydb``
+    `YES_I_HAVE_THE_RIGHT_TO_USE_THIS_BERKELEY_DB_VERSION=1 pip install berkeleydb`
     """
 
     context_aware = True
@@ -127,10 +135,16 @@ class BerkeleyDB(Store):
     def is_open(self) -> bool:
         return self.__open
 
-    def open(self, path: str, create: bool = True) -> Optional[int]:
+    def open(
+        self, configuration: Union[str, tuple[str, str]], create: bool = True
+    ) -> Optional[int]:
         if not has_bsddb:
             return NO_STORE
-        homeDir = path  # noqa: N806
+
+        if type(configuration) is str:
+            homeDir = configuration  # noqa: N806
+        else:
+            raise Exception("Invalid configuration provided")
 
         if self.__identifier is None:
             self.__identifier = URIRef(pathname2url(abspath(homeDir)))
