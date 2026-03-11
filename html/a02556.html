@@ -1,0 +1,1214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: RDF4JStore Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02556.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="a02553.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">RDF4JStore Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for RDF4JStore:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02555.png" border="0" usemap="#aRDF4JStore_inherit__map" alt="Inheritance graph"/></div>
+<map name="aRDF4JStore_inherit__map" id="aRDF4JStore_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,100,104"/>
+<area shape="rect" href="a02640.html" title=" " alt="" coords="25,5,81,31"/>
+<area shape="poly" title=" " alt="" coords="55,44,55,79,50,79,50,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for RDF4JStore:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02554.png" border="0" usemap="#aRDF4JStore_coll__map" alt="Collaboration graph"/></div>
+<map name="aRDF4JStore_coll__map" id="aRDF4JStore_coll__map">
+<area shape="rect" title=" " alt="" coords="13,245,107,271"/>
+<area shape="rect" href="a02640.html" title=" " alt="" coords="155,154,211,179"/>
+<area shape="poly" title=" " alt="" coords="157,190,78,247,74,243,154,185"/>
+<area shape="rect" title=" " alt="" coords="5,5,56,31"/>
+<area shape="poly" title=" " alt="" coords="27,44,17,114,17,155,24,195,36,222,52,244,48,247,32,225,19,197,12,155,11,113,22,44"/>
+<area shape="poly" title=" " alt="" coords="54,38,173,152,169,156,51,42"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a74e45445cbfe71e83e4dea56ce4459ee" id="r_a74e45445cbfe71e83e4dea56ce4459ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a74e45445cbfe71e83e4dea56ce4459ee">__init__</a> (self, str base_url, str repository_id, str|None configuration=None, tuple[str, str]|None auth=None, float timeout=30.0, bool <a class="el" href="a02640.html#a6c0fc185a0f85585afbb25c238855e33">create</a>=False, **kwargs)</td></tr>
+<tr class="separator:a74e45445cbfe71e83e4dea56ce4459ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2831d62341e389eb5c2db0d431606a23" id="r_a2831d62341e389eb5c2db0d431606a23"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a2831d62341e389eb5c2db0d431606a23">client</a> (self)</td></tr>
+<tr class="separator:a2831d62341e389eb5c2db0d431606a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef60e48015b5664a6e7fe4decce1918" id="r_abef60e48015b5664a6e7fe4decce1918"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">repo</a> (self)</td></tr>
+<tr class="separator:abef60e48015b5664a6e7fe4decce1918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2446f345d39241531ce8c564c88fc870" id="r_a2446f345d39241531ce8c564c88fc870"><td class="memItemLeft" align="right" valign="top">int|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a2446f345d39241531ce8c564c88fc870">open</a> (self, str|tuple[str, str]|None configuration, bool <a class="el" href="a02640.html#a6c0fc185a0f85585afbb25c238855e33">create</a>=False)</td></tr>
+<tr class="separator:a2446f345d39241531ce8c564c88fc870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6806dc354f8c20b51cc4559b9ab3135" id="r_aa6806dc354f8c20b51cc4559b9ab3135"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#aa6806dc354f8c20b51cc4559b9ab3135">close</a> (self, bool commit_pending_transaction=False)</td></tr>
+<tr class="separator:aa6806dc354f8c20b51cc4559b9ab3135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb1d6c8965a9203bcdc584667faa78db" id="r_afb1d6c8965a9203bcdc584667faa78db"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#afb1d6c8965a9203bcdc584667faa78db">add</a> (self, _TripleType triple, _ContextType|None context=None, bool quoted=False)</td></tr>
+<tr class="separator:afb1d6c8965a9203bcdc584667faa78db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0266459f64867ee571d9f08176411bc8" id="r_a0266459f64867ee571d9f08176411bc8"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a0266459f64867ee571d9f08176411bc8">addN</a> (self, Iterable[_QuadType] quads)</td></tr>
+<tr class="separator:a0266459f64867ee571d9f08176411bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e366110ab6b961cd0e049aa7073e3d" id="r_af5e366110ab6b961cd0e049aa7073e3d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#af5e366110ab6b961cd0e049aa7073e3d">remove</a> (self, _TriplePatternType triple, Optional[_ContextType] context=None)</td></tr>
+<tr class="separator:af5e366110ab6b961cd0e049aa7073e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8335edaf47862e5bd335865d4537cc0" id="r_af8335edaf47862e5bd335865d4537cc0"><td class="memItemLeft" align="right" valign="top">Iterator[Tuple[_TripleType, Iterator[Optional[_ContextType]]]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#af8335edaf47862e5bd335865d4537cc0">triples</a> (self, _TriplePatternType triple_pattern, Optional[_ContextType] context=None)</td></tr>
+<tr class="separator:af8335edaf47862e5bd335865d4537cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d1647a3283def4ead1c4f797ed3a0d" id="r_ac0d1647a3283def4ead1c4f797ed3a0d"><td class="memItemLeft" align="right" valign="top">Generator[_ContextType, None, None]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#ac0d1647a3283def4ead1c4f797ed3a0d">contexts</a> (self, Optional[_TripleType] triple=None)</td></tr>
+<tr class="separator:ac0d1647a3283def4ead1c4f797ed3a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76979cf23c9d00b88b434f007b4037eb" id="r_a76979cf23c9d00b88b434f007b4037eb"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a76979cf23c9d00b88b434f007b4037eb">bind</a> (self, str <a class="el" href="a02556.html#a1876f361153f147aadad368d461b3a6e">prefix</a>, <a class="el" href="a02656.html">URIRef</a> <a class="el" href="a02556.html#a2be532436b279e8437bd19e0d2559a3a">namespace</a>, bool override=True)</td></tr>
+<tr class="separator:a76979cf23c9d00b88b434f007b4037eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1876f361153f147aadad368d461b3a6e" id="r_a1876f361153f147aadad368d461b3a6e"><td class="memItemLeft" align="right" valign="top">Optional[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a1876f361153f147aadad368d461b3a6e">prefix</a> (self, <a class="el" href="a02656.html">URIRef</a> <a class="el" href="a02556.html#a2be532436b279e8437bd19e0d2559a3a">namespace</a>)</td></tr>
+<tr class="separator:a1876f361153f147aadad368d461b3a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2be532436b279e8437bd19e0d2559a3a" id="r_a2be532436b279e8437bd19e0d2559a3a"><td class="memItemLeft" align="right" valign="top">Optional[<a class="el" href="a02656.html">URIRef</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a2be532436b279e8437bd19e0d2559a3a">namespace</a> (self, str <a class="el" href="a02556.html#a1876f361153f147aadad368d461b3a6e">prefix</a>)</td></tr>
+<tr class="separator:a2be532436b279e8437bd19e0d2559a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82b100d6114a28cdd0cbd9880305ca38" id="r_a82b100d6114a28cdd0cbd9880305ca38"><td class="memItemLeft" align="right" valign="top">Iterator[Tuple[str, <a class="el" href="a02656.html">URIRef</a>]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a82b100d6114a28cdd0cbd9880305ca38">namespaces</a> (self)</td></tr>
+<tr class="separator:a82b100d6114a28cdd0cbd9880305ca38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef47b97f428f44527c9114f868058c00" id="r_aef47b97f428f44527c9114f868058c00"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#aef47b97f428f44527c9114f868058c00">add_graph</a> (self, <a class="el" href="a01920.html">Graph</a> graph)</td></tr>
+<tr class="separator:aef47b97f428f44527c9114f868058c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a158e0bab10c9fcd5863b6198eef4f313" id="r_a158e0bab10c9fcd5863b6198eef4f313"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a158e0bab10c9fcd5863b6198eef4f313">remove_graph</a> (self, <a class="el" href="a01920.html">Graph</a> graph)</td></tr>
+<tr class="separator:a158e0bab10c9fcd5863b6198eef4f313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a146606b94d8c52bf03359a790f6b39cb" id="r_a146606b94d8c52bf03359a790f6b39cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a146606b94d8c52bf03359a790f6b39cb">__len__</a> (self, _ContextType|None context=None)</td></tr>
+<tr class="separator:a146606b94d8c52bf03359a790f6b39cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a0a484884a934aa0c88f30e742b173404" id="r_a0a484884a934aa0c88f30e742b173404"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a0a484884a934aa0c88f30e742b173404">context_aware</a> = True</td></tr>
+<tr class="separator:a0a484884a934aa0c88f30e742b173404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc2b00a8e76ede259d80baac11601df2" id="r_afc2b00a8e76ede259d80baac11601df2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#afc2b00a8e76ede259d80baac11601df2">formula_aware</a> = False</td></tr>
+<tr class="separator:afc2b00a8e76ede259d80baac11601df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace32d9f7db85f65a9ada77c5f1737cfa" id="r_ace32d9f7db85f65a9ada77c5f1737cfa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#ace32d9f7db85f65a9ada77c5f1737cfa">transaction_aware</a> = False</td></tr>
+<tr class="separator:ace32d9f7db85f65a9ada77c5f1737cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1367316249ce935b4c72d916780667db" id="r_a1367316249ce935b4c72d916780667db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a1367316249ce935b4c72d916780667db">graph_aware</a> = True</td></tr>
+<tr class="separator:a1367316249ce935b4c72d916780667db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:aaa9cb65f17cb46e986f3d3116677e38a" id="r_aaa9cb65f17cb46e986f3d3116677e38a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#aaa9cb65f17cb46e986f3d3116677e38a">_client</a></td></tr>
+<tr class="separator:aaa9cb65f17cb46e986f3d3116677e38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f7d7acca866edf43bb90462723f76b3" id="r_a5f7d7acca866edf43bb90462723f76b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a5f7d7acca866edf43bb90462723f76b3">_repository_id</a></td></tr>
+<tr class="separator:a5f7d7acca866edf43bb90462723f76b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98d31a53bab0ca35d88064217a1f6044" id="r_a98d31a53bab0ca35d88064217a1f6044"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02556.html#a98d31a53bab0ca35d88064217a1f6044">_repo</a></td></tr>
+<tr class="separator:a98d31a53bab0ca35d88064217a1f6044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">An RDF4J store.</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a74e45445cbfe71e83e4dea56ce4459ee" name="a74e45445cbfe71e83e4dea56ce4459ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74e45445cbfe71e83e4dea56ce4459ee">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>configuration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>identifier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | None &#160;</td>
+          <td class="paramname"><em>configuration</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">tuple[str, str] | None &#160;</td>
+          <td class="paramname"><em>auth</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &#160;</td>
+          <td class="paramname"><em>timeout</em> = <code>30.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>create</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Initialize the Store.
+
+Args:
+    identifier: URIRef of the Store. Defaults to CWD
+    configuration: String containing information open can use to
+        connect to datastore.
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a02b4cd8c0997d0188097ce7accf31dc8">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   86</span>    ):</div>
+<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">if</span> configuration <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   88</span>            configuration = _default_repo_config(repository_id)</div>
+<div class="line"><span class="lineno">   89</span>        self._client = RDF4JClient(base_url, auth, timeout, **kwargs)</div>
+<div class="line"><span class="lineno">   90</span>        self._repository_id = repository_id</div>
+<div class="line"><span class="lineno">   91</span>        self._repo = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   92</span>        self.open(configuration, create)</div>
+<div class="line"><span class="lineno">   93</span>        super().__init__()</div>
+<div class="line"><span class="lineno">   94</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01104.html#a2a30aeae2b59079a6a5ece56bcac9a61">rdflib.plugins.stores.rdf4j._default_repo_config()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a146606b94d8c52bf03359a790f6b39cb" name="a146606b94d8c52bf03359a790f6b39cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a146606b94d8c52bf03359a790f6b39cb">&#9670;&#160;</a></span>__len__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int __len__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_ContextType | None &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Number of statements in the store. This should only account for non-
+quoted (asserted) statements if the context is not specified,
+otherwise it should return the number of statements in the formula or
+context given.
+
+Args:
+    context: a graph instance to query or None
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#ac5b3c7344a9531aed37ea76a4a998f97">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  222</span>    <span class="keyword">def </span>__len__(self, context: _ContextType | <span class="keywordtype">None</span> = <span class="keywordtype">None</span>) -&gt; int:</div>
+<div class="line"><span class="lineno">  223</span>        <span class="keywordflow">return</span> self.repo.size(context <span class="keywordflow">if</span> context <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> context.identifier)</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+</div>
+</div>
+<a id="afb1d6c8965a9203bcdc584667faa78db" name="afb1d6c8965a9203bcdc584667faa78db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb1d6c8965a9203bcdc584667faa78db">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None add </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_TripleType&#160;</td>
+          <td class="paramname"><em>triple</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_ContextType | None &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>quoted</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Adds the given statement to a specific context or to the model.
+
+Args:
+    triple: The triple to add
+    context: The context to add the triple to
+    quoted: If True, indicates this statement is quoted/hypothetical
+        (for formula-aware stores)
+
+Note:
+    It should be an error to not specify a context and have the quoted
+    argument be True. It should also be an error for the quoted argument
+    to be True when the store is not formula-aware.
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a0e9bb20c4ea13c6a83f2ce67e632881c">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  128</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  129</span>        s, p, o = triple</div>
+<div class="line"><span class="lineno">  130</span>        graph_name = (</div>
+<div class="line"><span class="lineno">  131</span>            <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  132</span>            <span class="keywordflow">if</span> context <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> context.identifier == DATASET_DEFAULT_GRAPH_ID</div>
+<div class="line"><span class="lineno">  133</span>            <span class="keywordflow">else</span> context.identifier.n3()</div>
+<div class="line"><span class="lineno">  134</span>        )</div>
+<div class="line"><span class="lineno">  135</span>        statement = f<span class="stringliteral">&quot;{s.n3()} {p.n3()} {o.n3()} {graph_name} .&quot;</span></div>
+<div class="line"><span class="lineno">  136</span>        self.repo.upload(statement)</div>
+<div class="line"><span class="lineno">  137</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02640.html#a0266459f64867ee571d9f08176411bc8">Store.addN()</a>, and <a class="el" href="a01920.html#af03ef57cf5d8237fabce7436e85301d6">Graph.set()</a>.</p>
+
+</div>
+</div>
+<a id="aef47b97f428f44527c9114f868058c00" name="aef47b97f428f44527c9114f868058c00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef47b97f428f44527c9114f868058c00">&#9670;&#160;</a></span>add_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None add_graph </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Add a graph to the store, no effect if the graph already
+exists.
+
+Args:
+    graph: a Graph instance
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#aef47b97f428f44527c9114f868058c00">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  214</span>    <span class="keyword">def </span>add_graph(self, graph: Graph) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">if</span> graph.identifier != DATASET_DEFAULT_GRAPH_ID:</div>
+<div class="line"><span class="lineno">  216</span>            <span class="comment"># Note: this is a no-op since RDF4J doesn&#39;t support empty named graphs.</span></div>
+<div class="line"><span class="lineno">  217</span>            self.repo.update(f<span class="stringliteral">&quot;CREATE SILENT GRAPH {graph.identifier.n3()}&quot;</span>)</div>
+<div class="line"><span class="lineno">  218</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>, and <a class="el" href="a02640.html#a32f6c8ae0916c216da90237203328134">Store.update()</a>.</p>
+
+</div>
+</div>
+<a id="a0266459f64867ee571d9f08176411bc8" name="a0266459f64867ee571d9f08176411bc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0266459f64867ee571d9f08176411bc8">&#9670;&#160;</a></span>addN()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None addN </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Iterable[_QuadType]&#160;</td>
+          <td class="paramname"><em>quads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Adds each item in the list of statements to a specific context.
+
+The quoted argument is interpreted by formula-aware stores to indicate this
+statement is quoted/hypothetical.
+
+Note:
+    The default implementation is a redirect to add.
+
+Args:
+    quads: An iterable of quads to add
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a0266459f64867ee571d9f08176411bc8">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  138</span>    <span class="keyword">def </span>addN(self, quads: Iterable[_QuadType]) -&gt; <span class="keywordtype">None</span>:  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  139</span>        statements = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">for</span> s, p, o, c <span class="keywordflow">in</span> quads:</div>
+<div class="line"><span class="lineno">  141</span>            graph_name = (</div>
+<div class="line"><span class="lineno">  142</span>                <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  143</span>                <span class="keywordflow">if</span> c <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> c.identifier == DATASET_DEFAULT_GRAPH_ID</div>
+<div class="line"><span class="lineno">  144</span>                <span class="keywordflow">else</span> c.identifier.n3()</div>
+<div class="line"><span class="lineno">  145</span>            )</div>
+<div class="line"><span class="lineno">  146</span>            statement = f<span class="stringliteral">&quot;{s.n3()} {p.n3()} {o.n3()} {graph_name} .\n&quot;</span></div>
+<div class="line"><span class="lineno">  147</span>            statements += statement</div>
+<div class="line"><span class="lineno">  148</span>        self.repo.upload(statements)</div>
+<div class="line"><span class="lineno">  149</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a9d90bc580ad3e6d9f4fd1a50eef08bdf">Graph.__iadd__()</a>.</p>
+
+</div>
+</div>
+<a id="a76979cf23c9d00b88b434f007b4037eb" name="a76979cf23c9d00b88b434f007b4037eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76979cf23c9d00b88b434f007b4037eb">&#9670;&#160;</a></span>bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None bind </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>prefix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a>&#160;</td>
+          <td class="paramname"><em>namespace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>override</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Bind a namespace to a prefix.
+
+Args:
+    prefix: The prefix to bind the namespace to.
+    namespace: The URIRef of the namespace to bind.
+    override: If True, rebind even if the given namespace is already bound
+        to another prefix
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a76979cf23c9d00b88b434f007b4037eb">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  196</span>    <span class="keyword">def </span>bind(self, prefix: str, namespace: URIRef, override: bool = <span class="keyword">True</span>) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  197</span>        <span class="comment"># Note: RDF4J namespaces always override.</span></div>
+<div class="line"><span class="lineno">  198</span>        self.repo.namespaces.set(prefix, namespace)</div>
+<div class="line"><span class="lineno">  199</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, and <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>.</p>
+
+</div>
+</div>
+<a id="a2831d62341e389eb5c2db0d431606a23" name="a2831d62341e389eb5c2db0d431606a23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2831d62341e389eb5c2db0d431606a23">&#9670;&#160;</a></span>client()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">client </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   96</span>    <span class="keyword">def </span>client(self):</div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">return</span> self._client</div>
+<div class="line"><span class="lineno">   98</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02556.html#aaa9cb65f17cb46e986f3d3116677e38a">RDF4JStore._client</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02556.html#aa6806dc354f8c20b51cc4559b9ab3135">RDF4JStore.close()</a>, <a class="el" href="a02556.html#a2446f345d39241531ce8c564c88fc870">RDF4JStore.open()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+</div>
+</div>
+<a id="aa6806dc354f8c20b51cc4559b9ab3135" name="aa6806dc354f8c20b51cc4559b9ab3135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6806dc354f8c20b51cc4559b9ab3135">&#9670;&#160;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None close </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>commit_pending_transaction</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Closes the database connection.
+
+Args:
+    commit_pending_transaction: Whether to commit all pending
+        transactions before closing (if the store is transactional).
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#aa6806dc354f8c20b51cc4559b9ab3135">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  120</span>    <span class="keyword">def </span>close(self, commit_pending_transaction: bool = <span class="keyword">False</span>) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  121</span>        self.client.close()</div>
+<div class="line"><span class="lineno">  122</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02556.html#a2831d62341e389eb5c2db0d431606a23">RDF4JStore.client()</a>, and <a class="el" href="a02556.html#aa6806dc354f8c20b51cc4559b9ab3135">RDF4JStore.close()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01776.html#a9ea6bfea91f5b8e9919675d869ee1c66">RDF4JClient.__exit__()</a>, <a class="el" href="a02880.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a02912.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a02920.html#ab4a0ff7ecb35358bb38cbc0f1e5e8090">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>, <a class="el" href="a02556.html#aa6806dc354f8c20b51cc4559b9ab3135">RDF4JStore.close()</a>, <a class="el" href="a02884.html#a8a95231f04f9aa982da78135367dd68f">BaseLayerDialog.saveBaseLayer()</a>, <a class="el" href="a02904.html#a4bd5f0ea1dd89d4e07a05d530b008657">PrefixDialog.savePrefix()</a>, <a class="el" href="a02892.html#afb0802cb9ce06a195a5c1ff949a28cca">ExampleQueryDialog.saveQuery()</a>, and <a class="el" href="a02888.html#a9fd005fb9c3111a088c0813907ae43c0">BBOXDialog.setBBOXExtentQuery()</a>.</p>
+
+</div>
+</div>
+<a id="ac0d1647a3283def4ead1c4f797ed3a0d" name="ac0d1647a3283def4ead1c4f797ed3a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d1647a3283def4ead1c4f797ed3a0d">&#9670;&#160;</a></span>contexts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Generator[_ContextType, None, None] contexts </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_TripleType] &#160;</td>
+          <td class="paramname"><em>triple</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Generator over all contexts in the graph. If triple is specified,
+a generator over all contexts the triple is in.
+
+if store is graph_aware, may also return empty contexts
+
+:returns: a generator over Nodes
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#ac0d1647a3283def4ead1c4f797ed3a0d">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  178</span>    ) -&gt; Generator[_ContextType, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>]:</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">if</span> triple <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  180</span>            <span class="keywordflow">for</span> graph_name <span class="keywordflow">in</span> self.repo.graph_names():</div>
+<div class="line"><span class="lineno">  181</span>                <span class="keywordflow">yield</span> Graph(self, identifier=graph_name)</div>
+<div class="line"><span class="lineno">  182</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  183</span>            s, p, o = triple</div>
+<div class="line"><span class="lineno">  184</span>            params = (</div>
+<div class="line"><span class="lineno">  185</span>                _node_to_sparql(s <span class="keywordflow">if</span> s <span class="keywordflow">else</span> Variable(<span class="stringliteral">&quot;s&quot;</span>)),</div>
+<div class="line"><span class="lineno">  186</span>                _node_to_sparql(p <span class="keywordflow">if</span> p <span class="keywordflow">else</span> Variable(<span class="stringliteral">&quot;p&quot;</span>)),</div>
+<div class="line"><span class="lineno">  187</span>                _node_to_sparql(o <span class="keywordflow">if</span> o <span class="keywordflow">else</span> Variable(<span class="stringliteral">&quot;o&quot;</span>)),</div>
+<div class="line"><span class="lineno">  188</span>            )</div>
+<div class="line"><span class="lineno">  189</span>            query = (</div>
+<div class="line"><span class="lineno">  190</span>                <span class="stringliteral">&quot;SELECT DISTINCT ?graph WHERE { GRAPH ?graph { %s %s %s } }&quot;</span> % params</div>
+<div class="line"><span class="lineno">  191</span>            )</div>
+<div class="line"><span class="lineno">  192</span>            result = self.repo.query(query)</div>
+<div class="line"><span class="lineno">  193</span>            <span class="keywordflow">for</span> row <span class="keywordflow">in</span> result:</div>
+<div class="line"><span class="lineno">  194</span>                <span class="keywordflow">yield</span> Graph(self, identifier=row[<span class="stringliteral">&quot;graph&quot;</span>])</div>
+<div class="line"><span class="lineno">  195</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01104.html#aeb0954ff0aafd95c609335c3e924f2a6">rdflib.plugins.stores.rdf4j._node_to_sparql()</a>, <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02308.html#a925317f7541d940b63b0d9cbc670cb92">TrigSerializer.preprocess()</a>, and <a class="el" href="a02264.html#a5522752fdac7bc3653dbbf017744ee84">HextuplesSerializer.serialize()</a>.</p>
+
+</div>
+</div>
+<a id="a2be532436b279e8437bd19e0d2559a3a" name="a2be532436b279e8437bd19e0d2559a3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2be532436b279e8437bd19e0d2559a3a">&#9670;&#160;</a></span>namespace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[<a class="el" href="a02656.html">URIRef</a>] namespace </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>prefix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment"> </pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a2be532436b279e8437bd19e0d2559a3a">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  206</span>    <span class="keyword">def </span>namespace(self, prefix: str) -&gt; Optional[URIRef]:</div>
+<div class="line"><span class="lineno">  207</span>        result = self.repo.namespaces.get(prefix)</div>
+<div class="line"><span class="lineno">  208</span>        <span class="keywordflow">return</span> URIRef(result) <span class="keywordflow">if</span> result <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  209</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+</div>
+</div>
+<a id="a82b100d6114a28cdd0cbd9880305ca38" name="a82b100d6114a28cdd0cbd9880305ca38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82b100d6114a28cdd0cbd9880305ca38">&#9670;&#160;</a></span>namespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Iterator[Tuple[str, <a class="el" href="a02656.html">URIRef</a>]] namespaces </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment"> </pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a82b100d6114a28cdd0cbd9880305ca38">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  210</span>    <span class="keyword">def </span>namespaces(self) -&gt; Iterator[Tuple[str, URIRef]]:</div>
+<div class="line"><span class="lineno">  211</span>        <span class="keywordflow">for</span> result <span class="keywordflow">in</span> self.repo.namespaces.list():</div>
+<div class="line"><span class="lineno">  212</span>            <span class="keywordflow">yield</span> result.prefix, URIRef(result.namespace)</div>
+<div class="line"><span class="lineno">  213</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a34129a0abb9037ca62ba2607412c8962">Graph.__add__()</a>, <a class="el" href="a01976.html#a0a9c3b6e2ace890a6a09a891dd50879a">NamespaceManager.__contains__()</a>, <a class="el" href="a02276.html#a6407d45dc646e58f0f60f8445265eda9">LongTurtleSerializer.addNamespace()</a>, <a class="el" href="a02320.html#a0d812c0741cfe20229cef6aeb37b0380">TurtleSerializer.addNamespace()</a>, <a class="el" href="a02316.html#abf5193236a62bac535ce449ad82b0d54">RecursiveSerializer.addNamespace()</a>, <a class="el" href="a02952.html#ac7eea24b5fa1c707c805a00e81984342">ExtractNamespaceTask.finishedExtractNS()</a>, <a class="el" href="a01764.html#a2488d371a763bdb7273c9dd9c8d30ccc">Repository.get()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a02952.html#a08060e0924949738f75a0cdd8b49cef4">ExtractNamespaceTask.run()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="a2446f345d39241531ce8c564c88fc870" name="a2446f345d39241531ce8c564c88fc870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2446f345d39241531ce8c564c88fc870">&#9670;&#160;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int | None open </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | tuple[str, str] | None&#160;</td>
+          <td class="paramname"><em>configuration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>create</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Opens the store specified by the configuration string.
+
+Args:
+    configuration: Store configuration string
+    create: If True, a store will be created if it doesn't exist.
+        If False and the store doesn't exist, an exception is raised.
+
+Returns:
+    One of: VALID_STORE, CORRUPTED_STORE, or NO_STORE
+
+Raises:
+    Exception: If there are insufficient permissions to open the store.
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a1d52201a97a168e85a008c19e9736f94">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  107</span>    ) -&gt; int | <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  109</span>            <span class="comment"># Try connecting to the repository.</span></div>
+<div class="line"><span class="lineno">  110</span>            self.repo.health()</div>
+<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">except</span> RepositoryNotFoundError:</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">if</span> create:</div>
+<div class="line"><span class="lineno">  113</span>                self.client.repositories.create(self._repository_id, configuration)</div>
+<div class="line"><span class="lineno">  114</span>                self.repo.health()</div>
+<div class="line"><span class="lineno">  115</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  116</span>                <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(f<span class="stringliteral">&quot;Repository {self._repository_id} not found.&quot;</span>)</div>
+<div class="line"><span class="lineno">  117</span> </div>
+<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">return</span> VALID_STORE</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="ttc" id="aa07480_html"><div class="ttname"><a href="a07480.html">Exception</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02556.html#a5f7d7acca866edf43bb90462723f76b3">RDF4JStore._repository_id</a>, <a class="el" href="a02556.html#a2831d62341e389eb5c2db0d431606a23">RDF4JStore.client()</a>, <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+</div>
+</div>
+<a id="a1876f361153f147aadad368d461b3a6e" name="a1876f361153f147aadad368d461b3a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1876f361153f147aadad368d461b3a6e">&#9670;&#160;</a></span>prefix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[str] prefix </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a>&#160;</td>
+          <td class="paramname"><em>namespace</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02640.html#a1876f361153f147aadad368d461b3a6e">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  200</span>    <span class="keyword">def </span>prefix(self, namespace: URIRef) -&gt; Optional[str]:</div>
+<div class="line"><span class="lineno">  201</span>        namespace_prefixes = dict(</div>
+<div class="line"><span class="lineno">  202</span>            [(x.namespace, x.prefix) <span class="keywordflow">for</span> x <span class="keywordflow">in</span> self.repo.namespaces.list()]</div>
+<div class="line"><span class="lineno">  203</span>        )</div>
+<div class="line"><span class="lineno">  204</span>        <span class="keywordflow">return</span> namespace_prefixes.get(str(namespace))</div>
+<div class="line"><span class="lineno">  205</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02684.html#adb09a112c7c147ab1171f8664a79f427">NodeUri.__call__()</a>, and <a class="el" href="a02576.html#a76979cf23c9d00b88b434f007b4037eb">SPARQLStore.bind()</a>.</p>
+
+</div>
+</div>
+<a id="af5e366110ab6b961cd0e049aa7073e3d" name="af5e366110ab6b961cd0e049aa7073e3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e366110ab6b961cd0e049aa7073e3d">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None remove </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_TriplePatternType&#160;</td>
+          <td class="paramname"><em>triple</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_ContextType] &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Remove the set of triples matching the pattern from the store</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#af5e366110ab6b961cd0e049aa7073e3d">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  154</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  155</span>        s, p, o = triple</div>
+<div class="line"><span class="lineno">  156</span>        g = context.identifier <span class="keywordflow">if</span> context <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  157</span>        self.repo.delete(s, p, o, g)</div>
+<div class="line"><span class="lineno">  158</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a2c90371769a2954eea149a4c70802f68">Graph.__isub__()</a>, <a class="el" href="a02536.html#a2a1fb3adfc5fa3d07498a8303c4aba8f">BerkeleyDB.remove_graph()</a>, <a class="el" href="a02552.html#a158e0bab10c9fcd5863b6198eef4f313">Memory.remove_graph()</a>, and <a class="el" href="a01920.html#af03ef57cf5d8237fabce7436e85301d6">Graph.set()</a>.</p>
+
+</div>
+</div>
+<a id="a158e0bab10c9fcd5863b6198eef4f313" name="a158e0bab10c9fcd5863b6198eef4f313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a158e0bab10c9fcd5863b6198eef4f313">&#9670;&#160;</a></span>remove_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None remove_graph </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Remove a graph from the store, this should also remove all
+triples in the graph
+
+Args:
+    graphid: a Graph instance
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#a158e0bab10c9fcd5863b6198eef4f313">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  219</span>    <span class="keyword">def </span>remove_graph(self, graph: Graph) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  220</span>        self.repo.graphs.clear(graph.identifier)</div>
+<div class="line"><span class="lineno">  221</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+</div>
+</div>
+<a id="abef60e48015b5664a6e7fe4decce1918" name="abef60e48015b5664a6e7fe4decce1918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef60e48015b5664a6e7fe4decce1918">&#9670;&#160;</a></span>repo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">repo </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  100</span>    <span class="keyword">def </span>repo(self):</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">if</span> self._repo <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  102</span>            self._repo = self.client.repositories.get(self._repository_id)</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">return</span> self._repo</div>
+<div class="line"><span class="lineno">  104</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#a98d31a53bab0ca35d88064217a1f6044">Transaction._repo</a>, <a class="el" href="a02556.html#a98d31a53bab0ca35d88064217a1f6044">RDF4JStore._repo</a>, <a class="el" href="a02556.html#a5f7d7acca866edf43bb90462723f76b3">RDF4JStore._repository_id</a>, and <a class="el" href="a02556.html#a2831d62341e389eb5c2db0d431606a23">RDF4JStore.client()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02556.html#a146606b94d8c52bf03359a790f6b39cb">RDF4JStore.__len__()</a>, <a class="el" href="a01768.html#a686629fefe12a784f7eb3a395e3e07c0">Transaction._start_transaction()</a>, <a class="el" href="a02556.html#afb1d6c8965a9203bcdc584667faa78db">RDF4JStore.add()</a>, <a class="el" href="a02556.html#aef47b97f428f44527c9114f868058c00">RDF4JStore.add_graph()</a>, <a class="el" href="a02556.html#a0266459f64867ee571d9f08176411bc8">RDF4JStore.addN()</a>, <a class="el" href="a02556.html#a76979cf23c9d00b88b434f007b4037eb">RDF4JStore.bind()</a>, <a class="el" href="a01768.html#aef9f050f08f3a95553a0d15762f9dad2">Transaction.commit()</a>, <a class="el" href="a02556.html#ac0d1647a3283def4ead1c4f797ed3a0d">RDF4JStore.contexts()</a>, <a class="el" href="a01768.html#a6845824f23bd2be9c8842282f9ec7d62">Transaction.delete()</a>, <a class="el" href="a01768.html#a2488d371a763bdb7273c9dd9c8d30ccc">Transaction.get()</a>, <a class="el" href="a02556.html#a2be532436b279e8437bd19e0d2559a3a">RDF4JStore.namespace()</a>, <a class="el" href="a02556.html#a82b100d6114a28cdd0cbd9880305ca38">RDF4JStore.namespaces()</a>, <a class="el" href="a02556.html#a2446f345d39241531ce8c564c88fc870">RDF4JStore.open()</a>, <a class="el" href="a01768.html#a04d7e57ecd43531f0e109bb5936926ea">Transaction.ping()</a>, <a class="el" href="a02556.html#a1876f361153f147aadad368d461b3a6e">RDF4JStore.prefix()</a>, <a class="el" href="a01768.html#acab8265dcd26ff0fbb4bfb281457f5c3">Transaction.query()</a>, <a class="el" href="a02556.html#af5e366110ab6b961cd0e049aa7073e3d">RDF4JStore.remove()</a>, <a class="el" href="a02556.html#a158e0bab10c9fcd5863b6198eef4f313">RDF4JStore.remove_graph()</a>, <a class="el" href="a01768.html#ac412064a6266aadf962039adb6e20e74">Transaction.rollback()</a>, <a class="el" href="a01768.html#a6df980155b9badd012947d3d8563ece7">Transaction.size()</a>, <a class="el" href="a02556.html#af8335edaf47862e5bd335865d4537cc0">RDF4JStore.triples()</a>, <a class="el" href="a01768.html#aaf8eba4fb8ecdcb531272a89821f6c3c">Transaction.update()</a>, and <a class="el" href="a01768.html#a1560ef6a3dc1f91af7bee92ffcaf3917">Transaction.upload()</a>.</p>
+
+</div>
+</div>
+<a id="af8335edaf47862e5bd335865d4537cc0" name="af8335edaf47862e5bd335865d4537cc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8335edaf47862e5bd335865d4537cc0">&#9670;&#160;</a></span>triples()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Iterator[Tuple[_TripleType, Iterator[Optional[_ContextType]]]] triples </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_TriplePatternType&#160;</td>
+          <td class="paramname"><em>triple_pattern</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_ContextType] &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">A generator over all the triples matching the pattern. Pattern can
+include any objects for used for comparing against nodes in the store,
+for example, REGEXTerm, URIRef, Literal, BNode, Variable, Graph,
+QuotedGraph, Date? DateRange?
+
+Args:
+    context: A conjunctive query can be indicated by either
+        providing a value of None, or a specific context can be
+        queries by passing a Graph instance (if store is context aware).
+</pre> 
+<p>Reimplemented from <a class="el" href="a02640.html#af8335edaf47862e5bd335865d4537cc0">Store</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  163</span>    ) -&gt; Iterator[Tuple[_TripleType, Iterator[Optional[_ContextType]]]]:</div>
+<div class="line"><span class="lineno">  164</span>        s, p, o = triple_pattern</div>
+<div class="line"><span class="lineno">  165</span>        graph_name = context.identifier <span class="keywordflow">if</span> context <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  166</span>        result_graph = self.repo.get(s, p, o, graph_name)</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">if</span> isinstance(result_graph, Dataset):</div>
+<div class="line"><span class="lineno">  168</span>            <span class="keywordflow">for</span> s, p, o, g <span class="keywordflow">in</span> result_graph:</div>
+<div class="line"><span class="lineno">  169</span>                <span class="keywordflow">yield</span> (s, p, o), iter([Graph(self, identifier=g)])</div>
+<div class="line"><span class="lineno">  170</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  171</span>            <span class="comment"># It&#39;s a Graph object.</span></div>
+<div class="line"><span class="lineno">  172</span>            <span class="keywordflow">for</span> triple <span class="keywordflow">in</span> result_graph:</div>
+<div class="line"><span class="lineno">  173</span>                <span class="comment"># Returning None for _ContextType as it&#39;s not used by the caller.</span></div>
+<div class="line"><span class="lineno">  174</span>                <span class="keywordflow">yield</span> triple, iter([<span class="keywordtype">None</span>])</div>
+<div class="line"><span class="lineno">  175</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01924.html#a4cf620caa0941552ba2a5e4262ed5f17">ConjunctiveGraph.__contains__()</a>, <a class="el" href="a01920.html#ab5fc4912de8c323c60142baa5f16ba19">Graph.__contains__()</a>, <a class="el" href="a01920.html#a0c07577391874f9ad440e7c45408bb9d">Graph.__getitem__()</a>, <a class="el" href="a01920.html#a03d92a27e0e6dd13070d58d2e3758921">Graph.__iter__()</a>, <a class="el" href="a02548.html#ac5b3c7344a9531aed37ea76a4a998f97">SimpleMemory.__len__()</a>, <a class="el" href="a01920.html#a702c61da0a89645aa59c45fb927a20c5">Graph._process_skolem_tuples()</a>, <a class="el" href="a01920.html#aa546feec15f1413d0da60aa03143606c">Graph.cbd()</a>, <a class="el" href="a02576.html#a482a7cfeb7f6952a6fb9ce0c8e72242a">SPARQLStore.objects()</a>, <a class="el" href="a02580.html#a482a7cfeb7f6952a6fb9ce0c8e72242a">SPARQLUpdateStore.objects()</a>, <a class="el" href="a01920.html#a5faaf768068ced70ebbc055afd49eac3">Graph.objects()</a>, <a class="el" href="a02576.html#af386e0c3a0f7da698307ac6554fdd99d">SPARQLStore.predicate_objects()</a>, <a class="el" href="a02580.html#af386e0c3a0f7da698307ac6554fdd99d">SPARQLUpdateStore.predicate_objects()</a>, <a class="el" href="a01920.html#ace420021d21a8527c6008ea022a2128e">Graph.predicate_objects()</a>, <a class="el" href="a02576.html#ab74fe9c5a6fd6c23b0fcc6fd46b80e55">SPARQLStore.predicates()</a>, <a class="el" href="a02580.html#ab74fe9c5a6fd6c23b0fcc6fd46b80e55">SPARQLUpdateStore.predicates()</a>, <a class="el" href="a01920.html#af54fa128512cc72e6910a8b5ff5a3391">Graph.predicates()</a>, <a class="el" href="a02532.html#a4a7691467651bb5432428e087f0cd53b">AuditableStore.remove()</a>, <a class="el" href="a02548.html#ac12adf8a861b609d59229e0a3406ed0d">SimpleMemory.remove()</a>, <a class="el" href="a02552.html#ac12adf8a861b609d59229e0a3406ed0d">Memory.remove()</a>, <a class="el" href="a02576.html#a2973e203726208148eb927893010556c">SPARQLStore.subject_objects()</a>, <a class="el" href="a02580.html#a2973e203726208148eb927893010556c">SPARQLUpdateStore.subject_objects()</a>, <a class="el" href="a01920.html#ab142be6e48e8a35d9b9b8832e5c1cb06">Graph.subject_objects()</a>, <a class="el" href="a02576.html#a6e85dfe8e30e83fa0ec2d271e96ea409">SPARQLStore.subject_predicates()</a>, <a class="el" href="a02580.html#a6e85dfe8e30e83fa0ec2d271e96ea409">SPARQLUpdateStore.subject_predicates()</a>, <a class="el" href="a01920.html#a186273adb6fd201b4f6fca98130695f3">Graph.subject_predicates()</a>, <a class="el" href="a02576.html#ae878cbc45ffbb526dcd4df1b491b49a0">SPARQLStore.subjects()</a>, <a class="el" href="a02580.html#ae878cbc45ffbb526dcd4df1b491b49a0">SPARQLUpdateStore.subjects()</a>, <a class="el" href="a01920.html#a1429dfd1c631e7c46c3e13eab35a4230">Graph.subjects()</a>, <a class="el" href="a02716.html#a16cb8faa849af3b591842a726b94c07f">CSV2RDF.triple()</a>, and <a class="el" href="a02640.html#aca2761a15329d20e5274451ceb6c7c18">Store.triples_choices()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aaa9cb65f17cb46e986f3d3116677e38a" name="aaa9cb65f17cb46e986f3d3116677e38a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa9cb65f17cb46e986f3d3116677e38a">&#9670;&#160;</a></span>_client</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_client</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02556.html#a2831d62341e389eb5c2db0d431606a23">RDF4JStore.client()</a>.</p>
+
+</div>
+</div>
+<a id="a98d31a53bab0ca35d88064217a1f6044" name="a98d31a53bab0ca35d88064217a1f6044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98d31a53bab0ca35d88064217a1f6044">&#9670;&#160;</a></span>_repo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_repo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01768.html#abef60e48015b5664a6e7fe4decce1918">Transaction.repo()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+</div>
+</div>
+<a id="a5f7d7acca866edf43bb90462723f76b3" name="a5f7d7acca866edf43bb90462723f76b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f7d7acca866edf43bb90462723f76b3">&#9670;&#160;</a></span>_repository_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_repository_id</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02556.html#a2446f345d39241531ce8c564c88fc870">RDF4JStore.open()</a>, and <a class="el" href="a02556.html#abef60e48015b5664a6e7fe4decce1918">RDF4JStore.repo()</a>.</p>
+
+</div>
+</div>
+<a id="a0a484884a934aa0c88f30e742b173404" name="a0a484884a934aa0c88f30e742b173404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a484884a934aa0c88f30e742b173404">&#9670;&#160;</a></span>context_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool context_aware = True</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02576.html#af71994917366bb757a2e5b8c777e35fe">SPARQLStore._is_contextual()</a>.</p>
+
+</div>
+</div>
+<a id="afc2b00a8e76ede259d80baac11601df2" name="afc2b00a8e76ede259d80baac11601df2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc2b00a8e76ede259d80baac11601df2">&#9670;&#160;</a></span>formula_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool formula_aware = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1367316249ce935b4c72d916780667db" name="a1367316249ce935b4c72d916780667db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1367316249ce935b4c72d916780667db">&#9670;&#160;</a></span>graph_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool graph_aware = True</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02552.html#aef47b97f428f44527c9114f868058c00">Memory.add_graph()</a>, <a class="el" href="a02580.html#aef47b97f428f44527c9114f868058c00">SPARQLUpdateStore.add_graph()</a>, <a class="el" href="a02552.html#ac12adf8a861b609d59229e0a3406ed0d">Memory.remove()</a>, <a class="el" href="a02552.html#a158e0bab10c9fcd5863b6198eef4f313">Memory.remove_graph()</a>, and <a class="el" href="a02580.html#a158e0bab10c9fcd5863b6198eef4f313">SPARQLUpdateStore.remove_graph()</a>.</p>
+
+</div>
+</div>
+<a id="ace32d9f7db85f65a9ada77c5f1737cfa" name="ace32d9f7db85f65a9ada77c5f1737cfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace32d9f7db85f65a9ada77c5f1737cfa">&#9670;&#160;</a></span>transaction_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool transaction_aware = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02536.html#a8a13920b021fbdda6403c6bee45e4bfc">BerkeleyDB._to_string()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01099.html">stores</a></li><li class="navelem"><a class="el" href="a01104.html">rdf4j</a></li><li class="navelem"><a class="el" href="a02556.html">RDF4JStore</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

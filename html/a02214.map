@@ -1,0 +1,8 @@
+<map id="NTParser" name="NTParser">
+<area shape="rect" id="Node000001" title=" " alt="" coords="9,168,89,193"/>
+<area shape="rect" id="Node000002" href="$a02092.html" title=" " alt="" coords="100,93,163,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,130,64,170,60,166,106,126"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="30,45,25,80,27,118,35,144,45,167,40,169,30,146,22,119,20,80,24,44"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="58,38,119,91,116,95,55,42"/>
+</map>

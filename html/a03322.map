@@ -1,0 +1,9 @@
+<map id="SPARQLHighlighter" name="SPARQLHighlighter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="128,123,272,148"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,155,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,38,190,121,186,125,100,42"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="179,5,221,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,44,203,123,197,123,197,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="274,5,313,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,45,282,73,266,100,250,115,232,125,229,120,247,110,262,97,277,71,286,43"/>
+</map>

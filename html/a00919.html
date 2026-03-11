@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: isodate.isotime Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00919.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">isodate.isotime Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6998d0e3b18ec3e16af011ee026ad364" id="r_a6998d0e3b18ec3e16af011ee026ad364"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00919.html#a6998d0e3b18ec3e16af011ee026ad364">build_time_regexps</a> ()</td></tr>
+<tr class="separator:a6998d0e3b18ec3e16af011ee026ad364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada17d50c7347aa2a3b548e7edc80cca0" id="r_ada17d50c7347aa2a3b548e7edc80cca0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00919.html#ada17d50c7347aa2a3b548e7edc80cca0">parse_time</a> (timestring)</td></tr>
+<tr class="separator:ada17d50c7347aa2a3b548e7edc80cca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e16580e6cbc56d7c8b82246c21c93e7" id="r_a3e16580e6cbc56d7c8b82246c21c93e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00919.html#a3e16580e6cbc56d7c8b82246c21c93e7">time_isoformat</a> (ttime, format=TIME_EXT_COMPLETE+TZ_EXT)</td></tr>
+<tr class="separator:a3e16580e6cbc56d7c8b82246c21c93e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae7f4c9e00c1943cca8ef5c61310f6428" id="r_ae7f4c9e00c1943cca8ef5c61310f6428"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00919.html#ae7f4c9e00c1943cca8ef5c61310f6428">TIME_REGEX_CACHE</a> = []</td></tr>
+<tr class="separator:ae7f4c9e00c1943cca8ef5c61310f6428"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a6998d0e3b18ec3e16af011ee026ad364" name="a6998d0e3b18ec3e16af011ee026ad364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6998d0e3b18ec3e16af011ee026ad364">&#9670;&#160;</a></span>build_time_regexps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">build_time_regexps </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Build regular expressions to parse ISO time string.
+
+The regular expressions are compiled and stored in TIME_REGEX_CACHE
+for later reuse.
+</pre> <div class="fragment"><div class="line"><span class="lineno">   46</span><span class="keyword">def </span>build_time_regexps():</div>
+<div class="line"><span class="lineno">   47</span>    <span class="stringliteral">&#39;&#39;&#39;</span></div>
+<div class="line"><span class="lineno">   48</span><span class="stringliteral">    Build regular expressions to parse ISO time string.</span></div>
+<div class="line"><span class="lineno">   49</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   50</span><span class="stringliteral">    The regular expressions are compiled and stored in TIME_REGEX_CACHE</span></div>
+<div class="line"><span class="lineno">   51</span><span class="stringliteral">    for later reuse.</span></div>
+<div class="line"><span class="lineno">   52</span><span class="stringliteral">    &#39;&#39;&#39;</span></div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> TIME_REGEX_CACHE:</div>
+<div class="line"><span class="lineno">   54</span>        <span class="comment"># ISO 8601 time representations allow decimal fractions on least</span></div>
+<div class="line"><span class="lineno">   55</span>        <span class="comment">#    significant time component. Command and Full Stop are both valid</span></div>
+<div class="line"><span class="lineno">   56</span>        <span class="comment">#    fraction separators.</span></div>
+<div class="line"><span class="lineno">   57</span>        <span class="comment">#    The letter &#39;T&#39; is allowed as time designator in front of a time</span></div>
+<div class="line"><span class="lineno">   58</span>        <span class="comment">#    expression.</span></div>
+<div class="line"><span class="lineno">   59</span>        <span class="comment">#    Immediately after a time expression, a time zone definition is</span></div>
+<div class="line"><span class="lineno">   60</span>        <span class="comment">#      allowed.</span></div>
+<div class="line"><span class="lineno">   61</span>        <span class="comment">#    a TZ may be missing (local time), be a &#39;Z&#39; for UTC or a string of</span></div>
+<div class="line"><span class="lineno">   62</span>        <span class="comment">#    +-hh:mm where the &#39;:mm&#39; part can be skipped.</span></div>
+<div class="line"><span class="lineno">   63</span>        <span class="comment"># TZ information patterns:</span></div>
+<div class="line"><span class="lineno">   64</span>        <span class="comment">#    &#39;&#39;</span></div>
+<div class="line"><span class="lineno">   65</span>        <span class="comment">#    Z</span></div>
+<div class="line"><span class="lineno">   66</span>        <span class="comment">#    +-hh:mm</span></div>
+<div class="line"><span class="lineno">   67</span>        <span class="comment">#    +-hhmm</span></div>
+<div class="line"><span class="lineno">   68</span>        <span class="comment">#    +-hh =&gt;</span></div>
+<div class="line"><span class="lineno">   69</span>        <span class="comment">#    isotzinfo.TZ_REGEX</span></div>
+<div class="line"><span class="lineno">   70</span>        <span class="comment"># 1. complete time:</span></div>
+<div class="line"><span class="lineno">   71</span>        <span class="comment">#    hh:mm:ss.ss ... extended format</span></div>
+<div class="line"><span class="lineno">   72</span>        TIME_REGEX_CACHE.append(re.compile(<span class="stringliteral">r&quot;T?(?P&lt;hour&gt;[0-9]{2}):&quot;</span></div>
+<div class="line"><span class="lineno">   73</span>                                           <span class="stringliteral">r&quot;(?P&lt;minute&gt;[0-9]{2}):&quot;</span></div>
+<div class="line"><span class="lineno">   74</span>                                           <span class="stringliteral">r&quot;(?P&lt;second&gt;[0-9]{2}&quot;</span></div>
+<div class="line"><span class="lineno">   75</span>                                           <span class="stringliteral">r&quot;([,.][0-9]+)?)&quot;</span> + TZ_REGEX))</div>
+<div class="line"><span class="lineno">   76</span>        <span class="comment">#    hhmmss.ss ... basic format</span></div>
+<div class="line"><span class="lineno">   77</span>        TIME_REGEX_CACHE.append(re.compile(<span class="stringliteral">r&quot;T?(?P&lt;hour&gt;[0-9]{2})&quot;</span></div>
+<div class="line"><span class="lineno">   78</span>                                           <span class="stringliteral">r&quot;(?P&lt;minute&gt;[0-9]{2})&quot;</span></div>
+<div class="line"><span class="lineno">   79</span>                                           <span class="stringliteral">r&quot;(?P&lt;second&gt;[0-9]{2}&quot;</span></div>
+<div class="line"><span class="lineno">   80</span>                                           <span class="stringliteral">r&quot;([,.][0-9]+)?)&quot;</span> + TZ_REGEX))</div>
+<div class="line"><span class="lineno">   81</span>        <span class="comment"># 2. reduced accuracy:</span></div>
+<div class="line"><span class="lineno">   82</span>        <span class="comment">#    hh:mm.mm ... extended format</span></div>
+<div class="line"><span class="lineno">   83</span>        TIME_REGEX_CACHE.append(re.compile(<span class="stringliteral">r&quot;T?(?P&lt;hour&gt;[0-9]{2}):&quot;</span></div>
+<div class="line"><span class="lineno">   84</span>                                           <span class="stringliteral">r&quot;(?P&lt;minute&gt;[0-9]{2}&quot;</span></div>
+<div class="line"><span class="lineno">   85</span>                                           <span class="stringliteral">r&quot;([,.][0-9]+)?)&quot;</span> + TZ_REGEX))</div>
+<div class="line"><span class="lineno">   86</span>        <span class="comment">#    hhmm.mm ... basic format</span></div>
+<div class="line"><span class="lineno">   87</span>        TIME_REGEX_CACHE.append(re.compile(<span class="stringliteral">r&quot;T?(?P&lt;hour&gt;[0-9]{2})&quot;</span></div>
+<div class="line"><span class="lineno">   88</span>                                           <span class="stringliteral">r&quot;(?P&lt;minute&gt;[0-9]{2}&quot;</span></div>
+<div class="line"><span class="lineno">   89</span>                                           <span class="stringliteral">r&quot;([,.][0-9]+)?)&quot;</span> + TZ_REGEX))</div>
+<div class="line"><span class="lineno">   90</span>        <span class="comment">#    hh.hh ... basic format</span></div>
+<div class="line"><span class="lineno">   91</span>        TIME_REGEX_CACHE.append(re.compile(<span class="stringliteral">r&quot;T?(?P&lt;hour&gt;[0-9]{2}&quot;</span></div>
+<div class="line"><span class="lineno">   92</span>                                           <span class="stringliteral">r&quot;([,.][0-9]+)?)&quot;</span> + TZ_REGEX))</div>
+<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">return</span> TIME_REGEX_CACHE</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00919.html#ada17d50c7347aa2a3b548e7edc80cca0">isodate.isotime.parse_time()</a>.</p>
+
+</div>
+</div>
+<a id="ada17d50c7347aa2a3b548e7edc80cca0" name="ada17d50c7347aa2a3b548e7edc80cca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada17d50c7347aa2a3b548e7edc80cca0">&#9670;&#160;</a></span>parse_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">parse_time </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>timestring</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Parses ISO 8601 times into datetime.time objects.
+
+Following ISO 8601 formats are supported:
+  (as decimal separator a ',' or a '.' is allowed)
+  hhmmss.ssTZD    basic complete time
+  hh:mm:ss.ssTZD  extended compelte time
+  hhmm.mmTZD      basic reduced accuracy time
+  hh:mm.mmTZD     extended reduced accuracy time
+  hh.hhTZD        basic reduced accuracy time
+TZD is the time zone designator which can be in the following format:
+          no designator indicates local time zone
+  Z       UTC
+  +-hhmm  basic hours and minutes
+  +-hh:mm extended hours and minutes
+  +-hh    hours
+</pre> <div class="fragment"><div class="line"><span class="lineno">   96</span><span class="keyword">def </span>parse_time(timestring):</div>
+<div class="line"><span class="lineno">   97</span>    <span class="stringliteral">&#39;&#39;&#39;</span></div>
+<div class="line"><span class="lineno">   98</span><span class="stringliteral">    Parses ISO 8601 times into datetime.time objects.</span></div>
+<div class="line"><span class="lineno">   99</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  100</span><span class="stringliteral">    Following ISO 8601 formats are supported:</span></div>
+<div class="line"><span class="lineno">  101</span><span class="stringliteral">      (as decimal separator a &#39;,&#39; or a &#39;.&#39; is allowed)</span></div>
+<div class="line"><span class="lineno">  102</span><span class="stringliteral">      hhmmss.ssTZD    basic complete time</span></div>
+<div class="line"><span class="lineno">  103</span><span class="stringliteral">      hh:mm:ss.ssTZD  extended compelte time</span></div>
+<div class="line"><span class="lineno">  104</span><span class="stringliteral">      hhmm.mmTZD      basic reduced accuracy time</span></div>
+<div class="line"><span class="lineno">  105</span><span class="stringliteral">      hh:mm.mmTZD     extended reduced accuracy time</span></div>
+<div class="line"><span class="lineno">  106</span><span class="stringliteral">      hh.hhTZD        basic reduced accuracy time</span></div>
+<div class="line"><span class="lineno">  107</span><span class="stringliteral">    TZD is the time zone designator which can be in the following format:</span></div>
+<div class="line"><span class="lineno">  108</span><span class="stringliteral">              no designator indicates local time zone</span></div>
+<div class="line"><span class="lineno">  109</span><span class="stringliteral">      Z       UTC</span></div>
+<div class="line"><span class="lineno">  110</span><span class="stringliteral">      +-hhmm  basic hours and minutes</span></div>
+<div class="line"><span class="lineno">  111</span><span class="stringliteral">      +-hh:mm extended hours and minutes</span></div>
+<div class="line"><span class="lineno">  112</span><span class="stringliteral">      +-hh    hours</span></div>
+<div class="line"><span class="lineno">  113</span><span class="stringliteral">    &#39;&#39;&#39;</span></div>
+<div class="line"><span class="lineno">  114</span>    isotimes = build_time_regexps()</div>
+<div class="line"><span class="lineno">  115</span>    <span class="keywordflow">for</span> pattern <span class="keywordflow">in</span> isotimes:</div>
+<div class="line"><span class="lineno">  116</span>        match = pattern.match(timestring)</div>
+<div class="line"><span class="lineno">  117</span>        <span class="keywordflow">if</span> match:</div>
+<div class="line"><span class="lineno">  118</span>            groups = match.groupdict()</div>
+<div class="line"><span class="lineno">  119</span>            <span class="keywordflow">for</span> key, value <span class="keywordflow">in</span> groups.items():</div>
+<div class="line"><span class="lineno">  120</span>                <span class="keywordflow">if</span> value <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  121</span>                    groups[key] = value.replace(<span class="stringliteral">&#39;,&#39;</span>, <span class="stringliteral">&#39;.&#39;</span>)</div>
+<div class="line"><span class="lineno">  122</span>            tzinfo = build_tzinfo(groups[<span class="stringliteral">&#39;tzname&#39;</span>], groups[<span class="stringliteral">&#39;tzsign&#39;</span>],</div>
+<div class="line"><span class="lineno">  123</span>                                  int(groups[<span class="stringliteral">&#39;tzhour&#39;</span>] <span class="keywordflow">or</span> 0),</div>
+<div class="line"><span class="lineno">  124</span>                                  int(groups[<span class="stringliteral">&#39;tzmin&#39;</span>] <span class="keywordflow">or</span> 0))</div>
+<div class="line"><span class="lineno">  125</span>            <span class="keywordflow">if</span> <span class="stringliteral">&#39;second&#39;</span> <span class="keywordflow">in</span> groups:</div>
+<div class="line"><span class="lineno">  126</span>                <span class="comment"># round to microseconds if fractional seconds are more precise</span></div>
+<div class="line"><span class="lineno">  127</span>                second = Decimal(groups[<span class="stringliteral">&#39;second&#39;</span>]).quantize(Decimal(<span class="stringliteral">&#39;.000001&#39;</span>))</div>
+<div class="line"><span class="lineno">  128</span>                microsecond = (second - int(second)) * int(1e6)</div>
+<div class="line"><span class="lineno">  129</span>                <span class="comment"># int(...) ... no rounding</span></div>
+<div class="line"><span class="lineno">  130</span>                <span class="comment"># to_integral() ... rounding</span></div>
+<div class="line"><span class="lineno">  131</span>                <span class="keywordflow">return</span> time(int(groups[<span class="stringliteral">&#39;hour&#39;</span>]), int(groups[<span class="stringliteral">&#39;minute&#39;</span>]),</div>
+<div class="line"><span class="lineno">  132</span>                            int(second), int(microsecond.to_integral()),</div>
+<div class="line"><span class="lineno">  133</span>                            tzinfo)</div>
+<div class="line"><span class="lineno">  134</span>            <span class="keywordflow">if</span> <span class="stringliteral">&#39;minute&#39;</span> <span class="keywordflow">in</span> groups:</div>
+<div class="line"><span class="lineno">  135</span>                minute = Decimal(groups[<span class="stringliteral">&#39;minute&#39;</span>])</div>
+<div class="line"><span class="lineno">  136</span>                second = (minute - int(minute)) * 60</div>
+<div class="line"><span class="lineno">  137</span>                microsecond = (second - int(second)) * int(1e6)</div>
+<div class="line"><span class="lineno">  138</span>                <span class="keywordflow">return</span> time(int(groups[<span class="stringliteral">&#39;hour&#39;</span>]), int(minute), int(second),</div>
+<div class="line"><span class="lineno">  139</span>                            int(microsecond.to_integral()), tzinfo)</div>
+<div class="line"><span class="lineno">  140</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  141</span>                microsecond, second, minute = 0, 0, 0</div>
+<div class="line"><span class="lineno">  142</span>            hour = Decimal(groups[<span class="stringliteral">&#39;hour&#39;</span>])</div>
+<div class="line"><span class="lineno">  143</span>            minute = (hour - int(hour)) * 60</div>
+<div class="line"><span class="lineno">  144</span>            second = (minute - int(minute)) * 60</div>
+<div class="line"><span class="lineno">  145</span>            microsecond = (second - int(second)) * int(1e6)</div>
+<div class="line"><span class="lineno">  146</span>            <span class="keywordflow">return</span> time(int(hour), int(minute), int(second),</div>
+<div class="line"><span class="lineno">  147</span>                        int(microsecond.to_integral()), tzinfo)</div>
+<div class="line"><span class="lineno">  148</span>    <span class="keywordflow">raise</span> ISO8601Error(<span class="stringliteral">&#39;Unrecognised ISO 8601 time format: %r&#39;</span> % timestring)</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00919.html#a6998d0e3b18ec3e16af011ee026ad364">isodate.isotime.build_time_regexps()</a>.</p>
+
+</div>
+</div>
+<a id="a3e16580e6cbc56d7c8b82246c21c93e7" name="a3e16580e6cbc56d7c8b82246c21c93e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e16580e6cbc56d7c8b82246c21c93e7">&#9670;&#160;</a></span>time_isoformat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">time_isoformat </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ttime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>format</em> = <code>TIME_EXT_COMPLETE&#160;+&#160;TZ_EXT</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Format time strings.
+
+This method is just a wrapper around isodate.isostrf.strftime and uses
+Time-Extended-Complete with extended time zone as default format.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  151</span><span class="keyword">def </span>time_isoformat(ttime, format=TIME_EXT_COMPLETE + TZ_EXT):</div>
+<div class="line"><span class="lineno">  152</span>    <span class="stringliteral">&#39;&#39;&#39;</span></div>
+<div class="line"><span class="lineno">  153</span><span class="stringliteral">    Format time strings.</span></div>
+<div class="line"><span class="lineno">  154</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  155</span><span class="stringliteral">    This method is just a wrapper around isodate.isostrf.strftime and uses</span></div>
+<div class="line"><span class="lineno">  156</span><span class="stringliteral">    Time-Extended-Complete with extended time zone as default format.</span></div>
+<div class="line"><span class="lineno">  157</span><span class="stringliteral">    &#39;&#39;&#39;</span></div>
+<div class="line"><span class="lineno">  158</span>    <span class="keywordflow">return</span> strftime(ttime, format)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ae7f4c9e00c1943cca8ef5c61310f6428" name="ae7f4c9e00c1943cca8ef5c61310f6428"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7f4c9e00c1943cca8ef5c61310f6428">&#9670;&#160;</a></span>TIME_REGEX_CACHE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list TIME_REGEX_CACHE = []</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00912.html">isodate</a></li><li class="navelem"><a class="el" href="a00919.html">isotime</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

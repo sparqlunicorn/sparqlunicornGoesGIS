@@ -1,0 +1,767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: InstanceSampleQueryTask Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a03012.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a03009.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">InstanceSampleQueryTask Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for InstanceSampleQueryTask:</div>
+<div class="dyncontent">
+<div class="center"><img src="a03011.png" border="0" usemap="#aInstanceSampleQueryTask_inherit__map" alt="Inheritance graph"/></div>
+<map name="aInstanceSampleQueryTask_inherit__map" id="aInstanceSampleQueryTask_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,200,104"/>
+<area shape="rect" title=" " alt="" coords="65,5,141,31"/>
+<area shape="poly" title=" " alt="" coords="105,44,105,79,100,79,100,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for InstanceSampleQueryTask:</div>
+<div class="dyncontent">
+<div class="center"><img src="a03010.png" border="0" usemap="#aInstanceSampleQueryTask_coll__map" alt="Collaboration graph"/></div>
+<map name="aInstanceSampleQueryTask_coll__map" id="aInstanceSampleQueryTask_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,200,104"/>
+<area shape="rect" title=" " alt="" coords="65,5,141,31"/>
+<area shape="poly" title=" " alt="" coords="105,44,105,79,100,79,100,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8906d64c61875b725d04c769f9d4c1e0" id="r_a8906d64c61875b725d04c769f9d4c1e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a8906d64c61875b725d04c769f9d4c1e0">__init__</a> (self, description, <a class="el" href="a03012.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a>, <a class="el" href="a03012.html#ad2ee3c07560eb98d17a382b71105bf98">dlg</a>, <a class="el" href="a03012.html#a8797c550322dd66573e3ff76efea346e">concept</a>, <a class="el" href="a03012.html#a87e75f78a11b7995d1386f9851405666">relation</a>, <a class="el" href="a03012.html#ae78e6e11a40e6dba1bae097358f97d15">column</a>, <a class="el" href="a03012.html#ad42e2d1ad172100a2cd1338656cf0425">row</a>, <a class="el" href="a03012.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a>, <a class="el" href="a03012.html#ad3017b774cf7ada6e807826ec0a5f4ca">tableWidget</a>, <a class="el" href="a03012.html#ab38ad98eb0ec5bd609169dd83133d317">mymap</a>, <a class="el" href="a03012.html#a618f7f5866526d01adfc6c50c3250898">nodetype</a>, <a class="el" href="a03012.html#af09711ee571e250a7000c2ea988d9bc3">preferredlang</a>=&quot;en&quot;)</td></tr>
+<tr class="separator:a8906d64c61875b725d04c769f9d4c1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08060e0924949738f75a0cdd8b49cef4" id="r_a08060e0924949738f75a0cdd8b49cef4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">run</a> (self)</td></tr>
+<tr class="separator:a08060e0924949738f75a0cdd8b49cef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df94208700932ceb7ae3b3fda36840c" id="r_a2df94208700932ceb7ae3b3fda36840c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">finished</a> (self, result)</td></tr>
+<tr class="separator:a2df94208700932ceb7ae3b3fda36840c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aec2b4fd1f327cbebb003cfc415e8bccb" id="r_aec2b4fd1f327cbebb003cfc415e8bccb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#aec2b4fd1f327cbebb003cfc415e8bccb">exception</a></td></tr>
+<tr class="separator:aec2b4fd1f327cbebb003cfc415e8bccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b8734be629bbc1f64723d90a67861ab" id="r_a9b8734be629bbc1f64723d90a67861ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a></td></tr>
+<tr class="separator:a9b8734be629bbc1f64723d90a67861ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ee3c07560eb98d17a382b71105bf98" id="r_ad2ee3c07560eb98d17a382b71105bf98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#ad2ee3c07560eb98d17a382b71105bf98">dlg</a></td></tr>
+<tr class="separator:ad2ee3c07560eb98d17a382b71105bf98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a618f7f5866526d01adfc6c50c3250898" id="r_a618f7f5866526d01adfc6c50c3250898"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a618f7f5866526d01adfc6c50c3250898">nodetype</a></td></tr>
+<tr class="separator:a618f7f5866526d01adfc6c50c3250898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af09711ee571e250a7000c2ea988d9bc3" id="r_af09711ee571e250a7000c2ea988d9bc3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#af09711ee571e250a7000c2ea988d9bc3">preferredlang</a></td></tr>
+<tr class="separator:af09711ee571e250a7000c2ea988d9bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78e6e11a40e6dba1bae097358f97d15" id="r_ae78e6e11a40e6dba1bae097358f97d15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#ae78e6e11a40e6dba1bae097358f97d15">column</a></td></tr>
+<tr class="separator:ae78e6e11a40e6dba1bae097358f97d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a778907fc59ab61707d8a566969b8516e" id="r_a778907fc59ab61707d8a566969b8516e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a778907fc59ab61707d8a566969b8516e">templayer</a></td></tr>
+<tr class="separator:a778907fc59ab61707d8a566969b8516e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab38ad98eb0ec5bd609169dd83133d317" id="r_ab38ad98eb0ec5bd609169dd83133d317"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#ab38ad98eb0ec5bd609169dd83133d317">mymap</a></td></tr>
+<tr class="separator:ab38ad98eb0ec5bd609169dd83133d317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a330d24be0afd5a96238ca9e128328a2d" id="r_a330d24be0afd5a96238ca9e128328a2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a></td></tr>
+<tr class="separator:a330d24be0afd5a96238ca9e128328a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad42e2d1ad172100a2cd1338656cf0425" id="r_ad42e2d1ad172100a2cd1338656cf0425"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#ad42e2d1ad172100a2cd1338656cf0425">row</a></td></tr>
+<tr class="separator:ad42e2d1ad172100a2cd1338656cf0425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3017b774cf7ada6e807826ec0a5f4ca" id="r_ad3017b774cf7ada6e807826ec0a5f4ca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#ad3017b774cf7ada6e807826ec0a5f4ca">tableWidget</a></td></tr>
+<tr class="separator:ad3017b774cf7ada6e807826ec0a5f4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8797c550322dd66573e3ff76efea346e" id="r_a8797c550322dd66573e3ff76efea346e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a8797c550322dd66573e3ff76efea346e">concept</a></td></tr>
+<tr class="separator:a8797c550322dd66573e3ff76efea346e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e75f78a11b7995d1386f9851405666" id="r_a87e75f78a11b7995d1386f9851405666"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a87e75f78a11b7995d1386f9851405666">relation</a></td></tr>
+<tr class="separator:a87e75f78a11b7995d1386f9851405666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bee14843933505be5e14e07c03f5f89" id="r_a1bee14843933505be5e14e07c03f5f89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a1bee14843933505be5e14e07c03f5f89">queryresult</a></td></tr>
+<tr class="separator:a1bee14843933505be5e14e07c03f5f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa75fd54d56c71b4d4ffac31011149715" id="r_aa75fd54d56c71b4d4ffac31011149715"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#aa75fd54d56c71b4d4ffac31011149715">encounteredtypes</a></td></tr>
+<tr class="separator:aa75fd54d56c71b4d4ffac31011149715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c84ba0942252fbf3bc9f20120a12ad1" id="r_a6c84ba0942252fbf3bc9f20120a12ad1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a6c84ba0942252fbf3bc9f20120a12ad1">query</a></td></tr>
+<tr class="separator:a6c84ba0942252fbf3bc9f20120a12ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a719788e7a6ab2a034c068e7c1d71e9d7" id="r_a719788e7a6ab2a034c068e7c1d71e9d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html#a719788e7a6ab2a034c068e7c1d71e9d7">pquery</a></td></tr>
+<tr class="separator:a719788e7a6ab2a034c068e7c1d71e9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8906d64c61875b725d04c769f9d4c1e0" name="a8906d64c61875b725d04c769f9d4c1e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8906d64c61875b725d04c769f9d4c1e0">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>description</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triplestoreurl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dlg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>concept</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>relation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triplestoreconf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>tableWidget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>mymap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>nodetype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>preferredlang</em> = <code>&quot;en&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   14</span>    <span class="keyword">def </span>__init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget,mymap,nodetype,preferredlang=&quot;en&quot;):</div>
+<div class="line"><span class="lineno">   15</span>        super().__init__(description, QgsTask.CanCancel)</div>
+<div class="line"><span class="lineno">   16</span>        self.exception = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   17</span>        self.triplestoreurl = triplestoreurl</div>
+<div class="line"><span class="lineno">   18</span>        self.dlg=dlg</div>
+<div class="line"><span class="lineno">   19</span>        self.nodetype=nodetype</div>
+<div class="line"><span class="lineno">   20</span>        self.preferredlang=preferredlang</div>
+<div class="line"><span class="lineno">   21</span>        self.column=column</div>
+<div class="line"><span class="lineno">   22</span>        self.templayer=<span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   23</span>        self.mymap=mymap</div>
+<div class="line"><span class="lineno">   24</span>        self.triplestoreconf=triplestoreconf</div>
+<div class="line"><span class="lineno">   25</span>        self.row=row</div>
+<div class="line"><span class="lineno">   26</span>        self.tableWidget=tableWidget</div>
+<div class="line"><span class="lineno">   27</span>        self.concept=concept</div>
+<div class="line"><span class="lineno">   28</span>        self.relation=relation</div>
+<div class="line"><span class="lineno">   29</span>        self.queryresult=[]</div>
+<div class="line"><span class="lineno">   30</span>        self.encounteredtypes=set()</div>
+<div class="line"><span class="lineno">   31</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">   32</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(f<span class="stringliteral">&quot;{self.concept} {self.relation} {self.nodetype}&quot;</span>),MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">   33</span>        typeproperty=<span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</span></div>
+<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;typeproperty&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf:</div>
+<div class="line"><span class="lineno">   35</span>            typeproperty=self.triplestoreconf[<span class="stringliteral">&quot;typeproperty&quot;</span>]</div>
+<div class="line"><span class="lineno">   36</span>        typepattern=f<span class="stringliteral">&quot;?con &lt;{typeproperty}&gt; &lt;{self.concept}&gt; .&quot;</span></div>
+<div class="line"><span class="lineno">   37</span>        <span class="keywordflow">if</span> self.nodetype==SPARQLUtils.collectionclassnode:</div>
+<div class="line"><span class="lineno">   38</span>            typepattern=f<span class="stringliteral">&quot;&lt;{self.concept}&gt;  &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?con . &quot;</span></div>
+<div class="line"><span class="lineno">   39</span>        self.query = f<span class="stringliteral">&quot;SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE {{ {typepattern} ?con &lt;{self.relation}&gt; ?val }} GROUP BY ?con LIMIT 10&quot;</span></div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;geometryproperty&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf <span class="keywordflow">and</span> self.relation <span class="keywordflow">in</span> self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>]:</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">if</span> <a class="code hl_class" href="a07531.html">type</a>(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>]) <span class="keywordflow">is</span> list <span class="keywordflow">and</span> len(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>])==2:</div>
+<div class="line"><span class="lineno">   42</span>                self.query = f<span class="stringliteral">&#39;SELECT DISTINCT (COUNT(?con) as ?amount) ?con ?con2 WHERE {{ {typepattern} ?con &lt;{self.triplestoreconf[&quot;geometryproperty&quot;][0]}&gt; ?val . ?con &lt;{self.triplestoreconf[&quot;geometryproperty&quot;][1]}&gt; ?val2 . }} GROUP BY ?con LIMIT 100&#39;</span></div>
+<div class="line"><span class="lineno">   43</span>            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf:</div>
+<div class="line"><span class="lineno">   44</span>                self.query = f<span class="stringliteral">&quot;SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE {{ {typepattern} &quot;</span></div>
+<div class="line"><span class="lineno">   45</span>                <span class="keywordflow">for</span> geotriplepat <span class="keywordflow">in</span> self.triplestoreconf[<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
+<div class="line"><span class="lineno">   46</span>                    self.query+=f<span class="stringliteral">&#39;OPTIONAL {{{geotriplepat.replace(&quot;?geo&quot;,&quot;?val&quot;).replace(&quot;?item&quot;,&quot;?con&quot;)} }}\n&#39;</span></div>
+<div class="line"><span class="lineno">   47</span>                <span class="comment">#+self.triplestoreconf[&quot;geotriplepattern&quot;][0].replace(&quot;?geo&quot;,&quot;?val&quot;).replace(&quot;?item&quot;,&quot;?con&quot;)\</span></div>
+<div class="line"><span class="lineno">   48</span>                self.query+=<span class="stringliteral">&quot; } GROUP BY ?con LIMIT 10&quot;</span></div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">if</span> triplestoreurl[<span class="stringliteral">&quot;type&quot;</span>]==<span class="stringliteral">&quot;file&quot;</span>:</div>
+<div class="line"><span class="lineno">   50</span>            self.pquery=prepareQuery(self.query)</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   52</span>            self.pquery=self.query</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="ttc" id="aa07531_html"><div class="ttname"><a href="a07531.html">type</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a03012.html#a8906d64c61875b725d04c769f9d4c1e0">InstanceSampleQueryTask.__init__()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a03012.html#a8906d64c61875b725d04c769f9d4c1e0">InstanceSampleQueryTask.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2df94208700932ceb7ae3b3fda36840c" name="a2df94208700932ceb7ae3b3fda36840c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df94208700932ceb7ae3b3fda36840c">&#9670;&#160;</a></span>finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">finished </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   74</span>    <span class="keyword">def </span>finished(self,result):</div>
+<div class="line"><span class="lineno">   75</span>        resstring=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   76</span>        counter=1</div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;geometryproperty&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf <span class="keywordflow">and</span> self.mymap <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.relation <span class="keywordflow">in</span> self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>]:</div>
+<div class="line"><span class="lineno">   78</span>            counter=1</div>
+<div class="line"><span class="lineno">   79</span>            geocollection = {<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;FeatureCollection&#39;</span>, <span class="stringliteral">&#39;features&#39;</span>: []}</div>
+<div class="line"><span class="lineno">   80</span>            encounteredcrs=set()</div>
+<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">for</span> rel <span class="keywordflow">in</span> self.queryresult:</div>
+<div class="line"><span class="lineno">   82</span>                myGeometryInstanceJSON=<span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">if</span> isinstance(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>],str) <span class="keywordflow">or</span> (<a class="code hl_class" href="a07531.html">type</a>(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>]) <span class="keywordflow">is</span> list <span class="keywordflow">and</span> len(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>])==1):</div>
+<div class="line"><span class="lineno">   84</span>                    myGeometryInstanceJSON= LayerUtils.processLiteral(rel[<span class="stringliteral">&quot;value&quot;</span>],</div>
+<div class="line"><span class="lineno">   85</span>                                                                       (rel[<span class="stringliteral">&quot;datatype&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;datatype&quot;</span> <span class="keywordflow">in</span> rel <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span>),</div>
+<div class="line"><span class="lineno">   86</span>                                                                       <span class="keyword">True</span>,<span class="keywordtype">None</span>, self.triplestoreconf)</div>
+<div class="line"><span class="lineno">   87</span>                    <span class="keywordflow">if</span> myGeometryInstanceJSON <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;crs&quot;</span> <span class="keywordflow">in</span> myGeometryInstanceJSON <span class="keywordflow">and</span> myGeometryInstanceJSON[<span class="stringliteral">&quot;crs&quot;</span>] <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   88</span>                        <span class="keywordflow">if</span> myGeometryInstanceJSON[<span class="stringliteral">&quot;crs&quot;</span>]==<span class="stringliteral">&quot;CRS84&quot;</span>:</div>
+<div class="line"><span class="lineno">   89</span>                            encounteredcrs.add(<span class="stringliteral">&quot;4326&quot;</span>)</div>
+<div class="line"><span class="lineno">   90</span>                        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   91</span>                            encounteredcrs.add(myGeometryInstanceJSON[<span class="stringliteral">&quot;crs&quot;</span>])</div>
+<div class="line"><span class="lineno">   92</span>                        del myGeometryInstanceJSON[<span class="stringliteral">&quot;crs&quot;</span>]</div>
+<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">elif</span> <a class="code hl_class" href="a07531.html">type</a>(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>]) <span class="keywordflow">is</span> list <span class="keywordflow">and</span> len(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>])==2:</div>
+<div class="line"><span class="lineno">   94</span>                    myGeometryInstanceJSON=LayerUtils.processLiteral(f<span class="stringliteral">&#39;POINT({str(float(rel[&quot;value&quot;]))} {float(rel[&quot;value2&quot;])})&#39;</span>, <span class="stringliteral">&quot;wkt&quot;</span>, <span class="keyword">True</span>,<span class="keywordtype">None</span>, self.triplestoreconf)</div>
+<div class="line"><span class="lineno">   95</span>                <span class="keywordflow">if</span> myGeometryInstanceJSON <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   96</span>                    geojson = {<span class="stringliteral">&#39;id&#39;</span>: f<span class="stringliteral">&#39;{self.concept}_{counter}&#39;</span>, <span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: {},</div>
+<div class="line"><span class="lineno">   97</span>                        <span class="stringliteral">&#39;geometry&#39;</span>: myGeometryInstanceJSON}</div>
+<div class="line"><span class="lineno">   98</span>                    geocollection[<span class="stringliteral">&quot;features&quot;</span>].append(geojson)</div>
+<div class="line"><span class="lineno">   99</span>                    counter+=1</div>
+<div class="line"><span class="lineno">  100</span>            <span class="comment">#QgsMessageLog.logMessage(str(geocollection), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  101</span>            self.templayer = QgsVectorLayer(json.dumps(geocollection), str(self.concept),<span class="stringliteral">&quot;ogr&quot;</span>)</div>
+<div class="line"><span class="lineno">  102</span>            <span class="keywordflow">if</span> len(encounteredcrs)&gt;0:</div>
+<div class="line"><span class="lineno">  103</span>                crs=self.templayer.crs()</div>
+<div class="line"><span class="lineno">  104</span>                crsstring=encounteredcrs.pop()</div>
+<div class="line"><span class="lineno">  105</span>                <span class="keywordflow">if</span> crsstring.isdigit():</div>
+<div class="line"><span class="lineno">  106</span>                    crs.createFromId(int(crsstring))</div>
+<div class="line"><span class="lineno">  107</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  108</span>                    crs.createFromString(crsstring)</div>
+<div class="line"><span class="lineno">  109</span>                self.templayer.setCrs(crs)</div>
+<div class="line"><span class="lineno">  110</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  111</span>                self.templayer.setCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs(<span class="stringliteral">&quot;EPSG:4326&quot;</span>))</div>
+<div class="line"><span class="lineno">  112</span>            layerlist=self.mymap.layers()</div>
+<div class="line"><span class="lineno">  113</span>            layerlist.insert(0,self.templayer)</div>
+<div class="line"><span class="lineno">  114</span>            self.mymap.setLayers(layerlist)</div>
+<div class="line"><span class="lineno">  115</span>            self.mymap.setCurrentLayer(self.templayer)</div>
+<div class="line"><span class="lineno">  116</span>            <span class="comment">#QgsMessageLog.logMessage(str(self.templayer), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  117</span>            self.templayer.selectAll()</div>
+<div class="line"><span class="lineno">  118</span>            self.mymap.zoomToSelected(self.templayer)</div>
+<div class="line"><span class="lineno">  119</span>            self.templayer.removeSelection()</div>
+<div class="line"><span class="lineno">  120</span>            self.dlg.resize(QSize(self.dlg.width() + 250, self.dlg.height()))</div>
+<div class="line"><span class="lineno">  121</span>            self.mymap.show()</div>
+<div class="line"><span class="lineno">  122</span>        reslabelprop=<span class="stringliteral">&quot;label&quot;</span></div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;geometryproperty&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf <span class="keywordflow">and</span> len(self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>])&gt;1 <span class="keywordflow">and</span> self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>][1]==self.relation:</div>
+<div class="line"><span class="lineno">  124</span>            reslabelprop=<span class="stringliteral">&quot;value2label&quot;</span></div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">for</span> res <span class="keywordflow">in</span> self.queryresult:</div>
+<div class="line"><span class="lineno">  126</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> res:</div>
+<div class="line"><span class="lineno">  127</span>                resstring+=f<span class="stringliteral">&#39;{res[reslabelprop]} [{res[&quot;amount&quot;]}] &#39;</span></div>
+<div class="line"><span class="lineno">  128</span>            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;datatype&quot;</span> <span class="keywordflow">in</span> res:</div>
+<div class="line"><span class="lineno">  129</span>                resstring+=f<span class="stringliteral">&#39;{res[reslabelprop]} [{res[&quot;amount&quot;]}] &#39;</span></div>
+<div class="line"><span class="lineno">  130</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  131</span>                resstring+=f<span class="stringliteral">&#39;{res[reslabelprop]} [{res[&quot;amount&quot;]}] &#39;</span></div>
+<div class="line"><span class="lineno">  132</span>            <span class="keywordflow">if</span> counter%5==0:</div>
+<div class="line"><span class="lineno">  133</span>                resstring+=<span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line"><span class="lineno">  134</span>            counter+=1</div>
+<div class="line"><span class="lineno">  135</span>        item = QStandardItem()</div>
+<div class="line"><span class="lineno">  136</span>        item.setText(resstring)</div>
+<div class="line"><span class="lineno">  137</span>        self.tableWidget.takeItem(self.row,self.column)</div>
+<div class="line"><span class="lineno">  138</span>        self.tableWidget.setItem(self.row,self.column,item)</div>
+<div class="line"><span class="lineno">  139</span>        SPARQLUtils.handleException(MESSAGE_CATEGORY)</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01984.html#a5f1e3d13a3f666f44d76db6f106c494d">CSVW.column</a>, <a class="el" href="a02988.html#ae78e6e11a40e6dba1bae097358f97d15">DataSampleQueryTask.column</a>, <a class="el" href="a03012.html#ae78e6e11a40e6dba1bae097358f97d15">InstanceSampleQueryTask.column</a>, <a class="el" href="a03052.html#ae78e6e11a40e6dba1bae097358f97d15">FindStyleQueryTask.column</a>, <a class="el" href="a02040.html#a61a5d2f26a0eb33815fbe8061a32a060">QB.concept</a>, <a class="el" href="a02808.html#a8797c550322dd66573e3ff76efea346e">DataSchemaDialog.concept</a>, <a class="el" href="a02812.html#a8797c550322dd66573e3ff76efea346e">GraphRelationViewDialog.concept</a>, <a class="el" href="a02816.html#a8797c550322dd66573e3ff76efea346e">InstanceDataDialog.concept</a>, <a class="el" href="a02820.html#a8797c550322dd66573e3ff76efea346e">PropertySchemaDialog.concept</a>, <a class="el" href="a02848.html#a8797c550322dd66573e3ff76efea346e">AdvancedQueryDialog.concept</a>, <a class="el" href="a02908.html#a8797c550322dd66573e3ff76efea346e">QueryLimitedInstancesDialog.concept</a>, <a class="el" href="a02976.html#a8797c550322dd66573e3ff76efea346e">QueryLayerTask.concept</a>, <a class="el" href="a02980.html#a8797c550322dd66573e3ff76efea346e">QuerySubGraphTask.concept</a>, <a class="el" href="a02988.html#a8797c550322dd66573e3ff76efea346e">DataSampleQueryTask.concept</a>, <a class="el" href="a03000.html#a8797c550322dd66573e3ff76efea346e">FindRelatedConceptQueryTask.concept</a>, <a class="el" href="a03012.html#a8797c550322dd66573e3ff76efea346e">InstanceSampleQueryTask.concept</a>, <a class="el" href="a03052.html#a8797c550322dd66573e3ff76efea346e">FindStyleQueryTask.concept</a>, <a class="el" href="a02836.html#ad2ee3c07560eb98d17a382b71105bf98">ConceptContextMenu.dlg</a>, <a class="el" href="a02852.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a02856.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a02860.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a02864.html#ad2ee3c07560eb98d17a382b71105bf98">ImportRDFLayerDialog.dlg</a>, <a class="el" href="a02872.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreQuickAddDialog.dlg</a>, <a class="el" href="a02928.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a02932.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a02936.html#ad2ee3c07560eb98d17a382b71105bf98">InterlinkingTab.dlg</a>, <a class="el" href="a02960.html#ad2ee3c07560eb98d17a382b71105bf98">LayerMatchingTask.dlg</a>, <a class="el" href="a02964.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphTask.dlg</a>, <a class="el" href="a02968.html#ad2ee3c07560eb98d17a382b71105bf98">LoadTripleStoreTask.dlg</a>, <a class="el" href="a02984.html#ad2ee3c07560eb98d17a382b71105bf98">ClassTreeQueryTask.dlg</a>, <a class="el" href="a02988.html#ad2ee3c07560eb98d17a382b71105bf98">DataSampleQueryTask.dlg</a>, <a class="el" href="a02992.html#ad2ee3c07560eb98d17a382b71105bf98">DataSchemaQueryTask.dlg</a>, <a class="el" href="a02996.html#ad2ee3c07560eb98d17a382b71105bf98">FindFeaturesInBBOXTask.dlg</a>, <a class="el" href="a03004.html#ad2ee3c07560eb98d17a382b71105bf98">GeoCollectionsQueryTask.dlg</a>, <a class="el" href="a03008.html#ad2ee3c07560eb98d17a382b71105bf98">GeoConceptsQueryTask.dlg</a>, <a class="el" href="a03012.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceSampleQueryTask.dlg</a>, <a class="el" href="a03016.html#ad2ee3c07560eb98d17a382b71105bf98">PropertySchemaQueryTask.dlg</a>, <a class="el" href="a03020.html#ad2ee3c07560eb98d17a382b71105bf98">SubClassQueryTask.dlg</a>, <a class="el" href="a03028.html#ad2ee3c07560eb98d17a382b71105bf98">WhatToEnrichQueryTask.dlg</a>, <a class="el" href="a03032.html#ad2ee3c07560eb98d17a382b71105bf98">FindFeaturesInAreaTask.dlg</a>, <a class="el" href="a03036.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceAmountQueryTask.dlg</a>, <a class="el" href="a03040.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceListQueryTask.dlg</a>, <a class="el" href="a03052.html#ad2ee3c07560eb98d17a382b71105bf98">FindStyleQueryTask.dlg</a>, <a class="el" href="a03056.html#ad2ee3c07560eb98d17a382b71105bf98">GetStyleQueryTask.dlg</a>, <a class="el" href="a03064.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreRepositorySyncTask.dlg</a>, <a class="el" href="a02988.html#ab38ad98eb0ec5bd609169dd83133d317">DataSampleQueryTask.mymap</a>, <a class="el" href="a03012.html#ab38ad98eb0ec5bd609169dd83133d317">InstanceSampleQueryTask.mymap</a>, <a class="el" href="a03044.html#ab38ad98eb0ec5bd609169dd83133d317">InstanceQueryTask.mymap</a>, <a class="el" href="a02988.html#a1bee14843933505be5e14e07c03f5f89">DataSampleQueryTask.queryresult</a>, <a class="el" href="a03000.html#a1bee14843933505be5e14e07c03f5f89">FindRelatedConceptQueryTask.queryresult</a>, <a class="el" href="a03012.html#a1bee14843933505be5e14e07c03f5f89">InstanceSampleQueryTask.queryresult</a>, <a class="el" href="a03040.html#a1bee14843933505be5e14e07c03f5f89">InstanceListQueryTask.queryresult</a>, <a class="el" href="a03044.html#a1bee14843933505be5e14e07c03f5f89">InstanceQueryTask.queryresult</a>, <a class="el" href="a03052.html#a1bee14843933505be5e14e07c03f5f89">FindStyleQueryTask.queryresult</a>, <a class="el" href="a01988.html#a72260407b6cc00984eb4f3159cc39121">DC.relation</a>, <a class="el" href="a02004.html#a72260407b6cc00984eb4f3159cc39121">DCTERMS.relation</a>, <a class="el" href="a02020.html#a72260407b6cc00984eb4f3159cc39121">ODRL2.relation</a>, <a class="el" href="a02988.html#a87e75f78a11b7995d1386f9851405666">DataSampleQueryTask.relation</a>, <a class="el" href="a03012.html#a87e75f78a11b7995d1386f9851405666">InstanceSampleQueryTask.relation</a>, <a class="el" href="a01984.html#aba36e76fc9576c3af2c49637e08877a4">CSVW.row</a>, <a class="el" href="a02988.html#ad42e2d1ad172100a2cd1338656cf0425">DataSampleQueryTask.row</a>, <a class="el" href="a03012.html#ad42e2d1ad172100a2cd1338656cf0425">InstanceSampleQueryTask.row</a>, <a class="el" href="a03024.html#ad42e2d1ad172100a2cd1338656cf0425">EnrichmentQueryTask.row</a>, <a class="el" href="a03052.html#ad42e2d1ad172100a2cd1338656cf0425">FindStyleQueryTask.row</a>, <a class="el" href="a02988.html#ad3017b774cf7ada6e807826ec0a5f4ca">DataSampleQueryTask.tableWidget</a>, <a class="el" href="a03012.html#ad3017b774cf7ada6e807826ec0a5f4ca">InstanceSampleQueryTask.tableWidget</a>, <a class="el" href="a02888.html#a778907fc59ab61707d8a566969b8516e">BBOXDialog.templayer</a>, <a class="el" href="a02988.html#a778907fc59ab61707d8a566969b8516e">DataSampleQueryTask.templayer</a>, <a class="el" href="a03012.html#a778907fc59ab61707d8a566969b8516e">InstanceSampleQueryTask.templayer</a>, <a class="el" href="a02804.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a02808.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a02812.html#a330d24be0afd5a96238ca9e128328a2d">GraphRelationViewDialog.triplestoreconf</a>, <a class="el" href="a02816.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a02820.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaDialog.triplestoreconf</a>, <a class="el" href="a02828.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreResultDialog.triplestoreconf</a>, <a class="el" href="a02836.html#a330d24be0afd5a96238ca9e128328a2d">ConceptContextMenu.triplestoreconf</a>, <a class="el" href="a02840.html#a330d24be0afd5a96238ca9e128328a2d">TabContextMenu.triplestoreconf</a>, <a class="el" href="a02844.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a02848.html#a330d24be0afd5a96238ca9e128328a2d">AdvancedQueryDialog.triplestoreconf</a>, <a class="el" href="a02852.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a02856.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a02860.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a02864.html#a330d24be0afd5a96238ca9e128328a2d">ImportRDFLayerDialog.triplestoreconf</a>, <a class="el" href="a02868.html#a330d24be0afd5a96238ca9e128328a2d">OntDocDialog.triplestoreconf</a>, <a class="el" href="a02872.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a02876.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepoDialog.triplestoreconf</a>, <a class="el" href="a02880.html#a3c8f4911b6ff46c324750495bb9d7315">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a02888.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a02908.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a02912.html#a3c8f4911b6ff46c324750495bb9d7315">SearchDialog.triplestoreconf</a>, <a class="el" href="a02916.html#a3c8f4911b6ff46c324750495bb9d7315">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a02920.html#a3c8f4911b6ff46c324750495bb9d7315">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a02928.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a02948.html#a330d24be0afd5a96238ca9e128328a2d">ExtractLayerTask.triplestoreconf</a>, <a class="el" href="a02956.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationTask.triplestoreconf</a>, <a class="el" href="a02960.html#a330d24be0afd5a96238ca9e128328a2d">LayerMatchingTask.triplestoreconf</a>, <a class="el" href="a02964.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphTask.triplestoreconf</a>, <a class="el" href="a02976.html#a330d24be0afd5a96238ca9e128328a2d">QueryLayerTask.triplestoreconf</a>, <a class="el" href="a02980.html#a330d24be0afd5a96238ca9e128328a2d">QuerySubGraphTask.triplestoreconf</a>, <a class="el" href="a02984.html#a330d24be0afd5a96238ca9e128328a2d">ClassTreeQueryTask.triplestoreconf</a>, <a class="el" href="a02988.html#a330d24be0afd5a96238ca9e128328a2d">DataSampleQueryTask.triplestoreconf</a>, <a class="el" href="a02992.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaQueryTask.triplestoreconf</a>, <a class="el" href="a02996.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInBBOXTask.triplestoreconf</a>, <a class="el" href="a03000.html#a330d24be0afd5a96238ca9e128328a2d">FindRelatedConceptQueryTask.triplestoreconf</a>, <a class="el" href="a03004.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a03008.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a03012.html#a330d24be0afd5a96238ca9e128328a2d">InstanceSampleQueryTask.triplestoreconf</a>, <a class="el" href="a03016.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaQueryTask.triplestoreconf</a>, <a class="el" href="a03020.html#a330d24be0afd5a96238ca9e128328a2d">SubClassQueryTask.triplestoreconf</a>, <a class="el" href="a03024.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentQueryTask.triplestoreconf</a>, <a class="el" href="a03028.html#a330d24be0afd5a96238ca9e128328a2d">WhatToEnrichQueryTask.triplestoreconf</a>, <a class="el" href="a03032.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInAreaTask.triplestoreconf</a>, <a class="el" href="a03036.html#a330d24be0afd5a96238ca9e128328a2d">InstanceAmountQueryTask.triplestoreconf</a>, <a class="el" href="a03040.html#a330d24be0afd5a96238ca9e128328a2d">InstanceListQueryTask.triplestoreconf</a>, <a class="el" href="a03044.html#a330d24be0afd5a96238ca9e128328a2d">InstanceQueryTask.triplestoreconf</a>, <a class="el" href="a03048.html#a330d24be0afd5a96238ca9e128328a2d">SearchTask.triplestoreconf</a>, <a class="el" href="a03052.html#a330d24be0afd5a96238ca9e128328a2d">FindStyleQueryTask.triplestoreconf</a>, <a class="el" href="a03056.html#a330d24be0afd5a96238ca9e128328a2d">GetStyleQueryTask.triplestoreconf</a>, <a class="el" href="a03060.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a03064.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepositorySyncTask.triplestoreconf</a>, <a class="el" href="a03316.html#a330d24be0afd5a96238ca9e128328a2d">PointMapTool.triplestoreconf</a>, and <a class="el" href="a03336.html#a330d24be0afd5a96238ca9e128328a2d">ToolTipPlainText.triplestoreconf</a>.</p>
+
+</div>
+</div>
+<a id="a08060e0924949738f75a0cdd8b49cef4" name="a08060e0924949738f75a0cdd8b49cef4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08060e0924949738f75a0cdd8b49cef4">&#9670;&#160;</a></span>run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">run </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   54</span>    <span class="keyword">def </span>run(self):</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(str(self.query).replace(<span class="stringliteral">&quot;&lt;&quot;</span>,<span class="stringliteral">&quot;&quot;</span>).replace(<span class="stringliteral">&quot;&gt;&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)),MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">   57</span>        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.pquery,self.triplestoreconf)</div>
+<div class="line"><span class="lineno">   58</span>        counter=0</div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">if</span> results!=<span class="keyword">False</span>:</div>
+<div class="line"><span class="lineno">   60</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(results), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">for</span> result <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><span class="lineno">   62</span>                <span class="keywordflow">if</span> result!={}:</div>
+<div class="line"><span class="lineno">   63</span>                    self.queryresult.append({})</div>
+<div class="line"><span class="lineno">   64</span>                    self.queryresult[counter][<span class="stringliteral">&quot;value&quot;</span>]=result[<span class="stringliteral">&quot;con&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">   65</span>                    self.queryresult[counter][<span class="stringliteral">&quot;label&quot;</span>]=SPARQLUtils.labelFromURI(result[<span class="stringliteral">&quot;con&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>])</div>
+<div class="line"><span class="lineno">   66</span>                    self.queryresult[counter][<span class="stringliteral">&quot;amount&quot;</span>]=result[<span class="stringliteral">&quot;amount&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">   67</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;con2&quot;</span> <span class="keywordflow">in</span> result:</div>
+<div class="line"><span class="lineno">   68</span>                        self.queryresult[counter][<span class="stringliteral">&quot;value2&quot;</span>] = result[<span class="stringliteral">&quot;con2&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">   69</span>                        self.queryresult[counter][<span class="stringliteral">&quot;value2label&quot;</span>] = SPARQLUtils.labelFromURI(result[<span class="stringliteral">&quot;val2&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>])</div>
+<div class="line"><span class="lineno">   70</span>                    counter+=1</div>
+<div class="line"><span class="lineno">   71</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(self.queryresult), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   73</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a03012.html#a719788e7a6ab2a034c068e7c1d71e9d7">InstanceSampleQueryTask.pquery</a>, <a class="el" href="a02756.html#a5afdeb6fe117fc31ed1a6bc581f3ef23">SPARQLWrapper2.query()</a>, <a class="el" href="a02788.html#a4c877e6a2899c17a1efac42d36eff042">SPARQLWrapper.query()</a>, <a class="el" href="a02532.html#a8c4f563dddf701c1ef11d403aba3b43e">AuditableStore.query()</a>, <a class="el" href="a02580.html#ae01cb632653c4271ac64941987d6f61e">SPARQLUpdateStore.query()</a>, <a class="el" href="a01764.html#acab8265dcd26ff0fbb4bfb281457f5c3">Repository.query()</a>, <a class="el" href="a01768.html#acab8265dcd26ff0fbb4bfb281457f5c3">Transaction.query()</a>, <a class="el" href="a02572.html#aa08df1710070dcb5148e3c7b31f9b266">SPARQLConnector.query()</a>, <a class="el" href="a02548.html#a0c710ae8a6b4feb31e4ba0d1f39538df">SimpleMemory.query()</a>, <a class="el" href="a02640.html#a0c710ae8a6b4feb31e4ba0d1f39538df">Store.query()</a>, <a class="el" href="a02552.html#ac600afb37f846708ce153af241826bc7">Memory.query()</a>, <a class="el" href="a02576.html#af4dd4796ca6c523a84454857853dbda9">SPARQLStore.query()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a02584.html#a0f61d269d72f1deaa934b9ec839d85c7">Processor.query()</a>, <a class="el" href="a02428.html#a775d7006f9e9eb7169c555fbc32d9983">SPARQLProcessor.query()</a>, <a class="el" href="a02964.html#a6c84ba0942252fbf3bc9f20120a12ad1">LoadGraphTask.query</a>, <a class="el" href="a02976.html#a6c84ba0942252fbf3bc9f20120a12ad1">QueryLayerTask.query</a>, <a class="el" href="a02980.html#a6c84ba0942252fbf3bc9f20120a12ad1">QuerySubGraphTask.query</a>, <a class="el" href="a02984.html#a6c84ba0942252fbf3bc9f20120a12ad1">ClassTreeQueryTask.query</a>, <a class="el" href="a02992.html#a6c84ba0942252fbf3bc9f20120a12ad1">DataSchemaQueryTask.query</a>, <a class="el" href="a03004.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoCollectionsQueryTask.query</a>, <a class="el" href="a03008.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoConceptsQueryTask.query</a>, <a class="el" href="a03012.html#a6c84ba0942252fbf3bc9f20120a12ad1">InstanceSampleQueryTask.query</a>, <a class="el" href="a03016.html#a6c84ba0942252fbf3bc9f20120a12ad1">PropertySchemaQueryTask.query</a>, <a class="el" href="a03020.html#a6c84ba0942252fbf3bc9f20120a12ad1">SubClassQueryTask.query</a>, <a class="el" href="a03028.html#a6c84ba0942252fbf3bc9f20120a12ad1">WhatToEnrichQueryTask.query</a>, <a class="el" href="a03048.html#a6c84ba0942252fbf3bc9f20120a12ad1">SearchTask.query</a>, <a class="el" href="a02988.html#a1bee14843933505be5e14e07c03f5f89">DataSampleQueryTask.queryresult</a>, <a class="el" href="a03000.html#a1bee14843933505be5e14e07c03f5f89">FindRelatedConceptQueryTask.queryresult</a>, <a class="el" href="a03012.html#a1bee14843933505be5e14e07c03f5f89">InstanceSampleQueryTask.queryresult</a>, <a class="el" href="a03040.html#a1bee14843933505be5e14e07c03f5f89">InstanceListQueryTask.queryresult</a>, <a class="el" href="a03044.html#a1bee14843933505be5e14e07c03f5f89">InstanceQueryTask.queryresult</a>, <a class="el" href="a03052.html#a1bee14843933505be5e14e07c03f5f89">FindStyleQueryTask.queryresult</a>, <a class="el" href="a02804.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a02808.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a02812.html#a330d24be0afd5a96238ca9e128328a2d">GraphRelationViewDialog.triplestoreconf</a>, <a class="el" href="a02816.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a02820.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaDialog.triplestoreconf</a>, <a class="el" href="a02828.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreResultDialog.triplestoreconf</a>, <a class="el" href="a02836.html#a330d24be0afd5a96238ca9e128328a2d">ConceptContextMenu.triplestoreconf</a>, <a class="el" href="a02840.html#a330d24be0afd5a96238ca9e128328a2d">TabContextMenu.triplestoreconf</a>, <a class="el" href="a02844.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a02848.html#a330d24be0afd5a96238ca9e128328a2d">AdvancedQueryDialog.triplestoreconf</a>, <a class="el" href="a02852.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a02856.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a02860.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a02864.html#a330d24be0afd5a96238ca9e128328a2d">ImportRDFLayerDialog.triplestoreconf</a>, <a class="el" href="a02868.html#a330d24be0afd5a96238ca9e128328a2d">OntDocDialog.triplestoreconf</a>, <a class="el" href="a02872.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a02876.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepoDialog.triplestoreconf</a>, <a class="el" href="a02880.html#a3c8f4911b6ff46c324750495bb9d7315">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a02888.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a02908.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a02912.html#a3c8f4911b6ff46c324750495bb9d7315">SearchDialog.triplestoreconf</a>, <a class="el" href="a02916.html#a3c8f4911b6ff46c324750495bb9d7315">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a02920.html#a3c8f4911b6ff46c324750495bb9d7315">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a02928.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a02948.html#a330d24be0afd5a96238ca9e128328a2d">ExtractLayerTask.triplestoreconf</a>, <a class="el" href="a02956.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationTask.triplestoreconf</a>, <a class="el" href="a02960.html#a330d24be0afd5a96238ca9e128328a2d">LayerMatchingTask.triplestoreconf</a>, <a class="el" href="a02964.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphTask.triplestoreconf</a>, <a class="el" href="a02976.html#a330d24be0afd5a96238ca9e128328a2d">QueryLayerTask.triplestoreconf</a>, <a class="el" href="a02980.html#a330d24be0afd5a96238ca9e128328a2d">QuerySubGraphTask.triplestoreconf</a>, <a class="el" href="a02984.html#a330d24be0afd5a96238ca9e128328a2d">ClassTreeQueryTask.triplestoreconf</a>, <a class="el" href="a02988.html#a330d24be0afd5a96238ca9e128328a2d">DataSampleQueryTask.triplestoreconf</a>, <a class="el" href="a02992.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaQueryTask.triplestoreconf</a>, <a class="el" href="a02996.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInBBOXTask.triplestoreconf</a>, <a class="el" href="a03000.html#a330d24be0afd5a96238ca9e128328a2d">FindRelatedConceptQueryTask.triplestoreconf</a>, <a class="el" href="a03004.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a03008.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a03012.html#a330d24be0afd5a96238ca9e128328a2d">InstanceSampleQueryTask.triplestoreconf</a>, <a class="el" href="a03016.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaQueryTask.triplestoreconf</a>, <a class="el" href="a03020.html#a330d24be0afd5a96238ca9e128328a2d">SubClassQueryTask.triplestoreconf</a>, <a class="el" href="a03024.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentQueryTask.triplestoreconf</a>, <a class="el" href="a03028.html#a330d24be0afd5a96238ca9e128328a2d">WhatToEnrichQueryTask.triplestoreconf</a>, <a class="el" href="a03032.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInAreaTask.triplestoreconf</a>, <a class="el" href="a03036.html#a330d24be0afd5a96238ca9e128328a2d">InstanceAmountQueryTask.triplestoreconf</a>, <a class="el" href="a03040.html#a330d24be0afd5a96238ca9e128328a2d">InstanceListQueryTask.triplestoreconf</a>, <a class="el" href="a03044.html#a330d24be0afd5a96238ca9e128328a2d">InstanceQueryTask.triplestoreconf</a>, <a class="el" href="a03048.html#a330d24be0afd5a96238ca9e128328a2d">SearchTask.triplestoreconf</a>, <a class="el" href="a03052.html#a330d24be0afd5a96238ca9e128328a2d">FindStyleQueryTask.triplestoreconf</a>, <a class="el" href="a03056.html#a330d24be0afd5a96238ca9e128328a2d">GetStyleQueryTask.triplestoreconf</a>, <a class="el" href="a03060.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a03064.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepositorySyncTask.triplestoreconf</a>, <a class="el" href="a03316.html#a330d24be0afd5a96238ca9e128328a2d">PointMapTool.triplestoreconf</a>, <a class="el" href="a03336.html#a330d24be0afd5a96238ca9e128328a2d">ToolTipPlainText.triplestoreconf</a>, <a class="el" href="a02808.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaDialog.triplestoreurl</a>, <a class="el" href="a02816.html#a9b8734be629bbc1f64723d90a67861ab">InstanceDataDialog.triplestoreurl</a>, <a class="el" href="a02820.html#a9b8734be629bbc1f64723d90a67861ab">PropertySchemaDialog.triplestoreurl</a>, <a class="el" href="a02880.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>, <a class="el" href="a02960.html#a9b8734be629bbc1f64723d90a67861ab">LayerMatchingTask.triplestoreurl</a>, <a class="el" href="a02976.html#a9b8734be629bbc1f64723d90a67861ab">QueryLayerTask.triplestoreurl</a>, <a class="el" href="a02980.html#a9b8734be629bbc1f64723d90a67861ab">QuerySubGraphTask.triplestoreurl</a>, <a class="el" href="a02984.html#a9b8734be629bbc1f64723d90a67861ab">ClassTreeQueryTask.triplestoreurl</a>, <a class="el" href="a02988.html#a9b8734be629bbc1f64723d90a67861ab">DataSampleQueryTask.triplestoreurl</a>, <a class="el" href="a02992.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaQueryTask.triplestoreurl</a>, <a class="el" href="a02996.html#a9b8734be629bbc1f64723d90a67861ab">FindFeaturesInBBOXTask.triplestoreurl</a>, <a class="el" href="a03000.html#a9b8734be629bbc1f64723d90a67861ab">FindRelatedConceptQueryTask.triplestoreurl</a>, <a class="el" href="a03004.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a03008.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a03012.html#a9b8734be629bbc1f64723d90a67861ab">InstanceSampleQueryTask.triplestoreurl</a>, <a class="el" href="a03016.html#a9b8734be629bbc1f64723d90a67861ab">PropertySchemaQueryTask.triplestoreurl</a>, <a class="el" href="a03020.html#a9b8734be629bbc1f64723d90a67861ab">SubClassQueryTask.triplestoreurl</a>, <a class="el" href="a03024.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a03028.html#a9b8734be629bbc1f64723d90a67861ab">WhatToEnrichQueryTask.triplestoreurl</a>, <a class="el" href="a03032.html#a9b8734be629bbc1f64723d90a67861ab">FindFeaturesInAreaTask.triplestoreurl</a>, <a class="el" href="a03036.html#a9b8734be629bbc1f64723d90a67861ab">InstanceAmountQueryTask.triplestoreurl</a>, <a class="el" href="a03040.html#a9b8734be629bbc1f64723d90a67861ab">InstanceListQueryTask.triplestoreurl</a>, <a class="el" href="a03044.html#a9b8734be629bbc1f64723d90a67861ab">InstanceQueryTask.triplestoreurl</a>, <a class="el" href="a03048.html#a9b8734be629bbc1f64723d90a67861ab">SearchTask.triplestoreurl</a>, <a class="el" href="a03052.html#a9b8734be629bbc1f64723d90a67861ab">FindStyleQueryTask.triplestoreurl</a>, <a class="el" href="a03056.html#a9b8734be629bbc1f64723d90a67861ab">GetStyleQueryTask.triplestoreurl</a>, and <a class="el" href="a03060.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02928.html#ad0aa105b85af99e49253f40f5109661c">SPARQLunicorn.initGui()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae78e6e11a40e6dba1bae097358f97d15" name="ae78e6e11a40e6dba1bae097358f97d15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78e6e11a40e6dba1bae097358f97d15">&#9670;&#160;</a></span>column</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">column</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, and <a class="el" href="a03052.html#a2df94208700932ceb7ae3b3fda36840c">FindStyleQueryTask.finished()</a>.</p>
+
+</div>
+</div>
+<a id="a8797c550322dd66573e3ff76efea346e" name="a8797c550322dd66573e3ff76efea346e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8797c550322dd66573e3ff76efea346e">&#9670;&#160;</a></span>concept</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">concept</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02980.html#a2df94208700932ceb7ae3b3fda36840c">QuerySubGraphTask.finished()</a>, <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, <a class="el" href="a03052.html#a2df94208700932ceb7ae3b3fda36840c">FindStyleQueryTask.finished()</a>, <a class="el" href="a02816.html#a9e4db55cfef5102751f27ccb0162d5a7">InstanceDataDialog.getAttributes()</a>, <a class="el" href="a02808.html#af6fc7691a4185345920dec151e768519">DataSchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a02820.html#af6fc7691a4185345920dec151e768519">PropertySchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a02812.html#afa7300f08d42ea44583ecac17f64b9d7">GraphRelationViewDialog.getRelatedClassStatistics()</a>, <a class="el" href="a02848.html#afa7300f08d42ea44583ecac17f64b9d7">AdvancedQueryDialog.getRelatedClassStatistics()</a>, <a class="el" href="a02808.html#a63fae44558f7db151e7bd3f23f5ecfd7">DataSchemaDialog.loadBBOXDialog()</a>, <a class="el" href="a03000.html#a8c1f19a7d84895ca4d31275e09a73046">FindRelatedConceptQueryTask.processClassResult()</a>, <a class="el" href="a03000.html#a4de73dcf93c5bf94647640e65cdebce7">FindRelatedConceptQueryTask.processPropertyResult()</a>, <a class="el" href="a02976.html#acb7053177b11f28b6b17c02808a56968">QueryLayerTask.processResults()</a>, <a class="el" href="a02908.html#a6a48f5bcb68530e2db6f6848a6bad031">QueryLimitedInstancesDialog.queryWithLimit()</a>, <a class="el" href="a02976.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a03052.html#a08060e0924949738f75a0cdd8b49cef4">FindStyleQueryTask.run()</a>, and <a class="el" href="a02812.html#aca092fde8acae610a332ae69c0ebf9d8">GraphRelationViewDialog.showRelated()</a>.</p>
+
+</div>
+</div>
+<a id="ad2ee3c07560eb98d17a382b71105bf98" name="ad2ee3c07560eb98d17a382b71105bf98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ee3c07560eb98d17a382b71105bf98">&#9670;&#160;</a></span>dlg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dlg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02932.html#a47f40e16c3c758738a40dd88650d9ac5">EnrichmentTab.__init__()</a>, <a class="el" href="a02936.html#a47f40e16c3c758738a40dd88650d9ac5">InterlinkingTab.__init__()</a>, <a class="el" href="a02932.html#a52616a3bfbd8a7e7e5503dae743d63e5">EnrichmentTab.addEnrichedLayer()</a>, <a class="el" href="a02932.html#ad17d902e02b2a983a6f4805c98e8355d">EnrichmentTab.addEnrichRow()</a>, <a class="el" href="a02932.html#a4782caaa08755cd16dbb16470a7c969f">EnrichmentTab.createEnrichSearchDialog()</a>, <a class="el" href="a02932.html#a52ea277bbb8fcef5938b3e61464721be">EnrichmentTab.createEnrichSearchDialogProp()</a>, <a class="el" href="a02936.html#aaebaa784dd52ca69569441a5aac60eb9">InterlinkingTab.createInterlinkSearchDialog()</a>, <a class="el" href="a02872.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreQuickAddDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a02932.html#aaa94069381ac845fbd6592b15a9764c5">EnrichmentTab.enrichLayerProcess()</a>, <a class="el" href="a02936.html#ad2c8961a836965e6db69187947df4461">InterlinkingTab.exportInterlinkedLayer()</a>, <a class="el" href="a02928.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a02928.html#af8c58ecbe6afb26c8212086206b4d004">SPARQLunicorn.exportLayer2()</a>, <a class="el" href="a02936.html#a6bd060c97f701a40aa10cdd930b92f4d">InterlinkingTab.exportMapping()</a>, <a class="el" href="a02936.html#a503cde2c17df59afdaad2db0cf9d5f0f">InterlinkingTab.exportMappingProcess()</a>, <a class="el" href="a02960.html#a2df94208700932ceb7ae3b3fda36840c">LayerMatchingTask.finished()</a>, <a class="el" href="a02964.html#a2df94208700932ceb7ae3b3fda36840c">LoadGraphTask.finished()</a>, <a class="el" href="a02968.html#a2df94208700932ceb7ae3b3fda36840c">LoadTripleStoreTask.finished()</a>, <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a02992.html#a2df94208700932ceb7ae3b3fda36840c">DataSchemaQueryTask.finished()</a>, <a class="el" href="a03004.html#a2df94208700932ceb7ae3b3fda36840c">GeoCollectionsQueryTask.finished()</a>, <a class="el" href="a03008.html#a2df94208700932ceb7ae3b3fda36840c">GeoConceptsQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, <a class="el" href="a03016.html#a2df94208700932ceb7ae3b3fda36840c">PropertySchemaQueryTask.finished()</a>, <a class="el" href="a03052.html#a2df94208700932ceb7ae3b3fda36840c">FindStyleQueryTask.finished()</a>, <a class="el" href="a03064.html#a2df94208700932ceb7ae3b3fda36840c">TripleStoreRepositorySyncTask.finished()</a>, <a class="el" href="a02836.html#a1a170acdb9bb6d501a7f308df45fe29a">ConceptContextMenu.getBBOX()</a>, <a class="el" href="a02852.html#a8e5426daca8c2c532e7c226b0beca8ad">ConvertCRSDialog.loadFile()</a>, <a class="el" href="a02860.html#a8e5426daca8c2c532e7c226b0beca8ad">GraphValidationDialog.loadFile()</a>, <a class="el" href="a02932.html#a4a57b7ed2a306518e674d3bf00e8bef3">EnrichmentTab.loadLayerForEnrichment()</a>, <a class="el" href="a02936.html#af9f1c1e304b7a1f3449ddf86c21e8b45">InterlinkingTab.loadMapping()</a>, <a class="el" href="a02852.html#ade98bf54803773dc57e906ccefc6fe3c">ConvertCRSDialog.loadURI()</a>, <a class="el" href="a02860.html#ade98bf54803773dc57e906ccefc6fe3c">GraphValidationDialog.loadURI()</a>, <a class="el" href="a02928.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a02936.html#a956718d367bc265e6cc2e31b524c3690">InterlinkingTab.readMapping()</a>, <a class="el" href="a02928.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a02932.html#aecf70e6380fd19faf6baf30f23e3bb5e">EnrichmentTab.showConfigTable()</a>, <a class="el" href="a02936.html#a4b4e20bf80956e600c5edc7af3b68847">InterlinkingTab.suggestSchema()</a>, and <a class="el" href="a02928.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>.</p>
+
+</div>
+</div>
+<a id="aa75fd54d56c71b4d4ffac31011149715" name="aa75fd54d56c71b4d4ffac31011149715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa75fd54d56c71b4d4ffac31011149715">&#9670;&#160;</a></span>encounteredtypes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">encounteredtypes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02988.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="aec2b4fd1f327cbebb003cfc415e8bccb" name="aec2b4fd1f327cbebb003cfc415e8bccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec2b4fd1f327cbebb003cfc415e8bccb">&#9670;&#160;</a></span>exception</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exception</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02952.html#a2df94208700932ceb7ae3b3fda36840c">ExtractNamespaceTask.finished()</a>, <a class="el" href="a02964.html#a2df94208700932ceb7ae3b3fda36840c">LoadGraphTask.finished()</a>, <a class="el" href="a02972.html#a2df94208700932ceb7ae3b3fda36840c">OntDocTask.finished()</a>, <a class="el" href="a02976.html#a2df94208700932ceb7ae3b3fda36840c">QueryLayerTask.finished()</a>, <a class="el" href="a02980.html#a2df94208700932ceb7ae3b3fda36840c">QuerySubGraphTask.finished()</a>, <a class="el" href="a03064.html#a2df94208700932ceb7ae3b3fda36840c">TripleStoreRepositorySyncTask.finished()</a>, <a class="el" href="a03068.html#a2df94208700932ceb7ae3b3fda36840c">TripleStoreRepositoryTask.finished()</a>, <a class="el" href="a02952.html#a08060e0924949738f75a0cdd8b49cef4">ExtractNamespaceTask.run()</a>, <a class="el" href="a02976.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a02980.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a03064.html#a08060e0924949738f75a0cdd8b49cef4">TripleStoreRepositorySyncTask.run()</a>, and <a class="el" href="a03068.html#a08060e0924949738f75a0cdd8b49cef4">TripleStoreRepositoryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="ab38ad98eb0ec5bd609169dd83133d317" name="ab38ad98eb0ec5bd609169dd83133d317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab38ad98eb0ec5bd609169dd83133d317">&#9670;&#160;</a></span>mymap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mymap</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, and <a class="el" href="a03044.html#a2df94208700932ceb7ae3b3fda36840c">InstanceQueryTask.finished()</a>.</p>
+
+</div>
+</div>
+<a id="a618f7f5866526d01adfc6c50c3250898" name="a618f7f5866526d01adfc6c50c3250898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a618f7f5866526d01adfc6c50c3250898">&#9670;&#160;</a></span>nodetype</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">nodetype</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a03000.html#a2df94208700932ceb7ae3b3fda36840c">FindRelatedConceptQueryTask.finished()</a>, <a class="el" href="a02848.html#afa7300f08d42ea44583ecac17f64b9d7">AdvancedQueryDialog.getRelatedClassStatistics()</a>, <a class="el" href="a02908.html#a6a48f5bcb68530e2db6f6848a6bad031">QueryLimitedInstancesDialog.queryWithLimit()</a>, <a class="el" href="a02988.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>, <a class="el" href="a03000.html#a08060e0924949738f75a0cdd8b49cef4">FindRelatedConceptQueryTask.run()</a>, and <a class="el" href="a02812.html#aca092fde8acae610a332ae69c0ebf9d8">GraphRelationViewDialog.showRelated()</a>.</p>
+
+</div>
+</div>
+<a id="a719788e7a6ab2a034c068e7c1d71e9d7" name="a719788e7a6ab2a034c068e7c1d71e9d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a719788e7a6ab2a034c068e7c1d71e9d7">&#9670;&#160;</a></span>pquery</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pquery</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="af09711ee571e250a7000c2ea988d9bc3" name="af09711ee571e250a7000c2ea988d9bc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af09711ee571e250a7000c2ea988d9bc3">&#9670;&#160;</a></span>preferredlang</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">preferredlang</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a03008.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="a6c84ba0942252fbf3bc9f20120a12ad1" name="a6c84ba0942252fbf3bc9f20120a12ad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c84ba0942252fbf3bc9f20120a12ad1">&#9670;&#160;</a></span>query</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">query</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a03048.html#a2df94208700932ceb7ae3b3fda36840c">SearchTask.finished()</a>, <a class="el" href="a02756.html#a7652be2fb875f4452778f324c9573a13">SPARQLWrapper2.queryAndConvert()</a>, <a class="el" href="a02788.html#abce671fe18aae182fd36749c091563dc">SPARQLWrapper.queryAndConvert()</a>, <a class="el" href="a02976.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a02980.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a02984.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a02992.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a03004.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a03008.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a03016.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a03020.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, and <a class="el" href="a03028.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="a1bee14843933505be5e14e07c03f5f89" name="a1bee14843933505be5e14e07c03f5f89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bee14843933505be5e14e07c03f5f89">&#9670;&#160;</a></span>queryresult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">queryresult</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a03000.html#af82cea2e7e5c0866e0ab3d4c03545bbd">FindRelatedConceptQueryTask.findConnectedConceptsFromProperty()</a>, <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, <a class="el" href="a03040.html#a2df94208700932ceb7ae3b3fda36840c">InstanceListQueryTask.finished()</a>, <a class="el" href="a03044.html#a2df94208700932ceb7ae3b3fda36840c">InstanceQueryTask.finished()</a>, <a class="el" href="a03052.html#a2df94208700932ceb7ae3b3fda36840c">FindStyleQueryTask.finished()</a>, <a class="el" href="a03000.html#a8c1f19a7d84895ca4d31275e09a73046">FindRelatedConceptQueryTask.processClassResult()</a>, <a class="el" href="a03000.html#a4de73dcf93c5bf94647640e65cdebce7">FindRelatedConceptQueryTask.processPropertyResult()</a>, <a class="el" href="a02988.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>, <a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a03040.html#a08060e0924949738f75a0cdd8b49cef4">InstanceListQueryTask.run()</a>, and <a class="el" href="a03044.html#a08060e0924949738f75a0cdd8b49cef4">InstanceQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="a87e75f78a11b7995d1386f9851405666" name="a87e75f78a11b7995d1386f9851405666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e75f78a11b7995d1386f9851405666">&#9670;&#160;</a></span>relation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">relation</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, and <a class="el" href="a02988.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="ad42e2d1ad172100a2cd1338656cf0425" name="ad42e2d1ad172100a2cd1338656cf0425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42e2d1ad172100a2cd1338656cf0425">&#9670;&#160;</a></span>row</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">row</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, <a class="el" href="a03024.html#a2df94208700932ceb7ae3b3fda36840c">EnrichmentQueryTask.finished()</a>, <a class="el" href="a03052.html#a2df94208700932ceb7ae3b3fda36840c">FindStyleQueryTask.finished()</a>, and <a class="el" href="a03024.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="ad3017b774cf7ada6e807826ec0a5f4ca" name="ad3017b774cf7ada6e807826ec0a5f4ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3017b774cf7ada6e807826ec0a5f4ca">&#9670;&#160;</a></span>tableWidget</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tableWidget</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, and <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>.</p>
+
+</div>
+</div>
+<a id="a778907fc59ab61707d8a566969b8516e" name="a778907fc59ab61707d8a566969b8516e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a778907fc59ab61707d8a566969b8516e">&#9670;&#160;</a></span>templayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">templayer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, and <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>.</p>
+
+</div>
+</div>
+<a id="a330d24be0afd5a96238ca9e128328a2d" name="a330d24be0afd5a96238ca9e128328a2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a330d24be0afd5a96238ca9e128328a2d">&#9670;&#160;</a></span>triplestoreconf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">triplestoreconf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02868.html#a3b4df4651f038dc28a3b345e0f4d930e">OntDocDialog.__init__()</a>, <a class="el" href="a02852.html#a0943f2316c45b026a538cc2dde4d16bb">ConvertCRSDialog.__init__()</a>, <a class="el" href="a02864.html#a2279f2c59f04eb88e7a7172a95de68c6">ImportRDFLayerDialog.__init__()</a>, <a class="el" href="a02860.html#a1720ce736ec93942b433303070d4d071">GraphValidationDialog.__init__()</a>, <a class="el" href="a02856.html#a4762a4377b526aa6de5d7728bf1e8bef">ConvertLayerDialog.__init__()</a>, <a class="el" href="a02828.html#a7febfed45e71a05ff9f1911d85c1d034">DetectTripleStoreResultDialog.addConfiguration()</a>, <a class="el" href="a02836.html#a3f8d897f78b6f08cdaba36d958c646e5">ConceptContextMenu.advancedQueryDialog()</a>, <a class="el" href="a02880.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a02912.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a02804.html#acc0184adf686baf607167733cf8f7120">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a02872.html#acc0184adf686baf607167733cf8f7120">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a02844.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a02844.html#a640f83a139093e4cd7c0c0edc07880f3">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a02844.html#a488b082deca106964ac586bb4c06a3a3">SPARQLunicornDialog.create_unicorn_layer()</a>, <a class="el" href="a02844.html#a34182ed155a2611f2df9112ff50f2ad7">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a02804.html#a096646c55405ee0d7b533f4fcc1e7d22">TripleStoreDialog.createVarInfoDialog()</a>, <a class="el" href="a02844.html#adab0cda44548df35e3e7dd3049580865">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a02844.html#a80cfcaa85177e2170e6e64b8c3e062ad">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a02804.html#a7352515ec350bb0b730110a61cadd8b4">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a02804.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a02872.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreQuickAddDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a02844.html#a59f6e6b65a1e6932f071d4a6d7e82704">SPARQLunicornDialog.endpointselectaction()</a>, <a class="el" href="a02928.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a03000.html#af82cea2e7e5c0866e0ab3d4c03545bbd">FindRelatedConceptQueryTask.findConnectedConceptsFromProperty()</a>, <a class="el" href="a02964.html#a2df94208700932ceb7ae3b3fda36840c">LoadGraphTask.finished()</a>, <a class="el" href="a02988.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a02992.html#a2df94208700932ceb7ae3b3fda36840c">DataSchemaQueryTask.finished()</a>, <a class="el" href="a03012.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, <a class="el" href="a03016.html#a2df94208700932ceb7ae3b3fda36840c">PropertySchemaQueryTask.finished()</a>, <a class="el" href="a03044.html#a2df94208700932ceb7ae3b3fda36840c">InstanceQueryTask.finished()</a>, <a class="el" href="a03060.html#a2df94208700932ceb7ae3b3fda36840c">DetectTripleStoreTask.finished()</a>, <a class="el" href="a03064.html#a2df94208700932ceb7ae3b3fda36840c">TripleStoreRepositorySyncTask.finished()</a>, <a class="el" href="a02808.html#af6fc7691a4185345920dec151e768519">DataSchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a02820.html#af6fc7691a4185345920dec151e768519">PropertySchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a02880.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a02836.html#a1a170acdb9bb6d501a7f308df45fe29a">ConceptContextMenu.getBBOX()</a>, <a class="el" href="a02912.html#ad810e5eabf892aaec027a16a9534a8e5">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a02920.html#ad810e5eabf892aaec027a16a9534a8e5">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a02844.html#a735ba8a407edd44f0e0664d083bf34f1">SPARQLunicornDialog.getClassTree()</a>, <a class="el" href="a02844.html#a5f47fed089eefda414b6cbc628573625">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a02848.html#afa7300f08d42ea44583ecac17f64b9d7">AdvancedQueryDialog.getRelatedClassStatistics()</a>, <a class="el" href="a02836.html#a2299e0112dd3533c6c5d3d674683aa92">ConceptContextMenu.instanceList()</a>, <a class="el" href="a02808.html#a63fae44558f7db151e7bd3f23f5ecfd7">DataSchemaDialog.loadBBOXDialog()</a>, <a class="el" href="a02844.html#ab83f6f0cdb299fad1d892b60cae1f9ea">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a02836.html#a6c3997d35d6e2ecfd61db7ee7dea8683">ConceptContextMenu.loadSubClasses()</a>, <a class="el" href="a02804.html#a8883f2e619c89b4ae0e9a35d11897f0c">TripleStoreDialog.loadTripleStoreConfig()</a>, <a class="el" href="a02852.html#ade98bf54803773dc57e906ccefc6fe3c">ConvertCRSDialog.loadURI()</a>, <a class="el" href="a02860.html#ade98bf54803773dc57e906ccefc6fe3c">GraphValidationDialog.loadURI()</a>, <a class="el" href="a02928.html#a6395e96c45122b751122be67664ba078">SPARQLunicorn.manageTripleStoreConfFiles()</a>, <a class="el" href="a03336.html#afef2a2ce1328b91e34947d787bd3faa9">ToolTipPlainText.mouseMoveEvent()</a>, <a class="el" href="a02912.html#ac2dbb23fc33c7a6b4e14205e5d63110d">SearchDialog.onContext()</a>, <a class="el" href="a02928.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a03000.html#a8c1f19a7d84895ca4d31275e09a73046">FindRelatedConceptQueryTask.processClassResult()</a>, <a class="el" href="a03000.html#a4de73dcf93c5bf94647640e65cdebce7">FindRelatedConceptQueryTask.processPropertyResult()</a>, <a class="el" href="a02976.html#acb7053177b11f28b6b17c02808a56968">QueryLayerTask.processResults()</a>, <a class="el" href="a02836.html#ada9d9cc85990b2b1a34ac736f53d9081">ConceptContextMenu.queryLimitedInstances()</a>, <a class="el" href="a02836.html#a596d815be0af493a0fcf3cdcaad45ab4">ConceptContextMenu.queryLinkedGeoConcept()</a>, <a class="el" href="a02836.html#a02a7045518d1c2760cc109e40fa49f5a">ConceptContextMenu.queryLinkedGeoInstance()</a>, <a class="el" href="a02908.html#a6a48f5bcb68530e2db6f6848a6bad031">QueryLimitedInstancesDialog.queryWithLimit()</a>, <a class="el" href="a02836.html#a0823c8cd08444168cdfd7c81fa18e859">ConceptContextMenu.relatedGeoConcepts()</a>, <a class="el" href="a02928.html#a8088d0909d308fa97732e9eadb9cde10">SPARQLunicorn.resetTripleStoreConfig()</a>, <a class="el" href="a02804.html#ad215d5be96adb33d4a32a437348e1266">TripleStoreDialog.restoreFactory()</a>, <a class="el" href="a02928.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a02948.html#a08060e0924949738f75a0cdd8b49cef4">ExtractLayerTask.run()</a>, <a class="el" href="a02960.html#a08060e0924949738f75a0cdd8b49cef4">LayerMatchingTask.run()</a>, <a class="el" href="a02976.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a02980.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a02984.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a02988.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>, <a class="el" href="a02992.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a03004.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a03008.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a03016.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a03020.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, <a class="el" href="a03024.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>, <a class="el" href="a03028.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a03032.html#a08060e0924949738f75a0cdd8b49cef4">FindFeaturesInAreaTask.run()</a>, <a class="el" href="a03036.html#a08060e0924949738f75a0cdd8b49cef4">InstanceAmountQueryTask.run()</a>, <a class="el" href="a03040.html#a08060e0924949738f75a0cdd8b49cef4">InstanceListQueryTask.run()</a>, <a class="el" href="a03044.html#a08060e0924949738f75a0cdd8b49cef4">InstanceQueryTask.run()</a>, <a class="el" href="a03052.html#a08060e0924949738f75a0cdd8b49cef4">FindStyleQueryTask.run()</a>, <a class="el" href="a03056.html#a08060e0924949738f75a0cdd8b49cef4">GetStyleQueryTask.run()</a>, <a class="el" href="a02840.html#aa0c42df67fab84c774728eb3b4e11cfe">TabContextMenu.saveClassesTreeToRDF()</a>, <a class="el" href="a02804.html#a360afb2538072215a837e29e905fd802">TripleStoreDialog.saveConfigurationAsJSON()</a>, <a class="el" href="a02844.html#adda3daeac9ce97c8a4afe703d5bf5e64">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a02840.html#a5a73b076bbb46fc96ace34fa96292f06">TabContextMenu.saveTreeToRDF()</a>, <a class="el" href="a02928.html#a7298f06e56968fbd9b0d9dceac26fb2d">SPARQLunicorn.saveTripleStoreConfig()</a>, <a class="el" href="a02840.html#a1b206dd1d79b2f3ca4fc445ef929cc1b">TabContextMenu.saveVisibleTreeToRDF()</a>, <a class="el" href="a02812.html#a1ba28a48c651e68536b3adf707d8b491">GraphRelationViewDialog.startSchemaDialog()</a>, <a class="el" href="a02860.html#a7968bc80759dca0838e6c2c666f880d4">GraphValidationDialog.startValidation()</a>, <a class="el" href="a02844.html#adfc267ff822e0bd0394155be4a1f66b9">SPARQLunicornDialog.subclassQuerySelectAction()</a>, <a class="el" href="a02928.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>, <a class="el" href="a02844.html#a2fcd56fef625d562a0cbc6256e5c775a">SPARQLunicornDialog.tripleStoreInfoDialog()</a>, and <a class="el" href="a02804.html#a03e367be043b65521e14bf72d74f1a2e">TripleStoreDialog.writeConfiguration()</a>.</p>
+
+</div>
+</div>
+<a id="a9b8734be629bbc1f64723d90a67861ab" name="a9b8734be629bbc1f64723d90a67861ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b8734be629bbc1f64723d90a67861ab">&#9670;&#160;</a></span>triplestoreurl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">triplestoreurl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a03000.html#af82cea2e7e5c0866e0ab3d4c03545bbd">FindRelatedConceptQueryTask.findConnectedConceptsFromProperty()</a>, <a class="el" href="a02960.html#a08060e0924949738f75a0cdd8b49cef4">LayerMatchingTask.run()</a>, <a class="el" href="a02976.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a02980.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a02984.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a02988.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>, <a class="el" href="a02992.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a03004.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a03008.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a03016.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a03020.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, <a class="el" href="a03024.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>, <a class="el" href="a03028.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a03032.html#a08060e0924949738f75a0cdd8b49cef4">FindFeaturesInAreaTask.run()</a>, <a class="el" href="a03036.html#a08060e0924949738f75a0cdd8b49cef4">InstanceAmountQueryTask.run()</a>, <a class="el" href="a03040.html#a08060e0924949738f75a0cdd8b49cef4">InstanceListQueryTask.run()</a>, <a class="el" href="a03044.html#a08060e0924949738f75a0cdd8b49cef4">InstanceQueryTask.run()</a>, <a class="el" href="a03052.html#a08060e0924949738f75a0cdd8b49cef4">FindStyleQueryTask.run()</a>, <a class="el" href="a03056.html#a08060e0924949738f75a0cdd8b49cef4">GetStyleQueryTask.run()</a>, and <a class="el" href="a03060.html#a08060e0924949738f75a0cdd8b49cef4">DetectTripleStoreTask.run()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01179.html">tasks</a></li><li class="navelem"><a class="el" href="a01190.html">query</a></li><li class="navelem"><a class="el" href="a01194.html">discovery</a></li><li class="navelem"><a class="el" href="a01202.html">instancesamplequerytask</a></li><li class="navelem"><a class="el" href="a03012.html">InstanceSampleQueryTask</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: RDF Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02044.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
+<a href="a02041.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">RDF Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for RDF:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02043.png" border="0" usemap="#aRDF_inherit__map" alt="Inheritance graph"/></div>
+<map name="aRDF_inherit__map" id="aRDF_inherit__map">
+<area shape="rect" title=" " alt="" coords="105,225,155,251"/>
+<area shape="rect" href="a02228.html" title=" " alt="" coords="91,299,169,324"/>
+<area shape="poly" title=" " alt="" coords="133,264,133,299,127,299,127,264"/>
+<area shape="rect" href="a01968.html" title=" " alt="" coords="55,152,205,177"/>
+<area shape="poly" title=" " alt="" coords="133,191,133,225,127,225,127,191"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="5,79,95,104"/>
+<area shape="poly" title=" " alt="" coords="75,111,119,150,115,154,71,115"/>
+<area shape="rect" href="a01964.html" title=" " alt="" coords="119,79,301,104"/>
+<area shape="poly" title=" " alt="" coords="189,115,145,154,141,150,185,111"/>
+<area shape="rect" href="a07531.html" title=" " alt="" coords="185,5,235,31"/>
+<area shape="poly" title=" " alt="" coords="213,44,213,79,207,79,207,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for RDF:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02042.png" border="0" usemap="#aRDF_coll__map" alt="Collaboration graph"/></div>
+<map name="aRDF_coll__map" id="aRDF_coll__map">
+<area shape="rect" title=" " alt="" coords="466,665,516,691"/>
+<area shape="rect" href="a01968.html" title=" " alt="" coords="100,431,250,456"/>
+<area shape="poly" title=" " alt="" coords="203,462,477,663,474,667,200,466"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="90,299,180,324"/>
+<area shape="poly" title=" " alt="" coords="145,336,174,430,169,431,140,338"/>
+<area shape="rect" href="a01964.html" title=" " alt="" coords="204,299,386,324"/>
+<area shape="poly" title=" " alt="" coords="277,336,188,432,184,429,273,332"/>
+<area shape="rect" href="a07531.html" title=" " alt="" coords="226,181,276,207"/>
+<area shape="poly" title=" " alt="" coords="257,220,263,247,272,274,287,297,283,300,267,276,258,248,252,221"/>
+<area shape="rect" title=" " alt="" coords="6,181,62,207"/>
+<area shape="poly" title=" " alt="" coords="25,220,16,243,10,269,9,297,16,323,43,359,77,389,114,412,147,428,145,433,112,417,74,394,39,363,11,325,4,298,5,269,11,241,20,218"/>
+<area shape="poly" title=" " alt="" coords="52,216,78,246,112,272,153,285,210,296,209,301,151,290,110,277,74,250,48,220"/>
+<area shape="rect" href="a01956.html" title=" " alt="" coords="311,181,410,207"/>
+<area shape="poly" title=" " alt="" coords="315,215,299,232,293,248,291,266,295,298,289,299,285,266,287,247,294,229,311,212"/>
+<area shape="rect" title=" " alt="" coords="665,93,704,119"/>
+<area shape="poly" title=" " alt="" coords="652,119,404,184,403,179,651,113"/>
+<area shape="rect" href="a02648.html" title=" " alt="" coords="734,181,814,207"/>
+<area shape="poly" title=" " alt="" coords="708,126,763,179,760,183,705,130"/>
+<area shape="rect" title=" " alt="" coords="455,181,506,207"/>
+<area shape="poly" title=" " alt="" coords="484,220,494,665,488,665,478,220"/>
+<area shape="poly" title=" " alt="" coords="442,206,393,218,358,233,348,242,342,252,328,276,308,300,304,297,324,273,337,249,344,239,355,228,392,213,441,201"/>
+<area shape="rect" title=" " alt="" coords="156,181,199,207"/>
+<area shape="poly" title=" " alt="" coords="181,220,186,248,200,273,217,287,237,296,234,301,214,291,196,276,181,249,176,221"/>
+<area shape="rect" href="a02656.html" title=" " alt="" coords="631,431,698,456"/>
+<area shape="poly" title=" " alt="" coords="650,469,502,667,498,664,645,466"/>
+<area shape="rect" href="a02652.html" title=" " alt="" coords="763,299,880,324"/>
+<area shape="poly" title=" " alt="" coords="816,338,799,374,787,393,771,409,736,429,699,440,697,435,734,424,768,405,783,389,795,372,812,336"/>
+<area shape="poly" title=" " alt="" coords="786,218,820,298,815,300,781,220"/>
+<area shape="rect" href="a02644.html" title=" " alt="" coords="728,93,784,119"/>
+<area shape="poly" title=" " alt="" coords="764,132,774,180,769,181,759,133"/>
+<area shape="rect" title=" " alt="" coords="680,5,729,31"/>
+<area shape="poly" title=" " alt="" coords="721,41,752,91,747,94,716,44"/>
+<area shape="rect" title=" " alt="" coords="778,5,833,31"/>
+<area shape="poly" title=" " alt="" coords="766,33,722,46,678,64,643,84,633,95,630,105,630,313,633,347,642,379,661,430,656,432,637,381,628,347,624,313,625,104,629,92,640,80,675,59,721,41,765,27"/>
+<area shape="poly" title=" " alt="" coords="836,37,861,61,880,92,888,122,889,153,884,183,876,213,853,264,832,300,828,297,849,262,871,211,879,182,884,152,883,123,875,94,857,65,832,41"/>
+<area shape="poly" title=" " alt="" coords="816,44,816,70,800,134,781,182,776,180,795,132,811,69,810,44"/>
+<area shape="poly" title=" " alt="" coords="768,39,752,56,749,74,754,93,749,94,744,75,747,53,764,35"/>
+<area shape="rect" title=" " alt="" coords="664,299,739,324"/>
+<area shape="poly" title=" " alt="" coords="697,338,670,431,665,430,692,336"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aff389a875134884e2584515646b65f87" id="r_aff389a875134884e2584515646b65f87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#aff389a875134884e2584515646b65f87">nil</a></td></tr>
+<tr class="separator:aff389a875134884e2584515646b65f87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a22d355bf9ca82c0df4208d2ad00512" id="r_a3a22d355bf9ca82c0df4208d2ad00512"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a3a22d355bf9ca82c0df4208d2ad00512">direction</a></td></tr>
+<tr class="separator:a3a22d355bf9ca82c0df4208d2ad00512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fe41cbfa3f5f5d134259c8723394682" id="r_a4fe41cbfa3f5f5d134259c8723394682"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a4fe41cbfa3f5f5d134259c8723394682">first</a></td></tr>
+<tr class="separator:a4fe41cbfa3f5f5d134259c8723394682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dce842d76956b2e2257596061bf5240" id="r_a3dce842d76956b2e2257596061bf5240"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a3dce842d76956b2e2257596061bf5240">language</a></td></tr>
+<tr class="separator:a3dce842d76956b2e2257596061bf5240"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6155187f8d6a63cd0973cf40058f1801" id="r_a6155187f8d6a63cd0973cf40058f1801"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a6155187f8d6a63cd0973cf40058f1801">object</a></td></tr>
+<tr class="separator:a6155187f8d6a63cd0973cf40058f1801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac3ec0a1e084648abdc31349afb62780" id="r_aac3ec0a1e084648abdc31349afb62780"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#aac3ec0a1e084648abdc31349afb62780">predicate</a></td></tr>
+<tr class="separator:aac3ec0a1e084648abdc31349afb62780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade6a565db1ef682242e521d4b5e081da" id="r_ade6a565db1ef682242e521d4b5e081da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#ade6a565db1ef682242e521d4b5e081da">rest</a></td></tr>
+<tr class="separator:ade6a565db1ef682242e521d4b5e081da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add7d5ae07caf77254ed822595328ee43" id="r_add7d5ae07caf77254ed822595328ee43"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#add7d5ae07caf77254ed822595328ee43">subject</a></td></tr>
+<tr class="separator:add7d5ae07caf77254ed822595328ee43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8785c53e558d74f7441b34a710848da9" id="r_a8785c53e558d74f7441b34a710848da9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a8785c53e558d74f7441b34a710848da9">type</a></td></tr>
+<tr class="separator:a8785c53e558d74f7441b34a710848da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ce8ed866124e64ee30f2f1d18f6e55" id="r_af4ce8ed866124e64ee30f2f1d18f6e55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#af4ce8ed866124e64ee30f2f1d18f6e55">value</a></td></tr>
+<tr class="separator:af4ce8ed866124e64ee30f2f1d18f6e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d66b006fb9ddeb470390285a9028dc6" id="r_a9d66b006fb9ddeb470390285a9028dc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a9d66b006fb9ddeb470390285a9028dc6">Alt</a></td></tr>
+<tr class="separator:a9d66b006fb9ddeb470390285a9028dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e9fc2aba675f157454c0e312cc38d80" id="r_a3e9fc2aba675f157454c0e312cc38d80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a3e9fc2aba675f157454c0e312cc38d80">Bag</a></td></tr>
+<tr class="separator:a3e9fc2aba675f157454c0e312cc38d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a091554c2b329ff21c1a26a62bd49f225" id="r_a091554c2b329ff21c1a26a62bd49f225"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a091554c2b329ff21c1a26a62bd49f225">CompoundLiteral</a></td></tr>
+<tr class="separator:a091554c2b329ff21c1a26a62bd49f225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefaf1b6c38b762888fd459761877239d" id="r_aefaf1b6c38b762888fd459761877239d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#aefaf1b6c38b762888fd459761877239d">List</a></td></tr>
+<tr class="separator:aefaf1b6c38b762888fd459761877239d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bd195ad1daa76759d82cb7aaad2be03" id="r_a2bd195ad1daa76759d82cb7aaad2be03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a2bd195ad1daa76759d82cb7aaad2be03">Property</a></td></tr>
+<tr class="separator:a2bd195ad1daa76759d82cb7aaad2be03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65ede5720980be3999edc78600e5e835" id="r_a65ede5720980be3999edc78600e5e835"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a65ede5720980be3999edc78600e5e835">Seq</a></td></tr>
+<tr class="separator:a65ede5720980be3999edc78600e5e835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0432f0dd383f49225f31fdc66ac10759" id="r_a0432f0dd383f49225f31fdc66ac10759"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a0432f0dd383f49225f31fdc66ac10759">Statement</a></td></tr>
+<tr class="separator:a0432f0dd383f49225f31fdc66ac10759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c646f9790850402f19168c010d57c67" id="r_a4c646f9790850402f19168c010d57c67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a4c646f9790850402f19168c010d57c67">HTML</a></td></tr>
+<tr class="separator:a4c646f9790850402f19168c010d57c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a5be0e845bf9484af8db41461db5c3a" id="r_a5a5be0e845bf9484af8db41461db5c3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a5a5be0e845bf9484af8db41461db5c3a">JSON</a></td></tr>
+<tr class="separator:a5a5be0e845bf9484af8db41461db5c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60705317076959889d1d83526c10006b" id="r_a60705317076959889d1d83526c10006b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a60705317076959889d1d83526c10006b">PlainLiteral</a></td></tr>
+<tr class="separator:a60705317076959889d1d83526c10006b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b760e098b1500dbc2bc03b936b3d81d" id="r_a4b760e098b1500dbc2bc03b936b3d81d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a4b760e098b1500dbc2bc03b936b3d81d">XMLLiteral</a></td></tr>
+<tr class="separator:a4b760e098b1500dbc2bc03b936b3d81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab062591f937a35de8241f5c905ae085a" id="r_ab062591f937a35de8241f5c905ae085a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#ab062591f937a35de8241f5c905ae085a">langString</a></td></tr>
+<tr class="separator:ab062591f937a35de8241f5c905ae085a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:abe777fdaa7732629ce02b672289fa4f8" id="r_abe777fdaa7732629ce02b672289fa4f8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#abe777fdaa7732629ce02b672289fa4f8">_fail</a> = True</td></tr>
+<tr class="separator:abe777fdaa7732629ce02b672289fa4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0596c3565f663db0f05f9e9cadd812c0" id="r_a0596c3565f663db0f05f9e9cadd812c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#a0596c3565f663db0f05f9e9cadd812c0">_underscore_num</a> = True</td></tr>
+<tr class="separator:a0596c3565f663db0f05f9e9cadd812c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb316b69dc1a825d7deefe16cab36f92" id="r_afb316b69dc1a825d7deefe16cab36f92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02044.html#afb316b69dc1a825d7deefe16cab36f92">_NS</a> = <a class="el" href="a01956.html">Namespace</a>(&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;)</td></tr>
+<tr class="separator:afb316b69dc1a825d7deefe16cab36f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">The RDF Concepts Vocabulary (RDF)
+
+This is the RDF Schema for the RDF vocabulary terms in the RDF Namespace, defined in RDF 1.1 Concepts.
+
+Generated from: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+Date: 2020-05-26 14:20:05.642859
+
+dc:date "2019-12-16"</pre> </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="abe777fdaa7732629ce02b672289fa4f8" name="abe777fdaa7732629ce02b672289fa4f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe777fdaa7732629ce02b672289fa4f8">&#9670;&#160;</a></span>_fail</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool _fail = True</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb316b69dc1a825d7deefe16cab36f92" name="afb316b69dc1a825d7deefe16cab36f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb316b69dc1a825d7deefe16cab36f92">&#9670;&#160;</a></span>_NS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_NS = <a class="el" href="a01956.html">Namespace</a>(&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01964.html#a86dfc5e437087bb61a33fd686b885d26">DefinedNamespaceMeta.__contains__()</a>, <a class="el" href="a01964.html#aa4c676360c9a8fe3ae8f684b2eb52ad5">DefinedNamespaceMeta.__repr__()</a>, and <a class="el" href="a01964.html#a19dc27d62b673975236f24392744e95a">DefinedNamespaceMeta.as_jsonld_context()</a>.</p>
+
+</div>
+</div>
+<a id="a0596c3565f663db0f05f9e9cadd812c0" name="a0596c3565f663db0f05f9e9cadd812c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0596c3565f663db0f05f9e9cadd812c0">&#9670;&#160;</a></span>_underscore_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool _underscore_num = True</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01964.html#a86dfc5e437087bb61a33fd686b885d26">DefinedNamespaceMeta.__contains__()</a>.</p>
+
+</div>
+</div>
+<a id="a9d66b006fb9ddeb470390285a9028dc6" name="a9d66b006fb9ddeb470390285a9028dc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d66b006fb9ddeb470390285a9028dc6">&#9670;&#160;</a></span>Alt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> <a class="el" href="a01724.html">Alt</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e9fc2aba675f157454c0e312cc38d80" name="a3e9fc2aba675f157454c0e312cc38d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e9fc2aba675f157454c0e312cc38d80">&#9670;&#160;</a></span>Bag</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> <a class="el" href="a01720.html">Bag</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a091554c2b329ff21c1a26a62bd49f225" name="a091554c2b329ff21c1a26a62bd49f225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a091554c2b329ff21c1a26a62bd49f225">&#9670;&#160;</a></span>CompoundLiteral</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> CompoundLiteral</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a22d355bf9ca82c0df4208d2ad00512" name="a3a22d355bf9ca82c0df4208d2ad00512"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a22d355bf9ca82c0df4208d2ad00512">&#9670;&#160;</a></span>direction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> direction</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4fe41cbfa3f5f5d134259c8723394682" name="a4fe41cbfa3f5f5d134259c8723394682"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fe41cbfa3f5f5d134259c8723394682">&#9670;&#160;</a></span>first</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> first</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c646f9790850402f19168c010d57c67" name="a4c646f9790850402f19168c010d57c67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c646f9790850402f19168c010d57c67">&#9670;&#160;</a></span>HTML</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> HTML</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a5be0e845bf9484af8db41461db5c3a" name="a5a5be0e845bf9484af8db41461db5c3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a5be0e845bf9484af8db41461db5c3a">&#9670;&#160;</a></span>JSON</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> JSON</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab062591f937a35de8241f5c905ae085a" name="ab062591f937a35de8241f5c905ae085a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab062591f937a35de8241f5c905ae085a">&#9670;&#160;</a></span>langString</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> langString</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3dce842d76956b2e2257596061bf5240" name="a3dce842d76956b2e2257596061bf5240"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dce842d76956b2e2257596061bf5240">&#9670;&#160;</a></span>language</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> language</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02672.html#a5f67544c76b8614b68dc9409bd6bfd84">Literal.__add__()</a>, <a class="el" href="a02672.html#af80a945a424f954902282bbb4b923f36">Literal.__getstate__()</a>, <a class="el" href="a02672.html#ab11f68df320fc01de4b3a9f97e79e8ae">Literal.__sub__()</a>, <a class="el" href="a02332.html#a01b643f65686c7739c0b9e465bb6d9ee">Context._clear()</a>, <a class="el" href="a02672.html#a8af4a62f1dddc710ebfe6a92aa334574">Literal._comparable_to()</a>, <a class="el" href="a02332.html#a52741e0a346b7f80a50da0638dc5fe19">Context._subcontext()</a>, <a class="el" href="a02672.html#a13421a2649e11b05a5e37390b29da5a4">Literal.eq()</a>, <a class="el" href="a03024.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>, and <a class="el" href="a02332.html#aa5b78a82a486148c4a7c177e6cd73bec">Context.to_dict()</a>.</p>
+
+</div>
+</div>
+<a id="aefaf1b6c38b762888fd459761877239d" name="aefaf1b6c38b762888fd459761877239d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefaf1b6c38b762888fd459761877239d">&#9670;&#160;</a></span>List</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> List</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aff389a875134884e2584515646b65f87" name="aff389a875134884e2584515646b65f87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff389a875134884e2584515646b65f87">&#9670;&#160;</a></span>nil</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> nil</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6155187f8d6a63cd0973cf40058f1801" name="a6155187f8d6a63cd0973cf40058f1801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6155187f8d6a63cd0973cf40058f1801">&#9670;&#160;</a></span>object</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> <a class="el" href="a07484.html">object</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02176.html#af673fa8b0ab4a0b3a636689f6a096431">SinkParser.objectList()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, and <a class="el" href="a02176.html#a25139b0000cf3c1d2544f84f6260f50d">SinkParser.statement()</a>.</p>
+
+</div>
+</div>
+<a id="a60705317076959889d1d83526c10006b" name="a60705317076959889d1d83526c10006b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60705317076959889d1d83526c10006b">&#9670;&#160;</a></span>PlainLiteral</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> PlainLiteral</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac3ec0a1e084648abdc31349afb62780" name="aac3ec0a1e084648abdc31349afb62780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac3ec0a1e084648abdc31349afb62780">&#9670;&#160;</a></span>predicate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> predicate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, <a class="el" href="a02300.html#afd3cd859641b498d041345fcf7a2b7b9">XMLSerializer.subject()</a>, and <a class="el" href="a02304.html#af96143e1b2444d42a8e4456860d3a96d">PrettyXMLSerializer.subject()</a>.</p>
+
+</div>
+</div>
+<a id="a2bd195ad1daa76759d82cb7aaad2be03" name="a2bd195ad1daa76759d82cb7aaad2be03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd195ad1daa76759d82cb7aaad2be03">&#9670;&#160;</a></span>Property</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> Property</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade6a565db1ef682242e521d4b5e081da" name="ade6a565db1ef682242e521d4b5e081da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade6a565db1ef682242e521d4b5e081da">&#9670;&#160;</a></span>rest</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> rest</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65ede5720980be3999edc78600e5e835" name="a65ede5720980be3999edc78600e5e835"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65ede5720980be3999edc78600e5e835">&#9670;&#160;</a></span>Seq</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> <a class="el" href="a01728.html">Seq</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0432f0dd383f49225f31fdc66ac10759" name="a0432f0dd383f49225f31fdc66ac10759"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0432f0dd383f49225f31fdc66ac10759">&#9670;&#160;</a></span>Statement</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> Statement</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add7d5ae07caf77254ed822595328ee43" name="add7d5ae07caf77254ed822595328ee43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add7d5ae07caf77254ed822595328ee43">&#9670;&#160;</a></span>subject</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> subject</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, and <a class="el" href="a02304.html#abb3096640b02b2bc2585cddccdc5881a">PrettyXMLSerializer.predicate()</a>.</p>
+
+</div>
+</div>
+<a id="a8785c53e558d74f7441b34a710848da9" name="a8785c53e558d74f7441b34a710848da9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8785c53e558d74f7441b34a710848da9">&#9670;&#160;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> <a class="el" href="a07531.html">type</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02604.html#af466df7f15887a199aa900cbe8542937">Result.__bool__()</a>, <a class="el" href="a02604.html#af96227fa172ee2434ffb6b967edce50b">Result.__eq__()</a>, <a class="el" href="a02604.html#a973d1b0af56ccdf40e49a94753adfbc5">Result.__getattr__()</a>, <a class="el" href="a02604.html#a21c5bf0b5c03641681c2ea079a650c37">Result.__iter__()</a>, <a class="el" href="a02604.html#afd64a095585f64cbe93bdc3b13eba041">Result.__len__()</a>, <a class="el" href="a01912.html#a61a1f3a6a4df93d491cd753f617782a2">Property.__repr__()</a>, <a class="el" href="a02748.html#aea815b0c6c23fc48a11ee0404b782c7a">Value.__repr__()</a>, and <a class="el" href="a02604.html#a2cce7421aac74a8767fea2c10227150b">Result.serialize()</a>.</p>
+
+</div>
+</div>
+<a id="af4ce8ed866124e64ee30f2f1d18f6e55" name="af4ce8ed866124e64ee30f2f1d18f6e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ce8ed866124e64ee30f2f1d18f6e55">&#9670;&#160;</a></span>value</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> value</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02672.html#a2e8226625f30ecb0abe29d2c1780cad5">Literal.__abs__()</a>, <a class="el" href="a02672.html#a5f67544c76b8614b68dc9409bd6bfd84">Literal.__add__()</a>, <a class="el" href="a02672.html#af466df7f15887a199aa900cbe8542937">Literal.__bool__()</a>, <a class="el" href="a02360.html#a6863b95e546395d63501271ed5d48295">Extremum.__init__()</a>, <a class="el" href="a02672.html#af22b71dba8f7d4fbf2a566ecd98dcc64">Literal.__invert__()</a>, <a class="el" href="a02672.html#a8ce24dde9eef430c7e3b1aa31dd78344">Literal.__neg__()</a>, <a class="el" href="a02672.html#a76b21eb66a8aa1570512b647be694b59">Literal.__pos__()</a>, <a class="el" href="a02748.html#aea815b0c6c23fc48a11ee0404b782c7a">Value.__repr__()</a>, <a class="el" href="a02672.html#a13421a2649e11b05a5e37390b29da5a4">Literal.eq()</a>, <a class="el" href="a02348.html#a55413a8a2a746bbd8c037628498c2341">Counter.get_value()</a>, <a class="el" href="a02352.html#a55413a8a2a746bbd8c037628498c2341">Sum.get_value()</a>, <a class="el" href="a02376.html#a55413a8a2a746bbd8c037628498c2341">GroupConcat.get_value()</a>, <a class="el" href="a01920.html#a056df130441b8e074954b2a282c46308">Graph.items()</a>, <a class="el" href="a02672.html#aa59b383da6f73264d7a88fdab8604ffd">Literal.normalize()</a>, <a class="el" href="a02360.html#adda820cb8f081c9060f97b7344b9f76c">Extremum.set_value()</a>, <a class="el" href="a02348.html#a9e8fa3105eed595ed428239e266faac3">Counter.update()</a>, <a class="el" href="a02360.html#a9e8fa3105eed595ed428239e266faac3">Extremum.update()</a>, and <a class="el" href="a02376.html#a9e8fa3105eed595ed428239e266faac3">GroupConcat.update()</a>.</p>
+
+</div>
+</div>
+<a id="a4b760e098b1500dbc2bc03b936b3d81d" name="a4b760e098b1500dbc2bc03b936b3d81d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b760e098b1500dbc2bc03b936b3d81d">&#9670;&#160;</a></span>XMLLiteral</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02656.html">URIRef</a> XMLLiteral</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01016.html">namespace</a></li><li class="navelem"><a class="el" href="a01033.html">_RDF</a></li><li class="navelem"><a class="el" href="a02044.html">RDF</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: ClosedConstraintComponent Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01376.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a01373.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ClosedConstraintComponent Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for ClosedConstraintComponent:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01375.png" border="0" usemap="#aClosedConstraintComponent_inherit__map" alt="Inheritance graph"/></div>
+<map name="aClosedConstraintComponent_inherit__map" id="aClosedConstraintComponent_inherit__map">
+<area shape="rect" title=" " alt="" coords="33,152,241,177"/>
+<area shape="rect" href="a01336.html" title=" " alt="" coords="55,79,219,104"/>
+<area shape="poly" title=" " alt="" coords="139,118,139,152,134,152,134,118"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,5,68,31"/>
+<area shape="poly" title=" " alt="" coords="65,36,122,76,119,81,62,41"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="92,5,181,31"/>
+<area shape="poly" title=" " alt="" coords="139,44,139,79,134,79,134,44"/>
+<area shape="rect" title=" " alt="" coords="206,5,289,31"/>
+<area shape="poly" title=" " alt="" coords="219,40,156,81,153,76,217,36"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ClosedConstraintComponent:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01374.png" border="0" usemap="#aClosedConstraintComponent_coll__map" alt="Collaboration graph"/></div>
+<map name="aClosedConstraintComponent_coll__map" id="aClosedConstraintComponent_coll__map">
+<area shape="rect" title=" " alt="" coords="246,592,454,617"/>
+<area shape="rect" href="a01336.html" title=" " alt="" coords="204,504,368,529"/>
+<area shape="poly" title=" " alt="" coords="305,539,343,590,339,593,301,542"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,401,68,427"/>
+<area shape="poly" title=" " alt="" coords="76,430,190,478,254,501,252,506,188,482,74,435"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="92,401,181,427"/>
+<area shape="poly" title=" " alt="" coords="167,432,271,502,268,506,164,437"/>
+<area shape="rect" title=" " alt="" coords="206,401,289,427"/>
+<area shape="poly" title=" " alt="" coords="259,438,284,503,279,505,254,440"/>
+<area shape="rect" title=" " alt="" coords="484,5,539,31"/>
+<area shape="poly" title=" " alt="" coords="471,23,426,29,379,43,359,54,343,67,332,84,329,105,329,416,325,442,317,467,296,505,292,502,312,464,320,440,323,415,323,104,327,82,339,64,356,49,377,38,424,24,470,18"/>
+<area shape="rect" href="a02656.html" title=" " alt="" coords="426,401,493,427"/>
+<area shape="poly" title=" " alt="" coords="472,37,451,49,432,64,418,83,413,105,413,283,417,318,428,350,454,400,449,402,423,352,412,319,407,284,407,104,413,80,428,60,448,44,470,32"/>
+<area shape="rect" href="a02652.html" title=" " alt="" coords="450,269,567,295"/>
+<area shape="poly" title=" " alt="" coords="514,44,511,269,506,269,508,44"/>
+<area shape="rect" href="a02648.html" title=" " alt="" coords="603,181,683,207"/>
+<area shape="poly" title=" " alt="" coords="530,40,637,179,632,183,526,43"/>
+<area shape="rect" href="a02644.html" title=" " alt="" coords="671,93,727,119"/>
+<area shape="poly" title=" " alt="" coords="553,33,599,52,679,91,676,96,597,57,551,38"/>
+<area shape="rect" title=" " alt="" coords="566,401,617,427"/>
+<area shape="poly" title=" " alt="" coords="589,441,580,463,563,482,368,508,368,503,561,478,575,460,584,439"/>
+<area shape="poly" title=" " alt="" coords="414,433,373,453,357,467,342,482,307,506,304,502,339,478,354,463,370,448,412,428"/>
+<area shape="poly" title=" " alt="" coords="502,308,466,402,461,400,497,306"/>
+<area shape="poly" title=" " alt="" coords="615,216,528,271,526,267,612,212"/>
+<area shape="poly" title=" " alt="" coords="687,132,653,182,649,179,682,129"/>
+<area shape="rect" title=" " alt="" coords="687,5,736,31"/>
+<area shape="poly" title=" " alt="" coords="710,44,704,93,698,92,705,44"/>
+<area shape="rect" title=" " alt="" coords="752,93,791,119"/>
+<area shape="poly" title=" " alt="" coords="744,129,662,183,659,179,741,124"/>
+<area shape="rect" title=" " alt="" coords="591,269,666,295"/>
+<area shape="poly" title=" " alt="" coords="604,305,476,403,473,399,601,301"/>
+<area shape="rect" title=" " alt="" coords="392,504,439,529"/>
+<area shape="poly" title=" " alt="" coords="400,542,361,593,357,590,396,539"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adae411263142600ae1db8adc4e90ac80" id="r_adae411263142600ae1db8adc4e90ac80"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#adae411263142600ae1db8adc4e90ac80">__init__</a> (self, <a class="el" href="a01660.html">Shape</a> <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">shape</a>)</td></tr>
+<tr class="separator:adae411263142600ae1db8adc4e90ac80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae2ce259fbb4d717a1792d620b29a70" id="r_a1ae2ce259fbb4d717a1792d620b29a70"><td class="memItemLeft" align="right" valign="top">List[<a class="el" href="a02656.html">rdflib.URIRef</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a1ae2ce259fbb4d717a1792d620b29a70">constraint_parameters</a> (cls)</td></tr>
+<tr class="separator:a1ae2ce259fbb4d717a1792d620b29a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15b104887ff90ecf9a8bd21d958530ad" id="r_a15b104887ff90ecf9a8bd21d958530ad"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a15b104887ff90ecf9a8bd21d958530ad">constraint_name</a> (cls)</td></tr>
+<tr class="separator:a15b104887ff90ecf9a8bd21d958530ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a33d1d0ea92f75b00911929c5d43639" id="r_a9a33d1d0ea92f75b00911929c5d43639"><td class="memItemLeft" align="right" valign="top">List[<a class="el" href="a02672.html">rdflib.Literal</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a9a33d1d0ea92f75b00911929c5d43639">make_generic_messages</a> (self, GraphLike datagraph, focus_node, value_node)</td></tr>
+<tr class="separator:a9a33d1d0ea92f75b00911929c5d43639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a058cd2e2f7b194bae44cd5b0679378da" id="r_a058cd2e2f7b194bae44cd5b0679378da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a058cd2e2f7b194bae44cd5b0679378da">evaluate</a> (self, <a class="el" href="a01616.html">SHACLExecutor</a> executor, GraphLike target_graph, Dict focus_value_nodes, List _evaluation_path)</td></tr>
+<tr class="separator:a058cd2e2f7b194bae44cd5b0679378da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:add64c12d7f73022ae971cdabe6b9459f" id="r_add64c12d7f73022ae971cdabe6b9459f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#add64c12d7f73022ae971cdabe6b9459f">is_closed</a></td></tr>
+<tr class="separator:add64c12d7f73022ae971cdabe6b9459f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b45ae35dd8dd1f9e08483bda46730e" id="r_a69b45ae35dd8dd1f9e08483bda46730e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a69b45ae35dd8dd1f9e08483bda46730e">property_shapes</a></td></tr>
+<tr class="separator:a69b45ae35dd8dd1f9e08483bda46730e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db4054ca33b7ba818bacf2b45aa0d27" id="r_a8db4054ca33b7ba818bacf2b45aa0d27"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a8db4054ca33b7ba818bacf2b45aa0d27">ignored_props</a></td></tr>
+<tr class="separator:a8db4054ca33b7ba818bacf2b45aa0d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a9cb5bbf57d0dc29634d5f1c0497a0d90" id="r_a9cb5bbf57d0dc29634d5f1c0497a0d90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a9cb5bbf57d0dc29634d5f1c0497a0d90">shacl_constraint_component</a> = <a class="el" href="a00940.html#ac75876ff1a770ef4f0cf6c92f283bd5f">SH_ClosedConstraintComponent</a></td></tr>
+<tr class="separator:a9cb5bbf57d0dc29634d5f1c0497a0d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a845f55054de73c94e9bca951f4fefa3f" id="r_a845f55054de73c94e9bca951f4fefa3f"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01376.html#a845f55054de73c94e9bca951f4fefa3f">ALWAYS_IGNORE</a> = {(RDF_type, RDFS.Resource)}</td></tr>
+<tr class="separator:a845f55054de73c94e9bca951f4fefa3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">The RDF data model offers a huge amount of flexibility. Any node can in principle have values for any property. However, in some cases it makes sense to specify conditions on which properties can be applied to nodes. The SHACL Core language includes a property called sh:closed that can be used to specify the condition that each value node has values only for those properties that have been explicitly enumerated via the property shapes specified for the shape via sh:property.
+Link:
+https://www.w3.org/TR/shacl/#ClosedConstraintComponent
+Textual Definition:
+If $closed is true then there is a validation result for each triple that has a value node as its subject and a predicate that is not explicitly enumerated as a value of sh:path in any of the property shapes declared via sh:property at the current shape. If $ignoredProperties has a value then the properties enumerated as members of this SHACL list are also permitted for the value node. The validation result MUST have the predicate of the triple as its sh:resultPath, and the object of the triple as its sh:value.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adae411263142600ae1db8adc4e90ac80" name="adae411263142600ae1db8adc4e90ac80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adae411263142600ae1db8adc4e90ac80">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None __init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01660.html">Shape</a>&#160;</td>
+          <td class="paramname"><em>shape</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param shape:
+:type shape: Shape
+</pre> 
+<p>Reimplemented from <a class="el" href="a01336.html#a4bc4e3d850efdaa423836e2c3560912d">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  112</span>    <span class="keyword">def </span>__init__(self, shape: Shape) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  113</span>        super(ClosedConstraintComponent, self).__init__(shape)</div>
+<div class="line"><span class="lineno">  114</span>        sg = self.shape.sg.graph</div>
+<div class="line"><span class="lineno">  115</span>        closed_vals = list(self.shape.objects(SH_closed))</div>
+<div class="line"><span class="lineno">  116</span>        ignored_vals = list(self.shape.objects(SH_ignoredProperties))</div>
+<div class="line"><span class="lineno">  117</span>        <span class="keywordflow">if</span> len(ignored_vals) &gt; 0 <span class="keywordflow">and</span> len(closed_vals) &lt; 1:</div>
+<div class="line"><span class="lineno">  118</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  119</span>                <span class="stringliteral">&quot;ClosedConstraintComponent: You can only use sh:ignoredProperties on a Closed Shape (sh:closed).&quot;</span>,</div>
+<div class="line"><span class="lineno">  120</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#ClosedConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  121</span>            )</div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">if</span> len(closed_vals) &lt; 1:</div>
+<div class="line"><span class="lineno">  123</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  124</span>                <span class="stringliteral">&quot;ClosedConstraintComponent must have at least one sh:closed predicate.&quot;</span>,</div>
+<div class="line"><span class="lineno">  125</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#ClosedConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  126</span>            )</div>
+<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">elif</span> len(closed_vals) &gt; 1:</div>
+<div class="line"><span class="lineno">  128</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  129</span>                <span class="stringliteral">&quot;ClosedConstraintComponent must have at most one sh:closed predicate.&quot;</span>,</div>
+<div class="line"><span class="lineno">  130</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#ClosedConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  131</span>            )</div>
+<div class="line"><span class="lineno">  132</span>        <span class="keyword">assert</span> isinstance(closed_vals[0], <a class="code hl_class" href="a02672.html">rdflib.Literal</a>), <span class="stringliteral">&quot;sh:closed must take a xsd:boolean literal.&quot;</span></div>
+<div class="line"><span class="lineno">  133</span>        self.is_closed = bool(closed_vals[0].value)</div>
+<div class="line"><span class="lineno">  134</span>        self.ignored_props: Set[Union[<a class="code hl_class" href="a02668.html">rdflib.BNode</a>, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>, <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>]] = set()</div>
+<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> ignored_vals:</div>
+<div class="line"><span class="lineno">  136</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  137</span>                items = set(sg.items(i))</div>
+<div class="line"><span class="lineno">  138</span>                <span class="keywordflow">for</span> list_item <span class="keywordflow">in</span> items:</div>
+<div class="line"><span class="lineno">  139</span>                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(list_item, (<a class="code hl_class" href="a02668.html">rdflib.BNode</a>, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>, <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>)):</div>
+<div class="line"><span class="lineno">  140</span>                        logging.debug(<span class="stringliteral">&quot;list_item = %r.&quot;</span>, list_item)</div>
+<div class="line"><span class="lineno">  141</span>                        logging.debug(<span class="stringliteral">&quot;type(list_item) = %r.&quot;</span>, <a class="code hl_class" href="a07531.html">type</a>(list_item))</div>
+<div class="line"><span class="lineno">  142</span>                        <span class="keywordflow">raise</span> TypeError(</div>
+<div class="line"><span class="lineno">  143</span>                            <span class="stringliteral">&quot;sh:ignoredProperties linked something that is neither URIRef, BNode, or Literal.&quot;</span></div>
+<div class="line"><span class="lineno">  144</span>                        )</div>
+<div class="line"><span class="lineno">  145</span>                    self.ignored_props.add(list_item)</div>
+<div class="line"><span class="lineno">  146</span>            <span class="keywordflow">except</span> ValueError:</div>
+<div class="line"><span class="lineno">  147</span>                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  148</span>        self.property_shapes = list(self.shape.objects(SH_property))</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="ttc" id="aa02656_html"><div class="ttname"><a href="a02656.html">rdflib.term.URIRef</a></div><div class="ttdef"><b>Definition</b> term.py:266</div></div>
+<div class="ttc" id="aa02668_html"><div class="ttname"><a href="a02668.html">rdflib.term.BNode</a></div><div class="ttdef"><b>Definition</b> term.py:437</div></div>
+<div class="ttc" id="aa02672_html"><div class="ttname"><a href="a02672.html">rdflib.term.Literal</a></div><div class="ttdef"><b>Definition</b> term.py:525</div></div>
+<div class="ttc" id="aa07531_html"><div class="ttname"><a href="a07531.html">type</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01376.html#adae411263142600ae1db8adc4e90ac80">ClosedConstraintComponent.__init__()</a>, <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">ConstraintComponent.shape</a>, <a class="el" href="a01464.html#a45cde9abb508c62d67c3bb2b9bf566a5">BoundShapeValidatorComponent.shape</a>, <a class="el" href="a01600.html#a45cde9abb508c62d67c3bb2b9bf566a5">SPARQLQueryHelper.shape</a>, <a class="el" href="a01600.html#a7a596cec507a98f0d155b6847f5cfb39">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>, and <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">SHACLRule.shape</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01376.html#adae411263142600ae1db8adc4e90ac80">ClosedConstraintComponent.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a15b104887ff90ecf9a8bd21d958530ad" name="a15b104887ff90ecf9a8bd21d958530ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b104887ff90ecf9a8bd21d958530ad">&#9670;&#160;</a></span>constraint_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str constraint_name </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01336.html#a15b104887ff90ecf9a8bd21d958530ad">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  155</span>    <span class="keyword">def </span>constraint_name(cls) -&gt; str:</div>
+<div class="line"><span class="lineno">  156</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;ClosedConstraintComponent&quot;</span></div>
+<div class="line"><span class="lineno">  157</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01336.html#a6c2e6d8c689549baab3080a52b4f20cc">ConstraintComponent.make_v_result_description()</a>.</p>
+
+</div>
+</div>
+<a id="a1ae2ce259fbb4d717a1792d620b29a70" name="a1ae2ce259fbb4d717a1792d620b29a70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae2ce259fbb4d717a1792d620b29a70">&#9670;&#160;</a></span>constraint_parameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[<a class="el" href="a02656.html">rdflib.URIRef</a>] constraint_parameters </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01336.html#afc67dd003a3b5b8727aa69776bcdbfa1">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  151</span>    <span class="keyword">def </span>constraint_parameters(cls) -&gt; List[rdflib.URIRef]:</div>
+<div class="line"><span class="lineno">  152</span>        <span class="keywordflow">return</span> [SH_closed, SH_ignoredProperties]</div>
+<div class="line"><span class="lineno">  153</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a058cd2e2f7b194bae44cd5b0679378da" name="a058cd2e2f7b194bae44cd5b0679378da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a058cd2e2f7b194bae44cd5b0679378da">&#9670;&#160;</a></span>evaluate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01616.html">SHACLExecutor</a>&#160;</td>
+          <td class="paramname"><em>executor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphLike&#160;</td>
+          <td class="paramname"><em>target_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict&#160;</td>
+          <td class="paramname"><em>focus_value_nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List
+    &#160;</td>
+          <td class="paramname"><em>_evaluation_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:type executor: SHACLExecutor
+:type target_graph: rdflib.Graph
+:type focus_value_nodes: dict
+:type _evaluation_path: list
+</pre> 
+<p>Reimplemented from <a class="el" href="a01336.html#a058cd2e2f7b194bae44cd5b0679378da">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  166</span>    ):</div>
+<div class="line"><span class="lineno">  167</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  168</span><span class="stringliteral">        :type executor: SHACLExecutor</span></div>
+<div class="line"><span class="lineno">  169</span><span class="stringliteral">        :type target_graph: rdflib.Graph</span></div>
+<div class="line"><span class="lineno">  170</span><span class="stringliteral">        :type focus_value_nodes: dict</span></div>
+<div class="line"><span class="lineno">  171</span><span class="stringliteral">        :type _evaluation_path: list</span></div>
+<div class="line"><span class="lineno">  172</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  173</span>        reports = []</div>
+<div class="line"><span class="lineno">  174</span>        non_conformant = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.is_closed:</div>
+<div class="line"><span class="lineno">  176</span>            <span class="keywordflow">return</span> <span class="keyword">True</span>, []</div>
+<div class="line"><span class="lineno">  177</span> </div>
+<div class="line"><span class="lineno">  178</span>        working_shapes = set()</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">for</span> p_shape <span class="keywordflow">in</span> self.property_shapes:</div>
+<div class="line"><span class="lineno">  180</span>            property_shape = self.shape.get_other_shape(p_shape)</div>
+<div class="line"><span class="lineno">  181</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> property_shape <span class="keywordflow">or</span> <span class="keywordflow">not</span> property_shape.is_property_shape:</div>
+<div class="line"><span class="lineno">  182</span>                <span class="keywordflow">raise</span> ReportableRuntimeError(</div>
+<div class="line"><span class="lineno">  183</span>                    <span class="stringliteral">&quot;The shape pointed to by sh:property does not exist, or is not a well defined SHACL PropertyShape.&quot;</span></div>
+<div class="line"><span class="lineno">  184</span>                )</div>
+<div class="line"><span class="lineno">  185</span>            working_shapes.add(property_shape)</div>
+<div class="line"><span class="lineno">  186</span>        working_paths = set()</div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">for</span> w <span class="keywordflow">in</span> working_shapes:</div>
+<div class="line"><span class="lineno">  188</span>            p = w.path()</div>
+<div class="line"><span class="lineno">  189</span>            <span class="keywordflow">if</span> p:</div>
+<div class="line"><span class="lineno">  190</span>                working_paths.add(p)</div>
+<div class="line"><span class="lineno">  191</span> </div>
+<div class="line"><span class="lineno">  192</span>        <span class="keywordflow">if</span> executor.sparql_mode:</div>
+<div class="line"><span class="lineno">  193</span>            select_vars_string = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  194</span>            filter_props_list = []</div>
+<div class="line"><span class="lineno">  195</span>            bgp_list = []</div>
+<div class="line"><span class="lineno">  196</span>            init_bindings = {}</div>
+<div class="line"><span class="lineno">  197</span>            <span class="keywordflow">if</span> len(self.ignored_props) &gt; 0:</div>
+<div class="line"><span class="lineno">  198</span>                filter_template = <span class="stringliteral">&quot;(&quot;</span></div>
+<div class="line"><span class="lineno">  199</span>                <span class="keywordflow">if</span> len(self.ignored_props) == 1:</div>
+<div class="line"><span class="lineno">  200</span>                    filter_template += f<span class="stringliteral">&quot;{{P}} != {next(iter(self.ignored_props)).n3()}&quot;</span></div>
+<div class="line"><span class="lineno">  201</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  202</span>                    this_filter_parts = []</div>
+<div class="line"><span class="lineno">  203</span>                    <span class="keywordflow">for</span> ig <span class="keywordflow">in</span> self.ignored_props:</div>
+<div class="line"><span class="lineno">  204</span>                        this_filter_parts.append(f<span class="stringliteral">&quot;({{P}} != {ig.n3()})&quot;</span>)</div>
+<div class="line"><span class="lineno">  205</span>                    filter_template += <span class="stringliteral">&quot; &amp;&amp; &quot;</span>.join(this_filter_parts)</div>
+<div class="line"><span class="lineno">  206</span>                filter_template += <span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><span class="lineno">  207</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  208</span>                filter_template = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  209</span>            <span class="keywordflow">for</span> i, f <span class="keywordflow">in</span> enumerate(focus_value_nodes.keys()):</div>
+<div class="line"><span class="lineno">  210</span>                <span class="keywordflow">for</span> j, v <span class="keywordflow">in</span> enumerate(focus_value_nodes[f]):</div>
+<div class="line"><span class="lineno">  211</span>                    select_vars_string += f<span class="stringliteral">&quot;?p{i}_{j} ?o{i}_{j} &quot;</span></div>
+<div class="line"><span class="lineno">  212</span>                    bgp_line = f<span class="stringliteral">&quot;OPTIONAL {{ $v{i}_{j} ?p{i}_{j} ?o{i}_{j} . }}&quot;</span></div>
+<div class="line"><span class="lineno">  213</span>                    bgp_list.append(bgp_line)</div>
+<div class="line"><span class="lineno">  214</span>                    <span class="keywordflow">if</span> filter_template:</div>
+<div class="line"><span class="lineno">  215</span>                        filter_props_line = filter_template.replace(<span class="stringliteral">&quot;{P}&quot;</span>, f<span class="stringliteral">&quot;?p{i}_{j}&quot;</span>)</div>
+<div class="line"><span class="lineno">  216</span>                        filter_props_list.append(filter_props_line)</div>
+<div class="line"><span class="lineno">  217</span>                    init_bindings[f<span class="stringliteral">&quot;v{i}_{j}&quot;</span>] = v</div>
+<div class="line"><span class="lineno">  218</span>            bgp_string = <span class="stringliteral">&quot;\n&quot;</span>.join(bgp_list)</div>
+<div class="line"><span class="lineno">  219</span>            <span class="keywordflow">if</span> len(filter_props_list) &gt; 1:</div>
+<div class="line"><span class="lineno">  220</span>                filter_props_string = <span class="stringliteral">&quot;FILTER (&quot;</span> + <span class="stringliteral">&quot; &amp;&amp; &quot;</span>.join(filter_props_list) + <span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><span class="lineno">  221</span>            <span class="keywordflow">elif</span> len(filter_props_list) == 1:</div>
+<div class="line"><span class="lineno">  222</span>                filter_props_string = <span class="stringliteral">&quot;FILTER &quot;</span> + filter_props_list[0]</div>
+<div class="line"><span class="lineno">  223</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  224</span>                filter_props_string = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  225</span>            closed_query = f<span class="stringliteral">&quot;SELECT DISTINCT {select_vars_string} {{\n\t{bgp_string}\n\t{filter_props_string}\n}}&quot;</span></div>
+<div class="line"><span class="lineno">  226</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  227</span>                results = target_graph.query(closed_query, initBindings=init_bindings)</div>
+<div class="line"><span class="lineno">  228</span>            <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  229</span>                print(e)</div>
+<div class="line"><span class="lineno">  230</span>                <span class="keywordflow">raise</span></div>
+<div class="line"><span class="lineno">  231</span>            found_fvpo = []</div>
+<div class="line"><span class="lineno">  232</span>            <span class="keywordflow">if</span> len(results) &gt; 0:</div>
+<div class="line"><span class="lineno">  233</span>                <span class="keywordflow">for</span> r <span class="keywordflow">in</span> results:</div>
+<div class="line"><span class="lineno">  234</span>                    <span class="keyword">assert</span> isinstance(r, <a class="code hl_class" href="a02600.html">rdflib.query.ResultRow</a>)</div>
+<div class="line"><span class="lineno">  235</span>                    <span class="keywordflow">for</span> i, f <span class="keywordflow">in</span> enumerate(focus_value_nodes.keys()):</div>
+<div class="line"><span class="lineno">  236</span>                        <span class="keywordflow">for</span> j, v <span class="keywordflow">in</span> enumerate(focus_value_nodes[f]):</div>
+<div class="line"><span class="lineno">  237</span>                            p = r[f<span class="stringliteral">&quot;p{i}_{j}&quot;</span>]</div>
+<div class="line"><span class="lineno">  238</span>                            o = r[f<span class="stringliteral">&quot;o{i}_{j}&quot;</span>]</div>
+<div class="line"><span class="lineno">  239</span>                            <span class="keywordflow">if</span> p <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> o <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> p == <span class="stringliteral">&quot;UNDEF&quot;</span> <span class="keywordflow">or</span> o == <span class="stringliteral">&quot;UNDEF&quot;</span>:</div>
+<div class="line"><span class="lineno">  240</span>                                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  241</span>                            fvpo = (f, v, p, o)</div>
+<div class="line"><span class="lineno">  242</span>                            <span class="keywordflow">if</span> fvpo <span class="keywordflow">in</span> found_fvpo:</div>
+<div class="line"><span class="lineno">  243</span>                                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  244</span>                            found_fvpo.append(fvpo)</div>
+<div class="line"><span class="lineno">  245</span>                            <span class="comment"># TODO: remove code duplication</span></div>
+<div class="line"><span class="lineno">  246</span>                            <span class="keywordflow">if</span> (p, o) <span class="keywordflow">in</span> self.ALWAYS_IGNORE:</div>
+<div class="line"><span class="lineno">  247</span>                                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  248</span>                            <span class="keywordflow">elif</span> p <span class="keywordflow">in</span> self.ignored_props:</div>
+<div class="line"><span class="lineno">  249</span>                                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  250</span>                            <span class="keywordflow">elif</span> p <span class="keywordflow">in</span> working_paths:</div>
+<div class="line"><span class="lineno">  251</span>                                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  252</span>                            non_conformant = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  253</span>                            o_node = cast(RDFNode, o)</div>
+<div class="line"><span class="lineno">  254</span>                            p_node = cast(RDFNode, p)</div>
+<div class="line"><span class="lineno">  255</span>                            rept = self.make_v_result(target_graph, f, value_node=o_node, result_path=p_node)</div>
+<div class="line"><span class="lineno">  256</span>                            reports.append(rept)</div>
+<div class="line"><span class="lineno">  257</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  258</span>            <span class="keywordflow">for</span> f, value_nodes <span class="keywordflow">in</span> focus_value_nodes.items():</div>
+<div class="line"><span class="lineno">  259</span>                <span class="keywordflow">for</span> v <span class="keywordflow">in</span> value_nodes:</div>
+<div class="line"><span class="lineno">  260</span>                    pred_obs = target_graph.predicate_objects(v)</div>
+<div class="line"><span class="lineno">  261</span>                    <span class="keywordflow">for</span> _p, _o <span class="keywordflow">in</span> pred_obs:</div>
+<div class="line"><span class="lineno">  262</span>                        <span class="keywordflow">if</span> (_p, _o) <span class="keywordflow">in</span> self.ALWAYS_IGNORE:</div>
+<div class="line"><span class="lineno">  263</span>                            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  264</span>                        <span class="keywordflow">elif</span> _p <span class="keywordflow">in</span> self.ignored_props:</div>
+<div class="line"><span class="lineno">  265</span>                            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  266</span>                        <span class="keywordflow">elif</span> _p <span class="keywordflow">in</span> working_paths:</div>
+<div class="line"><span class="lineno">  267</span>                            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  268</span>                        non_conformant = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  269</span>                        o_node = cast(RDFNode, _o)</div>
+<div class="line"><span class="lineno">  270</span>                        p_node = cast(RDFNode, _p)</div>
+<div class="line"><span class="lineno">  271</span>                        rept = self.make_v_result(target_graph, f, value_node=o_node, result_path=p_node)</div>
+<div class="line"><span class="lineno">  272</span>                        reports.append(rept)</div>
+<div class="line"><span class="lineno">  273</span>        <span class="keywordflow">return</span> (<span class="keywordflow">not</span> non_conformant), reports</div>
+<div class="line"><span class="lineno">  274</span> </div>
+<div class="line"><span class="lineno">  275</span> </div>
+<div class="ttc" id="aa02600_html"><div class="ttname"><a href="a02600.html">rdflib.query.ResultRow</a></div><div class="ttdef"><b>Definition</b> query.py:111</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01376.html#add64c12d7f73022ae971cdabe6b9459f">ClosedConstraintComponent.is_closed</a>, <a class="el" href="a01768.html#ae774bcfd1260c0c8ea3d9873b74e335a">Transaction.is_closed()</a>, <a class="el" href="a01376.html#a69b45ae35dd8dd1f9e08483bda46730e">ClosedConstraintComponent.property_shapes</a>, <a class="el" href="a01400.html#a69b45ae35dd8dd1f9e08483bda46730e">PropertyConstraintComponent.property_shapes</a>, <a class="el" href="a01660.html#a8fc6fc5c15cce81a35beff59fcd7938c">Shape.property_shapes()</a>, <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">ConstraintComponent.shape</a>, <a class="el" href="a01464.html#a45cde9abb508c62d67c3bb2b9bf566a5">BoundShapeValidatorComponent.shape</a>, <a class="el" href="a01600.html#a45cde9abb508c62d67c3bb2b9bf566a5">SPARQLQueryHelper.shape</a>, <a class="el" href="a01600.html#a7a596cec507a98f0d155b6847f5cfb39">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>, and <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">SHACLRule.shape</a>.</p>
+
+</div>
+</div>
+<a id="a9a33d1d0ea92f75b00911929c5d43639" name="a9a33d1d0ea92f75b00911929c5d43639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a33d1d0ea92f75b00911929c5d43639">&#9670;&#160;</a></span>make_generic_messages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[<a class="el" href="a02672.html">rdflib.Literal</a>] make_generic_messages </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphLike&#160;</td>
+          <td class="paramname"><em>datagraph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>focus_node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>value_node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01336.html#aca74f5c255d942ed99ce1f93ab8821f7">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  158</span>    <span class="keyword">def </span>make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -&gt; List[<a class="code hl_class" href="a02672.html">rdflib.Literal</a>]:</div>
+<div class="line"><span class="lineno">  159</span>        m = <span class="stringliteral">&quot;Node {} is closed. It cannot have value: {}&quot;</span>.format(</div>
+<div class="line"><span class="lineno">  160</span>            stringify_node(datagraph, focus_node), stringify_node(datagraph, value_node)</div>
+<div class="line"><span class="lineno">  161</span>        )</div>
+<div class="line"><span class="lineno">  162</span>        <span class="keywordflow">return</span> [<a class="code hl_class" href="a02672.html">rdflib.Literal</a>(m)]</div>
+<div class="line"><span class="lineno">  163</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01336.html#a2bcc97b7dc207189984f662b261b1120">ConstraintComponent.make_v_result()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a845f55054de73c94e9bca951f4fefa3f" name="a845f55054de73c94e9bca951f4fefa3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a845f55054de73c94e9bca951f4fefa3f">&#9670;&#160;</a></span>ALWAYS_IGNORE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict ALWAYS_IGNORE = {(RDF_type, RDFS.Resource)}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8db4054ca33b7ba818bacf2b45aa0d27" name="a8db4054ca33b7ba818bacf2b45aa0d27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db4054ca33b7ba818bacf2b45aa0d27">&#9670;&#160;</a></span>ignored_props</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ignored_props</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add64c12d7f73022ae971cdabe6b9459f" name="add64c12d7f73022ae971cdabe6b9459f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add64c12d7f73022ae971cdabe6b9459f">&#9670;&#160;</a></span>is_closed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">is_closed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01768.html#a9ea6bfea91f5b8e9919675d869ee1c66">Transaction.__exit__()</a>, <a class="el" href="a01768.html#aac9db0556dfaba94f6656c386796f3c2">Transaction._raise_for_closed()</a>, and <a class="el" href="a01376.html#a058cd2e2f7b194bae44cd5b0679378da">ClosedConstraintComponent.evaluate()</a>.</p>
+
+</div>
+</div>
+<a id="a69b45ae35dd8dd1f9e08483bda46730e" name="a69b45ae35dd8dd1f9e08483bda46730e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b45ae35dd8dd1f9e08483bda46730e">&#9670;&#160;</a></span>property_shapes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">property_shapes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01376.html#a058cd2e2f7b194bae44cd5b0679378da">ClosedConstraintComponent.evaluate()</a>, and <a class="el" href="a01400.html#a058cd2e2f7b194bae44cd5b0679378da">PropertyConstraintComponent.evaluate()</a>.</p>
+
+</div>
+</div>
+<a id="a9cb5bbf57d0dc29634d5f1c0497a0d90" name="a9cb5bbf57d0dc29634d5f1c0497a0d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cb5bbf57d0dc29634d5f1c0497a0d90">&#9670;&#160;</a></span>shacl_constraint_component</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">shacl_constraint_component = <a class="el" href="a00940.html#ac75876ff1a770ef4f0cf6c92f283bd5f">SH_ClosedConstraintComponent</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01336.html#a2bcc97b7dc207189984f662b261b1120">ConstraintComponent.make_v_result()</a>, <a class="el" href="a01336.html#a6c2e6d8c689549baab3080a52b4f20cc">ConstraintComponent.make_v_result_description()</a>, and <a class="el" href="a01336.html#a02fd9320d10f6c0d08449f5bd21c1939">ConstraintComponent.recursion_triggers()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00934.html">constraints</a></li><li class="navelem"><a class="el" href="a00937.html">core</a></li><li class="navelem"><a class="el" href="a00940.html">other_constraints</a></li><li class="navelem"><a class="el" href="a01376.html">ClosedConstraintComponent</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

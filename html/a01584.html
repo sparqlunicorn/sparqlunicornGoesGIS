@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: BoundJSTargetType Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01584.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="a01581.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">BoundJSTargetType Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for BoundJSTargetType:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01583.png" border="0" usemap="#aBoundJSTargetType_inherit__map" alt="Inheritance graph"/></div>
+<map name="aBoundJSTargetType_inherit__map" id="aBoundJSTargetType_inherit__map">
+<area shape="rect" title=" " alt="" coords="64,225,209,251"/>
+<area shape="rect" href="a01676.html" title=" " alt="" coords="49,152,224,177"/>
+<area shape="poly" title=" " alt="" coords="139,191,139,225,134,225,134,191"/>
+<area shape="rect" href="a01336.html" title=" " alt="" coords="55,79,219,104"/>
+<area shape="poly" title=" " alt="" coords="139,118,139,152,134,152,134,118"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,5,68,31"/>
+<area shape="poly" title=" " alt="" coords="65,36,122,76,119,81,62,41"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="92,5,181,31"/>
+<area shape="poly" title=" " alt="" coords="139,44,139,79,134,79,134,44"/>
+<area shape="rect" title=" " alt="" coords="206,5,289,31"/>
+<area shape="poly" title=" " alt="" coords="219,40,156,81,153,76,217,36"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for BoundJSTargetType:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01582.png" border="0" usemap="#aBoundJSTargetType_coll__map" alt="Collaboration graph"/></div>
+<map name="aBoundJSTargetType_coll__map" id="aBoundJSTargetType_coll__map">
+<area shape="rect" title=" " alt="" coords="779,653,924,679"/>
+<area shape="rect" href="a01676.html" title=" " alt="" coords="701,579,876,604"/>
+<area shape="poly" title=" " alt="" coords="810,613,843,651,839,655,806,617"/>
+<area shape="rect" href="a01336.html" title=" " alt="" coords="441,504,605,529"/>
+<area shape="poly" title=" " alt="" coords="580,530,748,576,746,581,578,536"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="492,401,555,427"/>
+<area shape="poly" title=" " alt="" coords="526,441,526,504,521,504,521,441"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="579,401,668,427"/>
+<area shape="poly" title=" " alt="" coords="604,438,537,506,533,502,600,435"/>
+<area shape="rect" title=" " alt="" coords="693,401,775,427"/>
+<area shape="poly" title=" " alt="" coords="699,435,548,506,546,502,696,430"/>
+<area shape="rect" title=" " alt="" coords="343,5,397,31"/>
+<area shape="poly" title=" " alt="" coords="411,16,484,16,580,21,688,32,796,52,838,58,876,61,892,65,905,73,914,86,917,104,917,593,912,613,901,630,873,655,869,651,897,627,907,611,911,592,911,105,909,88,901,77,890,70,875,66,837,63,795,57,687,37,580,26,484,22,411,21"/>
+<area shape="poly" title=" " alt="" coords="411,16,520,18,653,28,715,39,766,54,802,76,812,89,815,104,815,518,809,552,797,580,793,578,804,551,810,518,810,105,807,91,798,80,764,59,714,44,653,33,520,23,411,21"/>
+<area shape="poly" title=" " alt="" coords="407,36,440,64,452,83,457,104,457,349,463,396,480,439,500,476,517,502,513,505,495,479,475,441,458,397,451,350,451,105,447,85,436,67,404,40"/>
+<area shape="rect" href="a02656.html" title=" " alt="" coords="87,401,154,427"/>
+<area shape="poly" title=" " alt="" coords="329,25,252,33,165,48,126,59,94,72,73,87,66,105,66,283,71,318,84,351,114,400,109,403,79,353,66,319,61,284,61,104,69,84,92,67,124,54,164,43,252,28,328,20"/>
+<area shape="rect" href="a02652.html" title=" " alt="" coords="199,269,317,295"/>
+<area shape="poly" title=" " alt="" coords="370,45,365,81,354,120,334,165,310,208,269,271,264,268,305,206,329,163,349,118,359,79,365,44"/>
+<area shape="rect" href="a02648.html" title=" " alt="" coords="175,181,255,207"/>
+<area shape="poly" title=" " alt="" coords="346,42,289,95,252,143,225,183,220,180,247,139,285,92,342,38"/>
+<area shape="rect" href="a02644.html" title=" " alt="" coords="101,93,157,119"/>
+<area shape="poly" title=" " alt="" coords="329,24,260,33,223,43,187,57,161,75,140,95,137,91,157,71,185,52,221,38,259,28,328,18"/>
+<area shape="rect" title=" " alt="" coords="307,401,358,427"/>
+<area shape="poly" title=" " alt="" coords="329,440,329,460,336,478,352,489,377,497,442,507,441,513,376,502,349,493,332,482,323,461,324,440"/>
+<area shape="poly" title=" " alt="" coords="120,440,121,461,131,478,145,485,172,491,252,501,441,511,441,516,252,506,171,496,143,490,127,482,116,462,114,440"/>
+<area shape="poly" title=" " alt="" coords="255,309,241,345,230,363,216,379,186,398,155,409,153,404,184,393,212,375,225,360,236,342,250,307"/>
+<area shape="poly" title=" " alt="" coords="230,218,254,268,250,270,225,220"/>
+<area shape="poly" title=" " alt="" coords="152,126,205,179,201,183,148,130"/>
+<area shape="rect" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" title=" " alt="" coords="55,38,117,91,113,95,52,42"/>
+<area shape="rect" title=" " alt="" coords="181,93,220,119"/>
+<area shape="poly" title=" " alt="" coords="208,132,216,180,211,181,202,133"/>
+<area shape="rect" title=" " alt="" coords="101,269,175,295"/>
+<area shape="poly" title=" " alt="" coords="137,308,125,401,120,401,132,308"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a24f55725f55c4dd4e1b3db61a03ec98d" id="r_a24f55725f55c4dd4e1b3db61a03ec98d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#a24f55725f55c4dd4e1b3db61a03ec98d">__init__</a> (self, '<a class="el" href="a01588.html">JSTargetType</a>' <a class="el" href="a01676.html#a462d1a4d761fc084e8f7bfdf4a698ad7">target_type</a>, <a class="el" href="a01676.html#aa8122e217162d0af54a60b6f4d9111f6">target_declaration</a>, '<a class="el" href="a01660.html">Shape</a>' <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">shape</a>, <a class="el" href="a01584.html#a3215ff8ef6bc48c46ccc1921b5870624">params_kv</a>)</td></tr>
+<tr class="separator:a24f55725f55c4dd4e1b3db61a03ec98d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc67dd003a3b5b8727aa69776bcdbfa1" id="r_afc67dd003a3b5b8727aa69776bcdbfa1"><td class="memItemLeft" align="right" valign="top">List[<a class="el" href="a02656.html">URIRef</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#afc67dd003a3b5b8727aa69776bcdbfa1">constraint_parameters</a> (cls)</td></tr>
+<tr class="separator:afc67dd003a3b5b8727aa69776bcdbfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15b104887ff90ecf9a8bd21d958530ad" id="r_a15b104887ff90ecf9a8bd21d958530ad"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#a15b104887ff90ecf9a8bd21d958530ad">constraint_name</a> (cls)</td></tr>
+<tr class="separator:a15b104887ff90ecf9a8bd21d958530ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2473c5f6da2dbed7d30a781bd62c014" id="r_ad2473c5f6da2dbed7d30a781bd62c014"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#ad2473c5f6da2dbed7d30a781bd62c014">shacl_constraint_class</a> (cls)</td></tr>
+<tr class="separator:ad2473c5f6da2dbed7d30a781bd62c014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e0867a4bbaeced529f4d2afd18362e" id="r_a25e0867a4bbaeced529f4d2afd18362e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#a25e0867a4bbaeced529f4d2afd18362e">evaluate</a> (self, '<a class="el" href="a01616.html">SHACLExecutor</a>' executor, 'GraphLike' target_graph, Dict focus_value_nodes, List _evaluation_path)</td></tr>
+<tr class="separator:a25e0867a4bbaeced529f4d2afd18362e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dabc17b7c4bd9a4847c19b3cc741fb6" id="r_a2dabc17b7c4bd9a4847c19b3cc741fb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#a2dabc17b7c4bd9a4847c19b3cc741fb6">find_targets</a> (self, data_graph)</td></tr>
+<tr class="separator:a2dabc17b7c4bd9a4847c19b3cc741fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a3215ff8ef6bc48c46ccc1921b5870624" id="r_a3215ff8ef6bc48c46ccc1921b5870624"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#a3215ff8ef6bc48c46ccc1921b5870624">params_kv</a></td></tr>
+<tr class="separator:a3215ff8ef6bc48c46ccc1921b5870624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aef04051147f1d02390e4e37bc7a09417" id="r_aef04051147f1d02390e4e37bc7a09417"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html#aef04051147f1d02390e4e37bc7a09417">__slots__</a> = ('<a class="el" href="a01584.html#a3215ff8ef6bc48c46ccc1921b5870624">params_kv</a>',)</td></tr>
+<tr class="separator:aef04051147f1d02390e4e37bc7a09417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a24f55725f55c4dd4e1b3db61a03ec98d" name="a24f55725f55c4dd4e1b3db61a03ec98d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f55725f55c4dd4e1b3db61a03ec98d">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a01588.html">JSTargetType</a>'&#160;</td>
+          <td class="paramname"><em>target_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>target_declaration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a01660.html">Shape</a>'&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>param_vals</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param target_type: The source TargetType, this is needed to bind the parameters in the query_helper
+:type target_type: SPARQLConstraintComponent
+:param shape:
+:type shape: pyshacl.shape.Shape
+:param param_vals:
+:type param_vals: Dict[SHACLParameter, Any]
+</pre> 
+<p>Reimplemented from <a class="el" href="a01676.html#a057ea8ee5ead1062553cd97766cabdd9">BoundSHACLTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   33</span>    <span class="keyword">def </span>__init__(self, target_type: <span class="stringliteral">&#39;JSTargetType&#39;</span>, target_declaration, shape: <span class="stringliteral">&#39;Shape&#39;</span>, params_kv):</div>
+<div class="line"><span class="lineno">   34</span>        super(BoundJSTargetType, self).__init__(target_type, target_declaration, shape)</div>
+<div class="line"><span class="lineno">   35</span>        self.params_kv = params_kv  <span class="comment"># type: dict</span></div>
+<div class="line"><span class="lineno">   36</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01584.html#a24f55725f55c4dd4e1b3db61a03ec98d">BoundJSTargetType.__init__()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01584.html#a24f55725f55c4dd4e1b3db61a03ec98d">BoundJSTargetType.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a15b104887ff90ecf9a8bd21d958530ad" name="a15b104887ff90ecf9a8bd21d958530ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b104887ff90ecf9a8bd21d958530ad">&#9670;&#160;</a></span>constraint_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str constraint_name </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01676.html#a15b104887ff90ecf9a8bd21d958530ad">BoundSHACLTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>    <span class="keyword">def </span>constraint_name(cls) -&gt; str:</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;JSTargetType&quot;</span></div>
+<div class="line"><span class="lineno">   44</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01336.html#a6c2e6d8c689549baab3080a52b4f20cc">ConstraintComponent.make_v_result_description()</a>.</p>
+
+</div>
+</div>
+<a id="afc67dd003a3b5b8727aa69776bcdbfa1" name="afc67dd003a3b5b8727aa69776bcdbfa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc67dd003a3b5b8727aa69776bcdbfa1">&#9670;&#160;</a></span>constraint_parameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[<a class="el" href="a02656.html">URIRef</a>] constraint_parameters </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01676.html#afc67dd003a3b5b8727aa69776bcdbfa1">BoundSHACLTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   38</span>    <span class="keyword">def </span>constraint_parameters(cls) -&gt; List[URIRef]:</div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">return</span> []</div>
+<div class="line"><span class="lineno">   40</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a25e0867a4bbaeced529f4d2afd18362e" name="a25e0867a4bbaeced529f4d2afd18362e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25e0867a4bbaeced529f4d2afd18362e">&#9670;&#160;</a></span>evaluate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a01616.html">SHACLExecutor</a>'&#160;</td>
+          <td class="paramname"><em>executor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'GraphLike'&#160;</td>
+          <td class="paramname"><em>target_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict&#160;</td>
+          <td class="paramname"><em>focus_value_nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List
+    &#160;</td>
+          <td class="paramname"><em>_evaluation_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:type executor: SHACLExecutor
+:type target_graph: rdflib.Graph
+:type focus_value_nodes: dict
+:type _evaluation_path: list
+</pre> 
+<p>Reimplemented from <a class="el" href="a01676.html#aab255819895e0e57f9e717b3648c3370">BoundSHACLTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>    ):</div>
+<div class="line"><span class="lineno">   52</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   53</span><span class="stringliteral">        :type executor: SHACLExecutor</span></div>
+<div class="line"><span class="lineno">   54</span><span class="stringliteral">        :type target_graph: rdflib.Graph</span></div>
+<div class="line"><span class="lineno">   55</span><span class="stringliteral">        :type focus_value_nodes: dict</span></div>
+<div class="line"><span class="lineno">   56</span><span class="stringliteral">        :type _evaluation_path: list</span></div>
+<div class="line"><span class="lineno">   57</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">raise</span> NotImplementedError()</div>
+<div class="line"><span class="lineno">   59</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2dabc17b7c4bd9a4847c19b3cc741fb6" name="a2dabc17b7c4bd9a4847c19b3cc741fb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dabc17b7c4bd9a4847c19b3cc741fb6">&#9670;&#160;</a></span>find_targets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">find_targets </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>data_graph</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01676.html#a2dabc17b7c4bd9a4847c19b3cc741fb6">BoundSHACLTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>    <span class="keyword">def </span>find_targets(self, data_graph):</div>
+<div class="line"><span class="lineno">   61</span>        results = self.target_type.js_exe.execute(data_graph, self.params_kv, mode=<span class="stringliteral">&#39;target&#39;</span>)</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> [u <span class="keywordflow">for</span> u <span class="keywordflow">in</span> results[<span class="stringliteral">&#39;_result&#39;</span>] <span class="keywordflow">if</span> isinstance(u, URIRef)]</div>
+<div class="line"><span class="lineno">   63</span> </div>
+<div class="line"><span class="lineno">   64</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01584.html#a3215ff8ef6bc48c46ccc1921b5870624">BoundJSTargetType.params_kv</a>, and <a class="el" href="a01676.html#a462d1a4d761fc084e8f7bfdf4a698ad7">BoundSHACLTargetType.target_type</a>.</p>
+
+</div>
+</div>
+<a id="ad2473c5f6da2dbed7d30a781bd62c014" name="ad2473c5f6da2dbed7d30a781bd62c014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2473c5f6da2dbed7d30a781bd62c014">&#9670;&#160;</a></span>shacl_constraint_class()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">shacl_constraint_class </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01676.html#ad2473c5f6da2dbed7d30a781bd62c014">BoundSHACLTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span>    <span class="keyword">def </span>shacl_constraint_class(cls):</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">return</span> SH_JSTargetType</div>
+<div class="line"><span class="lineno">   48</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aef04051147f1d02390e4e37bc7a09417" name="aef04051147f1d02390e4e37bc7a09417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef04051147f1d02390e4e37bc7a09417">&#9670;&#160;</a></span>__slots__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple __slots__ = ('<a class="el" href="a01584.html#a3215ff8ef6bc48c46ccc1921b5870624">params_kv</a>',)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3215ff8ef6bc48c46ccc1921b5870624" name="a3215ff8ef6bc48c46ccc1921b5870624"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3215ff8ef6bc48c46ccc1921b5870624">&#9670;&#160;</a></span>params_kv</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">params_kv</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01584.html#a2dabc17b7c4bd9a4847c19b3cc741fb6">BoundJSTargetType.find_targets()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00952.html">extras</a></li><li class="navelem"><a class="el" href="a00953.html">js</a></li><li class="navelem"><a class="el" href="a00961.html">target</a></li><li class="navelem"><a class="el" href="a01584.html">BoundJSTargetType</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

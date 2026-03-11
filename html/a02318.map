@@ -1,0 +1,16 @@
+<map id="TurtleSerializer" name="TurtleSerializer">
+<area shape="rect" id="Node000001" title=" " alt="" coords="365,187,483,212"/>
+<area shape="rect" id="Node000002" href="$a02316.html" title=" " alt="" coords="201,110,348,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="311,139,402,184,400,189,309,144"/>
+<area shape="rect" id="Node000003" href="$a02620.html" title=" " alt="" coords="207,5,289,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,44,274,109,269,110,252,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,5,48,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="34,43,43,64,58,82,81,93,117,102,201,114,201,119,116,107,80,98,54,86,38,67,29,45"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="139,5,178,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="164,44,170,64,181,82,200,97,222,107,220,112,197,102,177,86,165,66,159,45"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="481,5,519,31"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="527,39,536,54,540,69,536,85,517,119,492,148,443,189,440,184,488,144,513,115,531,83,534,69,531,56,522,42"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="472,41,451,57,437,72,420,86,385,102,348,113,347,107,383,97,417,82,433,68,448,53,469,36"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="314,5,369,31"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="314,41,300,56,286,84,279,110,274,109,281,82,295,53,310,37"/>
+</map>

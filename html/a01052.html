@@ -1,0 +1,1970 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: rdflib.plugins.parsers.notation3 Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01052.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">rdflib.plugins.parsers.notation3 Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02180.html">BadSyntax</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02184.html">Formula</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02196.html">N3Parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02188.html">RDFSink</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02172.html">sfloat</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02176.html">SinkParser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02192.html">TurtleParser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ac4f088f79377e1d0743867a47c800f20" id="r_ac4f088f79377e1d0743867a47c800f20"><td class="memItemLeft" align="right" valign="top">Tuple[str, str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac4f088f79377e1d0743867a47c800f20">splitFragP</a> (str uriref, int punc=0)</td></tr>
+<tr class="separator:ac4f088f79377e1d0743867a47c800f20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a414e750783e02100f6006a02c8ebd69f" id="r_a414e750783e02100f6006a02c8ebd69f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a414e750783e02100f6006a02c8ebd69f">join</a> (str here, str there)</td></tr>
+<tr class="separator:a414e750783e02100f6006a02c8ebd69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2708b26279fa9408b40fd11e108324f7" id="r_a2708b26279fa9408b40fd11e108324f7"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2708b26279fa9408b40fd11e108324f7">base</a> ()</td></tr>
+<tr class="separator:a2708b26279fa9408b40fd11e108324f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a98cc4a3a1a7bdfd05c6e695bff1adb" id="r_a2a98cc4a3a1a7bdfd05c6e695bff1adb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2a98cc4a3a1a7bdfd05c6e695bff1adb">_fixslash</a> (str s)</td></tr>
+<tr class="separator:a2a98cc4a3a1a7bdfd05c6e695bff1adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a529fe88a7e38eb77e74064f4050b0ea1" id="r_a529fe88a7e38eb77e74064f4050b0ea1"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a529fe88a7e38eb77e74064f4050b0ea1">runNamespace</a> ()</td></tr>
+<tr class="separator:a529fe88a7e38eb77e74064f4050b0ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad161f76f3f289de59d832669a58a902c" id="r_ad161f76f3f289de59d832669a58a902c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad161f76f3f289de59d832669a58a902c">uniqueURI</a> ()</td></tr>
+<tr class="separator:ad161f76f3f289de59d832669a58a902c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e6f96b2bc2835fbe2af04443c0668b5" id="r_a1e6f96b2bc2835fbe2af04443c0668b5"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a1e6f96b2bc2835fbe2af04443c0668b5">BecauseOfData</a> (*Any args, **Any kargs)</td></tr>
+<tr class="separator:a1e6f96b2bc2835fbe2af04443c0668b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab675e43b09866d514795d6a755df694b" id="r_ab675e43b09866d514795d6a755df694b"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab675e43b09866d514795d6a755df694b">becauseSubexpression</a> (*Any args, **Any kargs)</td></tr>
+<tr class="separator:ab675e43b09866d514795d6a755df694b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d17c43ba97021c225a2cdc636f71ba8" id="r_a8d17c43ba97021c225a2cdc636f71ba8"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8d17c43ba97021c225a2cdc636f71ba8">unicodeExpand</a> (Match m)</td></tr>
+<tr class="separator:a8d17c43ba97021c225a2cdc636f71ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46cfb58ff76ee4d7d9e9aabe13bd3c37" id="r_a46cfb58ff76ee4d7d9e9aabe13bd3c37"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a46cfb58ff76ee4d7d9e9aabe13bd3c37">hexify</a> (str ustr)</td></tr>
+<tr class="separator:a46cfb58ff76ee4d7d9e9aabe13bd3c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa4a022e6ddacd362b83964da5cc5d044" id="r_aa4a022e6ddacd362b83964da5cc5d044"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa4a022e6ddacd362b83964da5cc5d044">__all__</a></td></tr>
+<tr class="separator:aa4a022e6ddacd362b83964da5cc5d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d16dc4edd1292df4a2c8cd1da2a7201" id="r_a9d16dc4edd1292df4a2c8cd1da2a7201"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a> = TypeVar(&quot;_AnyT&quot;)</td></tr>
+<tr class="separator:a9d16dc4edd1292df4a2c8cd1da2a7201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa970913ef35dd4acb06841d80b55b568" id="r_aa970913ef35dd4acb06841d80b55b568"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa970913ef35dd4acb06841d80b55b568">_StrT</a> = TypeVar(&quot;_StrT&quot;, bound=str)</td></tr>
+<tr class="separator:aa970913ef35dd4acb06841d80b55b568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95792d1b79c1d5d98f7e3e96689fda4" id="r_ab95792d1b79c1d5d98f7e3e96689fda4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab95792d1b79c1d5d98f7e3e96689fda4">CONTEXT</a> = 0</td></tr>
+<tr class="separator:ab95792d1b79c1d5d98f7e3e96689fda4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b8be3749831f61ba58d6dd0fc59b575" id="r_a2b8be3749831f61ba58d6dd0fc59b575"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a> = 1</td></tr>
+<tr class="separator:a2b8be3749831f61ba58d6dd0fc59b575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78a252119ca41c535bfa0ca135a00883" id="r_a78a252119ca41c535bfa0ca135a00883"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a> = 2</td></tr>
+<tr class="separator:a78a252119ca41c535bfa0ca135a00883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69e77f59990e71f7990fc533f421de06" id="r_a69e77f59990e71f7990fc533f421de06"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a> = 3</td></tr>
+<tr class="separator:a69e77f59990e71f7990fc533f421de06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115b64be0ee629748f7fb5043fd47dca" id="r_a115b64be0ee629748f7fb5043fd47dca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a115b64be0ee629748f7fb5043fd47dca">PARTS</a> = <a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a>, <a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a>, <a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a></td></tr>
+<tr class="separator:a115b64be0ee629748f7fb5043fd47dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c26fc7c9f381dbc7c158cbbaf3e2fef" id="r_a8c26fc7c9f381dbc7c158cbbaf3e2fef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8c26fc7c9f381dbc7c158cbbaf3e2fef">ALL4</a> = <a class="el" href="a01052.html#ab95792d1b79c1d5d98f7e3e96689fda4">CONTEXT</a>, <a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a>, <a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a>, <a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a></td></tr>
+<tr class="separator:a8c26fc7c9f381dbc7c158cbbaf3e2fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ee24f92fccd2dceb58d5bfcdc6d6fa2" id="r_a9ee24f92fccd2dceb58d5bfcdc6d6fa2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a> = 0</td></tr>
+<tr class="separator:a9ee24f92fccd2dceb58d5bfcdc6d6fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ac9ce4a35be21e25de7f940100d540b" id="r_a7ac9ce4a35be21e25de7f940100d540b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a7ac9ce4a35be21e25de7f940100d540b">FORMULA</a> = 1</td></tr>
+<tr class="separator:a7ac9ce4a35be21e25de7f940100d540b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc11a07ed224da116609dabeacff3337" id="r_abc11a07ed224da116609dabeacff3337"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#abc11a07ed224da116609dabeacff3337">LITERAL</a> = 2</td></tr>
+<tr class="separator:abc11a07ed224da116609dabeacff3337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5e7b23f2d2d0efa7066f06ad6759ac3" id="r_ad5e7b23f2d2d0efa7066f06ad6759ac3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad5e7b23f2d2d0efa7066f06ad6759ac3">LITERAL_DT</a> = 21</td></tr>
+<tr class="separator:ad5e7b23f2d2d0efa7066f06ad6759ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07156b06106d120fc5f79671c0652ee2" id="r_a07156b06106d120fc5f79671c0652ee2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a07156b06106d120fc5f79671c0652ee2">LITERAL_LANG</a> = 22</td></tr>
+<tr class="separator:a07156b06106d120fc5f79671c0652ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd319e7057ad009176135a5d9cd8d58a" id="r_afd319e7057ad009176135a5d9cd8d58a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#afd319e7057ad009176135a5d9cd8d58a">ANONYMOUS</a> = 3</td></tr>
+<tr class="separator:afd319e7057ad009176135a5d9cd8d58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5589e7cc81616eb7d6b6717ec2ad96" id="r_a4e5589e7cc81616eb7d6b6717ec2ad96"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4e5589e7cc81616eb7d6b6717ec2ad96">XMLLITERAL</a> = 25</td></tr>
+<tr class="separator:a4e5589e7cc81616eb7d6b6717ec2ad96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a173d285a6184e9e81e22835786873823" id="r_a173d285a6184e9e81e22835786873823"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> = &quot;http://www.w3.org/2000/10/swap/log#&quot;</td></tr>
+<tr class="separator:a173d285a6184e9e81e22835786873823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae017e880c63304e5eccf321dbe15370e" id="r_ae017e880c63304e5eccf321dbe15370e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ae017e880c63304e5eccf321dbe15370e">NODE_MERGE_URI</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;is&quot;</td></tr>
+<tr class="separator:ae017e880c63304e5eccf321dbe15370e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ccce4ee2e27fc5483db05985b3486df" id="r_a7ccce4ee2e27fc5483db05985b3486df"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a7ccce4ee2e27fc5483db05985b3486df">forSomeSym</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;forSome&quot;</td></tr>
+<tr class="separator:a7ccce4ee2e27fc5483db05985b3486df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7b7a4abe8b9893723e66488ee6f8423" id="r_ae7b7a4abe8b9893723e66488ee6f8423"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ae7b7a4abe8b9893723e66488ee6f8423">forAllSym</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;forAll&quot;</td></tr>
+<tr class="separator:ae7b7a4abe8b9893723e66488ee6f8423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74b8cd401a21b954281559194188155a" id="r_a74b8cd401a21b954281559194188155a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a74b8cd401a21b954281559194188155a">RDF_type_URI</a> = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</td></tr>
+<tr class="separator:a74b8cd401a21b954281559194188155a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3e175f0573f6c2243dc01bb8a63e43a" id="r_ad3e175f0573f6c2243dc01bb8a63e43a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad3e175f0573f6c2243dc01bb8a63e43a">RDF_NS_URI</a> = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</td></tr>
+<tr class="separator:ad3e175f0573f6c2243dc01bb8a63e43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b4e2d1cabaa8b33cb0a475af66d8b2" id="r_a69b4e2d1cabaa8b33cb0a475af66d8b2"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a69b4e2d1cabaa8b33cb0a475af66d8b2">OWL_NS</a> = &quot;http://www.w3.org/2002/07/owl#&quot;</td></tr>
+<tr class="separator:a69b4e2d1cabaa8b33cb0a475af66d8b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59c55c84faf40742053cb023383eb4db" id="r_a59c55c84faf40742053cb023383eb4db"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a59c55c84faf40742053cb023383eb4db">DAML_sameAs_URI</a> = <a class="el" href="a01052.html#a69b4e2d1cabaa8b33cb0a475af66d8b2">OWL_NS</a> + &quot;sameAs&quot;</td></tr>
+<tr class="separator:a59c55c84faf40742053cb023383eb4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a017bbb53052b43cfd024910e058e7ffb" id="r_a017bbb53052b43cfd024910e058e7ffb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a017bbb53052b43cfd024910e058e7ffb">parsesTo_URI</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;parsesTo&quot;</td></tr>
+<tr class="separator:a017bbb53052b43cfd024910e058e7ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeb85fdfec1fa5f5045dce8ad3b8c486" id="r_aaeb85fdfec1fa5f5045dce8ad3b8c486"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aaeb85fdfec1fa5f5045dce8ad3b8c486">RDF_spec</a> = &quot;http://www.w3.org/TR/REC-rdf-syntax/&quot;</td></tr>
+<tr class="separator:aaeb85fdfec1fa5f5045dce8ad3b8c486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ad76d50789093590456b69035c991c" id="r_a18ad76d50789093590456b69035c991c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> = <a class="el" href="a01052.html#ad3e175f0573f6c2243dc01bb8a63e43a">RDF_NS_URI</a></td></tr>
+<tr class="separator:a18ad76d50789093590456b69035c991c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a272f1d9c41225330c80ed36dd4c974fb" id="r_a272f1d9c41225330c80ed36dd4c974fb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a272f1d9c41225330c80ed36dd4c974fb">_Old_Logic_NS</a> = &quot;http://www.w3.org/2000/10/swap/log.n3#&quot;</td></tr>
+<tr class="separator:a272f1d9c41225330c80ed36dd4c974fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad62c47be22ecabef48b688e811c19335" id="r_ad62c47be22ecabef48b688e811c19335"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad62c47be22ecabef48b688e811c19335">N3_first</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;first&quot;)</td></tr>
+<tr class="separator:ad62c47be22ecabef48b688e811c19335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6974ad5ab118931903c60ea7320b232a" id="r_a6974ad5ab118931903c60ea7320b232a"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6974ad5ab118931903c60ea7320b232a">N3_rest</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;rest&quot;)</td></tr>
+<tr class="separator:a6974ad5ab118931903c60ea7320b232a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5a320a570db85b861d08a7bd69a361d" id="r_aa5a320a570db85b861d08a7bd69a361d"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa5a320a570db85b861d08a7bd69a361d">N3_li</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;li&quot;)</td></tr>
+<tr class="separator:aa5a320a570db85b861d08a7bd69a361d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823fadd3b93c2b682167fc4b10143a5b" id="r_a823fadd3b93c2b682167fc4b10143a5b"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a823fadd3b93c2b682167fc4b10143a5b">N3_nil</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;nil&quot;)</td></tr>
+<tr class="separator:a823fadd3b93c2b682167fc4b10143a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24628d7aae4bc3d96292b9f231176ba4" id="r_a24628d7aae4bc3d96292b9f231176ba4"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a24628d7aae4bc3d96292b9f231176ba4">N3_List</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;List&quot;)</td></tr>
+<tr class="separator:a24628d7aae4bc3d96292b9f231176ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad225176a77d1944b6bd2d7bd17f16c34" id="r_ad225176a77d1944b6bd2d7bd17f16c34"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad225176a77d1944b6bd2d7bd17f16c34">N3_Empty</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;Empty&quot;)</td></tr>
+<tr class="separator:ad225176a77d1944b6bd2d7bd17f16c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ab5ab7951779a6f710d416bdcb244db" id="r_a2ab5ab7951779a6f710d416bdcb244db"><td class="memItemLeft" align="right" valign="top">Optional&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2ab5ab7951779a6f710d416bdcb244db">runNamespaceValue</a> = None</td></tr>
+<tr class="separator:a2ab5ab7951779a6f710d416bdcb244db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16b9ad854eee14422cdb196e37935e57" id="r_a16b9ad854eee14422cdb196e37935e57"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a16b9ad854eee14422cdb196e37935e57">nextu</a> = 0</td></tr>
+<tr class="separator:a16b9ad854eee14422cdb196e37935e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af87abb04036c5df0e88b327a5f75a94a" id="r_af87abb04036c5df0e88b327a5f75a94a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#af87abb04036c5df0e88b327a5f75a94a">tracking</a> = False</td></tr>
+<tr class="separator:af87abb04036c5df0e88b327a5f75a94a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac16107fa5a052ede467c46e84441c950" id="r_ac16107fa5a052ede467c46e84441c950"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac16107fa5a052ede467c46e84441c950">chatty_flag</a> = 50</td></tr>
+<tr class="separator:ac16107fa5a052ede467c46e84441c950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189de1f3baca97e0db7f657eca379a9b" id="r_a189de1f3baca97e0db7f657eca379a9b"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a189de1f3baca97e0db7f657eca379a9b">N3_forSome_URI</a> = <a class="el" href="a01052.html#a7ccce4ee2e27fc5483db05985b3486df">forSomeSym</a></td></tr>
+<tr class="separator:a189de1f3baca97e0db7f657eca379a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdc27d97cbe5efa6b3fdee4a86455ca4" id="r_acdc27d97cbe5efa6b3fdee4a86455ca4"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#acdc27d97cbe5efa6b3fdee4a86455ca4">N3_forAll_URI</a> = <a class="el" href="a01052.html#ae7b7a4abe8b9893723e66488ee6f8423">forAllSym</a></td></tr>
+<tr class="separator:acdc27d97cbe5efa6b3fdee4a86455ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a877260f7378816fb24bd7bbf4c9693fe" id="r_a877260f7378816fb24bd7bbf4c9693fe"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a877260f7378816fb24bd7bbf4c9693fe">ADDED_HASH</a> = &quot;#&quot;</td></tr>
+<tr class="separator:a877260f7378816fb24bd7bbf4c9693fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b0b8cd85c524834b14db1f5dfc4f445" id="r_a8b0b8cd85c524834b14db1f5dfc4f445"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8b0b8cd85c524834b14db1f5dfc4f445">RDF_type</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a74b8cd401a21b954281559194188155a">RDF_type_URI</a>)</td></tr>
+<tr class="separator:a8b0b8cd85c524834b14db1f5dfc4f445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d76152fec508b7da9aa483356627c1" id="r_ab7d76152fec508b7da9aa483356627c1"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab7d76152fec508b7da9aa483356627c1">DAML_sameAs</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a59c55c84faf40742053cb023383eb4db">DAML_sameAs_URI</a>)</td></tr>
+<tr class="separator:ab7d76152fec508b7da9aa483356627c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a766200f1a410324957a6ef4a16faf5eb" id="r_a766200f1a410324957a6ef4a16faf5eb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a766200f1a410324957a6ef4a16faf5eb">LOG_implies_URI</a> = &quot;http://www.w3.org/2000/10/swap/log#implies&quot;</td></tr>
+<tr class="separator:a766200f1a410324957a6ef4a16faf5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eec5bb1c59ee53501a2ef13de7c8963" id="r_a1eec5bb1c59ee53501a2ef13de7c8963"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a1eec5bb1c59ee53501a2ef13de7c8963">BOOLEAN_DATATYPE</a> = _XSD_PFX + &quot;boolean&quot;</td></tr>
+<tr class="separator:a1eec5bb1c59ee53501a2ef13de7c8963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8034677538a89123105668452c9c86a0" id="r_a8034677538a89123105668452c9c86a0"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8034677538a89123105668452c9c86a0">DECIMAL_DATATYPE</a> = _XSD_PFX + &quot;decimal&quot;</td></tr>
+<tr class="separator:a8034677538a89123105668452c9c86a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa93b6a194edf772e881eb6368fb164" id="r_a3fa93b6a194edf772e881eb6368fb164"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a3fa93b6a194edf772e881eb6368fb164">DOUBLE_DATATYPE</a> = _XSD_PFX + &quot;double&quot;</td></tr>
+<tr class="separator:a3fa93b6a194edf772e881eb6368fb164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ba4a0d25db522ac06de2318a05e6d08" id="r_a0ba4a0d25db522ac06de2318a05e6d08"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a0ba4a0d25db522ac06de2318a05e6d08">FLOAT_DATATYPE</a> = _XSD_PFX + &quot;float&quot;</td></tr>
+<tr class="separator:a0ba4a0d25db522ac06de2318a05e6d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec18baec9db23f9ec532a59b14c1ab8a" id="r_aec18baec9db23f9ec532a59b14c1ab8a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aec18baec9db23f9ec532a59b14c1ab8a">INTEGER_DATATYPE</a> = _XSD_PFX + &quot;integer&quot;</td></tr>
+<tr class="separator:aec18baec9db23f9ec532a59b14c1ab8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c6042b743cf0791bf540badd83a82c1" id="r_a5c6042b743cf0791bf540badd83a82c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a5c6042b743cf0791bf540badd83a82c1">option_noregen</a> = 0</td></tr>
+<tr class="separator:a5c6042b743cf0791bf540badd83a82c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7569536829a18c38e3a05d795cd0392" id="r_ad7569536829a18c38e3a05d795cd0392"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> = set(&quot;\t\r\n !\&quot;#$&amp;'()*,+/;&lt;=&gt;?@[\\]^`{|}~&quot;)</td></tr>
+<tr class="separator:ad7569536829a18c38e3a05d795cd0392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68efc49347a7db54dd3248a9cb03854f" id="r_a68efc49347a7db54dd3248a9cb03854f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a68efc49347a7db54dd3248a9cb03854f">_notKeywordsChars</a> = <a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> | {&quot;.&quot;}</td></tr>
+<tr class="separator:a68efc49347a7db54dd3248a9cb03854f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3db189b6e6c68e060f5d389ef1e0373" id="r_ac3db189b6e6c68e060f5d389ef1e0373"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac3db189b6e6c68e060f5d389ef1e0373">_notNameChars</a> = <a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> | {&quot;:&quot;}</td></tr>
+<tr class="separator:ac3db189b6e6c68e060f5d389ef1e0373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bfcbb0f47459ae2c8f09bc56b733884" id="r_a7bfcbb0f47459ae2c8f09bc56b733884"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a7bfcbb0f47459ae2c8f09bc56b733884">_rdfns</a> = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</td></tr>
+<tr class="separator:a7bfcbb0f47459ae2c8f09bc56b733884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8011fad246135fbfde72e4675e5ea844" id="r_a8011fad246135fbfde72e4675e5ea844"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8011fad246135fbfde72e4675e5ea844">hexChars</a> = set(&quot;ABCDEFabcdef0123456789&quot;)</td></tr>
+<tr class="separator:a8011fad246135fbfde72e4675e5ea844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1553138411fa586471ac77aea26733f" id="r_ab1553138411fa586471ac77aea26733f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab1553138411fa586471ac77aea26733f">escapeChars</a> = set(&quot;(_~.-!$&amp;'()*+,;=/?#@%)&quot;)</td></tr>
+<tr class="separator:ab1553138411fa586471ac77aea26733f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5fc3b1b8b2a1e933966ec608ef22da7" id="r_af5fc3b1b8b2a1e933966ec608ef22da7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#af5fc3b1b8b2a1e933966ec608ef22da7">numberChars</a> = set(&quot;0123456789-&quot;)</td></tr>
+<tr class="separator:af5fc3b1b8b2a1e933966ec608ef22da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d1bfd50cb4d6ff9e4d9ef249a7be2d7" id="r_a4d1bfd50cb4d6ff9e4d9ef249a7be2d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4d1bfd50cb4d6ff9e4d9ef249a7be2d7">numberCharsPlus</a> = <a class="el" href="a01052.html#af5fc3b1b8b2a1e933966ec608ef22da7">numberChars</a> | {&quot;+&quot;, &quot;.&quot;}</td></tr>
+<tr class="separator:a4d1bfd50cb4d6ff9e4d9ef249a7be2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d47240f805248e7da0fcbc80928cd0c" id="r_a6d47240f805248e7da0fcbc80928cd0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6d47240f805248e7da0fcbc80928cd0c">unicodeEscape4</a> = re.compile(r&quot;\\u([0-9a-fA-F]{4})&quot;)</td></tr>
+<tr class="separator:a6d47240f805248e7da0fcbc80928cd0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0a3f171d1484ce74f4bc6d9d482cf5" id="r_a6f0a3f171d1484ce74f4bc6d9d482cf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6f0a3f171d1484ce74f4bc6d9d482cf5">unicodeEscape8</a> = re.compile(r&quot;\\U([0-9a-fA-F]{8})&quot;)</td></tr>
+<tr class="separator:a6f0a3f171d1484ce74f4bc6d9d482cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329b417962c00b0231718ce0a571fe43" id="r_a329b417962c00b0231718ce0a571fe43"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a329b417962c00b0231718ce0a571fe43">N3CommentCharacter</a> = &quot;#&quot;</td></tr>
+<tr class="separator:a329b417962c00b0231718ce0a571fe43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada1e37ca9b2c72584447103a5bd59e1e" id="r_ada1e37ca9b2c72584447103a5bd59e1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ada1e37ca9b2c72584447103a5bd59e1e">eol</a> = re.compile(r&quot;[ \t]*(#[^\n]*)?\r?\n&quot;)</td></tr>
+<tr class="separator:ada1e37ca9b2c72584447103a5bd59e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4700aca10443a2db68fc5a58c9e2de3" id="r_aa4700aca10443a2db68fc5a58c9e2de3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa4700aca10443a2db68fc5a58c9e2de3">eof</a> = re.compile(r&quot;[ \t]*(#[^\n]*)?$&quot;)</td></tr>
+<tr class="separator:aa4700aca10443a2db68fc5a58c9e2de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ce0633d6cc04e1148e7a437924ba4b" id="r_a64ce0633d6cc04e1148e7a437924ba4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a64ce0633d6cc04e1148e7a437924ba4b">ws</a> = re.compile(r&quot;[ \t]*&quot;)</td></tr>
+<tr class="separator:a64ce0633d6cc04e1148e7a437924ba4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60053b9a317472d5a8f5068c547757eb" id="r_a60053b9a317472d5a8f5068c547757eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a60053b9a317472d5a8f5068c547757eb">signed_integer</a> = re.compile(r&quot;[-+]?[0-9]+&quot;)</td></tr>
+<tr class="separator:a60053b9a317472d5a8f5068c547757eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18e83e676d71e7ccd6adcdc8c375217" id="r_ab18e83e676d71e7ccd6adcdc8c375217"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab18e83e676d71e7ccd6adcdc8c375217">integer_syntax</a> = re.compile(r&quot;[-+]?[0-9]+&quot;)</td></tr>
+<tr class="separator:ab18e83e676d71e7ccd6adcdc8c375217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04b0d60fb5e4a1214ea76e457ba0dd81" id="r_a04b0d60fb5e4a1214ea76e457ba0dd81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a04b0d60fb5e4a1214ea76e457ba0dd81">decimal_syntax</a> = re.compile(r&quot;[-+]?[0-9]*\.[0-9]+&quot;)</td></tr>
+<tr class="separator:a04b0d60fb5e4a1214ea76e457ba0dd81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6585e91d0edaae68d83573e2d61b4a83" id="r_a6585e91d0edaae68d83573e2d61b4a83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6585e91d0edaae68d83573e2d61b4a83">exponent_syntax</a></td></tr>
+<tr class="separator:a6585e91d0edaae68d83573e2d61b4a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b711d5d38e312bd7c7c2441feb2009e" id="r_a4b711d5d38e312bd7c7c2441feb2009e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4b711d5d38e312bd7c7c2441feb2009e">digitstring</a> = re.compile(r&quot;[0-9]+&quot;)</td></tr>
+<tr class="separator:a4b711d5d38e312bd7c7c2441feb2009e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47ec34d8687ffc835fa60a3787f3bdf4" id="r_a47ec34d8687ffc835fa60a3787f3bdf4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a47ec34d8687ffc835fa60a3787f3bdf4">interesting</a> = re.compile()</td></tr>
+<tr class="separator:a47ec34d8687ffc835fa60a3787f3bdf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac56784c6a8c91ee35f363bd13ce914c2" id="r_ac56784c6a8c91ee35f363bd13ce914c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac56784c6a8c91ee35f363bd13ce914c2">langcode</a> = re.compile(r&quot;[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*&quot;)</td></tr>
+<tr class="separator:ac56784c6a8c91ee35f363bd13ce914c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4078ef2edc99be25f7bd6b0963546116" id="r_a4078ef2edc99be25f7bd6b0963546116"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4078ef2edc99be25f7bd6b0963546116">r_hibyte</a> = re.compile(r&quot;([\x80-\xff])&quot;)</td></tr>
+<tr class="separator:a4078ef2edc99be25f7bd6b0963546116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">notation3.py - Standalone Notation3 Parser
+Derived from CWM, the Closed World Machine
+
+Authors of the original suite:
+
+* Dan Connolly &lt;@@&gt;
+* Tim Berners-Lee &lt;@@&gt;
+* Yosi Scharf &lt;@@&gt;
+* Joseph M. Reagle Jr. &lt;reagle@w3.org&gt;
+* Rich Salz &lt;rsalz@zolera.com&gt;
+
+http://www.w3.org/2000/10/swap/notation3.py
+
+Copyright 2000-2007, World Wide Web Consortium.
+Copyright 2001, MIT.
+Copyright 2001, Zolera Systems Inc.
+
+License: W3C Software License
+http://www.w3.org/Consortium/Legal/copyright-software
+
+Modified by Sean B. Palmer
+Copyright 2007, Sean B. Palmer.
+
+Modified to work with rdflib by Gunnar Aastrand Grimnes
+Copyright 2010, Gunnar A. Grimnes</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a2a98cc4a3a1a7bdfd05c6e695bff1adb" name="a2a98cc4a3a1a7bdfd05c6e695bff1adb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a98cc4a3a1a7bdfd05c6e695bff1adb">&#9670;&#160;</a></span>_fixslash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str _fixslash </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Fix windowslike filename to unixlike - (#ifdef WINDOWS)</pre> <div class="fragment"><div class="line"><span class="lineno">  241</span><span class="keyword">def </span>_fixslash(s: str) -&gt; str:</div>
+<div class="line"><span class="lineno">  242</span>    <span class="stringliteral">&quot;&quot;&quot;Fix windowslike filename to unixlike - (#ifdef WINDOWS)&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  243</span>    s = s.replace(<span class="stringliteral">&quot;\\&quot;</span>, <span class="stringliteral">&quot;/&quot;</span>)</div>
+<div class="line"><span class="lineno">  244</span>    <span class="keywordflow">if</span> s[0] != <span class="stringliteral">&quot;/&quot;</span> <span class="keywordflow">and</span> s[1] == <span class="stringliteral">&quot;:&quot;</span>:</div>
+<div class="line"><span class="lineno">  245</span>        s = s[2:]  <span class="comment"># @@@ Hack when drive letter present</span></div>
+<div class="line"><span class="lineno">  246</span>    <span class="keywordflow">return</span> s</div>
+<div class="line"><span class="lineno">  247</span> </div>
+<div class="line"><span class="lineno">  248</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01052.html#a2708b26279fa9408b40fd11e108324f7">rdflib.plugins.parsers.notation3.base()</a>.</p>
+
+</div>
+</div>
+<a id="a2708b26279fa9408b40fd11e108324f7" name="a2708b26279fa9408b40fd11e108324f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2708b26279fa9408b40fd11e108324f7">&#9670;&#160;</a></span>base()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str base </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">The base URI for this process - the Web equiv of cwd
+
+Relative or absolute unix-standard filenames parsed relative to
+this yield the URI of the file.
+If we had a reliable way of getting a computer name,
+we should put it in the hostname just to prevent ambiguity
+</pre> <div class="fragment"><div class="line"><span class="lineno">  229</span><span class="keyword">def </span>base() -&gt; str:</div>
+<div class="line"><span class="lineno">  230</span>    <span class="stringliteral">&quot;&quot;&quot;The base URI for this process - the Web equiv of cwd</span></div>
+<div class="line"><span class="lineno">  231</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  232</span><span class="stringliteral">    Relative or absolute unix-standard filenames parsed relative to</span></div>
+<div class="line"><span class="lineno">  233</span><span class="stringliteral">    this yield the URI of the file.</span></div>
+<div class="line"><span class="lineno">  234</span><span class="stringliteral">    If we had a reliable way of getting a computer name,</span></div>
+<div class="line"><span class="lineno">  235</span><span class="stringliteral">    we should put it in the hostname just to prevent ambiguity</span></div>
+<div class="line"><span class="lineno">  236</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  237</span>    <span class="comment"># return &quot;file://&quot; + hostname + os.getcwd() + &quot;/&quot;</span></div>
+<div class="line"><span class="lineno">  238</span>    <span class="keywordflow">return</span> <span class="stringliteral">&quot;file://&quot;</span> + _fixslash(os.getcwd()) + <span class="stringliteral">&quot;/&quot;</span></div>
+<div class="line"><span class="lineno">  239</span> </div>
+<div class="line"><span class="lineno">  240</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01052.html#a2a98cc4a3a1a7bdfd05c6e695bff1adb">rdflib.plugins.parsers.notation3._fixslash()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01052.html#a529fe88a7e38eb77e74064f4050b0ea1">rdflib.plugins.parsers.notation3.runNamespace()</a>.</p>
+
+</div>
+</div>
+<a id="a1e6f96b2bc2835fbe2af04443c0668b5" name="a1e6f96b2bc2835fbe2af04443c0668b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e6f96b2bc2835fbe2af04443c0668b5">&#9670;&#160;</a></span>BecauseOfData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None BecauseOfData </td>
+          <td>(</td>
+          <td class="paramtype">*Any&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**Any&#160;</td>
+          <td class="paramname"><em>kargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  316</span><span class="keyword">def </span>BecauseOfData(*args: Any, **kargs: Any) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  317</span>    <span class="comment"># print args, kargs</span></div>
+<div class="line"><span class="lineno">  318</span>    <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  319</span> </div>
+<div class="line"><span class="lineno">  320</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab675e43b09866d514795d6a755df694b" name="ab675e43b09866d514795d6a755df694b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab675e43b09866d514795d6a755df694b">&#9670;&#160;</a></span>becauseSubexpression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None becauseSubexpression </td>
+          <td>(</td>
+          <td class="paramtype">*Any&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**Any&#160;</td>
+          <td class="paramname"><em>kargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  321</span><span class="keyword">def </span>becauseSubexpression(*args: Any, **kargs: Any) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  322</span>    <span class="comment"># print args, kargs</span></div>
+<div class="line"><span class="lineno">  323</span>    <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  324</span> </div>
+<div class="line"><span class="lineno">  325</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a46cfb58ff76ee4d7d9e9aabe13bd3c37" name="a46cfb58ff76ee4d7d9e9aabe13bd3c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46cfb58ff76ee4d7d9e9aabe13bd3c37">&#9670;&#160;</a></span>hexify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bytes hexify </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>ustr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Use URL encoding to return an ASCII string
+corresponding to the given UTF8 string
+
+```python
+&gt;&gt;&gt; hexify("http://example/a b")
+b'http://example/a%20b'
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno"> 1984</span><span class="keyword">def </span>hexify(ustr: str) -&gt; bytes:</div>
+<div class="line"><span class="lineno"> 1985</span>    <span class="stringliteral">&quot;&quot;&quot;Use URL encoding to return an ASCII string</span></div>
+<div class="line"><span class="lineno"> 1986</span><span class="stringliteral">    corresponding to the given UTF8 string</span></div>
+<div class="line"><span class="lineno"> 1987</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno"> 1988</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno"> 1989</span><span class="stringliteral">    &gt;&gt;&gt; hexify(&quot;http://example/a b&quot;)</span></div>
+<div class="line"><span class="lineno"> 1990</span><span class="stringliteral">    b&#39;http://example/a%20b&#39;</span></div>
+<div class="line"><span class="lineno"> 1991</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno"> 1992</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno"> 1993</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno"> 1994</span>    <span class="comment"># s1=ustr.encode(&#39;utf-8&#39;)</span></div>
+<div class="line"><span class="lineno"> 1995</span>    s = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno"> 1996</span>    <span class="keywordflow">for</span> ch <span class="keywordflow">in</span> ustr:  <span class="comment"># .encode(&#39;utf-8&#39;):</span></div>
+<div class="line"><span class="lineno"> 1997</span>        <span class="keywordflow">if</span> ord(ch) &gt; 126 <span class="keywordflow">or</span> ord(ch) &lt; 33:</div>
+<div class="line"><span class="lineno"> 1998</span>            ch = <span class="stringliteral">&quot;%%%02X&quot;</span> % ord(ch)</div>
+<div class="line"><span class="lineno"> 1999</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno"> 2000</span>            ch = <span class="stringliteral">&quot;%c&quot;</span> % ord(ch)</div>
+<div class="line"><span class="lineno"> 2001</span>        s = s + ch</div>
+<div class="line"><span class="lineno"> 2002</span>    <span class="keywordflow">return</span> s.encode(<span class="stringliteral">&quot;latin-1&quot;</span>)</div>
+<div class="line"><span class="lineno"> 2003</span> </div>
+<div class="line"><span class="lineno"> 2004</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, and <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>.</p>
+
+</div>
+</div>
+<a id="a414e750783e02100f6006a02c8ebd69f" name="a414e750783e02100f6006a02c8ebd69f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a414e750783e02100f6006a02c8ebd69f">&#9670;&#160;</a></span>join()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str join </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>here</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>there</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">join an absolute URI and URI reference
+(non-ascii characters are supported/doctested;
+haven't checked the details of the IRI spec though)
+
+`here` is assumed to be absolute.
+`there` is URI reference.
+
+```python
+&gt;&gt;&gt; join('http://example/x/y/z', '../abc')
+'http://example/x/abc'
+
+```
+
+Raise ValueError if there uses relative path
+syntax but here has no hierarchical path.
+
+```python
+&gt;&gt;&gt; join('mid:foo@example', '../foo') # doctest: +NORMALIZE_WHITESPACE
+Traceback (most recent call last):
+    raise ValueError(here)
+ValueError: Base &lt;mid:foo@example&gt; has no slash
+after colon - with relative '../foo'.
+
+&gt;&gt;&gt; join('http://example/x/y/z', '')
+'http://example/x/y/z'
+
+&gt;&gt;&gt; join('mid:foo@example', '#foo')
+'mid:foo@example#foo'
+
+```
+
+We grok IRIs
+
+```python
+&gt;&gt;&gt; len('Andr\\xe9')
+5
+
+&gt;&gt;&gt; join('http://example.org/', '#Andr\\xe9')
+'http://example.org/#Andr\\xe9'
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  122</span><span class="keyword">def </span>join(here: str, there: str) -&gt; str:</div>
+<div class="line"><span class="lineno">  123</span>    <span class="stringliteral">&quot;&quot;&quot;join an absolute URI and URI reference</span></div>
+<div class="line"><span class="lineno">  124</span><span class="stringliteral">    (non-ascii characters are supported/doctested;</span></div>
+<div class="line"><span class="lineno">  125</span><span class="stringliteral">    haven&#39;t checked the details of the IRI spec though)</span></div>
+<div class="line"><span class="lineno">  126</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  127</span><span class="stringliteral">    `here` is assumed to be absolute.</span></div>
+<div class="line"><span class="lineno">  128</span><span class="stringliteral">    `there` is URI reference.</span></div>
+<div class="line"><span class="lineno">  129</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  130</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  131</span><span class="stringliteral">    &gt;&gt;&gt; join(&#39;http://example/x/y/z&#39;, &#39;../abc&#39;)</span></div>
+<div class="line"><span class="lineno">  132</span><span class="stringliteral">    &#39;http://example/x/abc&#39;</span></div>
+<div class="line"><span class="lineno">  133</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  134</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  135</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  136</span><span class="stringliteral">    Raise ValueError if there uses relative path</span></div>
+<div class="line"><span class="lineno">  137</span><span class="stringliteral">    syntax but here has no hierarchical path.</span></div>
+<div class="line"><span class="lineno">  138</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  139</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  140</span><span class="stringliteral">    &gt;&gt;&gt; join(&#39;mid:foo@example&#39;, &#39;../foo&#39;) # doctest: +NORMALIZE_WHITESPACE</span></div>
+<div class="line"><span class="lineno">  141</span><span class="stringliteral">    Traceback (most recent call last):</span></div>
+<div class="line"><span class="lineno">  142</span><span class="stringliteral">        raise ValueError(here)</span></div>
+<div class="line"><span class="lineno">  143</span><span class="stringliteral">    ValueError: Base &lt;mid:foo@example&gt; has no slash</span></div>
+<div class="line"><span class="lineno">  144</span><span class="stringliteral">    after colon - with relative &#39;../foo&#39;.</span></div>
+<div class="line"><span class="lineno">  145</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  146</span><span class="stringliteral">    &gt;&gt;&gt; join(&#39;http://example/x/y/z&#39;, &#39;&#39;)</span></div>
+<div class="line"><span class="lineno">  147</span><span class="stringliteral">    &#39;http://example/x/y/z&#39;</span></div>
+<div class="line"><span class="lineno">  148</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  149</span><span class="stringliteral">    &gt;&gt;&gt; join(&#39;mid:foo@example&#39;, &#39;#foo&#39;)</span></div>
+<div class="line"><span class="lineno">  150</span><span class="stringliteral">    &#39;mid:foo@example#foo&#39;</span></div>
+<div class="line"><span class="lineno">  151</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  152</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  153</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  154</span><span class="stringliteral">    We grok IRIs</span></div>
+<div class="line"><span class="lineno">  155</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  156</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  157</span><span class="stringliteral">    &gt;&gt;&gt; len(&#39;Andr\\xe9&#39;)</span></div>
+<div class="line"><span class="lineno">  158</span><span class="stringliteral">    5</span></div>
+<div class="line"><span class="lineno">  159</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  160</span><span class="stringliteral">    &gt;&gt;&gt; join(&#39;http://example.org/&#39;, &#39;#Andr\\xe9&#39;)</span></div>
+<div class="line"><span class="lineno">  161</span><span class="stringliteral">    &#39;http://example.org/#Andr\\xe9&#39;</span></div>
+<div class="line"><span class="lineno">  162</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  163</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  164</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  165</span> </div>
+<div class="line"><span class="lineno">  166</span>    <span class="comment">#    assert(here.find(&quot;#&quot;) &lt; 0), \</span></div>
+<div class="line"><span class="lineno">  167</span>    <span class="comment">#        &quot;Base may not contain hash: &#39;%s&#39;&quot; % here  # why must caller splitFrag?</span></div>
+<div class="line"><span class="lineno">  168</span> </div>
+<div class="line"><span class="lineno">  169</span>    slashl = there.find(<span class="stringliteral">&quot;/&quot;</span>)</div>
+<div class="line"><span class="lineno">  170</span>    colonl = there.find(<span class="stringliteral">&quot;:&quot;</span>)</div>
+<div class="line"><span class="lineno">  171</span> </div>
+<div class="line"><span class="lineno">  172</span>    <span class="comment"># join(base, &#39;foo:/&#39;) -- absolute</span></div>
+<div class="line"><span class="lineno">  173</span>    <span class="keywordflow">if</span> colonl &gt;= 0 <span class="keywordflow">and</span> (slashl &lt; 0 <span class="keywordflow">or</span> colonl &lt; slashl):</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">return</span> there</div>
+<div class="line"><span class="lineno">  175</span> </div>
+<div class="line"><span class="lineno">  176</span>    bcolonl = here.find(<span class="stringliteral">&quot;:&quot;</span>)</div>
+<div class="line"><span class="lineno">  177</span>    <span class="keyword">assert</span> bcolonl &gt;= 0, (</div>
+<div class="line"><span class="lineno">  178</span>        <span class="stringliteral">&quot;Base uri &#39;%s&#39; is not absolute&quot;</span> % here</div>
+<div class="line"><span class="lineno">  179</span>    )  <span class="comment"># else it&#39;s not absolute</span></div>
+<div class="line"><span class="lineno">  180</span> </div>
+<div class="line"><span class="lineno">  181</span>    path, frag = splitFragP(there)</div>
+<div class="line"><span class="lineno">  182</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> path:</div>
+<div class="line"><span class="lineno">  183</span>        <span class="keywordflow">return</span> here + frag</div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="line"><span class="lineno">  185</span>    <span class="comment"># join(&#39;mid:foo@example&#39;, &#39;../foo&#39;) bzzt</span></div>
+<div class="line"><span class="lineno">  186</span>    <span class="keywordflow">if</span> here[bcolonl + 1 : bcolonl + 2] != <span class="stringliteral">&quot;/&quot;</span>:</div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(</div>
+<div class="line"><span class="lineno">  188</span>            <span class="stringliteral">&quot;Base &lt;%s&gt; has no slash after &quot;</span></div>
+<div class="line"><span class="lineno">  189</span>            <span class="stringliteral">&quot;colon - with relative &#39;%s&#39;.&quot;</span> % (here, there)</div>
+<div class="line"><span class="lineno">  190</span>        )</div>
+<div class="line"><span class="lineno">  191</span> </div>
+<div class="line"><span class="lineno">  192</span>    <span class="keywordflow">if</span> here[bcolonl + 1 : bcolonl + 3] == <span class="stringliteral">&quot;//&quot;</span>:</div>
+<div class="line"><span class="lineno">  193</span>        bpath = here.find(<span class="stringliteral">&quot;/&quot;</span>, bcolonl + 3)</div>
+<div class="line"><span class="lineno">  194</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  195</span>        bpath = bcolonl + 1</div>
+<div class="line"><span class="lineno">  196</span> </div>
+<div class="line"><span class="lineno">  197</span>    <span class="comment"># join(&#39;http://xyz&#39;, &#39;foo&#39;)</span></div>
+<div class="line"><span class="lineno">  198</span>    <span class="keywordflow">if</span> bpath &lt; 0:</div>
+<div class="line"><span class="lineno">  199</span>        bpath = len(here)</div>
+<div class="line"><span class="lineno">  200</span>        here = here + <span class="stringliteral">&quot;/&quot;</span></div>
+<div class="line"><span class="lineno">  201</span> </div>
+<div class="line"><span class="lineno">  202</span>    <span class="comment"># join(&#39;http://xyz/&#39;, &#39;//abc&#39;) =&gt; &#39;http://abc&#39;</span></div>
+<div class="line"><span class="lineno">  203</span>    <span class="keywordflow">if</span> there[:2] == <span class="stringliteral">&quot;//&quot;</span>:</div>
+<div class="line"><span class="lineno">  204</span>        <span class="keywordflow">return</span> here[: bcolonl + 1] + there</div>
+<div class="line"><span class="lineno">  205</span> </div>
+<div class="line"><span class="lineno">  206</span>    <span class="comment"># join(&#39;http://xyz/&#39;, &#39;/abc&#39;) =&gt; &#39;http://xyz/abc&#39;</span></div>
+<div class="line"><span class="lineno">  207</span>    <span class="keywordflow">if</span> there[:1] == <span class="stringliteral">&quot;/&quot;</span>:</div>
+<div class="line"><span class="lineno">  208</span>        <span class="keywordflow">return</span> here[:bpath] + there</div>
+<div class="line"><span class="lineno">  209</span> </div>
+<div class="line"><span class="lineno">  210</span>    slashr = here.rfind(<span class="stringliteral">&quot;/&quot;</span>)</div>
+<div class="line"><span class="lineno">  211</span> </div>
+<div class="line"><span class="lineno">  212</span>    <span class="keywordflow">while</span> 1:</div>
+<div class="line"><span class="lineno">  213</span>        <span class="keywordflow">if</span> path[:2] == <span class="stringliteral">&quot;./&quot;</span>:</div>
+<div class="line"><span class="lineno">  214</span>            path = path[2:]</div>
+<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">if</span> path == <span class="stringliteral">&quot;.&quot;</span>:</div>
+<div class="line"><span class="lineno">  216</span>            path = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  217</span>        <span class="keywordflow">elif</span> path[:3] == <span class="stringliteral">&quot;../&quot;</span> <span class="keywordflow">or</span> path == <span class="stringliteral">&quot;..&quot;</span>:</div>
+<div class="line"><span class="lineno">  218</span>            path = path[3:]</div>
+<div class="line"><span class="lineno">  219</span>            i = here.rfind(<span class="stringliteral">&quot;/&quot;</span>, bpath, slashr)</div>
+<div class="line"><span class="lineno">  220</span>            <span class="keywordflow">if</span> i &gt;= 0:</div>
+<div class="line"><span class="lineno">  221</span>                here = here[: i + 1]</div>
+<div class="line"><span class="lineno">  222</span>                slashr = i</div>
+<div class="line"><span class="lineno">  223</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  224</span>            <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  225</span> </div>
+<div class="line"><span class="lineno">  226</span>    <span class="keywordflow">return</span> here[: slashr + 1] + path + frag</div>
+<div class="line"><span class="lineno">  227</span> </div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="ttc" id="aa07501_html"><div class="ttname"><a href="a07501.html">ValueError</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01052.html#ac4f088f79377e1d0743867a47c800f20">rdflib.plugins.parsers.notation3.splitFragP()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, <a class="el" href="a01052.html#a529fe88a7e38eb77e74064f4050b0ea1">rdflib.plugins.parsers.notation3.runNamespace()</a>, <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>, and <a class="el" href="a02176.html#aa8d2961c5b54b20387730a918d0a25e4">SinkParser.uri_ref2()</a>.</p>
+
+</div>
+</div>
+<a id="a529fe88a7e38eb77e74064f4050b0ea1" name="a529fe88a7e38eb77e74064f4050b0ea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a529fe88a7e38eb77e74064f4050b0ea1">&#9670;&#160;</a></span>runNamespace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str runNamespace </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns a URI suitable as a namespace for run-local objects</pre> <div class="fragment"><div class="line"><span class="lineno">  291</span><span class="keyword">def </span>runNamespace() -&gt; str:</div>
+<div class="line"><span class="lineno">  292</span>    <span class="stringliteral">&quot;&quot;&quot;Returns a URI suitable as a namespace for run-local objects&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  293</span>    <span class="comment"># @@@ include hostname (privacy?) (hash it?)</span></div>
+<div class="line"><span class="lineno">  294</span>    <span class="keyword">global</span> runNamespaceValue</div>
+<div class="line"><span class="lineno">  295</span>    <span class="keywordflow">if</span> runNamespaceValue <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  296</span>        runNamespaceValue = join(base(), _unique_id()) + <span class="stringliteral">&quot;#&quot;</span></div>
+<div class="line"><span class="lineno">  297</span>    <span class="keywordflow">return</span> runNamespaceValue</div>
+<div class="line"><span class="lineno">  298</span> </div>
+<div class="line"><span class="lineno">  299</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01052.html#a2708b26279fa9408b40fd11e108324f7">rdflib.plugins.parsers.notation3.base()</a>, and <a class="el" href="a01052.html#a414e750783e02100f6006a02c8ebd69f">rdflib.plugins.parsers.notation3.join()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01052.html#ad161f76f3f289de59d832669a58a902c">rdflib.plugins.parsers.notation3.uniqueURI()</a>.</p>
+
+</div>
+</div>
+<a id="ac4f088f79377e1d0743867a47c800f20" name="ac4f088f79377e1d0743867a47c800f20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f088f79377e1d0743867a47c800f20">&#9670;&#160;</a></span>splitFragP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Tuple[str, str] splitFragP </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uriref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>punc</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Split a URI reference before the fragment
+
+Punctuation is kept. e.g.
+
+```python
+&gt;&gt;&gt; splitFragP("abc#def")
+('abc', '#def')
+
+&gt;&gt;&gt; splitFragP("abcdef")
+('abcdef', '')
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">   97</span><span class="keyword">def </span>splitFragP(uriref: str, punc: int = 0) -&gt; Tuple[str, str]:</div>
+<div class="line"><span class="lineno">   98</span>    <span class="stringliteral">&quot;&quot;&quot;Split a URI reference before the fragment</span></div>
+<div class="line"><span class="lineno">   99</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  100</span><span class="stringliteral">    Punctuation is kept. e.g.</span></div>
+<div class="line"><span class="lineno">  101</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  102</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  103</span><span class="stringliteral">    &gt;&gt;&gt; splitFragP(&quot;abc#def&quot;)</span></div>
+<div class="line"><span class="lineno">  104</span><span class="stringliteral">    (&#39;abc&#39;, &#39;#def&#39;)</span></div>
+<div class="line"><span class="lineno">  105</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  106</span><span class="stringliteral">    &gt;&gt;&gt; splitFragP(&quot;abcdef&quot;)</span></div>
+<div class="line"><span class="lineno">  107</span><span class="stringliteral">    (&#39;abcdef&#39;, &#39;&#39;)</span></div>
+<div class="line"><span class="lineno">  108</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  109</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  110</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  111</span> </div>
+<div class="line"><span class="lineno">  112</span>    i = uriref.rfind(<span class="stringliteral">&quot;#&quot;</span>)</div>
+<div class="line"><span class="lineno">  113</span>    <span class="keywordflow">if</span> i &gt;= 0:</div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">return</span> uriref[:i], uriref[i:]</div>
+<div class="line"><span class="lineno">  115</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span> uriref, <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  117</span> </div>
+<div class="line"><span class="lineno">  118</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01052.html#a414e750783e02100f6006a02c8ebd69f">rdflib.plugins.parsers.notation3.join()</a>.</p>
+
+</div>
+</div>
+<a id="a8d17c43ba97021c225a2cdc636f71ba8" name="a8d17c43ba97021c225a2cdc636f71ba8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d17c43ba97021c225a2cdc636f71ba8">&#9670;&#160;</a></span>unicodeExpand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str unicodeExpand </td>
+          <td>(</td>
+          <td class="paramtype">Match&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  362</span><span class="keyword">def </span>unicodeExpand(m: Match) -&gt; str:</div>
+<div class="line"><span class="lineno">  363</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  364</span>        <span class="keywordflow">return</span> chr(int(m.group(1), 16))</div>
+<div class="line"><span class="lineno">  365</span>    <span class="keywordflow">except</span> Exception:</div>
+<div class="line"><span class="lineno">  366</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(<span class="stringliteral">&quot;Invalid unicode code point: &quot;</span> + m.group(1))</div>
+<div class="line"><span class="lineno">  367</span> </div>
+<div class="line"><span class="lineno">  368</span> </div>
+<div class="ttc" id="aa07480_html"><div class="ttname"><a href="a07480.html">Exception</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad161f76f3f289de59d832669a58a902c" name="ad161f76f3f289de59d832669a58a902c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad161f76f3f289de59d832669a58a902c">&#9670;&#160;</a></span>uniqueURI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str uniqueURI </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">A unique URI</pre> <div class="fragment"><div class="line"><span class="lineno">  303</span><span class="keyword">def </span>uniqueURI() -&gt; str:</div>
+<div class="line"><span class="lineno">  304</span>    <span class="stringliteral">&quot;&quot;&quot;A unique URI&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  305</span>    <span class="keyword">global</span> nextu</div>
+<div class="line"><span class="lineno">  306</span>    nextu += 1</div>
+<div class="line"><span class="lineno">  307</span>    <span class="keywordflow">return</span> runNamespace() + <span class="stringliteral">&quot;u_&quot;</span> + str(nextu)</div>
+<div class="line"><span class="lineno">  308</span> </div>
+<div class="line"><span class="lineno">  309</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01052.html#a529fe88a7e38eb77e74064f4050b0ea1">rdflib.plugins.parsers.notation3.runNamespace()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa4a022e6ddacd362b83964da5cc5d044" name="aa4a022e6ddacd362b83964da5cc5d044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a022e6ddacd362b83964da5cc5d044">&#9670;&#160;</a></span>__all__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list __all__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  [</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;BadSyntax&quot;</span>,</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;N3Parser&quot;</span>,</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;TurtleParser&quot;</span>,</div>
+<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;splitFragP&quot;</span>,</div>
+<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;join&quot;</span>,</div>
+<div class="line"><span class="lineno">    7</span>    <span class="stringliteral">&quot;base&quot;</span>,</div>
+<div class="line"><span class="lineno">    8</span>    <span class="stringliteral">&quot;runNamespace&quot;</span>,</div>
+<div class="line"><span class="lineno">    9</span>    <span class="stringliteral">&quot;uniqueURI&quot;</span>,</div>
+<div class="line"><span class="lineno">   10</span>    <span class="stringliteral">&quot;hexify&quot;</span>,</div>
+<div class="line"><span class="lineno">   11</span>    <span class="stringliteral">&quot;Formula&quot;</span>,</div>
+<div class="line"><span class="lineno">   12</span>    <span class="stringliteral">&quot;RDFSink&quot;</span>,</div>
+<div class="line"><span class="lineno">   13</span>    <span class="stringliteral">&quot;SinkParser&quot;</span>,</div>
+<div class="line"><span class="lineno">   14</span>    <span class="stringliteral">&quot;sfloat&quot;</span>,</div>
+<div class="line"><span class="lineno">   15</span>]</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9d16dc4edd1292df4a2c8cd1da2a7201" name="a9d16dc4edd1292df4a2c8cd1da2a7201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d16dc4edd1292df4a2c8cd1da2a7201">&#9670;&#160;</a></span>_AnyT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_AnyT = TypeVar(&quot;_AnyT&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68efc49347a7db54dd3248a9cb03854f" name="a68efc49347a7db54dd3248a9cb03854f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68efc49347a7db54dd3248a9cb03854f">&#9670;&#160;</a></span>_notKeywordsChars</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_notKeywordsChars = <a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> | {&quot;.&quot;}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3db189b6e6c68e060f5d389ef1e0373" name="ac3db189b6e6c68e060f5d389ef1e0373"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3db189b6e6c68e060f5d389ef1e0373">&#9670;&#160;</a></span>_notNameChars</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_notNameChars = <a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> | {&quot;:&quot;}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad7569536829a18c38e3a05d795cd0392" name="ad7569536829a18c38e3a05d795cd0392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7569536829a18c38e3a05d795cd0392">&#9670;&#160;</a></span>_notQNameChars</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_notQNameChars = set(&quot;\t\r\n !\&quot;#$&amp;'()*,+/;&lt;=&gt;?@[\\]^`{|}~&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a272f1d9c41225330c80ed36dd4c974fb" name="a272f1d9c41225330c80ed36dd4c974fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a272f1d9c41225330c80ed36dd4c974fb">&#9670;&#160;</a></span>_Old_Logic_NS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str _Old_Logic_NS = &quot;http://www.w3.org/2000/10/swap/log.n3#&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7bfcbb0f47459ae2c8f09bc56b733884" name="a7bfcbb0f47459ae2c8f09bc56b733884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bfcbb0f47459ae2c8f09bc56b733884">&#9670;&#160;</a></span>_rdfns</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str _rdfns = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa970913ef35dd4acb06841d80b55b568" name="aa970913ef35dd4acb06841d80b55b568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa970913ef35dd4acb06841d80b55b568">&#9670;&#160;</a></span>_StrT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_StrT = TypeVar(&quot;_StrT&quot;, bound=str)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a877260f7378816fb24bd7bbf4c9693fe" name="a877260f7378816fb24bd7bbf4c9693fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a877260f7378816fb24bd7bbf4c9693fe">&#9670;&#160;</a></span>ADDED_HASH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str ADDED_HASH = &quot;#&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c26fc7c9f381dbc7c158cbbaf3e2fef" name="a8c26fc7c9f381dbc7c158cbbaf3e2fef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c26fc7c9f381dbc7c158cbbaf3e2fef">&#9670;&#160;</a></span>ALL4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ALL4 = <a class="el" href="a01052.html#ab95792d1b79c1d5d98f7e3e96689fda4">CONTEXT</a>, <a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a>, <a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a>, <a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd319e7057ad009176135a5d9cd8d58a" name="afd319e7057ad009176135a5d9cd8d58a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd319e7057ad009176135a5d9cd8d58a">&#9670;&#160;</a></span>ANONYMOUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ANONYMOUS = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1eec5bb1c59ee53501a2ef13de7c8963" name="a1eec5bb1c59ee53501a2ef13de7c8963"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eec5bb1c59ee53501a2ef13de7c8963">&#9670;&#160;</a></span>BOOLEAN_DATATYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str BOOLEAN_DATATYPE = _XSD_PFX + &quot;boolean&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac16107fa5a052ede467c46e84441c950" name="ac16107fa5a052ede467c46e84441c950"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac16107fa5a052ede467c46e84441c950">&#9670;&#160;</a></span>chatty_flag</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chatty_flag = 50</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab95792d1b79c1d5d98f7e3e96689fda4" name="ab95792d1b79c1d5d98f7e3e96689fda4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab95792d1b79c1d5d98f7e3e96689fda4">&#9670;&#160;</a></span>CONTEXT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CONTEXT = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7d76152fec508b7da9aa483356627c1" name="ab7d76152fec508b7da9aa483356627c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d76152fec508b7da9aa483356627c1">&#9670;&#160;</a></span>DAML_sameAs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple DAML_sameAs = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a59c55c84faf40742053cb023383eb4db">DAML_sameAs_URI</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59c55c84faf40742053cb023383eb4db" name="a59c55c84faf40742053cb023383eb4db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c55c84faf40742053cb023383eb4db">&#9670;&#160;</a></span>DAML_sameAs_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str DAML_sameAs_URI = <a class="el" href="a01052.html#a69b4e2d1cabaa8b33cb0a475af66d8b2">OWL_NS</a> + &quot;sameAs&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8034677538a89123105668452c9c86a0" name="a8034677538a89123105668452c9c86a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8034677538a89123105668452c9c86a0">&#9670;&#160;</a></span>DECIMAL_DATATYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str DECIMAL_DATATYPE = _XSD_PFX + &quot;decimal&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a04b0d60fb5e4a1214ea76e457ba0dd81" name="a04b0d60fb5e4a1214ea76e457ba0dd81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04b0d60fb5e4a1214ea76e457ba0dd81">&#9670;&#160;</a></span>decimal_syntax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">decimal_syntax = re.compile(r&quot;[-+]?[0-9]*\.[0-9]+&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b711d5d38e312bd7c7c2441feb2009e" name="a4b711d5d38e312bd7c7c2441feb2009e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b711d5d38e312bd7c7c2441feb2009e">&#9670;&#160;</a></span>digitstring</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">digitstring = re.compile(r&quot;[0-9]+&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3fa93b6a194edf772e881eb6368fb164" name="a3fa93b6a194edf772e881eb6368fb164"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fa93b6a194edf772e881eb6368fb164">&#9670;&#160;</a></span>DOUBLE_DATATYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str DOUBLE_DATATYPE = _XSD_PFX + &quot;double&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa4700aca10443a2db68fc5a58c9e2de3" name="aa4700aca10443a2db68fc5a58c9e2de3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4700aca10443a2db68fc5a58c9e2de3">&#9670;&#160;</a></span>eof</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">eof = re.compile(r&quot;[ \t]*(#[^\n]*)?$&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada1e37ca9b2c72584447103a5bd59e1e" name="ada1e37ca9b2c72584447103a5bd59e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada1e37ca9b2c72584447103a5bd59e1e">&#9670;&#160;</a></span>eol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">eol = re.compile(r&quot;[ \t]*(#[^\n]*)?\r?\n&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1553138411fa586471ac77aea26733f" name="ab1553138411fa586471ac77aea26733f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1553138411fa586471ac77aea26733f">&#9670;&#160;</a></span>escapeChars</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">escapeChars = set(&quot;(_~.-!$&amp;'()*+,;=/?#@%)&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6585e91d0edaae68d83573e2d61b4a83" name="a6585e91d0edaae68d83573e2d61b4a83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6585e91d0edaae68d83573e2d61b4a83">&#9670;&#160;</a></span>exponent_syntax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exponent_syntax</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  re.compile(</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">r&quot;[-+]?(?:[0-9]+\.[0-9]*|\.[0-9]+|[0-9]+)(?:e|E)[-+]?[0-9]+&quot;</span></div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0ba4a0d25db522ac06de2318a05e6d08" name="a0ba4a0d25db522ac06de2318a05e6d08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ba4a0d25db522ac06de2318a05e6d08">&#9670;&#160;</a></span>FLOAT_DATATYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str FLOAT_DATATYPE = _XSD_PFX + &quot;float&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7b7a4abe8b9893723e66488ee6f8423" name="ae7b7a4abe8b9893723e66488ee6f8423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7b7a4abe8b9893723e66488ee6f8423">&#9670;&#160;</a></span>forAllSym</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str forAllSym = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;forAll&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ac9ce4a35be21e25de7f940100d540b" name="a7ac9ce4a35be21e25de7f940100d540b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ac9ce4a35be21e25de7f940100d540b">&#9670;&#160;</a></span>FORMULA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FORMULA = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ccce4ee2e27fc5483db05985b3486df" name="a7ccce4ee2e27fc5483db05985b3486df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ccce4ee2e27fc5483db05985b3486df">&#9670;&#160;</a></span>forSomeSym</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str forSomeSym = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;forSome&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8011fad246135fbfde72e4675e5ea844" name="a8011fad246135fbfde72e4675e5ea844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8011fad246135fbfde72e4675e5ea844">&#9670;&#160;</a></span>hexChars</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hexChars = set(&quot;ABCDEFabcdef0123456789&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec18baec9db23f9ec532a59b14c1ab8a" name="aec18baec9db23f9ec532a59b14c1ab8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec18baec9db23f9ec532a59b14c1ab8a">&#9670;&#160;</a></span>INTEGER_DATATYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str INTEGER_DATATYPE = _XSD_PFX + &quot;integer&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab18e83e676d71e7ccd6adcdc8c375217" name="ab18e83e676d71e7ccd6adcdc8c375217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18e83e676d71e7ccd6adcdc8c375217">&#9670;&#160;</a></span>integer_syntax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer_syntax = re.compile(r&quot;[-+]?[0-9]+&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a47ec34d8687ffc835fa60a3787f3bdf4" name="a47ec34d8687ffc835fa60a3787f3bdf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47ec34d8687ffc835fa60a3787f3bdf4">&#9670;&#160;</a></span>interesting</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">interesting = re.compile()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac56784c6a8c91ee35f363bd13ce914c2" name="ac56784c6a8c91ee35f363bd13ce914c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac56784c6a8c91ee35f363bd13ce914c2">&#9670;&#160;</a></span>langcode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">langcode = re.compile(r&quot;[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18ad76d50789093590456b69035c991c" name="a18ad76d50789093590456b69035c991c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18ad76d50789093590456b69035c991c">&#9670;&#160;</a></span>List_NS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str List_NS = <a class="el" href="a01052.html#ad3e175f0573f6c2243dc01bb8a63e43a">RDF_NS_URI</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abc11a07ed224da116609dabeacff3337" name="abc11a07ed224da116609dabeacff3337"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc11a07ed224da116609dabeacff3337">&#9670;&#160;</a></span>LITERAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int LITERAL = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad5e7b23f2d2d0efa7066f06ad6759ac3" name="ad5e7b23f2d2d0efa7066f06ad6759ac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5e7b23f2d2d0efa7066f06ad6759ac3">&#9670;&#160;</a></span>LITERAL_DT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int LITERAL_DT = 21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07156b06106d120fc5f79671c0652ee2" name="a07156b06106d120fc5f79671c0652ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07156b06106d120fc5f79671c0652ee2">&#9670;&#160;</a></span>LITERAL_LANG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int LITERAL_LANG = 22</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a766200f1a410324957a6ef4a16faf5eb" name="a766200f1a410324957a6ef4a16faf5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a766200f1a410324957a6ef4a16faf5eb">&#9670;&#160;</a></span>LOG_implies_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str LOG_implies_URI = &quot;http://www.w3.org/2000/10/swap/log#implies&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a173d285a6184e9e81e22835786873823" name="a173d285a6184e9e81e22835786873823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a173d285a6184e9e81e22835786873823">&#9670;&#160;</a></span>Logic_NS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str Logic_NS = &quot;http://www.w3.org/2000/10/swap/log#&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad225176a77d1944b6bd2d7bd17f16c34" name="ad225176a77d1944b6bd2d7bd17f16c34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad225176a77d1944b6bd2d7bd17f16c34">&#9670;&#160;</a></span>N3_Empty</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple N3_Empty = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;Empty&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad62c47be22ecabef48b688e811c19335" name="ad62c47be22ecabef48b688e811c19335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad62c47be22ecabef48b688e811c19335">&#9670;&#160;</a></span>N3_first</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple N3_first = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;first&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdc27d97cbe5efa6b3fdee4a86455ca4" name="acdc27d97cbe5efa6b3fdee4a86455ca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdc27d97cbe5efa6b3fdee4a86455ca4">&#9670;&#160;</a></span>N3_forAll_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str N3_forAll_URI = <a class="el" href="a01052.html#ae7b7a4abe8b9893723e66488ee6f8423">forAllSym</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a189de1f3baca97e0db7f657eca379a9b" name="a189de1f3baca97e0db7f657eca379a9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a189de1f3baca97e0db7f657eca379a9b">&#9670;&#160;</a></span>N3_forSome_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str N3_forSome_URI = <a class="el" href="a01052.html#a7ccce4ee2e27fc5483db05985b3486df">forSomeSym</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa5a320a570db85b861d08a7bd69a361d" name="aa5a320a570db85b861d08a7bd69a361d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5a320a570db85b861d08a7bd69a361d">&#9670;&#160;</a></span>N3_li</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple N3_li = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;li&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24628d7aae4bc3d96292b9f231176ba4" name="a24628d7aae4bc3d96292b9f231176ba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24628d7aae4bc3d96292b9f231176ba4">&#9670;&#160;</a></span>N3_List</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple N3_List = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;List&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a823fadd3b93c2b682167fc4b10143a5b" name="a823fadd3b93c2b682167fc4b10143a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a823fadd3b93c2b682167fc4b10143a5b">&#9670;&#160;</a></span>N3_nil</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple N3_nil = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;nil&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6974ad5ab118931903c60ea7320b232a" name="a6974ad5ab118931903c60ea7320b232a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6974ad5ab118931903c60ea7320b232a">&#9670;&#160;</a></span>N3_rest</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple N3_rest = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;rest&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a329b417962c00b0231718ce0a571fe43" name="a329b417962c00b0231718ce0a571fe43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329b417962c00b0231718ce0a571fe43">&#9670;&#160;</a></span>N3CommentCharacter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str N3CommentCharacter = &quot;#&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a16b9ad854eee14422cdb196e37935e57" name="a16b9ad854eee14422cdb196e37935e57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16b9ad854eee14422cdb196e37935e57">&#9670;&#160;</a></span>nextu</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int nextu = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae017e880c63304e5eccf321dbe15370e" name="ae017e880c63304e5eccf321dbe15370e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae017e880c63304e5eccf321dbe15370e">&#9670;&#160;</a></span>NODE_MERGE_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str NODE_MERGE_URI = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;is&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5fc3b1b8b2a1e933966ec608ef22da7" name="af5fc3b1b8b2a1e933966ec608ef22da7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5fc3b1b8b2a1e933966ec608ef22da7">&#9670;&#160;</a></span>numberChars</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">numberChars = set(&quot;0123456789-&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d1bfd50cb4d6ff9e4d9ef249a7be2d7" name="a4d1bfd50cb4d6ff9e4d9ef249a7be2d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d1bfd50cb4d6ff9e4d9ef249a7be2d7">&#9670;&#160;</a></span>numberCharsPlus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">numberCharsPlus = <a class="el" href="a01052.html#af5fc3b1b8b2a1e933966ec608ef22da7">numberChars</a> | {&quot;+&quot;, &quot;.&quot;}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69e77f59990e71f7990fc533f421de06" name="a69e77f59990e71f7990fc533f421de06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69e77f59990e71f7990fc533f421de06">&#9670;&#160;</a></span>OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OBJ = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c6042b743cf0791bf540badd83a82c1" name="a5c6042b743cf0791bf540badd83a82c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c6042b743cf0791bf540badd83a82c1">&#9670;&#160;</a></span>option_noregen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int option_noregen = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69b4e2d1cabaa8b33cb0a475af66d8b2" name="a69b4e2d1cabaa8b33cb0a475af66d8b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b4e2d1cabaa8b33cb0a475af66d8b2">&#9670;&#160;</a></span>OWL_NS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str OWL_NS = &quot;http://www.w3.org/2002/07/owl#&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a017bbb53052b43cfd024910e058e7ffb" name="a017bbb53052b43cfd024910e058e7ffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a017bbb53052b43cfd024910e058e7ffb">&#9670;&#160;</a></span>parsesTo_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str parsesTo_URI = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;parsesTo&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a115b64be0ee629748f7fb5043fd47dca" name="a115b64be0ee629748f7fb5043fd47dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115b64be0ee629748f7fb5043fd47dca">&#9670;&#160;</a></span>PARTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PARTS = <a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a>, <a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a>, <a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b8be3749831f61ba58d6dd0fc59b575" name="a2b8be3749831f61ba58d6dd0fc59b575"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b8be3749831f61ba58d6dd0fc59b575">&#9670;&#160;</a></span>PRED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PRED = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4078ef2edc99be25f7bd6b0963546116" name="a4078ef2edc99be25f7bd6b0963546116"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4078ef2edc99be25f7bd6b0963546116">&#9670;&#160;</a></span>r_hibyte</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">r_hibyte = re.compile(r&quot;([\x80-\xff])&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3e175f0573f6c2243dc01bb8a63e43a" name="ad3e175f0573f6c2243dc01bb8a63e43a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e175f0573f6c2243dc01bb8a63e43a">&#9670;&#160;</a></span>RDF_NS_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str RDF_NS_URI = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaeb85fdfec1fa5f5045dce8ad3b8c486" name="aaeb85fdfec1fa5f5045dce8ad3b8c486"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb85fdfec1fa5f5045dce8ad3b8c486">&#9670;&#160;</a></span>RDF_spec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str RDF_spec = &quot;http://www.w3.org/TR/REC-rdf-syntax/&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b0b8cd85c524834b14db1f5dfc4f445" name="a8b0b8cd85c524834b14db1f5dfc4f445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b0b8cd85c524834b14db1f5dfc4f445">&#9670;&#160;</a></span>RDF_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple RDF_type = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a74b8cd401a21b954281559194188155a">RDF_type_URI</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a74b8cd401a21b954281559194188155a" name="a74b8cd401a21b954281559194188155a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74b8cd401a21b954281559194188155a">&#9670;&#160;</a></span>RDF_type_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str RDF_type_URI = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ab5ab7951779a6f710d416bdcb244db" name="a2ab5ab7951779a6f710d416bdcb244db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ab5ab7951779a6f710d416bdcb244db">&#9670;&#160;</a></span>runNamespaceValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Optional runNamespaceValue = None</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60053b9a317472d5a8f5068c547757eb" name="a60053b9a317472d5a8f5068c547757eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60053b9a317472d5a8f5068c547757eb">&#9670;&#160;</a></span>signed_integer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">signed_integer = re.compile(r&quot;[-+]?[0-9]+&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a78a252119ca41c535bfa0ca135a00883" name="a78a252119ca41c535bfa0ca135a00883"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78a252119ca41c535bfa0ca135a00883">&#9670;&#160;</a></span>SUBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SUBJ = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9ee24f92fccd2dceb58d5bfcdc6d6fa2" name="a9ee24f92fccd2dceb58d5bfcdc6d6fa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">&#9670;&#160;</a></span>SYMBOL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SYMBOL = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af87abb04036c5df0e88b327a5f75a94a" name="af87abb04036c5df0e88b327a5f75a94a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af87abb04036c5df0e88b327a5f75a94a">&#9670;&#160;</a></span>tracking</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tracking = False</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d47240f805248e7da0fcbc80928cd0c" name="a6d47240f805248e7da0fcbc80928cd0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d47240f805248e7da0fcbc80928cd0c">&#9670;&#160;</a></span>unicodeEscape4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unicodeEscape4 = re.compile(r&quot;\\u([0-9a-fA-F]{4})&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f0a3f171d1484ce74f4bc6d9d482cf5" name="a6f0a3f171d1484ce74f4bc6d9d482cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f0a3f171d1484ce74f4bc6d9d482cf5">&#9670;&#160;</a></span>unicodeEscape8</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unicodeEscape8 = re.compile(r&quot;\\U([0-9a-fA-F]{8})&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64ce0633d6cc04e1148e7a437924ba4b" name="a64ce0633d6cc04e1148e7a437924ba4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ce0633d6cc04e1148e7a437924ba4b">&#9670;&#160;</a></span>ws</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ws = re.compile(r&quot;[ \t]*&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e5589e7cc81616eb7d6b6717ec2ad96" name="a4e5589e7cc81616eb7d6b6717ec2ad96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5589e7cc81616eb7d6b6717ec2ad96">&#9670;&#160;</a></span>XMLLITERAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XMLLITERAL = 25</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01049.html">parsers</a></li><li class="navelem"><a class="el" href="a01052.html">notation3</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: pyshacl.rdfutil.stringify Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00980.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">pyshacl.rdfutil.stringify Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a67dfdbb9cb5c325e43ef36f9416b3173" id="r_a67dfdbb9cb5c325e43ef36f9416b3173"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a67dfdbb9cb5c325e43ef36f9416b3173">with_dict_cache</a> (f)</td></tr>
+<tr class="separator:a67dfdbb9cb5c325e43ef36f9416b3173"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b99bfa23d8ce52f1f06d7d02fa2c6a6" id="r_a9b99bfa23d8ce52f1f06d7d02fa2c6a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a9b99bfa23d8ce52f1f06d7d02fa2c6a6">stringify_blank_node</a> (<a class="el" href="a01920.html">rdflib.Graph</a> graph, <a class="el" href="a02668.html">rdflib.BNode</a> bnode, Optional[<a class="el" href="a01976.html">NamespaceManager</a>] ns_manager=None, int recursion=0)</td></tr>
+<tr class="separator:a9b99bfa23d8ce52f1f06d7d02fa2c6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cf7952a2c1a8f74749f39162aedc14c" id="r_a1cf7952a2c1a8f74749f39162aedc14c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a1cf7952a2c1a8f74749f39162aedc14c">stringify_literal</a> (<a class="el" href="a01920.html">rdflib.Graph</a> graph, <a class="el" href="a02672.html">rdflib.Literal</a> node, Optional[<a class="el" href="a01976.html">NamespaceManager</a>] ns_manager=None)</td></tr>
+<tr class="separator:a1cf7952a2c1a8f74749f39162aedc14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f336757ed41f91aff9177847310b4eb" id="r_a4f336757ed41f91aff9177847310b4eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01920.html">rdflib.Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a4f336757ed41f91aff9177847310b4eb">find_node_named_graph</a> (Union[<a class="el" href="a01928.html">rdflib.Dataset</a>, <a class="el" href="a01924.html">rdflib.ConjunctiveGraph</a>] dataset, node)</td></tr>
+<tr class="separator:a4f336757ed41f91aff9177847310b4eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1b0af3781522f0f000b305410dd5c11" id="r_ad1b0af3781522f0f000b305410dd5c11"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#ad1b0af3781522f0f000b305410dd5c11">stringify_node</a> (<a class="el" href="a01920.html">rdflib.Graph</a> graph, RDFNode node, Optional[Union[<a class="el" href="a01976.html">NamespaceManager</a>, <a class="el" href="a01920.html">rdflib.Graph</a>]] ns_manager=None, int recursion=0)</td></tr>
+<tr class="separator:ad1b0af3781522f0f000b305410dd5c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d45f9c537575720895fa5b0a542fad7" id="r_a9d45f9c537575720895fa5b0a542fad7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a9d45f9c537575720895fa5b0a542fad7">stringify_graph</a> (<a class="el" href="a01920.html">rdflib.Graph</a> graph)</td></tr>
+<tr class="separator:a9d45f9c537575720895fa5b0a542fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6f718f6f2d4ad8449d6db846b54a2f0" id="r_ac6f718f6f2d4ad8449d6db846b54a2f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#ac6f718f6f2d4ad8449d6db846b54a2f0">match_blank_nodes</a> (<a class="el" href="a01920.html">rdflib.Graph</a> graph1, <a class="el" href="a02668.html">rdflib.BNode</a> bnode1, <a class="el" href="a01920.html">rdflib.Graph</a> graph2, <a class="el" href="a02668.html">rdflib.BNode</a> bnode2)</td></tr>
+<tr class="separator:ac6f718f6f2d4ad8449d6db846b54a2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac88e62a8908661fb317b9e58ac1a2bd6" id="r_ac88e62a8908661fb317b9e58ac1a2bd6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#ac88e62a8908661fb317b9e58ac1a2bd6">OWLsameAs</a> = <a class="el" href="a02028.html#ae81e67794e6eccd9061abb6396113b81">OWL.sameAs</a></td></tr>
+<tr class="separator:ac88e62a8908661fb317b9e58ac1a2bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a4f336757ed41f91aff9177847310b4eb" name="a4f336757ed41f91aff9177847310b4eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f336757ed41f91aff9177847310b4eb">&#9670;&#160;</a></span>find_node_named_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a01920.html">rdflib.Graph</a> find_node_named_graph </td>
+          <td>(</td>
+          <td class="paramtype">Union[<a class="el" href="a01928.html">rdflib.Dataset</a>, <a class="el" href="a01924.html">rdflib.ConjunctiveGraph</a>]&#160;</td>
+          <td class="paramname"><em>dataset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Search through each graph in a dataset for one node, when it finds it, returns the graph it is in
+:param dataset:
+:param node:
+:return:
+</pre> <div class="fragment"><div class="line"><span class="lineno">  127</span><span class="keyword">def </span>find_node_named_graph(dataset: Union[<a class="code hl_class" href="a01928.html">rdflib.Dataset</a>, <a class="code hl_class" href="a01924.html">rdflib.ConjunctiveGraph</a>], node) -&gt; <a class="code hl_class" href="a01920.html">rdflib.Graph</a>:</div>
+<div class="line"><span class="lineno">  128</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  129</span><span class="stringliteral">    Search through each graph in a dataset for one node, when it finds it, returns the graph it is in</span></div>
+<div class="line"><span class="lineno">  130</span><span class="stringliteral">    :param dataset:</span></div>
+<div class="line"><span class="lineno">  131</span><span class="stringliteral">    :param node:</span></div>
+<div class="line"><span class="lineno">  132</span><span class="stringliteral">    :return:</span></div>
+<div class="line"><span class="lineno">  133</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  134</span>    <span class="keywordflow">if</span> isinstance(node, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>):</div>
+<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07523.html">RuntimeError</a>(<span class="stringliteral">&quot;Cannot search for a Literal node in a dataset.&quot;</span>)</div>
+<div class="line"><span class="lineno">  136</span> </div>
+<div class="line"><span class="lineno">  137</span>    <span class="comment"># Check if node is a subject in any graph</span></div>
+<div class="line"><span class="lineno">  138</span>    <span class="keywordflow">for</span> q <span class="keywordflow">in</span> iter(dataset.quads((node, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>))):</div>
+<div class="line"><span class="lineno">  139</span>        s, p, o, g = q</div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">if</span> g <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  141</span>            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">elif</span> isinstance(g, <a class="code hl_class" href="a01920.html">rdflib.Graph</a>):</div>
+<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">return</span> g</div>
+<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  145</span>            <span class="keywordflow">return</span> dataset.get_context(g)</div>
+<div class="line"><span class="lineno">  146</span>    <span class="comment"># Now check if node is a object in any graph</span></div>
+<div class="line"><span class="lineno">  147</span>    <span class="keywordflow">for</span> q <span class="keywordflow">in</span> iter(dataset.quads((<span class="keywordtype">None</span>, <span class="keywordtype">None</span>, node, <span class="keywordtype">None</span>))):</div>
+<div class="line"><span class="lineno">  148</span>        s, p, o, g = q</div>
+<div class="line"><span class="lineno">  149</span>        <span class="keywordflow">if</span> g <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  150</span>            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  151</span>        <span class="keywordflow">elif</span> isinstance(g, <a class="code hl_class" href="a01920.html">rdflib.Graph</a>):</div>
+<div class="line"><span class="lineno">  152</span>            <span class="keywordflow">return</span> g</div>
+<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  154</span>            <span class="keywordflow">return</span> dataset.get_context(g)</div>
+<div class="line"><span class="lineno">  155</span>    <span class="keywordflow">raise</span> LookupError(f<span class="stringliteral">&quot;Cannot find node {node} in any named graph.&quot;</span>)</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span> </div>
+<div class="ttc" id="aa01920_html"><div class="ttname"><a href="a01920.html">rdflib.graph.Graph</a></div><div class="ttdef"><b>Definition</b> graph.py:439</div></div>
+<div class="ttc" id="aa01924_html"><div class="ttname"><a href="a01924.html">rdflib.graph.ConjunctiveGraph</a></div><div class="ttdef"><b>Definition</b> graph.py:2093</div></div>
+<div class="ttc" id="aa01928_html"><div class="ttname"><a href="a01928.html">rdflib.graph.Dataset</a></div><div class="ttdef"><b>Definition</b> graph.py:2504</div></div>
+<div class="ttc" id="aa02672_html"><div class="ttname"><a href="a02672.html">rdflib.term.Literal</a></div><div class="ttdef"><b>Definition</b> term.py:525</div></div>
+<div class="ttc" id="aa07523_html"><div class="ttname"><a href="a07523.html">RuntimeError</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00980.html#ad1b0af3781522f0f000b305410dd5c11">pyshacl.rdfutil.stringify.stringify_node()</a>.</p>
+
+</div>
+</div>
+<a id="ac6f718f6f2d4ad8449d6db846b54a2f0" name="ac6f718f6f2d4ad8449d6db846b54a2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6f718f6f2d4ad8449d6db846b54a2f0">&#9670;&#160;</a></span>match_blank_nodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">match_blank_nodes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">rdflib.Graph</a>&#160;</td>
+          <td class="paramname"><em>graph1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02668.html">rdflib.BNode</a>&#160;</td>
+          <td class="paramname"><em>bnode1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">rdflib.Graph</a>&#160;</td>
+          <td class="paramname"><em>graph2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02668.html">rdflib.BNode</a>&#160;</td>
+          <td class="paramname"><em>bnode2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  202</span><span class="keyword">def </span>match_blank_nodes(graph1: rdflib.Graph, bnode1: <a class="code hl_class" href="a02668.html">rdflib.BNode</a>, graph2: <a class="code hl_class" href="a01920.html">rdflib.Graph</a>, bnode2: <a class="code hl_class" href="a02668.html">rdflib.BNode</a>):</div>
+<div class="line"><span class="lineno">  203</span>    string_1 = stringify_blank_node(graph1, bnode1)</div>
+<div class="line"><span class="lineno">  204</span>    string_2 = stringify_blank_node(graph2, bnode2)</div>
+<div class="line"><span class="lineno">  205</span>    <span class="keywordflow">return</span> string_1 == string_2</div>
+<div class="ttc" id="aa02668_html"><div class="ttname"><a href="a02668.html">rdflib.term.BNode</a></div><div class="ttdef"><b>Definition</b> term.py:437</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9b99bfa23d8ce52f1f06d7d02fa2c6a6" name="a9b99bfa23d8ce52f1f06d7d02fa2c6a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b99bfa23d8ce52f1f06d7d02fa2c6a6">&#9670;&#160;</a></span>stringify_blank_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">stringify_blank_node </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">rdflib.Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02668.html">rdflib.BNode</a>&#160;</td>
+          <td class="paramname"><em>bnode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01976.html">NamespaceManager</a>] &#160;</td>
+          <td class="paramname"><em>ns_manager</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>recursion</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   31</span>):</div>
+<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">if</span> isinstance(graph, (<a class="code hl_class" href="a01924.html">rdflib.ConjunctiveGraph</a>, <a class="code hl_class" href="a01928.html">rdflib.Dataset</a>)):</div>
+<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07523.html">RuntimeError</a>(<span class="stringliteral">&quot;Can only stringify a blank node when graph is a rdflib.Graph&quot;</span>)</div>
+<div class="line"><span class="lineno">   34</span>    <span class="keyword">assert</span> isinstance(graph, <a class="code hl_class" href="a01920.html">rdflib.Graph</a>)</div>
+<div class="line"><span class="lineno">   35</span>    <span class="keyword">assert</span> isinstance(bnode, <a class="code hl_class" href="a02668.html">rdflib.BNode</a>)</div>
+<div class="line"><span class="lineno">   36</span>    <span class="keywordflow">if</span> recursion &gt;= 12:</div>
+<div class="line"><span class="lineno">   37</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;http://recursion.too.deep&gt;&quot;</span></div>
+<div class="line"><span class="lineno">   38</span>    stringed_cache_key = id(graph), str(bnode)</div>
+<div class="line"><span class="lineno">   39</span> </div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">   41</span>        cached = stringify_blank_node.dict_cache[stringed_cache_key]</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">return</span> cached</div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">except</span> LookupError:</div>
+<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">   45</span>    <span class="keywordflow">if</span> ns_manager <span class="keywordflow">is</span> <span class="keywordtype">None</span>:  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno">   46</span>        ns_manager = graph.namespace_manager</div>
+<div class="line"><span class="lineno">   47</span>        ns_manager.bind(<span class="stringliteral">&quot;sh&quot;</span>, SH)</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>    <span class="keyword">def </span>stringify_list(node: rdflib.BNode) -&gt; str:</div>
+<div class="line"><span class="lineno">   50</span>        nonlocal graph, ns_manager, recursion</div>
+<div class="line"><span class="lineno">   51</span>        item_texts: List[str] = []</div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> iter(graph.items(node)):</div>
+<div class="line"><span class="lineno">   53</span>            item_text = stringify_node(graph, item, ns_manager=ns_manager, recursion=recursion + 1)</div>
+<div class="line"><span class="lineno">   54</span>            item_texts.append(item_text)</div>
+<div class="line"><span class="lineno">   55</span>        <span class="comment"># item_texts.sort()  ## Don&#39;t sort, to preserve list order</span></div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;( {} )&quot;</span>.format(<span class="stringliteral">&quot; &quot;</span>.join(item_texts))</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>    predicates: List[RDFNode] = list(cast(Iterator[RDFNode], graph.predicates(bnode)))</div>
+<div class="line"><span class="lineno">   59</span>    <span class="keywordflow">if</span> len(predicates) &lt; 1:</div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;[ ]&quot;</span></div>
+<div class="line"><span class="lineno">   61</span>    <span class="keywordflow">if</span> RDF_first <span class="keywordflow">in</span> predicates:</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> stringify_list(bnode)</div>
+<div class="line"><span class="lineno">   63</span>    p_string_map = {}</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">for</span> p <span class="keywordflow">in</span> predicates:</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> isinstance(p, (<a class="code hl_class" href="a02672.html">rdflib.Literal</a>, <a class="code hl_class" href="a02668.html">rdflib.BNode</a>, <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>)):</div>
+<div class="line"><span class="lineno">   66</span>            p_string = p.n3(namespace_manager=ns_manager)</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   68</span>            p_string = str(p)</div>
+<div class="line"><span class="lineno">   69</span>        objs: List[RDFNode] = list(cast(Iterator[RDFNode], graph.objects(bnode, p)))</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> len(objs) &lt; 1:</div>
+<div class="line"><span class="lineno">   71</span>            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">   72</span>        o_texts = []</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">for</span> o <span class="keywordflow">in</span> objs:</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">if</span> p <span class="keywordflow">is</span> OWLsameAs <span class="keywordflow">and</span> o <span class="keywordflow">is</span> bnode:</div>
+<div class="line"><span class="lineno">   75</span>                <span class="comment"># Avoid a crazy owl:sameAs recursion with self.</span></div>
+<div class="line"><span class="lineno">   76</span>                o_texts.append(<span class="stringliteral">&quot;&lt;self&gt;&quot;</span>)</div>
+<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   78</span>                o_text = stringify_node(graph, o, ns_manager=ns_manager, recursion=recursion + 1)</div>
+<div class="line"><span class="lineno">   79</span>                o_texts.append(o_text)</div>
+<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">if</span> len(o_texts) &gt; 1:</div>
+<div class="line"><span class="lineno">   81</span>            o_texts.sort()</div>
+<div class="line"><span class="lineno">   82</span>            o_text = <span class="stringliteral">&quot;, &quot;</span>.join(o_texts)</div>
+<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   84</span>            o_text = o_texts[0]</div>
+<div class="line"><span class="lineno">   85</span>        p_string_map[p_string] = o_text</div>
+<div class="line"><span class="lineno">   86</span>    <span class="keywordflow">if</span> len(p_string_map) &gt; 1:</div>
+<div class="line"><span class="lineno">   87</span>        g = [<span class="stringliteral">&quot;{} {}&quot;</span>.format(p, o) <span class="keywordflow">for</span> p, o <span class="keywordflow">in</span> sorted(p_string_map.items())]</div>
+<div class="line"><span class="lineno">   88</span>        blank_string = <span class="stringliteral">&quot; ; &quot;</span>.join(g)</div>
+<div class="line"><span class="lineno">   89</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   90</span>        _p, _o = next(iter(p_string_map.items()))</div>
+<div class="line"><span class="lineno">   91</span>        blank_string = <span class="stringliteral">&quot;{} {}&quot;</span>.format(_p, _o)</div>
+<div class="line"><span class="lineno">   92</span>    blank_string = <span class="stringliteral">&quot;[ {} ]&quot;</span>.format(blank_string)</div>
+<div class="line"><span class="lineno">   93</span>    stringify_blank_node.dict_cache[stringed_cache_key] = blank_string</div>
+<div class="line"><span class="lineno">   94</span>    <span class="keywordflow">return</span> blank_string</div>
+<div class="line"><span class="lineno">   95</span> </div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="ttc" id="aa02656_html"><div class="ttname"><a href="a02656.html">rdflib.term.URIRef</a></div><div class="ttdef"><b>Definition</b> term.py:266</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9d45f9c537575720895fa5b0a542fad7" name="a9d45f9c537575720895fa5b0a542fad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d45f9c537575720895fa5b0a542fad7">&#9670;&#160;</a></span>stringify_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">stringify_graph </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">rdflib.Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  188</span><span class="keyword">def </span>stringify_graph(graph: rdflib.Graph):</div>
+<div class="line"><span class="lineno">  189</span>    string_builder = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  190</span>    t: Tuple[<a class="code hl_class" href="a02644.html">rdflib.term.Node</a>, <a class="code hl_class" href="a02644.html">rdflib.term.Node</a>, <a class="code hl_class" href="a02644.html">rdflib.term.Node</a>]</div>
+<div class="line"><span class="lineno">  191</span>    <span class="keywordflow">for</span> t <span class="keywordflow">in</span> iter(graph):</div>
+<div class="line"><span class="lineno">  192</span>        n1, n2, n3 = t</div>
+<div class="line"><span class="lineno">  193</span>        node_string = stringify_node(graph, n1, ns_manager=graph.namespace_manager)</div>
+<div class="line"><span class="lineno">  194</span>        string_builder += node_string + <span class="stringliteral">&quot;, &quot;</span></div>
+<div class="line"><span class="lineno">  195</span>        node_string = stringify_node(graph, n2, ns_manager=graph.namespace_manager)</div>
+<div class="line"><span class="lineno">  196</span>        string_builder += node_string + <span class="stringliteral">&quot;, &quot;</span></div>
+<div class="line"><span class="lineno">  197</span>        node_string = stringify_node(graph, n3, ns_manager=graph.namespace_manager)</div>
+<div class="line"><span class="lineno">  198</span>        string_builder += node_string + <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line"><span class="lineno">  199</span>    <span class="keywordflow">return</span> string_builder</div>
+<div class="line"><span class="lineno">  200</span> </div>
+<div class="line"><span class="lineno">  201</span> </div>
+<div class="ttc" id="aa02644_html"><div class="ttname"><a href="a02644.html">rdflib.term.Node</a></div><div class="ttdef"><b>Definition</b> term.py:136</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1cf7952a2c1a8f74749f39162aedc14c" name="a1cf7952a2c1a8f74749f39162aedc14c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cf7952a2c1a8f74749f39162aedc14c">&#9670;&#160;</a></span>stringify_literal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">stringify_literal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">rdflib.Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02672.html">rdflib.Literal</a>&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01976.html">NamespaceManager</a>] &#160;</td>
+          <td class="paramname"><em>ns_manager</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   97</span><span class="keyword">def </span>stringify_literal(graph: rdflib.Graph, node: <a class="code hl_class" href="a02672.html">rdflib.Literal</a>, ns_manager: Optional[NamespaceManager] = <span class="keywordtype">None</span>):</div>
+<div class="line"><span class="lineno">   98</span>    lit_val_string: Union[str, <span class="keywordtype">None</span>] = <span class="keywordtype">None</span> <span class="keywordflow">if</span> node.value <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> str(node.value)</div>
+<div class="line"><span class="lineno">   99</span>    lex_string = str(node)</div>
+<div class="line"><span class="lineno">  100</span>    <span class="keywordflow">if</span> ns_manager <span class="keywordflow">is</span> <span class="keywordtype">None</span>:  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno">  101</span>        ns_manager = graph.namespace_manager</div>
+<div class="line"><span class="lineno">  102</span>        ns_manager.bind(<span class="stringliteral">&quot;sh&quot;</span>, SH)</div>
+<div class="line"><span class="lineno">  103</span>    <span class="keywordflow">if</span> lit_val_string <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  104</span>        i_at = lit_val_string.find(<span class="stringliteral">&quot; object at 0x&quot;</span>)</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">if</span> i_at &gt; 0:</div>
+<div class="line"><span class="lineno">  106</span>            lit_val_string = lit_val_string[:i_at]</div>
+<div class="line"><span class="lineno">  107</span>    <span class="keywordflow">if</span> lit_val_string <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> lit_val_string != lex_string:</div>
+<div class="line"><span class="lineno">  108</span>        val_string = <span class="stringliteral">&quot;\&quot;{}\&quot; = {}&quot;</span>.format(lex_string, lit_val_string)</div>
+<div class="line"><span class="lineno">  109</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  110</span>        val_string = <span class="stringliteral">&quot;\&quot;{}\&quot;&quot;</span>.format(lex_string)</div>
+<div class="line"><span class="lineno">  111</span>    <span class="keywordflow">if</span> node.language:</div>
+<div class="line"><span class="lineno">  112</span>        lang_string = <span class="stringliteral">&quot;, lang={}&quot;</span>.format(str(node.language))</div>
+<div class="line"><span class="lineno">  113</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  114</span>        lang_string = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  115</span>    <span class="keywordflow">if</span> node.datatype:</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> isinstance(node.datatype, (<a class="code hl_class" href="a02656.html">rdflib.URIRef</a>, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>)):</div>
+<div class="line"><span class="lineno">  117</span>            datatype_uri = stringify_node(graph, node.datatype, ns_manager=ns_manager)</div>
+<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  119</span>            datatype_uri = str(node.datatype)</div>
+<div class="line"><span class="lineno">  120</span>        datatype_string = <span class="stringliteral">&quot;, datatype={}&quot;</span>.format(datatype_uri)</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  122</span>        datatype_string = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  123</span>    node_string = <span class="stringliteral">&quot;Literal({}{}{})&quot;</span>.format(val_string, lang_string, datatype_string)</div>
+<div class="line"><span class="lineno">  124</span>    <span class="keywordflow">return</span> node_string</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad1b0af3781522f0f000b305410dd5c11" name="ad1b0af3781522f0f000b305410dd5c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1b0af3781522f0f000b305410dd5c11">&#9670;&#160;</a></span>stringify_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str stringify_node </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">rdflib.Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RDFNode&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Union[<a class="el" href="a01976.html">NamespaceManager</a>, <a class="el" href="a01920.html">rdflib.Graph</a>]] &#160;</td>
+          <td class="paramname"><em>ns_manager</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>recursion</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  163</span>) -&gt; str:</div>
+<div class="line"><span class="lineno">  164</span>    <span class="keywordflow">if</span> ns_manager <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  165</span>        ns_manager = graph.namespace_manager</div>
+<div class="line"><span class="lineno">  166</span>    <span class="keywordflow">if</span> isinstance(ns_manager, <a class="code hl_class" href="a01920.html">rdflib.Graph</a>):</div>
+<div class="line"><span class="lineno">  167</span>        <span class="comment"># json-ld loader can set namespace_manager to the conjunctive graph itself.</span></div>
+<div class="line"><span class="lineno">  168</span>        ns_manager = ns_manager.namespace_manager</div>
+<div class="line"><span class="lineno">  169</span>    <span class="keywordflow">if</span> ns_manager <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> isinstance(ns_manager, <a class="code hl_class" href="a01920.html">rdflib.Graph</a>):</div>
+<div class="line"><span class="lineno">  170</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07523.html">RuntimeError</a>(<span class="stringliteral">&quot;Cannot stringify node, no namespaces known.&quot;</span>)</div>
+<div class="line"><span class="lineno">  171</span>    ns_manager.bind(<span class="stringliteral">&quot;sh&quot;</span>, SH, override=<span class="keyword">False</span>, replace=<span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  172</span>    <span class="keywordflow">if</span> isinstance(node, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>):</div>
+<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">return</span> stringify_literal(graph, node, ns_manager=ns_manager)</div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordflow">if</span> isinstance(node, <a class="code hl_class" href="a02668.html">rdflib.BNode</a>):</div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">if</span> isinstance(graph, (<a class="code hl_class" href="a01924.html">rdflib.ConjunctiveGraph</a>, <a class="code hl_class" href="a01928.html">rdflib.Dataset</a>)):</div>
+<div class="line"><span class="lineno">  176</span>            graph = find_node_named_graph(graph, node)</div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">return</span> stringify_blank_node(graph, node, ns_manager=ns_manager, recursion=recursion + 1)</div>
+<div class="line"><span class="lineno">  178</span>    <span class="keywordflow">if</span> isinstance(node, <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>):</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  180</span>            node_string = node.n3(namespace_manager=ns_manager)</div>
+<div class="line"><span class="lineno">  181</span>        <span class="keywordflow">except</span> Exception:</div>
+<div class="line"><span class="lineno">  182</span>            node_string = str(node)</div>
+<div class="line"><span class="lineno">  183</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  184</span>        node_string = str(node)</div>
+<div class="line"><span class="lineno">  185</span>    <span class="keywordflow">return</span> node_string</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00980.html#a4f336757ed41f91aff9177847310b4eb">pyshacl.rdfutil.stringify.find_node_named_graph()</a>.</p>
+
+</div>
+</div>
+<a id="a67dfdbb9cb5c325e43ef36f9416b3173" name="a67dfdbb9cb5c325e43ef36f9416b3173"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67dfdbb9cb5c325e43ef36f9416b3173">&#9670;&#160;</a></span>with_dict_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">with_dict_cache </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   14</span><span class="keyword">def </span>with_dict_cache(f):</div>
+<div class="line"><span class="lineno">   15</span>    <span class="preprocessor">@wraps(f)</span></div>
+<div class="line"><span class="lineno">   16</span>    <span class="keyword">def </span>wrapped(*args, **kwargs):</div>
+<div class="line"><span class="lineno">   17</span>        dict_cache = getattr(wrapped, <span class="stringliteral">&quot;dict_cache&quot;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   18</span>        <span class="keyword">assert</span> dict_cache <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   19</span>        <span class="keywordflow">return</span> f(*args, **kwargs)</div>
+<div class="line"><span class="lineno">   20</span> </div>
+<div class="line"><span class="lineno">   21</span>    dict_cache = getattr(wrapped, <span class="stringliteral">&quot;dict_cache&quot;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   22</span>    <span class="keywordflow">if</span> dict_cache <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   23</span>        dict_cache = {}</div>
+<div class="line"><span class="lineno">   24</span>        setattr(wrapped, <span class="stringliteral">&quot;dict_cache&quot;</span>, dict_cache)</div>
+<div class="line"><span class="lineno">   25</span>    <span class="keywordflow">return</span> wrapped</div>
+<div class="line"><span class="lineno">   26</span> </div>
+<div class="line"><span class="lineno">   27</span> </div>
+<div class="line"><span class="lineno">   28</span><span class="preprocessor">@with_dict_cache</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ac88e62a8908661fb317b9e58ac1a2bd6" name="ac88e62a8908661fb317b9e58ac1a2bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac88e62a8908661fb317b9e58ac1a2bd6">&#9670;&#160;</a></span>OWLsameAs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OWLsameAs = <a class="el" href="a02028.html#ae81e67794e6eccd9061abb6396113b81">OWL.sameAs</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00973.html">rdfutil</a></li><li class="navelem"><a class="el" href="a00980.html">stringify</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

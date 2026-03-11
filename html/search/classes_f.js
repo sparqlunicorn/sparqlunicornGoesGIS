@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['oauthconfiguration_0',['OAuthConfiguration',['../a03104.html',1,'sparqlunicornGoesGIS::util::conf::oauth']]],
+  ['object_1',['object',['../a07484.html',1,'']]],
+  ['observationpage_2',['ObservationPage',['../a03228.html',1,'sparqlunicornGoesGIS::util::export::pages::observationpage']]],
+  ['odrl2_3',['ODRL2',['../a02020.html',1,'rdflib::namespace::_ODRL2']]],
+  ['ogcapifeaturesexporter_4',['OGCAPIFeaturesExporter',['../a03152.html',1,'sparqlunicornGoesGIS::util::export::api::ogcapifeaturesexporter']]],
+  ['ontdocdialog_5',['OntDocDialog',['../a02868.html',1,'sparqlunicornGoesGIS::dialogs::tool::ontdocdialog']]],
+  ['ontdocgeneration_6',['OntDocGeneration',['../a03132.html',1,'sparqlunicornGoesGIS::util::doc::ontdocgeneration']]],
+  ['ontdoctask_7',['OntDocTask',['../a02972.html',1,'sparqlunicornGoesGIS::tasks::processing::ontdoctask']]],
+  ['ontology_8',['Ontology',['../a01868.html',1,'rdflib::extras::infixowl']]],
+  ['operation_9',['Operation',['../a02220.html',1,'rdflib::plugins::parsers::patch']]],
+  ['orconstraintcomponent_10',['OrConstraintComponent',['../a01364.html',1,'pyshacl::constraints::core::logical_constraints']]],
+  ['org_11',['ORG',['../a02024.html',1,'rdflib::namespace::_ORG']]],
+  ['origrdfssemantics_12',['OrigRDFSSemantics',['../a07527.html',1,'']]],
+  ['owl_13',['OWL',['../a02028.html',1,'rdflib::namespace::_OWL']]],
+  ['owlrdflistproxy_14',['OWLRDFListProxy',['../a01888.html',1,'rdflib::extras::infixowl']]],
+  ['owltimepage_15',['OWLTimePage',['../a03232.html',1,'sparqlunicornGoesGIS::util::export::pages::owltimepage']]]
+];

@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: ClassTreeUtils Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a03108.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a03105.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ClassTreeUtils Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab290d22f222835705f9421201f10d090" id="r_ab290d22f222835705f9421201f10d090"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#ab290d22f222835705f9421201f10d090">getClassTree</a> (graph, uritolabel, uritotreeitem, typeproperty, prefixes, preparedclassquery, instancecount, outpath, pubconfig)</td></tr>
+<tr class="separator:ab290d22f222835705f9421201f10d090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af230dec3d69ae07c9d5ecb33886933cf" id="r_af230dec3d69ae07c9d5ecb33886933cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#af230dec3d69ae07c9d5ecb33886933cf">assignGeoClassesToTree</a> (tree)</td></tr>
+<tr class="separator:af230dec3d69ae07c9d5ecb33886933cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb0286183ff001d54a85495a034eceb" id="r_aadb0286183ff001d54a85495a034eceb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#aadb0286183ff001d54a85495a034eceb">checkGeoInstanceAssignment</a> (uritotreeitem)</td></tr>
+<tr class="separator:aadb0286183ff001d54a85495a034eceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af230dec3d69ae07c9d5ecb33886933cf" name="af230dec3d69ae07c9d5ecb33886933cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af230dec3d69ae07c9d5ecb33886933cf">&#9670;&#160;</a></span>assignGeoClassesToTree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">assignGeoClassesToTree </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  141</span>    <span class="keyword">def </span>assignGeoClassesToTree(tree):</div>
+<div class="line"><span class="lineno">  142</span>        classlist = {}</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> tree[<span class="stringliteral">&quot;core&quot;</span>][<span class="stringliteral">&quot;data&quot;</span>]:</div>
+<div class="line"><span class="lineno">  144</span>            <span class="keywordflow">if</span> item[<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;class&quot;</span>:</div>
+<div class="line"><span class="lineno">  145</span>                classlist[item[<span class="stringliteral">&quot;id&quot;</span>]] = {<span class="stringliteral">&quot;items&quot;</span>: 0, <span class="stringliteral">&quot;geoitems&quot;</span>: 0, <span class="stringliteral">&quot;item&quot;</span>: item}</div>
+<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> tree[<span class="stringliteral">&quot;core&quot;</span>][<span class="stringliteral">&quot;data&quot;</span>]:</div>
+<div class="line"><span class="lineno">  147</span>            <span class="keywordflow">if</span> item[<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;instance&quot;</span> <span class="keywordflow">and</span> item[<span class="stringliteral">&quot;parent&quot;</span>] <span class="keywordflow">in</span> classlist:</div>
+<div class="line"><span class="lineno">  148</span>                classlist[item[<span class="stringliteral">&quot;parent&quot;</span>]][<span class="stringliteral">&quot;items&quot;</span>] += 1</div>
+<div class="line"><span class="lineno">  149</span>            <span class="keywordflow">elif</span> (item[<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;geoinstance&quot;</span> <span class="keywordflow">or</span> item[<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;featurecollection&quot;</span> <span class="keywordflow">or</span> item[</div>
+<div class="line"><span class="lineno">  150</span>                <span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;geocollection&quot;</span>) <span class="keywordflow">and</span> item[<span class="stringliteral">&quot;parent&quot;</span>] <span class="keywordflow">in</span> classlist:</div>
+<div class="line"><span class="lineno">  151</span>                classlist[item[<span class="stringliteral">&quot;parent&quot;</span>]][<span class="stringliteral">&quot;items&quot;</span>] += 1</div>
+<div class="line"><span class="lineno">  152</span>                classlist[item[<span class="stringliteral">&quot;parent&quot;</span>]][<span class="stringliteral">&quot;geoitems&quot;</span>] += 1</div>
+<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> classlist:</div>
+<div class="line"><span class="lineno">  154</span>            <span class="keywordflow">if</span> classlist[item][<span class="stringliteral">&quot;items&quot;</span>] &gt; 0:</div>
+<div class="line"><span class="lineno">  155</span>                <span class="keywordflow">if</span> classlist[item][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;text&quot;</span>].endswith(<span class="stringliteral">&quot;]&quot;</span>):</div>
+<div class="line"><span class="lineno">  156</span>                    classlist[item][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;text&quot;</span>] = f<span class="stringliteral">&#39;{classlist[item][&quot;item&quot;][&quot;text&quot;][0:classlist[item][&quot;item&quot;][&quot;text&quot;].rfind(&quot;[&quot;) - 1]} [{classlist[item][&quot;items&quot;]}]&#39;</span></div>
+<div class="line"><span class="lineno">  157</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  158</span>                    classlist[item][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;text&quot;</span>] = f<span class="stringliteral">&#39;{classlist[item][&quot;item&quot;][&quot;text&quot;]} [{classlist[item][&quot;items&quot;]}]&#39;</span></div>
+<div class="line"><span class="lineno">  159</span>            <span class="keywordflow">if</span> item <span class="keywordflow">in</span> DocConfig.collectionclasses:</div>
+<div class="line"><span class="lineno">  160</span>                classlist[item][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] = <span class="stringliteral">&quot;collectionclass&quot;</span></div>
+<div class="line"><span class="lineno">  161</span>            <span class="keywordflow">elif</span> classlist[item][<span class="stringliteral">&quot;items&quot;</span>] == classlist[item][<span class="stringliteral">&quot;geoitems&quot;</span>] <span class="keywordflow">and</span> classlist[item][<span class="stringliteral">&quot;items&quot;</span>] &gt; 0 <span class="keywordflow">and</span> classlist[item][<span class="stringliteral">&quot;geoitems&quot;</span>] &gt; 0:</div>
+<div class="line"><span class="lineno">  162</span>                classlist[item][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] = <span class="stringliteral">&quot;geoclass&quot;</span></div>
+<div class="line"><span class="lineno">  163</span>            <span class="keywordflow">elif</span> classlist[item][<span class="stringliteral">&quot;items&quot;</span>] &gt; classlist[item][<span class="stringliteral">&quot;geoitems&quot;</span>] &gt; 0:</div>
+<div class="line"><span class="lineno">  164</span>                classlist[item][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] = <span class="stringliteral">&quot;halfgeoclass&quot;</span></div>
+<div class="line"><span class="lineno">  165</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  166</span>                classlist[item][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] = <span class="stringliteral">&quot;class&quot;</span></div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">return</span> classlist</div>
+<div class="line"><span class="lineno">  168</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aadb0286183ff001d54a85495a034eceb" name="aadb0286183ff001d54a85495a034eceb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadb0286183ff001d54a85495a034eceb">&#9670;&#160;</a></span>checkGeoInstanceAssignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">checkGeoInstanceAssignment </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>uritotreeitem</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  170</span>    <span class="keyword">def </span>checkGeoInstanceAssignment(uritotreeitem):</div>
+<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">for</span> uri <span class="keywordflow">in</span> uritotreeitem:</div>
+<div class="line"><span class="lineno">  172</span>            <span class="keywordflow">if</span> len(uritotreeitem[uri]) &gt; 1:</div>
+<div class="line"><span class="lineno">  173</span>                thetype = <span class="stringliteral">&quot;instance&quot;</span></div>
+<div class="line"><span class="lineno">  174</span>                counter = 0</div>
+<div class="line"><span class="lineno">  175</span>                <span class="keywordflow">if</span> uritotreeitem[uri] <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  176</span>                    <span class="keywordflow">for</span> item <span class="keywordflow">in</span> uritotreeitem[uri]:</div>
+<div class="line"><span class="lineno">  177</span>                        <span class="keywordflow">if</span> item[<span class="stringliteral">&quot;type&quot;</span>] != <span class="stringliteral">&quot;instance&quot;</span> <span class="keywordflow">or</span> item[<span class="stringliteral">&quot;type&quot;</span>] != <span class="stringliteral">&quot;class&quot;</span>:</div>
+<div class="line"><span class="lineno">  178</span>                            thetype = item[<span class="stringliteral">&quot;type&quot;</span>]</div>
+<div class="line"><span class="lineno">  179</span>                        <span class="keywordflow">if</span> item[<span class="stringliteral">&quot;type&quot;</span>] != <span class="stringliteral">&quot;class&quot;</span>:</div>
+<div class="line"><span class="lineno">  180</span>                            item[<span class="stringliteral">&quot;id&quot;</span>] = f<span class="stringliteral">&#39;{item[&quot;id&quot;]}_suniv{counter}_&#39;</span></div>
+<div class="line"><span class="lineno">  181</span>                        counter += 1</div>
+<div class="line"><span class="lineno">  182</span>                    <span class="keywordflow">if</span> thetype != <span class="stringliteral">&quot;instance&quot;</span> <span class="keywordflow">or</span> thetype != <span class="stringliteral">&quot;class&quot;</span>:</div>
+<div class="line"><span class="lineno">  183</span>                        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> uritotreeitem[uri]:</div>
+<div class="line"><span class="lineno">  184</span>                            item[<span class="stringliteral">&quot;type&quot;</span>] = thetype</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab290d22f222835705f9421201f10d090" name="ab290d22f222835705f9421201f10d090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab290d22f222835705f9421201f10d090">&#9670;&#160;</a></span>getClassTree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">getClassTree </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>uritolabel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>uritotreeitem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>typeproperty</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>preparedclassquery</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>instancecount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>outpath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>pubconfig</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   11</span>                     pubconfig):</div>
+<div class="line"><span class="lineno">   12</span>        results = graph.query(preparedclassquery)</div>
+<div class="line"><span class="lineno">   13</span>        classidset=set()</div>
+<div class="line"><span class="lineno">   14</span>        ldcontext = {<span class="stringliteral">&quot;@context&quot;</span>: {</div>
+<div class="line"><span class="lineno">   15</span>            <span class="stringliteral">&quot;@version&quot;</span>: 1.1,</div>
+<div class="line"><span class="lineno">   16</span>            <span class="stringliteral">&quot;foaf&quot;</span>: <span class="stringliteral">&quot;http://xmlns.com/foaf/0.1/&quot;</span>,</div>
+<div class="line"><span class="lineno">   17</span>            <span class="stringliteral">&quot;ct&quot;</span>: <span class="stringliteral">&quot;http://purl.org/vocab/classtree#&quot;</span>,</div>
+<div class="line"><span class="lineno">   18</span>            <span class="stringliteral">&quot;rdfs&quot;</span>: <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span>,</div>
+<div class="line"><span class="lineno">   19</span>            <span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;foaf:image&quot;</span>,</div>
+<div class="line"><span class="lineno">   20</span>            <span class="stringliteral">&quot;id&quot;</span>: <span class="stringliteral">&quot;@id&quot;</span>,</div>
+<div class="line"><span class="lineno">   21</span>            <span class="stringliteral">&quot;parent&quot;</span>: <span class="stringliteral">&quot;rdfs:subClassOf&quot;</span>,</div>
+<div class="line"><span class="lineno">   22</span>            <span class="stringliteral">&quot;halfgeoclass&quot;</span>: <span class="stringliteral">&quot;ct:HalfGeoClass&quot;</span>,</div>
+<div class="line"><span class="lineno">   23</span>            <span class="stringliteral">&quot;geoclass&quot;</span>: {<span class="stringliteral">&quot;@type&quot;</span>: <span class="stringliteral">&quot;ct:icontype&quot;</span>, <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;ct:GeoClass&quot;</span>},</div>
+<div class="line"><span class="lineno">   24</span>            <span class="stringliteral">&quot;collectionclass&quot;</span>: {<span class="stringliteral">&quot;@type&quot;</span>: <span class="stringliteral">&quot;ct:icontype&quot;</span>, <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;ct:CollectionClass&quot;</span>},</div>
+<div class="line"><span class="lineno">   25</span>            <span class="stringliteral">&quot;featurecollectionclass&quot;</span>: {<span class="stringliteral">&quot;@type&quot;</span>: <span class="stringliteral">&quot;ct:icontype&quot;</span>, <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;ct:FeatureCollectionClass&quot;</span>},</div>
+<div class="line"><span class="lineno">   26</span>            <span class="stringliteral">&quot;class&quot;</span>: <span class="stringliteral">&quot;owl:Class&quot;</span>,</div>
+<div class="line"><span class="lineno">   27</span>            <span class="stringliteral">&quot;instance&quot;</span>: <span class="stringliteral">&quot;owl:NamedIndividual&quot;</span>,</div>
+<div class="line"><span class="lineno">   28</span>            <span class="stringliteral">&quot;geoinstance&quot;</span>: {<span class="stringliteral">&quot;@type&quot;</span>: <span class="stringliteral">&quot;ct:Icontype&quot;</span>, <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;ct:GeoNamedIndividual&quot;</span>},</div>
+<div class="line"><span class="lineno">   29</span>            <span class="stringliteral">&quot;text&quot;</span>: <span class="stringliteral">&quot;rdfs:label&quot;</span>,</div>
+<div class="line"><span class="lineno">   30</span>            <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;ct:icontype&quot;</span>,</div>
+<div class="line"><span class="lineno">   31</span>            <span class="stringliteral">&quot;types&quot;</span>: <span class="stringliteral">&quot;ct:icontypes&quot;</span>,</div>
+<div class="line"><span class="lineno">   32</span>            <span class="stringliteral">&quot;core&quot;</span>: {<span class="stringliteral">&quot;@type&quot;</span>: <span class="stringliteral">&quot;ct:TreeConfig&quot;</span>, <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;@nest&quot;</span>},</div>
+<div class="line"><span class="lineno">   33</span>            <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;ct:treeitem&quot;</span>, <span class="stringliteral">&quot;@type&quot;</span>: <span class="stringliteral">&quot;ct:TreeItem&quot;</span>}</div>
+<div class="line"><span class="lineno">   34</span>        }}</div>
+<div class="line"><span class="lineno">   35</span>        tree = {<span class="stringliteral">&quot;plugins&quot;</span>: [<span class="stringliteral">&quot;defaults&quot;</span>, <span class="stringliteral">&quot;search&quot;</span>, <span class="stringliteral">&quot;sort&quot;</span>, <span class="stringliteral">&quot;state&quot;</span>, <span class="stringliteral">&quot;types&quot;</span>, <span class="stringliteral">&quot;contextmenu&quot;</span>],</div>
+<div class="line"><span class="lineno">   36</span>                <span class="stringliteral">&quot;search&quot;</span>: {<span class="stringliteral">&quot;show_only_matches&quot;</span>: <span class="keyword">True</span>}, <span class="stringliteral">&quot;types&quot;</span>: {</div>
+<div class="line"><span class="lineno">   37</span>                <span class="stringliteral">&quot;class&quot;</span>: {<span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png&quot;</span>},</div>
+<div class="line"><span class="lineno">   38</span>                <span class="stringliteral">&quot;geoclass&quot;</span>: {<span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png&quot;</span>},</div>
+<div class="line"><span class="lineno">   39</span>                <span class="stringliteral">&quot;halfgeoclass&quot;</span>: {</div>
+<div class="line"><span class="lineno">   40</span>                    <span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/halfgeoclass.png&quot;</span>},</div>
+<div class="line"><span class="lineno">   41</span>                <span class="stringliteral">&quot;collectionclass&quot;</span>: {</div>
+<div class="line"><span class="lineno">   42</span>                    <span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/collectionclass.png&quot;</span>},</div>
+<div class="line"><span class="lineno">   43</span>                <span class="stringliteral">&quot;geocollection&quot;</span>: {</div>
+<div class="line"><span class="lineno">   44</span>                    <span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geometrycollection.png&quot;</span>},</div>
+<div class="line"><span class="lineno">   45</span>                <span class="stringliteral">&quot;featurecollection&quot;</span>: {</div>
+<div class="line"><span class="lineno">   46</span>                    <span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/featurecollection.png&quot;</span>},</div>
+<div class="line"><span class="lineno">   47</span>                <span class="stringliteral">&quot;instance&quot;</span>: {<span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png&quot;</span>},</div>
+<div class="line"><span class="lineno">   48</span>                <span class="stringliteral">&quot;geoinstance&quot;</span>: {</div>
+<div class="line"><span class="lineno">   49</span>                    <span class="stringliteral">&quot;icon&quot;</span>: <span class="stringliteral">&quot;https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoinstance.png&quot;</span>}</div>
+<div class="line"><span class="lineno">   50</span>            }, <span class="stringliteral">&quot;core&quot;</span>: {<span class="stringliteral">&quot;themes&quot;</span>: {<span class="stringliteral">&quot;responsive&quot;</span>: <span class="keyword">True</span>}, <span class="stringliteral">&quot;check_callback&quot;</span>: <span class="keyword">True</span>, <span class="stringliteral">&quot;data&quot;</span>: []},</div>
+<div class="line"><span class="lineno">   51</span>                <span class="stringliteral">&quot;@context&quot;</span>: ldcontext[<span class="stringliteral">&quot;@context&quot;</span>]}</div>
+<div class="line"><span class="lineno">   52</span>        result = []</div>
+<div class="line"><span class="lineno">   53</span>        ress = {}</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results:</div>
+<div class="line"><span class="lineno">   55</span>            <span class="comment"># print(res)</span></div>
+<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">if</span> isinstance(res[<span class="stringliteral">&quot;subject&quot;</span>], URIRef):</div>
+<div class="line"><span class="lineno">   57</span>                <span class="keywordflow">if</span> isinstance(res[<span class="stringliteral">&quot;supertype&quot;</span>], URIRef):</div>
+<div class="line"><span class="lineno">   58</span>                    ress[str(res[<span class="stringliteral">&quot;subject&quot;</span>])] = {<span class="stringliteral">&quot;super&quot;</span>: res[<span class="stringliteral">&quot;supertype&quot;</span>], <span class="stringliteral">&quot;label&quot;</span>: res[<span class="stringliteral">&quot;label&quot;</span>]}</div>
+<div class="line"><span class="lineno">   59</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   60</span>                    ress[str(res[<span class="stringliteral">&quot;subject&quot;</span>])] = {<span class="stringliteral">&quot;super&quot;</span>: <span class="keywordtype">None</span>, <span class="stringliteral">&quot;label&quot;</span>: res[<span class="stringliteral">&quot;label&quot;</span>]}</div>
+<div class="line"><span class="lineno">   61</span>            <span class="comment"># if &quot;_:&quot; not in str(res[&quot;subject&quot;]) and str(res[&quot;subject&quot;]).startswith(&quot;http&quot;):</span></div>
+<div class="line"><span class="lineno">   62</span>            <span class="comment">#    if &quot;_:&quot; not in str(res[&quot;supertype&quot;]) and str(res[&quot;supertype&quot;]).startswith(&quot;http&quot;):</span></div>
+<div class="line"><span class="lineno">   63</span>            <span class="comment">#        ress[str(res[&quot;subject&quot;])] = {&quot;super&quot;: res[&quot;supertype&quot;], &quot;label&quot;: res[&quot;label&quot;]}</span></div>
+<div class="line"><span class="lineno">   64</span>            <span class="comment">#    else:</span></div>
+<div class="line"><span class="lineno">   65</span>            <span class="comment">#        ress[str(res[&quot;subject&quot;])] = {&quot;super&quot;: None, &quot;label&quot;: res[&quot;label&quot;]}</span></div>
+<div class="line"><span class="lineno">   66</span>        <span class="comment"># print(ress)</span></div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">for</span> cls <span class="keywordflow">in</span> ress:</div>
+<div class="line"><span class="lineno">   68</span>            clsstr = str(cls)</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">for</span> obj <span class="keywordflow">in</span> graph.subjects(URIRef(typeproperty), URIRef(cls), <span class="keyword">True</span>):</div>
+<div class="line"><span class="lineno">   70</span>                objstr = str(obj)</div>
+<div class="line"><span class="lineno">   71</span>                res = DocUtils.replaceNameSpacesInLabel(prefixes, objstr)</div>
+<div class="line"><span class="lineno">   72</span>                <span class="keywordflow">if</span> objstr <span class="keywordflow">in</span> uritolabel:</div>
+<div class="line"><span class="lineno">   73</span>                    <span class="keywordflow">if</span> res <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   74</span>                        restext = f<span class="stringliteral">&quot;{uritolabel[objstr][&#39;label&#39;]} ({res[&#39;uri&#39;]})&quot;</span></div>
+<div class="line"><span class="lineno">   75</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   76</span>                        restext = f<span class="stringliteral">&quot;{uritolabel[objstr][&#39;label&#39;]} ({DocUtils.shortenURI(objstr)})&quot;</span></div>
+<div class="line"><span class="lineno">   77</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   78</span>                    <span class="keywordflow">if</span> res <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   79</span>                        restext = f<span class="stringliteral">&quot; ({res[&#39;uri&#39;]})&quot;</span></div>
+<div class="line"><span class="lineno">   80</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   81</span>                        restext = DocUtils.shortenURI(objstr)</div>
+<div class="line"><span class="lineno">   82</span>                result.append({<span class="stringliteral">&quot;id&quot;</span>: objstr, <span class="stringliteral">&quot;parent&quot;</span>: cls, <span class="stringliteral">&quot;type&quot;</span>: f<span class="stringliteral">&#39;{&quot;instance&quot; if objstr not in DocConfig.collectionclasses else &quot;class&quot;}&#39;</span>, <span class="stringliteral">&quot;text&quot;</span>: restext, <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;from&quot;</span>: {}, <span class="stringliteral">&quot;to&quot;</span>: {}}})</div>
+<div class="line"><span class="lineno">   83</span>                <span class="comment">#if objstr not in DocConfig.collectionclasses:</span></div>
+<div class="line"><span class="lineno">   84</span>                <span class="comment">#    result.append({&quot;id&quot;: objstr, &quot;parent&quot;: cls, &quot;type&quot;: &quot;instance&quot;, &quot;text&quot;: restext, &quot;data&quot;: {&quot;from&quot;:{},&quot;to&quot;:{}}})</span></div>
+<div class="line"><span class="lineno">   85</span>                <span class="comment">#else:</span></div>
+<div class="line"><span class="lineno">   86</span>                <span class="comment">#    result.append({&quot;id&quot;: objstr, &quot;parent&quot;: cls, &quot;type&quot;: &quot;class&quot;, &quot;text&quot;: restext, &quot;data&quot;: {&quot;from&quot;:{},&quot;to&quot;:{}}})</span></div>
+<div class="line"><span class="lineno">   87</span>                uritotreeitem[objstr].append(result[-1])</div>
+<div class="line"><span class="lineno">   88</span>            <span class="comment"># print(ress[cls])</span></div>
+<div class="line"><span class="lineno">   89</span>            res = DocUtils.replaceNameSpacesInLabel(prefixes, clsstr)</div>
+<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">if</span> ress[cls][<span class="stringliteral">&quot;super&quot;</span>] <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   91</span>                restext = DocUtils.shortenURI(clsstr)</div>
+<div class="line"><span class="lineno">   92</span>                <span class="keywordflow">if</span> res <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   93</span>                    restext += f<span class="stringliteral">&quot; ({res[&#39;uri&#39;]})&quot;</span></div>
+<div class="line"><span class="lineno">   94</span>                <span class="keywordflow">if</span> cls <span class="keywordflow">not</span> <span class="keywordflow">in</span> uritotreeitem:</div>
+<div class="line"><span class="lineno">   95</span>                    <span class="comment"># print(&quot;SUPER NOT NONE: &quot; + str({&quot;id&quot;: cls, &quot;parent&quot;: &quot;#&quot;, &quot;type&quot;: &quot;class&quot;, &quot;text&quot;: restext, &quot;data&quot;: {}}))</span></div>
+<div class="line"><span class="lineno">   96</span>                    <span class="keywordflow">if</span> cls <span class="keywordflow">in</span> instancecount:</div>
+<div class="line"><span class="lineno">   97</span>                        result.append({<span class="stringliteral">&quot;id&quot;</span>: cls, <span class="stringliteral">&quot;parent&quot;</span>: <span class="stringliteral">&quot;#&quot;</span>, <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;class&quot;</span>,<span class="stringliteral">&quot;instancecount&quot;</span>:instancecount[cls], <span class="stringliteral">&quot;text&quot;</span>: restext,</div>
+<div class="line"><span class="lineno">   98</span>                                       <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;from&quot;</span>: defaultdict(<span class="keyword">lambda</span>: defaultdict(int)), <span class="stringliteral">&quot;to&quot;</span>: defaultdict(<span class="keyword">lambda</span>: defaultdict(int))}})</div>
+<div class="line"><span class="lineno">   99</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  100</span>                        result.append({<span class="stringliteral">&quot;id&quot;</span>: cls, <span class="stringliteral">&quot;parent&quot;</span>: <span class="stringliteral">&quot;#&quot;</span>, <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;class&quot;</span>, <span class="stringliteral">&quot;text&quot;</span>: restext, <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;from&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int)),<span class="stringliteral">&quot;to&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int))}})</div>
+<div class="line"><span class="lineno">  101</span>                    uritotreeitem[cls].append(result[-1])</div>
+<div class="line"><span class="lineno">  102</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  103</span>                <span class="keywordflow">if</span> cls <span class="keywordflow">in</span> ress <span class="keywordflow">and</span> <span class="stringliteral">&quot;label&quot;</span> <span class="keywordflow">in</span> cls <span class="keywordflow">and</span> ress[cls][<span class="stringliteral">&quot;label&quot;</span>] <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  104</span>                    <span class="keywordflow">if</span> res <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  105</span>                        restext = f<span class="stringliteral">&quot;{ress[cls][&#39;label&#39;]} ({res[&#39;uri&#39;]})&quot;</span></div>
+<div class="line"><span class="lineno">  106</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  107</span>                        restext = f<span class="stringliteral">&quot;{ress[cls][&#39;label&#39;]} ({DocUtils.shortenURI(clsstr)})&quot;</span></div>
+<div class="line"><span class="lineno">  108</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  109</span>                    <span class="keywordflow">if</span> res <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  110</span>                        restext = f<span class="stringliteral">&quot; ({res[&#39;uri&#39;]})&quot;</span></div>
+<div class="line"><span class="lineno">  111</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  112</span>                        restext = DocUtils.shortenURI(clsstr)</div>
+<div class="line"><span class="lineno">  113</span>                <span class="keywordflow">if</span> cls <span class="keywordflow">not</span> <span class="keywordflow">in</span> uritotreeitem:</div>
+<div class="line"><span class="lineno">  114</span>                    <span class="keywordflow">if</span> cls <span class="keywordflow">in</span> instancecount:</div>
+<div class="line"><span class="lineno">  115</span>                        result.append({<span class="stringliteral">&quot;id&quot;</span>: cls, <span class="stringliteral">&quot;parent&quot;</span>: ress[cls][<span class="stringliteral">&quot;super&quot;</span>],<span class="stringliteral">&quot;instancecount&quot;</span>:instancecount[cls], <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;class&quot;</span>, <span class="stringliteral">&quot;text&quot;</span>: restext,</div>
+<div class="line"><span class="lineno">  116</span>                                       <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;from&quot;</span>: defaultdict(<span class="keyword">lambda</span>: defaultdict(int)), <span class="stringliteral">&quot;to&quot;</span>: defaultdict(<span class="keyword">lambda</span>: defaultdict(int))}})</div>
+<div class="line"><span class="lineno">  117</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  118</span>                        result.append({<span class="stringliteral">&quot;id&quot;</span>: cls, <span class="stringliteral">&quot;parent&quot;</span>: ress[cls][<span class="stringliteral">&quot;super&quot;</span>], <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;class&quot;</span>, <span class="stringliteral">&quot;text&quot;</span>: restext, <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;from&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int)),<span class="stringliteral">&quot;to&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int))}})</div>
+<div class="line"><span class="lineno">  119</span>                    uritotreeitem[cls].append(result[-1])</div>
+<div class="line"><span class="lineno">  120</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  121</span>                    uritotreeitem[cls][-1][<span class="stringliteral">&quot;parent&quot;</span>] = ress[cls][<span class="stringliteral">&quot;super&quot;</span>]</div>
+<div class="line"><span class="lineno">  122</span>                ressuperstr = str(ress[cls][<span class="stringliteral">&quot;super&quot;</span>])</div>
+<div class="line"><span class="lineno">  123</span>                <span class="keywordflow">if</span> ressuperstr <span class="keywordflow">not</span> <span class="keywordflow">in</span> uritotreeitem:</div>
+<div class="line"><span class="lineno">  124</span>                    <span class="comment"># print(&quot;SUPER NOT IN URITOTREEITEM: &quot;+str(ress[cls][&quot;super&quot;])+&quot; ... adding with empty superclass statement...&quot;)</span></div>
+<div class="line"><span class="lineno">  125</span>                    uritotreeitem[ressuperstr] = []</div>
+<div class="line"><span class="lineno">  126</span>                    clsres = DocUtils.replaceNameSpacesInLabel(prefixes, ressuperstr)</div>
+<div class="line"><span class="lineno">  127</span>                    <span class="keywordflow">if</span> clsres <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  128</span>                        theitem = {<span class="stringliteral">&quot;id&quot;</span>: ressuperstr, <span class="stringliteral">&quot;parent&quot;</span>: <span class="stringliteral">&quot;#&quot;</span>, <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;class&quot;</span>,</div>
+<div class="line"><span class="lineno">  129</span>                                   <span class="stringliteral">&quot;text&quot;</span>: f<span class="stringliteral">&#39;{DocUtils.shortenURI(ressuperstr)} ({clsres[&quot;uri&quot;]})&#39;</span>, <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;from&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int)),<span class="stringliteral">&quot;to&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int))}}</div>
+<div class="line"><span class="lineno">  130</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  131</span>                        theitem = {<span class="stringliteral">&quot;id&quot;</span>: ressuperstr, <span class="stringliteral">&quot;parent&quot;</span>: <span class="stringliteral">&quot;#&quot;</span>, <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;class&quot;</span>,</div>
+<div class="line"><span class="lineno">  132</span>                                   <span class="stringliteral">&quot;text&quot;</span>: DocUtils.shortenURI(ressuperstr), <span class="stringliteral">&quot;data&quot;</span>: {<span class="stringliteral">&quot;from&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int)),<span class="stringliteral">&quot;to&quot;</span>:defaultdict(<span class="keyword">lambda</span>: defaultdict(int))}}</div>
+<div class="line"><span class="lineno">  133</span>                    uritotreeitem[ressuperstr].append(theitem)</div>
+<div class="line"><span class="lineno">  134</span>                    result.append(theitem)</div>
+<div class="line"><span class="lineno">  135</span>                classidset.add(ressuperstr)</div>
+<div class="line"><span class="lineno">  136</span>            classidset.add(clsstr)</div>
+<div class="line"><span class="lineno">  137</span>        tree[<span class="stringliteral">&quot;core&quot;</span>][<span class="stringliteral">&quot;data&quot;</span>] = result</div>
+<div class="line"><span class="lineno">  138</span>        <span class="keywordflow">return</span> [tree, uritotreeitem, len(classidset)]</div>
+<div class="line"><span class="lineno">  139</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02844.html#a59f6e6b65a1e6932f071d4a6d7e82704">SPARQLunicornDialog.endpointselectaction()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01229.html">util</a></li><li class="navelem"><a class="el" href="a01234.html">doc</a></li><li class="navelem"><a class="el" href="a01235.html">classtreeutils</a></li><li class="navelem"><a class="el" href="a03108.html">ClassTreeUtils</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

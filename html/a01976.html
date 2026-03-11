@@ -1,0 +1,1310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: NamespaceManager Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01976.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="a01973.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">NamespaceManager Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a46bf0923b4d9cc150321b571c094d2d0" id="r_a46bf0923b4d9cc150321b571c094d2d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a46bf0923b4d9cc150321b571c094d2d0">__init__</a> (self, <a class="el" href="a01920.html">Graph</a> <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">graph</a>, _NamespaceSetString bind_namespaces=&quot;rdflib&quot;)</td></tr>
+<tr class="separator:a46bf0923b4d9cc150321b571c094d2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a9c3b6e2ace890a6a09a891dd50879a" id="r_a0a9c3b6e2ace890a6a09a891dd50879a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a0a9c3b6e2ace890a6a09a891dd50879a">__contains__</a> (self, str ref)</td></tr>
+<tr class="separator:a0a9c3b6e2ace890a6a09a891dd50879a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89732d4380ef53ab0394d237458376f7" id="r_a89732d4380ef53ab0394d237458376f7"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a89732d4380ef53ab0394d237458376f7">reset</a> (self)</td></tr>
+<tr class="separator:a89732d4380ef53ab0394d237458376f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad46075e50ca0587e22fad2bf30baede9" id="r_ad46075e50ca0587e22fad2bf30baede9"><td class="memItemLeft" align="right" valign="top">Store&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">store</a> (self)</td></tr>
+<tr class="separator:ad46075e50ca0587e22fad2bf30baede9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a390bd86f93dfb33871b08626ba4e8d" id="r_a2a390bd86f93dfb33871b08626ba4e8d"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a2a390bd86f93dfb33871b08626ba4e8d">qname</a> (self, str uri)</td></tr>
+<tr class="separator:a2a390bd86f93dfb33871b08626ba4e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cf71651803012646cd1330cf6a17798" id="r_a9cf71651803012646cd1330cf6a17798"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a9cf71651803012646cd1330cf6a17798">curie</a> (self, str uri, bool generate=True)</td></tr>
+<tr class="separator:a9cf71651803012646cd1330cf6a17798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e16aa7d2a5924210e1db6af3551991e" id="r_a1e16aa7d2a5924210e1db6af3551991e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a1e16aa7d2a5924210e1db6af3551991e">qname_strict</a> (self, str uri)</td></tr>
+<tr class="separator:a1e16aa7d2a5924210e1db6af3551991e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1094f6476488c477716f9daf8717d7a" id="r_ad1094f6476488c477716f9daf8717d7a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#ad1094f6476488c477716f9daf8717d7a">normalizeUri</a> (self, str rdfTerm)</td></tr>
+<tr class="separator:ad1094f6476488c477716f9daf8717d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85c93d61769bee9100ef36ef7d097e7e" id="r_a85c93d61769bee9100ef36ef7d097e7e"><td class="memItemLeft" align="right" valign="top">Tuple[str, <a class="el" href="a02656.html">URIRef</a>, str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">compute_qname</a> (self, str uri, bool generate=True)</td></tr>
+<tr class="separator:a85c93d61769bee9100ef36ef7d097e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c26d09f9ec87d9429bb642d8d181bb1" id="r_a9c26d09f9ec87d9429bb642d8d181bb1"><td class="memItemLeft" align="right" valign="top">Tuple[str, str, str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">compute_qname_strict</a> (self, str uri, bool generate=True)</td></tr>
+<tr class="separator:a9c26d09f9ec87d9429bb642d8d181bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c4dbcd9945665274b6126b2dc568bdf" id="r_a2c4dbcd9945665274b6126b2dc568bdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a2c4dbcd9945665274b6126b2dc568bdf">expand_curie</a> (self, str <a class="el" href="a01976.html#a9cf71651803012646cd1330cf6a17798">curie</a>)</td></tr>
+<tr class="separator:a2c4dbcd9945665274b6126b2dc568bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf985da465a8c49d52a55e38c3abc861" id="r_abf985da465a8c49d52a55e38c3abc861"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">bind</a> (self, Optional[str] prefix, Any namespace, bool override=True, bool replace=False)</td></tr>
+<tr class="separator:abf985da465a8c49d52a55e38c3abc861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad93818beb5d0aa0891d389d42aa21ab4" id="r_ad93818beb5d0aa0891d389d42aa21ab4"><td class="memItemLeft" align="right" valign="top">Iterable[Tuple[str, <a class="el" href="a02656.html">URIRef</a>]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#ad93818beb5d0aa0891d389d42aa21ab4">namespaces</a> (self)</td></tr>
+<tr class="separator:ad93818beb5d0aa0891d389d42aa21ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99001d47c37e89b192099517a2532922" id="r_a99001d47c37e89b192099517a2532922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a99001d47c37e89b192099517a2532922">absolutize</a> (self, str uri, int defrag=1)</td></tr>
+<tr class="separator:a99001d47c37e89b192099517a2532922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a8ca49c796430e66a10450bfc2d218c81" id="r_a8ca49c796430e66a10450bfc2d218c81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">graph</a></td></tr>
+<tr class="separator:a8ca49c796430e66a10450bfc2d218c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7072e7bfc5f1cdeadec25ecc3c246bf" id="r_aa7072e7bfc5f1cdeadec25ecc3c246bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">store</a></td></tr>
+<tr class="separator:aa7072e7bfc5f1cdeadec25ecc3c246bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a18e97200f85e1b21f33c524f85e198c5" id="r_a18e97200f85e1b21f33c524f85e198c5"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a18e97200f85e1b21f33c524f85e198c5">_store_bind</a> (self, str prefix, <a class="el" href="a02656.html">URIRef</a> namespace, bool override)</td></tr>
+<tr class="separator:a18e97200f85e1b21f33c524f85e198c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:afee096a08bb38ccf0d7261ef6c45ab7b" id="r_afee096a08bb38ccf0d7261ef6c45ab7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#afee096a08bb38ccf0d7261ef6c45ab7b">__log</a></td></tr>
+<tr class="separator:afee096a08bb38ccf0d7261ef6c45ab7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7821de77d452e5922d934e751b96b91d" id="r_a7821de77d452e5922d934e751b96b91d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a7821de77d452e5922d934e751b96b91d">__cache</a></td></tr>
+<tr class="separator:a7821de77d452e5922d934e751b96b91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3a9889db7b42ef1a0d562606e4f3ffd" id="r_ab3a9889db7b42ef1a0d562606e4f3ffd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#ab3a9889db7b42ef1a0d562606e4f3ffd">__strie</a></td></tr>
+<tr class="separator:ab3a9889db7b42ef1a0d562606e4f3ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f33951ee6034f1b9d1866f4da963ed5" id="r_a3f33951ee6034f1b9d1866f4da963ed5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01976.html#a3f33951ee6034f1b9d1866f4da963ed5">__trie</a></td></tr>
+<tr class="separator:a3f33951ee6034f1b9d1866f4da963ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Class for managing prefix =&gt; namespace mappings
+
+This class requires an RDFlib Graph as an input parameter and may optionally have
+the parameter bind_namespaces set. This second parameter selects a strategy which
+is one of the following:
+
+* core:
+    * binds several core RDF prefixes only
+    * owl, rdf, rdfs, xsd, xml from the NAMESPACE_PREFIXES_CORE object
+* rdflib:
+    * binds all the namespaces shipped with RDFLib as DefinedNamespace instances
+    * all the core namespaces and all the following: brick, csvw, dc, dcat
+    * dcmitype, dcterms, dcam, doap, foaf, geo, odrl, org, prof, prov, qb, schema
+    * sh, skos, sosa, ssn, time, vann, void
+    * see the NAMESPACE_PREFIXES_RDFLIB object for the up-to-date list
+    * this is default
+* none:
+    * binds no namespaces to prefixes
+    * note this is NOT default behaviour
+* cc:
+    * using prefix bindings from prefix.cc which is a online prefixes database
+    * not implemented yet - this is aspirational
+
+!!! warning "Breaking changes"
+
+    The namespaces bound for specific values of `bind_namespaces`
+    constitute part of RDFLib's public interface, so changes to them should
+    only be additive within the same minor version. Removing values, or
+    removing namespaces that are bound by default, constitutes a breaking
+    change.
+
+See the sample usage
+
+```python
+&gt;&gt;&gt; import rdflib
+&gt;&gt;&gt; from rdflib import Graph
+&gt;&gt;&gt; from rdflib.namespace import Namespace, NamespaceManager
+&gt;&gt;&gt; EX = Namespace('http://example.com/')
+&gt;&gt;&gt; namespace_manager = NamespaceManager(Graph())
+&gt;&gt;&gt; namespace_manager.bind('ex', EX, override=False)
+&gt;&gt;&gt; g = Graph()
+&gt;&gt;&gt; g.namespace_manager = namespace_manager
+&gt;&gt;&gt; all_ns = [n for n in g.namespace_manager.namespaces()]
+&gt;&gt;&gt; assert ('ex', rdflib.term.URIRef('http://example.com/')) in all_ns
+
+```
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a46bf0923b4d9cc150321b571c094d2d0" name="a46bf0923b4d9cc150321b571c094d2d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bf0923b4d9cc150321b571c094d2d0">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_NamespaceSetString &#160;</td>
+          <td class="paramname"><em>bind_namespaces</em> = <code>&quot;rdflib&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  478</span>    <span class="keyword">def </span>__init__(self, graph: Graph, bind_namespaces: _NamespaceSetString = <span class="stringliteral">&quot;rdflib&quot;</span>):</div>
+<div class="line"><span class="lineno">  479</span>        self.graph = graph</div>
+<div class="line"><span class="lineno">  480</span>        self.__cache: Dict[str, Tuple[str, URIRef, str]] = {}</div>
+<div class="line"><span class="lineno">  481</span>        self.__cache_strict: Dict[str, Tuple[str, URIRef, str]] = {}</div>
+<div class="line"><span class="lineno">  482</span>        self.__log = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  483</span>        self.__strie: Dict[str, Any] = {}</div>
+<div class="line"><span class="lineno">  484</span>        self.__trie: Dict[str, Any] = {}</div>
+<div class="line"><span class="lineno">  485</span>        <span class="comment"># This type declaration is here becuase there is no common base class</span></div>
+<div class="line"><span class="lineno">  486</span>        <span class="comment"># for all namespaces and without it the inferred type of ns is not</span></div>
+<div class="line"><span class="lineno">  487</span>        <span class="comment"># compatible with all prefixes.</span></div>
+<div class="line"><span class="lineno">  488</span>        ns: Any</div>
+<div class="line"><span class="lineno">  489</span>        <span class="comment"># bind Namespaces as per options.</span></div>
+<div class="line"><span class="lineno">  490</span>        <span class="comment"># default is core</span></div>
+<div class="line"><span class="lineno">  491</span>        <span class="keywordflow">if</span> bind_namespaces == <span class="stringliteral">&quot;none&quot;</span>:</div>
+<div class="line"><span class="lineno">  492</span>            <span class="comment"># binds no namespaces to prefixes</span></div>
+<div class="line"><span class="lineno">  493</span>            <span class="comment"># note this is NOT default</span></div>
+<div class="line"><span class="lineno">  494</span>            <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  495</span>        <span class="keywordflow">elif</span> bind_namespaces == <span class="stringliteral">&quot;rdflib&quot;</span>:</div>
+<div class="line"><span class="lineno">  496</span>            <span class="comment"># bind all the Namespaces shipped with RDFLib</span></div>
+<div class="line"><span class="lineno">  497</span>            <span class="keywordflow">for</span> prefix, ns <span class="keywordflow">in</span> _NAMESPACE_PREFIXES_RDFLIB.items():</div>
+<div class="line"><span class="lineno">  498</span>                self.bind(prefix, ns)</div>
+<div class="line"><span class="lineno">  499</span>            <span class="comment"># ... don&#39;t forget the core ones too</span></div>
+<div class="line"><span class="lineno">  500</span>            <span class="keywordflow">for</span> prefix, ns <span class="keywordflow">in</span> _NAMESPACE_PREFIXES_CORE.items():</div>
+<div class="line"><span class="lineno">  501</span>                self.bind(prefix, ns)</div>
+<div class="line"><span class="lineno">  502</span>        <span class="keywordflow">elif</span> bind_namespaces == <span class="stringliteral">&quot;cc&quot;</span>:</div>
+<div class="line"><span class="lineno">  503</span>            <span class="comment"># bind any prefix that can be found with lookups to prefix.cc</span></div>
+<div class="line"><span class="lineno">  504</span>            <span class="comment"># first bind core and rdflib ones</span></div>
+<div class="line"><span class="lineno">  505</span>            <span class="comment"># work out remainder - namespaces without prefixes</span></div>
+<div class="line"><span class="lineno">  506</span>            <span class="comment"># only look those ones up</span></div>
+<div class="line"><span class="lineno">  507</span>            <span class="keywordflow">raise</span> NotImplementedError(<span class="stringliteral">&quot;Haven&#39;t got to this option yet&quot;</span>)</div>
+<div class="line"><span class="lineno">  508</span>        <span class="keywordflow">elif</span> bind_namespaces == <span class="stringliteral">&quot;core&quot;</span>:</div>
+<div class="line"><span class="lineno">  509</span>            <span class="comment"># bind a few core RDF namespaces - default</span></div>
+<div class="line"><span class="lineno">  510</span>            <span class="keywordflow">for</span> prefix, ns <span class="keywordflow">in</span> _NAMESPACE_PREFIXES_CORE.items():</div>
+<div class="line"><span class="lineno">  511</span>                self.bind(prefix, ns)</div>
+<div class="line"><span class="lineno">  512</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  513</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(f<span class="stringliteral">&quot;unsupported namespace set {bind_namespaces}&quot;</span>)</div>
+<div class="line"><span class="lineno">  514</span> </div>
+<div class="ttc" id="aa07501_html"><div class="ttname"><a href="a07501.html">ValueError</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0a9c3b6e2ace890a6a09a891dd50879a" name="a0a9c3b6e2ace890a6a09a891dd50879a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a9c3b6e2ace890a6a09a891dd50879a">&#9670;&#160;</a></span>__contains__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool __contains__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>ref</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  515</span>    <span class="keyword">def </span>__contains__(self, ref: str) -&gt; bool:</div>
+<div class="line"><span class="lineno">  516</span>        <span class="comment"># checks if a reference is in any of the managed namespaces with syntax</span></div>
+<div class="line"><span class="lineno">  517</span>        <span class="comment"># &quot;ref in manager&quot;. Note that we don&#39;t use &quot;ref in ns&quot;, as</span></div>
+<div class="line"><span class="lineno">  518</span>        <span class="comment"># NamespaceManager.namespaces() returns Iterator[Tuple[str, URIRef]]</span></div>
+<div class="line"><span class="lineno">  519</span>        <span class="comment"># rather than Iterator[Tuple[str, Namespace]]</span></div>
+<div class="line"><span class="lineno">  520</span>        <span class="keywordflow">return</span> any(ref.startswith(ns) <span class="keywordflow">for</span> prefix, ns <span class="keywordflow">in</span> self.namespaces())</div>
+<div class="line"><span class="lineno">  521</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01764.html#a318e9df47d0678c31ec767e62f607fe3">Repository.namespaces()</a>, <a class="el" href="a01920.html#a20ed34a6c868a7c795ad084b25ddd1e2">Graph.namespaces()</a>, <a class="el" href="a01948.html#a20ed34a6c868a7c795ad084b25ddd1e2">ReadOnlyGraphAggregate.namespaces()</a>, <a class="el" href="a01976.html#ad93818beb5d0aa0891d389d42aa21ab4">NamespaceManager.namespaces()</a>, <a class="el" href="a02532.html#a82b100d6114a28cdd0cbd9880305ca38">AuditableStore.namespaces()</a>, <a class="el" href="a02536.html#a20ed34a6c868a7c795ad084b25ddd1e2">BerkeleyDB.namespaces()</a>, <a class="el" href="a02548.html#a82b100d6114a28cdd0cbd9880305ca38">SimpleMemory.namespaces()</a>, <a class="el" href="a02552.html#a82b100d6114a28cdd0cbd9880305ca38">Memory.namespaces()</a>, <a class="el" href="a02556.html#a82b100d6114a28cdd0cbd9880305ca38">RDF4JStore.namespaces()</a>, <a class="el" href="a02564.html#adb79aea984ab953adf7d3a607511fea1">REGEXMatching.namespaces()</a>, <a class="el" href="a02576.html#a82b100d6114a28cdd0cbd9880305ca38">SPARQLStore.namespaces()</a>, <a class="el" href="a02640.html#a82b100d6114a28cdd0cbd9880305ca38">Store.namespaces()</a>, <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>, <a class="el" href="a02952.html#abf447c798c2932f48dd7724f64ddc940">ExtractNamespaceTask.namespaces</a>, and <a class="el" href="a03288.html#adaa81fd4ea88bd10a26169fa54458d4a">SPARQLUtils.namespaces</a>.</p>
+
+</div>
+</div>
+<a id="a18e97200f85e1b21f33c524f85e198c5" name="a18e97200f85e1b21f33c524f85e198c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18e97200f85e1b21f33c524f85e198c5">&#9670;&#160;</a></span>_store_bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _store_bind </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>prefix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a>&#160;</td>
+          <td class="paramname"><em>namespace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>override</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  738</span>    <span class="keyword">def </span>_store_bind(self, prefix: str, namespace: URIRef, override: bool) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  739</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> _with_bind_override_fix:</div>
+<div class="line"><span class="lineno">  740</span>            <span class="keywordflow">return</span> self.store.bind(prefix, namespace)</div>
+<div class="line"><span class="lineno">  741</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  742</span>            <span class="keywordflow">return</span> self.store.bind(prefix, namespace, override=override)</div>
+<div class="line"><span class="lineno">  743</span>        <span class="keywordflow">except</span> TypeError <span class="keyword">as</span> error:</div>
+<div class="line"><span class="lineno">  744</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;override&quot;</span> <span class="keywordflow">in</span> str(error):</div>
+<div class="line"><span class="lineno">  745</span>                logger.debug(</div>
+<div class="line"><span class="lineno">  746</span>                    <span class="stringliteral">&quot;caught a TypeError, &quot;</span></div>
+<div class="line"><span class="lineno">  747</span>                    <span class="stringliteral">&quot;retrying call to %s.bind without override, &quot;</span></div>
+<div class="line"><span class="lineno">  748</span>                    <span class="stringliteral">&quot;see https://github.com/RDFLib/rdflib/issues/1880 for more info&quot;</span>,</div>
+<div class="line"><span class="lineno">  749</span>                    <a class="code hl_class" href="a07531.html">type</a>(self.store),</div>
+<div class="line"><span class="lineno">  750</span>                    exc_info=<span class="keyword">True</span>,</div>
+<div class="line"><span class="lineno">  751</span>                )</div>
+<div class="line"><span class="lineno">  752</span>                <span class="keywordflow">return</span> self.store.bind(prefix, namespace)</div>
+<div class="line"><span class="lineno">  753</span> </div>
+<div class="ttc" id="aa07531_html"><div class="ttname"><a href="a07531.html">type</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">NamespaceManager.bind()</a>, <a class="el" href="a01920.html#ad46075e50ca0587e22fad2bf30baede9">Graph.store()</a>, <a class="el" href="a01920.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Graph.store</a>, <a class="el" href="a01924.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConjunctiveGraph.store</a>, <a class="el" href="a01928.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Dataset.store</a>, <a class="el" href="a01932.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">QuotedGraph.store</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">NamespaceManager.store</a>, <a class="el" href="a02240.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">RDFXMLHandler.store</a>, <a class="el" href="a02256.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXHandler.store</a>, <a class="el" href="a02268.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">JsonLDSerializer.store</a>, <a class="el" href="a02276.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">LongTurtleSerializer.store</a>, <a class="el" href="a02308.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TrigSerializer.store</a>, <a class="el" href="a02312.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXSerializer.store</a>, <a class="el" href="a02532.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">AuditableStore.store</a>, and <a class="el" href="a02544.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConcurrentStore.store</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">NamespaceManager.bind()</a>.</p>
+
+</div>
+</div>
+<a id="a99001d47c37e89b192099517a2532922" name="a99001d47c37e89b192099517a2532922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99001d47c37e89b192099517a2532922">&#9670;&#160;</a></span>absolutize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a02656.html">URIRef</a> absolutize </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>defrag</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  825</span>    <span class="keyword">def </span>absolutize(self, uri: str, defrag: int = 1) -&gt; URIRef:</div>
+<div class="line"><span class="lineno">  826</span>        base = Path.cwd().as_uri()</div>
+<div class="line"><span class="lineno">  827</span>        result = urljoin(<span class="stringliteral">&quot;%s/&quot;</span> % base, uri, allow_fragments=<span class="keywordflow">not</span> defrag)</div>
+<div class="line"><span class="lineno">  828</span>        <span class="keywordflow">if</span> defrag:</div>
+<div class="line"><span class="lineno">  829</span>            result = urldefrag(result)[0]</div>
+<div class="line"><span class="lineno">  830</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> defrag:</div>
+<div class="line"><span class="lineno">  831</span>            <span class="keywordflow">if</span> uri <span class="keywordflow">and</span> uri[-1] == <span class="stringliteral">&quot;#&quot;</span> <span class="keywordflow">and</span> result[-1] != <span class="stringliteral">&quot;#&quot;</span>:</div>
+<div class="line"><span class="lineno">  832</span>                result = <span class="stringliteral">&quot;%s#&quot;</span> % result</div>
+<div class="line"><span class="lineno">  833</span>        <span class="keywordflow">return</span> URIRef(result)</div>
+<div class="line"><span class="lineno">  834</span> </div>
+<div class="line"><span class="lineno">  835</span> </div>
+<div class="line"><span class="lineno">  836</span><span class="comment"># From: http://www.w3.org/TR/REC-xml#NT-CombiningChar</span></div>
+<div class="line"><span class="lineno">  837</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  838</span><span class="comment"># * Name start characters must have one of the categories Ll, Lu, Lo,</span></div>
+<div class="line"><span class="lineno">  839</span><span class="comment">#   Lt, Nl.</span></div>
+<div class="line"><span class="lineno">  840</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  841</span><span class="comment"># * Name characters other than Name-start characters must have one of</span></div>
+<div class="line"><span class="lineno">  842</span><span class="comment">#   the categories Mc, Me, Mn, Lm, or Nd.</span></div>
+<div class="line"><span class="lineno">  843</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  844</span><span class="comment"># * Characters in the compatibility area (i.e. with character code</span></div>
+<div class="line"><span class="lineno">  845</span><span class="comment">#   greater than #xF900 and less than #xFFFE) are not allowed in XML</span></div>
+<div class="line"><span class="lineno">  846</span><span class="comment">#   names.</span></div>
+<div class="line"><span class="lineno">  847</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  848</span><span class="comment"># * Characters which have a font or compatibility decomposition</span></div>
+<div class="line"><span class="lineno">  849</span><span class="comment">#   (i.e. those with a &quot;compatibility formatting tag&quot; in field 5 of the</span></div>
+<div class="line"><span class="lineno">  850</span><span class="comment">#   database -- marked by field 5 beginning with a &quot;&lt;&quot;) are not allowed.</span></div>
+<div class="line"><span class="lineno">  851</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  852</span><span class="comment"># * The following characters are treated as name-start characters rather</span></div>
+<div class="line"><span class="lineno">  853</span><span class="comment">#   than name characters, because the property file classifies them as</span></div>
+<div class="line"><span class="lineno">  854</span><span class="comment">#   Alphabetic: [#x02BB-#x02C1], #x0559, #x06E5, #x06E6.</span></div>
+<div class="line"><span class="lineno">  855</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  856</span><span class="comment"># * Characters #x20DD-#x20E0 are excluded (in accordance with Unicode</span></div>
+<div class="line"><span class="lineno">  857</span><span class="comment">#   2.0, section 5.14).</span></div>
+<div class="line"><span class="lineno">  858</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  859</span><span class="comment"># * Character #x00B7 is classified as an extender, because the property</span></div>
+<div class="line"><span class="lineno">  860</span><span class="comment">#   list so identifies it.</span></div>
+<div class="line"><span class="lineno">  861</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  862</span><span class="comment"># * Character #x0387 is added as a name character, because #x00B7 is its</span></div>
+<div class="line"><span class="lineno">  863</span><span class="comment">#   canonical equivalent.</span></div>
+<div class="line"><span class="lineno">  864</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  865</span><span class="comment"># * Characters &#39;:&#39; and &#39;_&#39; are allowed as name-start characters.</span></div>
+<div class="line"><span class="lineno">  866</span><span class="comment">#</span></div>
+<div class="line"><span class="lineno">  867</span><span class="comment"># * Characters &#39;-&#39; and &#39;.&#39; are allowed as name characters.</span></div>
+<div class="line"><span class="lineno">  868</span> </div>
+<div class="line"><span class="lineno">  869</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02520.html#ade25fcbab1050047870284bb57d1606e">Prologue.absolutize()</a>, <a class="el" href="a02240.html#a9d55c9d58beb03a37004c8a33554f67f">RDFXMLHandler.node_element_start()</a>, and <a class="el" href="a02240.html#aec14fbb445390682c3bbe46c9c2a44e8">RDFXMLHandler.property_element_start()</a>.</p>
+
+</div>
+</div>
+<a id="abf985da465a8c49d52a55e38c3abc861" name="abf985da465a8c49d52a55e38c3abc861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf985da465a8c49d52a55e38c3abc861">&#9670;&#160;</a></span>bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None bind </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str]&#160;</td>
+          <td class="paramname"><em>prefix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Any&#160;</td>
+          <td class="paramname"><em>namespace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>override</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>replace</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Bind a given namespace to the prefix
+
+If override, rebind, even if the given namespace is already
+bound to another prefix.
+
+If replace, replace any existing prefix with the new namespace
+</pre> <div class="fragment"><div class="line"><span class="lineno">  760</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  761</span>        <span class="stringliteral">&quot;&quot;&quot;Bind a given namespace to the prefix</span></div>
+<div class="line"><span class="lineno">  762</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  763</span><span class="stringliteral">        If override, rebind, even if the given namespace is already</span></div>
+<div class="line"><span class="lineno">  764</span><span class="stringliteral">        bound to another prefix.</span></div>
+<div class="line"><span class="lineno">  765</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  766</span><span class="stringliteral">        If replace, replace any existing prefix with the new namespace</span></div>
+<div class="line"><span class="lineno">  767</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  768</span> </div>
+<div class="line"><span class="lineno">  769</span>        namespace = URIRef(str(namespace))</div>
+<div class="line"><span class="lineno">  770</span>        <span class="comment"># When documenting explain that override only applies in what cases</span></div>
+<div class="line"><span class="lineno">  771</span>        <span class="keywordflow">if</span> prefix <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  772</span>            prefix = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  773</span>        <span class="keywordflow">elif</span> <span class="stringliteral">&quot; &quot;</span> <span class="keywordflow">in</span> prefix:</div>
+<div class="line"><span class="lineno">  774</span>            <span class="keywordflow">raise</span> KeyError(<span class="stringliteral">&quot;Prefixes may not contain spaces.&quot;</span>)</div>
+<div class="line"><span class="lineno">  775</span> </div>
+<div class="line"><span class="lineno">  776</span>        bound_namespace = self.store.namespace(prefix)</div>
+<div class="line"><span class="lineno">  777</span> </div>
+<div class="line"><span class="lineno">  778</span>        <span class="comment"># Check if the bound_namespace contains a URI</span></div>
+<div class="line"><span class="lineno">  779</span>        <span class="comment"># and if so convert it into a URIRef for comparison</span></div>
+<div class="line"><span class="lineno">  780</span>        <span class="comment"># This is to prevent duplicate namespaces with the</span></div>
+<div class="line"><span class="lineno">  781</span>        <span class="comment"># same URI</span></div>
+<div class="line"><span class="lineno">  782</span>        <span class="keywordflow">if</span> bound_namespace:</div>
+<div class="line"><span class="lineno">  783</span>            bound_namespace = URIRef(bound_namespace)</div>
+<div class="line"><span class="lineno">  784</span>        <span class="keywordflow">if</span> bound_namespace <span class="keywordflow">and</span> bound_namespace != namespace:</div>
+<div class="line"><span class="lineno">  785</span>            <span class="keywordflow">if</span> replace:</div>
+<div class="line"><span class="lineno">  786</span>                self._store_bind(prefix, namespace, override=override)</div>
+<div class="line"><span class="lineno">  787</span>                insert_trie(self.__trie, str(namespace))</div>
+<div class="line"><span class="lineno">  788</span>                <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  789</span>            <span class="comment"># prefix already in use for different namespace</span></div>
+<div class="line"><span class="lineno">  790</span>            <span class="comment">#</span></div>
+<div class="line"><span class="lineno">  791</span>            <span class="comment"># append number to end of prefix until we find one</span></div>
+<div class="line"><span class="lineno">  792</span>            <span class="comment"># that&#39;s not in use.</span></div>
+<div class="line"><span class="lineno">  793</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> prefix:</div>
+<div class="line"><span class="lineno">  794</span>                prefix = <span class="stringliteral">&quot;default&quot;</span></div>
+<div class="line"><span class="lineno">  795</span> </div>
+<div class="line"><span class="lineno">  796</span>            num = 1</div>
+<div class="line"><span class="lineno">  797</span>            <span class="keywordflow">while</span> 1:</div>
+<div class="line"><span class="lineno">  798</span>                new_prefix = <span class="stringliteral">&quot;%s%s&quot;</span> % (prefix, num)</div>
+<div class="line"><span class="lineno">  799</span>                tnamespace = self.store.namespace(new_prefix)</div>
+<div class="line"><span class="lineno">  800</span>                <span class="keywordflow">if</span> tnamespace <span class="keywordflow">and</span> namespace == URIRef(tnamespace):</div>
+<div class="line"><span class="lineno">  801</span>                    <span class="comment"># the prefix is already bound to the correct</span></div>
+<div class="line"><span class="lineno">  802</span>                    <span class="comment"># namespace</span></div>
+<div class="line"><span class="lineno">  803</span>                    <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  804</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.store.namespace(new_prefix):</div>
+<div class="line"><span class="lineno">  805</span>                    <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  806</span>                num += 1</div>
+<div class="line"><span class="lineno">  807</span>            self._store_bind(new_prefix, namespace, override=override)</div>
+<div class="line"><span class="lineno">  808</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  809</span>            bound_prefix = self.store.prefix(namespace)</div>
+<div class="line"><span class="lineno">  810</span>            <span class="keywordflow">if</span> bound_prefix <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  811</span>                self._store_bind(prefix, namespace, override=override)</div>
+<div class="line"><span class="lineno">  812</span>            <span class="keywordflow">elif</span> bound_prefix == prefix:</div>
+<div class="line"><span class="lineno">  813</span>                <span class="keywordflow">pass</span>  <span class="comment"># already bound</span></div>
+<div class="line"><span class="lineno">  814</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  815</span>                <span class="keywordflow">if</span> override <span class="keywordflow">or</span> bound_prefix.startswith(<span class="stringliteral">&quot;_&quot;</span>):  <span class="comment"># or a generated prefix</span></div>
+<div class="line"><span class="lineno">  816</span>                    self._store_bind(prefix, namespace, override=override)</div>
+<div class="line"><span class="lineno">  817</span> </div>
+<div class="line"><span class="lineno">  818</span>        insert_trie(self.__trie, str(namespace))</div>
+<div class="line"><span class="lineno">  819</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01976.html#a3f33951ee6034f1b9d1866f4da963ed5">NamespaceManager.__trie</a>, <a class="el" href="a01976.html#a18e97200f85e1b21f33c524f85e198c5">NamespaceManager._store_bind()</a>, <a class="el" href="a01016.html#a6c044740acb5faa2a4927d300541e424">rdflib.namespace.insert_trie()</a>, <a class="el" href="a01920.html#ad46075e50ca0587e22fad2bf30baede9">Graph.store()</a>, <a class="el" href="a01920.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Graph.store</a>, <a class="el" href="a01924.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConjunctiveGraph.store</a>, <a class="el" href="a01928.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Dataset.store</a>, <a class="el" href="a01932.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">QuotedGraph.store</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">NamespaceManager.store</a>, <a class="el" href="a02240.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">RDFXMLHandler.store</a>, <a class="el" href="a02256.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXHandler.store</a>, <a class="el" href="a02268.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">JsonLDSerializer.store</a>, <a class="el" href="a02276.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">LongTurtleSerializer.store</a>, <a class="el" href="a02308.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TrigSerializer.store</a>, <a class="el" href="a02312.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXSerializer.store</a>, <a class="el" href="a02532.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">AuditableStore.store</a>, and <a class="el" href="a02544.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConcurrentStore.store</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#a18e97200f85e1b21f33c524f85e198c5">NamespaceManager._store_bind()</a>, <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, and <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>.</p>
+
+</div>
+</div>
+<a id="a85c93d61769bee9100ef36ef7d097e7e" name="a85c93d61769bee9100ef36ef7d097e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85c93d61769bee9100ef36ef7d097e7e">&#9670;&#160;</a></span>compute_qname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Tuple[str, <a class="el" href="a02656.html">URIRef</a>, str] compute_qname </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>generate</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  605</span>    <span class="keyword">def </span>compute_qname(self, uri: str, generate: bool = <span class="keyword">True</span>) -&gt; Tuple[str, URIRef, str]:</div>
+<div class="line"><span class="lineno">  606</span>        prefix: Optional[str]</div>
+<div class="line"><span class="lineno">  607</span>        <span class="keywordflow">if</span> uri <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.__cache:</div>
+<div class="line"><span class="lineno">  608</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> _is_valid_uri(uri):</div>
+<div class="line"><span class="lineno">  609</span>                <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(</div>
+<div class="line"><span class="lineno">  610</span>                    <span class="stringliteral">&#39;&quot;{}&quot; does not look like a valid URI, cannot serialize this. Did you want to urlencode it?&#39;</span>.format(</div>
+<div class="line"><span class="lineno">  611</span>                        uri</div>
+<div class="line"><span class="lineno">  612</span>                    )</div>
+<div class="line"><span class="lineno">  613</span>                )</div>
+<div class="line"><span class="lineno">  614</span> </div>
+<div class="line"><span class="lineno">  615</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  616</span>                namespace, name = split_uri(uri)</div>
+<div class="line"><span class="lineno">  617</span>            <span class="keywordflow">except</span> ValueError <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  618</span>                namespace = URIRef(uri)</div>
+<div class="line"><span class="lineno">  619</span>                prefix = self.store.prefix(namespace)</div>
+<div class="line"><span class="lineno">  620</span>                name = <span class="stringliteral">&quot;&quot;</span>  <span class="comment"># empty prefix case, safe since not prefix is error</span></div>
+<div class="line"><span class="lineno">  621</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> prefix:</div>
+<div class="line"><span class="lineno">  622</span>                    <span class="keywordflow">raise</span> e</div>
+<div class="line"><span class="lineno">  623</span>            <span class="keywordflow">if</span> namespace <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.__strie:</div>
+<div class="line"><span class="lineno">  624</span>                insert_strie(self.__strie, self.__trie, namespace)</div>
+<div class="line"><span class="lineno">  625</span> </div>
+<div class="line"><span class="lineno">  626</span>            <span class="keywordflow">if</span> self.__strie[namespace]:</div>
+<div class="line"><span class="lineno">  627</span>                pl_namespace = get_longest_namespace(self.__strie[namespace], uri)</div>
+<div class="line"><span class="lineno">  628</span>                <span class="keywordflow">if</span> pl_namespace <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  629</span>                    namespace = pl_namespace</div>
+<div class="line"><span class="lineno">  630</span>                    name = uri[len(namespace) :]</div>
+<div class="line"><span class="lineno">  631</span> </div>
+<div class="line"><span class="lineno">  632</span>            namespace = URIRef(namespace)</div>
+<div class="line"><span class="lineno">  633</span>            prefix = self.store.prefix(namespace)  <span class="comment"># warning multiple prefixes problem</span></div>
+<div class="line"><span class="lineno">  634</span> </div>
+<div class="line"><span class="lineno">  635</span>            <span class="keywordflow">if</span> prefix <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  636</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> generate:</div>
+<div class="line"><span class="lineno">  637</span>                    <span class="keywordflow">raise</span> KeyError(</div>
+<div class="line"><span class="lineno">  638</span>                        <span class="stringliteral">&quot;No known prefix for {} and generate=False&quot;</span>.format(namespace)</div>
+<div class="line"><span class="lineno">  639</span>                    )</div>
+<div class="line"><span class="lineno">  640</span>                num = 1</div>
+<div class="line"><span class="lineno">  641</span>                <span class="keywordflow">while</span> 1:</div>
+<div class="line"><span class="lineno">  642</span>                    prefix = <span class="stringliteral">&quot;ns%s&quot;</span> % num</div>
+<div class="line"><span class="lineno">  643</span>                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.store.namespace(prefix):</div>
+<div class="line"><span class="lineno">  644</span>                        <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  645</span>                    num += 1</div>
+<div class="line"><span class="lineno">  646</span>                self.bind(prefix, namespace)</div>
+<div class="line"><span class="lineno">  647</span>            self.__cache[uri] = (prefix, namespace, name)</div>
+<div class="line"><span class="lineno">  648</span>        <span class="keywordflow">return</span> self.__cache[uri]</div>
+<div class="line"><span class="lineno">  649</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01976.html#a7821de77d452e5922d934e751b96b91d">NamespaceManager.__cache</a>, <a class="el" href="a01976.html#ab3a9889db7b42ef1a0d562606e4f3ffd">NamespaceManager.__strie</a>, <a class="el" href="a01976.html#a3f33951ee6034f1b9d1866f4da963ed5">NamespaceManager.__trie</a>, <a class="el" href="a01948.html#a05dccdaf50caaeeab38e53b40619c7b7">ReadOnlyGraphAggregate.bind()</a>, <a class="el" href="a01920.html#abf985da465a8c49d52a55e38c3abc861">Graph.bind()</a>, <a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">NamespaceManager.bind()</a>, <a class="el" href="a02520.html#a062f0b9972dc750a0f562d472b42c6bd">Prologue.bind()</a>, <a class="el" href="a02188.html#a6fc8395960f224b2db60bc2ec4b40c84">RDFSink.bind()</a>, <a class="el" href="a02564.html#a32599e3cf61e3f1c406f71e289b40096">REGEXMatching.bind()</a>, <a class="el" href="a01588.html#ae1f93d75a8dec0c9d49c477764d4a3ff">JSTargetType.bind()</a>, <a class="el" href="a01668.html#ae1f93d75a8dec0c9d49c477764d4a3ff">SHACLTargetType.bind()</a>, <a class="el" href="a01684.html#ae1f93d75a8dec0c9d49c477764d4a3ff">SPARQLTargetType.bind()</a>, <a class="el" href="a02532.html#a76979cf23c9d00b88b434f007b4037eb">AuditableStore.bind()</a>, <a class="el" href="a02536.html#a76979cf23c9d00b88b434f007b4037eb">BerkeleyDB.bind()</a>, <a class="el" href="a02548.html#a76979cf23c9d00b88b434f007b4037eb">SimpleMemory.bind()</a>, <a class="el" href="a02552.html#a76979cf23c9d00b88b434f007b4037eb">Memory.bind()</a>, <a class="el" href="a02556.html#a76979cf23c9d00b88b434f007b4037eb">RDF4JStore.bind()</a>, <a class="el" href="a02576.html#a76979cf23c9d00b88b434f007b4037eb">SPARQLStore.bind()</a>, <a class="el" href="a02640.html#a76979cf23c9d00b88b434f007b4037eb">Store.bind()</a>, <a class="el" href="a02176.html#a48bf3d6cfa378e7a3c9aa6af29040fd1">SinkParser.bind()</a>, <a class="el" href="a01016.html#a4363d3ebea5a7d5b3cb532d29eda77cb">rdflib.namespace.get_longest_namespace()</a>, <a class="el" href="a01016.html#a63f4996e0cb44b3356ad55a003b9cd6d">rdflib.namespace.insert_strie()</a>, <a class="el" href="a01920.html#ad46075e50ca0587e22fad2bf30baede9">Graph.store()</a>, <a class="el" href="a01920.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Graph.store</a>, <a class="el" href="a01924.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConjunctiveGraph.store</a>, <a class="el" href="a01928.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Dataset.store</a>, <a class="el" href="a01932.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">QuotedGraph.store</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">NamespaceManager.store</a>, <a class="el" href="a02240.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">RDFXMLHandler.store</a>, <a class="el" href="a02256.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXHandler.store</a>, <a class="el" href="a02268.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">JsonLDSerializer.store</a>, <a class="el" href="a02276.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">LongTurtleSerializer.store</a>, <a class="el" href="a02308.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TrigSerializer.store</a>, <a class="el" href="a02312.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXSerializer.store</a>, <a class="el" href="a02532.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">AuditableStore.store</a>, and <a class="el" href="a02544.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConcurrentStore.store</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, <a class="el" href="a01976.html#a9cf71651803012646cd1330cf6a17798">NamespaceManager.curie()</a>, <a class="el" href="a01976.html#ad1094f6476488c477716f9daf8717d7a">NamespaceManager.normalizeUri()</a>, and <a class="el" href="a01976.html#a2a390bd86f93dfb33871b08626ba4e8d">NamespaceManager.qname()</a>.</p>
+
+</div>
+</div>
+<a id="a9c26d09f9ec87d9429bb642d8d181bb1" name="a9c26d09f9ec87d9429bb642d8d181bb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c26d09f9ec87d9429bb642d8d181bb1">&#9670;&#160;</a></span>compute_qname_strict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Tuple[str, str, str] compute_qname_strict </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>generate</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  652</span>    ) -&gt; Tuple[str, str, str]:</div>
+<div class="line"><span class="lineno">  653</span>        <span class="comment"># code repeated to avoid branching on strict every time</span></div>
+<div class="line"><span class="lineno">  654</span>        <span class="comment"># if output needs to be strict (e.g. for xml) then</span></div>
+<div class="line"><span class="lineno">  655</span>        <span class="comment"># only the strict output should bear the overhead</span></div>
+<div class="line"><span class="lineno">  656</span>        namespace: str</div>
+<div class="line"><span class="lineno">  657</span>        prefix: Optional[str]</div>
+<div class="line"><span class="lineno">  658</span>        prefix, namespace, name = self.compute_qname(uri, generate)</div>
+<div class="line"><span class="lineno">  659</span>        <span class="keywordflow">if</span> is_ncname(str(name)):</div>
+<div class="line"><span class="lineno">  660</span>            <span class="keywordflow">return</span> prefix, namespace, name</div>
+<div class="line"><span class="lineno">  661</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  662</span>            <span class="keywordflow">if</span> uri <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.__cache_strict:</div>
+<div class="line"><span class="lineno">  663</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  664</span>                    namespace, name = split_uri(uri, NAME_START_CATEGORIES)</div>
+<div class="line"><span class="lineno">  665</span>                <span class="keywordflow">except</span> ValueError:</div>
+<div class="line"><span class="lineno">  666</span>                    message = (</div>
+<div class="line"><span class="lineno">  667</span>                        <span class="stringliteral">&quot;This graph cannot be serialized to a strict format &quot;</span></div>
+<div class="line"><span class="lineno">  668</span>                        <span class="stringliteral">&quot;because there is no valid way to shorten {}&quot;</span>.format(uri)</div>
+<div class="line"><span class="lineno">  669</span>                    )</div>
+<div class="line"><span class="lineno">  670</span>                    <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(message)</div>
+<div class="line"><span class="lineno">  671</span>                    <span class="comment"># omitted for strict since NCNames cannot be empty</span></div>
+<div class="line"><span class="lineno">  672</span>                    <span class="comment"># namespace = URIRef(uri)</span></div>
+<div class="line"><span class="lineno">  673</span>                    <span class="comment"># prefix = self.store.prefix(namespace)</span></div>
+<div class="line"><span class="lineno">  674</span>                    <span class="comment"># if not prefix:</span></div>
+<div class="line"><span class="lineno">  675</span>                    <span class="comment"># raise e</span></div>
+<div class="line"><span class="lineno">  676</span> </div>
+<div class="line"><span class="lineno">  677</span>                <span class="keywordflow">if</span> namespace <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.__strie:</div>
+<div class="line"><span class="lineno">  678</span>                    insert_strie(self.__strie, self.__trie, namespace)</div>
+<div class="line"><span class="lineno">  679</span> </div>
+<div class="line"><span class="lineno">  680</span>                <span class="comment"># omitted for strict</span></div>
+<div class="line"><span class="lineno">  681</span>                <span class="comment"># if self.__strie[namespace]:</span></div>
+<div class="line"><span class="lineno">  682</span>                <span class="comment"># pl_namespace = get_longest_namespace(self.__strie[namespace], uri)</span></div>
+<div class="line"><span class="lineno">  683</span>                <span class="comment"># if pl_namespace is not None:</span></div>
+<div class="line"><span class="lineno">  684</span>                <span class="comment"># namespace = pl_namespace</span></div>
+<div class="line"><span class="lineno">  685</span>                <span class="comment"># name = uri[len(namespace):]</span></div>
+<div class="line"><span class="lineno">  686</span> </div>
+<div class="line"><span class="lineno">  687</span>                namespace = URIRef(namespace)</div>
+<div class="line"><span class="lineno">  688</span>                prefix = self.store.prefix(</div>
+<div class="line"><span class="lineno">  689</span>                    namespace</div>
+<div class="line"><span class="lineno">  690</span>                )  <span class="comment"># warning multiple prefixes problem</span></div>
+<div class="line"><span class="lineno">  691</span> </div>
+<div class="line"><span class="lineno">  692</span>                <span class="keywordflow">if</span> prefix <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  693</span>                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> generate:</div>
+<div class="line"><span class="lineno">  694</span>                        <span class="keywordflow">raise</span> KeyError(</div>
+<div class="line"><span class="lineno">  695</span>                            <span class="stringliteral">&quot;No known prefix for {} and generate=False&quot;</span>.format(</div>
+<div class="line"><span class="lineno">  696</span>                                namespace</div>
+<div class="line"><span class="lineno">  697</span>                            )</div>
+<div class="line"><span class="lineno">  698</span>                        )</div>
+<div class="line"><span class="lineno">  699</span>                    num = 1</div>
+<div class="line"><span class="lineno">  700</span>                    <span class="keywordflow">while</span> 1:</div>
+<div class="line"><span class="lineno">  701</span>                        prefix = <span class="stringliteral">&quot;ns%s&quot;</span> % num</div>
+<div class="line"><span class="lineno">  702</span>                        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.store.namespace(prefix):</div>
+<div class="line"><span class="lineno">  703</span>                            <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  704</span>                        num += 1</div>
+<div class="line"><span class="lineno">  705</span>                    self.bind(prefix, namespace)</div>
+<div class="line"><span class="lineno">  706</span>                self.__cache_strict[uri] = (prefix, namespace, name)</div>
+<div class="line"><span class="lineno">  707</span> </div>
+<div class="line"><span class="lineno">  708</span>            <span class="keywordflow">return</span> self.__cache_strict[uri]</div>
+<div class="line"><span class="lineno">  709</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01976.html#ab3a9889db7b42ef1a0d562606e4f3ffd">NamespaceManager.__strie</a>, <a class="el" href="a01976.html#a3f33951ee6034f1b9d1866f4da963ed5">NamespaceManager.__trie</a>, <a class="el" href="a01948.html#a05dccdaf50caaeeab38e53b40619c7b7">ReadOnlyGraphAggregate.bind()</a>, <a class="el" href="a01920.html#abf985da465a8c49d52a55e38c3abc861">Graph.bind()</a>, <a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">NamespaceManager.bind()</a>, <a class="el" href="a02520.html#a062f0b9972dc750a0f562d472b42c6bd">Prologue.bind()</a>, <a class="el" href="a02188.html#a6fc8395960f224b2db60bc2ec4b40c84">RDFSink.bind()</a>, <a class="el" href="a02564.html#a32599e3cf61e3f1c406f71e289b40096">REGEXMatching.bind()</a>, <a class="el" href="a01588.html#ae1f93d75a8dec0c9d49c477764d4a3ff">JSTargetType.bind()</a>, <a class="el" href="a01668.html#ae1f93d75a8dec0c9d49c477764d4a3ff">SHACLTargetType.bind()</a>, <a class="el" href="a01684.html#ae1f93d75a8dec0c9d49c477764d4a3ff">SPARQLTargetType.bind()</a>, <a class="el" href="a02532.html#a76979cf23c9d00b88b434f007b4037eb">AuditableStore.bind()</a>, <a class="el" href="a02536.html#a76979cf23c9d00b88b434f007b4037eb">BerkeleyDB.bind()</a>, <a class="el" href="a02548.html#a76979cf23c9d00b88b434f007b4037eb">SimpleMemory.bind()</a>, <a class="el" href="a02552.html#a76979cf23c9d00b88b434f007b4037eb">Memory.bind()</a>, <a class="el" href="a02556.html#a76979cf23c9d00b88b434f007b4037eb">RDF4JStore.bind()</a>, <a class="el" href="a02576.html#a76979cf23c9d00b88b434f007b4037eb">SPARQLStore.bind()</a>, <a class="el" href="a02640.html#a76979cf23c9d00b88b434f007b4037eb">Store.bind()</a>, <a class="el" href="a02176.html#a48bf3d6cfa378e7a3c9aa6af29040fd1">SinkParser.bind()</a>, <a class="el" href="a01920.html#a85c93d61769bee9100ef36ef7d097e7e">Graph.compute_qname()</a>, <a class="el" href="a01948.html#a85c93d61769bee9100ef36ef7d097e7e">ReadOnlyGraphAggregate.compute_qname()</a>, <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01016.html#a63f4996e0cb44b3356ad55a003b9cd6d">rdflib.namespace.insert_strie()</a>, <a class="el" href="a01920.html#ad46075e50ca0587e22fad2bf30baede9">Graph.store()</a>, <a class="el" href="a01920.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Graph.store</a>, <a class="el" href="a01924.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConjunctiveGraph.store</a>, <a class="el" href="a01928.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Dataset.store</a>, <a class="el" href="a01932.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">QuotedGraph.store</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">NamespaceManager.store</a>, <a class="el" href="a02240.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">RDFXMLHandler.store</a>, <a class="el" href="a02256.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXHandler.store</a>, <a class="el" href="a02268.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">JsonLDSerializer.store</a>, <a class="el" href="a02276.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">LongTurtleSerializer.store</a>, <a class="el" href="a02308.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TrigSerializer.store</a>, <a class="el" href="a02312.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXSerializer.store</a>, <a class="el" href="a02532.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">AuditableStore.store</a>, and <a class="el" href="a02544.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConcurrentStore.store</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#a1e16aa7d2a5924210e1db6af3551991e">NamespaceManager.qname_strict()</a>.</p>
+
+</div>
+</div>
+<a id="a9cf71651803012646cd1330cf6a17798" name="a9cf71651803012646cd1330cf6a17798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cf71651803012646cd1330cf6a17798">&#9670;&#160;</a></span>curie()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str curie </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>generate</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">From a URI, generate a valid CURIE.
+
+Result is guaranteed to contain a colon separating the prefix from the
+name, even if the prefix is an empty string.
+
+!!! warning "Side-effect"
+    When `generate` is `True` (which is the default) and there is no
+    matching namespace for the URI in the namespace manager then a new
+    namespace will be added with prefix `ns{index}`.
+
+    Thus, when `generate` is `True`, this function is not a pure
+    function because of this side-effect.
+
+    This default behaviour is chosen so that this function operates
+    similarly to `NamespaceManager.qname`.
+
+Args:
+    uri: URI to generate CURIE for.
+    generate: Whether to add a prefix for the namespace if one doesn't
+        already exist.  Default: `True`.
+
+Returns:
+    CURIE for the URI
+
+Raises:
+    KeyError: If generate is `False` and the namespace doesn't already have
+        a prefix.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  540</span>    <span class="keyword">def </span>curie(self, uri: str, generate: bool = <span class="keyword">True</span>) -&gt; str:</div>
+<div class="line"><span class="lineno">  541</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  542</span><span class="stringliteral">        From a URI, generate a valid CURIE.</span></div>
+<div class="line"><span class="lineno">  543</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  544</span><span class="stringliteral">        Result is guaranteed to contain a colon separating the prefix from the</span></div>
+<div class="line"><span class="lineno">  545</span><span class="stringliteral">        name, even if the prefix is an empty string.</span></div>
+<div class="line"><span class="lineno">  546</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  547</span><span class="stringliteral">        !!! warning &quot;Side-effect&quot;</span></div>
+<div class="line"><span class="lineno">  548</span><span class="stringliteral">            When `generate` is `True` (which is the default) and there is no</span></div>
+<div class="line"><span class="lineno">  549</span><span class="stringliteral">            matching namespace for the URI in the namespace manager then a new</span></div>
+<div class="line"><span class="lineno">  550</span><span class="stringliteral">            namespace will be added with prefix `ns{index}`.</span></div>
+<div class="line"><span class="lineno">  551</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  552</span><span class="stringliteral">            Thus, when `generate` is `True`, this function is not a pure</span></div>
+<div class="line"><span class="lineno">  553</span><span class="stringliteral">            function because of this side-effect.</span></div>
+<div class="line"><span class="lineno">  554</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  555</span><span class="stringliteral">            This default behaviour is chosen so that this function operates</span></div>
+<div class="line"><span class="lineno">  556</span><span class="stringliteral">            similarly to `NamespaceManager.qname`.</span></div>
+<div class="line"><span class="lineno">  557</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  558</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  559</span><span class="stringliteral">            uri: URI to generate CURIE for.</span></div>
+<div class="line"><span class="lineno">  560</span><span class="stringliteral">            generate: Whether to add a prefix for the namespace if one doesn&#39;t</span></div>
+<div class="line"><span class="lineno">  561</span><span class="stringliteral">                already exist.  Default: `True`.</span></div>
+<div class="line"><span class="lineno">  562</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  563</span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><span class="lineno">  564</span><span class="stringliteral">            CURIE for the URI</span></div>
+<div class="line"><span class="lineno">  565</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  566</span><span class="stringliteral">        Raises:</span></div>
+<div class="line"><span class="lineno">  567</span><span class="stringliteral">            KeyError: If generate is `False` and the namespace doesn&#39;t already have</span></div>
+<div class="line"><span class="lineno">  568</span><span class="stringliteral">                a prefix.</span></div>
+<div class="line"><span class="lineno">  569</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  570</span>        prefix, namespace, name = self.compute_qname(uri, generate=generate)</div>
+<div class="line"><span class="lineno">  571</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;:&quot;</span>.join((prefix, name))</div>
+<div class="line"><span class="lineno">  572</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01920.html#a85c93d61769bee9100ef36ef7d097e7e">Graph.compute_qname()</a>, <a class="el" href="a01948.html#a85c93d61769bee9100ef36ef7d097e7e">ReadOnlyGraphAggregate.compute_qname()</a>, and <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>.</p>
+
+</div>
+</div>
+<a id="a2c4dbcd9945665274b6126b2dc568bdf" name="a2c4dbcd9945665274b6126b2dc568bdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c4dbcd9945665274b6126b2dc568bdf">&#9670;&#160;</a></span>expand_curie()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a02656.html">URIRef</a> expand_curie </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>curie</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Expand a CURIE of the form &lt;prefix:element&gt;, e.g. "rdf:type"
+into its full expression:
+
+&gt;&gt;&gt; import rdflib
+&gt;&gt;&gt; g = rdflib.Graph()
+&gt;&gt;&gt; g.namespace_manager.expand_curie("rdf:type")
+rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
+
+Raises exception if a namespace is not bound to the prefix.</pre> <div class="fragment"><div class="line"><span class="lineno">  710</span>    <span class="keyword">def </span>expand_curie(self, curie: str) -&gt; URIRef:</div>
+<div class="line"><span class="lineno">  711</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  712</span><span class="stringliteral">        Expand a CURIE of the form &lt;prefix:element&gt;, e.g. &quot;rdf:type&quot;</span></div>
+<div class="line"><span class="lineno">  713</span><span class="stringliteral">        into its full expression:</span></div>
+<div class="line"><span class="lineno">  714</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  715</span><span class="stringliteral">        &gt;&gt;&gt; import rdflib</span></div>
+<div class="line"><span class="lineno">  716</span><span class="stringliteral">        &gt;&gt;&gt; g = rdflib.Graph()</span></div>
+<div class="line"><span class="lineno">  717</span><span class="stringliteral">        &gt;&gt;&gt; g.namespace_manager.expand_curie(&quot;rdf:type&quot;)</span></div>
+<div class="line"><span class="lineno">  718</span><span class="stringliteral">        rdflib.term.URIRef(&#39;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&#39;)</span></div>
+<div class="line"><span class="lineno">  719</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  720</span><span class="stringliteral">        Raises exception if a namespace is not bound to the prefix.</span></div>
+<div class="line"><span class="lineno">  721</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  722</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  723</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> <a class="code hl_class" href="a07531.html">type</a>(curie) <span class="keywordflow">is</span> str:  <span class="comment"># noqa: E714</span></div>
+<div class="line"><span class="lineno">  724</span>            <span class="keywordflow">raise</span> TypeError(f<span class="stringliteral">&quot;Argument must be a string, not {type(curie).__name__}.&quot;</span>)</div>
+<div class="line"><span class="lineno">  725</span>        parts = curie.split(<span class="stringliteral">&quot;:&quot;</span>, 1)</div>
+<div class="line"><span class="lineno">  726</span>        <span class="keywordflow">if</span> len(parts) != 2:</div>
+<div class="line"><span class="lineno">  727</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(</div>
+<div class="line"><span class="lineno">  728</span>                <span class="stringliteral">&quot;Malformed curie argument, format should be e.g. “foaf:name”.&quot;</span></div>
+<div class="line"><span class="lineno">  729</span>            )</div>
+<div class="line"><span class="lineno">  730</span>        ns = self.store.namespace(parts[0])</div>
+<div class="line"><span class="lineno">  731</span>        <span class="keywordflow">if</span> ns <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  732</span>            <span class="keywordflow">return</span> URIRef(f<span class="stringliteral">&quot;{str(ns)}{parts[1]}&quot;</span>)</div>
+<div class="line"><span class="lineno">  733</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  734</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(</div>
+<div class="line"><span class="lineno">  735</span>                f<span class="stringliteral">&quot;Prefix \&quot;{curie.split(&#39;:&#39;)[0]}\&quot; not bound to any namespace.&quot;</span></div>
+<div class="line"><span class="lineno">  736</span>            )</div>
+<div class="line"><span class="lineno">  737</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01920.html#ad46075e50ca0587e22fad2bf30baede9">Graph.store()</a>, <a class="el" href="a01920.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Graph.store</a>, <a class="el" href="a01924.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConjunctiveGraph.store</a>, <a class="el" href="a01928.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Dataset.store</a>, <a class="el" href="a01932.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">QuotedGraph.store</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">NamespaceManager.store</a>, <a class="el" href="a02240.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">RDFXMLHandler.store</a>, <a class="el" href="a02256.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXHandler.store</a>, <a class="el" href="a02268.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">JsonLDSerializer.store</a>, <a class="el" href="a02276.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">LongTurtleSerializer.store</a>, <a class="el" href="a02308.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TrigSerializer.store</a>, <a class="el" href="a02312.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXSerializer.store</a>, <a class="el" href="a02532.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">AuditableStore.store</a>, and <a class="el" href="a02544.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConcurrentStore.store</a>.</p>
+
+</div>
+</div>
+<a id="ad93818beb5d0aa0891d389d42aa21ab4" name="ad93818beb5d0aa0891d389d42aa21ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad93818beb5d0aa0891d389d42aa21ab4">&#9670;&#160;</a></span>namespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Iterable[Tuple[str, <a class="el" href="a02656.html">URIRef</a>]] namespaces </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  820</span>    <span class="keyword">def </span>namespaces(self) -&gt; Iterable[Tuple[str, URIRef]]:</div>
+<div class="line"><span class="lineno">  821</span>        <span class="keywordflow">for</span> prefix, namespace <span class="keywordflow">in</span> self.store.namespaces():</div>
+<div class="line"><span class="lineno">  822</span>            namespace = URIRef(namespace)</div>
+<div class="line"><span class="lineno">  823</span>            <span class="keywordflow">yield</span> prefix, namespace</div>
+<div class="line"><span class="lineno">  824</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01976.html#ad93818beb5d0aa0891d389d42aa21ab4">NamespaceManager.namespaces()</a>, <a class="el" href="a01920.html#ad46075e50ca0587e22fad2bf30baede9">Graph.store()</a>, <a class="el" href="a01920.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Graph.store</a>, <a class="el" href="a01924.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConjunctiveGraph.store</a>, <a class="el" href="a01928.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Dataset.store</a>, <a class="el" href="a01932.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">QuotedGraph.store</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">NamespaceManager.store</a>, <a class="el" href="a02240.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">RDFXMLHandler.store</a>, <a class="el" href="a02256.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXHandler.store</a>, <a class="el" href="a02268.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">JsonLDSerializer.store</a>, <a class="el" href="a02276.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">LongTurtleSerializer.store</a>, <a class="el" href="a02308.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TrigSerializer.store</a>, <a class="el" href="a02312.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXSerializer.store</a>, <a class="el" href="a02532.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">AuditableStore.store</a>, and <a class="el" href="a02544.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConcurrentStore.store</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a34129a0abb9037ca62ba2607412c8962">Graph.__add__()</a>, <a class="el" href="a01976.html#a0a9c3b6e2ace890a6a09a891dd50879a">NamespaceManager.__contains__()</a>, <a class="el" href="a02276.html#a6407d45dc646e58f0f60f8445265eda9">LongTurtleSerializer.addNamespace()</a>, <a class="el" href="a02320.html#a0d812c0741cfe20229cef6aeb37b0380">TurtleSerializer.addNamespace()</a>, <a class="el" href="a02316.html#abf5193236a62bac535ce449ad82b0d54">RecursiveSerializer.addNamespace()</a>, <a class="el" href="a02952.html#ac7eea24b5fa1c707c805a00e81984342">ExtractNamespaceTask.finishedExtractNS()</a>, <a class="el" href="a01764.html#a2488d371a763bdb7273c9dd9c8d30ccc">Repository.get()</a>, <a class="el" href="a01976.html#ad93818beb5d0aa0891d389d42aa21ab4">NamespaceManager.namespaces()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a02952.html#a08060e0924949738f75a0cdd8b49cef4">ExtractNamespaceTask.run()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="ad1094f6476488c477716f9daf8717d7a" name="ad1094f6476488c477716f9daf8717d7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1094f6476488c477716f9daf8717d7a">&#9670;&#160;</a></span>normalizeUri()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str normalizeUri </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>rdfTerm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Takes an RDF Term and 'normalizes' it into a QName (using the
+registered prefix) or (unlike compute_qname) the Notation 3
+form for URIs: &lt;...URI...&gt;
+</pre> <div class="fragment"><div class="line"><span class="lineno">  580</span>    <span class="keyword">def </span>normalizeUri(self, rdfTerm: str) -&gt; str:  <span class="comment"># noqa: N802, N803</span></div>
+<div class="line"><span class="lineno">  581</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  582</span><span class="stringliteral">        Takes an RDF Term and &#39;normalizes&#39; it into a QName (using the</span></div>
+<div class="line"><span class="lineno">  583</span><span class="stringliteral">        registered prefix) or (unlike compute_qname) the Notation 3</span></div>
+<div class="line"><span class="lineno">  584</span><span class="stringliteral">        form for URIs: &lt;...URI...&gt;</span></div>
+<div class="line"><span class="lineno">  585</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  586</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  587</span>            namespace, name = split_uri(rdfTerm)</div>
+<div class="line"><span class="lineno">  588</span>            <span class="keywordflow">if</span> namespace <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.__strie:</div>
+<div class="line"><span class="lineno">  589</span>                insert_strie(self.__strie, self.__trie, str(namespace))</div>
+<div class="line"><span class="lineno">  590</span>            namespace = URIRef(str(namespace))</div>
+<div class="line"><span class="lineno">  591</span>        <span class="keywordflow">except</span> Exception:</div>
+<div class="line"><span class="lineno">  592</span>            <span class="keywordflow">if</span> isinstance(rdfTerm, Variable):</div>
+<div class="line"><span class="lineno">  593</span>                <span class="keywordflow">return</span> <span class="stringliteral">&quot;?%s&quot;</span> % rdfTerm</div>
+<div class="line"><span class="lineno">  594</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  595</span>                <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;%s&gt;&quot;</span> % rdfTerm</div>
+<div class="line"><span class="lineno">  596</span>        prefix = self.store.prefix(namespace)</div>
+<div class="line"><span class="lineno">  597</span>        <span class="keywordflow">if</span> prefix <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> isinstance(rdfTerm, Variable):</div>
+<div class="line"><span class="lineno">  598</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;?%s&quot;</span> % rdfTerm</div>
+<div class="line"><span class="lineno">  599</span>        <span class="keywordflow">elif</span> prefix <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  600</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;%s&gt;&quot;</span> % rdfTerm</div>
+<div class="line"><span class="lineno">  601</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  602</span>            qNameParts = self.compute_qname(rdfTerm)  <span class="comment"># noqa: N806</span></div>
+<div class="line"><span class="lineno">  603</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;:&quot;</span>.join([qNameParts[0], qNameParts[-1]])</div>
+<div class="line"><span class="lineno">  604</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01976.html#ab3a9889db7b42ef1a0d562606e4f3ffd">NamespaceManager.__strie</a>, <a class="el" href="a01976.html#a3f33951ee6034f1b9d1866f4da963ed5">NamespaceManager.__trie</a>, <a class="el" href="a01920.html#a85c93d61769bee9100ef36ef7d097e7e">Graph.compute_qname()</a>, <a class="el" href="a01948.html#a85c93d61769bee9100ef36ef7d097e7e">ReadOnlyGraphAggregate.compute_qname()</a>, <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01016.html#a63f4996e0cb44b3356ad55a003b9cd6d">rdflib.namespace.insert_strie()</a>, <a class="el" href="a01920.html#ad46075e50ca0587e22fad2bf30baede9">Graph.store()</a>, <a class="el" href="a01920.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Graph.store</a>, <a class="el" href="a01924.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConjunctiveGraph.store</a>, <a class="el" href="a01928.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">Dataset.store</a>, <a class="el" href="a01932.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">QuotedGraph.store</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01976.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">NamespaceManager.store</a>, <a class="el" href="a02240.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">RDFXMLHandler.store</a>, <a class="el" href="a02256.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXHandler.store</a>, <a class="el" href="a02268.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">JsonLDSerializer.store</a>, <a class="el" href="a02276.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">LongTurtleSerializer.store</a>, <a class="el" href="a02308.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TrigSerializer.store</a>, <a class="el" href="a02312.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">TriXSerializer.store</a>, <a class="el" href="a02532.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">AuditableStore.store</a>, and <a class="el" href="a02544.html#aa7072e7bfc5f1cdeadec25ecc3c246bf">ConcurrentStore.store</a>.</p>
+
+</div>
+</div>
+<a id="a2a390bd86f93dfb33871b08626ba4e8d" name="a2a390bd86f93dfb33871b08626ba4e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a390bd86f93dfb33871b08626ba4e8d">&#9670;&#160;</a></span>qname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str qname </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  533</span>    <span class="keyword">def </span>qname(self, uri: str) -&gt; str:</div>
+<div class="line"><span class="lineno">  534</span>        prefix, namespace, name = self.compute_qname(uri)</div>
+<div class="line"><span class="lineno">  535</span>        <span class="keywordflow">if</span> prefix == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  536</span>            <span class="keywordflow">return</span> name</div>
+<div class="line"><span class="lineno">  537</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  538</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;:&quot;</span>.join((prefix, name))</div>
+<div class="line"><span class="lineno">  539</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01920.html#a85c93d61769bee9100ef36ef7d097e7e">Graph.compute_qname()</a>, <a class="el" href="a01948.html#a85c93d61769bee9100ef36ef7d097e7e">ReadOnlyGraphAggregate.compute_qname()</a>, and <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01860.html#a1da00d2e6f69bf4353de4f6284d875ed">Individual._set_identifier()</a>, <a class="el" href="a02324.html#aec0638aedbc4343d1960b2b9452b9e34">XMLWriter.attribute()</a>, <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>, and <a class="el" href="a02176.html#aa8d2961c5b54b20387730a918d0a25e4">SinkParser.uri_ref2()</a>.</p>
+
+</div>
+</div>
+<a id="a1e16aa7d2a5924210e1db6af3551991e" name="a1e16aa7d2a5924210e1db6af3551991e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e16aa7d2a5924210e1db6af3551991e">&#9670;&#160;</a></span>qname_strict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str qname_strict </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  573</span>    <span class="keyword">def </span>qname_strict(self, uri: str) -&gt; str:</div>
+<div class="line"><span class="lineno">  574</span>        prefix, namespace, name = self.compute_qname_strict(uri)</div>
+<div class="line"><span class="lineno">  575</span>        <span class="keywordflow">if</span> prefix == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  576</span>            <span class="keywordflow">return</span> name</div>
+<div class="line"><span class="lineno">  577</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  578</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;:&quot;</span>.join((prefix, name))</div>
+<div class="line"><span class="lineno">  579</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>.</p>
+
+</div>
+</div>
+<a id="a89732d4380ef53ab0394d237458376f7" name="a89732d4380ef53ab0394d237458376f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89732d4380ef53ab0394d237458376f7">&#9670;&#160;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None reset </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  522</span>    <span class="keyword">def </span>reset(self) -&gt; None:</div>
+<div class="line"><span class="lineno">  523</span>        self.__cache = {}</div>
+<div class="line"><span class="lineno">  524</span>        self.__strie = {}</div>
+<div class="line"><span class="lineno">  525</span>        self.__trie = {}</div>
+<div class="line"><span class="lineno">  526</span>        <span class="keywordflow">for</span> p, n <span class="keywordflow">in</span> self.namespaces():  <span class="comment"># repopulate the trie</span></div>
+<div class="line"><span class="lineno">  527</span>            insert_trie(self.__trie, str(n))</div>
+<div class="line"><span class="lineno">  528</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02316.html#aee378e78697aa7833279a585d65c10af">RecursiveSerializer.__init__()</a>, <a class="el" href="a02320.html#aee378e78697aa7833279a585d65c10af">TurtleSerializer.__init__()</a>, <a class="el" href="a02276.html#af12661824e7655a62a095ce91662ec00">LongTurtleSerializer.serialize()</a>, <a class="el" href="a02308.html#af12661824e7655a62a095ce91662ec00">TrigSerializer.serialize()</a>, and <a class="el" href="a02320.html#af12661824e7655a62a095ce91662ec00">TurtleSerializer.serialize()</a>.</p>
+
+</div>
+</div>
+<a id="ad46075e50ca0587e22fad2bf30baede9" name="ad46075e50ca0587e22fad2bf30baede9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad46075e50ca0587e22fad2bf30baede9">&#9670;&#160;</a></span>store()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Store store </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  530</span>    <span class="keyword">def </span>store(self) -&gt; Store:</div>
+<div class="line"><span class="lineno">  531</span>        <span class="keywordflow">return</span> self.graph.store</div>
+<div class="line"><span class="lineno">  532</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, and <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02300.html#a06b823443c09f3a51c34215bd91ebd99">XMLSerializer.__bindings()</a>, <a class="el" href="a02544.html#ab1e83d412fcb99ff1ba4cd91271a616d">ConcurrentStore.__end_read()</a>, <a class="el" href="a02296.html#a3781667fb75a9c55ebfa40d7d62ce8d3">PatchSerializer.__init__()</a>, <a class="el" href="a02284.html#aee378e78697aa7833279a585d65c10af">NQuadsSerializer.__init__()</a>, <a class="el" href="a02620.html#aee378e78697aa7833279a585d65c10af">Serializer.__init__()</a>, <a class="el" href="a01924.html#af22162a93957cb0abc136425fa95ee11">ConjunctiveGraph.__init__()</a>, <a class="el" href="a01924.html#afd64a095585f64cbe93bdc3b13eba041">ConjunctiveGraph.__len__()</a>, <a class="el" href="a02544.html#a6781b036ba1c606be31ad87a0d530414">ConcurrentStore.__len__()</a>, <a class="el" href="a02532.html#af6ee0c7a21c6a59e5fe4f1a14f911019">AuditableStore.__len__()</a>, <a class="el" href="a01920.html#a30bff505f2377bca25408a0e9317b88c">Graph.__reduce__()</a>, <a class="el" href="a01920.html#ae07f7930f92d3591c93e2381cd5be285">Graph.__str__()</a>, <a class="el" href="a01924.html#ae07f7930f92d3591c93e2381cd5be285">ConjunctiveGraph.__str__()</a>, <a class="el" href="a02296.html#a563139ca16b6b160ce3c3100f30c77ff">PatchSerializer._diff()</a>, <a class="el" href="a02296.html#ab161c2b3ec957a903ecda7e76a1ee4ec">PatchSerializer._patch_row()</a>, <a class="el" href="a01976.html#a18e97200f85e1b21f33c524f85e198c5">NamespaceManager._store_bind()</a>, <a class="el" href="a01924.html#acbdf1da493517ca79a0b1915271cdcb3">ConjunctiveGraph.add()</a>, <a class="el" href="a02532.html#a0e9bb20c4ea13c6a83f2ce67e632881c">AuditableStore.add()</a>, <a class="el" href="a02544.html#a71ce5fee6d49c5ab4f20e3fc389b6db7">ConcurrentStore.add()</a>, <a class="el" href="a01924.html#a64a239a9094fcc17de6debb835cb4c17">ConjunctiveGraph.addN()</a>, <a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">NamespaceManager.bind()</a>, <a class="el" href="a02532.html#a76979cf23c9d00b88b434f007b4037eb">AuditableStore.bind()</a>, <a class="el" href="a02316.html#a1946db2a1a0de498ea16181aa9db93a2">RecursiveSerializer.buildPredicateHash()</a>, <a class="el" href="a02276.html#a81f332b87bb06dd05cf8a2e1855d19cd">LongTurtleSerializer.canonize()</a>, <a class="el" href="a02532.html#aa6806dc354f8c20b51cc4559b9ab3135">AuditableStore.close()</a>, <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, <a class="el" href="a01924.html#ac0d1647a3283def4ead1c4f797ed3a0d">ConjunctiveGraph.contexts()</a>, <a class="el" href="a02532.html#ac0d1647a3283def4ead1c4f797ed3a0d">AuditableStore.contexts()</a>, <a class="el" href="a02532.html#a4814386e342c4b51f7d6927767d7fffd">AuditableStore.destroy()</a>, <a class="el" href="a02276.html#ab7673737286781c4a4cb1ec7bf7e2165">LongTurtleSerializer.doList()</a>, <a class="el" href="a02320.html#a8c2d7aeefda68b66c9ab2841ef2098aa">TurtleSerializer.doList()</a>, <a class="el" href="a02256.html#a9c43d22a3c84786dece5ab0d665489c2">TriXHandler.endElementNS()</a>, <a class="el" href="a01976.html#a2c4dbcd9945665274b6126b2dc568bdf">NamespaceManager.expand_curie()</a>, <a class="el" href="a02320.html#a0252f5fc6d467c7c37218d4946fbe83c">TurtleSerializer.getQName()</a>, <a class="el" href="a02276.html#a7b4d55802f1659df0b4f5a0a7e6e3c61">LongTurtleSerializer.getQName()</a>, <a class="el" href="a02276.html#a6b769d33db0be71b4c9750d0b20f74c6">LongTurtleSerializer.isValidList()</a>, <a class="el" href="a02320.html#a0ba797451d95cafc25b8af59713a7ded">TurtleSerializer.isValidList()</a>, <a class="el" href="a02240.html#a8f3f217f9b706f9f83311a11243fdd0f">RDFXMLHandler.list_node_element_end()</a>, <a class="el" href="a02532.html#a2be532436b279e8437bd19e0d2559a3a">AuditableStore.namespace()</a>, <a class="el" href="a01976.html#ad93818beb5d0aa0891d389d42aa21ab4">NamespaceManager.namespaces()</a>, <a class="el" href="a02532.html#a82b100d6114a28cdd0cbd9880305ca38">AuditableStore.namespaces()</a>, <a class="el" href="a02240.html#a9d55c9d58beb03a37004c8a33554f67f">RDFXMLHandler.node_element_start()</a>, <a class="el" href="a01976.html#ad1094f6476488c477716f9daf8717d7a">NamespaceManager.normalizeUri()</a>, <a class="el" href="a02532.html#afd8cbbcc74da83ee99da9f5e08d965d5">AuditableStore.open()</a>, <a class="el" href="a02316.html#a88f2666e2c65be06b5acad5b548db487">RecursiveSerializer.orderSubjects()</a>, <a class="el" href="a02300.html#abb3096640b02b2bc2585cddccdc5881a">XMLSerializer.predicate()</a>, <a class="el" href="a02304.html#abb3096640b02b2bc2585cddccdc5881a">PrettyXMLSerializer.predicate()</a>, <a class="el" href="a02532.html#a1876f361153f147aadad368d461b3a6e">AuditableStore.prefix()</a>, <a class="el" href="a02316.html#a925317f7541d940b63b0d9cbc670cb92">RecursiveSerializer.preprocess()</a>, <a class="el" href="a02240.html#a3606ccbbaeabefa3df223334901540c0">RDFXMLHandler.property_element_end()</a>, <a class="el" href="a02240.html#aec14fbb445390682c3bbe46c9c2a44e8">RDFXMLHandler.property_element_start()</a>, <a class="el" href="a01924.html#a91fce5d62dba21b22514a68fabecc218">ConjunctiveGraph.quads()</a>, <a class="el" href="a02532.html#a8c4f563dddf701c1ef11d403aba3b43e">AuditableStore.query()</a>, <a class="el" href="a01924.html#a1043b2d6b4bf4ca693500b58447e6ca0">ConjunctiveGraph.remove()</a>, <a class="el" href="a02532.html#a4a7691467651bb5432428e087f0cd53b">AuditableStore.remove()</a>, <a class="el" href="a02544.html#a3df4fcb504e08e94b180e584bba6d185">ConcurrentStore.remove()</a>, <a class="el" href="a02532.html#a0eedfb93b9acadd42d8eb1948492ab00">AuditableStore.rollback()</a>, <a class="el" href="a02264.html#a5522752fdac7bc3653dbbf017744ee84">HextuplesSerializer.serialize()</a>, <a class="el" href="a02288.html#a5522752fdac7bc3653dbbf017744ee84">NTSerializer.serialize()</a>, <a class="el" href="a02284.html#aaaeeafe3dcc54692892e932afc82bdaa">NQuadsSerializer.serialize()</a>, <a class="el" href="a02296.html#aaaeeafe3dcc54692892e932afc82bdaa">PatchSerializer.serialize()</a>, <a class="el" href="a02304.html#aaaeeafe3dcc54692892e932afc82bdaa">PrettyXMLSerializer.serialize()</a>, <a class="el" href="a02312.html#aaaeeafe3dcc54692892e932afc82bdaa">TriXSerializer.serialize()</a>, <a class="el" href="a02300.html#afd3cd859641b498d041345fcf7a2b7b9">XMLSerializer.subject()</a>, <a class="el" href="a02304.html#af96143e1b2444d42a8e4456860d3a96d">PrettyXMLSerializer.subject()</a>, <a class="el" href="a01924.html#a558fa63ce6afe53c6b82f1cfde0eb1b3">ConjunctiveGraph.triples()</a>, <a class="el" href="a02532.html#a3e840b20108b2c2e2095b93f20063e9d">AuditableStore.triples()</a>, <a class="el" href="a02544.html#aa73840bec4dab6c8a8cf2519f4a6eeda">ConcurrentStore.triples()</a>, <a class="el" href="a01920.html#acf104b141cf4b21fd441afcd62a61ba2">Graph.triples_choices()</a>, <a class="el" href="a01924.html#acf104b141cf4b21fd441afcd62a61ba2">ConjunctiveGraph.triples_choices()</a>, <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>, and <a class="el" href="a01920.html#a4f5ae72944b1dea51b5fcff65d21d331">Graph.value()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7821de77d452e5922d934e751b96b91d" name="a7821de77d452e5922d934e751b96b91d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7821de77d452e5922d934e751b96b91d">&#9670;&#160;</a></span>__cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>.</p>
+
+</div>
+</div>
+<a id="afee096a08bb38ccf0d7261ef6c45ab7b" name="afee096a08bb38ccf0d7261ef6c45ab7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afee096a08bb38ccf0d7261ef6c45ab7b">&#9670;&#160;</a></span>__log</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__log</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3a9889db7b42ef1a0d562606e4f3ffd" name="ab3a9889db7b42ef1a0d562606e4f3ffd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a9889db7b42ef1a0d562606e4f3ffd">&#9670;&#160;</a></span>__strie</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__strie</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, and <a class="el" href="a01976.html#ad1094f6476488c477716f9daf8717d7a">NamespaceManager.normalizeUri()</a>.</p>
+
+</div>
+</div>
+<a id="a3f33951ee6034f1b9d1866f4da963ed5" name="a3f33951ee6034f1b9d1866f4da963ed5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f33951ee6034f1b9d1866f4da963ed5">&#9670;&#160;</a></span>__trie</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__trie</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">NamespaceManager.bind()</a>, <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, and <a class="el" href="a01976.html#ad1094f6476488c477716f9daf8717d7a">NamespaceManager.normalizeUri()</a>.</p>
+
+</div>
+</div>
+<a id="a8ca49c796430e66a10450bfc2d218c81" name="a8ca49c796430e66a10450bfc2d218c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ca49c796430e66a10450bfc2d218c81">&#9670;&#160;</a></span>graph</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">graph</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01884.html#a09080ce652367cb5128f9e2105e85a25">Class.__and__()</a>, <a class="el" href="a01692.html#a5b61e79d8c30833cada53901ac8575df">Collection.__delitem__()</a>, <a class="el" href="a02604.html#a973d1b0af56ccdf40e49a94753adfbc5">Result.__getattr__()</a>, <a class="el" href="a01692.html#a437831f5199fa5a71be80e9fb0075316">Collection.__getitem__()</a>, <a class="el" href="a01692.html#a97d071ceeeec9be54f8d564e56330969">Collection.__iadd__()</a>, <a class="el" href="a01892.html#ab828cba12f3eb86ddb63d1b344de2250">EnumeratedClass.__init__()</a>, <a class="el" href="a01884.html#ab28fe30541476d272094925a4a89baf8">Class.__init__()</a>, <a class="el" href="a01884.html#a16eabceda9da3da9537f68ec2f3359da">Class.__isub__()</a>, <a class="el" href="a01692.html#a28bd34af6c069ed08d101595628879c3">Collection.__iter__()</a>, <a class="el" href="a02604.html#a21c5bf0b5c03641681c2ea079a650c37">Result.__iter__()</a>, <a class="el" href="a01692.html#afd64a095585f64cbe93bdc3b13eba041">Collection.__len__()</a>, <a class="el" href="a01884.html#a17c29c49d277bbea5da79fec1b70f0a7">Class.__or__()</a>, <a class="el" href="a01908.html#a61a1f3a6a4df93d491cd753f617782a2">Restriction.__repr__()</a>, <a class="el" href="a01692.html#a98838c4b933da4ac585f637a2bccfb66">Collection.__setitem__()</a>, <a class="el" href="a01664.html#ab9e04aae45a7543bef3e4abe784e6298">ShapesGraph._add_system_triples()</a>, <a class="el" href="a01664.html#a901057c7d2a590611a1d99e741f5c89b">ShapesGraph._build_node_shape_cache()</a>, <a class="el" href="a01664.html#a2c53460daa6952c230ea1a706da9bda9">ShapesGraph._build_node_shape_cache_from_list()</a>, <a class="el" href="a01692.html#a62c29b8509dd12d2fc673c72c9fc0503">Collection._end()</a>, <a class="el" href="a01664.html#aee5bdb2b614d9cdd09495db110a7ac57">ShapesGraph._find_custom_constraints()</a>, <a class="el" href="a01908.html#aa5f0358c02e3850e22f6fac2cf56e19c">Restriction._get_allvaluesfrom()</a>, <a class="el" href="a01884.html#a5b75d04614193e02169ed1f750d01f26">Class._get_annotation()</a>, <a class="el" href="a01908.html#a84639d2971e96c3ebd5b695d35e55e3b">Restriction._get_cardinality()</a>, <a class="el" href="a01864.html#aa0a41fd856015313d61b68137de193c8">AnnotatableTerms._get_comment()</a>, <a class="el" href="a01884.html#a59f78c7754f88912fd73399cae6b6235">Class._get_complementof()</a>, <a class="el" href="a01692.html#ab0574aa664cae5381b6916aa6e701f2d">Collection._get_container()</a>, <a class="el" href="a01884.html#a7eaf3330c2cd627f97d6eec972deeb17">Class._get_disjointwith()</a>, <a class="el" href="a01912.html#a58dc40d74083635117e533dcde33a776">Property._get_domain()</a>, <a class="el" href="a01884.html#a21f286f4e1ccfc73483cf46e8d4a3631">Class._get_equivalentclass()</a>, <a class="el" href="a01884.html#a95f26443b4501e3d6046c7e80de3a3d7">Class._get_extent()</a>, <a class="el" href="a01912.html#a95f26443b4501e3d6046c7e80de3a3d7">Property._get_extent()</a>, <a class="el" href="a01908.html#ab03219f3b432c2b371f0fdaf2de9d5dc">Restriction._get_hasvalue()</a>, <a class="el" href="a01868.html#a7df13a6ad419941a144564be524571d6">Ontology._get_imports()</a>, <a class="el" href="a01912.html#aa7159f621a083bf183d709928a206c41">Property._get_inverseof()</a>, <a class="el" href="a01864.html#ad3417142c6c2b862c46cfde07962e97a">AnnotatableTerms._get_label()</a>, <a class="el" href="a01908.html#acf27c0bc461b061151b30d8fce6a4b6d">Restriction._get_maxcardinality()</a>, <a class="el" href="a01908.html#a0b9da9268f80ab5e06b2aae2acc28f66">Restriction._get_mincardinality()</a>, <a class="el" href="a01908.html#ae3dfd3e2ee645600c82621ead4a179fa">Restriction._get_onproperty()</a>, <a class="el" href="a01912.html#a4f1443b39e3854758eb608febaad90c9">Property._get_range()</a>, <a class="el" href="a01860.html#a830c923dd230cad0c51472f30ed0bfc3">Individual._get_sameAs()</a>, <a class="el" href="a01864.html#a05eed294f84345525ca74baa0a43f5a8">AnnotatableTerms._get_seealso()</a>, <a class="el" href="a01908.html#acab424d4516954e5398cccbf39b82110">Restriction._get_somevaluesfrom()</a>, <a class="el" href="a01884.html#a90ebb8fd92b6b7f918ab6e20e67786a3">Class._get_subclassof()</a>, <a class="el" href="a01912.html#a4a66607a456162fd89ac0aeb1df6bbfa">Property._get_subpropertyof()</a>, <a class="el" href="a01860.html#aa1279893bc02423a8ef49660b90b293a">Individual._get_type()</a>, <a class="el" href="a01712.html#a298ca7818beed814b640da72435f1a0c">_TripleCanonicalizer._refine()</a>, <a class="el" href="a01908.html#a379eaaa03e235439faac11a843711d14">Restriction._set_allvaluesfrom()</a>, <a class="el" href="a01908.html#a363600a54ab590a52c78c49cb8157bb3">Restriction._set_cardinality()</a>, <a class="el" href="a01864.html#ad843c9ef9d8e4bfd79f48a318f022ffb">AnnotatableTerms._set_comment()</a>, <a class="el" href="a01884.html#a671bd688b91a077edb239e639ba1bb0d">Class._set_complementof()</a>, <a class="el" href="a01884.html#adf824aaf8146f07f0cd327389a1756c3">Class._set_disjointwith()</a>, <a class="el" href="a01912.html#ad420a70eb36cc038b2d7437fe7ee3b32">Property._set_domain()</a>, <a class="el" href="a01884.html#a7dac2695229dda5fe90f40acbe8224d2">Class._set_equivalentclass()</a>, <a class="el" href="a01884.html#a345d4803336bbfa494e464e4ca82ca78">Class._set_extent()</a>, <a class="el" href="a01912.html#a345d4803336bbfa494e464e4ca82ca78">Property._set_extent()</a>, <a class="el" href="a01908.html#a0b5ebc962ff3a15066372412a2d7e02a">Restriction._set_hasvalue()</a>, <a class="el" href="a01860.html#a1da00d2e6f69bf4353de4f6284d875ed">Individual._set_identifier()</a>, <a class="el" href="a01868.html#a54922ecf51a9dbb19312b20078f35854">Ontology._set_imports()</a>, <a class="el" href="a01912.html#ac9e3c9110cdb1fdfd2534ca122aa29be">Property._set_inverseof()</a>, <a class="el" href="a01864.html#a69d3f979778783ebd2849d3490b31e78">AnnotatableTerms._set_label()</a>, <a class="el" href="a01908.html#a26e5573716fa17aab91dbc39961e98b4">Restriction._set_maxcardinality()</a>, <a class="el" href="a01908.html#a06d6e0049e8c71e56a7b169f835e1b47">Restriction._set_mincardinality()</a>, <a class="el" href="a01908.html#ac8879ef2a2162c8a44b790b2015d7f43">Restriction._set_onproperty()</a>, <a class="el" href="a01912.html#a62032d0eaa7c3c85ff10b4882fce698c">Property._set_range()</a>, <a class="el" href="a01860.html#ab21ad2a97b70d98dd6d7cdba2a43f6e4">Individual._set_sameAs()</a>, <a class="el" href="a01864.html#af4f97cd5a1a856cd3e990c5999a48e05">AnnotatableTerms._set_seealso()</a>, <a class="el" href="a01908.html#aa5e9ce686fadcc31c0f435c932e429ab">Restriction._set_somevaluesfrom()</a>, <a class="el" href="a01884.html#a00465a5755cd13ca971471175cc01704">Class._set_subclassof()</a>, <a class="el" href="a01912.html#a8cb4cc76ca9b24e65b1aa0c6473205cc">Property._set_subpropertyof()</a>, <a class="el" href="a01860.html#aa3f6865ed295fca374637cd47b2c3a10">Individual._set_type()</a>, <a class="el" href="a01692.html#a3076103d68e307754559c674c15ee14e">Collection.append()</a>, <a class="el" href="a01712.html#a0e5d72b13968f9e9c91a1f5da4eac1ed">_TripleCanonicalizer.canonical_triples()</a>, <a class="el" href="a01904.html#a999279c63295ebb46f9bf47ebcef57ae">BooleanClass.changeOperator()</a>, <a class="el" href="a01692.html#a8354e616a668be156c0d212186e64c43">Collection.clear()</a>, <a class="el" href="a01860.html#a56a3948a1bcff91c773d2c93d5b6f6e4">Individual.clearInDegree()</a>, <a class="el" href="a01860.html#a39a18a4fb4c7b873c717c577d745cfe4">Individual.clearOutDegree()</a>, <a class="el" href="a02516.html#ad63f160b7106a7ab016e1c23521d6ef0">QueryContext.clone()</a>, <a class="el" href="a01904.html#ad76cef38b925f4b77773e555faeee5d6">BooleanClass.copy()</a>, <a class="el" href="a02248.html#aacfb5a6a5b3f0b50ce8058a05c407bc7">TrigSinkParser.directiveOrStatement()</a>, <a class="el" href="a02256.html#a9c43d22a3c84786dece5ab0d665489c2">TriXHandler.endElementNS()</a>, <a class="el" href="a02940.html#a2df94208700932ceb7ae3b3fda36840c">ConvertCRSTask.finished()</a>, <a class="el" href="a02964.html#a2df94208700932ceb7ae3b3fda36840c">LoadGraphTask.finished()</a>, <a class="el" href="a03132.html#a8c30a1c615e23b8b76e468a1d1946128">OntDocGeneration.generateOntDocForNameSpace()</a>, <a class="el" href="a01692.html#a40e540715b5b0d0508a0467d91b00b0a">Collection.index()</a>, <a class="el" href="a01884.html#ac06d497b0ec97f3bb89c640e76237004">Class.isPrimitive()</a>, <a class="el" href="a02516.html#a18a6af9e1d7febf5cf9b3f326be44e1b">QueryContext.load()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, <a class="el" href="a01664.html#a206ecb75a692f6ba450b8962f8bc7a00">ShapesGraph.objects()</a>, <a class="el" href="a01664.html#a6c04ee083bc744a7343c0fc3cd7431c3">ShapesGraph.predicate_objects()</a>, <a class="el" href="a01664.html#a4ebb40728b7cfb8c8bbd77fbdf0aeda8">ShapesGraph.predicates()</a>, <a class="el" href="a02428.html#a775d7006f9e9eb7169c555fbc32d9983">SPARQLProcessor.query()</a>, <a class="el" href="a01848.html#a626f7f0955c98ca95df0949a606e6f6a">Describer.rdftype()</a>, <a class="el" href="a01848.html#acd5550f814ef1d278e46a0c099d67f56">Describer.rel()</a>, <a class="el" href="a01860.html#a20936ef5d7c383a7d62726506b2383a3">Individual.replace()</a>, <a class="el" href="a01912.html#a20936ef5d7c383a7d62726506b2383a3">Property.replace()</a>, <a class="el" href="a02256.html#a89732d4380ef53ab0394d237458376f7">TriXHandler.reset()</a>, <a class="el" href="a01908.html#aef393cb52d5b16521d76d5a72204b4c7">Restriction.restrictionKind()</a>, <a class="el" href="a01848.html#aec6e0ff4b8e56aca6337dfd947ff9223">Describer.rev()</a>, <a class="el" href="a02956.html#a08060e0924949738f75a0cdd8b49cef4">GraphValidationTask.run()</a>, <a class="el" href="a02964.html#a08060e0924949738f75a0cdd8b49cef4">LoadGraphTask.run()</a>, <a class="el" href="a02968.html#a08060e0924949738f75a0cdd8b49cef4">LoadTripleStoreTask.run()</a>, <a class="el" href="a01892.html#a49954c1f2c464e00e44a0730abc7abea">EnumeratedClass.serialize()</a>, <a class="el" href="a01908.html#a49954c1f2c464e00e44a0730abc7abea">Restriction.serialize()</a>, <a class="el" href="a01912.html#a49954c1f2c464e00e44a0730abc7abea">Property.serialize()</a>, <a class="el" href="a02604.html#a2cce7421aac74a8767fea2c10227150b">Result.serialize()</a>, <a class="el" href="a01864.html#ac278915d4b9c8f6130bee8c51e1520a3">AnnotatableTerms.setupACEAnnotations()</a>, <a class="el" href="a01868.html#a43b255deaccd5c7a413b693e44cfaff7">Ontology.setVersion()</a>, <a class="el" href="a02256.html#a8aa35a71dde62877b55fa417837b06fc">TriXHandler.startElementNS()</a>, <a class="el" href="a01976.html#ad46075e50ca0587e22fad2bf30baede9">NamespaceManager.store()</a>, <a class="el" href="a01664.html#ace7d8145bc8114ff9c4cc746cd3c1c46">ShapesGraph.subject_objects()</a>, <a class="el" href="a01664.html#abbdfa6d6dcce2a4cd078b344fe70f466">ShapesGraph.subject_predicates()</a>, <a class="el" href="a01664.html#ab098e041832a8ed10b8b746d7aa04625">ShapesGraph.subjects()</a>, <a class="el" href="a01884.html#a10f35fc1c23068ab7676fd56720e7fbc">Class.subSumpteeIds()</a>, <a class="el" href="a02424.html#a7bf2adfed959e1ffa1fa375cb80fbe13">SPARQLUpdateProcessor.update()</a>, and <a class="el" href="a01848.html#afb2d7b3d24bc6906f631255bda703157">Describer.value()</a>.</p>
+
+</div>
+</div>
+<a id="aa7072e7bfc5f1cdeadec25ecc3c246bf" name="aa7072e7bfc5f1cdeadec25ecc3c246bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7072e7bfc5f1cdeadec25ecc3c246bf">&#9670;&#160;</a></span>store</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">store</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02300.html#a06b823443c09f3a51c34215bd91ebd99">XMLSerializer.__bindings()</a>, <a class="el" href="a02544.html#ab1e83d412fcb99ff1ba4cd91271a616d">ConcurrentStore.__end_read()</a>, <a class="el" href="a02296.html#a3781667fb75a9c55ebfa40d7d62ce8d3">PatchSerializer.__init__()</a>, <a class="el" href="a02284.html#aee378e78697aa7833279a585d65c10af">NQuadsSerializer.__init__()</a>, <a class="el" href="a02620.html#aee378e78697aa7833279a585d65c10af">Serializer.__init__()</a>, <a class="el" href="a01924.html#af22162a93957cb0abc136425fa95ee11">ConjunctiveGraph.__init__()</a>, <a class="el" href="a01924.html#afd64a095585f64cbe93bdc3b13eba041">ConjunctiveGraph.__len__()</a>, <a class="el" href="a02544.html#a6781b036ba1c606be31ad87a0d530414">ConcurrentStore.__len__()</a>, <a class="el" href="a02532.html#af6ee0c7a21c6a59e5fe4f1a14f911019">AuditableStore.__len__()</a>, <a class="el" href="a01920.html#a30bff505f2377bca25408a0e9317b88c">Graph.__reduce__()</a>, <a class="el" href="a01920.html#ae07f7930f92d3591c93e2381cd5be285">Graph.__str__()</a>, <a class="el" href="a01924.html#ae07f7930f92d3591c93e2381cd5be285">ConjunctiveGraph.__str__()</a>, <a class="el" href="a02296.html#a563139ca16b6b160ce3c3100f30c77ff">PatchSerializer._diff()</a>, <a class="el" href="a02296.html#ab161c2b3ec957a903ecda7e76a1ee4ec">PatchSerializer._patch_row()</a>, <a class="el" href="a01976.html#a18e97200f85e1b21f33c524f85e198c5">NamespaceManager._store_bind()</a>, <a class="el" href="a01924.html#acbdf1da493517ca79a0b1915271cdcb3">ConjunctiveGraph.add()</a>, <a class="el" href="a02532.html#a0e9bb20c4ea13c6a83f2ce67e632881c">AuditableStore.add()</a>, <a class="el" href="a02544.html#a71ce5fee6d49c5ab4f20e3fc389b6db7">ConcurrentStore.add()</a>, <a class="el" href="a01924.html#a64a239a9094fcc17de6debb835cb4c17">ConjunctiveGraph.addN()</a>, <a class="el" href="a01976.html#abf985da465a8c49d52a55e38c3abc861">NamespaceManager.bind()</a>, <a class="el" href="a02532.html#a76979cf23c9d00b88b434f007b4037eb">AuditableStore.bind()</a>, <a class="el" href="a02316.html#a1946db2a1a0de498ea16181aa9db93a2">RecursiveSerializer.buildPredicateHash()</a>, <a class="el" href="a02276.html#a81f332b87bb06dd05cf8a2e1855d19cd">LongTurtleSerializer.canonize()</a>, <a class="el" href="a02532.html#aa6806dc354f8c20b51cc4559b9ab3135">AuditableStore.close()</a>, <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, <a class="el" href="a01924.html#ac0d1647a3283def4ead1c4f797ed3a0d">ConjunctiveGraph.contexts()</a>, <a class="el" href="a02532.html#ac0d1647a3283def4ead1c4f797ed3a0d">AuditableStore.contexts()</a>, <a class="el" href="a02532.html#a4814386e342c4b51f7d6927767d7fffd">AuditableStore.destroy()</a>, <a class="el" href="a02276.html#ab7673737286781c4a4cb1ec7bf7e2165">LongTurtleSerializer.doList()</a>, <a class="el" href="a02320.html#a8c2d7aeefda68b66c9ab2841ef2098aa">TurtleSerializer.doList()</a>, <a class="el" href="a02256.html#a9c43d22a3c84786dece5ab0d665489c2">TriXHandler.endElementNS()</a>, <a class="el" href="a01976.html#a2c4dbcd9945665274b6126b2dc568bdf">NamespaceManager.expand_curie()</a>, <a class="el" href="a02320.html#a0252f5fc6d467c7c37218d4946fbe83c">TurtleSerializer.getQName()</a>, <a class="el" href="a02276.html#a7b4d55802f1659df0b4f5a0a7e6e3c61">LongTurtleSerializer.getQName()</a>, <a class="el" href="a02276.html#a6b769d33db0be71b4c9750d0b20f74c6">LongTurtleSerializer.isValidList()</a>, <a class="el" href="a02320.html#a0ba797451d95cafc25b8af59713a7ded">TurtleSerializer.isValidList()</a>, <a class="el" href="a02240.html#a8f3f217f9b706f9f83311a11243fdd0f">RDFXMLHandler.list_node_element_end()</a>, <a class="el" href="a02532.html#a2be532436b279e8437bd19e0d2559a3a">AuditableStore.namespace()</a>, <a class="el" href="a01976.html#ad93818beb5d0aa0891d389d42aa21ab4">NamespaceManager.namespaces()</a>, <a class="el" href="a02532.html#a82b100d6114a28cdd0cbd9880305ca38">AuditableStore.namespaces()</a>, <a class="el" href="a02240.html#a9d55c9d58beb03a37004c8a33554f67f">RDFXMLHandler.node_element_start()</a>, <a class="el" href="a01976.html#ad1094f6476488c477716f9daf8717d7a">NamespaceManager.normalizeUri()</a>, <a class="el" href="a02532.html#afd8cbbcc74da83ee99da9f5e08d965d5">AuditableStore.open()</a>, <a class="el" href="a02316.html#a88f2666e2c65be06b5acad5b548db487">RecursiveSerializer.orderSubjects()</a>, <a class="el" href="a02300.html#abb3096640b02b2bc2585cddccdc5881a">XMLSerializer.predicate()</a>, <a class="el" href="a02304.html#abb3096640b02b2bc2585cddccdc5881a">PrettyXMLSerializer.predicate()</a>, <a class="el" href="a02532.html#a1876f361153f147aadad368d461b3a6e">AuditableStore.prefix()</a>, <a class="el" href="a02316.html#a925317f7541d940b63b0d9cbc670cb92">RecursiveSerializer.preprocess()</a>, <a class="el" href="a02240.html#a3606ccbbaeabefa3df223334901540c0">RDFXMLHandler.property_element_end()</a>, <a class="el" href="a02240.html#aec14fbb445390682c3bbe46c9c2a44e8">RDFXMLHandler.property_element_start()</a>, <a class="el" href="a01924.html#a91fce5d62dba21b22514a68fabecc218">ConjunctiveGraph.quads()</a>, <a class="el" href="a02532.html#a8c4f563dddf701c1ef11d403aba3b43e">AuditableStore.query()</a>, <a class="el" href="a01924.html#a1043b2d6b4bf4ca693500b58447e6ca0">ConjunctiveGraph.remove()</a>, <a class="el" href="a02532.html#a4a7691467651bb5432428e087f0cd53b">AuditableStore.remove()</a>, <a class="el" href="a02544.html#a3df4fcb504e08e94b180e584bba6d185">ConcurrentStore.remove()</a>, <a class="el" href="a02532.html#a0eedfb93b9acadd42d8eb1948492ab00">AuditableStore.rollback()</a>, <a class="el" href="a02264.html#a5522752fdac7bc3653dbbf017744ee84">HextuplesSerializer.serialize()</a>, <a class="el" href="a02288.html#a5522752fdac7bc3653dbbf017744ee84">NTSerializer.serialize()</a>, <a class="el" href="a02284.html#aaaeeafe3dcc54692892e932afc82bdaa">NQuadsSerializer.serialize()</a>, <a class="el" href="a02296.html#aaaeeafe3dcc54692892e932afc82bdaa">PatchSerializer.serialize()</a>, <a class="el" href="a02304.html#aaaeeafe3dcc54692892e932afc82bdaa">PrettyXMLSerializer.serialize()</a>, <a class="el" href="a02312.html#aaaeeafe3dcc54692892e932afc82bdaa">TriXSerializer.serialize()</a>, <a class="el" href="a02300.html#afd3cd859641b498d041345fcf7a2b7b9">XMLSerializer.subject()</a>, <a class="el" href="a02304.html#af96143e1b2444d42a8e4456860d3a96d">PrettyXMLSerializer.subject()</a>, <a class="el" href="a01924.html#a558fa63ce6afe53c6b82f1cfde0eb1b3">ConjunctiveGraph.triples()</a>, <a class="el" href="a02532.html#a3e840b20108b2c2e2095b93f20063e9d">AuditableStore.triples()</a>, <a class="el" href="a02544.html#aa73840bec4dab6c8a8cf2519f4a6eeda">ConcurrentStore.triples()</a>, <a class="el" href="a01920.html#acf104b141cf4b21fd441afcd62a61ba2">Graph.triples_choices()</a>, <a class="el" href="a01924.html#acf104b141cf4b21fd441afcd62a61ba2">ConjunctiveGraph.triples_choices()</a>, <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>, and <a class="el" href="a01920.html#a4f5ae72944b1dea51b5fcff65d21d331">Graph.value()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01016.html">namespace</a></li><li class="navelem"><a class="el" href="a01976.html">NamespaceManager</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

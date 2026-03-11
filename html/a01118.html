@@ -1,0 +1,442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: rdflib.tools.rdf2dot Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01118.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">rdflib.tools.rdf2dot Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2e656ec82231989ef3579c609fe6efa9" id="r_a2e656ec82231989ef3579c609fe6efa9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#a2e656ec82231989ef3579c609fe6efa9">rdf2dot</a> (<a class="el" href="a01920.html">Graph</a> g, TextIO stream, Dict[str, Any] opts={})</td></tr>
+<tr class="separator:a2e656ec82231989ef3579c609fe6efa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a937f2d6ce71be249faf2bce9137ecc69" id="r_a937f2d6ce71be249faf2bce9137ecc69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#a937f2d6ce71be249faf2bce9137ecc69">_help</a> ()</td></tr>
+<tr class="separator:a937f2d6ce71be249faf2bce9137ecc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51af30a60f9f02777c6396b8247e356f" id="r_a51af30a60f9f02777c6396b8247e356f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#a51af30a60f9f02777c6396b8247e356f">main</a> ()</td></tr>
+<tr class="separator:a51af30a60f9f02777c6396b8247e356f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4f18ec87d2bc58cfa06c097757290ca2" id="r_a4f18ec87d2bc58cfa06c097757290ca2"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#a4f18ec87d2bc58cfa06c097757290ca2">LABEL_PROPERTIES</a></td></tr>
+<tr class="separator:a4f18ec87d2bc58cfa06c097757290ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9431e4900830143ecb99e169677da715" id="r_a9431e4900830143ecb99e169677da715"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#a9431e4900830143ecb99e169677da715">XSDTERMS</a></td></tr>
+<tr class="separator:a9431e4900830143ecb99e169677da715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9eadcc9b8e069eb8b0e595def6ab422" id="r_ad9eadcc9b8e069eb8b0e595def6ab422"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#ad9eadcc9b8e069eb8b0e595def6ab422">EDGECOLOR</a> = &quot;blue&quot;</td></tr>
+<tr class="separator:ad9eadcc9b8e069eb8b0e595def6ab422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2522eb670d0a7272c92d3904f715bd9e" id="r_a2522eb670d0a7272c92d3904f715bd9e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#a2522eb670d0a7272c92d3904f715bd9e">NODECOLOR</a> = &quot;black&quot;</td></tr>
+<tr class="separator:a2522eb670d0a7272c92d3904f715bd9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c3564f96e87aa5e79bc542347b1d218" id="r_a8c3564f96e87aa5e79bc542347b1d218"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html#a8c3564f96e87aa5e79bc542347b1d218">ISACOLOR</a> = &quot;black&quot;</td></tr>
+<tr class="separator:a8c3564f96e87aa5e79bc542347b1d218"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A commandline tool for drawing RDF graphs in Graphviz DOT format
+
+You can draw the graph of an RDF file directly:
+
+```bash
+rdf2dot my_rdf_file.rdf | dot -Tpng | display
+```
+</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a937f2d6ce71be249faf2bce9137ecc69" name="a937f2d6ce71be249faf2bce9137ecc69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a937f2d6ce71be249faf2bce9137ecc69">&#9670;&#160;</a></span>_help()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_help </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  168</span><span class="keyword">def </span>_help():</div>
+<div class="line"><span class="lineno">  169</span>    sys.stderr.write(</div>
+<div class="line"><span class="lineno">  170</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  171</span><span class="stringliteral">rdf2dot.py [-f &lt;format&gt;] files...</span></div>
+<div class="line"><span class="lineno">  172</span><span class="stringliteral">Read RDF files given on STDOUT, writes a graph of the RDFS schema in DOT</span></div>
+<div class="line"><span class="lineno">  173</span><span class="stringliteral">language to stdout</span></div>
+<div class="line"><span class="lineno">  174</span><span class="stringliteral">-f specifies parser to use, if not given,</span></div>
+<div class="line"><span class="lineno">  175</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  176</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  177</span>    )</div>
+<div class="line"><span class="lineno">  178</span> </div>
+<div class="line"><span class="lineno">  179</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a51af30a60f9f02777c6396b8247e356f" name="a51af30a60f9f02777c6396b8247e356f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51af30a60f9f02777c6396b8247e356f">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  180</span><span class="keyword">def </span>main():</div>
+<div class="line"><span class="lineno">  181</span>    <a class="code hl_function" href="a01010.html#ab527402538c237105e6971a0b572ac23">rdflib.extras.cmdlineutils.main</a>(rdf2dot, _help)</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="ttc" id="aa01010_html_ab527402538c237105e6971a0b572ac23"><div class="ttname"><a href="a01010.html#ab527402538c237105e6971a0b572ac23">rdflib.extras.cmdlineutils.main</a></div><div class="ttdeci">main(target, _help=_help, options=&quot;&quot;, stdin=True)</div><div class="ttdef"><b>Definition</b> cmdlineutils.py:26</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01118.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdf2dot.main()</a>, and <a class="el" href="a01010.html#ab527402538c237105e6971a0b572ac23">rdflib.extras.cmdlineutils.main()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01118.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdf2dot.main()</a>.</p>
+
+</div>
+</div>
+<a id="a2e656ec82231989ef3579c609fe6efa9" name="a2e656ec82231989ef3579c609fe6efa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e656ec82231989ef3579c609fe6efa9">&#9670;&#160;</a></span>rdf2dot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rdf2dot </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TextIO&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict[str, Any] &#160;</td>
+          <td class="paramname"><em>opts</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Convert the RDF graph to DOT
+writes the dot output to the stream
+</pre> <div class="fragment"><div class="line"><span class="lineno">   84</span><span class="keyword">def </span>rdf2dot(g: Graph, stream: TextIO, opts: Dict[str, Any] = {}):</div>
+<div class="line"><span class="lineno">   85</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   86</span><span class="stringliteral">    Convert the RDF graph to DOT</span></div>
+<div class="line"><span class="lineno">   87</span><span class="stringliteral">    writes the dot output to the stream</span></div>
+<div class="line"><span class="lineno">   88</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>    fields = collections.defaultdict(set)</div>
+<div class="line"><span class="lineno">   91</span>    nodes: Dict[Node, str] = {}</div>
+<div class="line"><span class="lineno">   92</span> </div>
+<div class="line"><span class="lineno">   93</span>    <span class="keyword">def </span>node(x: Node) -&gt; str:</div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">if</span> x <span class="keywordflow">not</span> <span class="keywordflow">in</span> nodes:</div>
+<div class="line"><span class="lineno">   95</span>            nodes[x] = <span class="stringliteral">&quot;node%d&quot;</span> % len(nodes)</div>
+<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">return</span> nodes[x]</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span>    <span class="keyword">def </span>label(x: Node, g: Graph):</div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordflow">for</span> labelProp <span class="keywordflow">in</span> LABEL_PROPERTIES:  <span class="comment"># noqa: N806</span></div>
+<div class="line"><span class="lineno">  100</span>            l_ = g.value(x, labelProp)</div>
+<div class="line"><span class="lineno">  101</span>            <span class="keywordflow">if</span> l_:</div>
+<div class="line"><span class="lineno">  102</span>                <span class="keywordflow">return</span> l_</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  104</span>            <span class="comment"># type error: Argument 1 to &quot;compute_qname&quot; of &quot;NamespaceManager&quot; has incompatible type &quot;Node&quot;; expected &quot;str&quot;</span></div>
+<div class="line"><span class="lineno">  105</span>            <span class="keywordflow">return</span> g.namespace_manager.compute_qname(x)[2]  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">except</span> Exception:</div>
+<div class="line"><span class="lineno">  107</span>            <span class="keywordflow">return</span> x</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>    <span class="keyword">def </span>formatliteral(l: Literal, g):  <span class="comment"># noqa: E741</span></div>
+<div class="line"><span class="lineno">  110</span>        v = html.escape(l)</div>
+<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">if</span> l.datatype:</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;&amp;quot;%s&amp;quot;^^%s&quot;</span> % (v, qname(l.datatype, g))</div>
+<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">elif</span> l.language:</div>
+<div class="line"><span class="lineno">  114</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;&amp;quot;%s&amp;quot;@%s&quot;</span> % (v, l.language)</div>
+<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&amp;quot;%s&amp;quot;&quot;</span> % v</div>
+<div class="line"><span class="lineno">  116</span> </div>
+<div class="line"><span class="lineno">  117</span>    <span class="keyword">def </span>qname(x: URIRef, g: Graph) -&gt; str:</div>
+<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  119</span>            q = g.compute_qname(x)</div>
+<div class="line"><span class="lineno">  120</span>            <span class="keywordflow">return</span> q[0] + <span class="stringliteral">&quot;:&quot;</span> + q[2]</div>
+<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">except</span> Exception:</div>
+<div class="line"><span class="lineno">  122</span>            <span class="keywordflow">return</span> x</div>
+<div class="line"><span class="lineno">  123</span> </div>
+<div class="line"><span class="lineno">  124</span>    <span class="keyword">def </span>color(p):</div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;BLACK&quot;</span></div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>    stream.write(<span class="stringliteral">&#39;digraph { \n node [ fontname=&quot;DejaVu Sans&quot; ] ; \n&#39;</span>)</div>
+<div class="line"><span class="lineno">  128</span> </div>
+<div class="line"><span class="lineno">  129</span>    <span class="keywordflow">for</span> s, p, o <span class="keywordflow">in</span> g:</div>
+<div class="line"><span class="lineno">  130</span>        sn = node(s)</div>
+<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">if</span> p == rdflib.RDFS.label:</div>
+<div class="line"><span class="lineno">  132</span>            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  133</span>        <span class="keywordflow">if</span> isinstance(o, (<a class="code hl_class" href="a02656.html">rdflib.URIRef</a>, <a class="code hl_class" href="a02668.html">rdflib.BNode</a>)):</div>
+<div class="line"><span class="lineno">  134</span>            on = node(o)</div>
+<div class="line"><span class="lineno">  135</span>            opstr = (</div>
+<div class="line"><span class="lineno">  136</span>                <span class="stringliteral">&quot;\t%s -&gt; %s [ color=%s, label=&lt; &lt;font point-size=&#39;10&#39; &quot;</span></div>
+<div class="line"><span class="lineno">  137</span>                + <span class="stringliteral">&quot;color=&#39;#336633&#39;&gt;%s&lt;/font&gt; &gt; ] ;\n&quot;</span></div>
+<div class="line"><span class="lineno">  138</span>            )</div>
+<div class="line"><span class="lineno">  139</span>            <span class="comment"># type error: Argument 1 to &quot;qname&quot; has incompatible type &quot;Node&quot;; expected &quot;URIRef&quot;</span></div>
+<div class="line"><span class="lineno">  140</span>            stream.write(opstr % (sn, on, color(p), qname(p, g)))  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  141</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  142</span>            <span class="comment"># type error: Argument 1 to &quot;qname&quot; has incompatible type &quot;Node&quot;; expected &quot;URIRef&quot;</span></div>
+<div class="line"><span class="lineno">  143</span>            fields[sn].add((qname(p, g), formatliteral(o, g)))  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  144</span> </div>
+<div class="line"><span class="lineno">  145</span>    <span class="keywordflow">for</span> u, n <span class="keywordflow">in</span> nodes.items():</div>
+<div class="line"><span class="lineno">  146</span>        stream.write(<span class="stringliteral">&quot;# %s %s\n&quot;</span> % (u, n))</div>
+<div class="line"><span class="lineno">  147</span>        f = [</div>
+<div class="line"><span class="lineno">  148</span>            <span class="stringliteral">&quot;&lt;tr&gt;&lt;td align=&#39;left&#39;&gt;%s&lt;/td&gt;&lt;td align=&#39;left&#39;&gt;%s&lt;/td&gt;&lt;/tr&gt;&quot;</span> % x</div>
+<div class="line"><span class="lineno">  149</span>            <span class="keywordflow">for</span> x <span class="keywordflow">in</span> sorted(fields[n])</div>
+<div class="line"><span class="lineno">  150</span>        ]</div>
+<div class="line"><span class="lineno">  151</span>        opstr = (</div>
+<div class="line"><span class="lineno">  152</span>            <span class="stringliteral">&quot;%s [ shape=none, color=%s label=&lt; &lt;table color=&#39;#666666&#39;&quot;</span></div>
+<div class="line"><span class="lineno">  153</span>            + <span class="stringliteral">&quot; cellborder=&#39;0&#39; cellspacing=&#39;0&#39; border=&#39;1&#39;&gt;&lt;tr&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  154</span>            + <span class="stringliteral">&quot;&lt;td colspan=&#39;2&#39; bgcolor=&#39;grey&#39;&gt;&lt;B&gt;%s&lt;/B&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  155</span>            + <span class="stringliteral">&quot;&lt;td href=&#39;%s&#39; bgcolor=&#39;#eeeeee&#39; colspan=&#39;2&#39;&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  156</span>            + <span class="stringliteral">&quot;&lt;font point-size=&#39;10&#39; color=&#39;#6666ff&#39;&gt;%s&lt;/font&gt;&lt;/td&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  157</span>            + <span class="stringliteral">&quot;&lt;/tr&gt;%s&lt;/table&gt; &gt; ] \n&quot;</span></div>
+<div class="line"><span class="lineno">  158</span>        )</div>
+<div class="line"><span class="lineno">  159</span>        stream.write(</div>
+<div class="line"><span class="lineno">  160</span>            opstr</div>
+<div class="line"><span class="lineno">  161</span>            <span class="comment"># type error: Value of type variable &quot;AnyStr&quot; of &quot;escape&quot; cannot be &quot;Node&quot;</span></div>
+<div class="line"><span class="lineno">  162</span>            % (n, NODECOLOR, html.escape(label(u, g)), u, html.escape(u), <span class="stringliteral">&quot;&quot;</span>.join(f))  <span class="comment"># type: ignore[type-var]</span></div>
+<div class="line"><span class="lineno">  163</span>        )</div>
+<div class="line"><span class="lineno">  164</span> </div>
+<div class="line"><span class="lineno">  165</span>    stream.write(<span class="stringliteral">&quot;}\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span> </div>
+<div class="ttc" id="aa02656_html"><div class="ttname"><a href="a02656.html">rdflib.term.URIRef</a></div><div class="ttdef"><b>Definition</b> term.py:266</div></div>
+<div class="ttc" id="aa02668_html"><div class="ttname"><a href="a02668.html">rdflib.term.BNode</a></div><div class="ttdef"><b>Definition</b> term.py:437</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ad9eadcc9b8e069eb8b0e595def6ab422" name="ad9eadcc9b8e069eb8b0e595def6ab422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9eadcc9b8e069eb8b0e595def6ab422">&#9670;&#160;</a></span>EDGECOLOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str EDGECOLOR = &quot;blue&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c3564f96e87aa5e79bc542347b1d218" name="a8c3564f96e87aa5e79bc542347b1d218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c3564f96e87aa5e79bc542347b1d218">&#9670;&#160;</a></span>ISACOLOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str ISACOLOR = &quot;black&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f18ec87d2bc58cfa06c097757290ca2" name="a4f18ec87d2bc58cfa06c097757290ca2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f18ec87d2bc58cfa06c097757290ca2">&#9670;&#160;</a></span>LABEL_PROPERTIES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list LABEL_PROPERTIES</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  [</div>
+<div class="line"><span class="lineno">    2</span>    rdflib.RDFS.label,</div>
+<div class="line"><span class="lineno">    3</span>    <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>(<span class="stringliteral">&quot;http://purl.org/dc/elements/1.1/title&quot;</span>),</div>
+<div class="line"><span class="lineno">    4</span>    <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>(<span class="stringliteral">&quot;http://xmlns.com/foaf/0.1/name&quot;</span>),</div>
+<div class="line"><span class="lineno">    5</span>    <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>(<span class="stringliteral">&quot;http://www.w3.org/2006/vcard/ns#fn&quot;</span>),</div>
+<div class="line"><span class="lineno">    6</span>    <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>(<span class="stringliteral">&quot;http://www.w3.org/2006/vcard/ns#org&quot;</span>),</div>
+<div class="line"><span class="lineno">    7</span>]</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2522eb670d0a7272c92d3904f715bd9e" name="a2522eb670d0a7272c92d3904f715bd9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2522eb670d0a7272c92d3904f715bd9e">&#9670;&#160;</a></span>NODECOLOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str NODECOLOR = &quot;black&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9431e4900830143ecb99e169677da715" name="a9431e4900830143ecb99e169677da715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9431e4900830143ecb99e169677da715">&#9670;&#160;</a></span>XSDTERMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list XSDTERMS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01113.html">tools</a></li><li class="navelem"><a class="el" href="a01118.html">rdf2dot</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

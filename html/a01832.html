@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: Dispatcher Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01832.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
+<a href="a01829.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Dispatcher Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Collaboration diagram for Dispatcher:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01830.png" border="0" usemap="#aDispatcher_coll__map" alt="Collaboration graph"/></div>
+<map name="aDispatcher_coll__map" id="aDispatcher_coll__map">
+<area shape="rect" title=" " alt="" coords="5,93,97,119"/>
+<area shape="rect" title=" " alt="" coords="13,5,90,31"/>
+<area shape="poly" title=" " alt="" coords="54,45,54,93,49,93,49,45"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a587cc6ef20d5362f2c4cd798095d8047" id="r_a587cc6ef20d5362f2c4cd798095d8047"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01832.html#a587cc6ef20d5362f2c4cd798095d8047">set_map</a> (self, Dict[Any, Any] amap)</td></tr>
+<tr class="separator:a587cc6ef20d5362f2c4cd798095d8047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f443635a49bc2ba43ed64de0932339d" id="r_a3f443635a49bc2ba43ed64de0932339d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01832.html#a3f443635a49bc2ba43ed64de0932339d">get_map</a> (self)</td></tr>
+<tr class="separator:a3f443635a49bc2ba43ed64de0932339d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a360cbcc9b82236ffd6ad51f9e99c9a07" id="r_a360cbcc9b82236ffd6ad51f9e99c9a07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01832.html#a360cbcc9b82236ffd6ad51f9e99c9a07">subscribe</a> (self, event_type, handler)</td></tr>
+<tr class="separator:a360cbcc9b82236ffd6ad51f9e99c9a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a8c8e73524820df9a82c3d9b84963c0" id="r_a8a8c8e73524820df9a82c3d9b84963c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01832.html#a8a8c8e73524820df9a82c3d9b84963c0">dispatch</a> (self, event)</td></tr>
+<tr class="separator:a8a8c8e73524820df9a82c3d9b84963c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a967beeb5246c81ba7ac278b25c6e3ba7" id="r_a967beeb5246c81ba7ac278b25c6e3ba7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01832.html#a967beeb5246c81ba7ac278b25c6e3ba7">_dispatch_map</a></td></tr>
+<tr class="separator:a967beeb5246c81ba7ac278b25c6e3ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:a476200b6d3cfdf24908840c544a6801d" id="r_a476200b6d3cfdf24908840c544a6801d"><td class="memItemLeft" align="right" valign="top">Optional&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01832.html#a476200b6d3cfdf24908840c544a6801d">_dispatch_map</a> = None</td></tr>
+<tr class="separator:a476200b6d3cfdf24908840c544a6801d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">An object that can dispatch events to a privately managed group of
+subscribers.
+</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8a8c8e73524820df9a82c3d9b84963c0" name="a8a8c8e73524820df9a82c3d9b84963c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a8c8e73524820df9a82c3d9b84963c0">&#9670;&#160;</a></span>dispatch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dispatch </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Dispatch the given event to the subscribed handlers for
+the event's type</pre> <div class="fragment"><div class="line"><span class="lineno">   94</span>    <span class="keyword">def </span>dispatch(self, event):</div>
+<div class="line"><span class="lineno">   95</span>        <span class="stringliteral">&quot;&quot;&quot;Dispatch the given event to the subscribed handlers for</span></div>
+<div class="line"><span class="lineno">   96</span><span class="stringliteral">        the event&#39;s type&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span> self._dispatch_map <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   98</span>            lst = self._dispatch_map.get(<a class="code hl_class" href="a07531.html">type</a>(event), <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   99</span>            <span class="keywordflow">if</span> lst <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  100</span>                <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(<span class="stringliteral">&quot;unknown event type: %s&quot;</span> % <a class="code hl_class" href="a07531.html">type</a>(event))</div>
+<div class="line"><span class="lineno">  101</span>            <span class="keywordflow">for</span> l_ <span class="keywordflow">in</span> lst:</div>
+<div class="line"><span class="lineno">  102</span>                l_(event)</div>
+<div class="ttc" id="aa07501_html"><div class="ttname"><a href="a07501.html">ValueError</a></div></div>
+<div class="ttc" id="aa07531_html"><div class="ttname"><a href="a07531.html">type</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01832.html#a476200b6d3cfdf24908840c544a6801d">Dispatcher._dispatch_map</a>.</p>
+
+</div>
+</div>
+<a id="a3f443635a49bc2ba43ed64de0932339d" name="a3f443635a49bc2ba43ed64de0932339d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f443635a49bc2ba43ed64de0932339d">&#9670;&#160;</a></span>get_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_map </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   75</span>    <span class="keyword">def </span>get_map(self):</div>
+<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">return</span> self._dispatch_map</div>
+<div class="line"><span class="lineno">   77</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01832.html#a476200b6d3cfdf24908840c544a6801d">Dispatcher._dispatch_map</a>.</p>
+
+</div>
+</div>
+<a id="a587cc6ef20d5362f2c4cd798095d8047" name="a587cc6ef20d5362f2c4cd798095d8047"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a587cc6ef20d5362f2c4cd798095d8047">&#9670;&#160;</a></span>set_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set_map </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict[Any, Any]&#160;</td>
+          <td class="paramname"><em>amap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   71</span>    <span class="keyword">def </span>set_map(self, amap: Dict[Any, Any]):</div>
+<div class="line"><span class="lineno">   72</span>        self._dispatch_map = amap</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">return</span> self</div>
+<div class="line"><span class="lineno">   74</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01832.html#a360cbcc9b82236ffd6ad51f9e99c9a07">Dispatcher.subscribe()</a>.</p>
+
+</div>
+</div>
+<a id="a360cbcc9b82236ffd6ad51f9e99c9a07" name="a360cbcc9b82236ffd6ad51f9e99c9a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a360cbcc9b82236ffd6ad51f9e99c9a07">&#9670;&#160;</a></span>subscribe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subscribe </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>handler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Subscribe the given handler to an event_type.  Handlers
+are called in the order they are subscribed.
+</pre> <div class="fragment"><div class="line"><span class="lineno">   78</span>    <span class="keyword">def </span>subscribe(self, event_type, handler):</div>
+<div class="line"><span class="lineno">   79</span>        <span class="stringliteral">&quot;&quot;&quot;Subscribe the given handler to an event_type.  Handlers</span></div>
+<div class="line"><span class="lineno">   80</span><span class="stringliteral">        are called in the order they are subscribed.</span></div>
+<div class="line"><span class="lineno">   81</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">if</span> self._dispatch_map <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   83</span>            self.set_map({})</div>
+<div class="line"><span class="lineno">   84</span>        <span class="comment"># type error: error: Item &quot;None&quot; of &quot;Optional[Dict[Any, Any]]&quot; has no attribute &quot;get&quot;</span></div>
+<div class="line"><span class="lineno">   85</span>        lst = self._dispatch_map.get(event_type, <span class="keywordtype">None</span>)  <span class="comment"># type: ignore[union-attr]</span></div>
+<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">if</span> lst <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   87</span>            lst = [handler]</div>
+<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   89</span>            lst.append(handler)</div>
+<div class="line"><span class="lineno">   90</span>        <span class="comment"># type error: Unsupported target for indexed assignment (&quot;Optional[Dict[Any, Any]]&quot;)</span></div>
+<div class="line"><span class="lineno">   91</span>        self._dispatch_map[event_type] = lst  <span class="comment"># type: ignore[index]</span></div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">return</span> self</div>
+<div class="line"><span class="lineno">   93</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01832.html#a476200b6d3cfdf24908840c544a6801d">Dispatcher._dispatch_map</a>, and <a class="el" href="a01832.html#a587cc6ef20d5362f2c4cd798095d8047">Dispatcher.set_map()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a476200b6d3cfdf24908840c544a6801d" name="a476200b6d3cfdf24908840c544a6801d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a476200b6d3cfdf24908840c544a6801d">&#9670;&#160;</a></span>_dispatch_map <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Optional _dispatch_map = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01832.html#a8a8c8e73524820df9a82c3d9b84963c0">Dispatcher.dispatch()</a>, <a class="el" href="a01832.html#a3f443635a49bc2ba43ed64de0932339d">Dispatcher.get_map()</a>, and <a class="el" href="a01832.html#a360cbcc9b82236ffd6ad51f9e99c9a07">Dispatcher.subscribe()</a>.</p>
+
+</div>
+</div>
+<a id="a967beeb5246c81ba7ac278b25c6e3ba7" name="a967beeb5246c81ba7ac278b25c6e3ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a967beeb5246c81ba7ac278b25c6e3ba7">&#9670;&#160;</a></span>_dispatch_map <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_dispatch_map</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01832.html#a8a8c8e73524820df9a82c3d9b84963c0">Dispatcher.dispatch()</a>, <a class="el" href="a01832.html#a3f443635a49bc2ba43ed64de0932339d">Dispatcher.get_map()</a>, and <a class="el" href="a01832.html#a360cbcc9b82236ffd6ad51f9e99c9a07">Dispatcher.subscribe()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01007.html">events</a></li><li class="navelem"><a class="el" href="a01832.html">Dispatcher</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

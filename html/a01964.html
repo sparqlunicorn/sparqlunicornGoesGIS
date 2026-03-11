@@ -1,0 +1,768 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: DefinedNamespaceMeta Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01964.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="a01961.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">DefinedNamespaceMeta Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for DefinedNamespaceMeta:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01963.png" border="0" usemap="#aDefinedNamespaceMeta_inherit__map" alt="Inheritance graph"/></div>
+<map name="aDefinedNamespaceMeta_inherit__map" id="aDefinedNamespaceMeta_inherit__map">
+<area shape="rect" title=" " alt="" coords="104,721,287,747"/>
+<area shape="rect" href="a01968.html" title=" " alt="" coords="335,721,484,747"/>
+<area shape="poly" title=" " alt="" coords="300,731,335,731,335,737,300,737"/>
+<area shape="rect" href="a07531.html" title=" " alt="" coords="5,721,56,747"/>
+<area shape="poly" title=" " alt="" coords="70,731,104,731,104,737,70,737"/>
+<area shape="rect" href="a01980.html" title=" " alt="" coords="545,5,608,31"/>
+<area shape="poly" title=" " alt="" coords="410,707,420,571,443,374,459,271,478,176,502,97,515,65,530,40,543,28,547,32,534,44,520,68,507,99,484,177,464,272,448,374,426,572,415,708"/>
+<area shape="rect" href="a01984.html" title=" " alt="" coords="546,55,607,80"/>
+<area shape="poly" title=" " alt="" coords="410,707,422,579,445,396,462,302,481,215,504,142,530,90,544,77,548,81,534,93,509,144,486,216,467,303,451,397,427,580,415,707"/>
+<area shape="rect" href="a01988.html" title=" " alt="" coords="556,104,597,129"/>
+<area shape="poly" title=" " alt="" coords="411,707,424,589,449,421,465,334,484,255,506,188,530,140,541,129,555,121,557,126,545,133,534,144,511,190,489,256,470,336,454,422,429,589,416,708"/>
+<area shape="rect" href="a01992.html" title=" " alt="" coords="545,153,608,179"/>
+<area shape="poly" title=" " alt="" coords="411,707,426,598,451,445,486,294,507,233,530,190,544,177,547,181,534,193,512,235,492,295,457,446,431,599,416,708"/>
+<area shape="rect" href="a01996.html" title=" " alt="" coords="548,203,605,228"/>
+<area shape="poly" title=" " alt="" coords="408,707,411,622,427,500,442,432,464,364,492,299,530,239,546,225,550,229,534,242,497,302,469,366,447,434,432,501,416,622,413,707"/>
+<area shape="rect" href="a02000.html" title=" " alt="" coords="532,252,621,277"/>
+<area shape="poly" title=" " alt="" coords="409,707,414,630,432,520,447,460,468,400,495,342,530,288,545,275,548,279,534,292,500,344,473,402,452,462,437,521,420,630,414,708"/>
+<area shape="rect" href="a02004.html" title=" " alt="" coords="533,301,620,327"/>
+<area shape="poly" title=" " alt="" coords="410,708,418,638,437,541,453,488,473,435,498,384,530,338,545,325,548,329,534,341,503,387,478,437,458,490,442,542,423,638,415,708"/>
+<area shape="rect" href="a02008.html" title=" " alt="" coords="547,351,606,376"/>
+<area shape="poly" title=" " alt="" coords="411,707,422,645,443,561,478,471,502,427,530,387,545,374,549,378,534,390,506,430,483,473,448,563,427,646,416,708"/>
+<area shape="rect" href="a02012.html" title=" " alt="" coords="548,400,605,425"/>
+<area shape="poly" title=" " alt="" coords="413,707,426,653,448,582,483,506,505,470,530,436,546,423,549,427,534,440,509,473,487,509,453,584,431,655,418,709"/>
+<area shape="rect" href="a02016.html" title=" " alt="" coords="551,449,602,475"/>
+<area shape="poly" title=" " alt="" coords="415,707,431,662,455,604,488,542,530,485,549,471,553,475,534,489,492,545,459,606,436,664,420,709"/>
+<area shape="rect" href="a02020.html" title=" " alt="" coords="543,499,610,524"/>
+<area shape="poly" title=" " alt="" coords="419,707,461,625,493,578,530,535,547,522,550,526,534,539,497,581,466,628,424,710"/>
+<area shape="rect" href="a02024.html" title=" " alt="" coords="551,548,602,573"/>
+<area shape="poly" title=" " alt="" coords="424,708,469,649,498,615,530,584,549,571,552,575,534,588,502,619,473,652,429,711"/>
+<area shape="rect" href="a02028.html" title=" " alt="" coords="551,597,603,623"/>
+<area shape="poly" title=" " alt="" coords="434,710,478,673,530,633,551,621,553,625,534,638,481,677,437,714"/>
+<area shape="rect" href="a02032.html" title=" " alt="" coords="548,647,605,672"/>
+<area shape="poly" title=" " alt="" coords="450,713,547,669,549,674,452,718"/>
+<area shape="rect" href="a02036.html" title=" " alt="" coords="547,696,606,721"/>
+<area shape="poly" title=" " alt="" coords="498,718,547,710,547,716,498,723"/>
+<area shape="rect" href="a02040.html" title=" " alt="" coords="556,745,597,771"/>
+<area shape="poly" title=" " alt="" coords="498,744,556,753,555,758,498,749"/>
+<area shape="rect" href="a02044.html" title=" " alt="" coords="552,795,601,820"/>
+<area shape="poly" title=" " alt="" coords="453,750,553,794,551,799,451,755"/>
+<area shape="rect" href="a02048.html" title=" " alt="" coords="549,844,605,869"/>
+<area shape="poly" title=" " alt="" coords="437,754,481,791,533,830,552,842,549,846,531,835,478,795,433,758"/>
+<area shape="rect" href="a02052.html" title=" " alt="" coords="551,893,602,919"/>
+<area shape="poly" title=" " alt="" coords="428,756,472,816,502,850,534,880,552,892,549,897,530,884,498,853,468,820,424,760"/>
+<area shape="rect" href="a02056.html" title=" " alt="" coords="557,943,597,968"/>
+<area shape="poly" title=" " alt="" coords="424,759,466,840,497,887,534,929,558,945,555,950,530,933,492,890,461,843,419,761"/>
+<area shape="rect" href="a02060.html" title=" " alt="" coords="549,992,605,1017"/>
+<area shape="poly" title=" " alt="" coords="420,759,435,805,459,863,492,924,534,979,550,991,547,995,530,983,487,926,454,865,430,807,415,761"/>
+<area shape="rect" href="a02064.html" title=" " alt="" coords="547,1041,606,1067"/>
+<area shape="poly" title=" " alt="" coords="418,760,430,814,453,884,487,960,509,996,534,1028,549,1040,546,1044,530,1032,504,999,482,962,448,886,425,815,413,761"/>
+<area shape="rect" href="a02068.html" title=" " alt="" coords="553,1091,601,1116"/>
+<area shape="poly" title=" " alt="" coords="416,760,426,822,447,906,463,951,482,996,506,1039,534,1077,554,1092,551,1097,530,1081,501,1041,477,998,458,953,442,907,421,823,411,761"/>
+<area shape="rect" href="a02072.html" title=" " alt="" coords="549,1140,604,1165"/>
+<area shape="poly" title=" " alt="" coords="415,760,423,830,442,926,457,979,477,1031,503,1081,534,1127,551,1140,547,1144,530,1130,498,1084,472,1033,452,981,436,928,417,831,409,761"/>
+<area shape="rect" href="a02076.html" title=" " alt="" coords="547,1189,606,1215"/>
+<area shape="poly" title=" " alt="" coords="414,760,419,838,436,947,452,1007,472,1067,500,1124,534,1176,549,1189,545,1193,530,1180,495,1127,467,1069,447,1009,431,948,414,839,408,761"/>
+<area shape="rect" href="a02080.html" title=" " alt="" coords="549,1239,604,1264"/>
+<area shape="poly" title=" " alt="" coords="413,761,416,846,431,968,446,1035,468,1102,497,1167,534,1226,551,1239,548,1243,530,1229,492,1169,463,1104,441,1036,426,969,410,847,407,761"/>
+<area shape="rect" href="a02084.html" title=" " alt="" coords="550,1288,603,1313"/>
+<area shape="poly" title=" " alt="" coords="416,760,431,870,456,1023,472,1101,491,1173,512,1233,534,1275,551,1289,548,1293,530,1278,507,1235,486,1175,467,1102,451,1024,425,870,411,761"/>
+<area shape="rect" href="a02088.html" title=" " alt="" coords="552,1337,601,1363"/>
+<area shape="poly" title=" " alt="" coords="416,760,429,879,453,1047,470,1133,489,1212,510,1278,534,1324,554,1340,550,1344,530,1328,505,1280,484,1214,464,1134,448,1048,424,880,411,761"/>
+<area shape="rect" href="a03344.html" title=" " alt="" coords="557,1387,596,1412"/>
+<area shape="poly" title=" " alt="" coords="415,761,427,888,451,1070,467,1164,486,1251,509,1323,534,1374,545,1384,558,1391,556,1396,542,1388,530,1377,504,1325,481,1252,462,1165,445,1071,422,889,410,761"/>
+<area shape="rect" href="a03348.html" title=" " alt="" coords="539,1436,615,1461"/>
+<area shape="poly" title=" " alt="" coords="415,760,426,896,448,1093,464,1195,484,1289,507,1368,520,1399,534,1423,546,1434,542,1438,530,1426,515,1401,502,1370,479,1291,459,1196,443,1094,420,896,410,761"/>
+<area shape="rect" href="a02228.html" title=" " alt="" coords="669,795,747,820"/>
+<area shape="poly" title=" " alt="" coords="615,805,669,805,669,810,615,810"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for DefinedNamespaceMeta:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01962.png" border="0" usemap="#aDefinedNamespaceMeta_coll__map" alt="Collaboration graph"/></div>
+<map name="aDefinedNamespaceMeta_coll__map" id="aDefinedNamespaceMeta_coll__map">
+<area shape="rect" title=" " alt="" coords="118,197,301,223"/>
+<area shape="rect" href="a07531.html" title=" " alt="" coords="5,80,56,105"/>
+<area shape="poly" title=" " alt="" coords="51,114,79,144,113,171,140,185,167,195,165,200,137,189,111,176,75,148,47,118"/>
+<area shape="rect" title=" " alt="" coords="80,80,136,105"/>
+<area shape="poly" title=" " alt="" coords="116,118,125,146,142,172,158,185,177,195,174,200,155,189,138,175,121,148,111,120"/>
+<area shape="rect" href="a01956.html" title=" " alt="" coords="160,80,259,105"/>
+<area shape="poly" title=" " alt="" coords="212,119,212,197,207,197,207,119"/>
+<area shape="rect" title=" " alt="" coords="190,5,229,31"/>
+<area shape="poly" title=" " alt="" coords="212,45,212,80,207,80,207,45"/>
+<area shape="rect" title=" " alt="" coords="283,80,333,105"/>
+<area shape="poly" title=" " alt="" coords="293,118,246,175,223,199,219,195,242,172,289,114"/>
+<area shape="rect" title=" " alt="" coords="413,80,456,105"/>
+<area shape="poly" title=" " alt="" coords="433,120,422,149,402,175,385,184,360,192,301,203,300,197,359,187,383,180,398,171,417,147,428,118"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a28bd3e17d6ce262cd6955588d4e54fc2" id="r_a28bd3e17d6ce262cd6955588d4e54fc2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a28bd3e17d6ce262cd6955588d4e54fc2">__getitem__</a> (cls, str name, default=None)</td></tr>
+<tr class="separator:a28bd3e17d6ce262cd6955588d4e54fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b77d5bab7f4ccc0381b10a744e6983" id="r_ac1b77d5bab7f4ccc0381b10a744e6983"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#ac1b77d5bab7f4ccc0381b10a744e6983">__getattr__</a> (cls, str name)</td></tr>
+<tr class="separator:ac1b77d5bab7f4ccc0381b10a744e6983"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4c676360c9a8fe3ae8f684b2eb52ad5" id="r_aa4c676360c9a8fe3ae8f684b2eb52ad5"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#aa4c676360c9a8fe3ae8f684b2eb52ad5">__repr__</a> (cls)</td></tr>
+<tr class="separator:aa4c676360c9a8fe3ae8f684b2eb52ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12fa8dab2e15d98d28f513f54b535790" id="r_a12fa8dab2e15d98d28f513f54b535790"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a12fa8dab2e15d98d28f513f54b535790">__str__</a> (cls)</td></tr>
+<tr class="separator:a12fa8dab2e15d98d28f513f54b535790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ed58de5b0a58d1878444f2bdf47de38" id="r_a1ed58de5b0a58d1878444f2bdf47de38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02656.html">URIRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a1ed58de5b0a58d1878444f2bdf47de38">__add__</a> (cls, str other)</td></tr>
+<tr class="separator:a1ed58de5b0a58d1878444f2bdf47de38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86dfc5e437087bb61a33fd686b885d26" id="r_a86dfc5e437087bb61a33fd686b885d26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a86dfc5e437087bb61a33fd686b885d26">__contains__</a> (cls, str item)</td></tr>
+<tr class="separator:a86dfc5e437087bb61a33fd686b885d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a183f425786e5c52d3b3cda5f44c628e6" id="r_a183f425786e5c52d3b3cda5f44c628e6"><td class="memItemLeft" align="right" valign="top">Iterable[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a183f425786e5c52d3b3cda5f44c628e6">__dir__</a> (cls)</td></tr>
+<tr class="separator:a183f425786e5c52d3b3cda5f44c628e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19dc27d62b673975236f24392744e95a" id="r_a19dc27d62b673975236f24392744e95a"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a19dc27d62b673975236f24392744e95a">as_jsonld_context</a> (self, str pfx)</td></tr>
+<tr class="separator:a19dc27d62b673975236f24392744e95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a3db4efca1fd1972ae58f265de080b50b" id="r_a3db4efca1fd1972ae58f265de080b50b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a3db4efca1fd1972ae58f265de080b50b">_fail</a></td></tr>
+<tr class="separator:a3db4efca1fd1972ae58f265de080b50b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb316b69dc1a825d7deefe16cab36f92" id="r_afb316b69dc1a825d7deefe16cab36f92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#afb316b69dc1a825d7deefe16cab36f92">_NS</a></td></tr>
+<tr class="separator:afb316b69dc1a825d7deefe16cab36f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:a6233bd674df755f433744351b9d98870" id="r_a6233bd674df755f433744351b9d98870"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01956.html">Namespace</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a6233bd674df755f433744351b9d98870">_NS</a></td></tr>
+<tr class="separator:a6233bd674df755f433744351b9d98870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a6a76998b107aa8dec9810d1abe118" id="r_a95a6a76998b107aa8dec9810d1abe118"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a95a6a76998b107aa8dec9810d1abe118">_warn</a> = True</td></tr>
+<tr class="separator:a95a6a76998b107aa8dec9810d1abe118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe777fdaa7732629ce02b672289fa4f8" id="r_abe777fdaa7732629ce02b672289fa4f8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#abe777fdaa7732629ce02b672289fa4f8">_fail</a> = False</td></tr>
+<tr class="separator:abe777fdaa7732629ce02b672289fa4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa15fb42efff447939ca9d5c5155f1407" id="r_aa15fb42efff447939ca9d5c5155f1407"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#aa15fb42efff447939ca9d5c5155f1407">_extras</a> = []</td></tr>
+<tr class="separator:aa15fb42efff447939ca9d5c5155f1407"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0596c3565f663db0f05f9e9cadd812c0" id="r_a0596c3565f663db0f05f9e9cadd812c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a0596c3565f663db0f05f9e9cadd812c0">_underscore_num</a> = False</td></tr>
+<tr class="separator:a0596c3565f663db0f05f9e9cadd812c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a908fb7ed1109e6cd3d4dc1130cd50be3" id="r_a908fb7ed1109e6cd3d4dc1130cd50be3"><td class="memItemLeft" align="right" valign="top">Tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01964.html#a908fb7ed1109e6cd3d4dc1130cd50be3">__slots__</a> = tuple()</td></tr>
+<tr class="separator:a908fb7ed1109e6cd3d4dc1130cd50be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Utility metaclass for generating URIRefs with a common prefix.</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1ed58de5b0a58d1878444f2bdf47de38" name="a1ed58de5b0a58d1878444f2bdf47de38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ed58de5b0a58d1878444f2bdf47de38">&#9670;&#160;</a></span>__add__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a02656.html">URIRef</a> __add__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>other</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  321</span>    <span class="keyword">def </span>__add__(cls, other: str) -&gt; URIRef:</div>
+<div class="line"><span class="lineno">  322</span>        <span class="keywordflow">return</span> cls.__getitem__(other)</div>
+<div class="line"><span class="lineno">  323</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01964.html#a28bd3e17d6ce262cd6955588d4e54fc2">DefinedNamespaceMeta.__getitem__()</a>, <a class="el" href="a02408.html#a82c6e787f98d54361019372688485a60">CompValue.__getitem__()</a>, <a class="el" href="a02508.html#a69f68244162c15c99152d42180f6c34a">FrozenDict.__getitem__()</a>, <a class="el" href="a01936.html#a650c901c35923a53c4c8417b3549baff">Seq.__getitem__()</a>, <a class="el" href="a01692.html#a437831f5199fa5a71be80e9fb0075316">Collection.__getitem__()</a>, <a class="el" href="a01920.html#a0c07577391874f9ad440e7c45408bb9d">Graph.__getitem__()</a>, <a class="el" href="a02616.html#a0c07577391874f9ad440e7c45408bb9d">Resource.__getitem__()</a>, <a class="el" href="a01716.html#abc1583d3a14b20c6ccc356e053563bfe">Container.__getitem__()</a>, <a class="el" href="a01888.html#abc1583d3a14b20c6ccc356e053563bfe">OWLRDFListProxy.__getitem__()</a>, <a class="el" href="a01872.html#a43e34d8ad46d3427722a5c293b594332">ClassNamespaceFactory.__getitem__()</a>, <a class="el" href="a01956.html#a53f3701e54fecada7f373b5e9cd7f3f3">Namespace.__getitem__()</a>, <a class="el" href="a01972.html#a53f3701e54fecada7f373b5e9cd7f3f3">ClosedNamespace.__getitem__()</a>, <a class="el" href="a02504.html#af425624b4818534f920dd404aaacf015">Bindings.__getitem__()</a>, <a class="el" href="a02740.html#ab81045069651fb793623404f7f9ee697">KeyCaseInsensitiveDict.__getitem__()</a>, <a class="el" href="a02512.html#a5ee88c4ad9c7d04f168a9ded3439b625">FrozenBindings.__getitem__()</a>, <a class="el" href="a02752.html#a0a7ee6815d07850937029b431d1a1e1b">Bindings.__getitem__()</a>, <a class="el" href="a02600.html#a7d3275ffaa1bd3a4a4c6aafcae673a0d">ResultRow.__getitem__()</a>, and <a class="el" href="a02516.html#a63e019e1fb2e1c50c13960823cd84152">QueryContext.__getitem__()</a>.</p>
+
+</div>
+</div>
+<a id="a86dfc5e437087bb61a33fd686b885d26" name="a86dfc5e437087bb61a33fd686b885d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86dfc5e437087bb61a33fd686b885d26">&#9670;&#160;</a></span>__contains__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool __contains__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Determine whether a URI or an individual item belongs to this namespace</pre> <div class="fragment"><div class="line"><span class="lineno">  324</span>    <span class="keyword">def </span>__contains__(cls, item: str) -&gt; bool:</div>
+<div class="line"><span class="lineno">  325</span>        <span class="stringliteral">&quot;&quot;&quot;Determine whether a URI or an individual item belongs to this namespace&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  326</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  327</span>            this_ns = cls._NS</div>
+<div class="line"><span class="lineno">  328</span>        <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  329</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  330</span>        item_str = str(item)</div>
+<div class="line"><span class="lineno">  331</span>        <span class="keywordflow">if</span> item_str.startswith(str(this_ns)):</div>
+<div class="line"><span class="lineno">  332</span>            item_str = item_str[len(str(this_ns)) :]</div>
+<div class="line"><span class="lineno">  333</span>        <span class="keywordflow">return</span> any(</div>
+<div class="line"><span class="lineno">  334</span>            item_str <span class="keywordflow">in</span> get_annotations(c)</div>
+<div class="line"><span class="lineno">  335</span>            <span class="keywordflow">or</span> item_str <span class="keywordflow">in</span> c._extras</div>
+<div class="line"><span class="lineno">  336</span>            <span class="keywordflow">or</span> (cls._underscore_num <span class="keywordflow">and</span> item_str[0] == <span class="stringliteral">&quot;_&quot;</span> <span class="keywordflow">and</span> item_str[1:].isdigit())</div>
+<div class="line"><span class="lineno">  337</span>            <span class="keywordflow">for</span> c <span class="keywordflow">in</span> cls.mro()</div>
+<div class="line"><span class="lineno">  338</span>            <span class="keywordflow">if</span> issubclass(c, DefinedNamespace)</div>
+<div class="line"><span class="lineno">  339</span>        )</div>
+<div class="line"><span class="lineno">  340</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01964.html#a6233bd674df755f433744351b9d98870">DefinedNamespaceMeta._NS</a>, <a class="el" href="a01980.html#afb316b69dc1a825d7deefe16cab36f92">BRICK._NS</a>, <a class="el" href="a01984.html#afb316b69dc1a825d7deefe16cab36f92">CSVW._NS</a>, <a class="el" href="a01988.html#afb316b69dc1a825d7deefe16cab36f92">DC._NS</a>, <a class="el" href="a01992.html#afb316b69dc1a825d7deefe16cab36f92">DCAM._NS</a>, <a class="el" href="a01996.html#afb316b69dc1a825d7deefe16cab36f92">DCAT._NS</a>, <a class="el" href="a02000.html#afb316b69dc1a825d7deefe16cab36f92">DCMITYPE._NS</a>, <a class="el" href="a02004.html#afb316b69dc1a825d7deefe16cab36f92">DCTERMS._NS</a>, <a class="el" href="a02008.html#afb316b69dc1a825d7deefe16cab36f92">DOAP._NS</a>, <a class="el" href="a02012.html#afb316b69dc1a825d7deefe16cab36f92">FOAF._NS</a>, <a class="el" href="a02016.html#afb316b69dc1a825d7deefe16cab36f92">GEO._NS</a>, <a class="el" href="a02020.html#afb316b69dc1a825d7deefe16cab36f92">ODRL2._NS</a>, <a class="el" href="a02024.html#afb316b69dc1a825d7deefe16cab36f92">ORG._NS</a>, <a class="el" href="a02028.html#afb316b69dc1a825d7deefe16cab36f92">OWL._NS</a>, <a class="el" href="a02032.html#afb316b69dc1a825d7deefe16cab36f92">PROF._NS</a>, <a class="el" href="a02040.html#afb316b69dc1a825d7deefe16cab36f92">QB._NS</a>, <a class="el" href="a02044.html#afb316b69dc1a825d7deefe16cab36f92">RDF._NS</a>, <a class="el" href="a02048.html#afb316b69dc1a825d7deefe16cab36f92">RDFS._NS</a>, <a class="el" href="a02052.html#afb316b69dc1a825d7deefe16cab36f92">SDO._NS</a>, <a class="el" href="a02056.html#afb316b69dc1a825d7deefe16cab36f92">SH._NS</a>, <a class="el" href="a02060.html#afb316b69dc1a825d7deefe16cab36f92">SKOS._NS</a>, <a class="el" href="a02064.html#afb316b69dc1a825d7deefe16cab36f92">SOSA._NS</a>, <a class="el" href="a02068.html#afb316b69dc1a825d7deefe16cab36f92">SSN._NS</a>, <a class="el" href="a02072.html#afb316b69dc1a825d7deefe16cab36f92">TIME._NS</a>, <a class="el" href="a02076.html#afb316b69dc1a825d7deefe16cab36f92">VANN._NS</a>, <a class="el" href="a02080.html#afb316b69dc1a825d7deefe16cab36f92">VOID._NS</a>, <a class="el" href="a02084.html#afb316b69dc1a825d7deefe16cab36f92">WGS._NS</a>, <a class="el" href="a02088.html#afb316b69dc1a825d7deefe16cab36f92">XSD._NS</a>, <a class="el" href="a03344.html#afb316b69dc1a825d7deefe16cab36f92">CT._NS</a>, <a class="el" href="a03348.html#afb316b69dc1a825d7deefe16cab36f92">GEOCRS._NS</a>, <a class="el" href="a01964.html#a0596c3565f663db0f05f9e9cadd812c0">DefinedNamespaceMeta._underscore_num</a>, <a class="el" href="a02044.html#a0596c3565f663db0f05f9e9cadd812c0">RDF._underscore_num</a>, and <a class="el" href="a02228.html#a0596c3565f663db0f05f9e9cadd812c0">RDFVOC._underscore_num</a>.</p>
+
+</div>
+</div>
+<a id="a183f425786e5c52d3b3cda5f44c628e6" name="a183f425786e5c52d3b3cda5f44c628e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a183f425786e5c52d3b3cda5f44c628e6">&#9670;&#160;</a></span>__dir__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Iterable[str] __dir__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  341</span>    <span class="keyword">def </span>__dir__(cls) -&gt; Iterable[str]:</div>
+<div class="line"><span class="lineno">  342</span>        attrs = {str(x) <span class="keywordflow">for</span> x <span class="keywordflow">in</span> get_annotations(cls)}</div>
+<div class="line"><span class="lineno">  343</span>        <span class="comment"># Removing these as they should not be considered part of the namespace.</span></div>
+<div class="line"><span class="lineno">  344</span>        attrs.difference_update(_DFNS_RESERVED_ATTRS)</div>
+<div class="line"><span class="lineno">  345</span>        values = {cls[str(x)] <span class="keywordflow">for</span> x <span class="keywordflow">in</span> attrs}</div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordflow">return</span> values</div>
+<div class="line"><span class="lineno">  347</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac1b77d5bab7f4ccc0381b10a744e6983" name="ac1b77d5bab7f4ccc0381b10a744e6983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1b77d5bab7f4ccc0381b10a744e6983">&#9670;&#160;</a></span>__getattr__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__getattr__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  297</span>    <span class="keyword">def </span>__getattr__(cls, name: str):</div>
+<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">if</span> name <span class="keywordflow">in</span> _IGNORED_ATTR_LOOKUP:</div>
+<div class="line"><span class="lineno">  299</span>            <span class="keywordflow">raise</span> AttributeError()</div>
+<div class="line"><span class="lineno">  300</span>        <span class="keywordflow">elif</span> name <span class="keywordflow">in</span> _DFNS_RESERVED_ATTRS:</div>
+<div class="line"><span class="lineno">  301</span>            <span class="keywordflow">raise</span> AttributeError(</div>
+<div class="line"><span class="lineno">  302</span>                f<span class="stringliteral">&quot;DefinedNamespace like object has no attribute {name!r}&quot;</span></div>
+<div class="line"><span class="lineno">  303</span>            )</div>
+<div class="line"><span class="lineno">  304</span>        <span class="keywordflow">elif</span> name.startswith(<span class="stringliteral">&quot;__&quot;</span>):</div>
+<div class="line"><span class="lineno">  305</span>            <span class="keywordflow">return</span> super(DefinedNamespaceMeta, cls).__getattribute__(name)</div>
+<div class="line"><span class="lineno">  306</span>        <span class="keywordflow">return</span> cls.__getitem__(name)</div>
+<div class="line"><span class="lineno">  307</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01964.html#a28bd3e17d6ce262cd6955588d4e54fc2">DefinedNamespaceMeta.__getitem__()</a>, <a class="el" href="a02408.html#a82c6e787f98d54361019372688485a60">CompValue.__getitem__()</a>, <a class="el" href="a02508.html#a69f68244162c15c99152d42180f6c34a">FrozenDict.__getitem__()</a>, <a class="el" href="a01936.html#a650c901c35923a53c4c8417b3549baff">Seq.__getitem__()</a>, <a class="el" href="a01692.html#a437831f5199fa5a71be80e9fb0075316">Collection.__getitem__()</a>, <a class="el" href="a01920.html#a0c07577391874f9ad440e7c45408bb9d">Graph.__getitem__()</a>, <a class="el" href="a02616.html#a0c07577391874f9ad440e7c45408bb9d">Resource.__getitem__()</a>, <a class="el" href="a01716.html#abc1583d3a14b20c6ccc356e053563bfe">Container.__getitem__()</a>, <a class="el" href="a01888.html#abc1583d3a14b20c6ccc356e053563bfe">OWLRDFListProxy.__getitem__()</a>, <a class="el" href="a01872.html#a43e34d8ad46d3427722a5c293b594332">ClassNamespaceFactory.__getitem__()</a>, <a class="el" href="a01956.html#a53f3701e54fecada7f373b5e9cd7f3f3">Namespace.__getitem__()</a>, <a class="el" href="a01972.html#a53f3701e54fecada7f373b5e9cd7f3f3">ClosedNamespace.__getitem__()</a>, <a class="el" href="a02504.html#af425624b4818534f920dd404aaacf015">Bindings.__getitem__()</a>, <a class="el" href="a02740.html#ab81045069651fb793623404f7f9ee697">KeyCaseInsensitiveDict.__getitem__()</a>, <a class="el" href="a02512.html#a5ee88c4ad9c7d04f168a9ded3439b625">FrozenBindings.__getitem__()</a>, <a class="el" href="a02752.html#a0a7ee6815d07850937029b431d1a1e1b">Bindings.__getitem__()</a>, <a class="el" href="a02600.html#a7d3275ffaa1bd3a4a4c6aafcae673a0d">ResultRow.__getitem__()</a>, and <a class="el" href="a02516.html#a63e019e1fb2e1c50c13960823cd84152">QueryContext.__getitem__()</a>.</p>
+
+</div>
+</div>
+<a id="a28bd3e17d6ce262cd6955588d4e54fc2" name="a28bd3e17d6ce262cd6955588d4e54fc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28bd3e17d6ce262cd6955588d4e54fc2">&#9670;&#160;</a></span>__getitem__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a02656.html">URIRef</a> __getitem__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>default</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  278</span>    <span class="keyword">def </span>__getitem__(cls, name: str, default=<span class="keywordtype">None</span>) -&gt; URIRef:</div>
+<div class="line"><span class="lineno">  279</span>        name = str(name)</div>
+<div class="line"><span class="lineno">  280</span> </div>
+<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">if</span> name <span class="keywordflow">in</span> _DFNS_RESERVED_ATTRS:</div>
+<div class="line"><span class="lineno">  282</span>            <span class="keywordflow">raise</span> KeyError(</div>
+<div class="line"><span class="lineno">  283</span>                f<span class="stringliteral">&quot;DefinedNamespace like object has no access item named {name!r}&quot;</span></div>
+<div class="line"><span class="lineno">  284</span>            )</div>
+<div class="line"><span class="lineno">  285</span>        <span class="keywordflow">elif</span> name <span class="keywordflow">in</span> _IGNORED_ATTR_LOOKUP:</div>
+<div class="line"><span class="lineno">  286</span>            <span class="keywordflow">raise</span> KeyError()</div>
+<div class="line"><span class="lineno">  287</span>        <span class="keywordflow">if</span> (cls._warn <span class="keywordflow">or</span> cls._fail) <span class="keywordflow">and</span> name <span class="keywordflow">not</span> <span class="keywordflow">in</span> cls:</div>
+<div class="line"><span class="lineno">  288</span>            <span class="keywordflow">if</span> cls._fail:</div>
+<div class="line"><span class="lineno">  289</span>                <span class="keywordflow">raise</span> AttributeError(f<span class="stringliteral">&quot;term &#39;{name}&#39; not in namespace &#39;{cls._NS}&#39;&quot;</span>)</div>
+<div class="line"><span class="lineno">  290</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  291</span>                warnings.warn(</div>
+<div class="line"><span class="lineno">  292</span>                    f<span class="stringliteral">&quot;Code: {name} is not defined in namespace {cls.__name__}&quot;</span>,</div>
+<div class="line"><span class="lineno">  293</span>                    stacklevel=3,</div>
+<div class="line"><span class="lineno">  294</span>                )</div>
+<div class="line"><span class="lineno">  295</span>        <span class="keywordflow">return</span> cls._NS[name]</div>
+<div class="line"><span class="lineno">  296</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01964.html#a1ed58de5b0a58d1878444f2bdf47de38">DefinedNamespaceMeta.__add__()</a>, and <a class="el" href="a01964.html#ac1b77d5bab7f4ccc0381b10a744e6983">DefinedNamespaceMeta.__getattr__()</a>.</p>
+
+</div>
+</div>
+<a id="aa4c676360c9a8fe3ae8f684b2eb52ad5" name="aa4c676360c9a8fe3ae8f684b2eb52ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4c676360c9a8fe3ae8f684b2eb52ad5">&#9670;&#160;</a></span>__repr__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str __repr__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  308</span>    <span class="keyword">def </span>__repr__(cls) -&gt; str:</div>
+<div class="line"><span class="lineno">  309</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  310</span>            ns_repr = repr(cls._NS)</div>
+<div class="line"><span class="lineno">  311</span>        <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  312</span>            ns_repr = <span class="stringliteral">&quot;&lt;DefinedNamespace&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  313</span>        <span class="keywordflow">return</span> f<span class="stringliteral">&quot;Namespace({ns_repr})&quot;</span></div>
+<div class="line"><span class="lineno">  314</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01964.html#a6233bd674df755f433744351b9d98870">DefinedNamespaceMeta._NS</a>, <a class="el" href="a01980.html#afb316b69dc1a825d7deefe16cab36f92">BRICK._NS</a>, <a class="el" href="a01984.html#afb316b69dc1a825d7deefe16cab36f92">CSVW._NS</a>, <a class="el" href="a01988.html#afb316b69dc1a825d7deefe16cab36f92">DC._NS</a>, <a class="el" href="a01992.html#afb316b69dc1a825d7deefe16cab36f92">DCAM._NS</a>, <a class="el" href="a01996.html#afb316b69dc1a825d7deefe16cab36f92">DCAT._NS</a>, <a class="el" href="a02000.html#afb316b69dc1a825d7deefe16cab36f92">DCMITYPE._NS</a>, <a class="el" href="a02004.html#afb316b69dc1a825d7deefe16cab36f92">DCTERMS._NS</a>, <a class="el" href="a02008.html#afb316b69dc1a825d7deefe16cab36f92">DOAP._NS</a>, <a class="el" href="a02012.html#afb316b69dc1a825d7deefe16cab36f92">FOAF._NS</a>, <a class="el" href="a02016.html#afb316b69dc1a825d7deefe16cab36f92">GEO._NS</a>, <a class="el" href="a02020.html#afb316b69dc1a825d7deefe16cab36f92">ODRL2._NS</a>, <a class="el" href="a02024.html#afb316b69dc1a825d7deefe16cab36f92">ORG._NS</a>, <a class="el" href="a02028.html#afb316b69dc1a825d7deefe16cab36f92">OWL._NS</a>, <a class="el" href="a02032.html#afb316b69dc1a825d7deefe16cab36f92">PROF._NS</a>, <a class="el" href="a02040.html#afb316b69dc1a825d7deefe16cab36f92">QB._NS</a>, <a class="el" href="a02044.html#afb316b69dc1a825d7deefe16cab36f92">RDF._NS</a>, <a class="el" href="a02048.html#afb316b69dc1a825d7deefe16cab36f92">RDFS._NS</a>, <a class="el" href="a02052.html#afb316b69dc1a825d7deefe16cab36f92">SDO._NS</a>, <a class="el" href="a02056.html#afb316b69dc1a825d7deefe16cab36f92">SH._NS</a>, <a class="el" href="a02060.html#afb316b69dc1a825d7deefe16cab36f92">SKOS._NS</a>, <a class="el" href="a02064.html#afb316b69dc1a825d7deefe16cab36f92">SOSA._NS</a>, <a class="el" href="a02068.html#afb316b69dc1a825d7deefe16cab36f92">SSN._NS</a>, <a class="el" href="a02072.html#afb316b69dc1a825d7deefe16cab36f92">TIME._NS</a>, <a class="el" href="a02076.html#afb316b69dc1a825d7deefe16cab36f92">VANN._NS</a>, <a class="el" href="a02080.html#afb316b69dc1a825d7deefe16cab36f92">VOID._NS</a>, <a class="el" href="a02084.html#afb316b69dc1a825d7deefe16cab36f92">WGS._NS</a>, <a class="el" href="a02088.html#afb316b69dc1a825d7deefe16cab36f92">XSD._NS</a>, <a class="el" href="a03344.html#afb316b69dc1a825d7deefe16cab36f92">CT._NS</a>, and <a class="el" href="a03348.html#afb316b69dc1a825d7deefe16cab36f92">GEOCRS._NS</a>.</p>
+
+</div>
+</div>
+<a id="a12fa8dab2e15d98d28f513f54b535790" name="a12fa8dab2e15d98d28f513f54b535790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12fa8dab2e15d98d28f513f54b535790">&#9670;&#160;</a></span>__str__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str __str__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  315</span>    <span class="keyword">def </span>__str__(cls) -&gt; str:</div>
+<div class="line"><span class="lineno">  316</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  317</span>            <span class="keywordflow">return</span> str(cls._NS)</div>
+<div class="line"><span class="lineno">  318</span>        <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  319</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;DefinedNamespace&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  320</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01488.html#a61a1f3a6a4df93d491cd753f617782a2">ReportableRuntimeError.__repr__()</a>, <a class="el" href="a01492.html#a61a1f3a6a4df93d491cd753f617782a2">ShapeLoadError.__repr__()</a>, <a class="el" href="a01496.html#a61a1f3a6a4df93d491cd753f617782a2">RuleLoadError.__repr__()</a>, <a class="el" href="a01500.html#a61a1f3a6a4df93d491cd753f617782a2">ValidationFailure.__repr__()</a>, <a class="el" href="a01512.html#a61a1f3a6a4df93d491cd753f617782a2">ConstraintLoadError.__repr__()</a>, and <a class="el" href="a01516.html#a61a1f3a6a4df93d491cd753f617782a2">ConstraintLoadWarning.__repr__()</a>.</p>
+
+</div>
+</div>
+<a id="a19dc27d62b673975236f24392744e95a" name="a19dc27d62b673975236f24392744e95a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19dc27d62b673975236f24392744e95a">&#9670;&#160;</a></span>as_jsonld_context()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> dict as_jsonld_context </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>pfx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns this DefinedNamespace as a JSON-LD 'context' object</pre> <div class="fragment"><div class="line"><span class="lineno">  348</span>    <span class="keyword">def </span>as_jsonld_context(self, pfx: str) -&gt; dict:  <span class="comment"># noqa: N804</span></div>
+<div class="line"><span class="lineno">  349</span>        <span class="stringliteral">&quot;&quot;&quot;Returns this DefinedNamespace as a JSON-LD &#39;context&#39; object&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  350</span>        terms = {pfx: str(self._NS)}</div>
+<div class="line"><span class="lineno">  351</span>        <span class="keywordflow">for</span> key, term <span class="keywordflow">in</span> get_annotations(self).items():</div>
+<div class="line"><span class="lineno">  352</span>            <span class="keywordflow">if</span> issubclass(term, URIRef):</div>
+<div class="line"><span class="lineno">  353</span>                terms[key] = f<span class="stringliteral">&quot;{pfx}:{key}&quot;</span></div>
+<div class="line"><span class="lineno">  354</span> </div>
+<div class="line"><span class="lineno">  355</span>        <span class="keywordflow">return</span> {<span class="stringliteral">&quot;@context&quot;</span>: terms}</div>
+<div class="line"><span class="lineno">  356</span> </div>
+<div class="line"><span class="lineno">  357</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01964.html#a6233bd674df755f433744351b9d98870">DefinedNamespaceMeta._NS</a>, <a class="el" href="a01980.html#afb316b69dc1a825d7deefe16cab36f92">BRICK._NS</a>, <a class="el" href="a01984.html#afb316b69dc1a825d7deefe16cab36f92">CSVW._NS</a>, <a class="el" href="a01988.html#afb316b69dc1a825d7deefe16cab36f92">DC._NS</a>, <a class="el" href="a01992.html#afb316b69dc1a825d7deefe16cab36f92">DCAM._NS</a>, <a class="el" href="a01996.html#afb316b69dc1a825d7deefe16cab36f92">DCAT._NS</a>, <a class="el" href="a02000.html#afb316b69dc1a825d7deefe16cab36f92">DCMITYPE._NS</a>, <a class="el" href="a02004.html#afb316b69dc1a825d7deefe16cab36f92">DCTERMS._NS</a>, <a class="el" href="a02008.html#afb316b69dc1a825d7deefe16cab36f92">DOAP._NS</a>, <a class="el" href="a02012.html#afb316b69dc1a825d7deefe16cab36f92">FOAF._NS</a>, <a class="el" href="a02016.html#afb316b69dc1a825d7deefe16cab36f92">GEO._NS</a>, <a class="el" href="a02020.html#afb316b69dc1a825d7deefe16cab36f92">ODRL2._NS</a>, <a class="el" href="a02024.html#afb316b69dc1a825d7deefe16cab36f92">ORG._NS</a>, <a class="el" href="a02028.html#afb316b69dc1a825d7deefe16cab36f92">OWL._NS</a>, <a class="el" href="a02032.html#afb316b69dc1a825d7deefe16cab36f92">PROF._NS</a>, <a class="el" href="a02040.html#afb316b69dc1a825d7deefe16cab36f92">QB._NS</a>, <a class="el" href="a02044.html#afb316b69dc1a825d7deefe16cab36f92">RDF._NS</a>, <a class="el" href="a02048.html#afb316b69dc1a825d7deefe16cab36f92">RDFS._NS</a>, <a class="el" href="a02052.html#afb316b69dc1a825d7deefe16cab36f92">SDO._NS</a>, <a class="el" href="a02056.html#afb316b69dc1a825d7deefe16cab36f92">SH._NS</a>, <a class="el" href="a02060.html#afb316b69dc1a825d7deefe16cab36f92">SKOS._NS</a>, <a class="el" href="a02064.html#afb316b69dc1a825d7deefe16cab36f92">SOSA._NS</a>, <a class="el" href="a02068.html#afb316b69dc1a825d7deefe16cab36f92">SSN._NS</a>, <a class="el" href="a02072.html#afb316b69dc1a825d7deefe16cab36f92">TIME._NS</a>, <a class="el" href="a02076.html#afb316b69dc1a825d7deefe16cab36f92">VANN._NS</a>, <a class="el" href="a02080.html#afb316b69dc1a825d7deefe16cab36f92">VOID._NS</a>, <a class="el" href="a02084.html#afb316b69dc1a825d7deefe16cab36f92">WGS._NS</a>, <a class="el" href="a02088.html#afb316b69dc1a825d7deefe16cab36f92">XSD._NS</a>, <a class="el" href="a03344.html#afb316b69dc1a825d7deefe16cab36f92">CT._NS</a>, and <a class="el" href="a03348.html#afb316b69dc1a825d7deefe16cab36f92">GEOCRS._NS</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a908fb7ed1109e6cd3d4dc1130cd50be3" name="a908fb7ed1109e6cd3d4dc1130cd50be3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a908fb7ed1109e6cd3d4dc1130cd50be3">&#9670;&#160;</a></span>__slots__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Tuple __slots__ = tuple()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa15fb42efff447939ca9d5c5155f1407" name="aa15fb42efff447939ca9d5c5155f1407"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa15fb42efff447939ca9d5c5155f1407">&#9670;&#160;</a></span>_extras</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list _extras = []</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe777fdaa7732629ce02b672289fa4f8" name="abe777fdaa7732629ce02b672289fa4f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe777fdaa7732629ce02b672289fa4f8">&#9670;&#160;</a></span>_fail <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool _fail = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3db4efca1fd1972ae58f265de080b50b" name="a3db4efca1fd1972ae58f265de080b50b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3db4efca1fd1972ae58f265de080b50b">&#9670;&#160;</a></span>_fail <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_fail</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6233bd674df755f433744351b9d98870" name="a6233bd674df755f433744351b9d98870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6233bd674df755f433744351b9d98870">&#9670;&#160;</a></span>_NS <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01956.html">Namespace</a> _NS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01964.html#a86dfc5e437087bb61a33fd686b885d26">DefinedNamespaceMeta.__contains__()</a>, <a class="el" href="a01964.html#aa4c676360c9a8fe3ae8f684b2eb52ad5">DefinedNamespaceMeta.__repr__()</a>, and <a class="el" href="a01964.html#a19dc27d62b673975236f24392744e95a">DefinedNamespaceMeta.as_jsonld_context()</a>.</p>
+
+</div>
+</div>
+<a id="afb316b69dc1a825d7deefe16cab36f92" name="afb316b69dc1a825d7deefe16cab36f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb316b69dc1a825d7deefe16cab36f92">&#9670;&#160;</a></span>_NS <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_NS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01964.html#a86dfc5e437087bb61a33fd686b885d26">DefinedNamespaceMeta.__contains__()</a>, <a class="el" href="a01964.html#aa4c676360c9a8fe3ae8f684b2eb52ad5">DefinedNamespaceMeta.__repr__()</a>, and <a class="el" href="a01964.html#a19dc27d62b673975236f24392744e95a">DefinedNamespaceMeta.as_jsonld_context()</a>.</p>
+
+</div>
+</div>
+<a id="a0596c3565f663db0f05f9e9cadd812c0" name="a0596c3565f663db0f05f9e9cadd812c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0596c3565f663db0f05f9e9cadd812c0">&#9670;&#160;</a></span>_underscore_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool _underscore_num = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01964.html#a86dfc5e437087bb61a33fd686b885d26">DefinedNamespaceMeta.__contains__()</a>.</p>
+
+</div>
+</div>
+<a id="a95a6a76998b107aa8dec9810d1abe118" name="a95a6a76998b107aa8dec9810d1abe118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a6a76998b107aa8dec9810d1abe118">&#9670;&#160;</a></span>_warn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool _warn = True</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01016.html">namespace</a></li><li class="navelem"><a class="el" href="a01964.html">DefinedNamespaceMeta</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

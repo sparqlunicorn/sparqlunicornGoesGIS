@@ -1,0 +1,9 @@
+<map id="SPARQLUtils" name="SPARQLUtils">
+<area shape="rect" id="Node000001" title=" " alt="" coords="152,240,255,265"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,52,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="26,44,22,82,23,127,33,174,42,195,56,214,71,224,94,232,152,243,151,248,93,237,68,228,52,218,38,198,28,176,18,128,17,81,21,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="182,5,225,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="206,45,206,240,201,240,201,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="372,5,411,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="398,44,402,82,400,128,389,176,379,198,364,218,346,229,319,238,255,249,255,244,318,232,344,224,360,214,374,195,384,174,395,128,396,82,393,44"/>
+</map>

@@ -1,0 +1,624 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: JSConstraintComponentValidator Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01536.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="a01533.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">JSConstraintComponentValidator Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for JSConstraintComponentValidator:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01535.png" border="0" usemap="#aJSConstraintComponentValidator_inherit__map" alt="Inheritance graph"/></div>
+<map name="aJSConstraintComponentValidator_inherit__map" id="aJSConstraintComponentValidator_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,152,240,177"/>
+<area shape="rect" href="a01540.html" title=" " alt="" coords="21,225,225,265"/>
+<area shape="poly" title=" " alt="" coords="125,191,125,225,120,225,120,191"/>
+<area shape="rect" href="a01572.html" title=" " alt="" coords="70,79,175,104"/>
+<area shape="poly" title=" " alt="" coords="125,118,125,152,120,152,120,118"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="91,5,154,31"/>
+<area shape="poly" title=" " alt="" coords="125,44,125,79,120,79,120,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for JSConstraintComponentValidator:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01534.png" border="0" usemap="#aJSConstraintComponentValidator_coll__map" alt="Collaboration graph"/></div>
+<map name="aJSConstraintComponentValidator_coll__map" id="aJSConstraintComponentValidator_coll__map">
+<area shape="rect" title=" " alt="" coords="47,181,282,207"/>
+<area shape="rect" href="a01572.html" title=" " alt="" coords="11,93,116,119"/>
+<area shape="poly" title=" " alt="" coords="89,126,152,179,149,183,86,130"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,5,68,31"/>
+<area shape="poly" title=" " alt="" coords="47,43,62,92,57,94,42,44"/>
+<area shape="rect" title=" " alt="" coords="115,5,169,31"/>
+<area shape="poly" title=" " alt="" coords="148,44,166,181,161,181,143,45"/>
+<area shape="poly" title=" " alt="" coords="104,39,84,56,73,75,68,94,63,92,69,73,80,53,101,35"/>
+<area shape="rect" title=" " alt="" coords="253,93,300,119"/>
+<area shape="poly" title=" " alt="" coords="252,129,182,183,178,179,249,125"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:afaaa2fe26be6b862adcd24832d04f7f5" id="r_afaaa2fe26be6b862adcd24832d04f7f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#afaaa2fe26be6b862adcd24832d04f7f5">__new__</a> (cls, '<a class="el" href="a01664.html">ShapesGraph</a>' shacl_graph, <a class="el" href="a01572.html#ae0682e96cacac1e6c208357a99dbd6d0">node</a>, *args, **kwargs)</td></tr>
+<tr class="separator:afaaa2fe26be6b862adcd24832d04f7f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a417545a929dddee101a0de8617840327" id="r_a417545a929dddee101a0de8617840327"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#a417545a929dddee101a0de8617840327">__init__</a> (self, '<a class="el" href="a01664.html">ShapesGraph</a>' shacl_graph, <a class="el" href="a01572.html#ae0682e96cacac1e6c208357a99dbd6d0">node</a>, *args, **kwargs)</td></tr>
+<tr class="separator:a417545a929dddee101a0de8617840327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7e02af95e534564aee5aa0858163bc4" id="r_af7e02af95e534564aee5aa0858163bc4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#af7e02af95e534564aee5aa0858163bc4">make_messages</a> (self, args_map=None)</td></tr>
+<tr class="separator:af7e02af95e534564aee5aa0858163bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c7413326ad27a74fa0096d9971b1f0a" id="r_a4c7413326ad27a74fa0096d9971b1f0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#a4c7413326ad27a74fa0096d9971b1f0a">validate</a> (self, f, value_nodes, path, data_graph, param_bind_vals, new_bind_vals=None)</td></tr>
+<tr class="separator:a4c7413326ad27a74fa0096d9971b1f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc407bf7b1a21201533f9219237b2713" id="r_afc407bf7b1a21201533f9219237b2713"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01528.html">BoundShapeJSValidatorComponent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#afc407bf7b1a21201533f9219237b2713">apply_to_shape_via_constraint</a> (self, constraint, shape, **kwargs)</td></tr>
+<tr class="separator:afc407bf7b1a21201533f9219237b2713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a7048605d09bb21159ccaab63402dc4e5" id="r_a7048605d09bb21159ccaab63402dc4e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#a7048605d09bb21159ccaab63402dc4e5">messages</a></td></tr>
+<tr class="separator:a7048605d09bb21159ccaab63402dc4e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ce8731102fbcdd4519448ca2a597808" id="r_a3ce8731102fbcdd4519448ca2a597808"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#a3ce8731102fbcdd4519448ca2a597808">initialised</a></td></tr>
+<tr class="separator:a3ce8731102fbcdd4519448ca2a597808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a8694e0cb02d3155856b62267d27af6da" id="r_a8694e0cb02d3155856b62267d27af6da"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#a8694e0cb02d3155856b62267d27af6da">validator_cache</a> = {}</td></tr>
+<tr class="separator:a8694e0cb02d3155856b62267d27af6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aef04051147f1d02390e4e37bc7a09417" id="r_aef04051147f1d02390e4e37bc7a09417"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01536.html#aef04051147f1d02390e4e37bc7a09417">__slots__</a> = (&quot;messages&quot;, &quot;initialised&quot;)</td></tr>
+<tr class="separator:aef04051147f1d02390e4e37bc7a09417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a417545a929dddee101a0de8617840327" name="a417545a929dddee101a0de8617840327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a417545a929dddee101a0de8617840327">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a01664.html">ShapesGraph</a>'&#160;</td>
+          <td class="paramname"><em>shacl_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">*&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01572.html#a02a599220346ca70923269b981bf4525">JSExecutable</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  216</span>    <span class="keyword">def </span>__init__(self, shacl_graph: <span class="stringliteral">&#39;ShapesGraph&#39;</span>, node, *args, **kwargs):</div>
+<div class="line"><span class="lineno">  217</span>        initialised = getattr(self, <span class="stringliteral">&#39;initialised&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  218</span>        <span class="keywordflow">if</span> initialised:</div>
+<div class="line"><span class="lineno">  219</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  220</span>        super(JSConstraintComponentValidator, self).__init__(shacl_graph, node)</div>
+<div class="line"><span class="lineno">  221</span>        sg = shacl_graph.graph</div>
+<div class="line"><span class="lineno">  222</span>        message_nodes = set(sg.objects(node, SH_message))</div>
+<div class="line"><span class="lineno">  223</span>        <span class="keywordflow">for</span> m <span class="keywordflow">in</span> message_nodes:</div>
+<div class="line"><span class="lineno">  224</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> (isinstance(m, Literal) <span class="keywordflow">and</span> isinstance(m.value, str)):</div>
+<div class="line"><span class="lineno">  225</span>                <span class="comment"># TODO:coverage: No test for when SPARQL-based constraint is RDF Literal is is not of type string</span></div>
+<div class="line"><span class="lineno">  226</span>                <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  227</span>                    <span class="stringliteral">&quot;Validator sh:message must be an RDF Literal of type xsd:string.&quot;</span>,</div>
+<div class="line"><span class="lineno">  228</span>                    <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#ConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  229</span>                )</div>
+<div class="line"><span class="lineno">  230</span>        self.messages = message_nodes</div>
+<div class="line"><span class="lineno">  231</span>        self.initialised = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  232</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01536.html#a417545a929dddee101a0de8617840327">JSConstraintComponentValidator.__init__()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01536.html#a417545a929dddee101a0de8617840327">JSConstraintComponentValidator.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afaaa2fe26be6b862adcd24832d04f7f5" name="afaaa2fe26be6b862adcd24832d04f7f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaaa2fe26be6b862adcd24832d04f7f5">&#9670;&#160;</a></span>__new__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__new__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a01664.html">ShapesGraph</a>'&#160;</td>
+          <td class="paramname"><em>shacl_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">*&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01572.html#afad224801a4acb0e687b8ed5b6ecbcf1">JSExecutable</a>.</p>
+
+<p>Reimplemented in <a class="el" href="a01540.html#afaaa2fe26be6b862adcd24832d04f7f5">JSConstraintComponentPathValidator</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  207</span>    <span class="keyword">def </span>__new__(cls, shacl_graph: <span class="stringliteral">&#39;ShapesGraph&#39;</span>, node, *args, **kwargs):</div>
+<div class="line"><span class="lineno">  208</span>        cache_key = (id(shacl_graph.graph), str(node))</div>
+<div class="line"><span class="lineno">  209</span>        found_in_cache = cls.validator_cache.get(cache_key, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">if</span> found_in_cache:</div>
+<div class="line"><span class="lineno">  211</span>            <span class="keywordflow">return</span> found_in_cache</div>
+<div class="line"><span class="lineno">  212</span>        self = super(JSConstraintComponentValidator, cls).__new__(cls, shacl_graph, node)</div>
+<div class="line"><span class="lineno">  213</span>        cls.validator_cache[cache_key] = self</div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">return</span> self</div>
+<div class="line"><span class="lineno">  215</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01536.html#afaaa2fe26be6b862adcd24832d04f7f5">JSConstraintComponentValidator.__new__()</a>, <a class="el" href="a01468.html#a8694e0cb02d3155856b62267d27af6da">SPARQLConstraintComponentValidator.validator_cache</a>, and <a class="el" href="a01536.html#a8694e0cb02d3155856b62267d27af6da">JSConstraintComponentValidator.validator_cache</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01536.html#afaaa2fe26be6b862adcd24832d04f7f5">JSConstraintComponentValidator.__new__()</a>.</p>
+
+</div>
+</div>
+<a id="afc407bf7b1a21201533f9219237b2713" name="afc407bf7b1a21201533f9219237b2713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc407bf7b1a21201533f9219237b2713">&#9670;&#160;</a></span>apply_to_shape_via_constraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a01528.html">BoundShapeJSValidatorComponent</a> apply_to_shape_via_constraint </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>constraint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Create a new Custom Constraint (BoundShapeValidatorComponent)
+:param constraint:
+:type constraint: JSConstraintComponent
+:param shape:
+:type shape: pyshacl.shape.Shape
+:param kwargs:
+:return:
+:rtype: BoundShapeJSValidatorComponent
+</pre> <div class="fragment"><div class="line"><span class="lineno">  273</span>    <span class="keyword">def </span>apply_to_shape_via_constraint(self, constraint, shape, **kwargs) -&gt; BoundShapeJSValidatorComponent:</div>
+<div class="line"><span class="lineno">  274</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  275</span><span class="stringliteral">        Create a new Custom Constraint (BoundShapeValidatorComponent)</span></div>
+<div class="line"><span class="lineno">  276</span><span class="stringliteral">        :param constraint:</span></div>
+<div class="line"><span class="lineno">  277</span><span class="stringliteral">        :type constraint: JSConstraintComponent</span></div>
+<div class="line"><span class="lineno">  278</span><span class="stringliteral">        :param shape:</span></div>
+<div class="line"><span class="lineno">  279</span><span class="stringliteral">        :type shape: pyshacl.shape.Shape</span></div>
+<div class="line"><span class="lineno">  280</span><span class="stringliteral">        :param kwargs:</span></div>
+<div class="line"><span class="lineno">  281</span><span class="stringliteral">        :return:</span></div>
+<div class="line"><span class="lineno">  282</span><span class="stringliteral">        :rtype: BoundShapeJSValidatorComponent</span></div>
+<div class="line"><span class="lineno">  283</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  284</span>        <span class="keywordflow">return</span> BoundShapeJSValidatorComponent(constraint, shape, self)</div>
+<div class="line"><span class="lineno">  285</span> </div>
+<div class="line"><span class="lineno">  286</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af7e02af95e534564aee5aa0858163bc4" name="af7e02af95e534564aee5aa0858163bc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7e02af95e534564aee5aa0858163bc4">&#9670;&#160;</a></span>make_messages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">make_messages </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>args_map</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  233</span>    <span class="keyword">def </span>make_messages(self, args_map=None):</div>
+<div class="line"><span class="lineno">  234</span>        <span class="keywordflow">if</span> args_map <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  235</span>            <span class="keywordflow">return</span> self.messages</div>
+<div class="line"><span class="lineno">  236</span>        ret_msgs = []</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordflow">for</span> m <span class="keywordflow">in</span> self.messages:</div>
+<div class="line"><span class="lineno">  238</span>            this_m = m.value[:]</div>
+<div class="line"><span class="lineno">  239</span>            <span class="keywordflow">for</span> a, v <span class="keywordflow">in</span> args_map.items():</div>
+<div class="line"><span class="lineno">  240</span>                replace_me = <span class="stringliteral">&quot;{$&quot;</span> + str(a) + <span class="stringliteral">&quot;}&quot;</span></div>
+<div class="line"><span class="lineno">  241</span>                <span class="keywordflow">if</span> isinstance(v, Literal):</div>
+<div class="line"><span class="lineno">  242</span>                    v = v.value</div>
+<div class="line"><span class="lineno">  243</span>                this_m = this_m.replace(replace_me, str(v))</div>
+<div class="line"><span class="lineno">  244</span>            ret_msgs.append(Literal(this_m))</div>
+<div class="line"><span class="lineno">  245</span>        <span class="keywordflow">return</span> ret_msgs</div>
+<div class="line"><span class="lineno">  246</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01468.html#a7048605d09bb21159ccaab63402dc4e5">SPARQLConstraintComponentValidator.messages</a>, <a class="el" href="a01480.html#a1801d0276fdb2227fced670c1e83c941">SPARQLConstraintComponent.messages()</a>, <a class="el" href="a01520.html#a7048605d09bb21159ccaab63402dc4e5">JSConstraintImpl.messages</a>, <a class="el" href="a01536.html#a7048605d09bb21159ccaab63402dc4e5">JSConstraintComponentValidator.messages</a>, and <a class="el" href="a01600.html#a1801d0276fdb2227fced670c1e83c941">SPARQLQueryHelper.messages()</a>.</p>
+
+</div>
+</div>
+<a id="a4c7413326ad27a74fa0096d9971b1f0a" name="a4c7413326ad27a74fa0096d9971b1f0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c7413326ad27a74fa0096d9971b1f0a">&#9670;&#160;</a></span>validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>value_nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>data_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>param_bind_vals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>new_bind_vals</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param f:
+:param value_nodes:
+:param path:
+:param data_graph:
+:type data_graph: rdflib.Graph
+:param new_bind_vals:
+:return:
+</pre> 
+<p>Reimplemented in <a class="el" href="a01540.html#a4c7413326ad27a74fa0096d9971b1f0a">JSConstraintComponentPathValidator</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  247</span>    <span class="keyword">def </span>validate(self, f, value_nodes, path, data_graph, param_bind_vals, new_bind_vals=None):</div>
+<div class="line"><span class="lineno">  248</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  249</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  250</span><span class="stringliteral">        :param f:</span></div>
+<div class="line"><span class="lineno">  251</span><span class="stringliteral">        :param value_nodes:</span></div>
+<div class="line"><span class="lineno">  252</span><span class="stringliteral">        :param path:</span></div>
+<div class="line"><span class="lineno">  253</span><span class="stringliteral">        :param data_graph:</span></div>
+<div class="line"><span class="lineno">  254</span><span class="stringliteral">        :type data_graph: rdflib.Graph</span></div>
+<div class="line"><span class="lineno">  255</span><span class="stringliteral">        :param new_bind_vals:</span></div>
+<div class="line"><span class="lineno">  256</span><span class="stringliteral">        :return:</span></div>
+<div class="line"><span class="lineno">  257</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  258</span>        new_bind_vals = new_bind_vals <span class="keywordflow">or</span> {}</div>
+<div class="line"><span class="lineno">  259</span>        bind_vals = param_bind_vals.copy()</div>
+<div class="line"><span class="lineno">  260</span>        bind_vals.update(new_bind_vals)</div>
+<div class="line"><span class="lineno">  261</span>        results = []</div>
+<div class="line"><span class="lineno">  262</span>        <span class="keywordflow">for</span> v <span class="keywordflow">in</span> value_nodes:</div>
+<div class="line"><span class="lineno">  263</span>            args_map = bind_vals.copy()</div>
+<div class="line"><span class="lineno">  264</span>            args_map.update({<span class="stringliteral">&#39;this&#39;</span>: f, <span class="stringliteral">&#39;value&#39;</span>: v})</div>
+<div class="line"><span class="lineno">  265</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  266</span>                result_dict = self.execute(data_graph, args_map)</div>
+<div class="line"><span class="lineno">  267</span>                results.append((v, result_dict[<span class="stringliteral">&#39;_result&#39;</span>]))</div>
+<div class="line"><span class="lineno">  268</span>            <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  269</span>                print(e)</div>
+<div class="line"><span class="lineno">  270</span>                <span class="keywordflow">raise</span></div>
+<div class="line"><span class="lineno">  271</span>        <span class="keywordflow">return</span> results</div>
+<div class="line"><span class="lineno">  272</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01572.html#a6cabc48260bd827ffe1b7a03cfaea42f">JSExecutable.execute()</a>, <a class="el" href="a01568.html#a34c539c03ed83d97461c9ec1536ba7bf">JSFunction.execute()</a>, <a class="el" href="a01592.html#a2ef5e84ca7e5154b43fbaf5bce7fcb03">SHACLFunction.execute</a>, <a class="el" href="a01592.html#a34c539c03ed83d97461c9ec1536ba7bf">SHACLFunction.execute()</a>, <a class="el" href="a01596.html#a34c539c03ed83d97461c9ec1536ba7bf">SPARQLFunction.execute()</a>, and <a class="el" href="a02020.html#afb87ba44177986bf887e7b37fe692e66">ODRL2.execute</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aef04051147f1d02390e4e37bc7a09417" name="aef04051147f1d02390e4e37bc7a09417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef04051147f1d02390e4e37bc7a09417">&#9670;&#160;</a></span>__slots__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple __slots__ = (&quot;messages&quot;, &quot;initialised&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ce8731102fbcdd4519448ca2a597808" name="a3ce8731102fbcdd4519448ca2a597808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ce8731102fbcdd4519448ca2a597808">&#9670;&#160;</a></span>initialised</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">initialised</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7048605d09bb21159ccaab63402dc4e5" name="a7048605d09bb21159ccaab63402dc4e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7048605d09bb21159ccaab63402dc4e5">&#9670;&#160;</a></span>messages</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">messages</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01528.html#a4ccaec4dbecd960eb95fafc634683a03">BoundShapeJSValidatorComponent.evaluate()</a>, <a class="el" href="a01520.html#af7e02af95e534564aee5aa0858163bc4">JSConstraintImpl.make_messages()</a>, <a class="el" href="a01536.html#af7e02af95e534564aee5aa0858163bc4">JSConstraintComponentValidator.make_messages()</a>, and <a class="el" href="a01468.html#ad34402888876891a6fe521d108fdc135">SPARQLConstraintComponentValidator.make_messages()</a>.</p>
+
+</div>
+</div>
+<a id="a8694e0cb02d3155856b62267d27af6da" name="a8694e0cb02d3155856b62267d27af6da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8694e0cb02d3155856b62267d27af6da">&#9670;&#160;</a></span>validator_cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict validator_cache = {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01468.html#afaaa2fe26be6b862adcd24832d04f7f5">SPARQLConstraintComponentValidator.__new__()</a>, and <a class="el" href="a01536.html#afaaa2fe26be6b862adcd24832d04f7f5">JSConstraintComponentValidator.__new__()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00952.html">extras</a></li><li class="navelem"><a class="el" href="a00953.html">js</a></li><li class="navelem"><a class="el" href="a00955.html">constraint_component</a></li><li class="navelem"><a class="el" href="a01536.html">JSConstraintComponentValidator</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

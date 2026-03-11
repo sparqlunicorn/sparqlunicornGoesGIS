@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: notation3.py File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00317.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">notation3.py File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02172.html">sfloat</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02176.html">SinkParser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02180.html">BadSyntax</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02184.html">Formula</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02188.html">RDFSink</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02192.html">TurtleParser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02196.html">N3Parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00993" id="r_a00993"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00993.html">rdflib</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01048" id="r_a01048"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01048.html">rdflib.plugins</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01049" id="r_a01049"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01049.html">rdflib.plugins.parsers</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01052" id="r_a01052"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html">rdflib.plugins.parsers.notation3</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ac4f088f79377e1d0743867a47c800f20" id="r_ac4f088f79377e1d0743867a47c800f20"><td class="memItemLeft" align="right" valign="top">Tuple[str, str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac4f088f79377e1d0743867a47c800f20">splitFragP</a> (str uriref, int punc=0)</td></tr>
+<tr class="separator:ac4f088f79377e1d0743867a47c800f20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a414e750783e02100f6006a02c8ebd69f" id="r_a414e750783e02100f6006a02c8ebd69f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a414e750783e02100f6006a02c8ebd69f">join</a> (str here, str there)</td></tr>
+<tr class="separator:a414e750783e02100f6006a02c8ebd69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2708b26279fa9408b40fd11e108324f7" id="r_a2708b26279fa9408b40fd11e108324f7"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2708b26279fa9408b40fd11e108324f7">base</a> ()</td></tr>
+<tr class="separator:a2708b26279fa9408b40fd11e108324f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a98cc4a3a1a7bdfd05c6e695bff1adb" id="r_a2a98cc4a3a1a7bdfd05c6e695bff1adb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2a98cc4a3a1a7bdfd05c6e695bff1adb">_fixslash</a> (str s)</td></tr>
+<tr class="separator:a2a98cc4a3a1a7bdfd05c6e695bff1adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a529fe88a7e38eb77e74064f4050b0ea1" id="r_a529fe88a7e38eb77e74064f4050b0ea1"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a529fe88a7e38eb77e74064f4050b0ea1">runNamespace</a> ()</td></tr>
+<tr class="separator:a529fe88a7e38eb77e74064f4050b0ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad161f76f3f289de59d832669a58a902c" id="r_ad161f76f3f289de59d832669a58a902c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad161f76f3f289de59d832669a58a902c">uniqueURI</a> ()</td></tr>
+<tr class="separator:ad161f76f3f289de59d832669a58a902c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e6f96b2bc2835fbe2af04443c0668b5" id="r_a1e6f96b2bc2835fbe2af04443c0668b5"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a1e6f96b2bc2835fbe2af04443c0668b5">BecauseOfData</a> (*Any args, **Any kargs)</td></tr>
+<tr class="separator:a1e6f96b2bc2835fbe2af04443c0668b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab675e43b09866d514795d6a755df694b" id="r_ab675e43b09866d514795d6a755df694b"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab675e43b09866d514795d6a755df694b">becauseSubexpression</a> (*Any args, **Any kargs)</td></tr>
+<tr class="separator:ab675e43b09866d514795d6a755df694b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d17c43ba97021c225a2cdc636f71ba8" id="r_a8d17c43ba97021c225a2cdc636f71ba8"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8d17c43ba97021c225a2cdc636f71ba8">unicodeExpand</a> (Match m)</td></tr>
+<tr class="separator:a8d17c43ba97021c225a2cdc636f71ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46cfb58ff76ee4d7d9e9aabe13bd3c37" id="r_a46cfb58ff76ee4d7d9e9aabe13bd3c37"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a46cfb58ff76ee4d7d9e9aabe13bd3c37">hexify</a> (str ustr)</td></tr>
+<tr class="separator:a46cfb58ff76ee4d7d9e9aabe13bd3c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa4a022e6ddacd362b83964da5cc5d044" id="r_aa4a022e6ddacd362b83964da5cc5d044"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa4a022e6ddacd362b83964da5cc5d044">__all__</a></td></tr>
+<tr class="separator:aa4a022e6ddacd362b83964da5cc5d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d16dc4edd1292df4a2c8cd1da2a7201" id="r_a9d16dc4edd1292df4a2c8cd1da2a7201"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a> = TypeVar(&quot;_AnyT&quot;)</td></tr>
+<tr class="separator:a9d16dc4edd1292df4a2c8cd1da2a7201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa970913ef35dd4acb06841d80b55b568" id="r_aa970913ef35dd4acb06841d80b55b568"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa970913ef35dd4acb06841d80b55b568">_StrT</a> = TypeVar(&quot;_StrT&quot;, bound=str)</td></tr>
+<tr class="separator:aa970913ef35dd4acb06841d80b55b568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95792d1b79c1d5d98f7e3e96689fda4" id="r_ab95792d1b79c1d5d98f7e3e96689fda4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab95792d1b79c1d5d98f7e3e96689fda4">CONTEXT</a> = 0</td></tr>
+<tr class="separator:ab95792d1b79c1d5d98f7e3e96689fda4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b8be3749831f61ba58d6dd0fc59b575" id="r_a2b8be3749831f61ba58d6dd0fc59b575"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a> = 1</td></tr>
+<tr class="separator:a2b8be3749831f61ba58d6dd0fc59b575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78a252119ca41c535bfa0ca135a00883" id="r_a78a252119ca41c535bfa0ca135a00883"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a> = 2</td></tr>
+<tr class="separator:a78a252119ca41c535bfa0ca135a00883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69e77f59990e71f7990fc533f421de06" id="r_a69e77f59990e71f7990fc533f421de06"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a> = 3</td></tr>
+<tr class="separator:a69e77f59990e71f7990fc533f421de06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115b64be0ee629748f7fb5043fd47dca" id="r_a115b64be0ee629748f7fb5043fd47dca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a115b64be0ee629748f7fb5043fd47dca">PARTS</a> = <a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a>, <a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a>, <a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a></td></tr>
+<tr class="separator:a115b64be0ee629748f7fb5043fd47dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c26fc7c9f381dbc7c158cbbaf3e2fef" id="r_a8c26fc7c9f381dbc7c158cbbaf3e2fef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8c26fc7c9f381dbc7c158cbbaf3e2fef">ALL4</a> = <a class="el" href="a01052.html#ab95792d1b79c1d5d98f7e3e96689fda4">CONTEXT</a>, <a class="el" href="a01052.html#a2b8be3749831f61ba58d6dd0fc59b575">PRED</a>, <a class="el" href="a01052.html#a78a252119ca41c535bfa0ca135a00883">SUBJ</a>, <a class="el" href="a01052.html#a69e77f59990e71f7990fc533f421de06">OBJ</a></td></tr>
+<tr class="separator:a8c26fc7c9f381dbc7c158cbbaf3e2fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ee24f92fccd2dceb58d5bfcdc6d6fa2" id="r_a9ee24f92fccd2dceb58d5bfcdc6d6fa2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a> = 0</td></tr>
+<tr class="separator:a9ee24f92fccd2dceb58d5bfcdc6d6fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ac9ce4a35be21e25de7f940100d540b" id="r_a7ac9ce4a35be21e25de7f940100d540b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a7ac9ce4a35be21e25de7f940100d540b">FORMULA</a> = 1</td></tr>
+<tr class="separator:a7ac9ce4a35be21e25de7f940100d540b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc11a07ed224da116609dabeacff3337" id="r_abc11a07ed224da116609dabeacff3337"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#abc11a07ed224da116609dabeacff3337">LITERAL</a> = 2</td></tr>
+<tr class="separator:abc11a07ed224da116609dabeacff3337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5e7b23f2d2d0efa7066f06ad6759ac3" id="r_ad5e7b23f2d2d0efa7066f06ad6759ac3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad5e7b23f2d2d0efa7066f06ad6759ac3">LITERAL_DT</a> = 21</td></tr>
+<tr class="separator:ad5e7b23f2d2d0efa7066f06ad6759ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07156b06106d120fc5f79671c0652ee2" id="r_a07156b06106d120fc5f79671c0652ee2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a07156b06106d120fc5f79671c0652ee2">LITERAL_LANG</a> = 22</td></tr>
+<tr class="separator:a07156b06106d120fc5f79671c0652ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd319e7057ad009176135a5d9cd8d58a" id="r_afd319e7057ad009176135a5d9cd8d58a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#afd319e7057ad009176135a5d9cd8d58a">ANONYMOUS</a> = 3</td></tr>
+<tr class="separator:afd319e7057ad009176135a5d9cd8d58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5589e7cc81616eb7d6b6717ec2ad96" id="r_a4e5589e7cc81616eb7d6b6717ec2ad96"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4e5589e7cc81616eb7d6b6717ec2ad96">XMLLITERAL</a> = 25</td></tr>
+<tr class="separator:a4e5589e7cc81616eb7d6b6717ec2ad96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a173d285a6184e9e81e22835786873823" id="r_a173d285a6184e9e81e22835786873823"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> = &quot;http://www.w3.org/2000/10/swap/log#&quot;</td></tr>
+<tr class="separator:a173d285a6184e9e81e22835786873823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae017e880c63304e5eccf321dbe15370e" id="r_ae017e880c63304e5eccf321dbe15370e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ae017e880c63304e5eccf321dbe15370e">NODE_MERGE_URI</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;is&quot;</td></tr>
+<tr class="separator:ae017e880c63304e5eccf321dbe15370e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ccce4ee2e27fc5483db05985b3486df" id="r_a7ccce4ee2e27fc5483db05985b3486df"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a7ccce4ee2e27fc5483db05985b3486df">forSomeSym</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;forSome&quot;</td></tr>
+<tr class="separator:a7ccce4ee2e27fc5483db05985b3486df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7b7a4abe8b9893723e66488ee6f8423" id="r_ae7b7a4abe8b9893723e66488ee6f8423"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ae7b7a4abe8b9893723e66488ee6f8423">forAllSym</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;forAll&quot;</td></tr>
+<tr class="separator:ae7b7a4abe8b9893723e66488ee6f8423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74b8cd401a21b954281559194188155a" id="r_a74b8cd401a21b954281559194188155a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a74b8cd401a21b954281559194188155a">RDF_type_URI</a> = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</td></tr>
+<tr class="separator:a74b8cd401a21b954281559194188155a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3e175f0573f6c2243dc01bb8a63e43a" id="r_ad3e175f0573f6c2243dc01bb8a63e43a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad3e175f0573f6c2243dc01bb8a63e43a">RDF_NS_URI</a> = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</td></tr>
+<tr class="separator:ad3e175f0573f6c2243dc01bb8a63e43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b4e2d1cabaa8b33cb0a475af66d8b2" id="r_a69b4e2d1cabaa8b33cb0a475af66d8b2"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a69b4e2d1cabaa8b33cb0a475af66d8b2">OWL_NS</a> = &quot;http://www.w3.org/2002/07/owl#&quot;</td></tr>
+<tr class="separator:a69b4e2d1cabaa8b33cb0a475af66d8b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59c55c84faf40742053cb023383eb4db" id="r_a59c55c84faf40742053cb023383eb4db"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a59c55c84faf40742053cb023383eb4db">DAML_sameAs_URI</a> = <a class="el" href="a01052.html#a69b4e2d1cabaa8b33cb0a475af66d8b2">OWL_NS</a> + &quot;sameAs&quot;</td></tr>
+<tr class="separator:a59c55c84faf40742053cb023383eb4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a017bbb53052b43cfd024910e058e7ffb" id="r_a017bbb53052b43cfd024910e058e7ffb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a017bbb53052b43cfd024910e058e7ffb">parsesTo_URI</a> = <a class="el" href="a01052.html#a173d285a6184e9e81e22835786873823">Logic_NS</a> + &quot;parsesTo&quot;</td></tr>
+<tr class="separator:a017bbb53052b43cfd024910e058e7ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeb85fdfec1fa5f5045dce8ad3b8c486" id="r_aaeb85fdfec1fa5f5045dce8ad3b8c486"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aaeb85fdfec1fa5f5045dce8ad3b8c486">RDF_spec</a> = &quot;http://www.w3.org/TR/REC-rdf-syntax/&quot;</td></tr>
+<tr class="separator:aaeb85fdfec1fa5f5045dce8ad3b8c486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ad76d50789093590456b69035c991c" id="r_a18ad76d50789093590456b69035c991c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> = <a class="el" href="a01052.html#ad3e175f0573f6c2243dc01bb8a63e43a">RDF_NS_URI</a></td></tr>
+<tr class="separator:a18ad76d50789093590456b69035c991c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a272f1d9c41225330c80ed36dd4c974fb" id="r_a272f1d9c41225330c80ed36dd4c974fb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a272f1d9c41225330c80ed36dd4c974fb">_Old_Logic_NS</a> = &quot;http://www.w3.org/2000/10/swap/log.n3#&quot;</td></tr>
+<tr class="separator:a272f1d9c41225330c80ed36dd4c974fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad62c47be22ecabef48b688e811c19335" id="r_ad62c47be22ecabef48b688e811c19335"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad62c47be22ecabef48b688e811c19335">N3_first</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;first&quot;)</td></tr>
+<tr class="separator:ad62c47be22ecabef48b688e811c19335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6974ad5ab118931903c60ea7320b232a" id="r_a6974ad5ab118931903c60ea7320b232a"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6974ad5ab118931903c60ea7320b232a">N3_rest</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;rest&quot;)</td></tr>
+<tr class="separator:a6974ad5ab118931903c60ea7320b232a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5a320a570db85b861d08a7bd69a361d" id="r_aa5a320a570db85b861d08a7bd69a361d"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa5a320a570db85b861d08a7bd69a361d">N3_li</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;li&quot;)</td></tr>
+<tr class="separator:aa5a320a570db85b861d08a7bd69a361d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823fadd3b93c2b682167fc4b10143a5b" id="r_a823fadd3b93c2b682167fc4b10143a5b"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a823fadd3b93c2b682167fc4b10143a5b">N3_nil</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;nil&quot;)</td></tr>
+<tr class="separator:a823fadd3b93c2b682167fc4b10143a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24628d7aae4bc3d96292b9f231176ba4" id="r_a24628d7aae4bc3d96292b9f231176ba4"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a24628d7aae4bc3d96292b9f231176ba4">N3_List</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;List&quot;)</td></tr>
+<tr class="separator:a24628d7aae4bc3d96292b9f231176ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad225176a77d1944b6bd2d7bd17f16c34" id="r_ad225176a77d1944b6bd2d7bd17f16c34"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad225176a77d1944b6bd2d7bd17f16c34">N3_Empty</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a18ad76d50789093590456b69035c991c">List_NS</a> + &quot;Empty&quot;)</td></tr>
+<tr class="separator:ad225176a77d1944b6bd2d7bd17f16c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ab5ab7951779a6f710d416bdcb244db" id="r_a2ab5ab7951779a6f710d416bdcb244db"><td class="memItemLeft" align="right" valign="top">Optional&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a2ab5ab7951779a6f710d416bdcb244db">runNamespaceValue</a> = None</td></tr>
+<tr class="separator:a2ab5ab7951779a6f710d416bdcb244db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16b9ad854eee14422cdb196e37935e57" id="r_a16b9ad854eee14422cdb196e37935e57"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a16b9ad854eee14422cdb196e37935e57">nextu</a> = 0</td></tr>
+<tr class="separator:a16b9ad854eee14422cdb196e37935e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af87abb04036c5df0e88b327a5f75a94a" id="r_af87abb04036c5df0e88b327a5f75a94a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#af87abb04036c5df0e88b327a5f75a94a">tracking</a> = False</td></tr>
+<tr class="separator:af87abb04036c5df0e88b327a5f75a94a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac16107fa5a052ede467c46e84441c950" id="r_ac16107fa5a052ede467c46e84441c950"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac16107fa5a052ede467c46e84441c950">chatty_flag</a> = 50</td></tr>
+<tr class="separator:ac16107fa5a052ede467c46e84441c950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189de1f3baca97e0db7f657eca379a9b" id="r_a189de1f3baca97e0db7f657eca379a9b"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a189de1f3baca97e0db7f657eca379a9b">N3_forSome_URI</a> = <a class="el" href="a01052.html#a7ccce4ee2e27fc5483db05985b3486df">forSomeSym</a></td></tr>
+<tr class="separator:a189de1f3baca97e0db7f657eca379a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdc27d97cbe5efa6b3fdee4a86455ca4" id="r_acdc27d97cbe5efa6b3fdee4a86455ca4"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#acdc27d97cbe5efa6b3fdee4a86455ca4">N3_forAll_URI</a> = <a class="el" href="a01052.html#ae7b7a4abe8b9893723e66488ee6f8423">forAllSym</a></td></tr>
+<tr class="separator:acdc27d97cbe5efa6b3fdee4a86455ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a877260f7378816fb24bd7bbf4c9693fe" id="r_a877260f7378816fb24bd7bbf4c9693fe"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a877260f7378816fb24bd7bbf4c9693fe">ADDED_HASH</a> = &quot;#&quot;</td></tr>
+<tr class="separator:a877260f7378816fb24bd7bbf4c9693fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b0b8cd85c524834b14db1f5dfc4f445" id="r_a8b0b8cd85c524834b14db1f5dfc4f445"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8b0b8cd85c524834b14db1f5dfc4f445">RDF_type</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a74b8cd401a21b954281559194188155a">RDF_type_URI</a>)</td></tr>
+<tr class="separator:a8b0b8cd85c524834b14db1f5dfc4f445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d76152fec508b7da9aa483356627c1" id="r_ab7d76152fec508b7da9aa483356627c1"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab7d76152fec508b7da9aa483356627c1">DAML_sameAs</a> = (<a class="el" href="a01052.html#a9ee24f92fccd2dceb58d5bfcdc6d6fa2">SYMBOL</a>, <a class="el" href="a01052.html#a59c55c84faf40742053cb023383eb4db">DAML_sameAs_URI</a>)</td></tr>
+<tr class="separator:ab7d76152fec508b7da9aa483356627c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a766200f1a410324957a6ef4a16faf5eb" id="r_a766200f1a410324957a6ef4a16faf5eb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a766200f1a410324957a6ef4a16faf5eb">LOG_implies_URI</a> = &quot;http://www.w3.org/2000/10/swap/log#implies&quot;</td></tr>
+<tr class="separator:a766200f1a410324957a6ef4a16faf5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eec5bb1c59ee53501a2ef13de7c8963" id="r_a1eec5bb1c59ee53501a2ef13de7c8963"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a1eec5bb1c59ee53501a2ef13de7c8963">BOOLEAN_DATATYPE</a> = _XSD_PFX + &quot;boolean&quot;</td></tr>
+<tr class="separator:a1eec5bb1c59ee53501a2ef13de7c8963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8034677538a89123105668452c9c86a0" id="r_a8034677538a89123105668452c9c86a0"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8034677538a89123105668452c9c86a0">DECIMAL_DATATYPE</a> = _XSD_PFX + &quot;decimal&quot;</td></tr>
+<tr class="separator:a8034677538a89123105668452c9c86a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa93b6a194edf772e881eb6368fb164" id="r_a3fa93b6a194edf772e881eb6368fb164"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a3fa93b6a194edf772e881eb6368fb164">DOUBLE_DATATYPE</a> = _XSD_PFX + &quot;double&quot;</td></tr>
+<tr class="separator:a3fa93b6a194edf772e881eb6368fb164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ba4a0d25db522ac06de2318a05e6d08" id="r_a0ba4a0d25db522ac06de2318a05e6d08"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a0ba4a0d25db522ac06de2318a05e6d08">FLOAT_DATATYPE</a> = _XSD_PFX + &quot;float&quot;</td></tr>
+<tr class="separator:a0ba4a0d25db522ac06de2318a05e6d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec18baec9db23f9ec532a59b14c1ab8a" id="r_aec18baec9db23f9ec532a59b14c1ab8a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aec18baec9db23f9ec532a59b14c1ab8a">INTEGER_DATATYPE</a> = _XSD_PFX + &quot;integer&quot;</td></tr>
+<tr class="separator:aec18baec9db23f9ec532a59b14c1ab8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c6042b743cf0791bf540badd83a82c1" id="r_a5c6042b743cf0791bf540badd83a82c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a5c6042b743cf0791bf540badd83a82c1">option_noregen</a> = 0</td></tr>
+<tr class="separator:a5c6042b743cf0791bf540badd83a82c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7569536829a18c38e3a05d795cd0392" id="r_ad7569536829a18c38e3a05d795cd0392"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> = set(&quot;\t\r\n !\&quot;#$&amp;'()*,+/;&lt;=&gt;?@[\\]^`{|}~&quot;)</td></tr>
+<tr class="separator:ad7569536829a18c38e3a05d795cd0392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68efc49347a7db54dd3248a9cb03854f" id="r_a68efc49347a7db54dd3248a9cb03854f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a68efc49347a7db54dd3248a9cb03854f">_notKeywordsChars</a> = <a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> | {&quot;.&quot;}</td></tr>
+<tr class="separator:a68efc49347a7db54dd3248a9cb03854f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3db189b6e6c68e060f5d389ef1e0373" id="r_ac3db189b6e6c68e060f5d389ef1e0373"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac3db189b6e6c68e060f5d389ef1e0373">_notNameChars</a> = <a class="el" href="a01052.html#ad7569536829a18c38e3a05d795cd0392">_notQNameChars</a> | {&quot;:&quot;}</td></tr>
+<tr class="separator:ac3db189b6e6c68e060f5d389ef1e0373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bfcbb0f47459ae2c8f09bc56b733884" id="r_a7bfcbb0f47459ae2c8f09bc56b733884"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a7bfcbb0f47459ae2c8f09bc56b733884">_rdfns</a> = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</td></tr>
+<tr class="separator:a7bfcbb0f47459ae2c8f09bc56b733884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8011fad246135fbfde72e4675e5ea844" id="r_a8011fad246135fbfde72e4675e5ea844"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a8011fad246135fbfde72e4675e5ea844">hexChars</a> = set(&quot;ABCDEFabcdef0123456789&quot;)</td></tr>
+<tr class="separator:a8011fad246135fbfde72e4675e5ea844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1553138411fa586471ac77aea26733f" id="r_ab1553138411fa586471ac77aea26733f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab1553138411fa586471ac77aea26733f">escapeChars</a> = set(&quot;(_~.-!$&amp;'()*+,;=/?#@%)&quot;)</td></tr>
+<tr class="separator:ab1553138411fa586471ac77aea26733f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5fc3b1b8b2a1e933966ec608ef22da7" id="r_af5fc3b1b8b2a1e933966ec608ef22da7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#af5fc3b1b8b2a1e933966ec608ef22da7">numberChars</a> = set(&quot;0123456789-&quot;)</td></tr>
+<tr class="separator:af5fc3b1b8b2a1e933966ec608ef22da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d1bfd50cb4d6ff9e4d9ef249a7be2d7" id="r_a4d1bfd50cb4d6ff9e4d9ef249a7be2d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4d1bfd50cb4d6ff9e4d9ef249a7be2d7">numberCharsPlus</a> = <a class="el" href="a01052.html#af5fc3b1b8b2a1e933966ec608ef22da7">numberChars</a> | {&quot;+&quot;, &quot;.&quot;}</td></tr>
+<tr class="separator:a4d1bfd50cb4d6ff9e4d9ef249a7be2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d47240f805248e7da0fcbc80928cd0c" id="r_a6d47240f805248e7da0fcbc80928cd0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6d47240f805248e7da0fcbc80928cd0c">unicodeEscape4</a> = re.compile(r&quot;\\u([0-9a-fA-F]{4})&quot;)</td></tr>
+<tr class="separator:a6d47240f805248e7da0fcbc80928cd0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0a3f171d1484ce74f4bc6d9d482cf5" id="r_a6f0a3f171d1484ce74f4bc6d9d482cf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6f0a3f171d1484ce74f4bc6d9d482cf5">unicodeEscape8</a> = re.compile(r&quot;\\U([0-9a-fA-F]{8})&quot;)</td></tr>
+<tr class="separator:a6f0a3f171d1484ce74f4bc6d9d482cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329b417962c00b0231718ce0a571fe43" id="r_a329b417962c00b0231718ce0a571fe43"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a329b417962c00b0231718ce0a571fe43">N3CommentCharacter</a> = &quot;#&quot;</td></tr>
+<tr class="separator:a329b417962c00b0231718ce0a571fe43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada1e37ca9b2c72584447103a5bd59e1e" id="r_ada1e37ca9b2c72584447103a5bd59e1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ada1e37ca9b2c72584447103a5bd59e1e">eol</a> = re.compile(r&quot;[ \t]*(#[^\n]*)?\r?\n&quot;)</td></tr>
+<tr class="separator:ada1e37ca9b2c72584447103a5bd59e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4700aca10443a2db68fc5a58c9e2de3" id="r_aa4700aca10443a2db68fc5a58c9e2de3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#aa4700aca10443a2db68fc5a58c9e2de3">eof</a> = re.compile(r&quot;[ \t]*(#[^\n]*)?$&quot;)</td></tr>
+<tr class="separator:aa4700aca10443a2db68fc5a58c9e2de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ce0633d6cc04e1148e7a437924ba4b" id="r_a64ce0633d6cc04e1148e7a437924ba4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a64ce0633d6cc04e1148e7a437924ba4b">ws</a> = re.compile(r&quot;[ \t]*&quot;)</td></tr>
+<tr class="separator:a64ce0633d6cc04e1148e7a437924ba4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60053b9a317472d5a8f5068c547757eb" id="r_a60053b9a317472d5a8f5068c547757eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a60053b9a317472d5a8f5068c547757eb">signed_integer</a> = re.compile(r&quot;[-+]?[0-9]+&quot;)</td></tr>
+<tr class="separator:a60053b9a317472d5a8f5068c547757eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18e83e676d71e7ccd6adcdc8c375217" id="r_ab18e83e676d71e7ccd6adcdc8c375217"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ab18e83e676d71e7ccd6adcdc8c375217">integer_syntax</a> = re.compile(r&quot;[-+]?[0-9]+&quot;)</td></tr>
+<tr class="separator:ab18e83e676d71e7ccd6adcdc8c375217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04b0d60fb5e4a1214ea76e457ba0dd81" id="r_a04b0d60fb5e4a1214ea76e457ba0dd81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a04b0d60fb5e4a1214ea76e457ba0dd81">decimal_syntax</a> = re.compile(r&quot;[-+]?[0-9]*\.[0-9]+&quot;)</td></tr>
+<tr class="separator:a04b0d60fb5e4a1214ea76e457ba0dd81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6585e91d0edaae68d83573e2d61b4a83" id="r_a6585e91d0edaae68d83573e2d61b4a83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a6585e91d0edaae68d83573e2d61b4a83">exponent_syntax</a></td></tr>
+<tr class="separator:a6585e91d0edaae68d83573e2d61b4a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b711d5d38e312bd7c7c2441feb2009e" id="r_a4b711d5d38e312bd7c7c2441feb2009e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4b711d5d38e312bd7c7c2441feb2009e">digitstring</a> = re.compile(r&quot;[0-9]+&quot;)</td></tr>
+<tr class="separator:a4b711d5d38e312bd7c7c2441feb2009e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47ec34d8687ffc835fa60a3787f3bdf4" id="r_a47ec34d8687ffc835fa60a3787f3bdf4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a47ec34d8687ffc835fa60a3787f3bdf4">interesting</a> = re.compile()</td></tr>
+<tr class="separator:a47ec34d8687ffc835fa60a3787f3bdf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac56784c6a8c91ee35f363bd13ce914c2" id="r_ac56784c6a8c91ee35f363bd13ce914c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#ac56784c6a8c91ee35f363bd13ce914c2">langcode</a> = re.compile(r&quot;[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*&quot;)</td></tr>
+<tr class="separator:ac56784c6a8c91ee35f363bd13ce914c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4078ef2edc99be25f7bd6b0963546116" id="r_a4078ef2edc99be25f7bd6b0963546116"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html#a4078ef2edc99be25f7bd6b0963546116">r_hibyte</a> = re.compile(r&quot;([\x80-\xff])&quot;)</td></tr>
+<tr class="separator:a4078ef2edc99be25f7bd6b0963546116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_ad0530cb1f8052897640e112eb83a9d7.html">dependencies</a></li><li class="navelem"><a class="el" href="dir_5df817f5842e400041511d1e780e62b6.html">rdflib</a></li><li class="navelem"><a class="el" href="dir_6fb0a9e8b20843f54702ea9e37747818.html">plugins</a></li><li class="navelem"><a class="el" href="dir_b3ce751cf8d78f915aa6479c540f60f4.html">parsers</a></li><li class="navelem"><a class="el" href="a00317.html">notation3.py</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

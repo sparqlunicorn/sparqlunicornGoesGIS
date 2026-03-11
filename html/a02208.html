@@ -1,0 +1,967 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: W3CNTriplesParser Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02208.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="a02205.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">W3CNTriplesParser Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for W3CNTriplesParser:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02207.png" border="0" usemap="#aW3CNTriplesParser_inherit__map" alt="Inheritance graph"/></div>
+<map name="aW3CNTriplesParser_inherit__map" id="aW3CNTriplesParser_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,5,149,31"/>
+<area shape="rect" href="a02200.html" title=" " alt="" coords="21,79,134,104"/>
+<area shape="poly" title=" " alt="" coords="80,44,80,79,75,79,75,44"/>
+<area shape="rect" href="a02224.html" title=" " alt="" coords="15,152,139,177"/>
+<area shape="poly" title=" " alt="" coords="80,118,80,152,75,152,75,118"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for W3CNTriplesParser:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02206.png" border="0" usemap="#aW3CNTriplesParser_coll__map" alt="Collaboration graph"/></div>
+<map name="aW3CNTriplesParser_coll__map" id="aW3CNTriplesParser_coll__map">
+<area shape="rect" title=" " alt="" coords="5,93,149,119"/>
+<area shape="rect" title=" " alt="" coords="50,5,105,31"/>
+<area shape="poly" title=" " alt="" coords="80,45,80,93,75,93,75,45"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9a4b0c1bafb6b449650a38b3096dd543" id="r_a9a4b0c1bafb6b449650a38b3096dd543"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a9a4b0c1bafb6b449650a38b3096dd543">__init__</a> (self, Optional[Union[<a class="el" href="a02204.html">DummySink</a>, <a class="el" href="a02212.html">NTGraphSink</a>]] <a class="el" href="a02208.html#aad7359c59843de9c74f258f03c59a830">sink</a>=None, Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] bnode_context=None)</td></tr>
+<tr class="separator:a9a4b0c1bafb6b449650a38b3096dd543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e8afe3cdfc16a20953fa1a63e4ee22a" id="r_a2e8afe3cdfc16a20953fa1a63e4ee22a"><td class="memItemLeft" align="right" valign="top">Union[<a class="el" href="a02204.html">DummySink</a>, <a class="el" href="a02212.html">NTGraphSink</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a2e8afe3cdfc16a20953fa1a63e4ee22a">parse</a> (self, Union[TextIO, IO[bytes], codecs.StreamReader] f, Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] bnode_context=None, bool <a class="el" href="a02208.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">skolemize</a>=False)</td></tr>
+<tr class="separator:a2e8afe3cdfc16a20953fa1a63e4ee22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a688d454dbf26b2521d1301081ee9673a" id="r_a688d454dbf26b2521d1301081ee9673a"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a688d454dbf26b2521d1301081ee9673a">parsestring</a> (self, Union[bytes, bytearray, str] s, **kwargs)</td></tr>
+<tr class="separator:a688d454dbf26b2521d1301081ee9673a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31" id="r_aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31"><td class="memItemLeft" align="right" valign="top">Optional[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31">readline</a> (self)</td></tr>
+<tr class="separator:aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0db892056b3a0bf2b877333aefbe57e0" id="r_a0db892056b3a0bf2b877333aefbe57e0"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">parseline</a> (self, Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] bnode_context=None)</td></tr>
+<tr class="separator:a0db892056b3a0bf2b877333aefbe57e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c4e95e42d3224fa383e1fa223e3e74f" id="r_a6c4e95e42d3224fa383e1fa223e3e74f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a6c4e95e42d3224fa383e1fa223e3e74f">peek</a> (self, str token)</td></tr>
+<tr class="separator:a6c4e95e42d3224fa383e1fa223e3e74f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a546d1b8426d4cbe0f06998ef34c3ca23" id="r_a546d1b8426d4cbe0f06998ef34c3ca23"><td class="memItemLeft" align="right" valign="top">Match[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a546d1b8426d4cbe0f06998ef34c3ca23">eat</a> (self, Pattern[str] pattern)</td></tr>
+<tr class="separator:a546d1b8426d4cbe0f06998ef34c3ca23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aba62c20861aca0c3e7e82401b86a46" id="r_a6aba62c20861aca0c3e7e82401b86a46"><td class="memItemLeft" align="right" valign="top">Union[bNode, <a class="el" href="a02656.html">URIRef</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a6aba62c20861aca0c3e7e82401b86a46">subject</a> (self, bnode_context=None)</td></tr>
+<tr class="separator:a6aba62c20861aca0c3e7e82401b86a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c09af9ec3dcbe295959d04bb8b3f1fa" id="r_a8c09af9ec3dcbe295959d04bb8b3f1fa"><td class="memItemLeft" align="right" valign="top">Union[bNode, <a class="el" href="a02656.html">URIRef</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a8c09af9ec3dcbe295959d04bb8b3f1fa">predicate</a> (self)</td></tr>
+<tr class="separator:a8c09af9ec3dcbe295959d04bb8b3f1fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa44c79557b79d21e88801591c931e5f1" id="r_aa44c79557b79d21e88801591c931e5f1"><td class="memItemLeft" align="right" valign="top">Union[URI, bNode, <a class="el" href="a02672.html">Literal</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#aa44c79557b79d21e88801591c931e5f1">object</a> (self, Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] bnode_context=None)</td></tr>
+<tr class="separator:aa44c79557b79d21e88801591c931e5f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a7d2f30b3937d363e704d6b533610b7" id="r_a2a7d2f30b3937d363e704d6b533610b7"><td class="memItemLeft" align="right" valign="top">Union[te.Literal[False], URI]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a2a7d2f30b3937d363e704d6b533610b7">uriref</a> (self)</td></tr>
+<tr class="separator:a2a7d2f30b3937d363e704d6b533610b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7d737170dbe38b74d88183bd39180d" id="r_a5b7d737170dbe38b74d88183bd39180d"><td class="memItemLeft" align="right" valign="top">Union[te.Literal[False], bNode, URI]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">nodeid</a> (self, Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] bnode_context=None)</td></tr>
+<tr class="separator:a5b7d737170dbe38b74d88183bd39180d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbbbe98b7f8054200252f49cacf4d61a" id="r_adbbbe98b7f8054200252f49cacf4d61a"><td class="memItemLeft" align="right" valign="top">Union[te.Literal[False], <a class="el" href="a02672.html">Literal</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#adbbbe98b7f8054200252f49cacf4d61a">literal</a> (self)</td></tr>
+<tr class="separator:adbbbe98b7f8054200252f49cacf4d61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a9b0f6845ee2f41ca81e1ef1f937b3d7f" id="r_a9b0f6845ee2f41ca81e1ef1f937b3d7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">skolemize</a></td></tr>
+<tr class="separator:a9b0f6845ee2f41ca81e1ef1f937b3d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad7359c59843de9c74f258f03c59a830" id="r_aad7359c59843de9c74f258f03c59a830"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#aad7359c59843de9c74f258f03c59a830">sink</a></td></tr>
+<tr class="separator:aad7359c59843de9c74f258f03c59a830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a5d58ffa6e88aa578d6683ac413105" id="r_a40a5d58ffa6e88aa578d6683ac413105"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a40a5d58ffa6e88aa578d6683ac413105">file</a></td></tr>
+<tr class="separator:a40a5d58ffa6e88aa578d6683ac413105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38acb51b2a63fccbafac9c0afca0c1b9" id="r_a38acb51b2a63fccbafac9c0afca0c1b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a38acb51b2a63fccbafac9c0afca0c1b9">buffer</a></td></tr>
+<tr class="separator:a38acb51b2a63fccbafac9c0afca0c1b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa05b1f00fcde100685cc887554b93b" id="r_a4fa05b1f00fcde100685cc887554b93b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a4fa05b1f00fcde100685cc887554b93b">line</a></td></tr>
+<tr class="separator:a4fa05b1f00fcde100685cc887554b93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a7905457cc12716e80cb376c71fda6bd1" id="r_a7905457cc12716e80cb376c71fda6bd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#a7905457cc12716e80cb376c71fda6bd1">_bnode_ids</a></td></tr>
+<tr class="separator:a7905457cc12716e80cb376c71fda6bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aef04051147f1d02390e4e37bc7a09417" id="r_aef04051147f1d02390e4e37bc7a09417"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02208.html#aef04051147f1d02390e4e37bc7a09417">__slots__</a> = (&quot;_bnode_ids&quot;, &quot;sink&quot;, &quot;buffer&quot;, &quot;file&quot;, &quot;line&quot;, &quot;skolemize&quot;)</td></tr>
+<tr class="separator:aef04051147f1d02390e4e37bc7a09417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">An N-Triples Parser.
+
+This is a legacy-style Triples parser for NTriples provided by W3C
+
+Example:
+    ```python
+    p = W3CNTriplesParser(sink=MySink())
+    sink = p.parse(f) # file; use parsestring for a string
+    ```
+
+To define a context in which blank node identifiers refer to the same blank node
+across instances of NTriplesParser, pass the same dict as `bnode_context` to each
+instance. By default, a new blank node context is created for each instance of
+`W3CNTriplesParser`.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9a4b0c1bafb6b449650a38b3096dd543" name="a9a4b0c1bafb6b449650a38b3096dd543"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a4b0c1bafb6b449650a38b3096dd543">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Union[<a class="el" href="a02204.html">DummySink</a>, <a class="el" href="a02212.html">NTGraphSink</a>]] &#160;</td>
+          <td class="paramname"><em>sink</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] &#160;</td>
+          <td class="paramname"><em>bnode_context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  150</span>    ):</div>
+<div class="line"><span class="lineno">  151</span>        self.skolemize = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  152</span> </div>
+<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">if</span> bnode_context <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  154</span>            self._bnode_ids = bnode_context</div>
+<div class="line"><span class="lineno">  155</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  156</span>            self._bnode_ids = {}</div>
+<div class="line"><span class="lineno">  157</span> </div>
+<div class="line"><span class="lineno">  158</span>        self.sink: Union[DummySink, NTGraphSink]</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">if</span> sink <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  160</span>            self.sink = sink</div>
+<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  162</span>            self.sink = DummySink()</div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>        self.buffer: Optional[str] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  165</span>        self.file: Optional[Union[TextIO, codecs.StreamReader]] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  166</span>        self.line: Optional[str] = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  167</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a546d1b8426d4cbe0f06998ef34c3ca23" name="a546d1b8426d4cbe0f06998ef34c3ca23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a546d1b8426d4cbe0f06998ef34c3ca23">&#9670;&#160;</a></span>eat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Match[str] eat </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pattern[str]&#160;</td>
+          <td class="paramname"><em>pattern</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  266</span>    <span class="keyword">def </span>eat(self, pattern: Pattern[str]) -&gt; Match[str]:</div>
+<div class="line"><span class="lineno">  267</span>        m = pattern.match(self.line)  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  268</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> m:  <span class="comment"># @@ Why can&#39;t we get the original pattern?</span></div>
+<div class="line"><span class="lineno">  269</span>            <span class="comment"># print(dir(pattern))</span></div>
+<div class="line"><span class="lineno">  270</span>            <span class="comment"># print repr(self.line), type(self.line)</span></div>
+<div class="line"><span class="lineno">  271</span>            <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Failed to eat %s at %s&quot;</span> % (pattern.pattern, self.line))</div>
+<div class="line"><span class="lineno">  272</span>        self.line = self.line[m.end() :]  <span class="comment"># type: ignore[index]</span></div>
+<div class="line"><span class="lineno">  273</span>        <span class="keywordflow">return</span> m</div>
+<div class="line"><span class="lineno">  274</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02200.html#a4fa05b1f00fcde100685cc887554b93b">NQuadsParser.line</a>, <a class="el" href="a02208.html#a4fa05b1f00fcde100685cc887554b93b">W3CNTriplesParser.line</a>, and <a class="el" href="a02224.html#a4fa05b1f00fcde100685cc887554b93b">RDFPatchParser.line</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02224.html#a9641f9044cac2888abaf918c7d59dc41">RDFPatchParser.labeled_bnode()</a>, <a class="el" href="a02208.html#adbbbe98b7f8054200252f49cacf4d61a">W3CNTriplesParser.literal()</a>, <a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">W3CNTriplesParser.nodeid()</a>, <a class="el" href="a02224.html#a93b12b1c5504fcf5eeecd0cf97bee92a">RDFPatchParser.nodeid()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, <a class="el" href="a02224.html#a2f8149a0b67107406c847bee5a2512ef">RDFPatchParser.parsepatch()</a>, and <a class="el" href="a02208.html#a2a7d2f30b3937d363e704d6b533610b7">W3CNTriplesParser.uriref()</a>.</p>
+
+</div>
+</div>
+<a id="adbbbe98b7f8054200252f49cacf4d61a" name="adbbbe98b7f8054200252f49cacf4d61a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbbbe98b7f8054200252f49cacf4d61a">&#9670;&#160;</a></span>literal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[te.Literal[False], <a class="el" href="a02672.html">Literal</a>] literal </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  329</span>    <span class="keyword">def </span>literal(self) -&gt; Union[te.Literal[False], Literal]:</div>
+<div class="line"><span class="lineno">  330</span>        <span class="keywordflow">if</span> self.peek(<span class="stringliteral">&#39;&quot;&#39;</span>):</div>
+<div class="line"><span class="lineno">  331</span>            lit, lang, dtype = self.eat(r_literal).groups()</div>
+<div class="line"><span class="lineno">  332</span>            <span class="keywordflow">if</span> lang:</div>
+<div class="line"><span class="lineno">  333</span>                lang = lang</div>
+<div class="line"><span class="lineno">  334</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  335</span>                lang = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  336</span>            <span class="keywordflow">if</span> dtype:</div>
+<div class="line"><span class="lineno">  337</span>                dtype = unquote(dtype)</div>
+<div class="line"><span class="lineno">  338</span>                dtype = uriquote(dtype)</div>
+<div class="line"><span class="lineno">  339</span>                dtype = URI(dtype)</div>
+<div class="line"><span class="lineno">  340</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  341</span>                dtype = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  342</span>            <span class="keywordflow">if</span> lang <span class="keywordflow">and</span> dtype:</div>
+<div class="line"><span class="lineno">  343</span>                <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Can&#39;t have both a language and a datatype&quot;</span>)</div>
+<div class="line"><span class="lineno">  344</span>            lit = unquote(lit)</div>
+<div class="line"><span class="lineno">  345</span>            <span class="keywordflow">return</span> Literal(lit, lang, dtype)</div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  347</span> </div>
+<div class="line"><span class="lineno">  348</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02208.html#a546d1b8426d4cbe0f06998ef34c3ca23">W3CNTriplesParser.eat()</a>, <a class="el" href="a02208.html#a6c4e95e42d3224fa383e1fa223e3e74f">W3CNTriplesParser.peek()</a>, <a class="el" href="a01054.html#a030772d039eb643bb964ea003980403a">rdflib.plugins.parsers.ntriples.unquote()</a>, and <a class="el" href="a01054.html#a5f0240d9f610b744a73665d91a4b897a">rdflib.plugins.parsers.ntriples.uriquote()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02208.html#aa44c79557b79d21e88801591c931e5f1">W3CNTriplesParser.object()</a>.</p>
+
+</div>
+</div>
+<a id="a5b7d737170dbe38b74d88183bd39180d" name="a5b7d737170dbe38b74d88183bd39180d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b7d737170dbe38b74d88183bd39180d">&#9670;&#160;</a></span>nodeid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[te.Literal[False], bNode, URI] nodeid </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] &#160;</td>
+          <td class="paramname"><em>bnode_context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="a02224.html#a93b12b1c5504fcf5eeecd0cf97bee92a">RDFPatchParser</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  306</span>    ) -&gt; Union[te.Literal[<span class="keyword">False</span>], bNode, URI]:</div>
+<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">if</span> self.peek(<span class="stringliteral">&quot;_&quot;</span>):</div>
+<div class="line"><span class="lineno">  308</span>            <span class="keywordflow">if</span> self.skolemize:</div>
+<div class="line"><span class="lineno">  309</span>                bnode_id = self.eat(r_nodeid).group(1)</div>
+<div class="line"><span class="lineno">  310</span>                <span class="keywordflow">return</span> bNode(bnode_id).skolemize()</div>
+<div class="line"><span class="lineno">  311</span> </div>
+<div class="line"><span class="lineno">  312</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  313</span>                <span class="comment"># Fix for https://github.com/RDFLib/rdflib/issues/204</span></div>
+<div class="line"><span class="lineno">  314</span>                <span class="keywordflow">if</span> bnode_context <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  315</span>                    bnode_context = self._bnode_ids</div>
+<div class="line"><span class="lineno">  316</span>                bnode_id = self.eat(r_nodeid).group(1)</div>
+<div class="line"><span class="lineno">  317</span>                new_id = bnode_context.get(bnode_id, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  318</span>                <span class="keywordflow">if</span> new_id <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  319</span>                    <span class="comment"># Re-map to id specific to this doc</span></div>
+<div class="line"><span class="lineno">  320</span>                    <span class="keywordflow">return</span> bNode(new_id)</div>
+<div class="line"><span class="lineno">  321</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  322</span>                    <span class="comment"># Replace with freshly-generated document-specific BNode id</span></div>
+<div class="line"><span class="lineno">  323</span>                    bnode = bNode()</div>
+<div class="line"><span class="lineno">  324</span>                    <span class="comment"># Store the mapping</span></div>
+<div class="line"><span class="lineno">  325</span>                    bnode_context[bnode_id] = bnode</div>
+<div class="line"><span class="lineno">  326</span>                    <span class="keywordflow">return</span> bnode</div>
+<div class="line"><span class="lineno">  327</span>        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  328</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02208.html#a7905457cc12716e80cb376c71fda6bd1">W3CNTriplesParser._bnode_ids</a>, <a class="el" href="a02208.html#a546d1b8426d4cbe0f06998ef34c3ca23">W3CNTriplesParser.eat()</a>, <a class="el" href="a02208.html#a6c4e95e42d3224fa383e1fa223e3e74f">W3CNTriplesParser.peek()</a>, <a class="el" href="a01920.html#ad3f8992abe0096fa6a172eb24f9a0819">Graph.skolemize()</a>, <a class="el" href="a02160.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">HextuplesParser.skolemize</a>, <a class="el" href="a02168.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">Parser.skolemize</a>, <a class="el" href="a02200.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">NQuadsParser.skolemize</a>, <a class="el" href="a02208.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">W3CNTriplesParser.skolemize</a>, <a class="el" href="a02224.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">RDFPatchParser.skolemize</a>, and <a class="el" href="a02668.html#a01e60c3cdab8e2d30a228498cc2866be">BNode.skolemize()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02208.html#aa44c79557b79d21e88801591c931e5f1">W3CNTriplesParser.object()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, and <a class="el" href="a02208.html#a6aba62c20861aca0c3e7e82401b86a46">W3CNTriplesParser.subject()</a>.</p>
+
+</div>
+</div>
+<a id="aa44c79557b79d21e88801591c931e5f1" name="aa44c79557b79d21e88801591c931e5f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa44c79557b79d21e88801591c931e5f1">&#9670;&#160;</a></span>object()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[URI, bNode, <a class="el" href="a02672.html">Literal</a>] <a class="el" href="a07484.html">object</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] &#160;</td>
+          <td class="paramname"><em>bnode_context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  290</span>    ) -&gt; Union[URI, bNode, Literal]:</div>
+<div class="line"><span class="lineno">  291</span>        objt = self.uriref() <span class="keywordflow">or</span> self.nodeid(bnode_context) <span class="keywordflow">or</span> self.literal()</div>
+<div class="line"><span class="lineno">  292</span>        <span class="keywordflow">if</span> objt <span class="keywordflow">is</span> <span class="keyword">False</span>:</div>
+<div class="line"><span class="lineno">  293</span>            <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Unrecognised object type&quot;</span>)</div>
+<div class="line"><span class="lineno">  294</span>        <span class="keywordflow">return</span> objt</div>
+<div class="line"><span class="lineno">  295</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02208.html#adbbbe98b7f8054200252f49cacf4d61a">W3CNTriplesParser.literal()</a>, <a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">W3CNTriplesParser.nodeid()</a>, <a class="el" href="a02224.html#a93b12b1c5504fcf5eeecd0cf97bee92a">RDFPatchParser.nodeid()</a>, and <a class="el" href="a02208.html#a2a7d2f30b3937d363e704d6b533610b7">W3CNTriplesParser.uriref()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02176.html#af673fa8b0ab4a0b3a636689f6a096431">SinkParser.objectList()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, and <a class="el" href="a02176.html#a25139b0000cf3c1d2544f84f6260f50d">SinkParser.statement()</a>.</p>
+
+</div>
+</div>
+<a id="a2e8afe3cdfc16a20953fa1a63e4ee22a" name="a2e8afe3cdfc16a20953fa1a63e4ee22a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e8afe3cdfc16a20953fa1a63e4ee22a">&#9670;&#160;</a></span>parse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[<a class="el" href="a02204.html">DummySink</a>, <a class="el" href="a02212.html">NTGraphSink</a>] parse </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[TextIO, IO[bytes], codecs.StreamReader]&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] &#160;</td>
+          <td class="paramname"><em>bnode_context</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>skolemize</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Parse f as an N-Triples file.
+
+Args:
+    f: The N-Triples source
+    bnode_context: A dict mapping blank node identifiers (e.g., `a` in `_:a`)
+        to [`BNode`][rdflib.term.BNode] instances. An empty dict can be
+        passed in to define a distinct context for a given call to
+        `parse`.
+    skolemize: Whether to skolemize blank nodes
+
+Returns:
+    The sink containing the parsed triples
+</pre> 
+<p>Reimplemented in <a class="el" href="a02224.html#a8f7e2107bd7981128a948510a5ff66de">RDFPatchParser</a>, and <a class="el" href="a02200.html#a2f4f39eb868fac446268febf1adaea48">NQuadsParser</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  173</span>    ) -&gt; Union[DummySink, NTGraphSink]:</div>
+<div class="line"><span class="lineno">  174</span>        <span class="stringliteral">&quot;&quot;&quot;Parse f as an N-Triples file.</span></div>
+<div class="line"><span class="lineno">  175</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  176</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  177</span><span class="stringliteral">            f: The N-Triples source</span></div>
+<div class="line"><span class="lineno">  178</span><span class="stringliteral">            bnode_context: A dict mapping blank node identifiers (e.g., `a` in `_:a`)</span></div>
+<div class="line"><span class="lineno">  179</span><span class="stringliteral">                to [`BNode`][rdflib.term.BNode] instances. An empty dict can be</span></div>
+<div class="line"><span class="lineno">  180</span><span class="stringliteral">                passed in to define a distinct context for a given call to</span></div>
+<div class="line"><span class="lineno">  181</span><span class="stringliteral">                `parse`.</span></div>
+<div class="line"><span class="lineno">  182</span><span class="stringliteral">            skolemize: Whether to skolemize blank nodes</span></div>
+<div class="line"><span class="lineno">  183</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  184</span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><span class="lineno">  185</span><span class="stringliteral">            The sink containing the parsed triples</span></div>
+<div class="line"><span class="lineno">  186</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  187</span> </div>
+<div class="line"><span class="lineno">  188</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(f, <span class="stringliteral">&quot;read&quot;</span>):</div>
+<div class="line"><span class="lineno">  189</span>            <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Item to parse must be a file-like object.&quot;</span>)</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(f, <span class="stringliteral">&quot;encoding&quot;</span>) <span class="keywordflow">and</span> <span class="keywordflow">not</span> hasattr(f, <span class="stringliteral">&quot;charbuffer&quot;</span>):</div>
+<div class="line"><span class="lineno">  192</span>            <span class="comment"># someone still using a bytestream here?</span></div>
+<div class="line"><span class="lineno">  193</span>            f = codecs.getreader(<span class="stringliteral">&quot;utf-8&quot;</span>)(f)</div>
+<div class="line"><span class="lineno">  194</span> </div>
+<div class="line"><span class="lineno">  195</span>        self.skolemize = skolemize</div>
+<div class="line"><span class="lineno">  196</span>        self.file = f  <span class="comment"># type: ignore[assignment]</span></div>
+<div class="line"><span class="lineno">  197</span>        self.buffer = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  198</span>        <span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
+<div class="line"><span class="lineno">  199</span>            self.line = self.readline()</div>
+<div class="line"><span class="lineno">  200</span>            <span class="keywordflow">if</span> self.line <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  201</span>                <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  202</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  203</span>                self.parseline(bnode_context=bnode_context)</div>
+<div class="line"><span class="lineno">  204</span>            <span class="keywordflow">except</span> ParseError:</div>
+<div class="line"><span class="lineno">  205</span>                <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Invalid line: {}&quot;</span>.format(self.line))</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keywordflow">return</span> self.sink</div>
+<div class="line"><span class="lineno">  207</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01920.html#ad3f8992abe0096fa6a172eb24f9a0819">Graph.skolemize()</a>, <a class="el" href="a02160.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">HextuplesParser.skolemize</a>, <a class="el" href="a02168.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">Parser.skolemize</a>, <a class="el" href="a02200.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">NQuadsParser.skolemize</a>, <a class="el" href="a02208.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">W3CNTriplesParser.skolemize</a>, <a class="el" href="a02224.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">RDFPatchParser.skolemize</a>, and <a class="el" href="a02668.html#a01e60c3cdab8e2d30a228498cc2866be">BNode.skolemize()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02208.html#a688d454dbf26b2521d1301081ee9673a">W3CNTriplesParser.parsestring()</a>.</p>
+
+</div>
+</div>
+<a id="a0db892056b3a0bf2b877333aefbe57e0" name="a0db892056b3a0bf2b877333aefbe57e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0db892056b3a0bf2b877333aefbe57e0">&#9670;&#160;</a></span>parseline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None parseline </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4">_BNodeContextType</a>] &#160;</td>
+          <td class="paramname"><em>bnode_context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  245</span>    <span class="keyword">def </span>parseline(self, bnode_context: Optional[_BNodeContextType] = <span class="keywordtype">None</span>) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  246</span>        self.eat(r_wspace)</div>
+<div class="line"><span class="lineno">  247</span>        <span class="keywordflow">if</span> (<span class="keywordflow">not</span> self.line) <span class="keywordflow">or</span> self.line.startswith(<span class="stringliteral">&quot;#&quot;</span>):</div>
+<div class="line"><span class="lineno">  248</span>            <span class="keywordflow">return</span>  <span class="comment"># The line is empty or a comment</span></div>
+<div class="line"><span class="lineno">  249</span> </div>
+<div class="line"><span class="lineno">  250</span>        subject = self.subject(bnode_context)</div>
+<div class="line"><span class="lineno">  251</span>        self.eat(r_wspaces)</div>
+<div class="line"><span class="lineno">  252</span> </div>
+<div class="line"><span class="lineno">  253</span>        predicate = self.predicate()</div>
+<div class="line"><span class="lineno">  254</span>        self.eat(r_wspaces)</div>
+<div class="line"><span class="lineno">  255</span> </div>
+<div class="line"><span class="lineno">  256</span>        object_ = self.object(bnode_context)</div>
+<div class="line"><span class="lineno">  257</span>        self.eat(r_tail)</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span>        <span class="keywordflow">if</span> self.line:</div>
+<div class="line"><span class="lineno">  260</span>            <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Trailing garbage: {}&quot;</span>.format(self.line))</div>
+<div class="line"><span class="lineno">  261</span>        self.sink.triple(subject, predicate, object_)</div>
+<div class="line"><span class="lineno">  262</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02208.html#a546d1b8426d4cbe0f06998ef34c3ca23">W3CNTriplesParser.eat()</a>, <a class="el" href="a02200.html#a4fa05b1f00fcde100685cc887554b93b">NQuadsParser.line</a>, <a class="el" href="a02208.html#a4fa05b1f00fcde100685cc887554b93b">W3CNTriplesParser.line</a>, <a class="el" href="a02224.html#a4fa05b1f00fcde100685cc887554b93b">RDFPatchParser.line</a>, <a class="el" href="a02044.html#a6155187f8d6a63cd0973cf40058f1801">RDF.object</a>, <a class="el" href="a02056.html#ad03408aabe16bb53c780fae6cf3910f9">SH.object</a>, <a class="el" href="a02208.html#aa44c79557b79d21e88801591c931e5f1">W3CNTriplesParser.object()</a>, <a class="el" href="a02176.html#a4d740f4af0ec73798d32d1ea3d6109bc">SinkParser.object()</a>, <a class="el" href="a02236.html#ad03408aabe16bb53c780fae6cf3910f9">ElementHandler.object</a>, <a class="el" href="a02044.html#aac3ec0a1e084648abdc31349afb62780">RDF.predicate</a>, <a class="el" href="a02056.html#aac3ec0a1e084648abdc31349afb62780">SH.predicate</a>, <a class="el" href="a02208.html#a8c09af9ec3dcbe295959d04bb8b3f1fa">W3CNTriplesParser.predicate()</a>, <a class="el" href="a02300.html#abb3096640b02b2bc2585cddccdc5881a">XMLSerializer.predicate()</a>, <a class="el" href="a02304.html#abb3096640b02b2bc2585cddccdc5881a">PrettyXMLSerializer.predicate()</a>, <a class="el" href="a02208.html#aad7359c59843de9c74f258f03c59a830">W3CNTriplesParser.sink</a>, <a class="el" href="a01988.html#add7d5ae07caf77254ed822595328ee43">DC.subject</a>, <a class="el" href="a02004.html#add7d5ae07caf77254ed822595328ee43">DCTERMS.subject</a>, <a class="el" href="a02044.html#add7d5ae07caf77254ed822595328ee43">RDF.subject</a>, <a class="el" href="a02056.html#add7d5ae07caf77254ed822595328ee43">SH.subject</a>, <a class="el" href="a02208.html#a6aba62c20861aca0c3e7e82401b86a46">W3CNTriplesParser.subject()</a>, <a class="el" href="a02300.html#afd3cd859641b498d041345fcf7a2b7b9">XMLSerializer.subject()</a>, <a class="el" href="a02176.html#a095d02e2be9ccdbe09767ca8ed897b29">SinkParser.subject()</a>, <a class="el" href="a02236.html#a2c1430033f657c907d71f995985d6ef6">ElementHandler.subject</a>, and <a class="el" href="a02304.html#af96143e1b2444d42a8e4456860d3a96d">PrettyXMLSerializer.subject()</a>.</p>
+
+</div>
+</div>
+<a id="a688d454dbf26b2521d1301081ee9673a" name="a688d454dbf26b2521d1301081ee9673a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a688d454dbf26b2521d1301081ee9673a">&#9670;&#160;</a></span>parsestring()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None parsestring </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[bytes, bytearray, str]&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Parse s as an N-Triples string.</pre> <div class="fragment"><div class="line"><span class="lineno">  208</span>    <span class="keyword">def </span>parsestring(self, s: Union[bytes, bytearray, str], **kwargs) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  209</span>        <span class="stringliteral">&quot;&quot;&quot;Parse s as an N-Triples string.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(s, (str, bytes, bytearray)):</div>
+<div class="line"><span class="lineno">  211</span>            <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Item to parse must be a string instance.&quot;</span>)</div>
+<div class="line"><span class="lineno">  212</span>        f: Union[codecs.StreamReader, StringIO]</div>
+<div class="line"><span class="lineno">  213</span>        <span class="keywordflow">if</span> isinstance(s, (bytes, bytearray)):</div>
+<div class="line"><span class="lineno">  214</span>            f = codecs.getreader(<span class="stringliteral">&quot;utf-8&quot;</span>)(BytesIO(s))</div>
+<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  216</span>            f = StringIO(s)</div>
+<div class="line"><span class="lineno">  217</span>        self.parse(f, **kwargs)</div>
+<div class="line"><span class="lineno">  218</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02216.html#a050aa911f7097676e3c6a87900d38adf">NTParser.parse()</a>, <a class="el" href="a02604.html#afb8411ecc22112f3df765d0aa7357e94">Result.parse()</a>, <a class="el" href="a02168.html#a54120da836cb2c0d52d98aee78b1a765">Parser.parse()</a>, <a class="el" href="a02224.html#a8f7e2107bd7981128a948510a5ff66de">RDFPatchParser.parse()</a>, <a class="el" href="a02200.html#a2f4f39eb868fac446268febf1adaea48">NQuadsParser.parse()</a>, <a class="el" href="a02160.html#ab410772721d65a7863bb2a2570694b52">HextuplesParser.parse()</a>, <a class="el" href="a02196.html#a4cd543f5a44a22d5ddc220647cab90f7">N3Parser.parse()</a>, <a class="el" href="a02192.html#ae7fbb82d8ff247f54d2869dae9b57f60">TurtleParser.parse()</a>, <a class="el" href="a02252.html#aea9bff50289945a36169f3c473619f2f">TrigParser.parse()</a>, <a class="el" href="a02092.html#ab65153db051ea6eb648aed3648236e68">Parser.parse()</a>, <a class="el" href="a02244.html#a6c4350e632dc19da462c7d1da1d1706a">RDFXMLParser.parse()</a>, <a class="el" href="a02260.html#a6c4350e632dc19da462c7d1da1d1706a">TriXParser.parse()</a>, <a class="el" href="a02164.html#a8a61c572902c2c9e0e5fc0426b446ba9">JsonLDParser.parse()</a>, <a class="el" href="a02608.html#a832faba2ca326352a1fca9adf35c936b">ResultParser.parse()</a>, <a class="el" href="a02440.html#a9929a7d3b0b383ae135283c2357d2a45">GraphResultParser.parse()</a>, <a class="el" href="a02432.html#a8ca41bcf8f538f5737bac4d25d34ce2a">CSVResultParser.parse()</a>, <a class="el" href="a02444.html#a8ca41bcf8f538f5737bac4d25d34ce2a">JSONResultParser.parse()</a>, <a class="el" href="a02472.html#a8ca41bcf8f538f5737bac4d25d34ce2a">XMLResultParser.parse()</a>, <a class="el" href="a02464.html#a91c19d3cdc683400ef007608d9ce35e5">TSVResultParser.parse()</a>, <a class="el" href="a01948.html#a402becf850db5e5d9eafbb11d9a35181">ReadOnlyGraphAggregate.parse()</a>, <a class="el" href="a01920.html#a34624d612ccdf5e5bbed638c4d0adca3">Graph.parse()</a>, <a class="el" href="a01924.html#a34624d612ccdf5e5bbed638c4d0adca3">ConjunctiveGraph.parse()</a>, <a class="el" href="a01928.html#afa05237d477614e073409dc76e5e724f">Dataset.parse()</a>, <a class="el" href="a02456.html#a9ee3316da5c7bac684448bfa333d9f4e">RDFResultParser.parse()</a>, and <a class="el" href="a02208.html#a2e8afe3cdfc16a20953fa1a63e4ee22a">W3CNTriplesParser.parse()</a>.</p>
+
+</div>
+</div>
+<a id="a6c4e95e42d3224fa383e1fa223e3e74f" name="a6c4e95e42d3224fa383e1fa223e3e74f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4e95e42d3224fa383e1fa223e3e74f">&#9670;&#160;</a></span>peek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool peek </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>token</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  263</span>    <span class="keyword">def </span>peek(self, token: str) -&gt; bool:</div>
+<div class="line"><span class="lineno">  264</span>        <span class="keywordflow">return</span> self.line.startswith(token)  <span class="comment"># type: ignore[union-attr]</span></div>
+<div class="line"><span class="lineno">  265</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02200.html#a4fa05b1f00fcde100685cc887554b93b">NQuadsParser.line</a>, <a class="el" href="a02208.html#a4fa05b1f00fcde100685cc887554b93b">W3CNTriplesParser.line</a>, and <a class="el" href="a02224.html#a4fa05b1f00fcde100685cc887554b93b">RDFPatchParser.line</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#a9641f9044cac2888abaf918c7d59dc41">RDFPatchParser.labeled_bnode()</a>, <a class="el" href="a02208.html#adbbbe98b7f8054200252f49cacf4d61a">W3CNTriplesParser.literal()</a>, <a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">W3CNTriplesParser.nodeid()</a>, <a class="el" href="a02224.html#a93b12b1c5504fcf5eeecd0cf97bee92a">RDFPatchParser.nodeid()</a>, and <a class="el" href="a02208.html#a2a7d2f30b3937d363e704d6b533610b7">W3CNTriplesParser.uriref()</a>.</p>
+
+</div>
+</div>
+<a id="a8c09af9ec3dcbe295959d04bb8b3f1fa" name="a8c09af9ec3dcbe295959d04bb8b3f1fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c09af9ec3dcbe295959d04bb8b3f1fa">&#9670;&#160;</a></span>predicate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[bNode, <a class="el" href="a02656.html">URIRef</a>] predicate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  282</span>    <span class="keyword">def </span>predicate(self) -&gt; Union[bNode, URIRef]:</div>
+<div class="line"><span class="lineno">  283</span>        pred = self.uriref()</div>
+<div class="line"><span class="lineno">  284</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> pred:</div>
+<div class="line"><span class="lineno">  285</span>            <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Predicate must be uriref&quot;</span>)</div>
+<div class="line"><span class="lineno">  286</span>        <span class="keywordflow">return</span> pred</div>
+<div class="line"><span class="lineno">  287</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02208.html#a2a7d2f30b3937d363e704d6b533610b7">W3CNTriplesParser.uriref()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, <a class="el" href="a02300.html#afd3cd859641b498d041345fcf7a2b7b9">XMLSerializer.subject()</a>, and <a class="el" href="a02304.html#af96143e1b2444d42a8e4456860d3a96d">PrettyXMLSerializer.subject()</a>.</p>
+
+</div>
+</div>
+<a id="aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31" name="aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31">&#9670;&#160;</a></span>readline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[str] readline </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Read an N-Triples line from buffered input.</pre> <div class="fragment"><div class="line"><span class="lineno">  219</span>    <span class="keyword">def </span>readline(self) -&gt; Optional[str]:</div>
+<div class="line"><span class="lineno">  220</span>        <span class="stringliteral">&quot;&quot;&quot;Read an N-Triples line from buffered input.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  221</span>        <span class="comment"># N-Triples lines end in either CRLF, CR, or LF</span></div>
+<div class="line"><span class="lineno">  222</span>        <span class="comment"># Therefore, we can&#39;t just use f.readline()</span></div>
+<div class="line"><span class="lineno">  223</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.buffer:</div>
+<div class="line"><span class="lineno">  224</span>            <span class="comment"># type error: Item &quot;None&quot; of &quot;Union[TextIO, StreamReader, None]&quot; has no attribute &quot;read&quot;</span></div>
+<div class="line"><span class="lineno">  225</span>            buffer = self.file.read(bufsiz)  <span class="comment"># type: ignore[union-attr]</span></div>
+<div class="line"><span class="lineno">  226</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> buffer:</div>
+<div class="line"><span class="lineno">  227</span>                <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  228</span>            self.buffer = buffer</div>
+<div class="line"><span class="lineno">  229</span> </div>
+<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
+<div class="line"><span class="lineno">  231</span>            m = r_line.match(self.buffer)</div>
+<div class="line"><span class="lineno">  232</span>            <span class="keywordflow">if</span> m:  <span class="comment"># the more likely prospect</span></div>
+<div class="line"><span class="lineno">  233</span>                self.buffer = self.buffer[m.end() :]</div>
+<div class="line"><span class="lineno">  234</span>                <span class="keywordflow">return</span> m.group(1)</div>
+<div class="line"><span class="lineno">  235</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  236</span>                <span class="comment"># type error: Item &quot;None&quot; of &quot;Union[TextIO, StreamReader, None]&quot; has no attribute &quot;read&quot;</span></div>
+<div class="line"><span class="lineno">  237</span>                buffer = self.file.read(bufsiz)  <span class="comment"># type: ignore[union-attr]</span></div>
+<div class="line"><span class="lineno">  238</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> buffer <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.buffer.isspace():</div>
+<div class="line"><span class="lineno">  239</span>                    <span class="comment"># Last line does not need to be terminated with a newline</span></div>
+<div class="line"><span class="lineno">  240</span>                    buffer += <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line"><span class="lineno">  241</span>                <span class="keywordflow">elif</span> <span class="keywordflow">not</span> buffer:</div>
+<div class="line"><span class="lineno">  242</span>                    <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  243</span>                self.buffer += buffer</div>
+<div class="line"><span class="lineno">  244</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02200.html#a38acb51b2a63fccbafac9c0afca0c1b9">NQuadsParser.buffer</a>, <a class="el" href="a02208.html#a38acb51b2a63fccbafac9c0afca0c1b9">W3CNTriplesParser.buffer</a>, <a class="el" href="a02224.html#a38acb51b2a63fccbafac9c0afca0c1b9">RDFPatchParser.buffer</a>, <a class="el" href="a02116.html#a40a5d58ffa6e88aa578d6683ac413105">FileInputSource.file</a>, <a class="el" href="a02200.html#a40a5d58ffa6e88aa578d6683ac413105">NQuadsParser.file</a>, <a class="el" href="a02208.html#a40a5d58ffa6e88aa578d6683ac413105">W3CNTriplesParser.file</a>, and <a class="el" href="a02224.html#a40a5d58ffa6e88aa578d6683ac413105">RDFPatchParser.file</a>.</p>
+
+</div>
+</div>
+<a id="a6aba62c20861aca0c3e7e82401b86a46" name="a6aba62c20861aca0c3e7e82401b86a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aba62c20861aca0c3e7e82401b86a46">&#9670;&#160;</a></span>subject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[bNode, <a class="el" href="a02656.html">URIRef</a>] subject </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bnode_context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  275</span>    <span class="keyword">def </span>subject(self, bnode_context=None) -&gt; Union[bNode, URIRef]:</div>
+<div class="line"><span class="lineno">  276</span>        <span class="comment"># @@ Consider using dictionary cases</span></div>
+<div class="line"><span class="lineno">  277</span>        subj = self.uriref() <span class="keywordflow">or</span> self.nodeid(bnode_context)</div>
+<div class="line"><span class="lineno">  278</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> subj:</div>
+<div class="line"><span class="lineno">  279</span>            <span class="keywordflow">raise</span> ParseError(<span class="stringliteral">&quot;Subject must be uriref or nodeID&quot;</span>)</div>
+<div class="line"><span class="lineno">  280</span>        <span class="keywordflow">return</span> subj</div>
+<div class="line"><span class="lineno">  281</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">W3CNTriplesParser.nodeid()</a>, <a class="el" href="a02224.html#a93b12b1c5504fcf5eeecd0cf97bee92a">RDFPatchParser.nodeid()</a>, and <a class="el" href="a02208.html#a2a7d2f30b3937d363e704d6b533610b7">W3CNTriplesParser.uriref()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, and <a class="el" href="a02304.html#abb3096640b02b2bc2585cddccdc5881a">PrettyXMLSerializer.predicate()</a>.</p>
+
+</div>
+</div>
+<a id="a2a7d2f30b3937d363e704d6b533610b7" name="a2a7d2f30b3937d363e704d6b533610b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a7d2f30b3937d363e704d6b533610b7">&#9670;&#160;</a></span>uriref()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[te.Literal[False], URI] uriref </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  296</span>    <span class="keyword">def </span>uriref(self) -&gt; Union[te.Literal[False], URI]:</div>
+<div class="line"><span class="lineno">  297</span>        <span class="keywordflow">if</span> self.peek(<span class="stringliteral">&quot;&lt;&quot;</span>):</div>
+<div class="line"><span class="lineno">  298</span>            uri = self.eat(r_uriref).group(1)</div>
+<div class="line"><span class="lineno">  299</span>            uri = unquote(uri)</div>
+<div class="line"><span class="lineno">  300</span>            uri = uriquote(uri)</div>
+<div class="line"><span class="lineno">  301</span>            <span class="keywordflow">return</span> URI(uri)</div>
+<div class="line"><span class="lineno">  302</span>        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  303</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02208.html#a546d1b8426d4cbe0f06998ef34c3ca23">W3CNTriplesParser.eat()</a>, <a class="el" href="a02208.html#a6c4e95e42d3224fa383e1fa223e3e74f">W3CNTriplesParser.peek()</a>, <a class="el" href="a01054.html#a030772d039eb643bb964ea003980403a">rdflib.plugins.parsers.ntriples.unquote()</a>, and <a class="el" href="a01054.html#a5f0240d9f610b744a73665d91a4b897a">rdflib.plugins.parsers.ntriples.uriquote()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02208.html#aa44c79557b79d21e88801591c931e5f1">W3CNTriplesParser.object()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a8c09af9ec3dcbe295959d04bb8b3f1fa">W3CNTriplesParser.predicate()</a>, and <a class="el" href="a02208.html#a6aba62c20861aca0c3e7e82401b86a46">W3CNTriplesParser.subject()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aef04051147f1d02390e4e37bc7a09417" name="aef04051147f1d02390e4e37bc7a09417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef04051147f1d02390e4e37bc7a09417">&#9670;&#160;</a></span>__slots__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple __slots__ = (&quot;_bnode_ids&quot;, &quot;sink&quot;, &quot;buffer&quot;, &quot;file&quot;, &quot;line&quot;, &quot;skolemize&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7905457cc12716e80cb376c71fda6bd1" name="a7905457cc12716e80cb376c71fda6bd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7905457cc12716e80cb376c71fda6bd1">&#9670;&#160;</a></span>_bnode_ids</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_bnode_ids</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">W3CNTriplesParser.nodeid()</a>.</p>
+
+</div>
+</div>
+<a id="a38acb51b2a63fccbafac9c0afca0c1b9" name="a38acb51b2a63fccbafac9c0afca0c1b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38acb51b2a63fccbafac9c0afca0c1b9">&#9670;&#160;</a></span>buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">buffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02208.html#aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31">W3CNTriplesParser.readline()</a>.</p>
+
+</div>
+</div>
+<a id="a40a5d58ffa6e88aa578d6683ac413105" name="a40a5d58ffa6e88aa578d6683ac413105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a5d58ffa6e88aa578d6683ac413105">&#9670;&#160;</a></span>file</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">file</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02116.html#aea815b0c6c23fc48a11ee0404b782c7a">FileInputSource.__repr__()</a>, and <a class="el" href="a02208.html#aa4b5a0b5e5dc0ab4a0a66dbfa6b84d31">W3CNTriplesParser.readline()</a>.</p>
+
+</div>
+</div>
+<a id="a4fa05b1f00fcde100685cc887554b93b" name="a4fa05b1f00fcde100685cc887554b93b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa05b1f00fcde100685cc887554b93b">&#9670;&#160;</a></span>line</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">line</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02224.html#a97c80f22ed832bfc0d6493b3a6f82877">RDFPatchParser.add_prefix()</a>, <a class="el" href="a02224.html#afa0c78eb72140f02768f7c8f3408dd3e">RDFPatchParser.delete_prefix()</a>, <a class="el" href="a02208.html#a546d1b8426d4cbe0f06998ef34c3ca23">W3CNTriplesParser.eat()</a>, <a class="el" href="a02224.html#a0991a583e33af086f6c1409c1876a2b4">RDFPatchParser.eat_op()</a>, <a class="el" href="a02224.html#ac424069062ecf418db34571d3b64895a">RDFPatchParser.operation()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>, <a class="el" href="a02224.html#a2f8149a0b67107406c847bee5a2512ef">RDFPatchParser.parsepatch()</a>, and <a class="el" href="a02208.html#a6c4e95e42d3224fa383e1fa223e3e74f">W3CNTriplesParser.peek()</a>.</p>
+
+</div>
+</div>
+<a id="aad7359c59843de9c74f258f03c59a830" name="aad7359c59843de9c74f258f03c59a830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad7359c59843de9c74f258f03c59a830">&#9670;&#160;</a></span>sink</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sink</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02224.html#ab3f31f668e128bc80ce652ff1801f784">RDFPatchParser.add_or_remove_triple_or_quad()</a>, <a class="el" href="a02224.html#a97c80f22ed832bfc0d6493b3a6f82877">RDFPatchParser.add_prefix()</a>, <a class="el" href="a02224.html#afa0c78eb72140f02768f7c8f3408dd3e">RDFPatchParser.delete_prefix()</a>, <a class="el" href="a02224.html#a8f7e2107bd7981128a948510a5ff66de">RDFPatchParser.parse()</a>, <a class="el" href="a02200.html#a2f4f39eb868fac446268febf1adaea48">NQuadsParser.parse()</a>, <a class="el" href="a02200.html#a0db892056b3a0bf2b877333aefbe57e0">NQuadsParser.parseline()</a>, and <a class="el" href="a02208.html#a0db892056b3a0bf2b877333aefbe57e0">W3CNTriplesParser.parseline()</a>.</p>
+
+</div>
+</div>
+<a id="a9b0f6845ee2f41ca81e1ef1f937b3d7f" name="a9b0f6845ee2f41ca81e1ef1f937b3d7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b0f6845ee2f41ca81e1ef1f937b3d7f">&#9670;&#160;</a></span>skolemize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">skolemize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02168.html#a79b4b7ecadff4c327bead2c42ed24659">Parser._add_list()</a>, <a class="el" href="a02168.html#ac6c4c970e47d76ef29e75e920ff78b54">Parser._add_to_graph()</a>, <a class="el" href="a02168.html#a413c855d84a10456eb12d1bee88bdca9">Parser._key_to_graph()</a>, <a class="el" href="a02160.html#ae0240c169b40b400a23e0dbea7fb7f0d">HextuplesParser._parse_hextuple()</a>, <a class="el" href="a02168.html#a168b1656bc7981c0053bd84fa58c8fe4">Parser._to_rdf_id()</a>, <a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">W3CNTriplesParser.nodeid()</a>, <a class="el" href="a02160.html#ab410772721d65a7863bb2a2570694b52">HextuplesParser.parse()</a>, and <a class="el" href="a02208.html#a2e8afe3cdfc16a20953fa1a63e4ee22a">W3CNTriplesParser.parse()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01049.html">parsers</a></li><li class="navelem"><a class="el" href="a01054.html">ntriples</a></li><li class="navelem"><a class="el" href="a02208.html">W3CNTriplesParser</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

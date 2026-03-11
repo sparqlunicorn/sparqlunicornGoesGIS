@@ -1,0 +1,15 @@
+<map id="BoundSHACLTargetType" name="BoundSHACLTargetType">
+<area shape="rect" id="Node000001" title=" " alt="" coords="84,152,259,177"/>
+<area shape="rect" id="Node000006" href="$a01584.html" title=" " alt="" coords="5,225,151,251"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="147,188,95,227,92,223,144,183"/>
+<area shape="rect" id="Node000007" href="$a01680.html" title=" " alt="" coords="175,225,357,251"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="199,183,252,223,249,227,196,188"/>
+<area shape="rect" id="Node000002" href="$a01336.html" title=" " alt="" coords="89,79,253,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,118,174,152,169,152,169,118"/>
+<area shape="rect" id="Node000003" href="$a07484.html" title=" " alt="" coords="40,5,103,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="100,36,157,76,153,81,97,41"/>
+<area shape="rect" id="Node000004" href="$a07514.html" title=" " alt="" coords="127,5,216,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="174,44,174,79,169,79,169,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="241,5,323,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="254,40,191,81,188,76,251,36"/>
+</map>

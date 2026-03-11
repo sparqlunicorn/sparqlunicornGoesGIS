@@ -1,0 +1,780 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: pyshacl.entrypoints Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00950.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">pyshacl.entrypoints Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa75599866319a7bb4299e6d220bded3a" id="r_aa75599866319a7bb4299e6d220bded3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html#aa75599866319a7bb4299e6d220bded3a">validate</a> (Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes] data_graph, *args, Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] shacl_graph=None, Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] ont_graph=None, Optional[bool] advanced=False, Optional[str] inference=None, Optional[bool] inplace=False, Optional[bool] abort_on_first=False, Optional[bool] allow_infos=False, Optional[bool] allow_warnings=False, Optional[int] max_validation_depth=None, Optional[bool] sparql_mode=False, Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] focus_nodes=None, Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] use_shapes=None, **kwargs)</td></tr>
+<tr class="separator:aa75599866319a7bb4299e6d220bded3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b47c9ca53ae20c1cca3d275530252f" id="r_ad5b47c9ca53ae20c1cca3d275530252f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html#ad5b47c9ca53ae20c1cca3d275530252f">with_metashacl_shacl_graph_cache</a> (f)</td></tr>
+<tr class="separator:ad5b47c9ca53ae20c1cca3d275530252f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ad7f9fa0e6042c76f200381c96bd1fe" id="r_a3ad7f9fa0e6042c76f200381c96bd1fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html#a3ad7f9fa0e6042c76f200381c96bd1fe">meta_validate</a> (Union[GraphLike, str] shacl_graph, Optional[str] inference='rdfs', **kwargs)</td></tr>
+<tr class="separator:a3ad7f9fa0e6042c76f200381c96bd1fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6162c912e883bd56901e60e5c75de765" id="r_a6162c912e883bd56901e60e5c75de765"><td class="memItemLeft" align="right" valign="top">logging.Logger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html#a6162c912e883bd56901e60e5c75de765">make_default_logger</a> (Union[str, None] name=None, bool debug=False, bool clear_handlers=True)</td></tr>
+<tr class="separator:a6162c912e883bd56901e60e5c75de765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a657985e3ef5e03d22a30888e362e094f" id="r_a657985e3ef5e03d22a30888e362e094f"><td class="memItemLeft" align="right" valign="top">Union[str, GraphLike]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html#a657985e3ef5e03d22a30888e362e094f">shacl_rules</a> (Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes] data_graph, *args, Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] shacl_graph=None, Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] ont_graph=None, Optional[str] inference=None, Optional[bool] inplace=False, Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] focus_nodes=None, Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] use_shapes=None, **kwargs)</td></tr>
+<tr class="separator:a657985e3ef5e03d22a30888e362e094f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a6162c912e883bd56901e60e5c75de765" name="a6162c912e883bd56901e60e5c75de765"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6162c912e883bd56901e60e5c75de765">&#9670;&#160;</a></span>make_default_logger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> logging.Logger make_default_logger </td>
+          <td>(</td>
+          <td class="paramtype">Union[str, None] &#160;</td>
+          <td class="paramname"><em>name</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>debug</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>clear_handlers</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  232</span>) -&gt; logging.Logger:</div>
+<div class="line"><span class="lineno">  233</span>    log_handler = logging.StreamHandler(stderr)</div>
+<div class="line"><span class="lineno">  234</span>    log = logging.getLogger(name)</div>
+<div class="line"><span class="lineno">  235</span>    <span class="keywordflow">if</span> clear_handlers:</div>
+<div class="line"><span class="lineno">  236</span>        <span class="keywordflow">for</span> h <span class="keywordflow">in</span> log.handlers:</div>
+<div class="line"><span class="lineno">  237</span>            log.removeHandler(h)  <span class="comment"># pragma:no cover</span></div>
+<div class="line"><span class="lineno">  238</span>    log.addHandler(log_handler)</div>
+<div class="line"><span class="lineno">  239</span>    log.setLevel(logging.INFO <span class="keywordflow">if</span> <span class="keywordflow">not</span> debug <span class="keywordflow">else</span> logging.DEBUG)</div>
+<div class="line"><span class="lineno">  240</span>    log_handler.setLevel(logging.INFO <span class="keywordflow">if</span> <span class="keywordflow">not</span> debug <span class="keywordflow">else</span> logging.DEBUG)</div>
+<div class="line"><span class="lineno">  241</span>    <span class="keywordflow">return</span> log</div>
+<div class="line"><span class="lineno">  242</span> </div>
+<div class="line"><span class="lineno">  243</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00950.html#a657985e3ef5e03d22a30888e362e094f">pyshacl.entrypoints.shacl_rules()</a>, and <a class="el" href="a00950.html#aa75599866319a7bb4299e6d220bded3a">pyshacl.entrypoints.validate()</a>.</p>
+
+</div>
+</div>
+<a id="a3ad7f9fa0e6042c76f200381c96bd1fe" name="a3ad7f9fa0e6042c76f200381c96bd1fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ad7f9fa0e6042c76f200381c96bd1fe">&#9670;&#160;</a></span>meta_validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">meta_validate </td>
+          <td>(</td>
+          <td class="paramtype">Union[GraphLike, str]&#160;</td>
+          <td class="paramname"><em>shacl_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>inference</em> = <code>'rdfs'</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  223</span><span class="keyword">def </span>meta_validate(shacl_graph: Union[GraphLike, str], inference: Optional[str] = <span class="stringliteral">&#39;rdfs&#39;</span>, **kwargs):</div>
+<div class="line"><span class="lineno">  224</span>    shacl_shacl_graph = meta_validate.graph_cache</div>
+<div class="line"><span class="lineno">  225</span>    shacl_graph = load_from_source(shacl_graph, rdf_format=kwargs.pop(<span class="stringliteral">&#39;shacl_graph_format&#39;</span>, <span class="keywordtype">None</span>), multigraph=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  226</span>    _ = kwargs.pop(<span class="stringliteral">&#39;meta_shacl&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  227</span>    <span class="keywordflow">return</span> validate(shacl_graph, shacl_graph=shacl_shacl_graph, inference=inference, **kwargs)</div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="line"><span class="lineno">  229</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00950.html#aa75599866319a7bb4299e6d220bded3a">pyshacl.entrypoints.validate()</a>.</p>
+
+</div>
+</div>
+<a id="a657985e3ef5e03d22a30888e362e094f" name="a657985e3ef5e03d22a30888e362e094f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a657985e3ef5e03d22a30888e362e094f">&#9670;&#160;</a></span>shacl_rules()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[str, GraphLike] shacl_rules </td>
+          <td>(</td>
+          <td class="paramtype">Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]&#160;</td>
+          <td class="paramname"><em>data_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">*&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] &#160;</td>
+          <td class="paramname"><em>shacl_graph</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] &#160;</td>
+          <td class="paramname"><em>ont_graph</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>inference</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] &#160;</td>
+          <td class="paramname"><em>inplace</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] &#160;</td>
+          <td class="paramname"><em>focus_nodes</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] &#160;</td>
+          <td class="paramname"><em>use_shapes</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param data_graph: rdflib.Graph or file path or web url of the data to validate
+:type data_graph: rdflib.Graph | str | bytes
+:param args:
+:type args: list
+:param shacl_graph: rdflib.Graph or file path or web url of the SHACL Shapes graph to use to
+validate the data graph
+:type shacl_graph: rdflib.Graph | str | bytes
+:param ont_graph: rdflib.Graph or file path or web url of an extra ontology document to mix into the data graph
+:type ont_graph: rdflib.Graph | str | bytes
+:param inference: One of "rdfs", "owlrl", "both", "none", or None
+:type inference: str | None
+:param inplace: If this is enabled, do not clone the datagraph, manipulate it in-place
+:type inplace: bool
+:param focus_nodes: A list of IRIs to validate only those nodes.
+:type focus_nodes: list | None
+:param use_shapes: A list of IRIs to use only those shapes from the SHACL ShapesGraph.
+:type use_shapes: list | None
+:param kwargs:
+:return:
+</pre> <div class="fragment"><div class="line"><span class="lineno">  254</span>) -&gt; Union[str, GraphLike]:</div>
+<div class="line"><span class="lineno">  255</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  256</span><span class="stringliteral">    :param data_graph: rdflib.Graph or file path or web url of the data to validate</span></div>
+<div class="line"><span class="lineno">  257</span><span class="stringliteral">    :type data_graph: rdflib.Graph | str | bytes</span></div>
+<div class="line"><span class="lineno">  258</span><span class="stringliteral">    :param args:</span></div>
+<div class="line"><span class="lineno">  259</span><span class="stringliteral">    :type args: list</span></div>
+<div class="line"><span class="lineno">  260</span><span class="stringliteral">    :param shacl_graph: rdflib.Graph or file path or web url of the SHACL Shapes graph to use to</span></div>
+<div class="line"><span class="lineno">  261</span><span class="stringliteral">    validate the data graph</span></div>
+<div class="line"><span class="lineno">  262</span><span class="stringliteral">    :type shacl_graph: rdflib.Graph | str | bytes</span></div>
+<div class="line"><span class="lineno">  263</span><span class="stringliteral">    :param ont_graph: rdflib.Graph or file path or web url of an extra ontology document to mix into the data graph</span></div>
+<div class="line"><span class="lineno">  264</span><span class="stringliteral">    :type ont_graph: rdflib.Graph | str | bytes</span></div>
+<div class="line"><span class="lineno">  265</span><span class="stringliteral">    :param inference: One of &quot;rdfs&quot;, &quot;owlrl&quot;, &quot;both&quot;, &quot;none&quot;, or None</span></div>
+<div class="line"><span class="lineno">  266</span><span class="stringliteral">    :type inference: str | None</span></div>
+<div class="line"><span class="lineno">  267</span><span class="stringliteral">    :param inplace: If this is enabled, do not clone the datagraph, manipulate it in-place</span></div>
+<div class="line"><span class="lineno">  268</span><span class="stringliteral">    :type inplace: bool</span></div>
+<div class="line"><span class="lineno">  269</span><span class="stringliteral">    :param focus_nodes: A list of IRIs to validate only those nodes.</span></div>
+<div class="line"><span class="lineno">  270</span><span class="stringliteral">    :type focus_nodes: list | None</span></div>
+<div class="line"><span class="lineno">  271</span><span class="stringliteral">    :param use_shapes: A list of IRIs to use only those shapes from the SHACL ShapesGraph.</span></div>
+<div class="line"><span class="lineno">  272</span><span class="stringliteral">    :type use_shapes: list | None</span></div>
+<div class="line"><span class="lineno">  273</span><span class="stringliteral">    :param kwargs:</span></div>
+<div class="line"><span class="lineno">  274</span><span class="stringliteral">    :return:</span></div>
+<div class="line"><span class="lineno">  275</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  276</span> </div>
+<div class="line"><span class="lineno">  277</span>    do_debug = kwargs.get(<span class="stringliteral">&#39;debug&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  278</span>    log = make_default_logger(name=<span class="stringliteral">&quot;pyshacl-rules&quot;</span>, debug=do_debug)</div>
+<div class="line"><span class="lineno">  279</span>    apply_patches()</div>
+<div class="line"><span class="lineno">  280</span>    assign_baked_in()</div>
+<div class="line"><span class="lineno">  281</span>    do_owl_imports = kwargs.pop(<span class="stringliteral">&#39;do_owl_imports&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  282</span>    data_graph_format = kwargs.pop(<span class="stringliteral">&#39;data_graph_format&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  283</span>    <span class="keywordflow">if</span> kwargs.get(<span class="stringliteral">&#39;sparql_mode&#39;</span>, <span class="keywordtype">None</span>):</div>
+<div class="line"><span class="lineno">  284</span>        <span class="keywordflow">raise</span> ReportableRuntimeError(<span class="stringliteral">&quot;The SHACL Rules expander cannot be used in SPARQL Remote Graph Mode.&quot;</span>)</div>
+<div class="line"><span class="lineno">  285</span>    <span class="keywordflow">if</span> isinstance(data_graph, (str, bytes, BufferedIOBase, TextIOBase)):</div>
+<div class="line"><span class="lineno">  286</span>        <span class="comment"># DataGraph is passed in as Text. It is not a rdflib.Graph</span></div>
+<div class="line"><span class="lineno">  287</span>        <span class="comment"># That means we load it into an ephemeral graph at runtime</span></div>
+<div class="line"><span class="lineno">  288</span>        <span class="comment"># that means we don&#39;t need to make a copy to prevent polluting it.</span></div>
+<div class="line"><span class="lineno">  289</span>        ephemeral = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  290</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  291</span>        ephemeral = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  292</span>    use_js = kwargs.pop(<span class="stringliteral">&#39;js&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  293</span>    <span class="comment"># force no owl imports on data_graph</span></div>
+<div class="line"><span class="lineno">  294</span>    loaded_dg = load_from_source(</div>
+<div class="line"><span class="lineno">  295</span>        data_graph, rdf_format=data_graph_format, multigraph=<span class="keyword">True</span>, do_owl_imports=<span class="keyword">False</span>, logger=log</div>
+<div class="line"><span class="lineno">  296</span>    )</div>
+<div class="line"><span class="lineno">  297</span>    ont_graph_format = kwargs.pop(<span class="stringliteral">&#39;ont_graph_format&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  298</span>    <span class="keywordflow">if</span> ont_graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  299</span>        loaded_og = load_from_source(</div>
+<div class="line"><span class="lineno">  300</span>            ont_graph, rdf_format=ont_graph_format, multigraph=<span class="keyword">True</span>, do_owl_imports=do_owl_imports, logger=log</div>
+<div class="line"><span class="lineno">  301</span>        )</div>
+<div class="line"><span class="lineno">  302</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  303</span>        loaded_og = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  304</span>    shacl_graph_format = kwargs.pop(<span class="stringliteral">&#39;shacl_graph_format&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  305</span>    <span class="keywordflow">if</span> shacl_graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  306</span>        rdflib_bool_patch()</div>
+<div class="line"><span class="lineno">  307</span>        loaded_sg = load_from_source(</div>
+<div class="line"><span class="lineno">  308</span>            shacl_graph, rdf_format=shacl_graph_format, multigraph=<span class="keyword">True</span>, do_owl_imports=do_owl_imports, logger=log</div>
+<div class="line"><span class="lineno">  309</span>        )</div>
+<div class="line"><span class="lineno">  310</span>        rdflib_bool_unpatch()</div>
+<div class="line"><span class="lineno">  311</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  312</span>        loaded_sg = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  313</span>    iterate_rules = kwargs.pop(<span class="stringliteral">&#39;iterate_rules&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  314</span>    runner_options_dict = {</div>
+<div class="line"><span class="lineno">  315</span>        <span class="stringliteral">&#39;debug&#39;</span>: do_debug <span class="keywordflow">or</span> <span class="keyword">False</span>,</div>
+<div class="line"><span class="lineno">  316</span>        <span class="stringliteral">&#39;inference&#39;</span>: inference,</div>
+<div class="line"><span class="lineno">  317</span>        <span class="stringliteral">&#39;inplace&#39;</span>: inplace <span class="keywordflow">or</span> ephemeral,</div>
+<div class="line"><span class="lineno">  318</span>        <span class="stringliteral">&#39;iterate_rules&#39;</span>: iterate_rules,</div>
+<div class="line"><span class="lineno">  319</span>        <span class="stringliteral">&#39;use_js&#39;</span>: use_js,</div>
+<div class="line"><span class="lineno">  320</span>        <span class="stringliteral">&#39;logger&#39;</span>: log,</div>
+<div class="line"><span class="lineno">  321</span>        <span class="stringliteral">&#39;focus_nodes&#39;</span>: focus_nodes,</div>
+<div class="line"><span class="lineno">  322</span>        <span class="stringliteral">&#39;use_shapes&#39;</span>: use_shapes,</div>
+<div class="line"><span class="lineno">  323</span>    }</div>
+<div class="line"><span class="lineno">  324</span>    serialize_expanded_graph = kwargs.get(<span class="stringliteral">&#39;serialize_expanded_graph&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  325</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  326</span>        runner = RuleExpandRunner(</div>
+<div class="line"><span class="lineno">  327</span>            loaded_dg,</div>
+<div class="line"><span class="lineno">  328</span>            shacl_graph=loaded_sg,</div>
+<div class="line"><span class="lineno">  329</span>            ont_graph=loaded_og,</div>
+<div class="line"><span class="lineno">  330</span>            options=runner_options_dict,</div>
+<div class="line"><span class="lineno">  331</span>        )</div>
+<div class="line"><span class="lineno">  332</span>        expanded_graph = runner.run()</div>
+<div class="line"><span class="lineno">  333</span>    <span class="keywordflow">except</span> ValidationFailure <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  334</span>        error = <span class="stringliteral">&quot;SHACL Rules Expansion Failure - {}&quot;</span>.format(e.message)</div>
+<div class="line"><span class="lineno">  335</span>        <span class="keywordflow">if</span> serialize_expanded_graph:</div>
+<div class="line"><span class="lineno">  336</span>            <span class="keywordflow">return</span> error</div>
+<div class="line"><span class="lineno">  337</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  338</span>            g = Graph()</div>
+<div class="line"><span class="lineno">  339</span>            g.add((URIRef(<span class="stringliteral">&quot;&lt;urn:rdflib:pyshacl:shacl-rules-error&gt;&quot;</span>), RDF_type, SH.ValidationFailure))</div>
+<div class="line"><span class="lineno">  340</span>            g.add((URIRef(<span class="stringliteral">&quot;&lt;urn:rdflib:pyshacl:shacl-rules-error&gt;&quot;</span>), SH.message, Literal(error)))</div>
+<div class="line"><span class="lineno">  341</span>            <span class="keywordflow">return</span> g</div>
+<div class="line"><span class="lineno">  342</span>    <span class="keywordflow">if</span> serialize_expanded_graph:</div>
+<div class="line"><span class="lineno">  343</span>        guess_format = <span class="stringliteral">&quot;trig&quot;</span> <span class="keywordflow">if</span> isinstance(expanded_graph, (Dataset, ConjunctiveGraph)) <span class="keywordflow">else</span> <span class="stringliteral">&quot;turtle&quot;</span></div>
+<div class="line"><span class="lineno">  344</span>        serialize_format = kwargs.get(<span class="stringliteral">&#39;serialize_expanded_graph_format&#39;</span>, guess_format)</div>
+<div class="line"><span class="lineno">  345</span>        <span class="keywordflow">return</span> expanded_graph.serialize(format=serialize_format)</div>
+<div class="line"><span class="lineno">  346</span>    <span class="keywordflow">return</span> expanded_graph</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00950.html#a6162c912e883bd56901e60e5c75de765">pyshacl.entrypoints.make_default_logger()</a>.</p>
+
+</div>
+</div>
+<a id="aa75599866319a7bb4299e6d220bded3a" name="aa75599866319a7bb4299e6d220bded3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa75599866319a7bb4299e6d220bded3a">&#9670;&#160;</a></span>validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validate </td>
+          <td>(</td>
+          <td class="paramtype">Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]&#160;</td>
+          <td class="paramname"><em>data_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">*&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] &#160;</td>
+          <td class="paramname"><em>shacl_graph</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Union[GraphLike, BufferedIOBase, TextIOBase, str, bytes]] &#160;</td>
+          <td class="paramname"><em>ont_graph</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] &#160;</td>
+          <td class="paramname"><em>advanced</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>inference</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] &#160;</td>
+          <td class="paramname"><em>inplace</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] &#160;</td>
+          <td class="paramname"><em>abort_on_first</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] &#160;</td>
+          <td class="paramname"><em>allow_infos</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] &#160;</td>
+          <td class="paramname"><em>allow_warnings</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] &#160;</td>
+          <td class="paramname"><em>max_validation_depth</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] &#160;</td>
+          <td class="paramname"><em>sparql_mode</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] &#160;</td>
+          <td class="paramname"><em>focus_nodes</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[List[Union[str, <a class="el" href="a02656.html">URIRef</a>]]] &#160;</td>
+          <td class="paramname"><em>use_shapes</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param data_graph: rdflib.Graph or file path or web url of the data to validate
+:type data_graph: rdflib.Graph | str | bytes
+:param args:
+:type args: list
+:param shacl_graph: rdflib.Graph or file path or web url of the SHACL Shapes graph to use to
+validate the data graph
+:type shacl_graph: rdflib.Graph | str | bytes
+:param ont_graph: rdflib.Graph or file path or web url of an extra ontology document to mix into the data graph
+:type ont_graph: rdflib.Graph | str | bytes
+:param advanced: Enable advanced SHACL features, default=False
+:type advanced: bool | None
+:param inference: One of "rdfs", "owlrl", "both", "none", or None
+:type inference: str | None
+:param inplace: If this is enabled, do not clone the datagraph, manipulate it in-place
+:type inplace: bool
+:param abort_on_first: Stop evaluating constraints after first violation is found
+:type abort_on_first: bool | None
+:param allow_infos: Shapes marked with severity of sh:Info will not cause result to be invalid.
+:type allow_infos: bool | None
+:param allow_warnings: Shapes marked with severity of sh:Warning or sh:Info will not cause result to be invalid.
+:type allow_warnings: bool | None
+:param max_validation_depth: The maximum number of SHACL shapes "deep" that the validator can go before reaching an "endpoint" constraint.
+:type max_validation_depth: int | None
+:param sparql_mode: Treat the DataGraph as a SPARQL endpoint, validate the graph at the SPARQL endpoint.
+:type sparql_mode: bool | None
+:param focus_nodes: A list of IRIs to validate only those nodes.
+:type focus_nodes: list | None
+:param use_shapes: A list of IRIs to use only those shapes from the SHACL ShapesGraph.
+:type use_shapes: list | None
+:param kwargs:
+:return:
+</pre> <div class="fragment"><div class="line"><span class="lineno">   38</span>):</div>
+<div class="line"><span class="lineno">   39</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   40</span><span class="stringliteral">    :param data_graph: rdflib.Graph or file path or web url of the data to validate</span></div>
+<div class="line"><span class="lineno">   41</span><span class="stringliteral">    :type data_graph: rdflib.Graph | str | bytes</span></div>
+<div class="line"><span class="lineno">   42</span><span class="stringliteral">    :param args:</span></div>
+<div class="line"><span class="lineno">   43</span><span class="stringliteral">    :type args: list</span></div>
+<div class="line"><span class="lineno">   44</span><span class="stringliteral">    :param shacl_graph: rdflib.Graph or file path or web url of the SHACL Shapes graph to use to</span></div>
+<div class="line"><span class="lineno">   45</span><span class="stringliteral">    validate the data graph</span></div>
+<div class="line"><span class="lineno">   46</span><span class="stringliteral">    :type shacl_graph: rdflib.Graph | str | bytes</span></div>
+<div class="line"><span class="lineno">   47</span><span class="stringliteral">    :param ont_graph: rdflib.Graph or file path or web url of an extra ontology document to mix into the data graph</span></div>
+<div class="line"><span class="lineno">   48</span><span class="stringliteral">    :type ont_graph: rdflib.Graph | str | bytes</span></div>
+<div class="line"><span class="lineno">   49</span><span class="stringliteral">    :param advanced: Enable advanced SHACL features, default=False</span></div>
+<div class="line"><span class="lineno">   50</span><span class="stringliteral">    :type advanced: bool | None</span></div>
+<div class="line"><span class="lineno">   51</span><span class="stringliteral">    :param inference: One of &quot;rdfs&quot;, &quot;owlrl&quot;, &quot;both&quot;, &quot;none&quot;, or None</span></div>
+<div class="line"><span class="lineno">   52</span><span class="stringliteral">    :type inference: str | None</span></div>
+<div class="line"><span class="lineno">   53</span><span class="stringliteral">    :param inplace: If this is enabled, do not clone the datagraph, manipulate it in-place</span></div>
+<div class="line"><span class="lineno">   54</span><span class="stringliteral">    :type inplace: bool</span></div>
+<div class="line"><span class="lineno">   55</span><span class="stringliteral">    :param abort_on_first: Stop evaluating constraints after first violation is found</span></div>
+<div class="line"><span class="lineno">   56</span><span class="stringliteral">    :type abort_on_first: bool | None</span></div>
+<div class="line"><span class="lineno">   57</span><span class="stringliteral">    :param allow_infos: Shapes marked with severity of sh:Info will not cause result to be invalid.</span></div>
+<div class="line"><span class="lineno">   58</span><span class="stringliteral">    :type allow_infos: bool | None</span></div>
+<div class="line"><span class="lineno">   59</span><span class="stringliteral">    :param allow_warnings: Shapes marked with severity of sh:Warning or sh:Info will not cause result to be invalid.</span></div>
+<div class="line"><span class="lineno">   60</span><span class="stringliteral">    :type allow_warnings: bool | None</span></div>
+<div class="line"><span class="lineno">   61</span><span class="stringliteral">    :param max_validation_depth: The maximum number of SHACL shapes &quot;deep&quot; that the validator can go before reaching an &quot;endpoint&quot; constraint.</span></div>
+<div class="line"><span class="lineno">   62</span><span class="stringliteral">    :type max_validation_depth: int | None</span></div>
+<div class="line"><span class="lineno">   63</span><span class="stringliteral">    :param sparql_mode: Treat the DataGraph as a SPARQL endpoint, validate the graph at the SPARQL endpoint.</span></div>
+<div class="line"><span class="lineno">   64</span><span class="stringliteral">    :type sparql_mode: bool | None</span></div>
+<div class="line"><span class="lineno">   65</span><span class="stringliteral">    :param focus_nodes: A list of IRIs to validate only those nodes.</span></div>
+<div class="line"><span class="lineno">   66</span><span class="stringliteral">    :type focus_nodes: list | None</span></div>
+<div class="line"><span class="lineno">   67</span><span class="stringliteral">    :param use_shapes: A list of IRIs to use only those shapes from the SHACL ShapesGraph.</span></div>
+<div class="line"><span class="lineno">   68</span><span class="stringliteral">    :type use_shapes: list | None</span></div>
+<div class="line"><span class="lineno">   69</span><span class="stringliteral">    :param kwargs:</span></div>
+<div class="line"><span class="lineno">   70</span><span class="stringliteral">    :return:</span></div>
+<div class="line"><span class="lineno">   71</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>    do_debug = kwargs.get(<span class="stringliteral">&#39;debug&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">   74</span>    log = make_default_logger(name=<span class="stringliteral">&quot;pyshacl-validate&quot;</span>, debug=do_debug)</div>
+<div class="line"><span class="lineno">   75</span>    apply_patches()</div>
+<div class="line"><span class="lineno">   76</span>    assign_baked_in()</div>
+<div class="line"><span class="lineno">   77</span>    do_check_dash_result = kwargs.pop(<span class="stringliteral">&#39;check_dash_result&#39;</span>, <span class="keyword">False</span>)  <span class="comment"># type: bool</span></div>
+<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">if</span> kwargs.get(<span class="stringliteral">&#39;meta_shacl&#39;</span>, <span class="keyword">False</span>):</div>
+<div class="line"><span class="lineno">   79</span>        to_meta_val = shacl_graph <span class="keywordflow">or</span> data_graph</div>
+<div class="line"><span class="lineno">   80</span>        conforms, v_r, v_t = meta_validate(to_meta_val, inference=inference, **kwargs)</div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> conforms:</div>
+<div class="line"><span class="lineno">   82</span>            msg = f<span class="stringliteral">&quot;SHACL File does not validate against the SHACL Shapes SHACL (MetaSHACL) file.\n{v_t}&quot;</span></div>
+<div class="line"><span class="lineno">   83</span>            log.error(msg)</div>
+<div class="line"><span class="lineno">   84</span>            <span class="keywordflow">raise</span> ReportableRuntimeError(msg)</div>
+<div class="line"><span class="lineno">   85</span>    do_owl_imports = kwargs.pop(<span class="stringliteral">&#39;do_owl_imports&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">   86</span>    data_graph_format = kwargs.pop(<span class="stringliteral">&#39;data_graph_format&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>    <span class="keywordflow">if</span> isinstance(data_graph, (str, bytes, BufferedIOBase, TextIOBase)):</div>
+<div class="line"><span class="lineno">   89</span>        <span class="comment"># DataGraph is passed in as Text. It is not an rdflib.Graph</span></div>
+<div class="line"><span class="lineno">   90</span>        <span class="comment"># That means we load it into an ephemeral graph at runtime</span></div>
+<div class="line"><span class="lineno">   91</span>        <span class="comment"># that means we don&#39;t need to make a copy to prevent polluting it.</span></div>
+<div class="line"><span class="lineno">   92</span>        ephemeral = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   94</span>        ephemeral = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   95</span>    use_js = kwargs.pop(<span class="stringliteral">&#39;js&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   96</span>    <span class="keywordflow">if</span> sparql_mode:</div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span> use_js:</div>
+<div class="line"><span class="lineno">   98</span>            <span class="keywordflow">raise</span> ReportableRuntimeError(<span class="stringliteral">&quot;Cannot use SHACL-JS in SPARQL Remote Graph Mode.&quot;</span>)</div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordflow">if</span> inplace:</div>
+<div class="line"><span class="lineno">  100</span>            <span class="keywordflow">raise</span> ReportableRuntimeError(<span class="stringliteral">&quot;Cannot use inplace mode in SPARQL Remote Graph Mode.&quot;</span>)</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">if</span> ont_graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  102</span>            <span class="keywordflow">raise</span> ReportableRuntimeError(<span class="stringliteral">&quot;Cannot use SPARQL Remote Graph Mode with extra Ontology Graph inoculation.&quot;</span>)</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">if</span> isinstance(data_graph, bytes):</div>
+<div class="line"><span class="lineno">  104</span>            data_graph = data_graph.decode(<span class="stringliteral">&#39;utf-8&#39;</span>)</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  106</span>            data_graph = data_graph</div>
+<div class="line"><span class="lineno">  107</span>        ephemeral = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  108</span>        inplace = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  109</span>    <span class="keywordflow">if</span> (</div>
+<div class="line"><span class="lineno">  110</span>        sparql_mode</div>
+<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">and</span> isinstance(data_graph, str)</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">and</span> (data_graph.lower().startswith(<span class="stringliteral">&quot;http:&quot;</span>) <span class="keywordflow">or</span> data_graph.lower().startswith(<span class="stringliteral">&quot;https:&quot;</span>))</div>
+<div class="line"><span class="lineno">  113</span>    ):</div>
+<div class="line"><span class="lineno">  114</span>        <span class="keyword">from</span> <a class="code hl_namespace" href="a01107.html">rdflib.plugins.stores.sparqlstore</a> <span class="keyword">import</span> SPARQLStore</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>        query_endpoint: str = data_graph</div>
+<div class="line"><span class="lineno">  117</span>        username = os.getenv(<span class="stringliteral">&quot;PYSHACL_SPARQL_USERNAME&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  118</span>        method = os.getenv(<span class="stringliteral">&quot;PYSHACL_SPARQL_METHOD&quot;</span>, <span class="stringliteral">&quot;GET&quot;</span>)</div>
+<div class="line"><span class="lineno">  119</span>        auth: Optional[Tuple[str, str]]</div>
+<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">if</span> username:</div>
+<div class="line"><span class="lineno">  121</span>            password: str = os.getenv(<span class="stringliteral">&quot;PYSHACL_SPARQL_PASSWORD&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  122</span>            auth = (username, password)</div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  124</span>            auth = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  125</span>        store = SPARQLStore(query_endpoint=query_endpoint, auth=auth, method=method)</div>
+<div class="line"><span class="lineno">  126</span>        loaded_dg = Dataset(store=store, default_union=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  127</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  128</span>        <span class="comment"># force no owl imports on data_graph</span></div>
+<div class="line"><span class="lineno">  129</span>        loaded_dg = load_from_source(</div>
+<div class="line"><span class="lineno">  130</span>            data_graph, rdf_format=data_graph_format, multigraph=<span class="keyword">True</span>, do_owl_imports=<span class="keyword">False</span>, logger=log</div>
+<div class="line"><span class="lineno">  131</span>        )</div>
+<div class="line"><span class="lineno">  132</span>    ont_graph_format = kwargs.pop(<span class="stringliteral">&#39;ont_graph_format&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">if</span> ont_graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  134</span>        loaded_og = load_from_source(</div>
+<div class="line"><span class="lineno">  135</span>            ont_graph, rdf_format=ont_graph_format, multigraph=<span class="keyword">True</span>, do_owl_imports=do_owl_imports, logger=log</div>
+<div class="line"><span class="lineno">  136</span>        )</div>
+<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  138</span>        loaded_og = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  139</span>    shacl_graph_format = kwargs.pop(<span class="stringliteral">&#39;shacl_graph_format&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  140</span>    <span class="keywordflow">if</span> shacl_graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  141</span>        rdflib_bool_patch()</div>
+<div class="line"><span class="lineno">  142</span>        loaded_sg = load_from_source(</div>
+<div class="line"><span class="lineno">  143</span>            shacl_graph, rdf_format=shacl_graph_format, multigraph=<span class="keyword">True</span>, do_owl_imports=do_owl_imports, logger=log</div>
+<div class="line"><span class="lineno">  144</span>        )</div>
+<div class="line"><span class="lineno">  145</span>        rdflib_bool_unpatch()</div>
+<div class="line"><span class="lineno">  146</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  147</span>        loaded_sg = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  148</span>    iterate_rules = kwargs.pop(<span class="stringliteral">&#39;iterate_rules&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  149</span>    <span class="keywordflow">if</span> <span class="stringliteral">&quot;abort_on_error&quot;</span> <span class="keywordflow">in</span> kwargs:</div>
+<div class="line"><span class="lineno">  150</span>        log.warning(<span class="stringliteral">&quot;Usage of abort_on_error is deprecated. Use abort_on_first instead.&quot;</span>)</div>
+<div class="line"><span class="lineno">  151</span>        ae = kwargs.pop(<span class="stringliteral">&quot;abort_on_error&quot;</span>)</div>
+<div class="line"><span class="lineno">  152</span>        abort_on_first = bool(abort_on_first) <span class="keywordflow">or</span> bool(ae)</div>
+<div class="line"><span class="lineno">  153</span>    validator_options_dict = {</div>
+<div class="line"><span class="lineno">  154</span>        <span class="stringliteral">&#39;debug&#39;</span>: do_debug <span class="keywordflow">or</span> <span class="keyword">False</span>,</div>
+<div class="line"><span class="lineno">  155</span>        <span class="stringliteral">&#39;inference&#39;</span>: inference,</div>
+<div class="line"><span class="lineno">  156</span>        <span class="stringliteral">&#39;inplace&#39;</span>: inplace <span class="keywordflow">or</span> ephemeral,</div>
+<div class="line"><span class="lineno">  157</span>        <span class="stringliteral">&#39;abort_on_first&#39;</span>: abort_on_first,</div>
+<div class="line"><span class="lineno">  158</span>        <span class="stringliteral">&#39;allow_infos&#39;</span>: allow_infos,</div>
+<div class="line"><span class="lineno">  159</span>        <span class="stringliteral">&#39;allow_warnings&#39;</span>: allow_warnings,</div>
+<div class="line"><span class="lineno">  160</span>        <span class="stringliteral">&#39;advanced&#39;</span>: advanced,</div>
+<div class="line"><span class="lineno">  161</span>        <span class="stringliteral">&#39;iterate_rules&#39;</span>: iterate_rules,</div>
+<div class="line"><span class="lineno">  162</span>        <span class="stringliteral">&#39;use_js&#39;</span>: use_js,</div>
+<div class="line"><span class="lineno">  163</span>        <span class="stringliteral">&#39;sparql_mode&#39;</span>: sparql_mode,</div>
+<div class="line"><span class="lineno">  164</span>        <span class="stringliteral">&#39;logger&#39;</span>: log,</div>
+<div class="line"><span class="lineno">  165</span>        <span class="stringliteral">&#39;focus_nodes&#39;</span>: focus_nodes,</div>
+<div class="line"><span class="lineno">  166</span>        <span class="stringliteral">&#39;use_shapes&#39;</span>: use_shapes,</div>
+<div class="line"><span class="lineno">  167</span>    }</div>
+<div class="line"><span class="lineno">  168</span>    <span class="keywordflow">if</span> max_validation_depth <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  169</span>        validator_options_dict[<span class="stringliteral">&#39;max_validation_depth&#39;</span>] = max_validation_depth</div>
+<div class="line"><span class="lineno">  170</span>    validator = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  171</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  172</span>        validator = Validator(</div>
+<div class="line"><span class="lineno">  173</span>            loaded_dg,</div>
+<div class="line"><span class="lineno">  174</span>            shacl_graph=loaded_sg,</div>
+<div class="line"><span class="lineno">  175</span>            ont_graph=loaded_og,</div>
+<div class="line"><span class="lineno">  176</span>            options=validator_options_dict,</div>
+<div class="line"><span class="lineno">  177</span>        )</div>
+<div class="line"><span class="lineno">  178</span>        conforms, report_graph, report_text = validator.run()</div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordflow">except</span> ValidationFailure <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  180</span>        conforms = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  181</span>        report_graph = e</div>
+<div class="line"><span class="lineno">  182</span>        report_text = <span class="stringliteral">&quot;Validation Failure - {}&quot;</span>.format(e.message)</div>
+<div class="line"><span class="lineno">  183</span>    <span class="keywordflow">if</span> do_check_dash_result <span class="keywordflow">and</span> validator <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  184</span>        passes = check_dash_result(validator, report_graph, loaded_sg <span class="keywordflow">or</span> loaded_dg)</div>
+<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">return</span> passes, report_graph, report_text</div>
+<div class="line"><span class="lineno">  186</span>    do_serialize_report_graph = kwargs.pop(<span class="stringliteral">&#39;serialize_report_graph&#39;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  187</span>    <span class="keywordflow">if</span> do_serialize_report_graph <span class="keywordflow">and</span> isinstance(report_graph, Graph):</div>
+<div class="line"><span class="lineno">  188</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> (isinstance(do_serialize_report_graph, str)):</div>
+<div class="line"><span class="lineno">  189</span>            do_serialize_report_graph = <span class="stringliteral">&#39;turtle&#39;</span></div>
+<div class="line"><span class="lineno">  190</span>        report_graph = report_graph.serialize(<span class="keywordtype">None</span>, encoding=<span class="stringliteral">&#39;utf-8&#39;</span>, format=do_serialize_report_graph)</div>
+<div class="line"><span class="lineno">  191</span>    <span class="keywordflow">return</span> conforms, report_graph, report_text</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">rdflib.plugins.stores.sparqlstore</a></div><div class="ttdef"><b>Definition</b> sparqlstore.py:1</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00950.html#a6162c912e883bd56901e60e5c75de765">pyshacl.entrypoints.make_default_logger()</a>, and <a class="el" href="a00950.html#a3ad7f9fa0e6042c76f200381c96bd1fe">pyshacl.entrypoints.meta_validate()</a>.</p>
+
+</div>
+</div>
+<a id="ad5b47c9ca53ae20c1cca3d275530252f" name="ad5b47c9ca53ae20c1cca3d275530252f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5b47c9ca53ae20c1cca3d275530252f">&#9670;&#160;</a></span>with_metashacl_shacl_graph_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">with_metashacl_shacl_graph_cache </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  194</span><span class="keyword">def </span>with_metashacl_shacl_graph_cache(f):</div>
+<div class="line"><span class="lineno">  195</span>    <span class="comment"># noinspection PyPep8Naming</span></div>
+<div class="line"><span class="lineno">  196</span>    EMPTY = <a class="code hl_class" href="a07484.html">object</a>()</div>
+<div class="line"><span class="lineno">  197</span> </div>
+<div class="line"><span class="lineno">  198</span>    <span class="preprocessor">@wraps(f)</span></div>
+<div class="line"><span class="lineno">  199</span>    <span class="keyword">def </span>wrapped(*args, **kwargs):</div>
+<div class="line"><span class="lineno">  200</span>        graph_cache = getattr(wrapped, <span class="stringliteral">&quot;graph_cache&quot;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  201</span>        <span class="keyword">assert</span> graph_cache <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  202</span>        <span class="keywordflow">if</span> graph_cache <span class="keywordflow">is</span> EMPTY:</div>
+<div class="line"><span class="lineno">  203</span>            <span class="keyword">import</span> pickle</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>            <span class="keywordflow">if</span> getattr(sys, <span class="stringliteral">&#39;frozen&#39;</span>, <span class="keyword">False</span>):</div>
+<div class="line"><span class="lineno">  206</span>                <span class="comment"># runs in a pyinstaller bundle</span></div>
+<div class="line"><span class="lineno">  207</span>                here_dir = sys._MEIPASS</div>
+<div class="line"><span class="lineno">  208</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  209</span>                here_dir = os.path.dirname(__file__)</div>
+<div class="line"><span class="lineno">  210</span>            pickle_file = os.path.join(here_dir, <span class="stringliteral">&quot;assets&quot;</span>, <span class="stringliteral">&quot;shacl-shacl.pickle&quot;</span>)</div>
+<div class="line"><span class="lineno">  211</span>            <span class="keyword">with</span> open(pickle_file, <span class="stringliteral">&#39;rb&#39;</span>) <span class="keyword">as</span> shacl_pickle:</div>
+<div class="line"><span class="lineno">  212</span>                u = pickle.Unpickler(shacl_pickle, fix_imports=<span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  213</span>                shacl_shacl_store, identifier = u.load()</div>
+<div class="line"><span class="lineno">  214</span>            shacl_shacl_graph = Graph(store=shacl_shacl_store, identifier=identifier)</div>
+<div class="line"><span class="lineno">  215</span>            setattr(wrapped, <span class="stringliteral">&quot;graph_cache&quot;</span>, shacl_shacl_graph)</div>
+<div class="line"><span class="lineno">  216</span>        <span class="keywordflow">return</span> f(*args, **kwargs)</div>
+<div class="line"><span class="lineno">  217</span> </div>
+<div class="line"><span class="lineno">  218</span>    setattr(wrapped, <span class="stringliteral">&quot;graph_cache&quot;</span>, EMPTY)</div>
+<div class="line"><span class="lineno">  219</span>    <span class="keywordflow">return</span> wrapped</div>
+<div class="line"><span class="lineno">  220</span> </div>
+<div class="line"><span class="lineno">  221</span> </div>
+<div class="line"><span class="lineno">  222</span><span class="preprocessor">@with_metashacl_shacl_graph_cache</span></div>
+<div class="ttc" id="aa07484_html"><div class="ttname"><a href="a07484.html">object</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00950.html">entrypoints</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

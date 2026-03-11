@@ -1,0 +1,868 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: LayerExporter Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a03192.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a03189.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">LayerExporter Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a85e158dcab857f9b76191e22cf9bdf25" id="r_a85e158dcab857f9b76191e22cf9bdf25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html#a85e158dcab857f9b76191e22cf9bdf25">detectColumnURIs</a> (columnnames)</td></tr>
+<tr class="separator:a85e158dcab857f9b76191e22cf9bdf25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad933a329ddfffafe8a77947be99e8a54" id="r_ad933a329ddfffafe8a77947be99e8a54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html#ad933a329ddfffafe8a77947be99e8a54">exportToFormat</a> (layerOrTTLString, file, filename, format, prefixes)</td></tr>
+<tr class="separator:ad933a329ddfffafe8a77947be99e8a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7f31d1f6c35161677b98e716be12dd1" id="r_ab7f31d1f6c35161677b98e716be12dd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html#ab7f31d1f6c35161677b98e716be12dd1">layerToTTLString</a> (layer, prefixes, vocab=&quot;GeoSPARQL&quot;, literaltype=[&quot;WKT&quot;], columntypes=None)</td></tr>
+<tr class="separator:ab7f31d1f6c35161677b98e716be12dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7e19d48b6585c8c27b2b9242ff3e78" id="r_aba7e19d48b6585c8c27b2b9242ff3e78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html#aba7e19d48b6585c8c27b2b9242ff3e78">layerToTTLString</a> (layer, prefixes, vocab=&quot;GeoSPARQL&quot;, literaltype=[&quot;WKT&quot;], urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None, valuequeries=None, exportNameSpace=None, exportIdCol=None, exportSetClass=None)</td></tr>
+<tr class="memdesc:aba7e19d48b6585c8c27b2b9242ff3e78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a QGIS layer to TTL with or without a given column mapping.  <br /></td></tr>
+<tr class="separator:aba7e19d48b6585c8c27b2b9242ff3e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c4c61c1100a4b0c1a8fbfeab0b484c" id="r_a22c4c61c1100a4b0c1a8fbfeab0b484c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html#a22c4c61c1100a4b0c1a8fbfeab0b484c">layerToDot</a> (layer, prefixes, urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None, valuequeries=None, exportNameSpace=None, exportIdCol=None, exportSetClass=None)</td></tr>
+<tr class="separator:a22c4c61c1100a4b0c1a8fbfeab0b484c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3056a371b38345f6eec83daa77a13261" id="r_a3056a371b38345f6eec83daa77a13261"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html#a3056a371b38345f6eec83daa77a13261">layerToGraphML</a> (layer)</td></tr>
+<tr class="separator:a3056a371b38345f6eec83daa77a13261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63cd6ec21b9cb468253d22087432b2e4" id="r_a63cd6ec21b9cb468253d22087432b2e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html#a63cd6ec21b9cb468253d22087432b2e4">layerAsGeoJSONLD</a> (layer)</td></tr>
+<tr class="separator:a63cd6ec21b9cb468253d22087432b2e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a85e158dcab857f9b76191e22cf9bdf25" name="a85e158dcab857f9b76191e22cf9bdf25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85e158dcab857f9b76191e22cf9bdf25">&#9670;&#160;</a></span>detectColumnURIs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">detectColumnURIs </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>columnnames</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   20</span>    <span class="keyword">def </span>detectColumnURIs(columnnames):</div>
+<div class="line"><span class="lineno">   21</span>        print(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">   22</span> </div>
+<div class="line"><span class="lineno">   23</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad933a329ddfffafe8a77947be99e8a54" name="ad933a329ddfffafe8a77947be99e8a54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad933a329ddfffafe8a77947be99e8a54">&#9670;&#160;</a></span>exportToFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportToFormat </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layerOrTTLString</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   25</span>    <span class="keyword">def </span>exportToFormat(layerOrTTLString,file,filename,format,prefixes):</div>
+<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">if</span> isinstance(layerOrTTLString, Graph):</div>
+<div class="line"><span class="lineno">   27</span>            g=layerOrTTLString</div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   29</span>            g=LayerExporter.layerToTTLString(layerOrTTLString,prefixes)</div>
+<div class="line"><span class="lineno">   30</span>        <span class="comment">#QgsMessageLog.logMessage(str(layerToTTL),&quot;LayerExporter&quot;, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">   31</span>        <span class="comment">#QgsMessageLog.logMessage(&quot;Format: &quot;+str(format), &quot;LayerExporter&quot;, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">   32</span>        <span class="comment">#QgsMessageLog.logMessage(&quot;File: &quot; + str(file), &quot;LayerExporter&quot;, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">   33</span>        <span class="comment">#g=Graph()</span></div>
+<div class="line"><span class="lineno">   34</span>        <span class="comment">#g.parse(data=layerToTTL)</span></div>
+<div class="line"><span class="lineno">   35</span>        g.bind(<span class="stringliteral">&quot;suni&quot;</span>,<span class="stringliteral">&quot;http://www.github.com/sparqlunicorn#&quot;</span>)</div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> format <span class="keywordflow">in</span> ExporterUtils.exportToFunction:</div>
+<div class="line"><span class="lineno">   37</span>            <span class="keywordflow">if</span> format <span class="keywordflow">not</span> <span class="keywordflow">in</span> ExporterUtils.rdfformats:</div>
+<div class="line"><span class="lineno">   38</span>                ExporterUtils.exportToFunction[format](g,file,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,format.lower())</div>
+<div class="line"><span class="lineno">   39</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   40</span>                ExporterUtils.exportToFunction[format](g,filename,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,format.lower())</div>
+<div class="line"><span class="lineno">   41</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a63cd6ec21b9cb468253d22087432b2e4" name="a63cd6ec21b9cb468253d22087432b2e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63cd6ec21b9cb468253d22087432b2e4">&#9670;&#160;</a></span>layerAsGeoJSONLD()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">layerAsGeoJSONLD </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  301</span>    <span class="keyword">def </span>layerAsGeoJSONLD(layer):</div>
+<div class="line"><span class="lineno">  302</span>        context = {</div>
+<div class="line"><span class="lineno">  303</span>            <span class="stringliteral">&quot;geojson&quot;</span>: <span class="stringliteral">&quot;https://purl.org/geojson/vocab#&quot;</span>,</div>
+<div class="line"><span class="lineno">  304</span>            <span class="stringliteral">&quot;Feature&quot;</span>: <span class="stringliteral">&quot;geojson:Feature&quot;</span>,</div>
+<div class="line"><span class="lineno">  305</span>            <span class="stringliteral">&quot;FeatureCollection&quot;</span>: <span class="stringliteral">&quot;geojson:FeatureCollection&quot;</span>,</div>
+<div class="line"><span class="lineno">  306</span>            <span class="stringliteral">&quot;GeometryCollection&quot;</span>: <span class="stringliteral">&quot;geojson:GeometryCollection&quot;</span>,</div>
+<div class="line"><span class="lineno">  307</span>            <span class="stringliteral">&quot;LineString&quot;</span>: <span class="stringliteral">&quot;geojson:LineString&quot;</span>,</div>
+<div class="line"><span class="lineno">  308</span>            <span class="stringliteral">&quot;MultiLineString&quot;</span>: <span class="stringliteral">&quot;geojson:MultiLineString&quot;</span>,</div>
+<div class="line"><span class="lineno">  309</span>            <span class="stringliteral">&quot;MultiPoint&quot;</span>: <span class="stringliteral">&quot;geojson:MultiPoint&quot;</span>,</div>
+<div class="line"><span class="lineno">  310</span>            <span class="stringliteral">&quot;MultiPolygon&quot;</span>: <span class="stringliteral">&quot;geojson:MultiPolygon&quot;</span>,</div>
+<div class="line"><span class="lineno">  311</span>            <span class="stringliteral">&quot;Point&quot;</span>: <span class="stringliteral">&quot;geojson:Point&quot;</span>,</div>
+<div class="line"><span class="lineno">  312</span>            <span class="stringliteral">&quot;Polygon&quot;</span>: <span class="stringliteral">&quot;geojson:Polygon&quot;</span>,</div>
+<div class="line"><span class="lineno">  313</span>            <span class="stringliteral">&quot;bbox&quot;</span>: {</div>
+<div class="line"><span class="lineno">  314</span>                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@list&quot;</span>,</div>
+<div class="line"><span class="lineno">  315</span>                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:bbox&quot;</span></div>
+<div class="line"><span class="lineno">  316</span>            },</div>
+<div class="line"><span class="lineno">  317</span>            <span class="stringliteral">&quot;coordinates&quot;</span>: {</div>
+<div class="line"><span class="lineno">  318</span>                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@list&quot;</span>,</div>
+<div class="line"><span class="lineno">  319</span>                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:coordinates&quot;</span></div>
+<div class="line"><span class="lineno">  320</span>            },</div>
+<div class="line"><span class="lineno">  321</span>            <span class="stringliteral">&quot;features&quot;</span>: {</div>
+<div class="line"><span class="lineno">  322</span>                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@set&quot;</span>,</div>
+<div class="line"><span class="lineno">  323</span>                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:features&quot;</span></div>
+<div class="line"><span class="lineno">  324</span>            },</div>
+<div class="line"><span class="lineno">  325</span>            <span class="stringliteral">&quot;geometry&quot;</span>: <span class="stringliteral">&quot;geojson:geometry&quot;</span>,</div>
+<div class="line"><span class="lineno">  326</span>            <span class="stringliteral">&quot;id&quot;</span>: <span class="stringliteral">&quot;@id&quot;</span>,</div>
+<div class="line"><span class="lineno">  327</span>            <span class="stringliteral">&quot;properties&quot;</span>: <span class="stringliteral">&quot;geojson:properties&quot;</span>,</div>
+<div class="line"><span class="lineno">  328</span>            <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;@type&quot;</span>,</div>
+<div class="line"><span class="lineno">  329</span>            <span class="stringliteral">&quot;description&quot;</span>: <span class="stringliteral">&quot;http://purl.org/dc/terms/description&quot;</span>,</div>
+<div class="line"><span class="lineno">  330</span>            <span class="stringliteral">&quot;title&quot;</span>: <span class="stringliteral">&quot;http://purl.org/dc/terms/title&quot;</span></div>
+<div class="line"><span class="lineno">  331</span>        }</div>
+<div class="line"><span class="lineno">  332</span>        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><span class="lineno">  333</span>        currentgeo = {}</div>
+<div class="line"><span class="lineno">  334</span>        geos = []</div>
+<div class="line"><span class="lineno">  335</span>        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer.getFeatures():</div>
+<div class="line"><span class="lineno">  336</span>            geom = f.geometry()</div>
+<div class="line"><span class="lineno">  337</span>            currentgeo = {<span class="stringliteral">&#39;id&#39;</span>: <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(geom.asJson()), <span class="stringliteral">&#39;properties&#39;</span>: {}}</div>
+<div class="line"><span class="lineno">  338</span>            <span class="keywordflow">for</span> prop <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><span class="lineno">  339</span>                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;id&quot;</span>:</div>
+<div class="line"><span class="lineno">  340</span>                    currentgeo[<span class="stringliteral">&quot;id&quot;</span>] = f[prop]</div>
+<div class="line"><span class="lineno">  341</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  342</span>                    currentgeo[<span class="stringliteral">&quot;properties&quot;</span>][prop] = f[prop]</div>
+<div class="line"><span class="lineno">  343</span>            geos.append(currentgeo)</div>
+<div class="line"><span class="lineno">  344</span>        featurecollection = {<span class="stringliteral">&quot;@context&quot;</span>: context, <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;FeatureCollection&quot;</span>,</div>
+<div class="line"><span class="lineno">  345</span>                             <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;http://example.com/collections/1&quot;</span>, <span class="stringliteral">&quot;features&quot;</span>: geos}</div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordflow">return</span> featurecollection</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a22c4c61c1100a4b0c1a8fbfeab0b484c" name="a22c4c61c1100a4b0c1a8fbfeab0b484c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c4c61c1100a4b0c1a8fbfeab0b484c">&#9670;&#160;</a></span>layerToDot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">layerToDot </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>urilist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>classurilist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>includelist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>proptypelist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>valuemappings</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>valuequeries</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exportNameSpace</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exportIdCol</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exportSetClass</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  238</span>                         valuemappings=<span class="keywordtype">None</span>, valuequeries=<span class="keywordtype">None</span>,exportNameSpace=<span class="keywordtype">None</span>,exportIdCol=<span class="keywordtype">None</span>,exportSetClass=<span class="keywordtype">None</span>):</div>
+<div class="line"><span class="lineno">  239</span>        ttlstring=LayerUtils.layerToTTLString(layer, prefixes, urilist, classurilist, includelist, proptypelist,</div>
+<div class="line"><span class="lineno">  240</span>                         valuemappings, valuequeries,exportNameSpace,exportIdCol,exportSetClass)</div>
+<div class="line"><span class="lineno">  241</span>        <span class="comment">#g=Graph()</span></div>
+<div class="line"><span class="lineno">  242</span>        <span class="comment">#g.parse(data=ttlstring,format=&quot;ttl&quot;)</span></div>
+<div class="line"><span class="lineno">  243</span>        <span class="comment">#stream = io.StringIO()</span></div>
+<div class="line"><span class="lineno">  244</span>        <span class="comment">#rdf2dot(g, stream)</span></div>
+<div class="line"><span class="lineno">  245</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span><span class="comment">#stream.getvalue()</span></div>
+<div class="line"><span class="lineno">  246</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a3056a371b38345f6eec83daa77a13261" name="a3056a371b38345f6eec83daa77a13261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3056a371b38345f6eec83daa77a13261">&#9670;&#160;</a></span>layerToGraphML()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">layerToGraphML </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  248</span>    <span class="keyword">def </span>layerToGraphML(layer):</div>
+<div class="line"><span class="lineno">  249</span>        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><span class="lineno">  250</span>        result = <span class="stringliteral">&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;\n&quot;</span></div>
+<div class="line"><span class="lineno">  251</span>        result += <span class="stringliteral">&quot;&lt;graphml xmlns=\&quot;http://graphml.graphdrawing.org/xmlns\&quot; xmlns:xsi=\&quot;http://www.w3.org/2001/XMLSchema-instance\&quot; xmlns:y=\&quot;http://www.yworks.com/xml/graphml\&quot; xsi:schemaLocation=\&quot;http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\&quot;&gt;\n&quot;</span></div>
+<div class="line"><span class="lineno">  252</span>        result += <span class="stringliteral">&quot;&lt;key for=\&quot;node\&quot; id=\&quot;nodekey\&quot; yfiles.type=\&quot;nodegraphics\&quot;&gt;&lt;/key&gt;\n&lt;key for=\&quot;edge\&quot; id=\&quot;edgekey\&quot; yfiles.type=\&quot;edgegraphics\&quot;&gt;&lt;/key&gt;&lt;graph id=\&quot;G\&quot; edgedefault=\&quot;undirected\&quot;&gt;\n&quot;</span></div>
+<div class="line"><span class="lineno">  253</span>        nodeset = set()</div>
+<div class="line"><span class="lineno">  254</span>        edgeset = set()</div>
+<div class="line"><span class="lineno">  255</span>        fidcounter = 0</div>
+<div class="line"><span class="lineno">  256</span>        edgecounter = 0</div>
+<div class="line"><span class="lineno">  257</span>        literalcounter = 1</div>
+<div class="line"><span class="lineno">  258</span>        nodeset.add(<span class="stringliteral">&quot;&lt;node id=\&quot;geo:SpatialObject\&quot;&gt;&lt;data key=\&quot;nodekey\&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=\&quot;ellipse\&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=\&quot;#ff8800\&quot; transparent=\&quot;false\&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=\&quot;center\&quot; autoSizePolicy=\&quot;content\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hasText=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;geo:SpatialObject&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  259</span>        nodeset.add(<span class="stringliteral">&quot;&lt;node id=\&quot;geo:Feature\&quot;&gt;&lt;data key=\&quot;nodekey\&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=\&quot;ellipse\&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=\&quot;#ff8800\&quot; transparent=\&quot;false\&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=\&quot;center\&quot; autoSizePolicy=\&quot;content\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hasText=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;geo:Feature&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  260</span>        nodeset.add(<span class="stringliteral">&quot;&lt;node id=\&quot;geo:Geometry\&quot;&gt;&lt;data key=\&quot;nodekey\&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=\&quot;ellipse\&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=\&quot;#ff8800\&quot; transparent=\&quot;false\&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=\&quot;center\&quot; autoSizePolicy=\&quot;content\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hasText=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;geo:Geometry&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  261</span>        edgeset.add(<span class="stringliteral">&quot;&lt;edge id=\&quot;eFeature\&quot; source=\&quot;geo:Feature\&quot; target=\&quot;geo:SpatialObject\&quot;&gt;\n&lt;data key=\&quot;edgekey\&quot;&gt;\n&lt;y:PolyLineEdge&gt;\n&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;rdfs:subClassOf&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  262</span>        edgeset.add(<span class="stringliteral">&quot;&lt;edge id=\&quot;eGeometry\&quot; source=\&quot;geo:Geometry\&quot; target=\&quot;geo:SpatialObject\&quot;&gt;\n&lt;data key=\&quot;edgekey\&quot;&gt;\n&lt;y:PolyLineEdge&gt;\n&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;rdfs:subClassOf&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  263</span>        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer.getFeatures():</div>
+<div class="line"><span class="lineno">  264</span>            geom = f.geometry()</div>
+<div class="line"><span class="lineno">  265</span>            nodeset.add(f<span class="stringliteral">&quot;&lt;node id=\&quot;fid_{fidcounter}\&quot;&gt;&lt;data key=\&quot;nodekey\&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=\&quot;ellipse\&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=\&quot;#800080\&quot; transparent=\&quot;false\&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=\&quot;center\&quot; autoSizePolicy=\&quot;content\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hasText=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;fid_{fidcounter}&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  266</span>            fieldcounter = 0</div>
+<div class="line"><span class="lineno">  267</span>            <span class="keywordflow">for</span> propp <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><span class="lineno">  268</span>                fieldcounter += 1</div>
+<div class="line"><span class="lineno">  269</span>                prop = propp</div>
+<div class="line"><span class="lineno">  270</span>                <span class="keywordflow">if</span> prop.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  271</span>                    toadd = f<span class="stringliteral">&quot;&lt;node id=\&quot;{prop}\&quot; uri=\&quot;{prop}\&quot;&gt;&lt;data key=\&quot;nodekey\&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=\&quot;ellipse\&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=\&quot;#800080\&quot; transparent=\&quot;false\&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=\&quot;center\&quot; autoSizePolicy=\&quot;content\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hasText=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  272</span>                    <span class="keywordflow">if</span> f[propp].startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  273</span>                        toadd += SPARQLUtils.labelFromURI(str(f[propp]).replace(<span class="stringliteral">&quot;&lt;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>).replace(<span class="stringliteral">&quot;&gt;&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)) + <span class="stringliteral">&quot;&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&quot;</span></div>
+<div class="line"><span class="lineno">  274</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  275</span>                        toadd += f<span class="stringliteral">&#39;&lt;!CDATA[{str(f[propp]).replace(&quot;&lt;&quot;, &quot;&quot;).replace(&quot;&gt;&quot;,&quot;&quot;)}]]&gt;&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&#39;</span></div>
+<div class="line"><span class="lineno">  276</span>                    nodeset.add(toadd)</div>
+<div class="line"><span class="lineno">  277</span>                    edgeset.add(f<span class="stringliteral">&quot;&lt;edge id=\&quot;e{edgecounter}\&quot; uri=\&quot;{propp}\&quot; source=\&quot;fid_{fidcounter}\&quot; target=\&quot;{prop}\&quot;&gt;&lt;data key=\&quot;edgekey\&quot;&gt;&lt;y:PolyLineEdge&gt;&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;{propp}&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  278</span>                    edgecounter += 1</div>
+<div class="line"><span class="lineno">  279</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  280</span>                    nodeset.add(f<span class="stringliteral">&#39;&lt;node id=&quot;literal{literalcounter}&quot;&gt;&lt;data key=&quot;nodekey&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=&quot;ellipse&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=&quot;#008000&quot; transparent=&quot;false&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=&quot;center&quot; autoSizePolicy=&quot;content&quot; fontSize=&quot;12&quot; fontStyle=&quot;plain&quot; hasText=&quot;true&quot; visible=&quot;true&quot; width=&quot;4.0&quot;&gt;{str(f[propp]).replace(&quot;&lt;&quot;, &quot;&quot;).replace(&quot;&gt;&quot;, &quot;&quot;)[0:10]}&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&#39;</span>)</div>
+<div class="line"><span class="lineno">  281</span>                    edgeset.add(f<span class="stringliteral">&quot;&lt;edge id=\&quot;e{edgecounter}\&quot; uri=\&quot;{propp}\&quot; source=\&quot;fid_{fidcounter}\&quot; target=\&quot;literal{literalcounter}\&quot;&gt;\n&lt;data key=\&quot;edgekey\&quot;&gt;\n&lt;y:PolyLineEdge&gt;\n&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;{propp}&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  282</span>                    literalcounter += 1</div>
+<div class="line"><span class="lineno">  283</span>                    edgecounter += 1</div>
+<div class="line"><span class="lineno">  284</span>            nodeset.add(f<span class="stringliteral">&quot;&lt;node id=\&quot;fid_{fidcounter}_geom\&quot;&gt;&lt;data key=\&quot;nodekey\&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=\&quot;ellipse\&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=\&quot;#800080\&quot; transparent=\&quot;false\&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=\&quot;center\&quot; autoSizePolicy=\&quot;content\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hasText=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;fid_{fidcounter}_geom&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  285</span>            nodeset.add(f<span class="stringliteral">&quot;&lt;node id=\&quot;literal{literalcounter}\&quot;&gt;&lt;data key=\&quot;nodekey\&quot;&gt;&lt;y:ShapeNode&gt;&lt;y:Shape shape=\&quot;ellipse\&quot;&gt;&lt;/y:Shape&gt;&lt;y:Fill color=\&quot;#008000\&quot; transparent=\&quot;false\&quot;&gt;&lt;/y:Fill&gt;&lt;y:NodeLabel alignment=\&quot;center\&quot; autoSizePolicy=\&quot;content\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hasText=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;{geom.asWkt()[0:10]}&lt;/y:NodeLabel&gt;&lt;/y:ShapeNode&gt;&lt;/data&gt;&lt;/node&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  286</span>            edgeset.add(f<span class="stringliteral">&quot;&lt;edge id=\&quot;e{edgecounter}\&quot; source=\&quot;fid_{fidcounter}\&quot; target=\&quot;fid_{fidcounter}_geom\&quot;&gt;\n&lt;data key=\&quot;edgekey\&quot;&gt;\n&lt;y:PolyLineEdge&gt;\n&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;geom:asWkt&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  287</span>            edgeset.add(f<span class="stringliteral">&quot;&lt;edge id=\&quot;e{edgecounter}type\&quot; source=\&quot;fid_{fidcounter}_geom\&quot; target=\&quot;geo:Geometry\&quot;&gt;\n&lt;data key=\&quot;edgekey\&quot;&gt;\n&lt;y:PolyLineEdge&gt;\n&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;rdf:type&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  288</span>            edgeset.add(f<span class="stringliteral">&quot;&lt;edge id=\&quot;e{edgecounter}\&quot; source=\&quot;fid_{fidcounter}_geom\&quot; target=\&quot;literal{literalcounter}\&quot;&gt;\n&lt;data key=\&quot;edgekey\&quot;&gt;\n&lt;y:PolyLineEdge&gt;\n&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;geom:asWkt&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  289</span>            edgecounter += 1</div>
+<div class="line"><span class="lineno">  290</span>            edgeset.add(f<span class="stringliteral">&quot;&lt;edge id=\&quot;e{edgecounter}\&quot; source=\&quot;fid_{fidcounter}\&quot; target=\&quot;geo:Feature\&quot;&gt;\n&lt;data key=\&quot;edgekey\&quot;&gt;\n&lt;y:PolyLineEdge&gt;\n&lt;y:EdgeLabel alignment=\&quot;center\&quot; configuration=\&quot;AutoFlippingLabel\&quot; fontSize=\&quot;12\&quot; fontStyle=\&quot;plain\&quot; hastext=\&quot;true\&quot; visible=\&quot;true\&quot; width=\&quot;4.0\&quot;&gt;rdf:type&lt;/y:EdgeLabel&gt;\n&lt;/y:PolyLineEdge&gt;\n&lt;/data&gt;\n&lt;/edge&gt;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">  291</span>            literalcounter += 1</div>
+<div class="line"><span class="lineno">  292</span>            edgecounter += 1</div>
+<div class="line"><span class="lineno">  293</span>            fidcounter += 1</div>
+<div class="line"><span class="lineno">  294</span>        result += <span class="stringliteral">&quot;&quot;</span>.join(nodeset)</div>
+<div class="line"><span class="lineno">  295</span>        result += <span class="stringliteral">&quot;&quot;</span>.join(edgeset)</div>
+<div class="line"><span class="lineno">  296</span>        result += <span class="stringliteral">&quot;&lt;/graph&gt;\n&quot;</span></div>
+<div class="line"><span class="lineno">  297</span>        result += <span class="stringliteral">&quot;&lt;/graphml&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">return</span> result</div>
+<div class="line"><span class="lineno">  299</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab7f31d1f6c35161677b98e716be12dd1" name="ab7f31d1f6c35161677b98e716be12dd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7f31d1f6c35161677b98e716be12dd1">&#9670;&#160;</a></span>layerToTTLString() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">layerToTTLString </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>vocab</em> = <code>&quot;GeoSPARQL&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>literaltype</em> = <code>[&quot;WKT&quot;]</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>columntypes</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   43</span>    <span class="keyword">def </span>layerToTTLString(layer, prefixes, vocab=&quot;GeoSPARQL&quot;, literaltype=[&quot;WKT&quot;],columntypes=None):</div>
+<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">if</span> columntypes <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   45</span>            LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype,InterlinkUtils.suggestColumnURIs(layer,prefixes))</div>
+<div class="line"><span class="lineno">   46</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;namespace&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> columntypes <span class="keywordflow">or</span> columntypes[<span class="stringliteral">&quot;namespace&quot;</span>] <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> columntypes[<span class="stringliteral">&quot;namespace&quot;</span>]==<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">   48</span>            namespace = <span class="stringliteral">&quot;http://www.github.com/sparqlunicorn#&quot;</span></div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   50</span>            namespace = columntypes[<span class="stringliteral">&quot;namespace&quot;</span>]</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;indid&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> columntypes <span class="keywordflow">or</span> columntypes[<span class="stringliteral">&quot;indid&quot;</span>] <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> columntypes[<span class="stringliteral">&quot;indid&quot;</span>]==<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">   52</span>            idcol = <span class="stringliteral">&quot;id&quot;</span></div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   54</span>            idcol = columntypes[<span class="stringliteral">&quot;indid&quot;</span>]</div>
+<div class="line"><span class="lineno">   55</span>        urilist=[]</div>
+<div class="line"><span class="lineno">   56</span>        classurilist=[]</div>
+<div class="line"><span class="lineno">   57</span>        proptypelist=[]</div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">for</span> col <span class="keywordflow">in</span> columntypes:</div>
+<div class="line"><span class="lineno">   59</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;propiri&quot;</span> <span class="keywordflow">in</span> col:</div>
+<div class="line"><span class="lineno">   60</span>                urilist.append(col[<span class="stringliteral">&quot;propiri&quot;</span>])</div>
+<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   62</span>                urilist.append(<span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   63</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;concept&quot;</span> <span class="keywordflow">in</span> col:</div>
+<div class="line"><span class="lineno">   64</span>                classurilist.append(col[<span class="stringliteral">&quot;concept&quot;</span>])</div>
+<div class="line"><span class="lineno">   65</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   66</span>                classurilist.append(<span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;prop&quot;</span> <span class="keywordflow">in</span> col:</div>
+<div class="line"><span class="lineno">   68</span>                proptypelist.append(col[<span class="stringliteral">&quot;concept&quot;</span>])</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   70</span>                proptypelist.append(<span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   71</span>        LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype, urilist, classurilist,</div>
+<div class="line"><span class="lineno">   72</span>                     list(columntypes[<span class="stringliteral">&quot;columns&quot;</span>].keys()), proptypelist,</div>
+<div class="line"><span class="lineno">   73</span>                     <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, namespace, idcol,</div>
+<div class="line"><span class="lineno">   74</span>                     <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aba7e19d48b6585c8c27b2b9242ff3e78" name="aba7e19d48b6585c8c27b2b9242ff3e78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba7e19d48b6585c8c27b2b9242ff3e78">&#9670;&#160;</a></span>layerToTTLString() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">layerToTTLString </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>vocab</em> = <code>&quot;GeoSPARQL&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>literaltype</em> = <code>[&quot;WKT&quot;]</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>urilist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>classurilist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>includelist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>proptypelist</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>valuemappings</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>valuequeries</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exportNameSpace</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exportIdCol</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exportSetClass</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a QGIS layer to TTL with or without a given column mapping. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+    <tr><td class="paramname">layer</td><td>The layer to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><span class="lineno">   85</span>                         exportSetClass=<span class="keywordtype">None</span>):</div>
+<div class="line"><span class="lineno">   86</span>        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><span class="lineno">   87</span>        <span class="comment"># QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot;+str(fieldnames),</span></div>
+<div class="line"><span class="lineno">   88</span>        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">   89</span>        <span class="comment"># QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot;+str(vocab),</span></div>
+<div class="line"><span class="lineno">   90</span>        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">   91</span>        graph=Graph()</div>
+<div class="line"><span class="lineno">   92</span>        first = 0</div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> exportNameSpace <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> exportNameSpace == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">   94</span>            namespace = <span class="stringliteral">&quot;http://www.github.com/sparqlunicorn#&quot;</span></div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   96</span>            namespace = exportNameSpace</div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span> exportIdCol == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">   98</span>            idcol = <span class="stringliteral">&quot;id&quot;</span></div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  100</span>            idcol = exportIdCol</div>
+<div class="line"><span class="lineno">  101</span>        classcol = <span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</span></div>
+<div class="line"><span class="lineno">  102</span>        curid = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">if</span> exportSetClass <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> exportSetClass == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  104</span>            curclassid = namespace + str(uuid.uuid4())</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">elif</span> exportSetClass.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  106</span>            curclassid = exportSetClass</div>
+<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  108</span>            curclassid = urllib.parse.quote(exportSetClass)</div>
+<div class="line"><span class="lineno">  109</span>        layercrs = layer.crs()</div>
+<div class="line"><span class="lineno">  110</span>        graph.add((URIRef(<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/&quot;</span> + str(layercrs.authid()).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)),RDF.type,URIRef(<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/SpatialReferenceSystem&quot;</span>)))</div>
+<div class="line"><span class="lineno">  111</span>        graph.add((URIRef(<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/&quot;</span> + str(layercrs.authid()).replace(<span class="stringliteral">&quot; &quot;</span>, <span class="stringliteral">&quot;_&quot;</span>)),URIRef(<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/asWKT&quot;</span>),Literal(str(</div>
+<div class="line"><span class="lineno">  112</span>            layercrs.toWkt()).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>, <span class="stringliteral">&quot;\\\&quot;&quot;</span>),datatype=<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/wktLiteral&quot;</span>)))</div>
+<div class="line"><span class="lineno">  113</span>        graph.add((URIRef(<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/&quot;</span> + str(layercrs.authid()).replace(<span class="stringliteral">&quot; &quot;</span>,</div>
+<div class="line"><span class="lineno">  114</span>                                                                                          <span class="stringliteral">&quot;_&quot;</span>)),URIRef(<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/asProj&quot;</span>),Literal(str(</div>
+<div class="line"><span class="lineno">  115</span>            layercrs.toProj4()).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>, <span class="stringliteral">&quot;\\\&quot;&quot;</span>),datatype=<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/proj4Literal&quot;</span>)))</div>
+<div class="line"><span class="lineno">  116</span>        ccrs = ConvertCRS()</div>
+<div class="line"><span class="lineno">  117</span>        graph = ccrs.convertCRSFromWKTStringSet(layercrs.toWkt(), graph,layercrs.authid())</div>
+<div class="line"><span class="lineno">  118</span>        init = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer.getFeatures():</div>
+<div class="line"><span class="lineno">  120</span>            geom = f.geometry()</div>
+<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">if</span> idcol <span class="keywordflow">not</span> <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><span class="lineno">  122</span>                curid = namespace + str(uuid.uuid4())</div>
+<div class="line"><span class="lineno">  123</span>            <span class="keywordflow">elif</span> <span class="keywordflow">not</span> str(f[idcol]).startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  124</span>                curid = namespace + str(f[idcol])</div>
+<div class="line"><span class="lineno">  125</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  126</span>                curid = f[idcol]</div>
+<div class="line"><span class="lineno">  127</span>            curiduri=URIRef(str(curid))</div>
+<div class="line"><span class="lineno">  128</span>            <span class="keywordflow">if</span> classcol <span class="keywordflow">not</span> <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><span class="lineno">  129</span>                graph.add((curiduri,RDF.type,URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  130</span>                <span class="keywordflow">if</span> first == 0:</div>
+<div class="line"><span class="lineno">  131</span>                    graph.add((URIRef(str(curclassid)), RDFS.subClassOf, GEO.Feature))</div>
+<div class="line"><span class="lineno">  132</span>                    graph.add((URIRef(str(curclassid)), RDF.type, OWL.Class))</div>
+<div class="line"><span class="lineno">  133</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  134</span>                curclassid = f[<span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</span>]</div>
+<div class="line"><span class="lineno">  135</span>            graph = LayerUtils.exportGeometryType(curid, geom, vocab, literaltype, init, graph)</div>
+<div class="line"><span class="lineno">  136</span>            <span class="keywordflow">if</span> init:</div>
+<div class="line"><span class="lineno">  137</span>                init = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  138</span>            fieldcounter = -1</div>
+<div class="line"><span class="lineno">  139</span>            <span class="keywordflow">for</span> propp <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><span class="lineno">  140</span>                fieldcounter += 1</div>
+<div class="line"><span class="lineno">  141</span>                <span class="comment"># if fieldcounter&gt;=len(fieldnames):</span></div>
+<div class="line"><span class="lineno">  142</span>                <span class="comment">#    fieldcounter=0</span></div>
+<div class="line"><span class="lineno">  143</span>                <span class="keywordflow">if</span> includelist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> fieldcounter &lt; len(includelist) <span class="keywordflow">and</span> includelist[fieldcounter] == <span class="keyword">False</span>:</div>
+<div class="line"><span class="lineno">  144</span>                    <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  145</span>                prop = propp</div>
+<div class="line"><span class="lineno">  146</span>                propuri=URIRef(prop)</div>
+<div class="line"><span class="lineno">  147</span>                <span class="comment">#print(str(fieldcounter))</span></div>
+<div class="line"><span class="lineno">  148</span>                <span class="comment">#print(str(urilist) + &quot;\n&quot;)</span></div>
+<div class="line"><span class="lineno">  149</span>                <span class="comment">#print(str(classurilist) + &quot;\n&quot;)</span></div>
+<div class="line"><span class="lineno">  150</span>                <span class="comment">#print(str(includelist) + &quot;\n&quot;)</span></div>
+<div class="line"><span class="lineno">  151</span>                <span class="keywordflow">if</span> urilist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> fieldcounter <span class="keywordflow">in</span> urilist <span class="keywordflow">and</span> urilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  152</span>                    <span class="comment">#print(urilist)</span></div>
+<div class="line"><span class="lineno">  153</span>                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> urilist[fieldcounter].startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  154</span>                        <span class="comment">#print(&quot;Does not start with http&quot;)</span></div>
+<div class="line"><span class="lineno">  155</span>                        prop = urllib.parse.quote(urilist[fieldcounter])</div>
+<div class="line"><span class="lineno">  156</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  157</span>                        prop = urilist[fieldcounter]</div>
+<div class="line"><span class="lineno">  158</span>                    <span class="comment">#print(&quot;New Prop from list: &quot; + str(prop))</span></div>
+<div class="line"><span class="lineno">  159</span>                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;id&quot;</span>:</div>
+<div class="line"><span class="lineno">  160</span>                    <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  161</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> prop.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  162</span>                    prop = namespace + prop</div>
+<div class="line"><span class="lineno">  163</span>                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> str(f[propp]):</div>
+<div class="line"><span class="lineno">  164</span>                    fpropuri=URIRef(str(f[propp]))</div>
+<div class="line"><span class="lineno">  165</span>                    graph.add((fpropuri,URIRef(str(prop)),OWL.Class))</div>
+<div class="line"><span class="lineno">  166</span>                    graph.add((fpropuri, RDFS.subClassOf, GEO.Feature))</div>
+<div class="line"><span class="lineno">  167</span>                    graph.add((curiduri, RDF.type, fpropuri))</div>
+<div class="line"><span class="lineno">  168</span>                <span class="comment"># elif urilist!=None and fieldcounter&lt;len(urilist) and urilist[fieldcounter]!=&quot;&quot;:</span></div>
+<div class="line"><span class="lineno">  169</span>                <span class="comment">#   ttlstring+=&quot;&lt;&quot;+curid+&quot;&gt; &lt;&quot;+prop+&quot;&gt; &lt;&quot;+str(f[propp])+&quot;&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  170</span>                <span class="comment">#    if first&lt;10:</span></div>
+<div class="line"><span class="lineno">  171</span>                <span class="comment">#       ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  172</span>                <span class="comment">#       ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;+curclassid+&quot;&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  173</span>                <span class="comment">#      if classurilist[fieldcounter]!=&quot;&quot;:</span></div>
+<div class="line"><span class="lineno">  174</span>                <span class="comment">#           ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;+classurilist[fieldcounter]+&quot;&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  175</span>                <span class="keywordflow">elif</span> prop == <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span> <span class="keywordflow">or</span> prop == <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#comment&quot;</span> <span class="keywordflow">or</span> (</div>
+<div class="line"><span class="lineno">  176</span>                        proptypelist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;AnnotationProperty&quot;</span>):</div>
+<div class="line"><span class="lineno">  177</span>                    graph.add((curiduri,propuri,Literal(str(f[propp]).replace(<span class="stringliteral">&#39;&quot;&#39;</span>,<span class="stringliteral">&#39;\\&quot;&#39;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  178</span>                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  179</span>                        graph.add((propuri,RDF.type,OWL.AnnotationProperty))</div>
+<div class="line"><span class="lineno">  180</span>                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  181</span>                <span class="keywordflow">elif</span> <span class="keywordflow">not</span> f[propp] <span class="keywordflow">or</span> f[propp] <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> f[propp] == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  182</span>                    <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  183</span>                <span class="keywordflow">elif</span> proptypelist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;SubClass&quot;</span>:</div>
+<div class="line"><span class="lineno">  184</span>                    graph.add((curiduri,RDF.type,URIRef(str(f[propp]))))</div>
+<div class="line"><span class="lineno">  185</span>                    graph.add((curiduri,RDFS.subClassOf,URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  186</span>                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  187</span>                        graph.add((URIRef(str(f[propp])),RDF.type,OWL.Class))</div>
+<div class="line"><span class="lineno">  188</span>                <span class="keywordflow">elif</span> valuequeries <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> propp <span class="keywordflow">in</span> valuequeries:</div>
+<div class="line"><span class="lineno">  189</span>                    <span class="comment"># ttlstring += &quot;&quot;</span></div>
+<div class="line"><span class="lineno">  190</span>                    results = SPARQLUtils.executeQuery(valuequeries[propp][1], <span class="stringliteral">&quot;&quot;</span>.join(</div>
+<div class="line"><span class="lineno">  191</span>                        prefixes + valuequeries[propp][0].replace(f<span class="stringliteral">&quot;%%{propp}%%&quot;</span>, f<span class="stringliteral">&#39;&quot;{f[propp]}&quot;&#39;</span>)))</div>
+<div class="line"><span class="lineno">  192</span>                    graph.add((curiduri,propuri,URIRef(results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>][0][<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>])))</div>
+<div class="line"><span class="lineno">  193</span>                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  194</span>                        graph.add((propuri,RDF.type, OWL.ObjectProperty))</div>
+<div class="line"><span class="lineno">  195</span>                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  196</span>                        <span class="keywordflow">if</span> classurilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  197</span>                            graph.add((propuri,RDFS.range,URIRef(classurilist[fieldcounter])))</div>
+<div class="line"><span class="lineno">  198</span>                <span class="keywordflow">elif</span> valuemappings <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> propp <span class="keywordflow">in</span> valuemappings <span class="keywordflow">and</span> f[propp] <span class="keywordflow">in</span> valuemappings[propp]:</div>
+<div class="line"><span class="lineno">  199</span>                    graph.add((curiduri,propuri,URIRef(str(valuemappings[propp][f[propp]]))))</div>
+<div class="line"><span class="lineno">  200</span>                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  201</span>                        graph.add((propuri,RDF.type,OWL.ObjectProperty))</div>
+<div class="line"><span class="lineno">  202</span>                        graph.add((propuri, RDF.domain, URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  203</span>                        <span class="keywordflow">if</span> classurilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  204</span>                            graph.add((propuri,RDFS.range,URIRef(classurilist[fieldcounter])))</div>
+<div class="line"><span class="lineno">  205</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> str(f[propp]) <span class="keywordflow">or</span> (</div>
+<div class="line"><span class="lineno">  206</span>                        proptypelist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;ObjectProperty&quot;</span>):</div>
+<div class="line"><span class="lineno">  207</span>                    graph.add((curiduri,propuri,URIRef(str(f[propp]))))</div>
+<div class="line"><span class="lineno">  208</span>                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  209</span>                        graph.add((propuri,RDF.type,OWL.ObjectProperty))</div>
+<div class="line"><span class="lineno">  210</span>                        graph.add((propuri,RDFS.domain,URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  211</span>                        <span class="keywordflow">if</span> classurilist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> fieldcounter &lt; len(classurilist) <span class="keywordflow">and</span> classurilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  212</span>                            graph.add((propuri,RDFS.range,URIRef(classurilist[fieldcounter])))</div>
+<div class="line"><span class="lineno">  213</span>                <span class="keywordflow">elif</span> re.match(<span class="stringliteral">r&#39;^-?\d+$&#39;</span>, str(f[propp])):</div>
+<div class="line"><span class="lineno">  214</span>                    graph.add((curiduri,propuri,Literal(str(f[propp]),datatype=XSD.integer)))</div>
+<div class="line"><span class="lineno">  215</span>                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  216</span>                        graph.add((propuri, RDF.type, OWL.DatatypeProperty))</div>
+<div class="line"><span class="lineno">  217</span>                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  218</span>                        graph.add((propuri, RDFS.range, XSD.integer))</div>
+<div class="line"><span class="lineno">  219</span>                <span class="keywordflow">elif</span> re.match(<span class="stringliteral">r&#39;^-?\d+(?:\.\d+)?$&#39;</span>, str(f[propp])):</div>
+<div class="line"><span class="lineno">  220</span>                    graph.add((curiduri,propuri,Literal(str(f[propp]),datatype=XSD.double)))</div>
+<div class="line"><span class="lineno">  221</span>                    <span class="keywordflow">if</span> first:</div>
+<div class="line"><span class="lineno">  222</span>                        graph.add((propuri,RDF.type,OWL.DatatypeProperty))</div>
+<div class="line"><span class="lineno">  223</span>                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  224</span>                        graph.add((propuri, RDFS.range, XSD.double))</div>
+<div class="line"><span class="lineno">  225</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  226</span>                    graph.add((curiduri,propuri,Literal(str(f[propp]).replace(<span class="stringliteral">&#39;&quot;&#39;</span>,<span class="stringliteral">&#39;\\&quot;&#39;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  227</span>                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  228</span>                        graph.add((propuri,RDF.type,OWL.DatatypeProperty))</div>
+<div class="line"><span class="lineno">  229</span>                        graph.add((propuri, RDFS.domain, URIRef(curclassid)))</div>
+<div class="line"><span class="lineno">  230</span>                        graph.add((propuri, RDFS.range, XSD.string))</div>
+<div class="line"><span class="lineno">  231</span>            <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><span class="lineno">  232</span>                first = first + 1</div>
+<div class="line"><span class="lineno">  233</span>        <span class="keywordflow">return</span> graph</div>
+<div class="line"><span class="lineno">  234</span> </div>
+<div class="line"><span class="lineno">  235</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01229.html">util</a></li><li class="navelem"><a class="el" href="a01243.html">export</a></li><li class="navelem"><a class="el" href="a01259.html">layer</a></li><li class="navelem"><a class="el" href="a01260.html">layerexporter</a></li><li class="navelem"><a class="el" href="a03192.html">LayerExporter</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

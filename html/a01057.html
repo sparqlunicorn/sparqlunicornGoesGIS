@@ -1,0 +1,488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: rdflib.plugins.parsers.rdfxml Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01057.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">rdflib.plugins.parsers.rdfxml Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02232.html">BagID</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02236.html">ElementHandler</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02240.html">RDFXMLHandler</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02244.html">RDFXMLParser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a64ef8c454201af9429e1bc7e0dab8c85" id="r_a64ef8c454201af9429e1bc7e0dab8c85"><td class="memItemLeft" align="right" valign="top">xmlreader.XMLReader&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a64ef8c454201af9429e1bc7e0dab8c85">create_parser</a> (<a class="el" href="a02100.html">InputSource</a> target, <a class="el" href="a01920.html">Graph</a> store)</td></tr>
+<tr class="separator:a64ef8c454201af9429e1bc7e0dab8c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa4a022e6ddacd362b83964da5cc5d044" id="r_aa4a022e6ddacd362b83964da5cc5d044"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#aa4a022e6ddacd362b83964da5cc5d044">__all__</a> = [&quot;create_parser&quot;, &quot;BagID&quot;, &quot;ElementHandler&quot;, &quot;RDFXMLHandler&quot;, &quot;RDFXMLParser&quot;]</td></tr>
+<tr class="separator:aa4a022e6ddacd362b83964da5cc5d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2d8d977f23f6507ef64d0fe26dfcf98" id="r_ad2d8d977f23f6507ef64d0fe26dfcf98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#ad2d8d977f23f6507ef64d0fe26dfcf98">RDFNS</a> = <a class="el" href="a02228.html">RDFVOC</a></td></tr>
+<tr class="separator:ad2d8d977f23f6507ef64d0fe26dfcf98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add8208e3f5987920a038befe678cbe4b" id="r_add8208e3f5987920a038befe678cbe4b"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#add8208e3f5987920a038befe678cbe4b">UNQUALIFIED</a></td></tr>
+<tr class="separator:add8208e3f5987920a038befe678cbe4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a539780abddfc2b7b19281b57dd79d898" id="r_a539780abddfc2b7b19281b57dd79d898"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a539780abddfc2b7b19281b57dd79d898">CORE_SYNTAX_TERMS</a></td></tr>
+<tr class="separator:a539780abddfc2b7b19281b57dd79d898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2e91e207b26115115a492ff541bf90b" id="r_aa2e91e207b26115115a492ff541bf90b"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#aa2e91e207b26115115a492ff541bf90b">SYNTAX_TERMS</a> = <a class="el" href="a01057.html#a539780abddfc2b7b19281b57dd79d898">CORE_SYNTAX_TERMS</a> + [<a class="el" href="a02228.html#a96ab5ac0d0837d078c98b8ab238c482b">RDFVOC.Description</a>, <a class="el" href="a02228.html#a4183d29024144cc39994fe90b43628c8">RDFVOC.li</a>]</td></tr>
+<tr class="separator:aa2e91e207b26115115a492ff541bf90b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecfccfbaae7ff150a1cd1816a0093e52" id="r_aecfccfbaae7ff150a1cd1816a0093e52"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#aecfccfbaae7ff150a1cd1816a0093e52">OLD_TERMS</a></td></tr>
+<tr class="separator:aecfccfbaae7ff150a1cd1816a0093e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a82b1f628483d7961463e0ecd92eb41" id="r_a2a82b1f628483d7961463e0ecd92eb41"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a2a82b1f628483d7961463e0ecd92eb41">NODE_ELEMENT_EXCEPTIONS</a></td></tr>
+<tr class="separator:a2a82b1f628483d7961463e0ecd92eb41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a77c964815156a73e33ddc38e94f374" id="r_a5a77c964815156a73e33ddc38e94f374"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a5a77c964815156a73e33ddc38e94f374">NODE_ELEMENT_ATTRIBUTES</a> = [<a class="el" href="a02228.html#a80f7b70cae639cacefcc65e1459c8c30">RDFVOC.ID</a>, <a class="el" href="a02228.html#a3283708047e4cea3910c987e65ba297a">RDFVOC.nodeID</a>, <a class="el" href="a02228.html#ada0901b433b388f2a227c80742b031c9">RDFVOC.about</a>]</td></tr>
+<tr class="separator:a5a77c964815156a73e33ddc38e94f374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a444f4aecd630a5d7357451389e14b6b1" id="r_a444f4aecd630a5d7357451389e14b6b1"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a444f4aecd630a5d7357451389e14b6b1">PROPERTY_ELEMENT_EXCEPTIONS</a></td></tr>
+<tr class="separator:a444f4aecd630a5d7357451389e14b6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71221190a980b591f128b31725012727" id="r_a71221190a980b591f128b31725012727"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a71221190a980b591f128b31725012727">PROPERTY_ATTRIBUTE_EXCEPTIONS</a></td></tr>
+<tr class="separator:a71221190a980b591f128b31725012727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae973936f2ac050c56e6e03824a093619" id="r_ae973936f2ac050c56e6e03824a093619"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#ae973936f2ac050c56e6e03824a093619">PROPERTY_ELEMENT_ATTRIBUTES</a> = [<a class="el" href="a02228.html#a80f7b70cae639cacefcc65e1459c8c30">RDFVOC.ID</a>, <a class="el" href="a02228.html#a522f290bfa45b201a4b3b28050750a84">RDFVOC.resource</a>, <a class="el" href="a02228.html#a3283708047e4cea3910c987e65ba297a">RDFVOC.nodeID</a>]</td></tr>
+<tr class="separator:ae973936f2ac050c56e6e03824a093619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac23c7b15f1ffe068dbc950bb8bd9075" id="r_aac23c7b15f1ffe068dbc950bb8bd9075"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#aac23c7b15f1ffe068dbc950bb8bd9075">XMLNS</a> = &quot;http://www.w3.org/XML/1998/namespace&quot;</td></tr>
+<tr class="separator:aac23c7b15f1ffe068dbc950bb8bd9075"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d51b430d526e67fe050040ce8cf264b" id="r_a6d51b430d526e67fe050040ce8cf264b"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a6d51b430d526e67fe050040ce8cf264b">BASE</a> = (<a class="el" href="a01057.html#aac23c7b15f1ffe068dbc950bb8bd9075">XMLNS</a>, &quot;base&quot;)</td></tr>
+<tr class="separator:a6d51b430d526e67fe050040ce8cf264b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39b9b61a7c48a323dcbae5f1d376cb62" id="r_a39b9b61a7c48a323dcbae5f1d376cb62"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html#a39b9b61a7c48a323dcbae5f1d376cb62">LANG</a> = (<a class="el" href="a01057.html#aac23c7b15f1ffe068dbc950bb8bd9075">XMLNS</a>, &quot;lang&quot;)</td></tr>
+<tr class="separator:a39b9b61a7c48a323dcbae5f1d376cb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">An RDF/XML parser for RDFLib
+</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a64ef8c454201af9429e1bc7e0dab8c85" name="a64ef8c454201af9429e1bc7e0dab8c85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ef8c454201af9429e1bc7e0dab8c85">&#9670;&#160;</a></span>create_parser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> xmlreader.XMLReader create_parser </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02100.html">InputSource</a>&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>store</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  622</span><span class="keyword">def </span>create_parser(target: InputSource, store: Graph) -&gt; xmlreader.XMLReader:</div>
+<div class="line"><span class="lineno">  623</span>    parser = make_parser()</div>
+<div class="line"><span class="lineno">  624</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  625</span>        <span class="comment"># Workaround for bug in expatreader.py. Needed when</span></div>
+<div class="line"><span class="lineno">  626</span>        <span class="comment"># expatreader is trying to guess a prefix.</span></div>
+<div class="line"><span class="lineno">  627</span>        parser.start_namespace_decl(<span class="stringliteral">&quot;xml&quot;</span>, <span class="stringliteral">&quot;http://www.w3.org/XML/1998/namespace&quot;</span>)  <span class="comment"># type: ignore[attr-defined]</span></div>
+<div class="line"><span class="lineno">  628</span>    <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  629</span>        <span class="keywordflow">pass</span>  <span class="comment"># Not present in Jython (at least)</span></div>
+<div class="line"><span class="lineno">  630</span>    parser.setFeature(handler.feature_namespaces, 1)</div>
+<div class="line"><span class="lineno">  631</span>    rdfxml = RDFXMLHandler(store)</div>
+<div class="line"><span class="lineno">  632</span>    <span class="comment"># type error: Argument 1 to &quot;setDocumentLocator&quot; of &quot;RDFXMLHandler&quot; has incompatible type &quot;InputSource&quot;; expected &quot;Locator&quot;</span></div>
+<div class="line"><span class="lineno">  633</span>    rdfxml.setDocumentLocator(target)  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  634</span>    <span class="comment"># rdfxml.setDocumentLocator(_Locator(self.url, self.parser))</span></div>
+<div class="line"><span class="lineno">  635</span>    parser.setContentHandler(rdfxml)</div>
+<div class="line"><span class="lineno">  636</span>    parser.setErrorHandler(ErrorHandler())</div>
+<div class="line"><span class="lineno">  637</span>    <span class="keywordflow">return</span> parser</div>
+<div class="line"><span class="lineno">  638</span> </div>
+<div class="line"><span class="lineno">  639</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa4a022e6ddacd362b83964da5cc5d044" name="aa4a022e6ddacd362b83964da5cc5d044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a022e6ddacd362b83964da5cc5d044">&#9670;&#160;</a></span>__all__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list __all__ = [&quot;create_parser&quot;, &quot;BagID&quot;, &quot;ElementHandler&quot;, &quot;RDFXMLHandler&quot;, &quot;RDFXMLParser&quot;]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d51b430d526e67fe050040ce8cf264b" name="a6d51b430d526e67fe050040ce8cf264b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d51b430d526e67fe050040ce8cf264b">&#9670;&#160;</a></span>BASE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple BASE = (<a class="el" href="a01057.html#aac23c7b15f1ffe068dbc950bb8bd9075">XMLNS</a>, &quot;base&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a539780abddfc2b7b19281b57dd79d898" name="a539780abddfc2b7b19281b57dd79d898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a539780abddfc2b7b19281b57dd79d898">&#9670;&#160;</a></span>CORE_SYNTAX_TERMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list CORE_SYNTAX_TERMS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  [</div>
+<div class="line"><span class="lineno">    2</span>    RDFVOC.RDF,</div>
+<div class="line"><span class="lineno">    3</span>    RDFVOC.ID,</div>
+<div class="line"><span class="lineno">    4</span>    RDFVOC.about,</div>
+<div class="line"><span class="lineno">    5</span>    RDFVOC.parseType,</div>
+<div class="line"><span class="lineno">    6</span>    RDFVOC.resource,</div>
+<div class="line"><span class="lineno">    7</span>    RDFVOC.nodeID,</div>
+<div class="line"><span class="lineno">    8</span>    RDFVOC.datatype,</div>
+<div class="line"><span class="lineno">    9</span>]</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a39b9b61a7c48a323dcbae5f1d376cb62" name="a39b9b61a7c48a323dcbae5f1d376cb62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39b9b61a7c48a323dcbae5f1d376cb62">&#9670;&#160;</a></span>LANG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple LANG = (<a class="el" href="a01057.html#aac23c7b15f1ffe068dbc950bb8bd9075">XMLNS</a>, &quot;lang&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a77c964815156a73e33ddc38e94f374" name="a5a77c964815156a73e33ddc38e94f374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a77c964815156a73e33ddc38e94f374">&#9670;&#160;</a></span>NODE_ELEMENT_ATTRIBUTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list NODE_ELEMENT_ATTRIBUTES = [<a class="el" href="a02228.html#a80f7b70cae639cacefcc65e1459c8c30">RDFVOC.ID</a>, <a class="el" href="a02228.html#a3283708047e4cea3910c987e65ba297a">RDFVOC.nodeID</a>, <a class="el" href="a02228.html#ada0901b433b388f2a227c80742b031c9">RDFVOC.about</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a82b1f628483d7961463e0ecd92eb41" name="a2a82b1f628483d7961463e0ecd92eb41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a82b1f628483d7961463e0ecd92eb41">&#9670;&#160;</a></span>NODE_ELEMENT_EXCEPTIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple NODE_ELEMENT_EXCEPTIONS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  (</div>
+<div class="line"><span class="lineno">    2</span>    CORE_SYNTAX_TERMS</div>
+<div class="line"><span class="lineno">    3</span>    + [</div>
+<div class="line"><span class="lineno">    4</span>        RDFVOC.li,</div>
+<div class="line"><span class="lineno">    5</span>    ]</div>
+<div class="line"><span class="lineno">    6</span>    + OLD_TERMS</div>
+<div class="line"><span class="lineno">    7</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aecfccfbaae7ff150a1cd1816a0093e52" name="aecfccfbaae7ff150a1cd1816a0093e52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecfccfbaae7ff150a1cd1816a0093e52">&#9670;&#160;</a></span>OLD_TERMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list OLD_TERMS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  [</div>
+<div class="line"><span class="lineno">    2</span>    URIRef(<span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#aboutEach&quot;</span>),</div>
+<div class="line"><span class="lineno">    3</span>    URIRef(<span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#aboutEachPrefix&quot;</span>),</div>
+<div class="line"><span class="lineno">    4</span>    URIRef(<span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#bagID&quot;</span>),</div>
+<div class="line"><span class="lineno">    5</span>]</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a71221190a980b591f128b31725012727" name="a71221190a980b591f128b31725012727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71221190a980b591f128b31725012727">&#9670;&#160;</a></span>PROPERTY_ATTRIBUTE_EXCEPTIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple PROPERTY_ATTRIBUTE_EXCEPTIONS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  (</div>
+<div class="line"><span class="lineno">    2</span>    CORE_SYNTAX_TERMS + [RDFVOC.Description, RDFVOC.li] + OLD_TERMS</div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae973936f2ac050c56e6e03824a093619" name="ae973936f2ac050c56e6e03824a093619"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae973936f2ac050c56e6e03824a093619">&#9670;&#160;</a></span>PROPERTY_ELEMENT_ATTRIBUTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list PROPERTY_ELEMENT_ATTRIBUTES = [<a class="el" href="a02228.html#a80f7b70cae639cacefcc65e1459c8c30">RDFVOC.ID</a>, <a class="el" href="a02228.html#a522f290bfa45b201a4b3b28050750a84">RDFVOC.resource</a>, <a class="el" href="a02228.html#a3283708047e4cea3910c987e65ba297a">RDFVOC.nodeID</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a444f4aecd630a5d7357451389e14b6b1" name="a444f4aecd630a5d7357451389e14b6b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a444f4aecd630a5d7357451389e14b6b1">&#9670;&#160;</a></span>PROPERTY_ELEMENT_EXCEPTIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple PROPERTY_ELEMENT_EXCEPTIONS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  (</div>
+<div class="line"><span class="lineno">    2</span>    CORE_SYNTAX_TERMS</div>
+<div class="line"><span class="lineno">    3</span>    + [</div>
+<div class="line"><span class="lineno">    4</span>        RDFVOC.Description,</div>
+<div class="line"><span class="lineno">    5</span>    ]</div>
+<div class="line"><span class="lineno">    6</span>    + OLD_TERMS</div>
+<div class="line"><span class="lineno">    7</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad2d8d977f23f6507ef64d0fe26dfcf98" name="ad2d8d977f23f6507ef64d0fe26dfcf98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d8d977f23f6507ef64d0fe26dfcf98">&#9670;&#160;</a></span>RDFNS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RDFNS = <a class="el" href="a02228.html">RDFVOC</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa2e91e207b26115115a492ff541bf90b" name="aa2e91e207b26115115a492ff541bf90b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2e91e207b26115115a492ff541bf90b">&#9670;&#160;</a></span>SYNTAX_TERMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list SYNTAX_TERMS = <a class="el" href="a01057.html#a539780abddfc2b7b19281b57dd79d898">CORE_SYNTAX_TERMS</a> + [<a class="el" href="a02228.html#a96ab5ac0d0837d078c98b8ab238c482b">RDFVOC.Description</a>, <a class="el" href="a02228.html#a4183d29024144cc39994fe90b43628c8">RDFVOC.li</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add8208e3f5987920a038befe678cbe4b" name="add8208e3f5987920a038befe678cbe4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add8208e3f5987920a038befe678cbe4b">&#9670;&#160;</a></span>UNQUALIFIED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict UNQUALIFIED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;about&quot;</span>: RDFVOC.about,</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;ID&quot;</span>: RDFVOC.ID,</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;type&quot;</span>: RDFVOC.type,</div>
+<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;resource&quot;</span>: RDFVOC.resource,</div>
+<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;parseType&quot;</span>: RDFVOC.parseType,</div>
+<div class="line"><span class="lineno">    7</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aac23c7b15f1ffe068dbc950bb8bd9075" name="aac23c7b15f1ffe068dbc950bb8bd9075"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac23c7b15f1ffe068dbc950bb8bd9075">&#9670;&#160;</a></span>XMLNS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str XMLNS = &quot;http://www.w3.org/XML/1998/namespace&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01049.html">parsers</a></li><li class="navelem"><a class="el" href="a01057.html">rdfxml</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

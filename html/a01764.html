@@ -1,0 +1,1291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: Repository Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01764.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="a01761.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Repository Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for Repository:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01763.png" border="0" usemap="#aRepository_inherit__map" alt="Inheritance graph"/></div>
+<map name="aRepository_inherit__map" id="aRepository_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,5,97,31"/>
+<area shape="rect" href="a01736.html" title=" " alt="" coords="5,79,97,104"/>
+<area shape="poly" title=" " alt="" coords="54,44,54,79,49,79,49,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8443ea449786e81c102d9c3b4c608aed" id="r_a8443ea449786e81c102d9c3b4c608aed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a8443ea449786e81c102d9c3b4c608aed">__init__</a> (self, str <a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">identifier</a>, httpx.Client <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">http_client</a>)</td></tr>
+<tr class="separator:a8443ea449786e81c102d9c3b4c608aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecf55e0bd16cbcd06ae8bb240a74aa7f" id="r_aecf55e0bd16cbcd06ae8bb240a74aa7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">http_client</a> (self)</td></tr>
+<tr class="separator:aecf55e0bd16cbcd06ae8bb240a74aa7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71098ba1dd8204d775126bcc87106984" id="r_a71098ba1dd8204d775126bcc87106984"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">identifier</a> (self)</td></tr>
+<tr class="separator:a71098ba1dd8204d775126bcc87106984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a318e9df47d0678c31ec767e62f607fe3" id="r_a318e9df47d0678c31ec767e62f607fe3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01752.html">RDF4JNamespaceManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a318e9df47d0678c31ec767e62f607fe3">namespaces</a> (self)</td></tr>
+<tr class="separator:a318e9df47d0678c31ec767e62f607fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd04f96cfff77dc10c1212b23e4c077c" id="r_acd04f96cfff77dc10c1212b23e4c077c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01756.html">GraphStoreManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#acd04f96cfff77dc10c1212b23e4c077c">graphs</a> (self)</td></tr>
+<tr class="separator:acd04f96cfff77dc10c1212b23e4c077c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaef96f5b798ec8c54ca7ae6ca7f2d7f3" id="r_aaef96f5b798ec8c54ca7ae6ca7f2d7f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#aaef96f5b798ec8c54ca7ae6ca7f2d7f3">health</a> (self)</td></tr>
+<tr class="separator:aaef96f5b798ec8c54ca7ae6ca7f2d7f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac69ececf73964d679faa8ef20a3b647e" id="r_ac69ececf73964d679faa8ef20a3b647e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#ac69ececf73964d679faa8ef20a3b647e">size</a> (self, <a class="el" href="a02656.html">URIRef</a>|Iterable[<a class="el" href="a02656.html">URIRef</a>]|str|None graph_name=None)</td></tr>
+<tr class="separator:ac69ececf73964d679faa8ef20a3b647e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acab8265dcd26ff0fbb4bfb281457f5c3" id="r_acab8265dcd26ff0fbb4bfb281457f5c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#acab8265dcd26ff0fbb4bfb281457f5c3">query</a> (self, str query, **kwargs)</td></tr>
+<tr class="separator:acab8265dcd26ff0fbb4bfb281457f5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00eb4eac7ced7216d70695b08672a261" id="r_a00eb4eac7ced7216d70695b08672a261"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a00eb4eac7ced7216d70695b08672a261">update</a> (self, str <a class="el" href="a01764.html#acab8265dcd26ff0fbb4bfb281457f5c3">query</a>)</td></tr>
+<tr class="separator:a00eb4eac7ced7216d70695b08672a261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe9565bdbda583c523c549cee659b256" id="r_abe9565bdbda583c523c549cee659b256"><td class="memItemLeft" align="right" valign="top">list[<a class="el" href="a02652.html">IdentifiedNode</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#abe9565bdbda583c523c549cee659b256">graph_names</a> (self)</td></tr>
+<tr class="separator:abe9565bdbda583c523c549cee659b256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2488d371a763bdb7273c9dd9c8d30ccc" id="r_a2488d371a763bdb7273c9dd9c8d30ccc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01920.html">Graph</a>|<a class="el" href="a01928.html">Dataset</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a2488d371a763bdb7273c9dd9c8d30ccc">get</a> (self, <a class="el" href="a01004.html#ab30ae0cdb97a5339718c533a78d22e9b">SubjectType</a> subj=None, <a class="el" href="a01004.html#a74200fe7b3fc40cf1385f05359608667">PredicateType</a> pred=None, <a class="el" href="a01004.html#a842c5e2e69277690b064bf363c017980">ObjectType</a> obj=None, <a class="el" href="a02656.html">URIRef</a>|Iterable[<a class="el" href="a02656.html">URIRef</a>]|str|None graph_name=None, bool infer=True, str|None content_type=None)</td></tr>
+<tr class="separator:a2488d371a763bdb7273c9dd9c8d30ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1560ef6a3dc1f91af7bee92ffcaf3917" id="r_a1560ef6a3dc1f91af7bee92ffcaf3917"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a1560ef6a3dc1f91af7bee92ffcaf3917">upload</a> (self, str|bytes|BinaryIO|<a class="el" href="a01920.html">Graph</a>|<a class="el" href="a01928.html">Dataset</a> data, str|None base_uri=None, str|None content_type=None)</td></tr>
+<tr class="separator:a1560ef6a3dc1f91af7bee92ffcaf3917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23a6fd17306ff8f1a8f62f80d28ff047" id="r_a23a6fd17306ff8f1a8f62f80d28ff047"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a23a6fd17306ff8f1a8f62f80d28ff047">overwrite</a> (self, str|bytes|BinaryIO|<a class="el" href="a01920.html">Graph</a>|<a class="el" href="a01928.html">Dataset</a> data, <a class="el" href="a02656.html">URIRef</a>|Iterable[<a class="el" href="a02656.html">URIRef</a>]|str|None graph_name=None, str|None base_uri=None, str|None content_type=None)</td></tr>
+<tr class="separator:a23a6fd17306ff8f1a8f62f80d28ff047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ed38316ef8942d44d13baea790dd1f2" id="r_a2ed38316ef8942d44d13baea790dd1f2"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a2ed38316ef8942d44d13baea790dd1f2">delete</a> (self, <a class="el" href="a01004.html#ab30ae0cdb97a5339718c533a78d22e9b">SubjectType</a> subj=None, <a class="el" href="a01004.html#a74200fe7b3fc40cf1385f05359608667">PredicateType</a> pred=None, <a class="el" href="a01004.html#a842c5e2e69277690b064bf363c017980">ObjectType</a> obj=None, <a class="el" href="a02656.html">URIRef</a>|Iterable[<a class="el" href="a02656.html">URIRef</a>]|str|None graph_name=None)</td></tr>
+<tr class="separator:a2ed38316ef8942d44d13baea790dd1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cc4fa9376e8364030abad87b1d1570f" id="r_a9cc4fa9376e8364030abad87b1d1570f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a9cc4fa9376e8364030abad87b1d1570f">transaction</a> (self)</td></tr>
+<tr class="separator:a9cc4fa9376e8364030abad87b1d1570f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:afc486b0767ef05e2dc12f5b98be72902" id="r_afc486b0767ef05e2dc12f5b98be72902"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">identifier</a></td></tr>
+<tr class="separator:afc486b0767ef05e2dc12f5b98be72902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:abb6c0a85345f86337a8276103451184e" id="r_abb6c0a85345f86337a8276103451184e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#abb6c0a85345f86337a8276103451184e">_to_size</a> (str <a class="el" href="a01764.html#ac69ececf73964d679faa8ef20a3b647e">size</a>)</td></tr>
+<tr class="separator:abb6c0a85345f86337a8276103451184e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a7d8a3be3775e3ba06d252526d1758c15" id="r_a7d8a3be3775e3ba06d252526d1758c15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a7d8a3be3775e3ba06d252526d1758c15">_identifier</a></td></tr>
+<tr class="separator:a7d8a3be3775e3ba06d252526d1758c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a505f6efc0f24a6de80366bab80b7e87a" id="r_a505f6efc0f24a6de80366bab80b7e87a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a505f6efc0f24a6de80366bab80b7e87a">_http_client</a></td></tr>
+<tr class="separator:a505f6efc0f24a6de80366bab80b7e87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74305038c90a8c95b6f084ab7731af66" id="r_a74305038c90a8c95b6f084ab7731af66"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a74305038c90a8c95b6f084ab7731af66">_namespace_manager</a></td></tr>
+<tr class="separator:a74305038c90a8c95b6f084ab7731af66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6336e89fe14c9f620b800d641d2d7f4f" id="r_a6336e89fe14c9f620b800d641d2d7f4f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01764.html#a6336e89fe14c9f620b800d641d2d7f4f">_graph_store_manager</a></td></tr>
+<tr class="separator:a6336e89fe14c9f620b800d641d2d7f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">RDF4J repository client.
+
+Parameters:
+    identifier: The identifier of the repository.
+    http_client: The httpx.Client instance.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8443ea449786e81c102d9c3b4c608aed" name="a8443ea449786e81c102d9c3b4c608aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8443ea449786e81c102d9c3b4c608aed">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>identifier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">httpx.Client&#160;</td>
+          <td class="paramname"><em>http_client</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  365</span>    <span class="keyword">def </span>__init__(self, identifier: str, http_client: httpx.Client):</div>
+<div class="line"><span class="lineno">  366</span>        self._identifier = identifier</div>
+<div class="line"><span class="lineno">  367</span>        self._http_client = http_client</div>
+<div class="line"><span class="lineno">  368</span>        self._namespace_manager: RDF4JNamespaceManager | <span class="keywordtype">None</span> = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  369</span>        self._graph_store_manager: GraphStoreManager | <span class="keywordtype">None</span> = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  370</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abb6c0a85345f86337a8276103451184e" name="abb6c0a85345f86337a8276103451184e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb6c0a85345f86337a8276103451184e">&#9670;&#160;</a></span>_to_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_to_size </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  454</span>    <span class="keyword">def </span>_to_size(size: str):</div>
+<div class="line"><span class="lineno">  455</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  456</span>            value = int(size)</div>
+<div class="line"><span class="lineno">  457</span>            <span class="keywordflow">if</span> value &gt;= 0:</div>
+<div class="line"><span class="lineno">  458</span>                <span class="keywordflow">return</span> value</div>
+<div class="line"><span class="lineno">  459</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(f<span class="stringliteral">&quot;Invalid repository size: {value}&quot;</span>)</div>
+<div class="line"><span class="lineno">  460</span>        <span class="keywordflow">except</span> ValueError <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">  461</span>            <span class="keywordflow">raise</span> RepositoryFormatError(</div>
+<div class="line"><span class="lineno">  462</span>                f<span class="stringliteral">&quot;Failed to parse repository size: {err}&quot;</span></div>
+<div class="line"><span class="lineno">  463</span>            ) <span class="keyword">from</span> err</div>
+<div class="line"><span class="lineno">  464</span> </div>
+<div class="ttc" id="aa07501_html"><div class="ttname"><a href="a07501.html">ValueError</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01764.html#ac69ececf73964d679faa8ef20a3b647e">Repository.size()</a>.</p>
+
+</div>
+</div>
+<a id="a2ed38316ef8942d44d13baea790dd1f2" name="a2ed38316ef8942d44d13baea790dd1f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ed38316ef8942d44d13baea790dd1f2">&#9670;&#160;</a></span>delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None delete </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01004.html#ab30ae0cdb97a5339718c533a78d22e9b">SubjectType</a> &#160;</td>
+          <td class="paramname"><em>subj</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01004.html#a74200fe7b3fc40cf1385f05359608667">PredicateType</a> &#160;</td>
+          <td class="paramname"><em>pred</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01004.html#a842c5e2e69277690b064bf363c017980">ObjectType</a> &#160;</td>
+          <td class="paramname"><em>obj</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a> | Iterable[<a class="el" href="a02656.html">URIRef</a>] | str | None &#160;</td>
+          <td class="paramname"><em>graph_name</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Deletes statements from the repository matching the filtering parameters.
+
+!!! Note
+    The terms for `subj`, `pred`, `obj` or `graph_name` cannot be
+    [`BNodes`][rdflib.term.BNode].
+
+Parameters:
+    subj: Subject of the statement to filter by, or `None` to match all.
+    pred: Predicate of the statement to filter by, or `None` to match all.
+    obj: Object of the statement to filter by, or `None` to match all.
+    graph_name: Graph name(s) to restrict to.
+
+        The default value `None` queries all graphs.
+
+        To query just the default graph, use
+        [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].
+</pre> <div class="fragment"><div class="line"><span class="lineno">  695</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  696</span>        <span class="stringliteral">&quot;&quot;&quot;Deletes statements from the repository matching the filtering parameters.</span></div>
+<div class="line"><span class="lineno">  697</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  698</span><span class="stringliteral">        !!! Note</span></div>
+<div class="line"><span class="lineno">  699</span><span class="stringliteral">            The terms for `subj`, `pred`, `obj` or `graph_name` cannot be</span></div>
+<div class="line"><span class="lineno">  700</span><span class="stringliteral">            [`BNodes`][rdflib.term.BNode].</span></div>
+<div class="line"><span class="lineno">  701</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  702</span><span class="stringliteral">        Parameters:</span></div>
+<div class="line"><span class="lineno">  703</span><span class="stringliteral">            subj: Subject of the statement to filter by, or `None` to match all.</span></div>
+<div class="line"><span class="lineno">  704</span><span class="stringliteral">            pred: Predicate of the statement to filter by, or `None` to match all.</span></div>
+<div class="line"><span class="lineno">  705</span><span class="stringliteral">            obj: Object of the statement to filter by, or `None` to match all.</span></div>
+<div class="line"><span class="lineno">  706</span><span class="stringliteral">            graph_name: Graph name(s) to restrict to.</span></div>
+<div class="line"><span class="lineno">  707</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  708</span><span class="stringliteral">                The default value `None` queries all graphs.</span></div>
+<div class="line"><span class="lineno">  709</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  710</span><span class="stringliteral">                To query just the default graph, use</span></div>
+<div class="line"><span class="lineno">  711</span><span class="stringliteral">                [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].</span></div>
+<div class="line"><span class="lineno">  712</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  713</span>        validate_no_bnodes(subj, pred, obj, graph_name)</div>
+<div class="line"><span class="lineno">  714</span>        params: dict[str, str] = {}</div>
+<div class="line"><span class="lineno">  715</span>        build_context_param(params, graph_name)</div>
+<div class="line"><span class="lineno">  716</span>        build_spo_param(params, subj, pred, obj)</div>
+<div class="line"><span class="lineno">  717</span> </div>
+<div class="line"><span class="lineno">  718</span>        response = self.http_client.delete(</div>
+<div class="line"><span class="lineno">  719</span>            f<span class="stringliteral">&quot;/repositories/{self.identifier}/statements&quot;</span>,</div>
+<div class="line"><span class="lineno">  720</span>            params=params,</div>
+<div class="line"><span class="lineno">  721</span>        )</div>
+<div class="line"><span class="lineno">  722</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">  723</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01764.html#a2ed38316ef8942d44d13baea790dd1f2">Repository.delete()</a>, <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01764.html#a2ed38316ef8942d44d13baea790dd1f2">Repository.delete()</a>, and <a class="el" href="a01860.html#a20936ef5d7c383a7d62726506b2383a3">Individual.replace()</a>.</p>
+
+</div>
+</div>
+<a id="a2488d371a763bdb7273c9dd9c8d30ccc" name="a2488d371a763bdb7273c9dd9c8d30ccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2488d371a763bdb7273c9dd9c8d30ccc">&#9670;&#160;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a01920.html">Graph</a> | <a class="el" href="a01928.html">Dataset</a> get </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01004.html#ab30ae0cdb97a5339718c533a78d22e9b">SubjectType</a> &#160;</td>
+          <td class="paramname"><em>subj</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01004.html#a74200fe7b3fc40cf1385f05359608667">PredicateType</a> &#160;</td>
+          <td class="paramname"><em>pred</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01004.html#a842c5e2e69277690b064bf363c017980">ObjectType</a> &#160;</td>
+          <td class="paramname"><em>obj</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a> | Iterable[<a class="el" href="a02656.html">URIRef</a>] | str | None &#160;</td>
+          <td class="paramname"><em>graph_name</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>infer</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | None &#160;</td>
+          <td class="paramname"><em>content_type</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Get RDF statements from the repository matching the filtering parameters.
+
+!!! Note
+    The terms for `subj`, `pred`, `obj` or `graph_name` cannot be
+    [`BNodes`][rdflib.term.BNode].
+
+Parameters:
+    subj: Subject of the statement to filter by, or `None` to match all.
+    pred: Predicate of the statement to filter by, or `None` to match all.
+    obj: Object of the statement to filter by, or `None` to match all.
+    graph_name: Graph name(s) to restrict to.
+
+        The default value `None` queries all graphs.
+
+        To query just the default graph, use
+        [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].
+
+    infer: Specifies whether inferred statements should be included in the
+        result.
+    content_type: The content type of the response.
+        A triple-based format returns a [Graph][rdflib.graph.Graph], while a
+        quad-based format returns a [`Dataset`][rdflib.graph.Dataset].
+
+Returns:
+    A [`Graph`][rdflib.graph.Graph] or [`Dataset`][rdflib.graph.Dataset] object
+        with the repository namespace prefixes bound to it.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  558</span>    ) -&gt; Graph | Dataset:</div>
+<div class="line"><span class="lineno">  559</span>        <span class="stringliteral">&quot;&quot;&quot;Get RDF statements from the repository matching the filtering parameters.</span></div>
+<div class="line"><span class="lineno">  560</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  561</span><span class="stringliteral">        !!! Note</span></div>
+<div class="line"><span class="lineno">  562</span><span class="stringliteral">            The terms for `subj`, `pred`, `obj` or `graph_name` cannot be</span></div>
+<div class="line"><span class="lineno">  563</span><span class="stringliteral">            [`BNodes`][rdflib.term.BNode].</span></div>
+<div class="line"><span class="lineno">  564</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  565</span><span class="stringliteral">        Parameters:</span></div>
+<div class="line"><span class="lineno">  566</span><span class="stringliteral">            subj: Subject of the statement to filter by, or `None` to match all.</span></div>
+<div class="line"><span class="lineno">  567</span><span class="stringliteral">            pred: Predicate of the statement to filter by, or `None` to match all.</span></div>
+<div class="line"><span class="lineno">  568</span><span class="stringliteral">            obj: Object of the statement to filter by, or `None` to match all.</span></div>
+<div class="line"><span class="lineno">  569</span><span class="stringliteral">            graph_name: Graph name(s) to restrict to.</span></div>
+<div class="line"><span class="lineno">  570</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  571</span><span class="stringliteral">                The default value `None` queries all graphs.</span></div>
+<div class="line"><span class="lineno">  572</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  573</span><span class="stringliteral">                To query just the default graph, use</span></div>
+<div class="line"><span class="lineno">  574</span><span class="stringliteral">                [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].</span></div>
+<div class="line"><span class="lineno">  575</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  576</span><span class="stringliteral">            infer: Specifies whether inferred statements should be included in the</span></div>
+<div class="line"><span class="lineno">  577</span><span class="stringliteral">                result.</span></div>
+<div class="line"><span class="lineno">  578</span><span class="stringliteral">            content_type: The content type of the response.</span></div>
+<div class="line"><span class="lineno">  579</span><span class="stringliteral">                A triple-based format returns a [Graph][rdflib.graph.Graph], while a</span></div>
+<div class="line"><span class="lineno">  580</span><span class="stringliteral">                quad-based format returns a [`Dataset`][rdflib.graph.Dataset].</span></div>
+<div class="line"><span class="lineno">  581</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  582</span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><span class="lineno">  583</span><span class="stringliteral">            A [`Graph`][rdflib.graph.Graph] or [`Dataset`][rdflib.graph.Dataset] object</span></div>
+<div class="line"><span class="lineno">  584</span><span class="stringliteral">                with the repository namespace prefixes bound to it.</span></div>
+<div class="line"><span class="lineno">  585</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  586</span>        validate_no_bnodes(subj, pred, obj, graph_name)</div>
+<div class="line"><span class="lineno">  587</span>        <span class="keywordflow">if</span> content_type <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  588</span>            content_type = <span class="stringliteral">&quot;application/n-quads&quot;</span></div>
+<div class="line"><span class="lineno">  589</span>        headers = {<span class="stringliteral">&quot;Accept&quot;</span>: content_type}</div>
+<div class="line"><span class="lineno">  590</span>        params: dict[str, str] = {}</div>
+<div class="line"><span class="lineno">  591</span>        build_context_param(params, graph_name)</div>
+<div class="line"><span class="lineno">  592</span>        build_spo_param(params, subj, pred, obj)</div>
+<div class="line"><span class="lineno">  593</span>        build_infer_param(params, infer=infer)</div>
+<div class="line"><span class="lineno">  594</span> </div>
+<div class="line"><span class="lineno">  595</span>        response = self.http_client.get(</div>
+<div class="line"><span class="lineno">  596</span>            f<span class="stringliteral">&quot;/repositories/{self.identifier}/statements&quot;</span>,</div>
+<div class="line"><span class="lineno">  597</span>            headers=headers,</div>
+<div class="line"><span class="lineno">  598</span>            params=params,</div>
+<div class="line"><span class="lineno">  599</span>        )</div>
+<div class="line"><span class="lineno">  600</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">  601</span>        triple_formats = [</div>
+<div class="line"><span class="lineno">  602</span>            <span class="stringliteral">&quot;application/n-triples&quot;</span>,</div>
+<div class="line"><span class="lineno">  603</span>            <span class="stringliteral">&quot;text/turtle&quot;</span>,</div>
+<div class="line"><span class="lineno">  604</span>            <span class="stringliteral">&quot;application/rdf+xml&quot;</span>,</div>
+<div class="line"><span class="lineno">  605</span>        ]</div>
+<div class="line"><span class="lineno">  606</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  607</span>            <span class="keywordflow">if</span> content_type <span class="keywordflow">in</span> triple_formats:</div>
+<div class="line"><span class="lineno">  608</span>                retval = Graph().parse(data=response.text, format=content_type)</div>
+<div class="line"><span class="lineno">  609</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  610</span>                retval = Dataset().parse(data=response.text, format=content_type)</div>
+<div class="line"><span class="lineno">  611</span>            <span class="keywordflow">for</span> result <span class="keywordflow">in</span> self.namespaces.list():</div>
+<div class="line"><span class="lineno">  612</span>                retval.bind(result.prefix, result.namespace, replace=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  613</span>            <span class="keywordflow">return</span> retval</div>
+<div class="line"><span class="lineno">  614</span>        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">  615</span>            <span class="keywordflow">raise</span> RDFLibParserError(f<span class="stringliteral">&quot;Error parsing RDF: {err}&quot;</span>) <span class="keyword">from</span> err</div>
+<div class="line"><span class="lineno">  616</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>, <a class="el" href="a01764.html#a318e9df47d0678c31ec767e62f607fe3">Repository.namespaces()</a>, <a class="el" href="a01920.html#a20ed34a6c868a7c795ad084b25ddd1e2">Graph.namespaces()</a>, <a class="el" href="a01948.html#a20ed34a6c868a7c795ad084b25ddd1e2">ReadOnlyGraphAggregate.namespaces()</a>, <a class="el" href="a01976.html#ad93818beb5d0aa0891d389d42aa21ab4">NamespaceManager.namespaces()</a>, <a class="el" href="a02532.html#a82b100d6114a28cdd0cbd9880305ca38">AuditableStore.namespaces()</a>, <a class="el" href="a02536.html#a20ed34a6c868a7c795ad084b25ddd1e2">BerkeleyDB.namespaces()</a>, <a class="el" href="a02548.html#a82b100d6114a28cdd0cbd9880305ca38">SimpleMemory.namespaces()</a>, <a class="el" href="a02552.html#a82b100d6114a28cdd0cbd9880305ca38">Memory.namespaces()</a>, <a class="el" href="a02556.html#a82b100d6114a28cdd0cbd9880305ca38">RDF4JStore.namespaces()</a>, <a class="el" href="a02564.html#adb79aea984ab953adf7d3a607511fea1">REGEXMatching.namespaces()</a>, <a class="el" href="a02576.html#a82b100d6114a28cdd0cbd9880305ca38">SPARQLStore.namespaces()</a>, <a class="el" href="a02640.html#a82b100d6114a28cdd0cbd9880305ca38">Store.namespaces()</a>, <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>, <a class="el" href="a02952.html#abf447c798c2932f48dd7724f64ddc940">ExtractNamespaceTask.namespaces</a>, and <a class="el" href="a03288.html#adaa81fd4ea88bd10a26169fa54458d4a">SPARQLUtils.namespaces</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01772.html#a5307e40dc5cf69ea36088d3dd21c7c3a">RepositoryManager.create()</a>.</p>
+
+</div>
+</div>
+<a id="abe9565bdbda583c523c549cee659b256" name="abe9565bdbda583c523c549cee659b256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe9565bdbda583c523c549cee659b256">&#9670;&#160;</a></span>graph_names()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> list[<a class="el" href="a02652.html">IdentifiedNode</a>] graph_names </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Get a list of all graph names in the repository.
+
+Returns:
+    A list of graph names.
+
+Raises:
+    RepositoryFormatError: Fails to parse the repository graph names.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  517</span>    <span class="keyword">def </span>graph_names(self) -&gt; list[IdentifiedNode]:</div>
+<div class="line"><span class="lineno">  518</span>        <span class="stringliteral">&quot;&quot;&quot;Get a list of all graph names in the repository.</span></div>
+<div class="line"><span class="lineno">  519</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  520</span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><span class="lineno">  521</span><span class="stringliteral">            A list of graph names.</span></div>
+<div class="line"><span class="lineno">  522</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  523</span><span class="stringliteral">        Raises:</span></div>
+<div class="line"><span class="lineno">  524</span><span class="stringliteral">            RepositoryFormatError: Fails to parse the repository graph names.</span></div>
+<div class="line"><span class="lineno">  525</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  526</span>        headers = {</div>
+<div class="line"><span class="lineno">  527</span>            <span class="stringliteral">&quot;Accept&quot;</span>: <span class="stringliteral">&quot;application/sparql-results+json&quot;</span>,</div>
+<div class="line"><span class="lineno">  528</span>        }</div>
+<div class="line"><span class="lineno">  529</span>        response = self.http_client.get(</div>
+<div class="line"><span class="lineno">  530</span>            f<span class="stringliteral">&quot;/repositories/{self.identifier}/contexts&quot;</span>, headers=headers</div>
+<div class="line"><span class="lineno">  531</span>        )</div>
+<div class="line"><span class="lineno">  532</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">  533</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  534</span>            values: list[IdentifiedNode] = []</div>
+<div class="line"><span class="lineno">  535</span>            <span class="keywordflow">for</span> row <span class="keywordflow">in</span> response.json()[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><span class="lineno">  536</span>                value = row[<span class="stringliteral">&quot;contextID&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">  537</span>                value_type = row[<span class="stringliteral">&quot;contextID&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>]</div>
+<div class="line"><span class="lineno">  538</span>                <span class="keywordflow">if</span> value_type == <span class="stringliteral">&quot;uri&quot;</span>:</div>
+<div class="line"><span class="lineno">  539</span>                    values.append(URIRef(value))</div>
+<div class="line"><span class="lineno">  540</span>                <span class="keywordflow">elif</span> value_type == <span class="stringliteral">&quot;bnode&quot;</span>:</div>
+<div class="line"><span class="lineno">  541</span>                    values.append(BNode(value))</div>
+<div class="line"><span class="lineno">  542</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  543</span>                    <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(f<span class="stringliteral">&quot;Invalid graph name type: {value_type}&quot;</span>)</div>
+<div class="line"><span class="lineno">  544</span>            <span class="keywordflow">return</span> values</div>
+<div class="line"><span class="lineno">  545</span>        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">  546</span>            <span class="keywordflow">raise</span> RepositoryFormatError(</div>
+<div class="line"><span class="lineno">  547</span>                f<span class="stringliteral">&quot;Failed to parse repository graph names: {err}&quot;</span></div>
+<div class="line"><span class="lineno">  548</span>            ) <span class="keyword">from</span> err</div>
+<div class="line"><span class="lineno">  549</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+</div>
+</div>
+<a id="acd04f96cfff77dc10c1212b23e4c077c" name="acd04f96cfff77dc10c1212b23e4c077c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd04f96cfff77dc10c1212b23e4c077c">&#9670;&#160;</a></span>graphs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a01756.html">GraphStoreManager</a> graphs </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Graph store manager for the repository.</pre> <div class="fragment"><div class="line"><span class="lineno">  390</span>    <span class="keyword">def </span>graphs(self) -&gt; GraphStoreManager:</div>
+<div class="line"><span class="lineno">  391</span>        <span class="stringliteral">&quot;&quot;&quot;Graph store manager for the repository.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  392</span>        <span class="keywordflow">if</span> self._graph_store_manager <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  393</span>            self._graph_store_manager = GraphStoreManager(</div>
+<div class="line"><span class="lineno">  394</span>                self.identifier, self.http_client</div>
+<div class="line"><span class="lineno">  395</span>            )</div>
+<div class="line"><span class="lineno">  396</span>        <span class="keywordflow">return</span> self._graph_store_manager</div>
+<div class="line"><span class="lineno">  397</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01764.html#a6336e89fe14c9f620b800d641d2d7f4f">Repository._graph_store_manager</a>.</p>
+
+</div>
+</div>
+<a id="aaef96f5b798ec8c54ca7ae6ca7f2d7f3" name="aaef96f5b798ec8c54ca7ae6ca7f2d7f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaef96f5b798ec8c54ca7ae6ca7f2d7f3">&#9670;&#160;</a></span>health()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool health </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Repository health check.
+
+Returns:
+    bool: True if the repository is healthy, otherwise an error is raised.
+
+Raises:
+    RepositoryNotFoundError: If the repository is not found.
+    RepositoryNotHealthyError: If the repository is not healthy.
+</pre> 
+<p>Reimplemented in <a class="el" href="a01736.html#a933c333099653d4ba45677a89cfd6792">Repository</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  398</span>    <span class="keyword">def </span>health(self) -&gt; bool:</div>
+<div class="line"><span class="lineno">  399</span>        <span class="stringliteral">&quot;&quot;&quot;Repository health check.</span></div>
+<div class="line"><span class="lineno">  400</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  401</span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><span class="lineno">  402</span><span class="stringliteral">            bool: True if the repository is healthy, otherwise an error is raised.</span></div>
+<div class="line"><span class="lineno">  403</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  404</span><span class="stringliteral">        Raises:</span></div>
+<div class="line"><span class="lineno">  405</span><span class="stringliteral">            RepositoryNotFoundError: If the repository is not found.</span></div>
+<div class="line"><span class="lineno">  406</span><span class="stringliteral">            RepositoryNotHealthyError: If the repository is not healthy.</span></div>
+<div class="line"><span class="lineno">  407</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  408</span>        headers = {</div>
+<div class="line"><span class="lineno">  409</span>            <span class="stringliteral">&quot;Content-Type&quot;</span>: <span class="stringliteral">&quot;application/sparql-query&quot;</span>,</div>
+<div class="line"><span class="lineno">  410</span>            <span class="stringliteral">&quot;Accept&quot;</span>: <span class="stringliteral">&quot;application/sparql-results+json&quot;</span>,</div>
+<div class="line"><span class="lineno">  411</span>        }</div>
+<div class="line"><span class="lineno">  412</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  413</span>            response = self.http_client.post(</div>
+<div class="line"><span class="lineno">  414</span>                f<span class="stringliteral">&quot;/repositories/{self._identifier}&quot;</span>, headers=headers, content=<span class="stringliteral">&quot;ASK {}&quot;</span></div>
+<div class="line"><span class="lineno">  415</span>            )</div>
+<div class="line"><span class="lineno">  416</span>            response.raise_for_status()</div>
+<div class="line"><span class="lineno">  417</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  418</span>        <span class="keywordflow">except</span> httpx.HTTPStatusError <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">  419</span>            <span class="keywordflow">if</span> err.response.status_code == 404:</div>
+<div class="line"><span class="lineno">  420</span>                <span class="keywordflow">raise</span> RepositoryNotFoundError(</div>
+<div class="line"><span class="lineno">  421</span>                    f<span class="stringliteral">&quot;Repository {self._identifier} not found.&quot;</span></div>
+<div class="line"><span class="lineno">  422</span>                )</div>
+<div class="line"><span class="lineno">  423</span>            <span class="keywordflow">raise</span> RepositoryNotHealthyError(</div>
+<div class="line"><span class="lineno">  424</span>                f<span class="stringliteral">&quot;Repository {self._identifier} is not healthy. {err.response.status_code} - {err.response.text}&quot;</span></div>
+<div class="line"><span class="lineno">  425</span>            )</div>
+<div class="line"><span class="lineno">  426</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+</div>
+</div>
+<a id="aecf55e0bd16cbcd06ae8bb240a74aa7f" name="aecf55e0bd16cbcd06ae8bb240a74aa7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecf55e0bd16cbcd06ae8bb240a74aa7f">&#9670;&#160;</a></span>http_client()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">http_client </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  372</span>    <span class="keyword">def </span>http_client(self):</div>
+<div class="line"><span class="lineno">  373</span>        <span class="keywordflow">return</span> self._http_client</div>
+<div class="line"><span class="lineno">  374</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#a505f6efc0f24a6de80366bab80b7e87a">RDF4JNamespaceManager._http_client</a>, <a class="el" href="a01756.html#a505f6efc0f24a6de80366bab80b7e87a">GraphStoreManager._http_client</a>, <a class="el" href="a01764.html#a505f6efc0f24a6de80366bab80b7e87a">Repository._http_client</a>, <a class="el" href="a01772.html#a505f6efc0f24a6de80366bab80b7e87a">RepositoryManager._http_client</a>, and <a class="el" href="a01776.html#a505f6efc0f24a6de80366bab80b7e87a">RDF4JClient._http_client</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01756.html#a215c78b2e4c03d549d18fb06ab9d70f0">GraphStoreManager.add()</a>, <a class="el" href="a01752.html#a8354e616a668be156c0d212186e64c43">RDF4JNamespaceManager.clear()</a>, <a class="el" href="a01756.html#a607bcdb8c12a119a4c83797c4b7ed2fd">GraphStoreManager.clear()</a>, <a class="el" href="a01776.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">RDF4JClient.close()</a>, <a class="el" href="a01772.html#a5307e40dc5cf69ea36088d3dd21c7c3a">RepositoryManager.create()</a>, <a class="el" href="a01772.html#ac37cbf52035030ea84f72cfcde287d47">RepositoryManager.delete()</a>, <a class="el" href="a01764.html#a2ed38316ef8942d44d13baea790dd1f2">Repository.delete()</a>, <a class="el" href="a01752.html#a31583c0fa6127f0c37e1631400a05cd5">RDF4JNamespaceManager.get()</a>, <a class="el" href="a01772.html#a91bf145c132c28955da8002f03b19322">RepositoryManager.get()</a>, <a class="el" href="a01764.html#a2488d371a763bdb7273c9dd9c8d30ccc">Repository.get()</a>, <a class="el" href="a01756.html#a3ac9960b849fb1c006bb57ec5f3ef396">GraphStoreManager.get()</a>, <a class="el" href="a01764.html#abe9565bdbda583c523c549cee659b256">Repository.graph_names()</a>, <a class="el" href="a01764.html#aaef96f5b798ec8c54ca7ae6ca7f2d7f3">Repository.health()</a>, <a class="el" href="a01736.html#a933c333099653d4ba45677a89cfd6792">Repository.health()</a>, <a class="el" href="a01752.html#aa666eb7b9d082b71f36f29d813301609">RDF4JNamespaceManager.list()</a>, <a class="el" href="a01772.html#a30a4701d5bfde519e7031e04113d5f20">RepositoryManager.list()</a>, <a class="el" href="a01764.html#a23a6fd17306ff8f1a8f62f80d28ff047">Repository.overwrite()</a>, <a class="el" href="a01756.html#aba840bd034d0a6da52af0de115d7e028">GraphStoreManager.overwrite()</a>, <a class="el" href="a01776.html#ac4ec7b951a902ddebd2df62c77bff715">RDF4JClient.protocol()</a>, <a class="el" href="a01764.html#acab8265dcd26ff0fbb4bfb281457f5c3">Repository.query()</a>, <a class="el" href="a01752.html#a36881669c07e6d2642bbd9158ec9905c">RDF4JNamespaceManager.remove()</a>, <a class="el" href="a01752.html#aad94e9759e87771d9b512396512bcb18">RDF4JNamespaceManager.set()</a>, <a class="el" href="a01764.html#ac69ececf73964d679faa8ef20a3b647e">Repository.size()</a>, <a class="el" href="a01764.html#a00eb4eac7ced7216d70695b08672a261">Repository.update()</a>, and <a class="el" href="a01764.html#a1560ef6a3dc1f91af7bee92ffcaf3917">Repository.upload()</a>.</p>
+
+</div>
+</div>
+<a id="a71098ba1dd8204d775126bcc87106984" name="a71098ba1dd8204d775126bcc87106984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71098ba1dd8204d775126bcc87106984">&#9670;&#160;</a></span>identifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">identifier </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Repository identifier.</pre> <div class="fragment"><div class="line"><span class="lineno">  376</span>    <span class="keyword">def </span>identifier(self):</div>
+<div class="line"><span class="lineno">  377</span>        <span class="stringliteral">&quot;&quot;&quot;Repository identifier.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  378</span>        <span class="keywordflow">return</span> self._identifier</div>
+<div class="line"><span class="lineno">  379</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#a7d8a3be3775e3ba06d252526d1758c15">RDF4JNamespaceManager._identifier</a>, <a class="el" href="a01756.html#a7d8a3be3775e3ba06d252526d1758c15">GraphStoreManager._identifier</a>, <a class="el" href="a01764.html#a7d8a3be3775e3ba06d252526d1758c15">Repository._identifier</a>, and <a class="el" href="a02616.html#a7d8a3be3775e3ba06d252526d1758c15">Resource._identifier</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#ab7ad5f8118edc35d543424177980a080">Graph.__cmp__()</a>, <a class="el" href="a01884.html#a909a2bc6a3c96fc53d3ae93305e81486">Class.__eq__()</a>, <a class="el" href="a01888.html#a909a2bc6a3c96fc53d3ae93305e81486">OWLRDFListProxy.__eq__()</a>, <a class="el" href="a01920.html#a9a6fefcb3e86dc34c6997503c11aa578">Graph.__eq__()</a>, <a class="el" href="a02616.html#a0c07577391874f9ad440e7c45408bb9d">Resource.__getitem__()</a>, <a class="el" href="a01920.html#af322b0c62ec68c08ba73238c4c43eb1a">Graph.__gt__()</a>, <a class="el" href="a01884.html#a171e6903c0464958dd8a214b15a038cb">Class.__hash__()</a>, <a class="el" href="a01920.html#ae27a7920f84bb5c804c9615ef57874e5">Graph.__hash__()</a>, <a class="el" href="a01912.html#ac7c43483a06b9e2b08772b217daabc1e">Property.__init__()</a>, <a class="el" href="a01892.html#ab828cba12f3eb86ddb63d1b344de2250">EnumeratedClass.__init__()</a>, <a class="el" href="a01884.html#ab28fe30541476d272094925a4a89baf8">Class.__init__()</a>, <a class="el" href="a01884.html#a16eabceda9da3da9537f68ec2f3359da">Class.__isub__()</a>, <a class="el" href="a01920.html#ab91d072cdfd0846789aa752436c4745a">Graph.__lt__()</a>, <a class="el" href="a01920.html#a30bff505f2377bca25408a0e9317b88c">Graph.__reduce__()</a>, <a class="el" href="a01908.html#a61a1f3a6a4df93d491cd753f617782a2">Restriction.__repr__()</a>, <a class="el" href="a01920.html#ae07f7930f92d3591c93e2381cd5be285">Graph.__str__()</a>, <a class="el" href="a01908.html#aa5f0358c02e3850e22f6fac2cf56e19c">Restriction._get_allvaluesfrom()</a>, <a class="el" href="a01884.html#a5b75d04614193e02169ed1f750d01f26">Class._get_annotation()</a>, <a class="el" href="a01908.html#a84639d2971e96c3ebd5b695d35e55e3b">Restriction._get_cardinality()</a>, <a class="el" href="a01864.html#aa0a41fd856015313d61b68137de193c8">AnnotatableTerms._get_comment()</a>, <a class="el" href="a01884.html#a59f78c7754f88912fd73399cae6b6235">Class._get_complementof()</a>, <a class="el" href="a01884.html#a7eaf3330c2cd627f97d6eec972deeb17">Class._get_disjointwith()</a>, <a class="el" href="a01912.html#a58dc40d74083635117e533dcde33a776">Property._get_domain()</a>, <a class="el" href="a01884.html#a21f286f4e1ccfc73483cf46e8d4a3631">Class._get_equivalentclass()</a>, <a class="el" href="a01884.html#a95f26443b4501e3d6046c7e80de3a3d7">Class._get_extent()</a>, <a class="el" href="a01912.html#a95f26443b4501e3d6046c7e80de3a3d7">Property._get_extent()</a>, <a class="el" href="a01884.html#a6448a0ae4f486e2d40d8ef1372e136dd">Class._get_extentquery()</a>, <a class="el" href="a01908.html#ab03219f3b432c2b371f0fdaf2de9d5dc">Restriction._get_hasvalue()</a>, <a class="el" href="a01868.html#a7df13a6ad419941a144564be524571d6">Ontology._get_imports()</a>, <a class="el" href="a01912.html#aa7159f621a083bf183d709928a206c41">Property._get_inverseof()</a>, <a class="el" href="a01864.html#ad3417142c6c2b862c46cfde07962e97a">AnnotatableTerms._get_label()</a>, <a class="el" href="a01908.html#acf27c0bc461b061151b30d8fce6a4b6d">Restriction._get_maxcardinality()</a>, <a class="el" href="a01908.html#a0b9da9268f80ab5e06b2aae2acc28f66">Restriction._get_mincardinality()</a>, <a class="el" href="a01908.html#ae3dfd3e2ee645600c82621ead4a179fa">Restriction._get_onproperty()</a>, <a class="el" href="a01884.html#a5e7fc1ba3a2a487b34ae1b9dee6dd72e">Class._get_parents()</a>, <a class="el" href="a01912.html#a4f1443b39e3854758eb608febaad90c9">Property._get_range()</a>, <a class="el" href="a01860.html#a830c923dd230cad0c51472f30ed0bfc3">Individual._get_sameAs()</a>, <a class="el" href="a01864.html#a05eed294f84345525ca74baa0a43f5a8">AnnotatableTerms._get_seealso()</a>, <a class="el" href="a01908.html#acab424d4516954e5398cccbf39b82110">Restriction._get_somevaluesfrom()</a>, <a class="el" href="a01884.html#a90ebb8fd92b6b7f918ab6e20e67786a3">Class._get_subclassof()</a>, <a class="el" href="a01912.html#a4a66607a456162fd89ac0aeb1df6bbfa">Property._get_subpropertyof()</a>, <a class="el" href="a01860.html#aa1279893bc02423a8ef49660b90b293a">Individual._get_type()</a>, <a class="el" href="a01908.html#a379eaaa03e235439faac11a843711d14">Restriction._set_allvaluesfrom()</a>, <a class="el" href="a01908.html#a363600a54ab590a52c78c49cb8157bb3">Restriction._set_cardinality()</a>, <a class="el" href="a01864.html#ad843c9ef9d8e4bfd79f48a318f022ffb">AnnotatableTerms._set_comment()</a>, <a class="el" href="a01884.html#a671bd688b91a077edb239e639ba1bb0d">Class._set_complementof()</a>, <a class="el" href="a01884.html#adf824aaf8146f07f0cd327389a1756c3">Class._set_disjointwith()</a>, <a class="el" href="a01912.html#ad420a70eb36cc038b2d7437fe7ee3b32">Property._set_domain()</a>, <a class="el" href="a01884.html#a7dac2695229dda5fe90f40acbe8224d2">Class._set_equivalentclass()</a>, <a class="el" href="a01884.html#a345d4803336bbfa494e464e4ca82ca78">Class._set_extent()</a>, <a class="el" href="a01912.html#a345d4803336bbfa494e464e4ca82ca78">Property._set_extent()</a>, <a class="el" href="a01908.html#a0b5ebc962ff3a15066372412a2d7e02a">Restriction._set_hasvalue()</a>, <a class="el" href="a01868.html#a54922ecf51a9dbb19312b20078f35854">Ontology._set_imports()</a>, <a class="el" href="a01912.html#ac9e3c9110cdb1fdfd2534ca122aa29be">Property._set_inverseof()</a>, <a class="el" href="a01864.html#a69d3f979778783ebd2849d3490b31e78">AnnotatableTerms._set_label()</a>, <a class="el" href="a01908.html#a26e5573716fa17aab91dbc39961e98b4">Restriction._set_maxcardinality()</a>, <a class="el" href="a01908.html#a06d6e0049e8c71e56a7b169f835e1b47">Restriction._set_mincardinality()</a>, <a class="el" href="a01908.html#ac8879ef2a2162c8a44b790b2015d7f43">Restriction._set_onproperty()</a>, <a class="el" href="a01912.html#a62032d0eaa7c3c85ff10b4882fce698c">Property._set_range()</a>, <a class="el" href="a01860.html#ab21ad2a97b70d98dd6d7cdba2a43f6e4">Individual._set_sameAs()</a>, <a class="el" href="a01864.html#af4f97cd5a1a856cd3e990c5999a48e05">AnnotatableTerms._set_seealso()</a>, <a class="el" href="a01908.html#aa5e9ce686fadcc31c0f435c932e429ab">Restriction._set_somevaluesfrom()</a>, <a class="el" href="a01884.html#a00465a5755cd13ca971471175cc01704">Class._set_subclassof()</a>, <a class="el" href="a01912.html#a8cb4cc76ca9b24e65b1aa0c6473205cc">Property._set_subpropertyof()</a>, <a class="el" href="a01860.html#aa3f6865ed295fca374637cd47b2c3a10">Individual._set_type()</a>, <a class="el" href="a01920.html#accb39c19dc1a6bf53ccaeb1557e609e5">Graph.addN()</a>, <a class="el" href="a01904.html#a999279c63295ebb46f9bf47ebcef57ae">BooleanClass.changeOperator()</a>, <a class="el" href="a01860.html#a56a3948a1bcff91c773d2c93d5b6f6e4">Individual.clearInDegree()</a>, <a class="el" href="a01860.html#a39a18a4fb4c7b873c717c577d745cfe4">Individual.clearOutDegree()</a>, <a class="el" href="a01884.html#ac06d497b0ec97f3bb89c640e76237004">Class.isPrimitive()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, <a class="el" href="a01920.html#a7fbd93d64a0ac408c12cb7dcd14d25db">Graph.n3()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a01860.html#a20936ef5d7c383a7d62726506b2383a3">Individual.replace()</a>, <a class="el" href="a01912.html#a20936ef5d7c383a7d62726506b2383a3">Property.replace()</a>, <a class="el" href="a01860.html#a49954c1f2c464e00e44a0730abc7abea">Individual.serialize()</a>, <a class="el" href="a01908.html#a49954c1f2c464e00e44a0730abc7abea">Restriction.serialize()</a>, <a class="el" href="a01912.html#a49954c1f2c464e00e44a0730abc7abea">Property.serialize()</a>, <a class="el" href="a01884.html#afae9f66416afba5b8d9517e8eeb98cd3">Class.setupNounAnnotations()</a>, <a class="el" href="a01868.html#a43b255deaccd5c7a413b693e44cfaff7">Ontology.setVersion()</a>, <a class="el" href="a01884.html#a10f35fc1c23068ab7676fd56720e7fbc">Class.subSumpteeIds()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="a318e9df47d0678c31ec767e62f607fe3" name="a318e9df47d0678c31ec767e62f607fe3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a318e9df47d0678c31ec767e62f607fe3">&#9670;&#160;</a></span>namespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a01752.html">RDF4JNamespaceManager</a> namespaces </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Namespace manager for the repository.</pre> <div class="fragment"><div class="line"><span class="lineno">  381</span>    <span class="keyword">def </span>namespaces(self) -&gt; RDF4JNamespaceManager:</div>
+<div class="line"><span class="lineno">  382</span>        <span class="stringliteral">&quot;&quot;&quot;Namespace manager for the repository.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  383</span>        <span class="keywordflow">if</span> self._namespace_manager <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  384</span>            self._namespace_manager = RDF4JNamespaceManager(</div>
+<div class="line"><span class="lineno">  385</span>                self.identifier, self.http_client</div>
+<div class="line"><span class="lineno">  386</span>            )</div>
+<div class="line"><span class="lineno">  387</span>        <span class="keywordflow">return</span> self._namespace_manager</div>
+<div class="line"><span class="lineno">  388</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01764.html#a74305038c90a8c95b6f084ab7731af66">Repository._namespace_manager</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a34129a0abb9037ca62ba2607412c8962">Graph.__add__()</a>, <a class="el" href="a01976.html#a0a9c3b6e2ace890a6a09a891dd50879a">NamespaceManager.__contains__()</a>, <a class="el" href="a02276.html#a6407d45dc646e58f0f60f8445265eda9">LongTurtleSerializer.addNamespace()</a>, <a class="el" href="a02320.html#a0d812c0741cfe20229cef6aeb37b0380">TurtleSerializer.addNamespace()</a>, <a class="el" href="a02316.html#abf5193236a62bac535ce449ad82b0d54">RecursiveSerializer.addNamespace()</a>, <a class="el" href="a02952.html#ac7eea24b5fa1c707c805a00e81984342">ExtractNamespaceTask.finishedExtractNS()</a>, <a class="el" href="a01764.html#a2488d371a763bdb7273c9dd9c8d30ccc">Repository.get()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a02952.html#a08060e0924949738f75a0cdd8b49cef4">ExtractNamespaceTask.run()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="a23a6fd17306ff8f1a8f62f80d28ff047" name="a23a6fd17306ff8f1a8f62f80d28ff047"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a6fd17306ff8f1a8f62f80d28ff047">&#9670;&#160;</a></span>overwrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">overwrite </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | bytes | BinaryIO | <a class="el" href="a01920.html">Graph</a> | <a class="el" href="a01928.html">Dataset</a>&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a> | Iterable[<a class="el" href="a02656.html">URIRef</a>] | str | None &#160;</td>
+          <td class="paramname"><em>graph_name</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | None &#160;</td>
+          <td class="paramname"><em>base_uri</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | None &#160;</td>
+          <td class="paramname"><em>content_type</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Upload and overwrite statements in the repository.
+
+Parameters:
+    data: The RDF data to upload.
+    graph_name: Graph name(s) to restrict to.
+
+        The default value `None` applies to all graphs.
+
+        To apply to just the default graph, use
+        [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].
+
+    base_uri: The base URI to resolve against for any relative URIs in the data.
+    content_type: The content type of the data. Defaults to
+        `application/n-quads` when the value is `None`.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  654</span>    ):</div>
+<div class="line"><span class="lineno">  655</span>        <span class="stringliteral">&quot;&quot;&quot;Upload and overwrite statements in the repository.</span></div>
+<div class="line"><span class="lineno">  656</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  657</span><span class="stringliteral">        Parameters:</span></div>
+<div class="line"><span class="lineno">  658</span><span class="stringliteral">            data: The RDF data to upload.</span></div>
+<div class="line"><span class="lineno">  659</span><span class="stringliteral">            graph_name: Graph name(s) to restrict to.</span></div>
+<div class="line"><span class="lineno">  660</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  661</span><span class="stringliteral">                The default value `None` applies to all graphs.</span></div>
+<div class="line"><span class="lineno">  662</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  663</span><span class="stringliteral">                To apply to just the default graph, use</span></div>
+<div class="line"><span class="lineno">  664</span><span class="stringliteral">                [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].</span></div>
+<div class="line"><span class="lineno">  665</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  666</span><span class="stringliteral">            base_uri: The base URI to resolve against for any relative URIs in the data.</span></div>
+<div class="line"><span class="lineno">  667</span><span class="stringliteral">            content_type: The content type of the data. Defaults to</span></div>
+<div class="line"><span class="lineno">  668</span><span class="stringliteral">                `application/n-quads` when the value is `None`.</span></div>
+<div class="line"><span class="lineno">  669</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  670</span>        stream, should_close = rdf_payload_to_stream(data)</div>
+<div class="line"><span class="lineno">  671</span>        validate_graph_name(graph_name)</div>
+<div class="line"><span class="lineno">  672</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  673</span>            headers = {<span class="stringliteral">&quot;Content-Type&quot;</span>: content_type <span class="keywordflow">or</span> <span class="stringliteral">&quot;application/n-quads&quot;</span>}</div>
+<div class="line"><span class="lineno">  674</span>            params: dict[str, str] = {}</div>
+<div class="line"><span class="lineno">  675</span>            build_context_param(params, graph_name)</div>
+<div class="line"><span class="lineno">  676</span>            <span class="keywordflow">if</span> base_uri <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  677</span>                params[<span class="stringliteral">&quot;baseURI&quot;</span>] = base_uri</div>
+<div class="line"><span class="lineno">  678</span>            response = self.http_client.put(</div>
+<div class="line"><span class="lineno">  679</span>                f<span class="stringliteral">&quot;/repositories/{self.identifier}/statements&quot;</span>,</div>
+<div class="line"><span class="lineno">  680</span>                headers=headers,</div>
+<div class="line"><span class="lineno">  681</span>                params=params,</div>
+<div class="line"><span class="lineno">  682</span>                content=stream,</div>
+<div class="line"><span class="lineno">  683</span>            )</div>
+<div class="line"><span class="lineno">  684</span>            response.raise_for_status()</div>
+<div class="line"><span class="lineno">  685</span>        <span class="keywordflow">finally</span>:</div>
+<div class="line"><span class="lineno">  686</span>            <span class="keywordflow">if</span> should_close:</div>
+<div class="line"><span class="lineno">  687</span>                stream.close()</div>
+<div class="line"><span class="lineno">  688</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+</div>
+</div>
+<a id="acab8265dcd26ff0fbb4bfb281457f5c3" name="acab8265dcd26ff0fbb4bfb281457f5c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acab8265dcd26ff0fbb4bfb281457f5c3">&#9670;&#160;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">query </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>query</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Execute a SPARQL query against the repository.
+
+!!! note
+    A POST request is used by default. If any keyword arguments are provided,
+    a GET request is used instead, and the arguments are passed as query parameters.
+
+Parameters:
+    query: The SPARQL query to execute.
+    **kwargs: Additional keyword arguments to include as query parameters
+        in the request. See
+        [RDF4J REST API - Execute SPARQL query](https://rdf4j.org/documentation/reference/rest-api/#tag/SPARQL/paths/~1repositories~1%7BrepositoryID%7D/get)
+        for the list of supported query parameters.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  465</span>    <span class="keyword">def </span>query(self, query: str, **kwargs):</div>
+<div class="line"><span class="lineno">  466</span>        <span class="stringliteral">&quot;&quot;&quot;Execute a SPARQL query against the repository.</span></div>
+<div class="line"><span class="lineno">  467</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  468</span><span class="stringliteral">        !!! note</span></div>
+<div class="line"><span class="lineno">  469</span><span class="stringliteral">            A POST request is used by default. If any keyword arguments are provided,</span></div>
+<div class="line"><span class="lineno">  470</span><span class="stringliteral">            a GET request is used instead, and the arguments are passed as query parameters.</span></div>
+<div class="line"><span class="lineno">  471</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  472</span><span class="stringliteral">        Parameters:</span></div>
+<div class="line"><span class="lineno">  473</span><span class="stringliteral">            query: The SPARQL query to execute.</span></div>
+<div class="line"><span class="lineno">  474</span><span class="stringliteral">            **kwargs: Additional keyword arguments to include as query parameters</span></div>
+<div class="line"><span class="lineno">  475</span><span class="stringliteral">                in the request. See</span></div>
+<div class="line"><span class="lineno">  476</span><span class="stringliteral">                [RDF4J REST API - Execute SPARQL query](https://rdf4j.org/documentation/reference/rest-api/#tag/SPARQL/paths/~1repositories~1%7BrepositoryID%7D/get)</span></div>
+<div class="line"><span class="lineno">  477</span><span class="stringliteral">                for the list of supported query parameters.</span></div>
+<div class="line"><span class="lineno">  478</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  479</span>        headers = {<span class="stringliteral">&quot;Content-Type&quot;</span>: <span class="stringliteral">&quot;application/sparql-query&quot;</span>}</div>
+<div class="line"><span class="lineno">  480</span>        build_sparql_query_accept_header(query, headers)</div>
+<div class="line"><span class="lineno">  481</span> </div>
+<div class="line"><span class="lineno">  482</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> kwargs:</div>
+<div class="line"><span class="lineno">  483</span>            response = self.http_client.post(</div>
+<div class="line"><span class="lineno">  484</span>                f<span class="stringliteral">&quot;/repositories/{self.identifier}&quot;</span>, headers=headers, content=query</div>
+<div class="line"><span class="lineno">  485</span>            )</div>
+<div class="line"><span class="lineno">  486</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  487</span>            response = self.http_client.get(</div>
+<div class="line"><span class="lineno">  488</span>                f<span class="stringliteral">&quot;/repositories/{self.identifier}&quot;</span>,</div>
+<div class="line"><span class="lineno">  489</span>                headers=headers,</div>
+<div class="line"><span class="lineno">  490</span>                params={<span class="stringliteral">&quot;query&quot;</span>: query, **kwargs},</div>
+<div class="line"><span class="lineno">  491</span>            )</div>
+<div class="line"><span class="lineno">  492</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">  493</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  494</span>            <span class="keywordflow">return</span> Result.parse(</div>
+<div class="line"><span class="lineno">  495</span>                io.BytesIO(response.content),</div>
+<div class="line"><span class="lineno">  496</span>                content_type=response.headers[<span class="stringliteral">&quot;Content-Type&quot;</span>].split(<span class="stringliteral">&quot;;&quot;</span>)[0],</div>
+<div class="line"><span class="lineno">  497</span>            )</div>
+<div class="line"><span class="lineno">  498</span>        <span class="keywordflow">except</span> KeyError <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">  499</span>            <span class="keywordflow">raise</span> RDFLibParserError(</div>
+<div class="line"><span class="lineno">  500</span>                f<span class="stringliteral">&quot;Failed to parse SPARQL query result {response.headers.get(&#39;Content-Type&#39;)}: {err}&quot;</span></div>
+<div class="line"><span class="lineno">  501</span>            ) <span class="keyword">from</span> err</div>
+<div class="line"><span class="lineno">  502</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a03048.html#a2df94208700932ceb7ae3b3fda36840c">SearchTask.finished()</a>, <a class="el" href="a02756.html#a7652be2fb875f4452778f324c9573a13">SPARQLWrapper2.queryAndConvert()</a>, <a class="el" href="a02788.html#abce671fe18aae182fd36749c091563dc">SPARQLWrapper.queryAndConvert()</a>, <a class="el" href="a02976.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a02980.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a02984.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a02992.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a03004.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a03008.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a03016.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a03020.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, and <a class="el" href="a03028.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="ac69ececf73964d679faa8ef20a3b647e" name="ac69ececf73964d679faa8ef20a3b647e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac69ececf73964d679faa8ef20a3b647e">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int size </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a> | Iterable[<a class="el" href="a02656.html">URIRef</a>] | str | None &#160;</td>
+          <td class="paramname"><em>graph_name</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">The number of statements in the repository or in the specified graph name.
+
+Parameters:
+    graph_name: Graph name(s) to restrict to.
+
+        The default value `None` queries all graphs.
+
+        To query just the default graph, use
+        [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].
+
+Returns:
+    The number of statements.
+
+Raises:
+    RepositoryFormatError: Fails to parse the repository size.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  427</span>    <span class="keyword">def </span>size(self, graph_name: URIRef | Iterable[URIRef] | str | <span class="keywordtype">None</span> = <span class="keywordtype">None</span>) -&gt; int:</div>
+<div class="line"><span class="lineno">  428</span>        <span class="stringliteral">&quot;&quot;&quot;The number of statements in the repository or in the specified graph name.</span></div>
+<div class="line"><span class="lineno">  429</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  430</span><span class="stringliteral">        Parameters:</span></div>
+<div class="line"><span class="lineno">  431</span><span class="stringliteral">            graph_name: Graph name(s) to restrict to.</span></div>
+<div class="line"><span class="lineno">  432</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  433</span><span class="stringliteral">                The default value `None` queries all graphs.</span></div>
+<div class="line"><span class="lineno">  434</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  435</span><span class="stringliteral">                To query just the default graph, use</span></div>
+<div class="line"><span class="lineno">  436</span><span class="stringliteral">                [`DATASET_DEFAULT_GRAPH_ID`][rdflib.graph.DATASET_DEFAULT_GRAPH_ID].</span></div>
+<div class="line"><span class="lineno">  437</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  438</span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><span class="lineno">  439</span><span class="stringliteral">            The number of statements.</span></div>
+<div class="line"><span class="lineno">  440</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  441</span><span class="stringliteral">        Raises:</span></div>
+<div class="line"><span class="lineno">  442</span><span class="stringliteral">            RepositoryFormatError: Fails to parse the repository size.</span></div>
+<div class="line"><span class="lineno">  443</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  444</span>        validate_graph_name(graph_name)</div>
+<div class="line"><span class="lineno">  445</span>        params: dict[str, str] = {}</div>
+<div class="line"><span class="lineno">  446</span>        build_context_param(params, graph_name)</div>
+<div class="line"><span class="lineno">  447</span>        response = self.http_client.get(</div>
+<div class="line"><span class="lineno">  448</span>            f<span class="stringliteral">&quot;/repositories/{self.identifier}/size&quot;</span>, params=params</div>
+<div class="line"><span class="lineno">  449</span>        )</div>
+<div class="line"><span class="lineno">  450</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">  451</span>        <span class="keywordflow">return</span> self._to_size(response.text)</div>
+<div class="line"><span class="lineno">  452</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01764.html#abb6c0a85345f86337a8276103451184e">Repository._to_size()</a>, <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+</div>
+</div>
+<a id="a9cc4fa9376e8364030abad87b1d1570f" name="a9cc4fa9376e8364030abad87b1d1570f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc4fa9376e8364030abad87b1d1570f">&#9670;&#160;</a></span>transaction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">transaction </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Create a new transaction for the repository.</pre> <div class="fragment"><div class="line"><span class="lineno">  725</span>    <span class="keyword">def </span>transaction(self):</div>
+<div class="line"><span class="lineno">  726</span>        <span class="stringliteral">&quot;&quot;&quot;Create a new transaction for the repository.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  727</span>        <span class="keyword">with</span> Transaction(self) <span class="keyword">as</span> txn:</div>
+<div class="line"><span class="lineno">  728</span>            <span class="keywordflow">yield</span> txn</div>
+<div class="line"><span class="lineno">  729</span> </div>
+<div class="line"><span class="lineno">  730</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a00eb4eac7ced7216d70695b08672a261" name="a00eb4eac7ced7216d70695b08672a261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00eb4eac7ced7216d70695b08672a261">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">update </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>query</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Execute a SPARQL update operation on the repository.
+
+Parameters:
+    query: The SPARQL update query to execute.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  503</span>    <span class="keyword">def </span>update(self, query: str):</div>
+<div class="line"><span class="lineno">  504</span>        <span class="stringliteral">&quot;&quot;&quot;Execute a SPARQL update operation on the repository.</span></div>
+<div class="line"><span class="lineno">  505</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  506</span><span class="stringliteral">        Parameters:</span></div>
+<div class="line"><span class="lineno">  507</span><span class="stringliteral">            query: The SPARQL update query to execute.</span></div>
+<div class="line"><span class="lineno">  508</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  509</span>        headers = {<span class="stringliteral">&quot;Content-Type&quot;</span>: <span class="stringliteral">&quot;application/sparql-update&quot;</span>}</div>
+<div class="line"><span class="lineno">  510</span>        response = self.http_client.post(</div>
+<div class="line"><span class="lineno">  511</span>            f<span class="stringliteral">&quot;/repositories/{self.identifier}/statements&quot;</span>,</div>
+<div class="line"><span class="lineno">  512</span>            headers=headers,</div>
+<div class="line"><span class="lineno">  513</span>            content=query,</div>
+<div class="line"><span class="lineno">  514</span>        )</div>
+<div class="line"><span class="lineno">  515</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">  516</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02344.html#a6863b95e546395d63501271ed5d48295">Accumulator.__init__()</a>, <a class="el" href="a02580.html#aef47b97f428f44527c9114f868058c00">SPARQLUpdateStore.add_graph()</a>, and <a class="el" href="a02580.html#a158e0bab10c9fcd5863b6198eef4f313">SPARQLUpdateStore.remove_graph()</a>.</p>
+
+</div>
+</div>
+<a id="a1560ef6a3dc1f91af7bee92ffcaf3917" name="a1560ef6a3dc1f91af7bee92ffcaf3917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1560ef6a3dc1f91af7bee92ffcaf3917">&#9670;&#160;</a></span>upload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">upload </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | bytes | BinaryIO | <a class="el" href="a01920.html">Graph</a> | <a class="el" href="a01928.html">Dataset</a>&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | None &#160;</td>
+          <td class="paramname"><em>base_uri</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str | None &#160;</td>
+          <td class="paramname"><em>content_type</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Upload and append statements to the repository.
+
+Parameters:
+    data: The RDF data to upload.
+    base_uri: The base URI to resolve against for any relative URIs in the data.
+    content_type: The content type of the data. Defaults to
+        `application/n-quads` when the value is `None`.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  622</span>    ):</div>
+<div class="line"><span class="lineno">  623</span>        <span class="stringliteral">&quot;&quot;&quot;Upload and append statements to the repository.</span></div>
+<div class="line"><span class="lineno">  624</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  625</span><span class="stringliteral">        Parameters:</span></div>
+<div class="line"><span class="lineno">  626</span><span class="stringliteral">            data: The RDF data to upload.</span></div>
+<div class="line"><span class="lineno">  627</span><span class="stringliteral">            base_uri: The base URI to resolve against for any relative URIs in the data.</span></div>
+<div class="line"><span class="lineno">  628</span><span class="stringliteral">            content_type: The content type of the data. Defaults to</span></div>
+<div class="line"><span class="lineno">  629</span><span class="stringliteral">                `application/n-quads` when the value is `None`.</span></div>
+<div class="line"><span class="lineno">  630</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  631</span>        stream, should_close = rdf_payload_to_stream(data)</div>
+<div class="line"><span class="lineno">  632</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  633</span>            headers = {<span class="stringliteral">&quot;Content-Type&quot;</span>: content_type <span class="keywordflow">or</span> <span class="stringliteral">&quot;application/n-quads&quot;</span>}</div>
+<div class="line"><span class="lineno">  634</span>            params = {}</div>
+<div class="line"><span class="lineno">  635</span>            <span class="keywordflow">if</span> base_uri <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  636</span>                params[<span class="stringliteral">&quot;baseURI&quot;</span>] = base_uri</div>
+<div class="line"><span class="lineno">  637</span>            response = self.http_client.post(</div>
+<div class="line"><span class="lineno">  638</span>                f<span class="stringliteral">&quot;/repositories/{self.identifier}/statements&quot;</span>,</div>
+<div class="line"><span class="lineno">  639</span>                headers=headers,</div>
+<div class="line"><span class="lineno">  640</span>                params=params,</div>
+<div class="line"><span class="lineno">  641</span>                content=stream,</div>
+<div class="line"><span class="lineno">  642</span>            )</div>
+<div class="line"><span class="lineno">  643</span>            response.raise_for_status()</div>
+<div class="line"><span class="lineno">  644</span>        <span class="keywordflow">finally</span>:</div>
+<div class="line"><span class="lineno">  645</span>            <span class="keywordflow">if</span> should_close:</div>
+<div class="line"><span class="lineno">  646</span>                stream.close()</div>
+<div class="line"><span class="lineno">  647</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6336e89fe14c9f620b800d641d2d7f4f" name="a6336e89fe14c9f620b800d641d2d7f4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6336e89fe14c9f620b800d641d2d7f4f">&#9670;&#160;</a></span>_graph_store_manager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_graph_store_manager</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01764.html#acd04f96cfff77dc10c1212b23e4c077c">Repository.graphs()</a>.</p>
+
+</div>
+</div>
+<a id="a505f6efc0f24a6de80366bab80b7e87a" name="a505f6efc0f24a6de80366bab80b7e87a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a505f6efc0f24a6de80366bab80b7e87a">&#9670;&#160;</a></span>_http_client</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_http_client</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JNamespaceManager.http_client()</a>, <a class="el" href="a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">GraphStoreManager.http_client()</a>, <a class="el" href="a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">Repository.http_client()</a>, <a class="el" href="a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RepositoryManager.http_client()</a>, and <a class="el" href="a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f">RDF4JClient.http_client()</a>.</p>
+
+</div>
+</div>
+<a id="a7d8a3be3775e3ba06d252526d1758c15" name="a7d8a3be3775e3ba06d252526d1758c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d8a3be3775e3ba06d252526d1758c15">&#9670;&#160;</a></span>_identifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_identifier</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02616.html#a909a2bc6a3c96fc53d3ae93305e81486">Resource.__eq__()</a>, <a class="el" href="a02616.html#a171e6903c0464958dd8a214b15a038cb">Resource.__hash__()</a>, <a class="el" href="a02616.html#a3a602b109b1ff2f7b1639c2ec1467ffc">Resource.__lt__()</a>, <a class="el" href="a02616.html#a61a1f3a6a4df93d491cd753f617782a2">Resource.__repr__()</a>, <a class="el" href="a02616.html#a40b37c981a056437fd94276341c63fe8">Resource.__str__()</a>, <a class="el" href="a02616.html#ab5f74673afe7dd2a764d8a8804db73dd">Resource.__unicode__()</a>, <a class="el" href="a02616.html#a0d8c33f2bc1fd1814f26fb7d80ebd650">Resource.add()</a>, <a class="el" href="a01752.html#a71098ba1dd8204d775126bcc87106984">RDF4JNamespaceManager.identifier()</a>, <a class="el" href="a01756.html#a71098ba1dd8204d775126bcc87106984">GraphStoreManager.identifier()</a>, <a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">Repository.identifier()</a>, <a class="el" href="a02616.html#a71098ba1dd8204d775126bcc87106984">Resource.identifier()</a>, <a class="el" href="a02616.html#ac0f2ca0f86f99878588482b3b0ca92fa">Resource.items()</a>, <a class="el" href="a02616.html#afa0a005ded8ec9ed06686baaea296147">Resource.objects()</a>, <a class="el" href="a02616.html#ac493b6600ae01f0798829107295960c5">Resource.predicate_objects()</a>, <a class="el" href="a02616.html#a3780635b92b0eec768416217ebc1f102">Resource.predicates()</a>, <a class="el" href="a02616.html#ac3bf9d5f915ec4efca218d75073a46d8">Resource.qname()</a>, <a class="el" href="a02616.html#af13c826b7f2c43f8ce5d017d885576d2">Resource.remove()</a>, <a class="el" href="a02616.html#a13db1f16a0ba8adb4cf9f8a84f7c1f3d">Resource.set()</a>, <a class="el" href="a02616.html#a6815faec53f9b36f9c6dec6a3bdfa165">Resource.subject_objects()</a>, <a class="el" href="a02616.html#a66cb2f653dbebc725ebebeb1fd608fb6">Resource.subject_predicates()</a>, <a class="el" href="a02616.html#a52a277309934d72216d6afbccd42fc45">Resource.subjects()</a>, <a class="el" href="a02616.html#a48366a9da74b308e734fe89de9d0b749">Resource.transitive_objects()</a>, <a class="el" href="a02616.html#aeaa71998c26adacd97a82c269f10bdde">Resource.transitive_subjects()</a>, and <a class="el" href="a02616.html#a44fb650c572fc0795c6d11ec8f25e133">Resource.value()</a>.</p>
+
+</div>
+</div>
+<a id="a74305038c90a8c95b6f084ab7731af66" name="a74305038c90a8c95b6f084ab7731af66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74305038c90a8c95b6f084ab7731af66">&#9670;&#160;</a></span>_namespace_manager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_namespace_manager</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01764.html#a318e9df47d0678c31ec767e62f607fe3">Repository.namespaces()</a>.</p>
+
+</div>
+</div>
+<a id="afc486b0767ef05e2dc12f5b98be72902" name="afc486b0767ef05e2dc12f5b98be72902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc486b0767ef05e2dc12f5b98be72902">&#9670;&#160;</a></span>identifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">identifier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#ab7ad5f8118edc35d543424177980a080">Graph.__cmp__()</a>, <a class="el" href="a01884.html#a909a2bc6a3c96fc53d3ae93305e81486">Class.__eq__()</a>, <a class="el" href="a01888.html#a909a2bc6a3c96fc53d3ae93305e81486">OWLRDFListProxy.__eq__()</a>, <a class="el" href="a01920.html#a9a6fefcb3e86dc34c6997503c11aa578">Graph.__eq__()</a>, <a class="el" href="a02616.html#a0c07577391874f9ad440e7c45408bb9d">Resource.__getitem__()</a>, <a class="el" href="a01920.html#af322b0c62ec68c08ba73238c4c43eb1a">Graph.__gt__()</a>, <a class="el" href="a01884.html#a171e6903c0464958dd8a214b15a038cb">Class.__hash__()</a>, <a class="el" href="a01920.html#ae27a7920f84bb5c804c9615ef57874e5">Graph.__hash__()</a>, <a class="el" href="a01912.html#ac7c43483a06b9e2b08772b217daabc1e">Property.__init__()</a>, <a class="el" href="a01892.html#ab828cba12f3eb86ddb63d1b344de2250">EnumeratedClass.__init__()</a>, <a class="el" href="a01884.html#ab28fe30541476d272094925a4a89baf8">Class.__init__()</a>, <a class="el" href="a01884.html#a16eabceda9da3da9537f68ec2f3359da">Class.__isub__()</a>, <a class="el" href="a01920.html#ab91d072cdfd0846789aa752436c4745a">Graph.__lt__()</a>, <a class="el" href="a01920.html#a30bff505f2377bca25408a0e9317b88c">Graph.__reduce__()</a>, <a class="el" href="a01908.html#a61a1f3a6a4df93d491cd753f617782a2">Restriction.__repr__()</a>, <a class="el" href="a01920.html#ae07f7930f92d3591c93e2381cd5be285">Graph.__str__()</a>, <a class="el" href="a01908.html#aa5f0358c02e3850e22f6fac2cf56e19c">Restriction._get_allvaluesfrom()</a>, <a class="el" href="a01884.html#a5b75d04614193e02169ed1f750d01f26">Class._get_annotation()</a>, <a class="el" href="a01908.html#a84639d2971e96c3ebd5b695d35e55e3b">Restriction._get_cardinality()</a>, <a class="el" href="a01864.html#aa0a41fd856015313d61b68137de193c8">AnnotatableTerms._get_comment()</a>, <a class="el" href="a01884.html#a59f78c7754f88912fd73399cae6b6235">Class._get_complementof()</a>, <a class="el" href="a01884.html#a7eaf3330c2cd627f97d6eec972deeb17">Class._get_disjointwith()</a>, <a class="el" href="a01912.html#a58dc40d74083635117e533dcde33a776">Property._get_domain()</a>, <a class="el" href="a01884.html#a21f286f4e1ccfc73483cf46e8d4a3631">Class._get_equivalentclass()</a>, <a class="el" href="a01884.html#a95f26443b4501e3d6046c7e80de3a3d7">Class._get_extent()</a>, <a class="el" href="a01912.html#a95f26443b4501e3d6046c7e80de3a3d7">Property._get_extent()</a>, <a class="el" href="a01884.html#a6448a0ae4f486e2d40d8ef1372e136dd">Class._get_extentquery()</a>, <a class="el" href="a01908.html#ab03219f3b432c2b371f0fdaf2de9d5dc">Restriction._get_hasvalue()</a>, <a class="el" href="a01868.html#a7df13a6ad419941a144564be524571d6">Ontology._get_imports()</a>, <a class="el" href="a01912.html#aa7159f621a083bf183d709928a206c41">Property._get_inverseof()</a>, <a class="el" href="a01864.html#ad3417142c6c2b862c46cfde07962e97a">AnnotatableTerms._get_label()</a>, <a class="el" href="a01908.html#acf27c0bc461b061151b30d8fce6a4b6d">Restriction._get_maxcardinality()</a>, <a class="el" href="a01908.html#a0b9da9268f80ab5e06b2aae2acc28f66">Restriction._get_mincardinality()</a>, <a class="el" href="a01908.html#ae3dfd3e2ee645600c82621ead4a179fa">Restriction._get_onproperty()</a>, <a class="el" href="a01884.html#a5e7fc1ba3a2a487b34ae1b9dee6dd72e">Class._get_parents()</a>, <a class="el" href="a01912.html#a4f1443b39e3854758eb608febaad90c9">Property._get_range()</a>, <a class="el" href="a01860.html#a830c923dd230cad0c51472f30ed0bfc3">Individual._get_sameAs()</a>, <a class="el" href="a01864.html#a05eed294f84345525ca74baa0a43f5a8">AnnotatableTerms._get_seealso()</a>, <a class="el" href="a01908.html#acab424d4516954e5398cccbf39b82110">Restriction._get_somevaluesfrom()</a>, <a class="el" href="a01884.html#a90ebb8fd92b6b7f918ab6e20e67786a3">Class._get_subclassof()</a>, <a class="el" href="a01912.html#a4a66607a456162fd89ac0aeb1df6bbfa">Property._get_subpropertyof()</a>, <a class="el" href="a01860.html#aa1279893bc02423a8ef49660b90b293a">Individual._get_type()</a>, <a class="el" href="a01908.html#a379eaaa03e235439faac11a843711d14">Restriction._set_allvaluesfrom()</a>, <a class="el" href="a01908.html#a363600a54ab590a52c78c49cb8157bb3">Restriction._set_cardinality()</a>, <a class="el" href="a01864.html#ad843c9ef9d8e4bfd79f48a318f022ffb">AnnotatableTerms._set_comment()</a>, <a class="el" href="a01884.html#a671bd688b91a077edb239e639ba1bb0d">Class._set_complementof()</a>, <a class="el" href="a01884.html#adf824aaf8146f07f0cd327389a1756c3">Class._set_disjointwith()</a>, <a class="el" href="a01912.html#ad420a70eb36cc038b2d7437fe7ee3b32">Property._set_domain()</a>, <a class="el" href="a01884.html#a7dac2695229dda5fe90f40acbe8224d2">Class._set_equivalentclass()</a>, <a class="el" href="a01884.html#a345d4803336bbfa494e464e4ca82ca78">Class._set_extent()</a>, <a class="el" href="a01912.html#a345d4803336bbfa494e464e4ca82ca78">Property._set_extent()</a>, <a class="el" href="a01908.html#a0b5ebc962ff3a15066372412a2d7e02a">Restriction._set_hasvalue()</a>, <a class="el" href="a01868.html#a54922ecf51a9dbb19312b20078f35854">Ontology._set_imports()</a>, <a class="el" href="a01912.html#ac9e3c9110cdb1fdfd2534ca122aa29be">Property._set_inverseof()</a>, <a class="el" href="a01864.html#a69d3f979778783ebd2849d3490b31e78">AnnotatableTerms._set_label()</a>, <a class="el" href="a01908.html#a26e5573716fa17aab91dbc39961e98b4">Restriction._set_maxcardinality()</a>, <a class="el" href="a01908.html#a06d6e0049e8c71e56a7b169f835e1b47">Restriction._set_mincardinality()</a>, <a class="el" href="a01908.html#ac8879ef2a2162c8a44b790b2015d7f43">Restriction._set_onproperty()</a>, <a class="el" href="a01912.html#a62032d0eaa7c3c85ff10b4882fce698c">Property._set_range()</a>, <a class="el" href="a01860.html#ab21ad2a97b70d98dd6d7cdba2a43f6e4">Individual._set_sameAs()</a>, <a class="el" href="a01864.html#af4f97cd5a1a856cd3e990c5999a48e05">AnnotatableTerms._set_seealso()</a>, <a class="el" href="a01908.html#aa5e9ce686fadcc31c0f435c932e429ab">Restriction._set_somevaluesfrom()</a>, <a class="el" href="a01884.html#a00465a5755cd13ca971471175cc01704">Class._set_subclassof()</a>, <a class="el" href="a01912.html#a8cb4cc76ca9b24e65b1aa0c6473205cc">Property._set_subpropertyof()</a>, <a class="el" href="a01860.html#aa3f6865ed295fca374637cd47b2c3a10">Individual._set_type()</a>, <a class="el" href="a01920.html#accb39c19dc1a6bf53ccaeb1557e609e5">Graph.addN()</a>, <a class="el" href="a01904.html#a999279c63295ebb46f9bf47ebcef57ae">BooleanClass.changeOperator()</a>, <a class="el" href="a01860.html#a56a3948a1bcff91c773d2c93d5b6f6e4">Individual.clearInDegree()</a>, <a class="el" href="a01860.html#a39a18a4fb4c7b873c717c577d745cfe4">Individual.clearOutDegree()</a>, <a class="el" href="a01884.html#ac06d497b0ec97f3bb89c640e76237004">Class.isPrimitive()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, <a class="el" href="a01920.html#a7fbd93d64a0ac408c12cb7dcd14d25db">Graph.n3()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a01860.html#a20936ef5d7c383a7d62726506b2383a3">Individual.replace()</a>, <a class="el" href="a01912.html#a20936ef5d7c383a7d62726506b2383a3">Property.replace()</a>, <a class="el" href="a01860.html#a49954c1f2c464e00e44a0730abc7abea">Individual.serialize()</a>, <a class="el" href="a01908.html#a49954c1f2c464e00e44a0730abc7abea">Restriction.serialize()</a>, <a class="el" href="a01912.html#a49954c1f2c464e00e44a0730abc7abea">Property.serialize()</a>, <a class="el" href="a01884.html#afae9f66416afba5b8d9517e8eeb98cd3">Class.setupNounAnnotations()</a>, <a class="el" href="a01868.html#a43b255deaccd5c7a413b693e44cfaff7">Ontology.setVersion()</a>, <a class="el" href="a01884.html#a10f35fc1c23068ab7676fd56720e7fbc">Class.subSumpteeIds()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01000.html">contrib</a></li><li class="navelem"><a class="el" href="a01003.html">rdf4j</a></li><li class="navelem"><a class="el" href="a01004.html">client</a></li><li class="navelem"><a class="el" href="a01764.html">Repository</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

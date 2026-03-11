@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: VarInputDialog Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02924.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a02921.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">VarInputDialog Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Class representing the variable input dialog which maps geodataset columns to SPARQL query variables.  
+ <a href="a02924.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for VarInputDialog:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02923.png" border="0" usemap="#aVarInputDialog_inherit__map" alt="Inheritance graph"/></div>
+<map name="aVarInputDialog_inherit__map" id="aVarInputDialog_inherit__map">
+<area shape="rect" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="42,79,161,104"/>
+<area shape="rect" title=" " alt="" coords="5,5,80,31"/>
+<area shape="poly" title=" " alt="" coords="63,40,94,77,90,80,59,43"/>
+<area shape="rect" href="a07553.html" title=" " alt="" coords="105,5,215,31"/>
+<area shape="poly" title=" " alt="" coords="144,43,113,80,109,77,140,40"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for VarInputDialog:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02922.png" border="0" usemap="#aVarInputDialog_coll__map" alt="Collaboration graph"/></div>
+<map name="aVarInputDialog_coll__map" id="aVarInputDialog_coll__map">
+<area shape="rect" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="42,79,161,104"/>
+<area shape="rect" title=" " alt="" coords="5,5,80,31"/>
+<area shape="poly" title=" " alt="" coords="63,40,94,77,90,80,59,43"/>
+<area shape="rect" href="a07553.html" title=" " alt="" coords="105,5,215,31"/>
+<area shape="poly" title=" " alt="" coords="144,43,113,80,109,77,140,40"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aafd8e78da3dc659102e29bfb7dfe480c" id="r_aafd8e78da3dc659102e29bfb7dfe480c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#aafd8e78da3dc659102e29bfb7dfe480c">__init__</a> (self, parent, <a class="el" href="a02924.html#a48537577b75975b2d8d86aad8a878bd6">inputfield</a>, <a class="el" href="a02924.html#a4290d9428a06b5fa270a58e95ae89c1c">columnvars</a>, languagemap)</td></tr>
+<tr class="memdesc:aafd8e78da3dc659102e29bfb7dfe480c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the dialog by loading existing layers.  <br /></td></tr>
+<tr class="separator:aafd8e78da3dc659102e29bfb7dfe480c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a39d9fbda01c8dd0699f529ec7a9c11" id="r_a3a39d9fbda01c8dd0699f529ec7a9c11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">applyVar</a> (self)</td></tr>
+<tr class="memdesc:a3a39d9fbda01c8dd0699f529ec7a9c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a variable into the query as stated in the query dialog.  <br /></td></tr>
+<tr class="separator:a3a39d9fbda01c8dd0699f529ec7a9c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a0a7e0070bc4bda8d31b5242c68c7641d" id="r_a0a7e0070bc4bda8d31b5242c68c7641d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#a0a7e0070bc4bda8d31b5242c68c7641d">applyVar</a></td></tr>
+<tr class="separator:a0a7e0070bc4bda8d31b5242c68c7641d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85eeba84695b4a18a7e1bee9005a75c6" id="r_a85eeba84695b4a18a7e1bee9005a75c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#a85eeba84695b4a18a7e1bee9005a75c6">labelLang</a></td></tr>
+<tr class="separator:a85eeba84695b4a18a7e1bee9005a75c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a48537577b75975b2d8d86aad8a878bd6" id="r_a48537577b75975b2d8d86aad8a878bd6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#a48537577b75975b2d8d86aad8a878bd6">inputfield</a> = None</td></tr>
+<tr class="separator:a48537577b75975b2d8d86aad8a878bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa67be040d27a2950e9f362c87804ce96" id="r_aa67be040d27a2950e9f362c87804ce96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#aa67be040d27a2950e9f362c87804ce96">chooseField</a> = None</td></tr>
+<tr class="separator:aa67be040d27a2950e9f362c87804ce96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67c2f0ef9ec9c7c111e0214b3be7fec3" id="r_a67c2f0ef9ec9c7c111e0214b3be7fec3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">chooseLayer</a> = None</td></tr>
+<tr class="separator:a67c2f0ef9ec9c7c111e0214b3be7fec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4290d9428a06b5fa270a58e95ae89c1c" id="r_a4290d9428a06b5fa270a58e95ae89c1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02924.html#a4290d9428a06b5fa270a58e95ae89c1c">columnvars</a> = None</td></tr>
+<tr class="separator:a4290d9428a06b5fa270a58e95ae89c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class representing the variable input dialog which maps geodataset columns to SPARQL query variables. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aafd8e78da3dc659102e29bfb7dfe480c" name="aafd8e78da3dc659102e29bfb7dfe480c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd8e78da3dc659102e29bfb7dfe480c">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>inputfield</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>columnvars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>languagemap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the dialog by loading existing layers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+    <tr><td class="paramname">parent</td><td>A parent window if available </td></tr>
+    <tr><td class="paramname">inputfield</td><td>The inputfield to which the variable will be saved </td></tr>
+    <tr><td class="paramname">columnvars</td><td>A map of already existing variable mappings <br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>    <span class="keyword">def </span>__init__(self, parent, inputfield, columnvars,languagemap):</div>
+<div class="line"><span class="lineno">   29</span>        super(QDialog, self).__init__()</div>
+<div class="line"><span class="lineno">   30</span>        self.setupUi(self)</div>
+<div class="line"><span class="lineno">   31</span>        self.setWindowIcon(UIUtils.columnasvaricon)</div>
+<div class="line"><span class="lineno">   32</span>        self.inputfield = inputfield</div>
+<div class="line"><span class="lineno">   33</span>        self.columnvars = columnvars</div>
+<div class="line"><span class="lineno">   34</span>        self.applyButton.clicked.connect(self.applyVar)</div>
+<div class="line"><span class="lineno">   35</span>        self.chooseField.setLayer(self.chooseLayer.currentLayer())</div>
+<div class="line"><span class="lineno">   36</span>        UIUtils.createLanguageSelectionCBox(self.labelLang,languagemap)</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02924.html#aafd8e78da3dc659102e29bfb7dfe480c">VarInputDialog.__init__()</a>, <a class="el" href="a02844.html#a281538b8de1a76132827e271666a1160">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a02924.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a02928.html#a281538b8de1a76132827e271666a1160">SPARQLunicorn.columnvars</a>, <a class="el" href="a03336.html#a4290d9428a06b5fa270a58e95ae89c1c">ToolTipPlainText.columnvars</a>, and <a class="el" href="a02924.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02924.html#aafd8e78da3dc659102e29bfb7dfe480c">VarInputDialog.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3a39d9fbda01c8dd0699f529ec7a9c11" name="a3a39d9fbda01c8dd0699f529ec7a9c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a39d9fbda01c8dd0699f529ec7a9c11">&#9670;&#160;</a></span>applyVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">applyVar </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts a variable into the query as stated in the query dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>The variable will be inserted and the corresponding SPARQL VALUES statement will be generated in the background </p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span>    <span class="keyword">def </span>applyVar(self):</div>
+<div class="line"><span class="lineno">   47</span>        layer = self.chooseLayer.currentLayer()</div>
+<div class="line"><span class="lineno">   48</span>        layername = self.chooseLayer.currentText()</div>
+<div class="line"><span class="lineno">   49</span>        fieldname = self.chooseField.currentText()</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">if</span> layer.featureCount() == 0:</div>
+<div class="line"><span class="lineno">   51</span>            msgBox = QMessageBox()</div>
+<div class="line"><span class="lineno">   52</span>            msgBox.setText(</div>
+<div class="line"><span class="lineno">   53</span>                <span class="stringliteral">&quot;The layer column does not contain any features, therefore no query variable will be created!&quot;</span>)</div>
+<div class="line"><span class="lineno">   54</span>            msgBox.exec()</div>
+<div class="line"><span class="lineno">   55</span>            self.close()</div>
+<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">if</span> self.varNameEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">   58</span>            varname = <span class="stringliteral">&quot;?_&quot;</span> + self.varNameEdit.text()</div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   60</span>            varname = f<span class="stringliteral">&#39;?_{layername.replace(&quot; &quot;, &quot;&quot;)}_{fieldname.replace(&quot; &quot;, &quot;&quot;)}&#39;</span></div>
+<div class="line"><span class="lineno">   61</span>        self.inputfield.insertPlainText(varname)</div>
+<div class="line"><span class="lineno">   62</span>        queryinsert = <span class="stringliteral">&quot;VALUES &quot;</span> + varname + <span class="stringliteral">&quot; {&quot;</span></div>
+<div class="line"><span class="lineno">   63</span>        attlist = {<span class="stringliteral">&quot;&quot;</span>}</div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer.getFeatures():</div>
+<div class="line"><span class="lineno">   65</span>            attlist.add(f[fieldname])</div>
+<div class="line"><span class="lineno">   66</span>        <span class="keywordflow">for</span> att <span class="keywordflow">in</span> attlist:</div>
+<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">if</span> att != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">   68</span>                <span class="keywordflow">if</span> self.varType.currentText() == <span class="stringliteral">&quot;URI&quot;</span> <span class="keywordflow">or</span> (</div>
+<div class="line"><span class="lineno">   69</span>                        self.varType.currentText() == <span class="stringliteral">&quot;Automatic&quot;</span> <span class="keywordflow">and</span> att.startswith(<span class="stringliteral">&quot;http&quot;</span>)):</div>
+<div class="line"><span class="lineno">   70</span>                    queryinsert += f<span class="stringliteral">&quot;&lt;{att}&gt;&quot;</span></div>
+<div class="line"><span class="lineno">   71</span>                <span class="keywordflow">elif</span> self.varType.currentText() == <span class="stringliteral">&quot;Integer&quot;</span> <span class="keywordflow">or</span> self.varType.currentText() == <span class="stringliteral">&quot;Double&quot;</span>:</div>
+<div class="line"><span class="lineno">   72</span>                    queryinsert += att</div>
+<div class="line"><span class="lineno">   73</span>                <span class="keywordflow">elif</span> self.varType.currentText() == <span class="stringliteral">&quot;Date&quot;</span>:</div>
+<div class="line"><span class="lineno">   74</span>                    queryinsert += f<span class="stringliteral">&#39;&quot;{att}&quot;^^xsd:date&#39;</span></div>
+<div class="line"><span class="lineno">   75</span>                <span class="keywordflow">elif</span> self.varType.currentText() == <span class="stringliteral">&quot;String&quot;</span> <span class="keywordflow">or</span> self.varType.currentText() == <span class="stringliteral">&quot;Automatic&quot;</span>:</div>
+<div class="line"><span class="lineno">   76</span>                    queryinsert += f<span class="stringliteral">&#39;&quot;{att}&quot;&#39;</span></div>
+<div class="line"><span class="lineno">   77</span>                    <span class="keywordflow">if</span> self.isLabelLabel.isChecked():</div>
+<div class="line"><span class="lineno">   78</span>                        queryinsert += <span class="stringliteral">&quot;@&quot;</span> + self.labelLang.text()</div>
+<div class="line"><span class="lineno">   79</span>                queryinsert += <span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><span class="lineno">   80</span>        queryinsert += <span class="stringliteral">&quot;}&quot;</span></div>
+<div class="line"><span class="lineno">   81</span>        self.columnvars[varname] = queryinsert</div>
+<div class="line"><span class="lineno">   82</span>        self.close()</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02924.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, <a class="el" href="a02924.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>, <a class="el" href="a01776.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">RDF4JClient.close()</a>, <a class="el" href="a01948.html#a0931e4315d67c08986a0c4a9bfc43ca9">ReadOnlyGraphAggregate.close()</a>, <a class="el" href="a02096.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">BytesIOWrapper.close()</a>, <a class="el" href="a02100.html#a0931e4315d67c08986a0c4a9bfc43ca9">InputSource.close()</a>, <a class="el" href="a02104.html#a0931e4315d67c08986a0c4a9bfc43ca9">PythonInputSource.close()</a>, <a class="el" href="a02184.html#ad8b03b99b491544adf99c473c4fa9559">Formula.close()</a>, <a class="el" href="a02484.html#a0931e4315d67c08986a0c4a9bfc43ca9">SPARQLXMLWriter.close()</a>, <a class="el" href="a01920.html#aa6806dc354f8c20b51cc4559b9ab3135">Graph.close()</a>, <a class="el" href="a02532.html#aa6806dc354f8c20b51cc4559b9ab3135">AuditableStore.close()</a>, <a class="el" href="a02536.html#aa6806dc354f8c20b51cc4559b9ab3135">BerkeleyDB.close()</a>, <a class="el" href="a02556.html#aa6806dc354f8c20b51cc4559b9ab3135">RDF4JStore.close()</a>, <a class="el" href="a02640.html#aa6806dc354f8c20b51cc4559b9ab3135">Store.close()</a>, <a class="el" href="a02564.html#a5b5113ed1c650bb89397961db034c994">REGEXMatching.close()</a>, <a class="el" href="a02796.html#a12e1f53c847d07ce9e58df470087c0fa">PreferencesDialog.close</a>, <a class="el" href="a02800.html#a12e1f53c847d07ce9e58df470087c0fa">SettingsDialog.close</a>, <a class="el" href="a02828.html#a12e1f53c847d07ce9e58df470087c0fa">DetectTripleStoreResultDialog.close</a>, <a class="el" href="a02892.html#a12e1f53c847d07ce9e58df470087c0fa">ExampleQueryDialog.close</a>, <a class="el" href="a02908.html#a12e1f53c847d07ce9e58df470087c0fa">QueryLimitedInstancesDialog.close</a>, <a class="el" href="a02844.html#a281538b8de1a76132827e271666a1160">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a02924.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a02928.html#a281538b8de1a76132827e271666a1160">SPARQLunicorn.columnvars</a>, <a class="el" href="a03336.html#a4290d9428a06b5fa270a58e95ae89c1c">ToolTipPlainText.columnvars</a>, <a class="el" href="a02924.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>, and <a class="el" href="a02924.html#a85eeba84695b4a18a7e1bee9005a75c6">VarInputDialog.labelLang</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0a7e0070bc4bda8d31b5242c68c7641d" name="a0a7e0070bc4bda8d31b5242c68c7641d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7e0070bc4bda8d31b5242c68c7641d">&#9670;&#160;</a></span>applyVar</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">applyVar</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa67be040d27a2950e9f362c87804ce96" name="aa67be040d27a2950e9f362c87804ce96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa67be040d27a2950e9f362c87804ce96">&#9670;&#160;</a></span>chooseField</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">chooseField = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02896.html#abdd362d5f799ad16b5d6700efe590290">LayerQueryDialog.__init__()</a>, and <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>.</p>
+
+</div>
+</div>
+<a id="a67c2f0ef9ec9c7c111e0214b3be7fec3" name="a67c2f0ef9ec9c7c111e0214b3be7fec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67c2f0ef9ec9c7c111e0214b3be7fec3">&#9670;&#160;</a></span>chooseLayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">chooseLayer = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02896.html#abdd362d5f799ad16b5d6700efe590290">LayerQueryDialog.__init__()</a>, and <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>.</p>
+
+</div>
+</div>
+<a id="a4290d9428a06b5fa270a58e95ae89c1c" name="a4290d9428a06b5fa270a58e95ae89c1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4290d9428a06b5fa270a58e95ae89c1c">&#9670;&#160;</a></span>columnvars</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">columnvars = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02924.html#aafd8e78da3dc659102e29bfb7dfe480c">VarInputDialog.__init__()</a>, <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>, and <a class="el" href="a03336.html#af447b71a2e187f5fee44cba451b564e8">ToolTipPlainText.createVarInputDialog()</a>.</p>
+
+</div>
+</div>
+<a id="a48537577b75975b2d8d86aad8a878bd6" name="a48537577b75975b2d8d86aad8a878bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48537577b75975b2d8d86aad8a878bd6">&#9670;&#160;</a></span>inputfield</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">inputfield = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02924.html#aafd8e78da3dc659102e29bfb7dfe480c">VarInputDialog.__init__()</a>, and <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>.</p>
+
+</div>
+</div>
+<a id="a85eeba84695b4a18a7e1bee9005a75c6" name="a85eeba84695b4a18a7e1bee9005a75c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85eeba84695b4a18a7e1bee9005a75c6">&#9670;&#160;</a></span>labelLang</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">labelLang</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01132.html">dialogs</a></li><li class="navelem"><a class="el" href="a01160.html">util</a></li><li class="navelem"><a class="el" href="a01171.html">varinputdialog</a></li><li class="navelem"><a class="el" href="a02924.html">VarInputDialog</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

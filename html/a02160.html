@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: HextuplesParser Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02160.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a02157.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">HextuplesParser Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for HextuplesParser:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02159.png" border="0" usemap="#aHextuplesParser_inherit__map" alt="Inheritance graph"/></div>
+<map name="aHextuplesParser_inherit__map" id="aHextuplesParser_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,133,104"/>
+<area shape="rect" href="a02092.html" title=" " alt="" coords="38,5,101,31"/>
+<area shape="poly" title=" " alt="" coords="72,44,72,79,67,79,67,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for HextuplesParser:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02158.png" border="0" usemap="#aHextuplesParser_coll__map" alt="Collaboration graph"/></div>
+<map name="aHextuplesParser_coll__map" id="aHextuplesParser_coll__map">
+<area shape="rect" title=" " alt="" coords="5,168,133,193"/>
+<area shape="rect" href="a02092.html" title=" " alt="" coords="38,93,101,119"/>
+<area shape="poly" title=" " alt="" coords="72,133,72,168,67,168,67,133"/>
+<area shape="rect" title=" " alt="" coords="42,5,97,31"/>
+<area shape="poly" title=" " alt="" coords="72,45,72,93,67,93,67,45"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abdd362d5f799ad16b5d6700efe590290" id="r_abdd362d5f799ad16b5d6700efe590290"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02160.html#abdd362d5f799ad16b5d6700efe590290">__init__</a> (self)</td></tr>
+<tr class="separator:abdd362d5f799ad16b5d6700efe590290"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab410772721d65a7863bb2a2570694b52" id="r_ab410772721d65a7863bb2a2570694b52"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02160.html#ab410772721d65a7863bb2a2570694b52">parse</a> (self, <a class="el" href="a02100.html">InputSource</a> source, <a class="el" href="a01920.html">Graph</a> graph, bool <a class="el" href="a02160.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">skolemize</a>=False, **Any kwargs)</td></tr>
+<tr class="separator:ab410772721d65a7863bb2a2570694b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a9b0f6845ee2f41ca81e1ef1f937b3d7f" id="r_a9b0f6845ee2f41ca81e1ef1f937b3d7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02160.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">skolemize</a></td></tr>
+<tr class="separator:a9b0f6845ee2f41ca81e1ef1f937b3d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f61e036e7a4a1eb2446eedd08c3495a" id="r_a6f61e036e7a4a1eb2446eedd08c3495a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02160.html#a6f61e036e7a4a1eb2446eedd08c3495a">default_context</a></td></tr>
+<tr class="separator:a6f61e036e7a4a1eb2446eedd08c3495a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ae0240c169b40b400a23e0dbea7fb7f0d" id="r_ae0240c169b40b400a23e0dbea7fb7f0d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02160.html#ae0240c169b40b400a23e0dbea7fb7f0d">_parse_hextuple</a> (self, Union[<a class="el" href="a01928.html">Dataset</a>, <a class="el" href="a01924.html">ConjunctiveGraph</a>] ds, List[Union[str, None]] tup)</td></tr>
+<tr class="separator:ae0240c169b40b400a23e0dbea7fb7f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">An RDFLib parser for Hextuples
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abdd362d5f799ad16b5d6700efe590290" name="abdd362d5f799ad16b5d6700efe590290"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd362d5f799ad16b5d6700efe590290">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02092.html#abdd362d5f799ad16b5d6700efe590290">Parser</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><span class="lineno">   38</span>        super(HextuplesParser, self).__init__()</div>
+<div class="line"><span class="lineno">   39</span>        self.default_context: Optional[Graph] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   40</span>        self.skolemize = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   41</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02160.html#abdd362d5f799ad16b5d6700efe590290">HextuplesParser.__init__()</a>, <a class="el" href="a01924.html#aee7d865c2ee8d44876d0ac7d62c0f373">ConjunctiveGraph.default_context()</a>, <a class="el" href="a01928.html#aee7d865c2ee8d44876d0ac7d62c0f373">Dataset.default_context()</a>, <a class="el" href="a01924.html#aad0bc6691c42b4b4fbde6b19dc8e8394">ConjunctiveGraph.default_context()</a>, <a class="el" href="a01928.html#aad0bc6691c42b4b4fbde6b19dc8e8394">Dataset.default_context()</a>, <a class="el" href="a02160.html#a6f61e036e7a4a1eb2446eedd08c3495a">HextuplesParser.default_context</a>, <a class="el" href="a02264.html#a6f61e036e7a4a1eb2446eedd08c3495a">HextuplesSerializer.default_context</a>, and <a class="el" href="a02308.html#a6f61e036e7a4a1eb2446eedd08c3495a">TrigSerializer.default_context</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02160.html#abdd362d5f799ad16b5d6700efe590290">HextuplesParser.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae0240c169b40b400a23e0dbea7fb7f0d" name="ae0240c169b40b400a23e0dbea7fb7f0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0240c169b40b400a23e0dbea7fb7f0d">&#9670;&#160;</a></span>_parse_hextuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _parse_hextuple </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[<a class="el" href="a01928.html">Dataset</a>, <a class="el" href="a01924.html">ConjunctiveGraph</a>]&#160;</td>
+          <td class="paramname"><em>ds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List[Union[str, None]]
+    &#160;</td>
+          <td class="paramname"><em>tup</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   44</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   45</span>        <span class="comment"># all values check</span></div>
+<div class="line"><span class="lineno">   46</span>        <span class="comment"># subject, predicate, value, datatype cannot be None</span></div>
+<div class="line"><span class="lineno">   47</span>        <span class="comment"># language and graph may be None</span></div>
+<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">if</span> tup[0] <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> tup[1] <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> tup[2] <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> tup[3] <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   49</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(</div>
+<div class="line"><span class="lineno">   50</span>                f<span class="stringliteral">&quot;subject, predicate, value, datatype cannot be None. Given: {tup}&quot;</span></div>
+<div class="line"><span class="lineno">   51</span>            )</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>        <span class="comment"># 1 - subject</span></div>
+<div class="line"><span class="lineno">   54</span>        s: Union[URIRef, BNode]</div>
+<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">if</span> tup[0].startswith(<span class="stringliteral">&quot;_&quot;</span>):</div>
+<div class="line"><span class="lineno">   56</span>            s = BNode(value=tup[0].replace(<span class="stringliteral">&quot;_:&quot;</span>, <span class="stringliteral">&quot;&quot;</span>))</div>
+<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">if</span> self.skolemize:</div>
+<div class="line"><span class="lineno">   58</span>                s = s.skolemize()</div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   60</span>            s = URIRef(tup[0])</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>        <span class="comment"># 2 - predicate</span></div>
+<div class="line"><span class="lineno">   63</span>        p = URIRef(tup[1])</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>        <span class="comment"># 3 - value</span></div>
+<div class="line"><span class="lineno">   66</span>        o: Union[URIRef, BNode, Literal]</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">if</span> tup[3] == <span class="stringliteral">&quot;globalId&quot;</span>:</div>
+<div class="line"><span class="lineno">   68</span>            o = URIRef(tup[2])</div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">elif</span> tup[3] == <span class="stringliteral">&quot;localId&quot;</span>:</div>
+<div class="line"><span class="lineno">   70</span>            o = BNode(value=tup[2].replace(<span class="stringliteral">&quot;_:&quot;</span>, <span class="stringliteral">&quot;&quot;</span>))</div>
+<div class="line"><span class="lineno">   71</span>            <span class="keywordflow">if</span> self.skolemize:</div>
+<div class="line"><span class="lineno">   72</span>                o = o.skolemize()</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">else</span>:  <span class="comment"># literal</span></div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">if</span> tup[4] <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   75</span>                o = Literal(tup[2], datatype=URIRef(tup[3]))</div>
+<div class="line"><span class="lineno">   76</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   77</span>                o = Literal(tup[2], lang=tup[4])</div>
+<div class="line"><span class="lineno">   78</span> </div>
+<div class="line"><span class="lineno">   79</span>        <span class="comment"># 6 - context</span></div>
+<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">if</span> tup[5] <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   81</span>            c = (</div>
+<div class="line"><span class="lineno">   82</span>                BNode(tup[5].replace(<span class="stringliteral">&quot;_:&quot;</span>, <span class="stringliteral">&quot;&quot;</span>))</div>
+<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">if</span> tup[5].startswith(<span class="stringliteral">&quot;_:&quot;</span>)</div>
+<div class="line"><span class="lineno">   84</span>                <span class="keywordflow">else</span> URIRef(tup[5])</div>
+<div class="line"><span class="lineno">   85</span>            )</div>
+<div class="line"><span class="lineno">   86</span>            <span class="keywordflow">if</span> isinstance(c, BNode) <span class="keywordflow">and</span> self.skolemize:</div>
+<div class="line"><span class="lineno">   87</span>                c = c.skolemize()</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>            ds.get_context(c).add((s, p, o))</div>
+<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">elif</span> self.default_context <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   91</span>            self.default_context.add((s, p, o))</div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   93</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(<span class="stringliteral">&quot;No context to parse into!&quot;</span>)</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="ttc" id="aa07480_html"><div class="ttname"><a href="a07480.html">Exception</a></div></div>
+<div class="ttc" id="aa07501_html"><div class="ttname"><a href="a07501.html">ValueError</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01924.html#aee7d865c2ee8d44876d0ac7d62c0f373">ConjunctiveGraph.default_context()</a>, <a class="el" href="a01928.html#aee7d865c2ee8d44876d0ac7d62c0f373">Dataset.default_context()</a>, <a class="el" href="a01924.html#aad0bc6691c42b4b4fbde6b19dc8e8394">ConjunctiveGraph.default_context()</a>, <a class="el" href="a01928.html#aad0bc6691c42b4b4fbde6b19dc8e8394">Dataset.default_context()</a>, <a class="el" href="a02160.html#a6f61e036e7a4a1eb2446eedd08c3495a">HextuplesParser.default_context</a>, <a class="el" href="a02264.html#a6f61e036e7a4a1eb2446eedd08c3495a">HextuplesSerializer.default_context</a>, <a class="el" href="a02308.html#a6f61e036e7a4a1eb2446eedd08c3495a">TrigSerializer.default_context</a>, <a class="el" href="a01920.html#ad3f8992abe0096fa6a172eb24f9a0819">Graph.skolemize()</a>, <a class="el" href="a02160.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">HextuplesParser.skolemize</a>, <a class="el" href="a02168.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">Parser.skolemize</a>, <a class="el" href="a02200.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">NQuadsParser.skolemize</a>, <a class="el" href="a02208.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">W3CNTriplesParser.skolemize</a>, <a class="el" href="a02224.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">RDFPatchParser.skolemize</a>, and <a class="el" href="a02668.html#a01e60c3cdab8e2d30a228498cc2866be">BNode.skolemize()</a>.</p>
+
+</div>
+</div>
+<a id="ab410772721d65a7863bb2a2570694b52" name="ab410772721d65a7863bb2a2570694b52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab410772721d65a7863bb2a2570694b52">&#9670;&#160;</a></span>parse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None parse </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02100.html">InputSource</a>&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>skolemize</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**Any&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02092.html#ab65153db051ea6eb648aed3648236e68">Parser</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>    <span class="keyword">def </span>parse(self, source: InputSource, graph: Graph, skolemize: bool = <span class="keyword">False</span>, **kwargs: Any) -&gt; <span class="keywordtype">None</span>:  <span class="comment"># type: ignore[override]</span></div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span> kwargs.get(<span class="stringliteral">&quot;encoding&quot;</span>) <span class="keywordflow">not</span> <span class="keywordflow">in</span> [<span class="keywordtype">None</span>, <span class="stringliteral">&quot;utf-8&quot;</span>]:</div>
+<div class="line"><span class="lineno">   98</span>            warnings.warn(</div>
+<div class="line"><span class="lineno">   99</span>                f<span class="stringliteral">&quot;Hextuples files are always utf-8 encoded, &quot;</span></div>
+<div class="line"><span class="lineno">  100</span>                f<span class="stringliteral">&quot;I was passed: {kwargs.get(&#39;encoding&#39;)}, &quot;</span></div>
+<div class="line"><span class="lineno">  101</span>                <span class="stringliteral">&quot;but I&#39;m still going to use utf-8&quot;</span></div>
+<div class="line"><span class="lineno">  102</span>            )</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>        <span class="keyword">assert</span> (</div>
+<div class="line"><span class="lineno">  105</span>            graph.store.context_aware</div>
+<div class="line"><span class="lineno">  106</span>        ), <span class="stringliteral">&quot;Hextuples Parser needs a context-aware store!&quot;</span></div>
+<div class="line"><span class="lineno">  107</span> </div>
+<div class="line"><span class="lineno">  108</span>        self.skolemize = skolemize</div>
+<div class="line"><span class="lineno">  109</span>        <span class="comment"># Set default_union to True to mimic ConjunctiveGraph behavior</span></div>
+<div class="line"><span class="lineno">  110</span>        ds = Dataset(store=graph.store, default_union=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  111</span>        ds_default = ds.default_context  <span class="comment"># the DEFAULT_DATASET_GRAPH_ID</span></div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> isinstance(graph, (Dataset, ConjunctiveGraph)):</div>
+<div class="line"><span class="lineno">  113</span>            self.default_context = graph.default_context</div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">elif</span> graph.identifier <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  115</span>            <span class="keywordflow">if</span> graph.identifier == ds_default.identifier:</div>
+<div class="line"><span class="lineno">  116</span>                self.default_context = graph</div>
+<div class="line"><span class="lineno">  117</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  118</span>                self.default_context = ds.get_context(graph.identifier)</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  120</span>            <span class="comment"># mypy thinks this is unreachable, but graph.identifier can be None</span></div>
+<div class="line"><span class="lineno">  121</span>            self.default_context = ds_default  <span class="comment"># type: ignore[unreachable]</span></div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">if</span> self.default_context <span class="keywordflow">is</span> <span class="keywordflow">not</span> ds_default:</div>
+<div class="line"><span class="lineno">  123</span>            ds.default_context = self.default_context</div>
+<div class="line"><span class="lineno">  124</span>            ds.remove_graph(ds_default)  <span class="comment"># remove the original unused default graph</span></div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  127</span>            text_stream: Optional[TextIO] = source.getCharacterStream()</div>
+<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">except</span> (AttributeError, LookupError):</div>
+<div class="line"><span class="lineno">  129</span>            text_stream = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  131</span>            binary_stream: Optional[BinaryIO] = source.getByteStream()</div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">except</span> (AttributeError, LookupError):</div>
+<div class="line"><span class="lineno">  133</span>            binary_stream = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  134</span> </div>
+<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">if</span> text_stream <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> binary_stream <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  136</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(</div>
+<div class="line"><span class="lineno">  137</span>                f<span class="stringliteral">&quot;Source does not have a character stream or a byte stream and cannot be used {type(source)}&quot;</span></div>
+<div class="line"><span class="lineno">  138</span>            )</div>
+<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">if</span> TYPE_CHECKING:</div>
+<div class="line"><span class="lineno">  140</span>            <span class="keyword">assert</span> text_stream <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> binary_stream <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  141</span>        use_stream: Union[TextIO, BinaryIO]</div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">if</span> _HAS_ORJSON:</div>
+<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">if</span> binary_stream <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  144</span>                use_stream = binary_stream</div>
+<div class="line"><span class="lineno">  145</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  146</span>                <span class="keywordflow">if</span> TYPE_CHECKING:</div>
+<div class="line"><span class="lineno">  147</span>                    <span class="keyword">assert</span> isinstance(text_stream, TextIOWrapper)</div>
+<div class="line"><span class="lineno">  148</span>                use_stream = text_stream</div>
+<div class="line"><span class="lineno">  149</span>            loads = orjson.loads</div>
+<div class="line"><span class="lineno">  150</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  151</span>            <span class="keywordflow">if</span> text_stream <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  152</span>                use_stream = text_stream</div>
+<div class="line"><span class="lineno">  153</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  154</span>                <span class="keywordflow">if</span> TYPE_CHECKING:</div>
+<div class="line"><span class="lineno">  155</span>                    <span class="keyword">assert</span> isinstance(binary_stream, BufferedReader)</div>
+<div class="line"><span class="lineno">  156</span>                use_stream = TextIOWrapper(binary_stream, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>)</div>
+<div class="line"><span class="lineno">  157</span>            loads = json.loads</div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">for</span> line <span class="keywordflow">in</span> use_stream:  <span class="comment"># type: Union[str, bytes]</span></div>
+<div class="line"><span class="lineno">  160</span>            <span class="keywordflow">if</span> len(line) == 0 <span class="keywordflow">or</span> line.isspace():</div>
+<div class="line"><span class="lineno">  161</span>                <span class="comment"># Skipping empty lines because this is what was being done before for the first and last lines, albeit in an rather indirect way.</span></div>
+<div class="line"><span class="lineno">  162</span>                <span class="comment"># The result is that we accept input that would otherwise be invalid.</span></div>
+<div class="line"><span class="lineno">  163</span>                <span class="comment"># Possibly we should just let this result in an error.</span></div>
+<div class="line"><span class="lineno">  164</span>                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  165</span>            <span class="comment"># this complex handing is because the &#39;value&#39; component is</span></div>
+<div class="line"><span class="lineno">  166</span>            <span class="comment"># allowed to be &quot;&quot; but not None</span></div>
+<div class="line"><span class="lineno">  167</span>            <span class="comment"># all other &quot;&quot; values are treated as None</span></div>
+<div class="line"><span class="lineno">  168</span>            raw_line: List[str] = loads(line)</div>
+<div class="line"><span class="lineno">  169</span>            hex_tuple_line = [x <span class="keywordflow">if</span> x != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">else</span> <span class="keywordtype">None</span> <span class="keywordflow">for</span> x <span class="keywordflow">in</span> raw_line]</div>
+<div class="line"><span class="lineno">  170</span>            <span class="keywordflow">if</span> raw_line[2] == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  171</span>                hex_tuple_line[2] = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  172</span>            self._parse_hextuple(ds, hex_tuple_line)</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01920.html#ad3f8992abe0096fa6a172eb24f9a0819">Graph.skolemize()</a>, <a class="el" href="a02160.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">HextuplesParser.skolemize</a>, <a class="el" href="a02168.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">Parser.skolemize</a>, <a class="el" href="a02200.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">NQuadsParser.skolemize</a>, <a class="el" href="a02208.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">W3CNTriplesParser.skolemize</a>, <a class="el" href="a02224.html#a9b0f6845ee2f41ca81e1ef1f937b3d7f">RDFPatchParser.skolemize</a>, and <a class="el" href="a02668.html#a01e60c3cdab8e2d30a228498cc2866be">BNode.skolemize()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02208.html#a688d454dbf26b2521d1301081ee9673a">W3CNTriplesParser.parsestring()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6f61e036e7a4a1eb2446eedd08c3495a" name="a6f61e036e7a4a1eb2446eedd08c3495a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f61e036e7a4a1eb2446eedd08c3495a">&#9670;&#160;</a></span>default_context</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">default_context</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02160.html#abdd362d5f799ad16b5d6700efe590290">HextuplesParser.__init__()</a>, <a class="el" href="a02308.html#a26108b21613812a70dfe32caf9a210fe">TrigSerializer.__init__()</a>, <a class="el" href="a02264.html#a219952ce791a99a510e9876702bd8448">HextuplesSerializer.__init__()</a>, <a class="el" href="a02264.html#a596d930beb7b7ed03a789182943dd124">HextuplesSerializer._context_str()</a>, <a class="el" href="a02160.html#ae0240c169b40b400a23e0dbea7fb7f0d">HextuplesParser._parse_hextuple()</a>, <a class="el" href="a01924.html#a4ecbead05eedc87bdf7cdbf8d7df4ca2">ConjunctiveGraph._spoc()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a01924.html#a558fa63ce6afe53c6b82f1cfde0eb1b3">ConjunctiveGraph.triples()</a>, <a class="el" href="a01924.html#acf104b141cf4b21fd441afcd62a61ba2">ConjunctiveGraph.triples_choices()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="a9b0f6845ee2f41ca81e1ef1f937b3d7f" name="a9b0f6845ee2f41ca81e1ef1f937b3d7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b0f6845ee2f41ca81e1ef1f937b3d7f">&#9670;&#160;</a></span>skolemize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">skolemize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02168.html#a79b4b7ecadff4c327bead2c42ed24659">Parser._add_list()</a>, <a class="el" href="a02168.html#ac6c4c970e47d76ef29e75e920ff78b54">Parser._add_to_graph()</a>, <a class="el" href="a02168.html#a413c855d84a10456eb12d1bee88bdca9">Parser._key_to_graph()</a>, <a class="el" href="a02160.html#ae0240c169b40b400a23e0dbea7fb7f0d">HextuplesParser._parse_hextuple()</a>, <a class="el" href="a02168.html#a168b1656bc7981c0053bd84fa58c8fe4">Parser._to_rdf_id()</a>, <a class="el" href="a02208.html#a5b7d737170dbe38b74d88183bd39180d">W3CNTriplesParser.nodeid()</a>, <a class="el" href="a02160.html#ab410772721d65a7863bb2a2570694b52">HextuplesParser.parse()</a>, and <a class="el" href="a02208.html#a2e8afe3cdfc16a20953fa1a63e4ee22a">W3CNTriplesParser.parse()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01049.html">parsers</a></li><li class="navelem"><a class="el" href="a01050.html">hext</a></li><li class="navelem"><a class="el" href="a02160.html">HextuplesParser</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

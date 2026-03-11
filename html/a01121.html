@@ -1,0 +1,789 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: rdflib.tools.sparqlquery Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01121.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">rdflib.tools.sparqlquery Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02724.html">_ArgumentError</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02728.html">_PrintHelpError</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02732.html">InvalidQueryError</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad0aacf1be5152e73b37b24c7cd14a0f1" id="r_ad0aacf1be5152e73b37b24c7cd14a0f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#ad0aacf1be5152e73b37b24c7cd14a0f1">sparqlquery</a> (List[str] endpoints, str query, Optional[str] result_format=None, Dict[str, str] result_keywords={}, Optional[Tuple[str, str]] auth=None, bool use_stdin=False, Optional[str] remote_storetype=None)</td></tr>
+<tr class="separator:ad0aacf1be5152e73b37b24c7cd14a0f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa31b9dbfc1b14829cd30f59a92183c" id="r_abfa31b9dbfc1b14829cd30f59a92183c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#abfa31b9dbfc1b14829cd30f59a92183c">_dest_is_local</a> (str dest)</td></tr>
+<tr class="separator:abfa31b9dbfc1b14829cd30f59a92183c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd26d86f3b518d2c6936a95c4fbac6b6" id="r_afd26d86f3b518d2c6936a95c4fbac6b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#afd26d86f3b518d2c6936a95c4fbac6b6">_dest_is_internet_addr</a> (str dest)</td></tr>
+<tr class="separator:afd26d86f3b518d2c6936a95c4fbac6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f52c49910bc6b7ad8f87256a0681d0" id="r_ad6f52c49910bc6b7ad8f87256a0681d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01920.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#ad6f52c49910bc6b7ad8f87256a0681d0">_get_graph</a> (endpoints, Optional[Tuple[str, str]] auth, Optional[str] remote_storetype)</td></tr>
+<tr class="separator:ad6f52c49910bc6b7ad8f87256a0681d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ff08db283178dadfaf82c8f1571211" id="r_ae4ff08db283178dadfaf82c8f1571211"><td class="memItemLeft" align="right" valign="top">Tuple[Dict[str, Any], Optional[str]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#ae4ff08db283178dadfaf82c8f1571211">_extract_query_and_format</a> (parser)</td></tr>
+<tr class="separator:ae4ff08db283178dadfaf82c8f1571211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad012f0e00fa6d07f48f443ac9ad12b80" id="r_ad012f0e00fa6d07f48f443ac9ad12b80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#ad012f0e00fa6d07f48f443ac9ad12b80">parse_args</a> ()</td></tr>
+<tr class="separator:ad012f0e00fa6d07f48f443ac9ad12b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2962032fd4c46750211ea87559d550b8" id="r_a2962032fd4c46750211ea87559d550b8"><td class="memItemLeft" align="right" valign="top">Optional[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#a2962032fd4c46750211ea87559d550b8">_create_epilog_from_format</a> (format_, construct)</td></tr>
+<tr class="separator:a2962032fd4c46750211ea87559d550b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51af30a60f9f02777c6396b8247e356f" id="r_a51af30a60f9f02777c6396b8247e356f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#a51af30a60f9f02777c6396b8247e356f">main</a> ()</td></tr>
+<tr class="separator:a51af30a60f9f02777c6396b8247e356f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa4a022e6ddacd362b83964da5cc5d044" id="r_aa4a022e6ddacd362b83964da5cc5d044"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html#aa4a022e6ddacd362b83964da5cc5d044">__all__</a> = [&quot;sparqlquery&quot;]</td></tr>
+<tr class="separator:aa4a022e6ddacd362b83964da5cc5d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A commandline tool for querying with SPARQL on local files and remote sparql endpoints with custom serialization.
+
+example usage:
+```bash
+    sq path/to/data.ttl -q "SELECT ?x WHERE {?x a foaf:Person. }"
+    rdfpipe test.ttl | sparqlquery - -q "SELECT ?x WHERE {?x a foaf:Person. }" --format json
+    sq data.ttl -q "ASK {:john a foaf:Person}" --format xml | grep true
+    sq path/to/data.ttl --query-file query.rq
+    sq data1.ttl data2.ttl -q "DESCRIBE &lt;http://example.com/john&gt;" --format turtle:+spacious
+    sq http://example.com/sparqlendpoint --query-file query.rq
+    sq http://example.com/sparqlendpoint --query-file query.rq --username user --password secret
+    sq /pyth/to/berkeley.db -q "SELECT ?x WHERE {?x a foaf:Person. }" --remote-storetype BerkeleyDB
+```
+
+Tip: You can check the truth value for an ASK query, by regex in stdout for 'true'
+or 'false'.
+</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a2962032fd4c46750211ea87559d550b8" name="a2962032fd4c46750211ea87559d550b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2962032fd4c46750211ea87559d550b8">&#9670;&#160;</a></span>_create_epilog_from_format()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[str] _create_epilog_from_format </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>format_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>construct</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  302</span><span class="keyword">def </span>_create_epilog_from_format(format_, construct) -&gt; Optional[str]:</div>
+<div class="line"><span class="lineno">  303</span>    serializer_plugin_type: Type[ResultSerializer | Serializer]</div>
+<div class="line"><span class="lineno">  304</span>    <span class="keywordflow">if</span> construct:</div>
+<div class="line"><span class="lineno">  305</span>        serializer_plugin_type = Serializer</div>
+<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  307</span>        serializer_plugin_type = ResultSerializer</div>
+<div class="line"><span class="lineno">  308</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  309</span>        plugin = get_plugin(format_, serializer_plugin_type)</div>
+<div class="line"><span class="lineno">  310</span>    <span class="keywordflow">except</span> PluginException:</div>
+<div class="line"><span class="lineno">  311</span>        available_plugins = [x.name <span class="keywordflow">for</span> x <span class="keywordflow">in</span> get_plugins(<span class="keywordtype">None</span>, ResultSerializer)]</div>
+<div class="line"><span class="lineno">  312</span>        <span class="keywordflow">return</span> (</div>
+<div class="line"><span class="lineno">  313</span>            f<span class="stringliteral">&quot;No plugin registered for sparql result in format &#39;{format_}&#39;. &quot;</span></div>
+<div class="line"><span class="lineno">  314</span>            f<span class="stringliteral">&quot;available plugins: {available_plugins}&quot;</span></div>
+<div class="line"><span class="lineno">  315</span>        )</div>
+<div class="line"><span class="lineno">  316</span>    serialize_method = plugin.serialize  <span class="comment"># type: ignore[attr-defined]</span></div>
+<div class="line"><span class="lineno">  317</span>    module = inspect.getmodule(serialize_method)</div>
+<div class="line"><span class="lineno">  318</span>    <span class="keywordflow">if</span> module <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  319</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  320</span>    pydoc_target = <span class="stringliteral">&quot;.&quot;</span>.join([module.__name__, serialize_method.__qualname__])</div>
+<div class="line"><span class="lineno">  321</span>    sig = inspect.signature(serialize_method)</div>
+<div class="line"><span class="lineno">  322</span>    available_keywords = [</div>
+<div class="line"><span class="lineno">  323</span>        x</div>
+<div class="line"><span class="lineno">  324</span>        <span class="keywordflow">for</span> x, y <span class="keywordflow">in</span> sig.parameters.items()</div>
+<div class="line"><span class="lineno">  325</span>        <span class="keywordflow">if</span> y.kind <span class="keywordflow">in</span> [Parameter.KEYWORD_ONLY, Parameter.POSITIONAL_OR_KEYWORD]</div>
+<div class="line"><span class="lineno">  326</span>    ]</div>
+<div class="line"><span class="lineno">  327</span>    available_keywords.pop(0)  <span class="comment"># pop self</span></div>
+<div class="line"><span class="lineno">  328</span>    available_keywords.pop(0)  <span class="comment"># pop stream</span></div>
+<div class="line"><span class="lineno">  329</span>    <span class="keywordflow">if</span> serializer_plugin_type == Serializer:</div>
+<div class="line"><span class="lineno">  330</span>        available_keywords.pop(1)  <span class="comment"># pop encoding</span></div>
+<div class="line"><span class="lineno">  331</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  332</span>        available_keywords.pop(0)  <span class="comment"># pop encoding</span></div>
+<div class="line"><span class="lineno">  333</span> </div>
+<div class="line"><span class="lineno">  334</span>    epilog = (</div>
+<div class="line"><span class="lineno">  335</span>        f<span class="stringliteral">&quot;For more customization for format &#39;{format_}&#39; &quot;</span></div>
+<div class="line"><span class="lineno">  336</span>        f<span class="stringliteral">&quot;use `pydoc {pydoc_target}`. &quot;</span></div>
+<div class="line"><span class="lineno">  337</span>    )</div>
+<div class="line"><span class="lineno">  338</span>    <span class="keywordflow">if</span> len(available_keywords) &gt; 0:</div>
+<div class="line"><span class="lineno">  339</span>        epilog += f<span class="stringliteral">&quot;Known keywords are {available_keywords}.&quot;</span></div>
+<div class="line"><span class="lineno">  340</span>    <span class="comment"># there is always **kwargs in .serialize</span></div>
+<div class="line"><span class="lineno">  341</span>    epilog += <span class="stringliteral">&quot; Further keywords might be valid.&quot;</span></div>
+<div class="line"><span class="lineno">  342</span>    <span class="keywordflow">return</span> epilog</div>
+<div class="line"><span class="lineno">  343</span> </div>
+<div class="line"><span class="lineno">  344</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01121.html#ae4ff08db283178dadfaf82c8f1571211">rdflib.tools.sparqlquery._extract_query_and_format()</a>.</p>
+
+</div>
+</div>
+<a id="afd26d86f3b518d2c6936a95c4fbac6b6" name="afd26d86f3b518d2c6936a95c4fbac6b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd26d86f3b518d2c6936a95c4fbac6b6">&#9670;&#160;</a></span>_dest_is_internet_addr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_dest_is_internet_addr </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>dest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  101</span><span class="keyword">def </span>_dest_is_internet_addr(dest: str):</div>
+<div class="line"><span class="lineno">  102</span>    q = urlparse(dest)</div>
+<div class="line"><span class="lineno">  103</span>    <span class="keywordflow">return</span> q.scheme <span class="keywordflow">in</span> [<span class="stringliteral">&quot;http&quot;</span>, <span class="stringliteral">&quot;https&quot;</span>]</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01121.html#ad012f0e00fa6d07f48f443ac9ad12b80">rdflib.tools.sparqlquery.parse_args()</a>.</p>
+
+</div>
+</div>
+<a id="abfa31b9dbfc1b14829cd30f59a92183c" name="abfa31b9dbfc1b14829cd30f59a92183c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa31b9dbfc1b14829cd30f59a92183c">&#9670;&#160;</a></span>_dest_is_local()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_dest_is_local </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>dest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   89</span><span class="keyword">def </span>_dest_is_local(dest: str):</div>
+<div class="line"><span class="lineno">   90</span>    <span class="keywordflow">if</span> os.path.isabs(dest):</div>
+<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   92</span> </div>
+<div class="line"><span class="lineno">   93</span>    q = urlparse(dest)</div>
+<div class="line"><span class="lineno">   94</span>    <span class="comment"># Handle Windows drive letters (single letter followed by colon)</span></div>
+<div class="line"><span class="lineno">   95</span>    <span class="keywordflow">if</span> len(q.scheme) == 1 <span class="keywordflow">and</span> q.scheme.isalpha():</div>
+<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span>    <span class="keywordflow">return</span> q.scheme <span class="keywordflow">in</span> [<span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;file&quot;</span>]</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01121.html#ad012f0e00fa6d07f48f443ac9ad12b80">rdflib.tools.sparqlquery.parse_args()</a>.</p>
+
+</div>
+</div>
+<a id="ae4ff08db283178dadfaf82c8f1571211" name="ae4ff08db283178dadfaf82c8f1571211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4ff08db283178dadfaf82c8f1571211">&#9670;&#160;</a></span>_extract_query_and_format()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Tuple[Dict[str, Any], Optional[str]] _extract_query_and_format </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>parser</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  124</span><span class="keyword">def </span>_extract_query_and_format(parser) -&gt; Tuple[Dict[str, Any], Optional[str]]:</div>
+<div class="line"><span class="lineno">  125</span>    opts: Dict[str, Any] = {}</div>
+<div class="line"><span class="lineno">  126</span>    tmp_args, rest_args = parser.parse_known_args()</div>
+<div class="line"><span class="lineno">  127</span>    <span class="keywordflow">if</span> tmp_args.query <span class="keywordflow">and</span> tmp_args.queryfile <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  128</span>        query = tmp_args.query</div>
+<div class="line"><span class="lineno">  129</span>    <span class="keywordflow">elif</span> tmp_args.queryfile <span class="keywordflow">and</span> tmp_args.query <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  130</span>        <span class="keyword">with</span> open(tmp_args.queryfile, <span class="stringliteral">&quot;r&quot;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><span class="lineno">  131</span>            query = f.read()</div>
+<div class="line"><span class="lineno">  132</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  133</span>        query = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  134</span> </div>
+<div class="line"><span class="lineno">  135</span>    <span class="keywordflow">if</span> query <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  136</span>        construct = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">elif</span> <span class="stringliteral">&quot;DESCRIBE&quot;</span> <span class="keywordflow">in</span> query <span class="keywordflow">or</span> <span class="stringliteral">&quot;CONSTRUCT&quot;</span> <span class="keywordflow">in</span> query:</div>
+<div class="line"><span class="lineno">  138</span>        construct = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  140</span>        construct = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>    <span class="keywordflow">if</span> tmp_args.format <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  143</span>        format_, format_keywords = _format_and_kws(tmp_args.format)</div>
+<div class="line"><span class="lineno">  144</span>    <span class="keywordflow">elif</span> construct:</div>
+<div class="line"><span class="lineno">  145</span>        format_keywords = {}</div>
+<div class="line"><span class="lineno">  146</span>        format_ = <span class="stringliteral">&quot;turtle&quot;</span></div>
+<div class="line"><span class="lineno">  147</span>        construct = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  148</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  149</span>        format_keywords = {}</div>
+<div class="line"><span class="lineno">  150</span>        format_ = <span class="stringliteral">&quot;json&quot;</span></div>
+<div class="line"><span class="lineno">  151</span>    epilog = _create_epilog_from_format(format_, construct)</div>
+<div class="line"><span class="lineno">  152</span>    opts = {</div>
+<div class="line"><span class="lineno">  153</span>        <span class="stringliteral">&quot;query&quot;</span>: query,</div>
+<div class="line"><span class="lineno">  154</span>        <span class="stringliteral">&quot;result_format&quot;</span>: format_,</div>
+<div class="line"><span class="lineno">  155</span>        <span class="stringliteral">&quot;result_keywords&quot;</span>: format_keywords,</div>
+<div class="line"><span class="lineno">  156</span>    }</div>
+<div class="line"><span class="lineno">  157</span>    <span class="keywordflow">return</span> opts, epilog</div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01121.html#a2962032fd4c46750211ea87559d550b8">rdflib.tools.sparqlquery._create_epilog_from_format()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01121.html#ad012f0e00fa6d07f48f443ac9ad12b80">rdflib.tools.sparqlquery.parse_args()</a>.</p>
+
+</div>
+</div>
+<a id="ad6f52c49910bc6b7ad8f87256a0681d0" name="ad6f52c49910bc6b7ad8f87256a0681d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f52c49910bc6b7ad8f87256a0681d0">&#9670;&#160;</a></span>_get_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a01920.html">Graph</a> _get_graph </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>endpoints</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Tuple[str, str]]&#160;</td>
+          <td class="paramname"><em>auth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str]
+&#160;</td>
+          <td class="paramname"><em>remote_storetype</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  108</span>) -&gt; Graph:</div>
+<div class="line"><span class="lineno">  109</span>    graph: Graph</div>
+<div class="line"><span class="lineno">  110</span>    <span class="keywordflow">if</span> remote_storetype <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  111</span>        storeplugin = get_plugin(remote_storetype, Store)</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> auth:</div>
+<div class="line"><span class="lineno">  113</span>            store = storeplugin(endpoints[0], auth=auth)  <span class="comment"># type: ignore[call-arg]</span></div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  115</span>            store = storeplugin(endpoints[0])</div>
+<div class="line"><span class="lineno">  116</span>        graph = Dataset(store)</div>
+<div class="line"><span class="lineno">  117</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  118</span>        graph = Graph()</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">for</span> x <span class="keywordflow">in</span> endpoints:</div>
+<div class="line"><span class="lineno">  120</span>            graph.parse(location=x)</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordflow">return</span> graph</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a51af30a60f9f02777c6396b8247e356f" name="a51af30a60f9f02777c6396b8247e356f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51af30a60f9f02777c6396b8247e356f">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  345</span><span class="keyword">def </span>main():</div>
+<div class="line"><span class="lineno">  346</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  347</span>        (</div>
+<div class="line"><span class="lineno">  348</span>            endpoints,</div>
+<div class="line"><span class="lineno">  349</span>            remote_storetype,</div>
+<div class="line"><span class="lineno">  350</span>            warn,</div>
+<div class="line"><span class="lineno">  351</span>            opts,</div>
+<div class="line"><span class="lineno">  352</span>        ) = parse_args()</div>
+<div class="line"><span class="lineno">  353</span>    <span class="keywordflow">except</span> _PrintHelpError:</div>
+<div class="line"><span class="lineno">  354</span>        exit()</div>
+<div class="line"><span class="lineno">  355</span>    <span class="keywordflow">except</span> (_ArgumentError, argparse.ArgumentError) <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">  356</span>        print(err, file=sys.stderr)</div>
+<div class="line"><span class="lineno">  357</span>        exit(2)</div>
+<div class="line"><span class="lineno">  358</span> </div>
+<div class="line"><span class="lineno">  359</span>    <span class="keywordflow">if</span> warn:</div>
+<div class="line"><span class="lineno">  360</span>        loglevel = logging.WARNING</div>
+<div class="line"><span class="lineno">  361</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  362</span>        loglevel = logging.CRITICAL</div>
+<div class="line"><span class="lineno">  363</span>    logging.basicConfig(level=loglevel)</div>
+<div class="line"><span class="lineno">  364</span> </div>
+<div class="line"><span class="lineno">  365</span>    sparqlquery(</div>
+<div class="line"><span class="lineno">  366</span>        endpoints,</div>
+<div class="line"><span class="lineno">  367</span>        remote_storetype=remote_storetype,</div>
+<div class="line"><span class="lineno">  368</span>        **opts,</div>
+<div class="line"><span class="lineno">  369</span>    )</div>
+<div class="line"><span class="lineno">  370</span> </div>
+<div class="line"><span class="lineno">  371</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01121.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.sparqlquery.main()</a>, and <a class="el" href="a01121.html#ad012f0e00fa6d07f48f443ac9ad12b80">rdflib.tools.sparqlquery.parse_args()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01121.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.sparqlquery.main()</a>.</p>
+
+</div>
+</div>
+<a id="ad012f0e00fa6d07f48f443ac9ad12b80" name="ad012f0e00fa6d07f48f443ac9ad12b80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad012f0e00fa6d07f48f443ac9ad12b80">&#9670;&#160;</a></span>parse_args()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">parse_args </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  160</span><span class="keyword">def </span>parse_args():</div>
+<div class="line"><span class="lineno">  161</span>    extra_kwargs: Dict[str, Any] = {}</div>
+<div class="line"><span class="lineno">  162</span>    <span class="keywordflow">if</span> sys.version_info &gt; (3, 9):</div>
+<div class="line"><span class="lineno">  163</span>        extra_kwargs[<span class="stringliteral">&quot;exit_on_error&quot;</span>] = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  164</span>    parser = argparse.ArgumentParser(</div>
+<div class="line"><span class="lineno">  165</span>        prog=<span class="stringliteral">&quot;sparqlquery&quot;</span>,</div>
+<div class="line"><span class="lineno">  166</span>        description=__doc__,</div>
+<div class="line"><span class="lineno">  167</span>        add_help=<span class="keyword">False</span>,  <span class="comment"># add dynamic epilog before help is added</span></div>
+<div class="line"><span class="lineno">  168</span>        formatter_class=argparse.RawDescriptionHelpFormatter,</div>
+<div class="line"><span class="lineno">  169</span>        <span class="comment"># else __doc__ wont be printed on error:</span></div>
+<div class="line"><span class="lineno">  170</span>        **extra_kwargs,</div>
+<div class="line"><span class="lineno">  171</span>    )</div>
+<div class="line"><span class="lineno">  172</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  173</span>        <span class="stringliteral">&quot;-q&quot;</span>,</div>
+<div class="line"><span class="lineno">  174</span>        <span class="stringliteral">&quot;--query&quot;</span>,</div>
+<div class="line"><span class="lineno">  175</span>        type=str,</div>
+<div class="line"><span class="lineno">  176</span>        help=<span class="stringliteral">&quot;Sparql query. Cannot be set together with -qf/--queryfile.&quot;</span>,</div>
+<div class="line"><span class="lineno">  177</span>    )</div>
+<div class="line"><span class="lineno">  178</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  179</span>        <span class="stringliteral">&quot;-qf&quot;</span>,</div>
+<div class="line"><span class="lineno">  180</span>        <span class="stringliteral">&quot;--queryfile&quot;</span>,</div>
+<div class="line"><span class="lineno">  181</span>        type=str,</div>
+<div class="line"><span class="lineno">  182</span>        help=<span class="stringliteral">&quot;File from where the sparql query is read. &quot;</span></div>
+<div class="line"><span class="lineno">  183</span>        <span class="stringliteral">&quot;Cannot be set together with -q/--query&quot;</span>,</div>
+<div class="line"><span class="lineno">  184</span>    )</div>
+<div class="line"><span class="lineno">  185</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  186</span>        <span class="stringliteral">&quot;-f&quot;</span>,</div>
+<div class="line"><span class="lineno">  187</span>        <span class="stringliteral">&quot;--format&quot;</span>,</div>
+<div class="line"><span class="lineno">  188</span>        type=str,</div>
+<div class="line"><span class="lineno">  189</span>        help=<span class="stringliteral">&quot;Print sparql result in given format. &quot;</span></div>
+<div class="line"><span class="lineno">  190</span>        <span class="stringliteral">&quot;Defaults to &#39;json&#39; on SELECT, to &#39;xml&#39; on ASK &quot;</span></div>
+<div class="line"><span class="lineno">  191</span>        <span class="stringliteral">&quot;and to &#39;turtle&#39; on DESCRIBE and CONSTRUCT. &quot;</span></div>
+<div class="line"><span class="lineno">  192</span>        <span class="stringliteral">&quot;Keywords as described in epilog can be given &quot;</span></div>
+<div class="line"><span class="lineno">  193</span>        <span class="stringliteral">&quot;after format like: &quot;</span></div>
+<div class="line"><span class="lineno">  194</span>        <span class="stringliteral">&quot;FORMAT:(+)KW1,-KW2,KW3=VALUE.&quot;</span>,</div>
+<div class="line"><span class="lineno">  195</span>    )</div>
+<div class="line"><span class="lineno">  196</span>    opts: Dict[str, Any]</div>
+<div class="line"><span class="lineno">  197</span>    opts, parser.epilog = _extract_query_and_format(parser)</div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="line"><span class="lineno">  199</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  200</span>        <span class="stringliteral">&quot;endpoint&quot;</span>,</div>
+<div class="line"><span class="lineno">  201</span>        nargs=<span class="stringliteral">&quot;+&quot;</span>,</div>
+<div class="line"><span class="lineno">  202</span>        type=str,</div>
+<div class="line"><span class="lineno">  203</span>        help=<span class="stringliteral">&quot;Endpoints for sparql query. &quot;</span></div>
+<div class="line"><span class="lineno">  204</span>        <span class="stringliteral">&quot;Can be set to multiple files. &quot;</span></div>
+<div class="line"><span class="lineno">  205</span>        <span class="stringliteral">&quot;Reads from stdin if &#39;-&#39; is given. &quot;</span>,</div>
+<div class="line"><span class="lineno">  206</span>    )</div>
+<div class="line"><span class="lineno">  207</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  208</span>        <span class="stringliteral">&quot;-w&quot;</span>,</div>
+<div class="line"><span class="lineno">  209</span>        <span class="stringliteral">&quot;--warn&quot;</span>,</div>
+<div class="line"><span class="lineno">  210</span>        action=<span class="stringliteral">&quot;store_true&quot;</span>,</div>
+<div class="line"><span class="lineno">  211</span>        default=<span class="keyword">False</span>,</div>
+<div class="line"><span class="lineno">  212</span>        help=<span class="stringliteral">&quot;Output warnings to stderr &quot;</span> <span class="stringliteral">&quot;(by default only critical errors).&quot;</span>,</div>
+<div class="line"><span class="lineno">  213</span>    )</div>
+<div class="line"><span class="lineno">  214</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  215</span>        <span class="stringliteral">&quot;-h&quot;</span>,</div>
+<div class="line"><span class="lineno">  216</span>        <span class="stringliteral">&quot;--help&quot;</span>,</div>
+<div class="line"><span class="lineno">  217</span>        <span class="comment"># action=&quot;store_true&quot;,</span></div>
+<div class="line"><span class="lineno">  218</span>        <span class="comment"># default=False,</span></div>
+<div class="line"><span class="lineno">  219</span>        action=<span class="stringliteral">&quot;help&quot;</span>,</div>
+<div class="line"><span class="lineno">  220</span>        help=<span class="stringliteral">&quot;show help message and exit. &quot;</span></div>
+<div class="line"><span class="lineno">  221</span>        <span class="stringliteral">&quot;Also prints information about given format.&quot;</span>,</div>
+<div class="line"><span class="lineno">  222</span>    )</div>
+<div class="line"><span class="lineno">  223</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  224</span>        <span class="stringliteral">&quot;-u&quot;</span>, <span class="stringliteral">&quot;--username&quot;</span>, type=str, help=<span class="stringliteral">&quot;Username used during authentication.&quot;</span></div>
+<div class="line"><span class="lineno">  225</span>    )</div>
+<div class="line"><span class="lineno">  226</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  227</span>        <span class="stringliteral">&quot;-p&quot;</span>, <span class="stringliteral">&quot;--password&quot;</span>, type=str, help=<span class="stringliteral">&quot;Password used during authentication.&quot;</span></div>
+<div class="line"><span class="lineno">  228</span>    )</div>
+<div class="line"><span class="lineno">  229</span>    parser.add_argument(</div>
+<div class="line"><span class="lineno">  230</span>        <span class="stringliteral">&quot;-rs&quot;</span>,</div>
+<div class="line"><span class="lineno">  231</span>        <span class="stringliteral">&quot;--remote-storetype&quot;</span>,</div>
+<div class="line"><span class="lineno">  232</span>        type=str,</div>
+<div class="line"><span class="lineno">  233</span>        help=<span class="stringliteral">&quot;You can specify which storetype should be used. &quot;</span></div>
+<div class="line"><span class="lineno">  234</span>        <span class="stringliteral">&quot;Can only be set, when using a single endpoint and not stdin. &quot;</span></div>
+<div class="line"><span class="lineno">  235</span>        <span class="stringliteral">&quot;Will default to &#39;SparqlStore&#39; when endpoint is an internetaddress.&quot;</span>,</div>
+<div class="line"><span class="lineno">  236</span>    )</div>
+<div class="line"><span class="lineno">  237</span> </div>
+<div class="line"><span class="lineno">  238</span>    <span class="keywordflow">try</span>:  <span class="comment"># catch error because exit_on_error=False</span></div>
+<div class="line"><span class="lineno">  239</span>        args = parser.parse_args()</div>
+<div class="line"><span class="lineno">  240</span>    <span class="keywordflow">except</span> argparse.ArgumentError <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">  241</span>        parser.print_help()</div>
+<div class="line"><span class="lineno">  242</span>        <span class="keywordflow">raise</span> err</div>
+<div class="line"><span class="lineno">  243</span> </div>
+<div class="line"><span class="lineno">  244</span>    forbidden_format_keywords = [</div>
+<div class="line"><span class="lineno">  245</span>        x</div>
+<div class="line"><span class="lineno">  246</span>        <span class="keywordflow">for</span> x <span class="keywordflow">in</span> opts.get(<span class="stringliteral">&quot;result_keywords&quot;</span>, dict())</div>
+<div class="line"><span class="lineno">  247</span>        <span class="keywordflow">if</span> x <span class="keywordflow">in</span> {<span class="stringliteral">&quot;self&quot;</span>, <span class="stringliteral">&quot;stream&quot;</span>, <span class="stringliteral">&quot;encoding&quot;</span>, <span class="stringliteral">&quot;format&quot;</span>}</div>
+<div class="line"><span class="lineno">  248</span>    ]</div>
+<div class="line"><span class="lineno">  249</span>    <span class="keywordflow">if</span> forbidden_format_keywords:</div>
+<div class="line"><span class="lineno">  250</span>        <span class="keywordflow">raise</span> _ArgumentError(</div>
+<div class="line"><span class="lineno">  251</span>            <span class="stringliteral">&quot;&#39;self&#39;, &#39;stream&#39;, &#39;encoding&#39; and &#39;format&#39; &quot;</span></div>
+<div class="line"><span class="lineno">  252</span>            <span class="stringliteral">&quot;mustnt be used as keywords for format.&quot;</span></div>
+<div class="line"><span class="lineno">  253</span>        )</div>
+<div class="line"><span class="lineno">  254</span> </div>
+<div class="line"><span class="lineno">  255</span>    <span class="keywordflow">if</span> opts.get(<span class="stringliteral">&quot;query&quot;</span>) <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  256</span>        parser.print_help()</div>
+<div class="line"><span class="lineno">  257</span>        <span class="keywordflow">raise</span> _ArgumentError(<span class="stringliteral">&quot;Either -q/--query or -qf/--queryfile must be provided&quot;</span>)</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span>    remote_storetype = args.remote_storetype</div>
+<div class="line"><span class="lineno">  260</span> </div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">if</span> len(args.endpoint) == 1:</div>
+<div class="line"><span class="lineno">  262</span>        <span class="keywordflow">if</span> args.endpoint[0] == <span class="stringliteral">&quot;-&quot;</span>:</div>
+<div class="line"><span class="lineno">  263</span>            <span class="keywordflow">if</span> remote_storetype <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  264</span>                <span class="keywordflow">raise</span> _ArgumentError(</div>
+<div class="line"><span class="lineno">  265</span>                    <span class="stringliteral">&quot;Cant us remote graphtype, when endpoint is stdin(-)&quot;</span></div>
+<div class="line"><span class="lineno">  266</span>                )</div>
+<div class="line"><span class="lineno">  267</span>            endpoints = []</div>
+<div class="line"><span class="lineno">  268</span>            opts[<span class="stringliteral">&quot;use_stdin&quot;</span>] = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  269</span>        <span class="keywordflow">elif</span> _dest_is_internet_addr(args.endpoint[0]):</div>
+<div class="line"><span class="lineno">  270</span>            endpoints = args.endpoint</div>
+<div class="line"><span class="lineno">  271</span>            <span class="keywordflow">if</span> remote_storetype <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  272</span>                remote_storetype = <span class="stringliteral">&quot;SPARQLStore&quot;</span></div>
+<div class="line"><span class="lineno">  273</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  274</span>            endpoints = args.endpoint</div>
+<div class="line"><span class="lineno">  275</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  276</span>        <span class="keywordflow">if</span> remote_storetype <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  277</span>            <span class="keywordflow">raise</span> _ArgumentError(</div>
+<div class="line"><span class="lineno">  278</span>                <span class="stringliteral">&quot;If remote graphtype is set, only a single endpoint is valid.&quot;</span></div>
+<div class="line"><span class="lineno">  279</span>            )</div>
+<div class="line"><span class="lineno">  280</span>        endpoints = list(args.endpoint)</div>
+<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">if</span> any(<span class="keywordflow">not</span> (_dest_is_local(x)) <span class="keywordflow">for</span> x <span class="keywordflow">in</span> args.endpoint):</div>
+<div class="line"><span class="lineno">  282</span>            <span class="keywordflow">raise</span> NotImplementedError(</div>
+<div class="line"><span class="lineno">  283</span>                <span class="stringliteral">&quot;If multiple endpoints are given, all must be local files.&quot;</span></div>
+<div class="line"><span class="lineno">  284</span>            )</div>
+<div class="line"><span class="lineno">  285</span> </div>
+<div class="line"><span class="lineno">  286</span>    <span class="keywordflow">if</span> args.username <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> args.password <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  287</span>        <span class="keywordflow">if</span> remote_storetype <span class="keywordflow">not</span> <span class="keywordflow">in</span> [<span class="stringliteral">&quot;SPARQLStore&quot;</span>]:</div>
+<div class="line"><span class="lineno">  288</span>            <span class="keywordflow">raise</span> _ArgumentError(</div>
+<div class="line"><span class="lineno">  289</span>                <span class="stringliteral">&quot;Can use password and username only, &quot;</span></div>
+<div class="line"><span class="lineno">  290</span>                <span class="stringliteral">&quot;when remote-storetype is &#39;SPARQLStore&#39;.&quot;</span></div>
+<div class="line"><span class="lineno">  291</span>            )</div>
+<div class="line"><span class="lineno">  292</span>        opts[<span class="stringliteral">&quot;auth&quot;</span>] = (args.username, args.password)</div>
+<div class="line"><span class="lineno">  293</span>    <span class="keywordflow">elif</span> args.username <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> args.password <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  294</span>        <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  295</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  296</span>        parser.print_help()</div>
+<div class="line"><span class="lineno">  297</span>        <span class="keywordflow">raise</span> _ArgumentError(<span class="stringliteral">&quot;User only provided one of password and username&quot;</span>)</div>
+<div class="line"><span class="lineno">  298</span> </div>
+<div class="line"><span class="lineno">  299</span>    <span class="keywordflow">return</span> endpoints, remote_storetype, args.warn, opts</div>
+<div class="line"><span class="lineno">  300</span> </div>
+<div class="line"><span class="lineno">  301</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01121.html#afd26d86f3b518d2c6936a95c4fbac6b6">rdflib.tools.sparqlquery._dest_is_internet_addr()</a>, <a class="el" href="a01121.html#abfa31b9dbfc1b14829cd30f59a92183c">rdflib.tools.sparqlquery._dest_is_local()</a>, and <a class="el" href="a01121.html#ae4ff08db283178dadfaf82c8f1571211">rdflib.tools.sparqlquery._extract_query_and_format()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01121.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.sparqlquery.main()</a>.</p>
+
+</div>
+</div>
+<a id="ad0aacf1be5152e73b37b24c7cd14a0f1" name="ad0aacf1be5152e73b37b24c7cd14a0f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0aacf1be5152e73b37b24c7cd14a0f1">&#9670;&#160;</a></span>sparqlquery()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sparqlquery </td>
+          <td>(</td>
+          <td class="paramtype">List[str]&#160;</td>
+          <td class="paramname"><em>endpoints</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>query</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>result_format</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict[str, str] &#160;</td>
+          <td class="paramname"><em>result_keywords</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Tuple[str, str]] &#160;</td>
+          <td class="paramname"><em>auth</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>use_stdin</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>remote_storetype</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   71</span>):</div>
+<div class="line"><span class="lineno">   72</span>    <span class="keywordflow">if</span> use_stdin:</div>
+<div class="line"><span class="lineno">   73</span>        g = Graph().parse(sys.stdin)</div>
+<div class="line"><span class="lineno">   74</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   75</span>        g = _get_graph(endpoints, auth, remote_storetype)</div>
+<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">   77</span>        results: Result = g.query(query)</div>
+<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">except</span> ParseException <span class="keyword">as</span> err:</div>
+<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">raise</span> InvalidQueryError(query) <span class="keyword">from</span> err</div>
+<div class="line"><span class="lineno">   80</span> </div>
+<div class="line"><span class="lineno">   81</span>    <span class="keywordflow">if</span> result_format <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   82</span>        ret_bytes = results.serialize(format=result_format, **result_keywords)</div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   84</span>        ret_bytes = results.serialize(**result_keywords)</div>
+<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">if</span> ret_bytes <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   86</span>        print(ret_bytes.decode())</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa4a022e6ddacd362b83964da5cc5d044" name="aa4a022e6ddacd362b83964da5cc5d044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a022e6ddacd362b83964da5cc5d044">&#9670;&#160;</a></span>__all__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list __all__ = [&quot;sparqlquery&quot;]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01113.html">tools</a></li><li class="navelem"><a class="el" href="a01121.html">sparqlquery</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

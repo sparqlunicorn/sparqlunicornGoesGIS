@@ -1,0 +1,571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: CompValue Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02408.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a02405.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">CompValue Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for CompValue:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02407.png" border="0" usemap="#aCompValue_inherit__map" alt="Inheritance graph"/></div>
+<map name="aCompValue_inherit__map" id="aCompValue_inherit__map">
+<area shape="rect" title=" " alt="" coords="7,79,103,104"/>
+<area shape="rect" href="a02412.html" title=" " alt="" coords="30,152,81,177"/>
+<area shape="poly" title=" " alt="" coords="58,118,58,152,53,152,53,118"/>
+<area shape="rect" title=" " alt="" coords="5,5,105,31"/>
+<area shape="poly" title=" " alt="" coords="58,44,58,79,53,79,53,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for CompValue:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02406.png" border="0" usemap="#aCompValue_coll__map" alt="Collaboration graph"/></div>
+<map name="aCompValue_coll__map" id="aCompValue_coll__map">
+<area shape="rect" title=" " alt="" coords="7,79,103,104"/>
+<area shape="rect" title=" " alt="" coords="5,5,105,31"/>
+<area shape="poly" title=" " alt="" coords="58,44,58,79,53,79,53,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adb08403728105c7b527ff665741dcdba" id="r_adb08403728105c7b527ff665741dcdba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#adb08403728105c7b527ff665741dcdba">__init__</a> (self, str <a class="el" href="a02408.html#ab74e6bf80237ddc4109968cedc58c151">name</a>, **values)</td></tr>
+<tr class="separator:adb08403728105c7b527ff665741dcdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcb0ca3a077f9dc3dcbdda93a8ba7169" id="r_abcb0ca3a077f9dc3dcbdda93a8ba7169"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02408.html">CompValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#abcb0ca3a077f9dc3dcbdda93a8ba7169">clone</a> (self)</td></tr>
+<tr class="separator:abcb0ca3a077f9dc3dcbdda93a8ba7169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07f7930f92d3591c93e2381cd5be285" id="r_ae07f7930f92d3591c93e2381cd5be285"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#ae07f7930f92d3591c93e2381cd5be285">__str__</a> (self)</td></tr>
+<tr class="separator:ae07f7930f92d3591c93e2381cd5be285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea815b0c6c23fc48a11ee0404b782c7a" id="r_aea815b0c6c23fc48a11ee0404b782c7a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#aea815b0c6c23fc48a11ee0404b782c7a">__repr__</a> (self)</td></tr>
+<tr class="separator:aea815b0c6c23fc48a11ee0404b782c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82c6e787f98d54361019372688485a60" id="r_a82c6e787f98d54361019372688485a60"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#a82c6e787f98d54361019372688485a60">__getitem__</a> (self, a)</td></tr>
+<tr class="separator:a82c6e787f98d54361019372688485a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a262108b56d83faf365c7c306b0827bfd" id="r_a262108b56d83faf365c7c306b0827bfd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#a262108b56d83faf365c7c306b0827bfd">get</a> (self, a, bool variables=False, bool errors=False)</td></tr>
+<tr class="separator:a262108b56d83faf365c7c306b0827bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8396bff54e9a8c5c31aaaadc88ad8fcc" id="r_a8396bff54e9a8c5c31aaaadc88ad8fcc"><td class="memItemLeft" align="right" valign="top">Any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#a8396bff54e9a8c5c31aaaadc88ad8fcc">__getattr__</a> (self, str a)</td></tr>
+<tr class="separator:a8396bff54e9a8c5c31aaaadc88ad8fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c67af77e279654da82c33387bef40eb" id="r_a2c67af77e279654da82c33387bef40eb"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#a2c67af77e279654da82c33387bef40eb">__setattr__</a> (self, str __name, Any __value)</td></tr>
+<tr class="separator:a2c67af77e279654da82c33387bef40eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ab74e6bf80237ddc4109968cedc58c151" id="r_ab74e6bf80237ddc4109968cedc58c151"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#ab74e6bf80237ddc4109968cedc58c151">name</a></td></tr>
+<tr class="separator:ab74e6bf80237ddc4109968cedc58c151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c3a358572dcbbc235d824868164272a" id="r_a4c3a358572dcbbc235d824868164272a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#a4c3a358572dcbbc235d824868164272a">ctx</a></td></tr>
+<tr class="separator:a4c3a358572dcbbc235d824868164272a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a52d21e7d004b99a9f957301ecdbfb403" id="r_a52d21e7d004b99a9f957301ecdbfb403"><td class="memItemLeft" align="right" valign="top">Union[<a class="el" href="a01087.html#a4aec6d52c9a4e6c28323aaf2242f69a3">_ValT</a>, Any]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02408.html#a52d21e7d004b99a9f957301ecdbfb403">_value</a> (self, <a class="el" href="a01087.html#a4aec6d52c9a4e6c28323aaf2242f69a3">_ValT</a> val, bool variables=False, bool errors=False)</td></tr>
+<tr class="separator:a52d21e7d004b99a9f957301ecdbfb403"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">The result of parsing a Comp
+Any included Params are available as Dict keys
+or as attributes
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adb08403728105c7b527ff665741dcdba" name="adb08403728105c7b527ff665741dcdba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb08403728105c7b527ff665741dcdba">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>values</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="a02412.html#abcb26e3697ec26011087427e148eaf84">Expr</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  155</span>    <span class="keyword">def </span>__init__(self, name: str, **values):</div>
+<div class="line"><span class="lineno">  156</span>        OrderedDict.__init__(self)</div>
+<div class="line"><span class="lineno">  157</span>        self.name = name</div>
+<div class="line"><span class="lineno">  158</span>        self.update(values)</div>
+<div class="line"><span class="lineno">  159</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8396bff54e9a8c5c31aaaadc88ad8fcc" name="a8396bff54e9a8c5c31aaaadc88ad8fcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8396bff54e9a8c5c31aaaadc88ad8fcc">&#9670;&#160;</a></span>__getattr__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Any __getattr__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>a</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  185</span>    <span class="keyword">def </span>__getattr__(self, a: str) -&gt; Any:</div>
+<div class="line"><span class="lineno">  186</span>        <span class="comment"># Hack hack: OrderedDict relies on this</span></div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">if</span> a <span class="keywordflow">in</span> (<span class="stringliteral">&quot;_OrderedDict__root&quot;</span>, <span class="stringliteral">&quot;_OrderedDict__end&quot;</span>):</div>
+<div class="line"><span class="lineno">  188</span>            <span class="keywordflow">raise</span> AttributeError()</div>
+<div class="line"><span class="lineno">  189</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  190</span>            <span class="keywordflow">return</span> self[a]</div>
+<div class="line"><span class="lineno">  191</span>        <span class="keywordflow">except</span> KeyError:</div>
+<div class="line"><span class="lineno">  192</span>            <span class="comment"># raise AttributeError(&#39;no such attribute &#39;+a)</span></div>
+<div class="line"><span class="lineno">  193</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  194</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a82c6e787f98d54361019372688485a60" name="a82c6e787f98d54361019372688485a60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82c6e787f98d54361019372688485a60">&#9670;&#160;</a></span>__getitem__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__getitem__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>a</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  177</span>    <span class="keyword">def </span>__getitem__(self, a):</div>
+<div class="line"><span class="lineno">  178</span>        <span class="keywordflow">return</span> self._value(OrderedDict.__getitem__(self, a))</div>
+<div class="line"><span class="lineno">  179</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02408.html#a52d21e7d004b99a9f957301ecdbfb403">CompValue._value()</a>, and <a class="el" href="a02672.html#a42c776eeb0a0ac7057565ffdc4bb473b">Literal._value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01964.html#a1ed58de5b0a58d1878444f2bdf47de38">DefinedNamespaceMeta.__add__()</a>, and <a class="el" href="a01964.html#ac1b77d5bab7f4ccc0381b10a744e6983">DefinedNamespaceMeta.__getattr__()</a>.</p>
+
+</div>
+</div>
+<a id="aea815b0c6c23fc48a11ee0404b782c7a" name="aea815b0c6c23fc48a11ee0404b782c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea815b0c6c23fc48a11ee0404b782c7a">&#9670;&#160;</a></span>__repr__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str __repr__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  166</span>    <span class="keyword">def </span>__repr__(self) -&gt; str:</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">return</span> self.name + <span class="stringliteral">&quot;_&quot;</span> + dict.__repr__(self)</div>
+<div class="line"><span class="lineno">  168</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01660.html#ae4c30bb80e035d43ad9a95dfb966fa56">Shape.name()</a>, <a class="el" href="a01984.html#a33b88a9fad92705038919a88775428d5">CSVW.name</a>, <a class="el" href="a02008.html#a33b88a9fad92705038919a88775428d5">DOAP.name</a>, <a class="el" href="a02012.html#a33b88a9fad92705038919a88775428d5">FOAF.name</a>, <a class="el" href="a02056.html#a33b88a9fad92705038919a88775428d5">SH.name</a>, <a class="el" href="a02096.html#a52604536027f90ddf5d31f23a3a1a07b">BytesIOWrapper.name()</a>, <a class="el" href="a02152.html#ab74e6bf80237ddc4109968cedc58c151">Plugin.name</a>, <a class="el" href="a02156.html#ab74e6bf80237ddc4109968cedc58c151">PKGPlugin.name</a>, <a class="el" href="a02396.html#ab74e6bf80237ddc4109968cedc58c151">ParamValue.name</a>, <a class="el" href="a02400.html#ab74e6bf80237ddc4109968cedc58c151">Param.name</a>, <a class="el" href="a02408.html#ab74e6bf80237ddc4109968cedc58c151">CompValue.name</a>, <a class="el" href="a02416.html#ab74e6bf80237ddc4109968cedc58c151">Comp.name</a>, and <a class="el" href="a02884.html#ab74e6bf80237ddc4109968cedc58c151">BaseLayerDialog.name</a>.</p>
+
+</div>
+</div>
+<a id="a2c67af77e279654da82c33387bef40eb" name="a2c67af77e279654da82c33387bef40eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c67af77e279654da82c33387bef40eb">&#9670;&#160;</a></span>__setattr__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None __setattr__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>__name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Any&#160;</td>
+          <td class="paramname"><em>__value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  197</span>        <span class="keyword">def </span>__setattr__(self, __name: str, __value: Any) -&gt; <span class="keywordtype">None</span>: ...</div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="line"><span class="lineno">  199</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae07f7930f92d3591c93e2381cd5be285" name="ae07f7930f92d3591c93e2381cd5be285"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae07f7930f92d3591c93e2381cd5be285">&#9670;&#160;</a></span>__str__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str __str__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  163</span>    <span class="keyword">def </span>__str__(self) -&gt; str:</div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">return</span> self.name + <span class="stringliteral">&quot;_&quot;</span> + OrderedDict.__str__(self)</div>
+<div class="line"><span class="lineno">  165</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01660.html#ae4c30bb80e035d43ad9a95dfb966fa56">Shape.name()</a>, <a class="el" href="a01984.html#a33b88a9fad92705038919a88775428d5">CSVW.name</a>, <a class="el" href="a02008.html#a33b88a9fad92705038919a88775428d5">DOAP.name</a>, <a class="el" href="a02012.html#a33b88a9fad92705038919a88775428d5">FOAF.name</a>, <a class="el" href="a02056.html#a33b88a9fad92705038919a88775428d5">SH.name</a>, <a class="el" href="a02096.html#a52604536027f90ddf5d31f23a3a1a07b">BytesIOWrapper.name()</a>, <a class="el" href="a02152.html#ab74e6bf80237ddc4109968cedc58c151">Plugin.name</a>, <a class="el" href="a02156.html#ab74e6bf80237ddc4109968cedc58c151">PKGPlugin.name</a>, <a class="el" href="a02396.html#ab74e6bf80237ddc4109968cedc58c151">ParamValue.name</a>, <a class="el" href="a02400.html#ab74e6bf80237ddc4109968cedc58c151">Param.name</a>, <a class="el" href="a02408.html#ab74e6bf80237ddc4109968cedc58c151">CompValue.name</a>, <a class="el" href="a02416.html#ab74e6bf80237ddc4109968cedc58c151">Comp.name</a>, and <a class="el" href="a02884.html#ab74e6bf80237ddc4109968cedc58c151">BaseLayerDialog.name</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01488.html#a61a1f3a6a4df93d491cd753f617782a2">ReportableRuntimeError.__repr__()</a>, <a class="el" href="a01492.html#a61a1f3a6a4df93d491cd753f617782a2">ShapeLoadError.__repr__()</a>, <a class="el" href="a01496.html#a61a1f3a6a4df93d491cd753f617782a2">RuleLoadError.__repr__()</a>, <a class="el" href="a01500.html#a61a1f3a6a4df93d491cd753f617782a2">ValidationFailure.__repr__()</a>, <a class="el" href="a01512.html#a61a1f3a6a4df93d491cd753f617782a2">ConstraintLoadError.__repr__()</a>, and <a class="el" href="a01516.html#a61a1f3a6a4df93d491cd753f617782a2">ConstraintLoadWarning.__repr__()</a>.</p>
+
+</div>
+</div>
+<a id="a52d21e7d004b99a9f957301ecdbfb403" name="a52d21e7d004b99a9f957301ecdbfb403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d21e7d004b99a9f957301ecdbfb403">&#9670;&#160;</a></span>_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Union[<a class="el" href="a01087.html#a4aec6d52c9a4e6c28323aaf2242f69a3">_ValT</a>, Any] _value </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01087.html#a4aec6d52c9a4e6c28323aaf2242f69a3">_ValT</a>&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>variables</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>errors</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  171</span>    ) -&gt; Union[_ValT, Any]:</div>
+<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">if</span> self.ctx <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  173</span>            <span class="keywordflow">return</span> value(self.ctx, val, variables)</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  175</span>            <span class="keywordflow">return</span> val</div>
+<div class="line"><span class="lineno">  176</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02408.html#a4c3a358572dcbbc235d824868164272a">CompValue.ctx</a>, <a class="el" href="a02412.html#a4c3a358572dcbbc235d824868164272a">Expr.ctx</a>, and <a class="el" href="a02512.html#a4c3a358572dcbbc235d824868164272a">FrozenBindings.ctx</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02408.html#a82c6e787f98d54361019372688485a60">CompValue.__getitem__()</a>, <a class="el" href="a02408.html#a262108b56d83faf365c7c306b0827bfd">CompValue.get()</a>, and <a class="el" href="a02672.html#ae9a63151218151fa047af4c22cef8eda">Literal.value()</a>.</p>
+
+</div>
+</div>
+<a id="abcb0ca3a077f9dc3dcbdda93a8ba7169" name="abcb0ca3a077f9dc3dcbdda93a8ba7169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcb0ca3a077f9dc3dcbdda93a8ba7169">&#9670;&#160;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a02408.html">CompValue</a> clone </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  160</span>    <span class="keyword">def </span>clone(self) -&gt; CompValue:</div>
+<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">return</span> CompValue(self.name, **self)</div>
+<div class="line"><span class="lineno">  162</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01660.html#ae4c30bb80e035d43ad9a95dfb966fa56">Shape.name()</a>, <a class="el" href="a01984.html#a33b88a9fad92705038919a88775428d5">CSVW.name</a>, <a class="el" href="a02008.html#a33b88a9fad92705038919a88775428d5">DOAP.name</a>, <a class="el" href="a02012.html#a33b88a9fad92705038919a88775428d5">FOAF.name</a>, <a class="el" href="a02056.html#a33b88a9fad92705038919a88775428d5">SH.name</a>, <a class="el" href="a02096.html#a52604536027f90ddf5d31f23a3a1a07b">BytesIOWrapper.name()</a>, <a class="el" href="a02152.html#ab74e6bf80237ddc4109968cedc58c151">Plugin.name</a>, <a class="el" href="a02156.html#ab74e6bf80237ddc4109968cedc58c151">PKGPlugin.name</a>, <a class="el" href="a02396.html#ab74e6bf80237ddc4109968cedc58c151">ParamValue.name</a>, <a class="el" href="a02400.html#ab74e6bf80237ddc4109968cedc58c151">Param.name</a>, <a class="el" href="a02408.html#ab74e6bf80237ddc4109968cedc58c151">CompValue.name</a>, <a class="el" href="a02416.html#ab74e6bf80237ddc4109968cedc58c151">Comp.name</a>, and <a class="el" href="a02884.html#ab74e6bf80237ddc4109968cedc58c151">BaseLayerDialog.name</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02516.html#a6b8b6d6f752ee2d9057c4430ba43c8fb">QueryContext.clean()</a>, <a class="el" href="a02516.html#a09e9d7ed87643c44adfca7c0dd569414">QueryContext.push()</a>, <a class="el" href="a02516.html#aced0761ba83f915dd3990278c14544dd">QueryContext.pushGraph()</a>, and <a class="el" href="a02516.html#a6b2a5ad3588c709be3cff921b2d8ecff">QueryContext.thaw()</a>.</p>
+
+</div>
+</div>
+<a id="a262108b56d83faf365c7c306b0827bfd" name="a262108b56d83faf365c7c306b0827bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a262108b56d83faf365c7c306b0827bfd">&#9670;&#160;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>variables</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>errors</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  182</span>    <span class="keyword">def </span>get(self, a, variables: bool = <span class="keyword">False</span>, errors: bool = <span class="keyword">False</span>):  <span class="comment"># type: ignore[override]</span></div>
+<div class="line"><span class="lineno">  183</span>        <span class="keywordflow">return</span> self._value(OrderedDict.get(self, a, a), variables, errors)</div>
+<div class="line"><span class="lineno">  184</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02408.html#a52d21e7d004b99a9f957301ecdbfb403">CompValue._value()</a>, and <a class="el" href="a02672.html#a42c776eeb0a0ac7057565ffdc4bb473b">Literal._value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01772.html#a5307e40dc5cf69ea36088d3dd21c7c3a">RepositoryManager.create()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4c3a358572dcbbc235d824868164272a" name="a4c3a358572dcbbc235d824868164272a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c3a358572dcbbc235d824868164272a">&#9670;&#160;</a></span>ctx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ctx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02512.html#a5ee88c4ad9c7d04f168a9ded3439b625">FrozenBindings.__getitem__()</a>, <a class="el" href="a02408.html#a52d21e7d004b99a9f957301ecdbfb403">CompValue._value()</a>, <a class="el" href="a02512.html#aa442bceb12342b1dcf2bd7805590ba92">FrozenBindings.bnodes()</a>, <a class="el" href="a02412.html#a3aab5325c19c2d6f0e2cc3ef1f126eec">Expr.eval()</a>, <a class="el" href="a02512.html#a94862783ee1250a7448a0aa9b05ccba9">FrozenBindings.forget()</a>, <a class="el" href="a02512.html#a79cdccae6f6074ec34cc651d3991fdcd">FrozenBindings.merge()</a>, <a class="el" href="a02512.html#ae919a392f6c95b3954562ed0a8afe185">FrozenBindings.now()</a>, <a class="el" href="a02512.html#a23ff4e76cf49743525f4b4b95d82d1b8">FrozenBindings.project()</a>, <a class="el" href="a02512.html#afec25f6b52322a0f5efd9bd160954edd">FrozenBindings.prologue()</a>, and <a class="el" href="a02512.html#ac52725f98dd91506cea219ed7f73997f">FrozenBindings.remember()</a>.</p>
+
+</div>
+</div>
+<a id="ab74e6bf80237ddc4109968cedc58c151" name="ab74e6bf80237ddc4109968cedc58c151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab74e6bf80237ddc4109968cedc58c151">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01660.html#a61a1f3a6a4df93d491cd753f617782a2">Shape.__repr__()</a>, <a class="el" href="a02408.html#aea815b0c6c23fc48a11ee0404b782c7a">CompValue.__repr__()</a>, <a class="el" href="a01660.html#a40b37c981a056437fd94276341c63fe8">Shape.__str__()</a>, <a class="el" href="a02396.html#ae07f7930f92d3591c93e2381cd5be285">ParamValue.__str__()</a>, <a class="el" href="a02408.html#ae07f7930f92d3591c93e2381cd5be285">CompValue.__str__()</a>, <a class="el" href="a02408.html#abcb0ca3a077f9dc3dcbdda93a8ba7169">CompValue.clone()</a>, <a class="el" href="a02416.html#ad5d6522d4412e56d8c1c4784198bf93b">Comp.postParse()</a>, and <a class="el" href="a02884.html#a8a95231f04f9aa982da78135367dd68f">BaseLayerDialog.saveBaseLayer()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01079.html">sparql</a></li><li class="navelem"><a class="el" href="a01087.html">parserutils</a></li><li class="navelem"><a class="el" href="a02408.html">CompValue</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

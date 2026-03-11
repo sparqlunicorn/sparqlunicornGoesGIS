@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: consts.py File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00071.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">consts.py File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00929" id="r_a00929"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00929.html">pyshacl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00949" id="r_a00949"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html">pyshacl.consts</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a407015e4040726fcc48ba560c4c7eea5" id="r_a407015e4040726fcc48ba560c4c7eea5"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a407015e4040726fcc48ba560c4c7eea5">RDF_PFX</a> = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'</td></tr>
+<tr class="separator:a407015e4040726fcc48ba560c4c7eea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab418dea85591cb0b84833bf9c6a292eb" id="r_ab418dea85591cb0b84833bf9c6a292eb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ab418dea85591cb0b84833bf9c6a292eb">RDFS_PFX</a> = 'http://www.w3.org/2000/01/rdf-schema#'</td></tr>
+<tr class="separator:ab418dea85591cb0b84833bf9c6a292eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a055c1bddf6bc32f66c3570eb8bcf691f" id="r_a055c1bddf6bc32f66c3570eb8bcf691f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a055c1bddf6bc32f66c3570eb8bcf691f">OWL_PFX</a> = 'http://www.w3.org/2002/07/owl#'</td></tr>
+<tr class="separator:a055c1bddf6bc32f66c3570eb8bcf691f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9597f65ae6e7b6a31a23891751d3fa22" id="r_a9597f65ae6e7b6a31a23891751d3fa22"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a9597f65ae6e7b6a31a23891751d3fa22">SH_PFX</a> = 'http://www.w3.org/ns/shacl#'</td></tr>
+<tr class="separator:a9597f65ae6e7b6a31a23891751d3fa22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a144b4496bd2209400b06bdc41dff1dfd" id="r_a144b4496bd2209400b06bdc41dff1dfd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a144b4496bd2209400b06bdc41dff1dfd">RDF</a> = <a class="el" href="a01956.html">Namespace</a>(<a class="el" href="a00949.html#a407015e4040726fcc48ba560c4c7eea5">RDF_PFX</a>)</td></tr>
+<tr class="separator:a144b4496bd2209400b06bdc41dff1dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa458547cc14c343e45424b4dec15122" id="r_afa458547cc14c343e45424b4dec15122"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#afa458547cc14c343e45424b4dec15122">RDFS</a> = <a class="el" href="a01956.html">Namespace</a>(<a class="el" href="a00949.html#ab418dea85591cb0b84833bf9c6a292eb">RDFS_PFX</a>)</td></tr>
+<tr class="separator:afa458547cc14c343e45424b4dec15122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeae1ea0ed4fa1bf931e7a29f3d04730" id="r_afeae1ea0ed4fa1bf931e7a29f3d04730"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#afeae1ea0ed4fa1bf931e7a29f3d04730">OWL</a> = <a class="el" href="a01956.html">Namespace</a>(<a class="el" href="a00949.html#a055c1bddf6bc32f66c3570eb8bcf691f">OWL_PFX</a>)</td></tr>
+<tr class="separator:afeae1ea0ed4fa1bf931e7a29f3d04730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d073dac7792dc8052199f73e39020ad" id="r_a1d073dac7792dc8052199f73e39020ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a1d073dac7792dc8052199f73e39020ad">SH</a> = <a class="el" href="a01956.html">Namespace</a>(<a class="el" href="a00949.html#a9597f65ae6e7b6a31a23891751d3fa22">SH_PFX</a>)</td></tr>
+<tr class="separator:a1d073dac7792dc8052199f73e39020ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a753a0be450f3b93de728486e2ddc32ae" id="r_a753a0be450f3b93de728486e2ddc32ae"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a753a0be450f3b93de728486e2ddc32ae">XSD_WHOLE_INTEGERS</a></td></tr>
+<tr class="separator:a753a0be450f3b93de728486e2ddc32ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a356a49e6be9ee420704e18a9b0f31" id="r_ab5a356a49e6be9ee420704e18a9b0f31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ab5a356a49e6be9ee420704e18a9b0f31">RDF_Property</a> = RDF.Property</td></tr>
+<tr class="separator:ab5a356a49e6be9ee420704e18a9b0f31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0017deb2206992bcdb7da0b559c79f1" id="r_ad0017deb2206992bcdb7da0b559c79f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ad0017deb2206992bcdb7da0b559c79f1">RDF_List</a> = RDF.List</td></tr>
+<tr class="separator:ad0017deb2206992bcdb7da0b559c79f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c8fb28e263d16039b3921b53da53b8" id="r_a73c8fb28e263d16039b3921b53da53b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a73c8fb28e263d16039b3921b53da53b8">RDFS_Resource</a> = RDFS.Resource</td></tr>
+<tr class="separator:a73c8fb28e263d16039b3921b53da53b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeb2129ec9e9540ff1f81b5c7777056a" id="r_adeb2129ec9e9540ff1f81b5c7777056a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#adeb2129ec9e9540ff1f81b5c7777056a">RDFS_Class</a> = RDFS.Class</td></tr>
+<tr class="separator:adeb2129ec9e9540ff1f81b5c7777056a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad506be2036b24f7d975d6672f473e3f1" id="r_ad506be2036b24f7d975d6672f473e3f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ad506be2036b24f7d975d6672f473e3f1">OWL_Ontology</a> = OWL.Ontology</td></tr>
+<tr class="separator:ad506be2036b24f7d975d6672f473e3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8ad7c2ea60e4011189811982752e45c" id="r_ad8ad7c2ea60e4011189811982752e45c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ad8ad7c2ea60e4011189811982752e45c">OWL_Class</a> = OWL.Class</td></tr>
+<tr class="separator:ad8ad7c2ea60e4011189811982752e45c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83c48b915953c8a075b6b2dfebe14dfc" id="r_a83c48b915953c8a075b6b2dfebe14dfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a83c48b915953c8a075b6b2dfebe14dfc">OWL_DatatypeProperty</a> = OWL.DatatypeProperty</td></tr>
+<tr class="separator:a83c48b915953c8a075b6b2dfebe14dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dc56b7f605154ee262c8bcbb7c9ce81" id="r_a2dc56b7f605154ee262c8bcbb7c9ce81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a2dc56b7f605154ee262c8bcbb7c9ce81">SH_NodeShape</a> = SH.NodeShape</td></tr>
+<tr class="separator:a2dc56b7f605154ee262c8bcbb7c9ce81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99b3b0b9230124f6d1e2782a95f7dd4e" id="r_a99b3b0b9230124f6d1e2782a95f7dd4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a99b3b0b9230124f6d1e2782a95f7dd4e">SH_PropertyShape</a> = SH.PropertyShape</td></tr>
+<tr class="separator:a99b3b0b9230124f6d1e2782a95f7dd4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b67d8f8ae5a0e171ce05bf328d1d23b" id="r_a8b67d8f8ae5a0e171ce05bf328d1d23b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a8b67d8f8ae5a0e171ce05bf328d1d23b">SH_ValidationResult</a> = SH.ValidationResult</td></tr>
+<tr class="separator:a8b67d8f8ae5a0e171ce05bf328d1d23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01f6abb5d8b407a58108842a391e2c25" id="r_a01f6abb5d8b407a58108842a391e2c25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a01f6abb5d8b407a58108842a391e2c25">SH_ValidationReport</a> = SH.ValidationReport</td></tr>
+<tr class="separator:a01f6abb5d8b407a58108842a391e2c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb03528f9f17cdd6901124de7a3863d" id="r_a3cb03528f9f17cdd6901124de7a3863d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a3cb03528f9f17cdd6901124de7a3863d">SH_Violation</a> = SH.Violation</td></tr>
+<tr class="separator:a3cb03528f9f17cdd6901124de7a3863d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83386b36f61efec1de95d989df931ad5" id="r_a83386b36f61efec1de95d989df931ad5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a83386b36f61efec1de95d989df931ad5">SH_Info</a> = SH.Info</td></tr>
+<tr class="separator:a83386b36f61efec1de95d989df931ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad35cfeb0f8f942f2854128a890fd0565" id="r_ad35cfeb0f8f942f2854128a890fd0565"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ad35cfeb0f8f942f2854128a890fd0565">SH_Warning</a> = SH.Warning</td></tr>
+<tr class="separator:ad35cfeb0f8f942f2854128a890fd0565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d2354da2a75210313fc255b9b080a5d" id="r_a3d2354da2a75210313fc255b9b080a5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a3d2354da2a75210313fc255b9b080a5d">SH_IRI</a> = SH.IRI</td></tr>
+<tr class="separator:a3d2354da2a75210313fc255b9b080a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34515dc8d8a8e0073c1b5f5cb254018d" id="r_a34515dc8d8a8e0073c1b5f5cb254018d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a34515dc8d8a8e0073c1b5f5cb254018d">SH_BlankNode</a> = SH.BlankNode</td></tr>
+<tr class="separator:a34515dc8d8a8e0073c1b5f5cb254018d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d85b9d4631fbd706370d99b52135c1" id="r_ae9d85b9d4631fbd706370d99b52135c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ae9d85b9d4631fbd706370d99b52135c1">SH_Literal</a> = SH.Literal</td></tr>
+<tr class="separator:ae9d85b9d4631fbd706370d99b52135c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a138befabdb7f138f5fce0e2a13142f93" id="r_a138befabdb7f138f5fce0e2a13142f93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a138befabdb7f138f5fce0e2a13142f93">SH_BlankNodeOrIRI</a> = SH.BlankNodeOrIRI</td></tr>
+<tr class="separator:a138befabdb7f138f5fce0e2a13142f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2e3eadec0876c4912729737830d7ab9" id="r_ae2e3eadec0876c4912729737830d7ab9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ae2e3eadec0876c4912729737830d7ab9">SH_BlankNodeORLiteral</a> = SH.BlankNodeOrLiteral</td></tr>
+<tr class="separator:ae2e3eadec0876c4912729737830d7ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27e2eb1a39b2a207a89ab7a8ac7da508" id="r_a27e2eb1a39b2a207a89ab7a8ac7da508"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a27e2eb1a39b2a207a89ab7a8ac7da508">SH_IRIOrLiteral</a> = SH.IRIOrLiteral</td></tr>
+<tr class="separator:a27e2eb1a39b2a207a89ab7a8ac7da508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf07c3d18183432dedfc9b6a5d432ffa" id="r_acf07c3d18183432dedfc9b6a5d432ffa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#acf07c3d18183432dedfc9b6a5d432ffa">SH_ConstraintComponent</a> = SH.ConstraintComponent</td></tr>
+<tr class="separator:acf07c3d18183432dedfc9b6a5d432ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73a8c646fa8c1c1ccf210ee6b7c080e0" id="r_a73a8c646fa8c1c1ccf210ee6b7c080e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a73a8c646fa8c1c1ccf210ee6b7c080e0">SH_PropertyConstraintComponent</a> = SH.PropertyConstraintComponent</td></tr>
+<tr class="separator:a73a8c646fa8c1c1ccf210ee6b7c080e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cc2b8ba6cf33ad08f714582d3e6fdcf" id="r_a4cc2b8ba6cf33ad08f714582d3e6fdcf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a4cc2b8ba6cf33ad08f714582d3e6fdcf">SH_NodeConstraintComponent</a> = SH.NodeConstraintComponent</td></tr>
+<tr class="separator:a4cc2b8ba6cf33ad08f714582d3e6fdcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1485f00eba356d020c35606b1d9d51" id="r_a3a1485f00eba356d020c35606b1d9d51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a3a1485f00eba356d020c35606b1d9d51">SH_SHACLFunction</a> = SH.SHACLFunction</td></tr>
+<tr class="separator:a3a1485f00eba356d020c35606b1d9d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc23c233f5dfcd4579e2383e21c46dea" id="r_afc23c233f5dfcd4579e2383e21c46dea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#afc23c233f5dfcd4579e2383e21c46dea">SH_SPARQLFunction</a> = SH.SPARQLFunction</td></tr>
+<tr class="separator:afc23c233f5dfcd4579e2383e21c46dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3c72df0f78a3fdc3198b0983a7c6991" id="r_ac3c72df0f78a3fdc3198b0983a7c6991"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ac3c72df0f78a3fdc3198b0983a7c6991">SH_SPARQLRule</a> = SH.SPARQLRule</td></tr>
+<tr class="separator:ac3c72df0f78a3fdc3198b0983a7c6991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a108af3dcf1e9cb29615cb1753b682230" id="r_a108af3dcf1e9cb29615cb1753b682230"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a108af3dcf1e9cb29615cb1753b682230">SH_TripleRule</a> = SH.TripleRule</td></tr>
+<tr class="separator:a108af3dcf1e9cb29615cb1753b682230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc64c990f84d81cc4e9dd3fe2403e69b" id="r_abc64c990f84d81cc4e9dd3fe2403e69b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#abc64c990f84d81cc4e9dd3fe2403e69b">SH_SPARQLTarget</a> = SH.SPARQLTarget</td></tr>
+<tr class="separator:abc64c990f84d81cc4e9dd3fe2403e69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e8d4a2cde34d90e1efc13ef53c3379" id="r_a73e8d4a2cde34d90e1efc13ef53c3379"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a73e8d4a2cde34d90e1efc13ef53c3379">SH_SPARQLTargetType</a> = SH.SPARQLTargetType</td></tr>
+<tr class="separator:a73e8d4a2cde34d90e1efc13ef53c3379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7647ffbad9bc532db02e92108251613b" id="r_a7647ffbad9bc532db02e92108251613b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a7647ffbad9bc532db02e92108251613b">SH_JSTarget</a> = SH.JSTarget</td></tr>
+<tr class="separator:a7647ffbad9bc532db02e92108251613b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab82cacf1d8cfd4e9175a3e6fb00d2e9a" id="r_ab82cacf1d8cfd4e9175a3e6fb00d2e9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ab82cacf1d8cfd4e9175a3e6fb00d2e9a">SH_JSTargetType</a> = SH.JSTargetType</td></tr>
+<tr class="separator:ab82cacf1d8cfd4e9175a3e6fb00d2e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad2138376a57feab8adaec90ddcf5ce6" id="r_aad2138376a57feab8adaec90ddcf5ce6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#aad2138376a57feab8adaec90ddcf5ce6">SH_JSFunction</a> = SH.JSFunction</td></tr>
+<tr class="separator:aad2138376a57feab8adaec90ddcf5ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e0ccf98d1c158064c14c883e2333a8b" id="r_a5e0ccf98d1c158064c14c883e2333a8b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a5e0ccf98d1c158064c14c883e2333a8b">RDF_type</a> = RDF.type</td></tr>
+<tr class="separator:a5e0ccf98d1c158064c14c883e2333a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad912a85dc73cb87792e1a4b34ef8cccf" id="r_ad912a85dc73cb87792e1a4b34ef8cccf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ad912a85dc73cb87792e1a4b34ef8cccf">RDF_first</a> = RDF.first</td></tr>
+<tr class="separator:ad912a85dc73cb87792e1a4b34ef8cccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8468f94179ee2d849c34d67f6f5393b0" id="r_a8468f94179ee2d849c34d67f6f5393b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a8468f94179ee2d849c34d67f6f5393b0">RDF_rest</a> = RDF.rest</td></tr>
+<tr class="separator:a8468f94179ee2d849c34d67f6f5393b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a929627609e436ebc3c1e9be2d785ee9e" id="r_a929627609e436ebc3c1e9be2d785ee9e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a929627609e436ebc3c1e9be2d785ee9e">RDF_object</a> = RDF.object</td></tr>
+<tr class="separator:a929627609e436ebc3c1e9be2d785ee9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2296a706be1cbf1ba500822598ce3c6a" id="r_a2296a706be1cbf1ba500822598ce3c6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a2296a706be1cbf1ba500822598ce3c6a">RDF_predicate</a> = RDF.predicate</td></tr>
+<tr class="separator:a2296a706be1cbf1ba500822598ce3c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e7b47cd41d2577ab334d336076acfc7" id="r_a5e7b47cd41d2577ab334d336076acfc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a5e7b47cd41d2577ab334d336076acfc7">RDF_subject</a> = RDF.subject</td></tr>
+<tr class="separator:a5e7b47cd41d2577ab334d336076acfc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40955b47bd54e3b834213ee133dd67ad" id="r_a40955b47bd54e3b834213ee133dd67ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a40955b47bd54e3b834213ee133dd67ad">RDFS_subClassOf</a> = RDFS.subClassOf</td></tr>
+<tr class="separator:a40955b47bd54e3b834213ee133dd67ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc7101766c0bf1f241276ea4cf79e3ed" id="r_abc7101766c0bf1f241276ea4cf79e3ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#abc7101766c0bf1f241276ea4cf79e3ed">RDFS_comment</a> = RDFS.comment</td></tr>
+<tr class="separator:abc7101766c0bf1f241276ea4cf79e3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a186c2553ea66375b492409f7fc6365f0" id="r_a186c2553ea66375b492409f7fc6365f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a186c2553ea66375b492409f7fc6365f0">SH_path</a> = SH.path</td></tr>
+<tr class="separator:a186c2553ea66375b492409f7fc6365f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28053e15b29a22d05858ad4298cf11f4" id="r_a28053e15b29a22d05858ad4298cf11f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a28053e15b29a22d05858ad4298cf11f4">SH_deactivated</a> = SH.deactivated</td></tr>
+<tr class="separator:a28053e15b29a22d05858ad4298cf11f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c16bde9504c73bc7965d3d79ac3cb6" id="r_a66c16bde9504c73bc7965d3d79ac3cb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a66c16bde9504c73bc7965d3d79ac3cb6">SH_message</a> = SH.message</td></tr>
+<tr class="separator:a66c16bde9504c73bc7965d3d79ac3cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a096d596f587261b7a30aac2915987584" id="r_a096d596f587261b7a30aac2915987584"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a096d596f587261b7a30aac2915987584">SH_name</a> = SH.name</td></tr>
+<tr class="separator:a096d596f587261b7a30aac2915987584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7fb45311b86e23690a66e9db1cad797" id="r_ae7fb45311b86e23690a66e9db1cad797"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ae7fb45311b86e23690a66e9db1cad797">SH_description</a> = SH.description</td></tr>
+<tr class="separator:ae7fb45311b86e23690a66e9db1cad797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19b82703ae5909c62a2144bdc2732fd7" id="r_a19b82703ae5909c62a2144bdc2732fd7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a19b82703ae5909c62a2144bdc2732fd7">SH_property</a> = SH.property</td></tr>
+<tr class="separator:a19b82703ae5909c62a2144bdc2732fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a232295e67d4043689478c110cc2fde2b" id="r_a232295e67d4043689478c110cc2fde2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a232295e67d4043689478c110cc2fde2b">SH_node</a> = SH.node</td></tr>
+<tr class="separator:a232295e67d4043689478c110cc2fde2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af887c83766c8e6ab046b59787ca3d787" id="r_af887c83766c8e6ab046b59787ca3d787"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#af887c83766c8e6ab046b59787ca3d787">SH_target</a> = SH.target</td></tr>
+<tr class="separator:af887c83766c8e6ab046b59787ca3d787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a73142f3aff01e4f6700a652a59b77e" id="r_a3a73142f3aff01e4f6700a652a59b77e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a3a73142f3aff01e4f6700a652a59b77e">SH_targetClass</a> = SH.targetClass</td></tr>
+<tr class="separator:a3a73142f3aff01e4f6700a652a59b77e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7293740c4907924b9671771809ff1745" id="r_a7293740c4907924b9671771809ff1745"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a7293740c4907924b9671771809ff1745">SH_targetNode</a> = SH.targetNode</td></tr>
+<tr class="separator:a7293740c4907924b9671771809ff1745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5407373a1c97dfedfcea07d4ab0b86dd" id="r_a5407373a1c97dfedfcea07d4ab0b86dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a5407373a1c97dfedfcea07d4ab0b86dd">SH_targetObjectsOf</a> = SH.targetObjectsOf</td></tr>
+<tr class="separator:a5407373a1c97dfedfcea07d4ab0b86dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a4819708622e9d347eadc338850bc7a" id="r_a4a4819708622e9d347eadc338850bc7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a4a4819708622e9d347eadc338850bc7a">SH_targetSubjectsOf</a> = SH.targetSubjectsOf</td></tr>
+<tr class="separator:a4a4819708622e9d347eadc338850bc7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3429c763c86da2ae89a0a4793ccd141f" id="r_a3429c763c86da2ae89a0a4793ccd141f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a3429c763c86da2ae89a0a4793ccd141f">SH_focusNode</a> = SH.focusNode</td></tr>
+<tr class="separator:a3429c763c86da2ae89a0a4793ccd141f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a322ac4aa4b57be6699a4c04f81f117c6" id="r_a322ac4aa4b57be6699a4c04f81f117c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a322ac4aa4b57be6699a4c04f81f117c6">SH_resultSeverity</a> = SH.resultSeverity</td></tr>
+<tr class="separator:a322ac4aa4b57be6699a4c04f81f117c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57b37dbb74a34de4f78b53531e34206c" id="r_a57b37dbb74a34de4f78b53531e34206c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a57b37dbb74a34de4f78b53531e34206c">SH_resultPath</a> = SH.resultPath</td></tr>
+<tr class="separator:a57b37dbb74a34de4f78b53531e34206c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bcb16078e9a8b8cf6ee1233ba323d14" id="r_a5bcb16078e9a8b8cf6ee1233ba323d14"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a5bcb16078e9a8b8cf6ee1233ba323d14">SH_resultMessage</a> = SH.resultMessage</td></tr>
+<tr class="separator:a5bcb16078e9a8b8cf6ee1233ba323d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4606b8fc65cdbdd43c01f856dd0c7020" id="r_a4606b8fc65cdbdd43c01f856dd0c7020"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a4606b8fc65cdbdd43c01f856dd0c7020">SH_sourceConstraint</a> = SH.sourceConstraint</td></tr>
+<tr class="separator:a4606b8fc65cdbdd43c01f856dd0c7020"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4417815b8f17e7cf33453eefeec90070" id="r_a4417815b8f17e7cf33453eefeec90070"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a4417815b8f17e7cf33453eefeec90070">SH_sourceConstraintComponent</a> = SH.sourceConstraintComponent</td></tr>
+<tr class="separator:a4417815b8f17e7cf33453eefeec90070"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a985978eb42add6bc15da5506a0c82779" id="r_a985978eb42add6bc15da5506a0c82779"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a985978eb42add6bc15da5506a0c82779">SH_sourceShape</a> = SH.sourceShape</td></tr>
+<tr class="separator:a985978eb42add6bc15da5506a0c82779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb3de0537b31c7d73500ddf9f5a1e39" id="r_a5cb3de0537b31c7d73500ddf9f5a1e39"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a5cb3de0537b31c7d73500ddf9f5a1e39">SH_severity</a> = SH.severity</td></tr>
+<tr class="separator:a5cb3de0537b31c7d73500ddf9f5a1e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ff6ac12f0733e533aeadd1899462916" id="r_a4ff6ac12f0733e533aeadd1899462916"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a4ff6ac12f0733e533aeadd1899462916">SH_value</a> = SH.value</td></tr>
+<tr class="separator:a4ff6ac12f0733e533aeadd1899462916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b6556ae39b5356ae35eab4c8457d284" id="r_a0b6556ae39b5356ae35eab4c8457d284"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a0b6556ae39b5356ae35eab4c8457d284">SH_conforms</a> = SH.conforms</td></tr>
+<tr class="separator:a0b6556ae39b5356ae35eab4c8457d284"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09fc4acdc534e4d96d4daf9d8279bb3f" id="r_a09fc4acdc534e4d96d4daf9d8279bb3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a09fc4acdc534e4d96d4daf9d8279bb3f">SH_result</a> = SH.result</td></tr>
+<tr class="separator:a09fc4acdc534e4d96d4daf9d8279bb3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a45d6e8b5bc223973ea25462efd39a" id="r_a11a45d6e8b5bc223973ea25462efd39a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a11a45d6e8b5bc223973ea25462efd39a">SH_inversePath</a> = SH.inversePath</td></tr>
+<tr class="separator:a11a45d6e8b5bc223973ea25462efd39a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b140955a74189f5e0d2a63710adf0dd" id="r_a5b140955a74189f5e0d2a63710adf0dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a5b140955a74189f5e0d2a63710adf0dd">SH_alternativePath</a> = SH.alternativePath</td></tr>
+<tr class="separator:a5b140955a74189f5e0d2a63710adf0dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6493b718ce424d464256eae87687508b" id="r_a6493b718ce424d464256eae87687508b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a6493b718ce424d464256eae87687508b">SH_zeroOrMorePath</a> = SH.zeroOrMorePath</td></tr>
+<tr class="separator:a6493b718ce424d464256eae87687508b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b191d2de2139583b13ef47e1ee2f88" id="r_a47b191d2de2139583b13ef47e1ee2f88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a47b191d2de2139583b13ef47e1ee2f88">SH_oneOrMorePath</a> = SH.oneOrMorePath</td></tr>
+<tr class="separator:a47b191d2de2139583b13ef47e1ee2f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4bac6f8093bc951c9ff89ea57eb0bd4" id="r_ae4bac6f8093bc951c9ff89ea57eb0bd4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ae4bac6f8093bc951c9ff89ea57eb0bd4">SH_zeroOrOnePath</a> = SH.zeroOrOnePath</td></tr>
+<tr class="separator:ae4bac6f8093bc951c9ff89ea57eb0bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad43b966f351cf1649b00f75cc8405282" id="r_ad43b966f351cf1649b00f75cc8405282"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ad43b966f351cf1649b00f75cc8405282">SH_prefixes</a> = SH.prefixes</td></tr>
+<tr class="separator:ad43b966f351cf1649b00f75cc8405282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5518954d2867f2a016442434c3e3a337" id="r_a5518954d2867f2a016442434c3e3a337"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a5518954d2867f2a016442434c3e3a337">SH_prefix</a> = SH.prefix</td></tr>
+<tr class="separator:a5518954d2867f2a016442434c3e3a337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f47d7967f2180f3441ad4607a0eb889" id="r_a9f47d7967f2180f3441ad4607a0eb889"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a9f47d7967f2180f3441ad4607a0eb889">SH_namespace</a> = SH.namespace</td></tr>
+<tr class="separator:a9f47d7967f2180f3441ad4607a0eb889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81d994ec9d4999ef0ee9fcfdd594b3d8" id="r_a81d994ec9d4999ef0ee9fcfdd594b3d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a81d994ec9d4999ef0ee9fcfdd594b3d8">SH_rule</a> = SH.rule</td></tr>
+<tr class="separator:a81d994ec9d4999ef0ee9fcfdd594b3d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af761ba5e5f9b8ac7e641c080cd3277b5" id="r_af761ba5e5f9b8ac7e641c080cd3277b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#af761ba5e5f9b8ac7e641c080cd3277b5">SH_condition</a> = SH.condition</td></tr>
+<tr class="separator:af761ba5e5f9b8ac7e641c080cd3277b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f6d5d646aeda944ae4468faf368b045" id="r_a6f6d5d646aeda944ae4468faf368b045"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a6f6d5d646aeda944ae4468faf368b045">SH_order</a> = SH.order</td></tr>
+<tr class="separator:a6f6d5d646aeda944ae4468faf368b045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af696ec681cdfac9a1c933f816e02066c" id="r_af696ec681cdfac9a1c933f816e02066c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#af696ec681cdfac9a1c933f816e02066c">SH_construct</a> = SH.construct</td></tr>
+<tr class="separator:af696ec681cdfac9a1c933f816e02066c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ea72fabc8c3f2280a0ae100a251e8e8" id="r_a6ea72fabc8c3f2280a0ae100a251e8e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a6ea72fabc8c3f2280a0ae100a251e8e8">SH_subject</a> = SH.subject</td></tr>
+<tr class="separator:a6ea72fabc8c3f2280a0ae100a251e8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7987d0fc4c047b116b549d69fbb942ee" id="r_a7987d0fc4c047b116b549d69fbb942ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a7987d0fc4c047b116b549d69fbb942ee">SH_predicate</a> = SH.predicate</td></tr>
+<tr class="separator:a7987d0fc4c047b116b549d69fbb942ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99e34999317a9d22f0a2fd58dc196163" id="r_a99e34999317a9d22f0a2fd58dc196163"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a99e34999317a9d22f0a2fd58dc196163">SH_object</a> = SH.object</td></tr>
+<tr class="separator:a99e34999317a9d22f0a2fd58dc196163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7665abe49f471ef378d6a09173b0098f" id="r_a7665abe49f471ef378d6a09173b0098f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a7665abe49f471ef378d6a09173b0098f">SH_parameter</a> = SH.parameter</td></tr>
+<tr class="separator:a7665abe49f471ef378d6a09173b0098f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7740c21b3e52b810f6c5e0e39eb7693" id="r_ac7740c21b3e52b810f6c5e0e39eb7693"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ac7740c21b3e52b810f6c5e0e39eb7693">SH_ask</a> = SH.ask</td></tr>
+<tr class="separator:ac7740c21b3e52b810f6c5e0e39eb7693"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1a60b62659d488cb676ee773fa62f74" id="r_ab1a60b62659d488cb676ee773fa62f74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ab1a60b62659d488cb676ee773fa62f74">SH_select</a> = SH.select</td></tr>
+<tr class="separator:ab1a60b62659d488cb676ee773fa62f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2367d67f6fb57029b632520ed0bb0afb" id="r_a2367d67f6fb57029b632520ed0bb0afb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a2367d67f6fb57029b632520ed0bb0afb">SH_this</a> = SH.this</td></tr>
+<tr class="separator:a2367d67f6fb57029b632520ed0bb0afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7adfa6a921355aa3a4d49fe7a7f4735c" id="r_a7adfa6a921355aa3a4d49fe7a7f4735c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a7adfa6a921355aa3a4d49fe7a7f4735c">SH_filterShape</a> = SH.filterShape</td></tr>
+<tr class="separator:a7adfa6a921355aa3a4d49fe7a7f4735c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef125428deb7b40c947a8d2602ffdfdc" id="r_aef125428deb7b40c947a8d2602ffdfdc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#aef125428deb7b40c947a8d2602ffdfdc">SH_nodes</a> = SH.nodes</td></tr>
+<tr class="separator:aef125428deb7b40c947a8d2602ffdfdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c877c9187d329b5d9ab1e1c981f0959" id="r_a9c877c9187d329b5d9ab1e1c981f0959"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a9c877c9187d329b5d9ab1e1c981f0959">SH_union</a> = SH.union</td></tr>
+<tr class="separator:a9c877c9187d329b5d9ab1e1c981f0959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90c5f6ebdc5915c70db82437e9a169a5" id="r_a90c5f6ebdc5915c70db82437e9a169a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a90c5f6ebdc5915c70db82437e9a169a5">SH_intersection</a> = SH.intersection</td></tr>
+<tr class="separator:a90c5f6ebdc5915c70db82437e9a169a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f86c49e1b00360fb0c7a0d0f768b28" id="r_a05f86c49e1b00360fb0c7a0d0f768b28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a05f86c49e1b00360fb0c7a0d0f768b28">SH_datatype</a> = SH.datatype</td></tr>
+<tr class="separator:a05f86c49e1b00360fb0c7a0d0f768b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cf72ba874f48fbf3e8f69c22fc6a20c" id="r_a3cf72ba874f48fbf3e8f69c22fc6a20c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a3cf72ba874f48fbf3e8f69c22fc6a20c">SH_nodeKind</a> = SH.nodeKind</td></tr>
+<tr class="separator:a3cf72ba874f48fbf3e8f69c22fc6a20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6fedbe629a7bfeca9d5a52728b84c34" id="r_af6fedbe629a7bfeca9d5a52728b84c34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#af6fedbe629a7bfeca9d5a52728b84c34">SH_optional</a> = SH.optional</td></tr>
+<tr class="separator:af6fedbe629a7bfeca9d5a52728b84c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d21b9e0ac5f104f930498715d79711" id="r_af6d21b9e0ac5f104f930498715d79711"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#af6d21b9e0ac5f104f930498715d79711">SH_js</a> = SH.js</td></tr>
+<tr class="separator:af6d21b9e0ac5f104f930498715d79711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ebd509efa37a70139ce9c5d3409a51" id="r_ad2ebd509efa37a70139ce9c5d3409a51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#ad2ebd509efa37a70139ce9c5d3409a51">SH_jsFunctionName</a> = SH.jsFunctionName</td></tr>
+<tr class="separator:ad2ebd509efa37a70139ce9c5d3409a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a842d1569fac3a680356d15bebb2ffdf4" id="r_a842d1569fac3a680356d15bebb2ffdf4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a842d1569fac3a680356d15bebb2ffdf4">SH_jsLibrary</a> = SH.jsLibrary</td></tr>
+<tr class="separator:a842d1569fac3a680356d15bebb2ffdf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a253b933ea6896f78718231beeced76b0" id="r_a253b933ea6896f78718231beeced76b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a253b933ea6896f78718231beeced76b0">SH_detail</a> = SH.detail</td></tr>
+<tr class="separator:a253b933ea6896f78718231beeced76b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d535aa8a6675bdba650a2fabc2286e5" id="r_a3d535aa8a6675bdba650a2fabc2286e5"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00949.html#a3d535aa8a6675bdba650a2fabc2286e5">env_truths</a> = (&quot;t&quot;, &quot;T&quot;, &quot;y&quot;, &quot;Y&quot;, &quot;1&quot;, &quot;True&quot;, &quot;true&quot;, &quot;TRUE&quot;, &quot;yes&quot;, &quot;YES&quot;, 1, True)</td></tr>
+<tr class="separator:a3d535aa8a6675bdba650a2fabc2286e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_ad0530cb1f8052897640e112eb83a9d7.html">dependencies</a></li><li class="navelem"><a class="el" href="dir_34f4d44ab8109b0a6b927f7617fa4728.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00071.html">consts.py</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

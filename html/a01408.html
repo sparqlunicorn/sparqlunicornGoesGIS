@@ -1,0 +1,814 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: QualifiedValueShapeConstraintComponent Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01408.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a01405.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">QualifiedValueShapeConstraintComponent Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for QualifiedValueShapeConstraintComponent:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01407.png" border="0" usemap="#aQualifiedValueShapeConstraintComponent_inherit__map" alt="Inheritance graph"/></div>
+<map name="aQualifiedValueShapeConstraintComponent_inherit__map" id="aQualifiedValueShapeConstraintComponent_inherit__map">
+<area shape="rect" title=" " alt="" coords="25,152,248,192"/>
+<area shape="rect" href="a01336.html" title=" " alt="" coords="55,79,219,104"/>
+<area shape="poly" title=" " alt="" coords="139,118,139,152,134,152,134,118"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,5,68,31"/>
+<area shape="poly" title=" " alt="" coords="65,36,122,76,119,81,62,41"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="92,5,181,31"/>
+<area shape="poly" title=" " alt="" coords="139,44,139,79,134,79,134,44"/>
+<area shape="rect" title=" " alt="" coords="206,5,289,31"/>
+<area shape="poly" title=" " alt="" coords="219,40,156,81,153,76,217,36"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for QualifiedValueShapeConstraintComponent:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01406.png" border="0" usemap="#aQualifiedValueShapeConstraintComponent_coll__map" alt="Collaboration graph"/></div>
+<map name="aQualifiedValueShapeConstraintComponent_coll__map" id="aQualifiedValueShapeConstraintComponent_coll__map">
+<area shape="rect" title=" " alt="" coords="412,583,635,623"/>
+<area shape="rect" href="a01336.html" title=" " alt="" coords="244,506,408,531"/>
+<area shape="poly" title=" " alt="" coords="367,534,479,580,477,585,365,539"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,401,68,427"/>
+<area shape="poly" title=" " alt="" coords="77,430,199,477,284,503,282,508,197,483,75,435"/>
+<area shape="rect" href="a07514.html" title=" " alt="" coords="92,401,181,427"/>
+<area shape="poly" title=" " alt="" coords="171,431,306,503,303,508,169,436"/>
+<area shape="rect" title=" " alt="" coords="206,401,289,427"/>
+<area shape="poly" title=" " alt="" coords="267,437,319,504,315,507,263,440"/>
+<area shape="rect" title=" " alt="" coords="484,5,539,31"/>
+<area shape="poly" title=" " alt="" coords="471,23,426,29,379,43,359,54,343,67,332,84,329,105,329,415,329,505,323,505,323,415,323,104,327,82,339,64,356,49,377,38,424,24,470,18"/>
+<area shape="rect" href="a02656.html" title=" " alt="" coords="426,401,493,427"/>
+<area shape="poly" title=" " alt="" coords="472,37,451,49,432,64,418,83,413,105,413,283,417,318,428,350,454,400,449,402,423,352,412,319,407,284,407,104,413,80,428,60,448,44,470,32"/>
+<area shape="rect" href="a02652.html" title=" " alt="" coords="450,269,567,295"/>
+<area shape="poly" title=" " alt="" coords="514,44,511,269,506,269,508,44"/>
+<area shape="rect" href="a02648.html" title=" " alt="" coords="603,181,683,207"/>
+<area shape="poly" title=" " alt="" coords="530,40,637,179,632,183,526,43"/>
+<area shape="rect" href="a02644.html" title=" " alt="" coords="671,93,727,119"/>
+<area shape="poly" title=" " alt="" coords="553,33,599,52,679,91,676,96,597,57,551,38"/>
+<area shape="rect" title=" " alt="" coords="581,401,631,427"/>
+<area shape="poly" title=" " alt="" coords="646,416,678,427,693,436,706,449,711,465,706,481,680,517,647,545,611,568,576,585,574,580,608,563,644,541,676,513,701,479,706,465,701,452,690,440,676,432,644,421"/>
+<area shape="poly" title=" " alt="" coords="598,441,584,463,563,482,536,493,498,502,408,514,408,509,497,497,535,488,561,478,580,460,593,438"/>
+<area shape="poly" title=" " alt="" coords="414,430,393,440,373,453,349,480,333,507,329,505,345,477,370,449,390,435,412,426"/>
+<area shape="poly" title=" " alt="" coords="502,308,466,402,461,400,497,306"/>
+<area shape="poly" title=" " alt="" coords="615,216,528,271,526,267,612,212"/>
+<area shape="poly" title=" " alt="" coords="687,132,653,182,649,179,682,129"/>
+<area shape="rect" title=" " alt="" coords="687,5,736,31"/>
+<area shape="poly" title=" " alt="" coords="710,44,704,93,698,92,705,44"/>
+<area shape="rect" title=" " alt="" coords="752,93,791,119"/>
+<area shape="poly" title=" " alt="" coords="744,129,662,183,659,179,741,124"/>
+<area shape="rect" title=" " alt="" coords="591,269,666,295"/>
+<area shape="poly" title=" " alt="" coords="604,305,476,403,473,399,601,301"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adae411263142600ae1db8adc4e90ac80" id="r_adae411263142600ae1db8adc4e90ac80"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#adae411263142600ae1db8adc4e90ac80">__init__</a> (self, <a class="el" href="a01660.html">Shape</a> <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">shape</a>)</td></tr>
+<tr class="separator:adae411263142600ae1db8adc4e90ac80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae2ce259fbb4d717a1792d620b29a70" id="r_a1ae2ce259fbb4d717a1792d620b29a70"><td class="memItemLeft" align="right" valign="top">List[<a class="el" href="a02656.html">rdflib.URIRef</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a1ae2ce259fbb4d717a1792d620b29a70">constraint_parameters</a> (cls)</td></tr>
+<tr class="separator:a1ae2ce259fbb4d717a1792d620b29a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15b104887ff90ecf9a8bd21d958530ad" id="r_a15b104887ff90ecf9a8bd21d958530ad"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a15b104887ff90ecf9a8bd21d958530ad">constraint_name</a> (cls)</td></tr>
+<tr class="separator:a15b104887ff90ecf9a8bd21d958530ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a33d1d0ea92f75b00911929c5d43639" id="r_a9a33d1d0ea92f75b00911929c5d43639"><td class="memItemLeft" align="right" valign="top">List[<a class="el" href="a02672.html">rdflib.Literal</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a9a33d1d0ea92f75b00911929c5d43639">make_generic_messages</a> (self, GraphLike datagraph, focus_node, value_node)</td></tr>
+<tr class="separator:a9a33d1d0ea92f75b00911929c5d43639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a058cd2e2f7b194bae44cd5b0679378da" id="r_a058cd2e2f7b194bae44cd5b0679378da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a058cd2e2f7b194bae44cd5b0679378da">evaluate</a> (self, <a class="el" href="a01616.html">SHACLExecutor</a> executor, GraphLike target_graph, Dict focus_value_nodes, List _evaluation_path)</td></tr>
+<tr class="separator:a058cd2e2f7b194bae44cd5b0679378da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a78ceb75d8907fd364358b9a599ee7130" id="r_a78ceb75d8907fd364358b9a599ee7130"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a78ceb75d8907fd364358b9a599ee7130">value_shapes</a></td></tr>
+<tr class="separator:a78ceb75d8907fd364358b9a599ee7130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2386ba9e6ed4c5dcc6981c1ec7e0a887" id="r_a2386ba9e6ed4c5dcc6981c1ec7e0a887"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a2386ba9e6ed4c5dcc6981c1ec7e0a887">min_count</a></td></tr>
+<tr class="separator:a2386ba9e6ed4c5dcc6981c1ec7e0a887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b4be478d6606653cdeb1453a1026e0a" id="r_a9b4be478d6606653cdeb1453a1026e0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a9b4be478d6606653cdeb1453a1026e0a">max_count</a></td></tr>
+<tr class="separator:a9b4be478d6606653cdeb1453a1026e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf47d067c8ae134415f16d86d58f4d0" id="r_acdf47d067c8ae134415f16d86d58f4d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#acdf47d067c8ae134415f16d86d58f4d0">is_disjoint</a></td></tr>
+<tr class="separator:acdf47d067c8ae134415f16d86d58f4d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a9cb5bbf57d0dc29634d5f1c0497a0d90" id="r_a9cb5bbf57d0dc29634d5f1c0497a0d90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a9cb5bbf57d0dc29634d5f1c0497a0d90">shacl_constraint_component</a> = NotImplemented</td></tr>
+<tr class="separator:a9cb5bbf57d0dc29634d5f1c0497a0d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a030ef945630575b8a121e0f3b2ca51b9" id="r_a030ef945630575b8a121e0f3b2ca51b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a030ef945630575b8a121e0f3b2ca51b9">shape_expecting</a> = True</td></tr>
+<tr class="separator:a030ef945630575b8a121e0f3b2ca51b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64d36ad3dbbe27ebf114cd8f0fa2f72e" id="r_a64d36ad3dbbe27ebf114cd8f0fa2f72e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a64d36ad3dbbe27ebf114cd8f0fa2f72e">list_taking</a> = False</td></tr>
+<tr class="separator:a64d36ad3dbbe27ebf114cd8f0fa2f72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a0faccc27345a21a1b562e987f2d050f6" id="r_a0faccc27345a21a1b562e987f2d050f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01408.html#a0faccc27345a21a1b562e987f2d050f6">_evaluate_value_shape</a> (self, executor, _v_shape, target_graph, focus_value_nodes, potentially_recursive, _evaluation_path)</td></tr>
+<tr class="separator:a0faccc27345a21a1b562e987f2d050f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">sh:qualifiedValueShape specifies the condition that a specified number of value nodes conforms to the given shape. Each sh:qualifiedValueShape can have: one value for sh:qualifiedMinCount, one value for sh:qualifiedMaxCount or, one value for each, at the same subject.
+Link:
+https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent
+Textual Definition for qualifiedMinCount:
+Let C be the number of value nodes v where v conforms to $qualifiedValueShape and where v does not conform to any of the sibling shapes for the current shape, i.e. the shape that v is validated against and which has $qualifiedValueShape as its value for sh:qualifiedValueShape. A failure MUST be produced if any of the said conformance checks produces a failure. Otherwise, there is a validation result if C is less than $qualifiedMinCount. The constraint component for sh:qualifiedMinCount is sh:QualifiedMinCountConstraintComponent.
+Textual Definition for qualifiedMaxCount:
+Let C be as defined for sh:qualifiedMinCount above. A failure MUST be produced if any of the said conformance checks produces a failure. Otherwise, there is a validation result if C is greater than $qualifiedMaxCount. The constraint component for sh:qualifiedMaxCount is sh:QualifiedMaxCountConstraintComponent.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adae411263142600ae1db8adc4e90ac80" name="adae411263142600ae1db8adc4e90ac80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adae411263142600ae1db8adc4e90ac80">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None __init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01660.html">Shape</a>&#160;</td>
+          <td class="paramname"><em>shape</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param shape:
+:type shape: Shape
+</pre> 
+<p>Reimplemented from <a class="el" href="a01336.html#a4bc4e3d850efdaa423836e2c3560912d">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  256</span>    <span class="keyword">def </span>__init__(self, shape: Shape) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  257</span>        super(QualifiedValueShapeConstraintComponent, self).__init__(shape)</div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> shape.is_property_shape:</div>
+<div class="line"><span class="lineno">  259</span>            <span class="comment"># Note, this no longer throws an error, this constraint is simply ignored on NodeShapes.</span></div>
+<div class="line"><span class="lineno">  260</span>            <span class="keywordflow">raise</span> ConstraintLoadWarning(</div>
+<div class="line"><span class="lineno">  261</span>                <span class="stringliteral">&quot;QualifiedValueShapeConstraintComponent can only be present on a PropertyShape, not a NodeShape.&quot;</span>,</div>
+<div class="line"><span class="lineno">  262</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  263</span>            )</div>
+<div class="line"><span class="lineno">  264</span>        value_shapes = set(self.shape.objects(SH_qualifiedValueShape))</div>
+<div class="line"><span class="lineno">  265</span>        <span class="keywordflow">if</span> len(value_shapes) &lt; 1:</div>
+<div class="line"><span class="lineno">  266</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  267</span>                <span class="stringliteral">&quot;QualifiedValueShapeConstraintComponent must have at least one sh:qualifiedValueShape predicate.&quot;</span>,</div>
+<div class="line"><span class="lineno">  268</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  269</span>            )</div>
+<div class="line"><span class="lineno">  270</span>        self.value_shapes = value_shapes</div>
+<div class="line"><span class="lineno">  271</span>        min_count: Optional[int]</div>
+<div class="line"><span class="lineno">  272</span>        min_counts = set(self.shape.objects(SH_qualifiedMinCount))</div>
+<div class="line"><span class="lineno">  273</span>        <span class="keywordflow">if</span> len(min_counts) &lt; 1:</div>
+<div class="line"><span class="lineno">  274</span>            min_count = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  275</span>        <span class="keywordflow">elif</span> len(min_counts) &gt; 1:</div>
+<div class="line"><span class="lineno">  276</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  277</span>                <span class="stringliteral">&quot;QualifiedMinCountConstraintComponent must have at most one sh:qualifiedMinCount predicate.&quot;</span>,</div>
+<div class="line"><span class="lineno">  278</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  279</span>            )</div>
+<div class="line"><span class="lineno">  280</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  281</span>            min_count_literal = next(iter(min_counts))</div>
+<div class="line"><span class="lineno">  282</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(min_count_literal, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>) <span class="keywordflow">or</span> <span class="keywordflow">not</span> isinstance(min_count_literal.value, int):</div>
+<div class="line"><span class="lineno">  283</span>                <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  284</span>                    <span class="stringliteral">&quot;QualifiedMinCountConstraintComponent sh:qualifiedMinCount must be a Literal with Int.&quot;</span>,</div>
+<div class="line"><span class="lineno">  285</span>                    <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  286</span>                )</div>
+<div class="line"><span class="lineno">  287</span>            min_count = min_count_literal.value</div>
+<div class="line"><span class="lineno">  288</span> </div>
+<div class="line"><span class="lineno">  289</span>        max_count: Optional[int]</div>
+<div class="line"><span class="lineno">  290</span>        max_counts = set(self.shape.objects(SH_qualifiedMaxCount))</div>
+<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">if</span> len(max_counts) &lt; 1:</div>
+<div class="line"><span class="lineno">  292</span>            max_count = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  293</span>        <span class="keywordflow">elif</span> len(max_counts) &gt; 1:</div>
+<div class="line"><span class="lineno">  294</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  295</span>                <span class="stringliteral">&quot;QualifiedMaxCountConstraintComponent must have at most one sh:qualifiedMaxCount predicate.&quot;</span>,</div>
+<div class="line"><span class="lineno">  296</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  297</span>            )</div>
+<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  299</span>            max_count_literal = next(iter(max_counts))</div>
+<div class="line"><span class="lineno">  300</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(max_count_literal, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>) <span class="keywordflow">or</span> <span class="keywordflow">not</span> isinstance(max_count_literal.value, int):</div>
+<div class="line"><span class="lineno">  301</span>                <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  302</span>                    <span class="stringliteral">&quot;QualifiedMaxCountConstraintComponent sh:qualifiedMaxCount must be a Literal with Int.&quot;</span>,</div>
+<div class="line"><span class="lineno">  303</span>                    <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  304</span>                )</div>
+<div class="line"><span class="lineno">  305</span>            max_count = max_count_literal.value</div>
+<div class="line"><span class="lineno">  306</span> </div>
+<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">if</span> min_count <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> max_count <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  308</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">  309</span>                <span class="stringliteral">&quot;QualifiedValueShapeConstraintComponent must have at lease one sh:qualifiedMinCount or &quot;</span></div>
+<div class="line"><span class="lineno">  310</span>                <span class="stringliteral">&quot;sh:qualifiedMaxCount&quot;</span>,</div>
+<div class="line"><span class="lineno">  311</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl/#QualifiedValueShapeConstraintComponent&quot;</span>,</div>
+<div class="line"><span class="lineno">  312</span>            )</div>
+<div class="line"><span class="lineno">  313</span>        is_disjoint = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  314</span>        disjoint_nodes = set(self.shape.objects(SH_qualifiedValueShapesDisjoint))</div>
+<div class="line"><span class="lineno">  315</span>        <span class="keywordflow">for</span> d <span class="keywordflow">in</span> disjoint_nodes:</div>
+<div class="line"><span class="lineno">  316</span>            <span class="keywordflow">if</span> isinstance(d, <a class="code hl_class" href="a02672.html">rdflib.Literal</a>):</div>
+<div class="line"><span class="lineno">  317</span>                <span class="keywordflow">if</span> isinstance(d.value, bool):</div>
+<div class="line"><span class="lineno">  318</span>                    is_disjoint = is_disjoint <span class="keywordflow">or</span> d.value</div>
+<div class="line"><span class="lineno">  319</span>        self.min_count = min_count</div>
+<div class="line"><span class="lineno">  320</span>        self.max_count = max_count</div>
+<div class="line"><span class="lineno">  321</span>        self.is_disjoint = is_disjoint</div>
+<div class="line"><span class="lineno">  322</span> </div>
+<div class="ttc" id="aa02672_html"><div class="ttname"><a href="a02672.html">rdflib.term.Literal</a></div><div class="ttdef"><b>Definition</b> term.py:525</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01408.html#adae411263142600ae1db8adc4e90ac80">QualifiedValueShapeConstraintComponent.__init__()</a>, <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">ConstraintComponent.shape</a>, <a class="el" href="a01464.html#a45cde9abb508c62d67c3bb2b9bf566a5">BoundShapeValidatorComponent.shape</a>, <a class="el" href="a01600.html#a45cde9abb508c62d67c3bb2b9bf566a5">SPARQLQueryHelper.shape</a>, <a class="el" href="a01600.html#a7a596cec507a98f0d155b6847f5cfb39">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>, and <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">SHACLRule.shape</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01408.html#adae411263142600ae1db8adc4e90ac80">QualifiedValueShapeConstraintComponent.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0faccc27345a21a1b562e987f2d050f6" name="a0faccc27345a21a1b562e987f2d050f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0faccc27345a21a1b562e987f2d050f6">&#9670;&#160;</a></span>_evaluate_value_shape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_evaluate_value_shape </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>executor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>_v_shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>target_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>focus_value_nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>potentially_recursive</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>_evaluation_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  375</span>    ):</div>
+<div class="line"><span class="lineno">  376</span>        _reports = []</div>
+<div class="line"><span class="lineno">  377</span>        _non_conformant = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  378</span>        other_shape = self.shape.get_other_shape(_v_shape)</div>
+<div class="line"><span class="lineno">  379</span>        <span class="keywordflow">if</span> potentially_recursive <span class="keywordflow">and</span> other_shape <span class="keywordflow">in</span> potentially_recursive:</div>
+<div class="line"><span class="lineno">  380</span>            warn(ShapeRecursionWarning(_evaluation_path))</div>
+<div class="line"><span class="lineno">  381</span>            <span class="keywordflow">return</span> _non_conformant, _reports</div>
+<div class="line"><span class="lineno">  382</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> other_shape:</div>
+<div class="line"><span class="lineno">  383</span>            <span class="keywordflow">raise</span> ReportableRuntimeError(</div>
+<div class="line"><span class="lineno">  384</span>                <span class="stringliteral">&quot;Shape pointed to by sh:qualifiedValueShape does not exist or is not a well-formed SHACL Shape.&quot;</span></div>
+<div class="line"><span class="lineno">  385</span>            )</div>
+<div class="line"><span class="lineno">  386</span>        <span class="keywordflow">if</span> self.is_disjoint:</div>
+<div class="line"><span class="lineno">  387</span>            <span class="comment"># Textual Definition of Sibling Shapes:</span></div>
+<div class="line"><span class="lineno">  388</span>            <span class="comment"># Let Q be a shape in shapes graph G that declares a qualified cardinality constraint (by having values for sh:qualifiedValueShape and at least one of sh:qualifiedMinCount or sh:qualifiedMaxCount). Let ps be the set of shapes in G that have Q as a value of sh:property. If Q has true as a value for sh:qualifiedValueShapesDisjoint then the set of sibling shapes for Q is defined as the set of all values of the SPARQL property path sh:property/sh:qualifiedValueShape for any shape in ps minus the value of sh:qualifiedValueShape of Q itself. The set of sibling shapes is empty otherwise.</span></div>
+<div class="line"><span class="lineno">  389</span>            sibling_shapes = set()</div>
+<div class="line"><span class="lineno">  390</span>            parent_shapes = set(self.shape.sg.subjects(SH_property, self.shape.node))</div>
+<div class="line"><span class="lineno">  391</span>            <span class="keywordflow">for</span> p <span class="keywordflow">in</span> iter(parent_shapes):</div>
+<div class="line"><span class="lineno">  392</span>                parent_property_shapes = set(self.shape.sg.objects(p, SH_property))</div>
+<div class="line"><span class="lineno">  393</span>                <span class="keywordflow">for</span> s <span class="keywordflow">in</span> iter(parent_property_shapes):</div>
+<div class="line"><span class="lineno">  394</span>                    parent_property_qualifiedvalueshapes = set(self.shape.sg.objects(s, SH_qualifiedValueShape))</div>
+<div class="line"><span class="lineno">  395</span>                    <span class="keywordflow">for</span> sibling <span class="keywordflow">in</span> parent_property_qualifiedvalueshapes:</div>
+<div class="line"><span class="lineno">  396</span>                        <span class="keywordflow">if</span> sibling == _v_shape:</div>
+<div class="line"><span class="lineno">  397</span>                            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  398</span>                        sibling_shapes.add(sibling)</div>
+<div class="line"><span class="lineno">  399</span> </div>
+<div class="line"><span class="lineno">  400</span>            sibling_shapes = set(self.shape.get_other_shape(s) <span class="keywordflow">for</span> s <span class="keywordflow">in</span> sibling_shapes)</div>
+<div class="line"><span class="lineno">  401</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  402</span>            sibling_shapes = set()</div>
+<div class="line"><span class="lineno">  403</span>        upstream_reports = []</div>
+<div class="line"><span class="lineno">  404</span>        <span class="keywordflow">for</span> f, value_nodes <span class="keywordflow">in</span> focus_value_nodes.items():</div>
+<div class="line"><span class="lineno">  405</span>            number_conforms = 0</div>
+<div class="line"><span class="lineno">  406</span>            <span class="keywordflow">for</span> v <span class="keywordflow">in</span> value_nodes:</div>
+<div class="line"><span class="lineno">  407</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  408</span>                    _is_conform, _r = other_shape.validate(</div>
+<div class="line"><span class="lineno">  409</span>                        executor, target_graph, focus=v, _evaluation_path=_evaluation_path[:]</div>
+<div class="line"><span class="lineno">  410</span>                    )</div>
+<div class="line"><span class="lineno">  411</span>                    <span class="keywordflow">if</span> len(_r):</div>
+<div class="line"><span class="lineno">  412</span>                        upstream_reports.extend(_r)</div>
+<div class="line"><span class="lineno">  413</span>                    <span class="keywordflow">if</span> _is_conform:</div>
+<div class="line"><span class="lineno">  414</span>                        _conforms_to_sibling = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  415</span>                        <span class="keywordflow">for</span> sibling_shape <span class="keywordflow">in</span> sibling_shapes:</div>
+<div class="line"><span class="lineno">  416</span>                            _c2, _r = sibling_shape.validate(</div>
+<div class="line"><span class="lineno">  417</span>                                executor, target_graph, focus=v, _evaluation_path=_evaluation_path[:]</div>
+<div class="line"><span class="lineno">  418</span>                            )</div>
+<div class="line"><span class="lineno">  419</span>                            _conforms_to_sibling = _conforms_to_sibling <span class="keywordflow">or</span> _c2</div>
+<div class="line"><span class="lineno">  420</span>                        <span class="keywordflow">if</span> <span class="keywordflow">not</span> _conforms_to_sibling:</div>
+<div class="line"><span class="lineno">  421</span>                            number_conforms += 1</div>
+<div class="line"><span class="lineno">  422</span>                <span class="keywordflow">except</span> ValidationFailure <span class="keyword">as</span> v:</div>
+<div class="line"><span class="lineno">  423</span>                    <span class="keywordflow">raise</span> v</div>
+<div class="line"><span class="lineno">  424</span>            <span class="keywordflow">if</span> self.max_count <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> number_conforms &gt; self.max_count:</div>
+<div class="line"><span class="lineno">  425</span>                _non_conformant = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  426</span>                _r = self.make_v_result(target_graph, f, constraint_component=SH_QualifiedMaxCountConstraintComponent)</div>
+<div class="line"><span class="lineno">  427</span>                _reports.append(_r)</div>
+<div class="line"><span class="lineno">  428</span>            <span class="keywordflow">if</span> self.min_count <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> number_conforms &lt; self.min_count:</div>
+<div class="line"><span class="lineno">  429</span>                _non_conformant = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  430</span>                _r = self.make_v_result(target_graph, f, constraint_component=SH_QualifiedMinCountConstraintComponent)</div>
+<div class="line"><span class="lineno">  431</span>                _reports.append(_r)</div>
+<div class="line"><span class="lineno">  432</span>        <span class="keywordflow">if</span> len(upstream_reports) <span class="keywordflow">and</span> self.shape.sg.debug:</div>
+<div class="line"><span class="lineno">  433</span>            self.shape.logger.debug(</div>
+<div class="line"><span class="lineno">  434</span>                <span class="stringliteral">&quot;sh:qualifiedValueShape constraint reports will be ignored and not passed to the parent Node:&quot;</span></div>
+<div class="line"><span class="lineno">  435</span>            )</div>
+<div class="line"><span class="lineno">  436</span>            <span class="keywordflow">for</span> v_str, v_node, v_parts <span class="keywordflow">in</span> upstream_reports:</div>
+<div class="line"><span class="lineno">  437</span>                self.shape.logger.debug(v_str)</div>
+<div class="line"><span class="lineno">  438</span>        <span class="keywordflow">return</span> _non_conformant, _reports</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01408.html#acdf47d067c8ae134415f16d86d58f4d0">QualifiedValueShapeConstraintComponent.is_disjoint</a>, <a class="el" href="a01336.html#a2bcc97b7dc207189984f662b261b1120">ConstraintComponent.make_v_result()</a>, <a class="el" href="a01352.html#a9b4be478d6606653cdeb1453a1026e0a">MaxCountConstraintComponent.max_count</a>, <a class="el" href="a01408.html#a9b4be478d6606653cdeb1453a1026e0a">QualifiedValueShapeConstraintComponent.max_count</a>, <a class="el" href="a01348.html#a2386ba9e6ed4c5dcc6981c1ec7e0a887">MinCountConstraintComponent.min_count</a>, <a class="el" href="a01408.html#a2386ba9e6ed4c5dcc6981c1ec7e0a887">QualifiedValueShapeConstraintComponent.min_count</a>, <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">ConstraintComponent.shape</a>, <a class="el" href="a01464.html#a45cde9abb508c62d67c3bb2b9bf566a5">BoundShapeValidatorComponent.shape</a>, <a class="el" href="a01600.html#a45cde9abb508c62d67c3bb2b9bf566a5">SPARQLQueryHelper.shape</a>, <a class="el" href="a01600.html#a7a596cec507a98f0d155b6847f5cfb39">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>, and <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">SHACLRule.shape</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01408.html#a058cd2e2f7b194bae44cd5b0679378da">QualifiedValueShapeConstraintComponent.evaluate()</a>.</p>
+
+</div>
+</div>
+<a id="a15b104887ff90ecf9a8bd21d958530ad" name="a15b104887ff90ecf9a8bd21d958530ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b104887ff90ecf9a8bd21d958530ad">&#9670;&#160;</a></span>constraint_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str constraint_name </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01336.html#a15b104887ff90ecf9a8bd21d958530ad">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  328</span>    <span class="keyword">def </span>constraint_name(cls) -&gt; str:</div>
+<div class="line"><span class="lineno">  329</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;QualifiedValueShapeConstraintComponent&quot;</span></div>
+<div class="line"><span class="lineno">  330</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01336.html#a6c2e6d8c689549baab3080a52b4f20cc">ConstraintComponent.make_v_result_description()</a>.</p>
+
+</div>
+</div>
+<a id="a1ae2ce259fbb4d717a1792d620b29a70" name="a1ae2ce259fbb4d717a1792d620b29a70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae2ce259fbb4d717a1792d620b29a70">&#9670;&#160;</a></span>constraint_parameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[<a class="el" href="a02656.html">rdflib.URIRef</a>] constraint_parameters </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01336.html#afc67dd003a3b5b8727aa69776bcdbfa1">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  324</span>    <span class="keyword">def </span>constraint_parameters(cls) -&gt; List[rdflib.URIRef]:</div>
+<div class="line"><span class="lineno">  325</span>        <span class="keywordflow">return</span> [SH_qualifiedValueShape, SH_qualifiedMinCount, SH_qualifiedValueShapesDisjoint, SH_qualifiedMaxCount]</div>
+<div class="line"><span class="lineno">  326</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a058cd2e2f7b194bae44cd5b0679378da" name="a058cd2e2f7b194bae44cd5b0679378da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a058cd2e2f7b194bae44cd5b0679378da">&#9670;&#160;</a></span>evaluate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01616.html">SHACLExecutor</a>&#160;</td>
+          <td class="paramname"><em>executor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphLike&#160;</td>
+          <td class="paramname"><em>target_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict&#160;</td>
+          <td class="paramname"><em>focus_value_nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List
+    &#160;</td>
+          <td class="paramname"><em>_evaluation_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:type executor: SHACLExecutor
+:type target_graph: rdflib.Graph
+:type focus_value_nodes: dict
+:type _evaluation_path: list
+</pre> 
+<p>Reimplemented from <a class="el" href="a01336.html#a058cd2e2f7b194bae44cd5b0679378da">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  346</span>    ):</div>
+<div class="line"><span class="lineno">  347</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  348</span><span class="stringliteral">        :type executor: SHACLExecutor</span></div>
+<div class="line"><span class="lineno">  349</span><span class="stringliteral">        :type target_graph: rdflib.Graph</span></div>
+<div class="line"><span class="lineno">  350</span><span class="stringliteral">        :type focus_value_nodes: dict</span></div>
+<div class="line"><span class="lineno">  351</span><span class="stringliteral">        :type _evaluation_path: list</span></div>
+<div class="line"><span class="lineno">  352</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  353</span>        reports: List[Dict] = []</div>
+<div class="line"><span class="lineno">  354</span>        non_conformant = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  355</span> </div>
+<div class="line"><span class="lineno">  356</span>        <span class="comment"># Shortcut, when there are no value nodes, don&#39;t check for recursion, don&#39;t validate and exit early</span></div>
+<div class="line"><span class="lineno">  357</span>        value_node_count = 0</div>
+<div class="line"><span class="lineno">  358</span>        <span class="keywordflow">for</span> f, value_nodes <span class="keywordflow">in</span> focus_value_nodes.items():</div>
+<div class="line"><span class="lineno">  359</span>            value_node_count = value_node_count + len(value_nodes)</div>
+<div class="line"><span class="lineno">  360</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.is_disjoint <span class="keywordflow">and</span> value_node_count &lt; 1 <span class="keywordflow">and</span> (self.min_count <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> self.min_count &lt; 1):</div>
+<div class="line"><span class="lineno">  361</span>            <span class="keywordflow">return</span> (<span class="keywordflow">not</span> non_conformant), reports</div>
+<div class="line"><span class="lineno">  362</span> </div>
+<div class="line"><span class="lineno">  363</span>        potentially_recursive = self.recursion_triggers(_evaluation_path)</div>
+<div class="line"><span class="lineno">  364</span> </div>
+<div class="line"><span class="lineno">  365</span>        <span class="keywordflow">for</span> v_shape <span class="keywordflow">in</span> self.value_shapes:</div>
+<div class="line"><span class="lineno">  366</span>            _nc, _r = self._evaluate_value_shape(</div>
+<div class="line"><span class="lineno">  367</span>                executor, v_shape, target_graph, focus_value_nodes, potentially_recursive, _evaluation_path</div>
+<div class="line"><span class="lineno">  368</span>            )</div>
+<div class="line"><span class="lineno">  369</span>            non_conformant = non_conformant <span class="keywordflow">or</span> _nc</div>
+<div class="line"><span class="lineno">  370</span>            reports.extend(_r)</div>
+<div class="line"><span class="lineno">  371</span>        <span class="keywordflow">return</span> (<span class="keywordflow">not</span> non_conformant), reports</div>
+<div class="line"><span class="lineno">  372</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01408.html#a0faccc27345a21a1b562e987f2d050f6">QualifiedValueShapeConstraintComponent._evaluate_value_shape()</a>, <a class="el" href="a01408.html#acdf47d067c8ae134415f16d86d58f4d0">QualifiedValueShapeConstraintComponent.is_disjoint</a>, <a class="el" href="a01348.html#a2386ba9e6ed4c5dcc6981c1ec7e0a887">MinCountConstraintComponent.min_count</a>, <a class="el" href="a01408.html#a2386ba9e6ed4c5dcc6981c1ec7e0a887">QualifiedValueShapeConstraintComponent.min_count</a>, <a class="el" href="a01336.html#a02fd9320d10f6c0d08449f5bd21c1939">ConstraintComponent.recursion_triggers()</a>, and <a class="el" href="a01408.html#a78ceb75d8907fd364358b9a599ee7130">QualifiedValueShapeConstraintComponent.value_shapes</a>.</p>
+
+</div>
+</div>
+<a id="a9a33d1d0ea92f75b00911929c5d43639" name="a9a33d1d0ea92f75b00911929c5d43639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a33d1d0ea92f75b00911929c5d43639">&#9670;&#160;</a></span>make_generic_messages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[<a class="el" href="a02672.html">rdflib.Literal</a>] make_generic_messages </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphLike&#160;</td>
+          <td class="paramname"><em>datagraph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>focus_node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>value_node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01336.html#aca74f5c255d942ed99ce1f93ab8821f7">ConstraintComponent</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  331</span>    <span class="keyword">def </span>make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -&gt; List[<a class="code hl_class" href="a02672.html">rdflib.Literal</a>]:</div>
+<div class="line"><span class="lineno">  332</span>        <span class="comment"># TODO:</span></div>
+<div class="line"><span class="lineno">  333</span>        <span class="comment">#  Implement default message for QualifiedValueConstraint (seems messy)</span></div>
+<div class="line"><span class="lineno">  334</span>        shapes_string = <span class="stringliteral">&quot;,&quot;</span>.join(stringify_node(self.shape.sg.graph, s) <span class="keywordflow">for</span> s <span class="keywordflow">in</span> self.value_shapes)</div>
+<div class="line"><span class="lineno">  335</span>        count_message = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  336</span>        <span class="keywordflow">if</span> self.min_count <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  337</span>            count_message += f<span class="stringliteral">&quot; MinCount {self.min_count}&quot;</span></div>
+<div class="line"><span class="lineno">  338</span>        <span class="keywordflow">if</span> self.max_count <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  339</span>            count_message += f<span class="stringliteral">&quot; MaxCount {self.max_count}&quot;</span></div>
+<div class="line"><span class="lineno">  340</span>        <span class="keywordflow">if</span> len(self.value_shapes) &gt; 1:</div>
+<div class="line"><span class="lineno">  341</span>            <span class="keywordflow">return</span> [<a class="code hl_class" href="a02672.html">rdflib.Literal</a>(f<span class="stringliteral">&quot;Focus node does not conform to shapes{count_message}: ({shapes_string})&quot;</span>)]</div>
+<div class="line"><span class="lineno">  342</span>        <span class="keywordflow">return</span> [<a class="code hl_class" href="a02672.html">rdflib.Literal</a>(f<span class="stringliteral">&quot;Focus node does not conform to shape{count_message}: {shapes_string}&quot;</span>)]</div>
+<div class="line"><span class="lineno">  343</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01352.html#a9b4be478d6606653cdeb1453a1026e0a">MaxCountConstraintComponent.max_count</a>, <a class="el" href="a01408.html#a9b4be478d6606653cdeb1453a1026e0a">QualifiedValueShapeConstraintComponent.max_count</a>, <a class="el" href="a01348.html#a2386ba9e6ed4c5dcc6981c1ec7e0a887">MinCountConstraintComponent.min_count</a>, <a class="el" href="a01408.html#a2386ba9e6ed4c5dcc6981c1ec7e0a887">QualifiedValueShapeConstraintComponent.min_count</a>, <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">ConstraintComponent.shape</a>, <a class="el" href="a01464.html#a45cde9abb508c62d67c3bb2b9bf566a5">BoundShapeValidatorComponent.shape</a>, <a class="el" href="a01600.html#a45cde9abb508c62d67c3bb2b9bf566a5">SPARQLQueryHelper.shape</a>, <a class="el" href="a01600.html#a7a596cec507a98f0d155b6847f5cfb39">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">SHACLRule.shape</a>, and <a class="el" href="a01408.html#a78ceb75d8907fd364358b9a599ee7130">QualifiedValueShapeConstraintComponent.value_shapes</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01336.html#a2bcc97b7dc207189984f662b261b1120">ConstraintComponent.make_v_result()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="acdf47d067c8ae134415f16d86d58f4d0" name="acdf47d067c8ae134415f16d86d58f4d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf47d067c8ae134415f16d86d58f4d0">&#9670;&#160;</a></span>is_disjoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">is_disjoint</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01408.html#a0faccc27345a21a1b562e987f2d050f6">QualifiedValueShapeConstraintComponent._evaluate_value_shape()</a>, and <a class="el" href="a01408.html#a058cd2e2f7b194bae44cd5b0679378da">QualifiedValueShapeConstraintComponent.evaluate()</a>.</p>
+
+</div>
+</div>
+<a id="a64d36ad3dbbe27ebf114cd8f0fa2f72e" name="a64d36ad3dbbe27ebf114cd8f0fa2f72e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64d36ad3dbbe27ebf114cd8f0fa2f72e">&#9670;&#160;</a></span>list_taking</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool list_taking = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b4be478d6606653cdeb1453a1026e0a" name="a9b4be478d6606653cdeb1453a1026e0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b4be478d6606653cdeb1453a1026e0a">&#9670;&#160;</a></span>max_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">max_count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01408.html#a0faccc27345a21a1b562e987f2d050f6">QualifiedValueShapeConstraintComponent._evaluate_value_shape()</a>, <a class="el" href="a01352.html#a058cd2e2f7b194bae44cd5b0679378da">MaxCountConstraintComponent.evaluate()</a>, <a class="el" href="a01352.html#aca74f5c255d942ed99ce1f93ab8821f7">MaxCountConstraintComponent.make_generic_messages()</a>, and <a class="el" href="a01408.html#a9a33d1d0ea92f75b00911929c5d43639">QualifiedValueShapeConstraintComponent.make_generic_messages()</a>.</p>
+
+</div>
+</div>
+<a id="a2386ba9e6ed4c5dcc6981c1ec7e0a887" name="a2386ba9e6ed4c5dcc6981c1ec7e0a887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2386ba9e6ed4c5dcc6981c1ec7e0a887">&#9670;&#160;</a></span>min_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">min_count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01408.html#a0faccc27345a21a1b562e987f2d050f6">QualifiedValueShapeConstraintComponent._evaluate_value_shape()</a>, <a class="el" href="a01348.html#a058cd2e2f7b194bae44cd5b0679378da">MinCountConstraintComponent.evaluate()</a>, <a class="el" href="a01408.html#a058cd2e2f7b194bae44cd5b0679378da">QualifiedValueShapeConstraintComponent.evaluate()</a>, <a class="el" href="a01348.html#aca74f5c255d942ed99ce1f93ab8821f7">MinCountConstraintComponent.make_generic_messages()</a>, and <a class="el" href="a01408.html#a9a33d1d0ea92f75b00911929c5d43639">QualifiedValueShapeConstraintComponent.make_generic_messages()</a>.</p>
+
+</div>
+</div>
+<a id="a9cb5bbf57d0dc29634d5f1c0497a0d90" name="a9cb5bbf57d0dc29634d5f1c0497a0d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cb5bbf57d0dc29634d5f1c0497a0d90">&#9670;&#160;</a></span>shacl_constraint_component</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">shacl_constraint_component = NotImplemented</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01336.html#a2bcc97b7dc207189984f662b261b1120">ConstraintComponent.make_v_result()</a>, <a class="el" href="a01336.html#a6c2e6d8c689549baab3080a52b4f20cc">ConstraintComponent.make_v_result_description()</a>, and <a class="el" href="a01336.html#a02fd9320d10f6c0d08449f5bd21c1939">ConstraintComponent.recursion_triggers()</a>.</p>
+
+</div>
+</div>
+<a id="a030ef945630575b8a121e0f3b2ca51b9" name="a030ef945630575b8a121e0f3b2ca51b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a030ef945630575b8a121e0f3b2ca51b9">&#9670;&#160;</a></span>shape_expecting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool shape_expecting = True</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a78ceb75d8907fd364358b9a599ee7130" name="a78ceb75d8907fd364358b9a599ee7130"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78ceb75d8907fd364358b9a599ee7130">&#9670;&#160;</a></span>value_shapes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">value_shapes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01408.html#a058cd2e2f7b194bae44cd5b0679378da">QualifiedValueShapeConstraintComponent.evaluate()</a>, and <a class="el" href="a01408.html#a9a33d1d0ea92f75b00911929c5d43639">QualifiedValueShapeConstraintComponent.make_generic_messages()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00934.html">constraints</a></li><li class="navelem"><a class="el" href="a00937.html">core</a></li><li class="navelem"><a class="el" href="a00942.html">shape_based_constraints</a></li><li class="navelem"><a class="el" href="a01408.html">QualifiedValueShapeConstraintComponent</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

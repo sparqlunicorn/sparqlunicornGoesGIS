@@ -1,0 +1,1497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: BytesIOWrapper Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02096.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="a02093.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">BytesIOWrapper Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for BytesIOWrapper:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02095.png" border="0" usemap="#aBytesIOWrapper_inherit__map" alt="Inheritance graph"/></div>
+<map name="aBytesIOWrapper_inherit__map" id="aBytesIOWrapper_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,133,104"/>
+<area shape="rect" title=" " alt="" coords="8,5,131,31"/>
+<area shape="poly" title=" " alt="" coords="72,44,72,79,67,79,67,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for BytesIOWrapper:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02094.png" border="0" usemap="#aBytesIOWrapper_coll__map" alt="Collaboration graph"/></div>
+<map name="aBytesIOWrapper_coll__map" id="aBytesIOWrapper_coll__map">
+<area shape="rect" title=" " alt="" coords="59,93,187,119"/>
+<area shape="rect" title=" " alt="" coords="5,5,128,31"/>
+<area shape="poly" title=" " alt="" coords="84,41,117,91,113,94,79,44"/>
+<area shape="rect" title=" " alt="" coords="153,5,207,31"/>
+<area shape="poly" title=" " alt="" coords="167,44,133,94,128,91,162,41"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aff33291ee47294adccd5e14614fb6316" id="r_aff33291ee47294adccd5e14614fb6316"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#aff33291ee47294adccd5e14614fb6316">__init__</a> (self, Union[str, StringIO, TextIOBase] <a class="el" href="a02096.html#af13180580a338fad7ca4e2e7c3f02c3b">wrapped</a>, <a class="el" href="a02096.html#ab1000d1f2ea9878f60bc119650013894">encoding</a>=&quot;utf-8&quot;)</td></tr>
+<tr class="separator:aff33291ee47294adccd5e14614fb6316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52604536027f90ddf5d31f23a3a1a07b" id="r_a52604536027f90ddf5d31f23a3a1a07b"><td class="memItemLeft" align="right" valign="top">Any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a52604536027f90ddf5d31f23a3a1a07b">name</a> (self)</td></tr>
+<tr class="separator:a52604536027f90ddf5d31f23a3a1a07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeae23ba00d10ab30b1ffe781da01372" id="r_aeeae23ba00d10ab30b1ffe781da01372"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#aeeae23ba00d10ab30b1ffe781da01372">closed</a> (self)</td></tr>
+<tr class="separator:aeeae23ba00d10ab30b1ffe781da01372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44a63fd6f5402db231dfe42faf26e830" id="r_a44a63fd6f5402db231dfe42faf26e830"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a44a63fd6f5402db231dfe42faf26e830">readable</a> (self)</td></tr>
+<tr class="separator:a44a63fd6f5402db231dfe42faf26e830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fb89e4bfb7902168ac456527cc520e6" id="r_a3fb89e4bfb7902168ac456527cc520e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a3fb89e4bfb7902168ac456527cc520e6">writable</a> (self)</td></tr>
+<tr class="separator:a3fb89e4bfb7902168ac456527cc520e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32339a0544a0114f26142a8022c1adea" id="r_a32339a0544a0114f26142a8022c1adea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a32339a0544a0114f26142a8022c1adea">truncate</a> (self, Optional[int] size=None)</td></tr>
+<tr class="separator:a32339a0544a0114f26142a8022c1adea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b16807692cbed627ff8819c8d96c0d3" id="r_a4b16807692cbed627ff8819c8d96c0d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a4b16807692cbed627ff8819c8d96c0d3">isatty</a> (self)</td></tr>
+<tr class="separator:a4b16807692cbed627ff8819c8d96c0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12489cd3bfa2d2486ecd574cf12fa7f1" id="r_a12489cd3bfa2d2486ecd574cf12fa7f1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a12489cd3bfa2d2486ecd574cf12fa7f1">fileno</a> (self)</td></tr>
+<tr class="separator:a12489cd3bfa2d2486ecd574cf12fa7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ab79e14e24aa440dcd1d9e822eb1f1c" id="r_a8ab79e14e24aa440dcd1d9e822eb1f1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">close</a> (self)</td></tr>
+<tr class="separator:a8ab79e14e24aa440dcd1d9e822eb1f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fc36f6ac807f2a33915ec2a59409ef" id="r_a80fc36f6ac807f2a33915ec2a59409ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a80fc36f6ac807f2a33915ec2a59409ef">flush</a> (self)</td></tr>
+<tr class="separator:a80fc36f6ac807f2a33915ec2a59409ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8bf2cc99273cdd57d6d30dfe5586de6" id="r_ae8bf2cc99273cdd57d6d30dfe5586de6"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">read</a> (self, Optional[int] size=-1)</td></tr>
+<tr class="separator:ae8bf2cc99273cdd57d6d30dfe5586de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece8047be2d8abca155491640cf72721" id="r_aece8047be2d8abca155491640cf72721"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#aece8047be2d8abca155491640cf72721">read1</a> (self, Optional[int] size=-1)</td></tr>
+<tr class="separator:aece8047be2d8abca155491640cf72721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c77283b19463f8a96250be0e671213" id="r_a98c77283b19463f8a96250be0e671213"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a98c77283b19463f8a96250be0e671213">readinto</a> (self, Buffer b)</td></tr>
+<tr class="separator:a98c77283b19463f8a96250be0e671213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a774fb3a92411df8067d175f4a24d62c0" id="r_a774fb3a92411df8067d175f4a24d62c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a774fb3a92411df8067d175f4a24d62c0">readinto1</a> (self, Buffer b)</td></tr>
+<tr class="separator:a774fb3a92411df8067d175f4a24d62c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94dd30f2a70ad3933b9b65d24ba6ccc5" id="r_a94dd30f2a70ad3933b9b65d24ba6ccc5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a94dd30f2a70ad3933b9b65d24ba6ccc5">seek</a> (self, int offset, int whence=0)</td></tr>
+<tr class="separator:a94dd30f2a70ad3933b9b65d24ba6ccc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94a8210cb09a2397616d36257e5cd0b6" id="r_a94a8210cb09a2397616d36257e5cd0b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a94a8210cb09a2397616d36257e5cd0b6">seekable</a> (self)</td></tr>
+<tr class="separator:a94a8210cb09a2397616d36257e5cd0b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f61db0e14f51eac4143c1b563f08978" id="r_a6f61db0e14f51eac4143c1b563f08978"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a6f61db0e14f51eac4143c1b563f08978">tell</a> (self)</td></tr>
+<tr class="separator:a6f61db0e14f51eac4143c1b563f08978"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaba36b77b9c0af01016f458211b2fa43" id="r_aaba36b77b9c0af01016f458211b2fa43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#aaba36b77b9c0af01016f458211b2fa43">write</a> (self, b)</td></tr>
+<tr class="separator:aaba36b77b9c0af01016f458211b2fa43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:af13180580a338fad7ca4e2e7c3f02c3b" id="r_af13180580a338fad7ca4e2e7c3f02c3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#af13180580a338fad7ca4e2e7c3f02c3b">wrapped</a></td></tr>
+<tr class="separator:af13180580a338fad7ca4e2e7c3f02c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1000d1f2ea9878f60bc119650013894" id="r_ab1000d1f2ea9878f60bc119650013894"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#ab1000d1f2ea9878f60bc119650013894">encoding</a></td></tr>
+<tr class="separator:ab1000d1f2ea9878f60bc119650013894"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff80d4aad8b4350f0ff3589d6363b417" id="r_aff80d4aad8b4350f0ff3589d6363b417"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#aff80d4aad8b4350f0ff3589d6363b417">encoder</a></td></tr>
+<tr class="separator:aff80d4aad8b4350f0ff3589d6363b417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa544c16dc8bab18a08e3bf387ec2b7c1" id="r_aa544c16dc8bab18a08e3bf387ec2b7c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">enc_str</a></td></tr>
+<tr class="separator:aa544c16dc8bab18a08e3bf387ec2b7c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49d12b0c8039b806dcd4418d34a318ee" id="r_a49d12b0c8039b806dcd4418d34a318ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">text_str</a></td></tr>
+<tr class="separator:a49d12b0c8039b806dcd4418d34a318ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e880172f17447fc27ae2434398f2d5c" id="r_a0e880172f17447fc27ae2434398f2d5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a0e880172f17447fc27ae2434398f2d5c">has_read1</a></td></tr>
+<tr class="separator:a0e880172f17447fc27ae2434398f2d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc70cb126cd8ab3d106670d3d99b4c9d" id="r_acc70cb126cd8ab3d106670d3d99b4c9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#acc70cb126cd8ab3d106670d3d99b4c9d">has_seek</a></td></tr>
+<tr class="separator:acc70cb126cd8ab3d106670d3d99b4c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a818bfe5a6cb25335f9fb0b3ac831c9cf" id="r_a818bfe5a6cb25335f9fb0b3ac831c9cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">_init</a> (self)</td></tr>
+<tr class="separator:a818bfe5a6cb25335f9fb0b3ac831c9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d4b846b2077ce23a133b6e80e9602de" id="r_a0d4b846b2077ce23a133b6e80e9602de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a0d4b846b2077ce23a133b6e80e9602de">_check_fileno</a> (self)</td></tr>
+<tr class="separator:a0d4b846b2077ce23a133b6e80e9602de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a862df8a72da5e1746317ef685eadac91" id="r_a862df8a72da5e1746317ef685eadac91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a862df8a72da5e1746317ef685eadac91">_check_isatty</a> (self)</td></tr>
+<tr class="separator:a862df8a72da5e1746317ef685eadac91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4781598a375dfbc7e0ed9cc52131a6c4" id="r_a4781598a375dfbc7e0ed9cc52131a6c4"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a4781598a375dfbc7e0ed9cc52131a6c4">_read_bytes_from_text_stream</a> (self, Optional[int] size=-1)</td></tr>
+<tr class="separator:a4781598a375dfbc7e0ed9cc52131a6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a89ebf3a6c223efb1839bb795ca3e05d7" id="r_a89ebf3a6c223efb1839bb795ca3e05d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a89ebf3a6c223efb1839bb795ca3e05d7">_bytes_per_char</a></td></tr>
+<tr class="separator:a89ebf3a6c223efb1839bb795ca3e05d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a705391f3be33314bd5788a28f7538642" id="r_a705391f3be33314bd5788a28f7538642"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a705391f3be33314bd5788a28f7538642">_name</a></td></tr>
+<tr class="separator:a705391f3be33314bd5788a28f7538642"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ccf89b40c285245d0361a4309095889" id="r_a8ccf89b40c285245d0361a4309095889"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a8ccf89b40c285245d0361a4309095889">_fileno</a></td></tr>
+<tr class="separator:a8ccf89b40c285245d0361a4309095889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34f509cb5abddaba18faf70cb0c1e2b4" id="r_a34f509cb5abddaba18faf70cb0c1e2b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a34f509cb5abddaba18faf70cb0c1e2b4">_isatty</a></td></tr>
+<tr class="separator:a34f509cb5abddaba18faf70cb0c1e2b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c2f2f3fbdca38d49e23e2a9aa9bbb7e" id="r_a4c2f2f3fbdca38d49e23e2a9aa9bbb7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a4c2f2f3fbdca38d49e23e2a9aa9bbb7e">_leftover</a></td></tr>
+<tr class="separator:a4c2f2f3fbdca38d49e23e2a9aa9bbb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a092c1ba42873b91209a6f2a97cfefae7" id="r_a092c1ba42873b91209a6f2a97cfefae7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#a092c1ba42873b91209a6f2a97cfefae7">_text_bytes_offset</a></td></tr>
+<tr class="separator:a092c1ba42873b91209a6f2a97cfefae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aef04051147f1d02390e4e37bc7a09417" id="r_aef04051147f1d02390e4e37bc7a09417"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02096.html#aef04051147f1d02390e4e37bc7a09417">__slots__</a></td></tr>
+<tr class="separator:aef04051147f1d02390e4e37bc7a09417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aff33291ee47294adccd5e14614fb6316" name="aff33291ee47294adccd5e14614fb6316"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff33291ee47294adccd5e14614fb6316">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[str, StringIO, TextIOBase]&#160;</td>
+          <td class="paramname"><em>wrapped</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>encoding</em> = <code>&quot;utf-8&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   87</span>    <span class="keyword">def </span>__init__(self, wrapped: Union[str, StringIO, TextIOBase], encoding=<span class="stringliteral">&quot;utf-8&quot;</span>):</div>
+<div class="line"><span class="lineno">   88</span>        super(BytesIOWrapper, self).__init__()</div>
+<div class="line"><span class="lineno">   89</span>        self.wrapped = wrapped</div>
+<div class="line"><span class="lineno">   90</span>        self.encoding = encoding</div>
+<div class="line"><span class="lineno">   91</span>        self.encoder = codecs.getencoder(self.encoding)</div>
+<div class="line"><span class="lineno">   92</span>        self.enc_str: Optional[Union[BytesIO, BufferedIOBase]] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   93</span>        self.text_str: Optional[Union[StringIO, TextIOBase]] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   94</span>        self.has_read1: Optional[bool] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   95</span>        self.has_seek: Optional[bool] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   96</span>        self._name: Optional[str] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   97</span>        self._fileno: Optional[Union[int, BaseException]] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   98</span>        self._isatty: Optional[Union[bool, BaseException]] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   99</span>        self._leftover: bytes = b<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  100</span>        self._text_bytes_offset: int = 0</div>
+<div class="line"><span class="lineno">  101</span>        norm_encoding = encoding.lower().replace(<span class="stringliteral">&quot;_&quot;</span>, <span class="stringliteral">&quot;-&quot;</span>)</div>
+<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">if</span> norm_encoding <span class="keywordflow">in</span> (<span class="stringliteral">&quot;utf-8&quot;</span>, <span class="stringliteral">&quot;utf8&quot;</span>, <span class="stringliteral">&quot;u8&quot;</span>, <span class="stringliteral">&quot;cp65001&quot;</span>):</div>
+<div class="line"><span class="lineno">  103</span>            <span class="comment"># utf-8 has a variable number of bytes per character, 1-4</span></div>
+<div class="line"><span class="lineno">  104</span>            self._bytes_per_char: int = 1  <span class="comment"># assume average of 1 byte per character</span></div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">elif</span> norm_encoding <span class="keywordflow">in</span> (</div>
+<div class="line"><span class="lineno">  106</span>            <span class="stringliteral">&quot;latin1&quot;</span>,</div>
+<div class="line"><span class="lineno">  107</span>            <span class="stringliteral">&quot;latin-1&quot;</span>,</div>
+<div class="line"><span class="lineno">  108</span>            <span class="stringliteral">&quot;iso-8859-1&quot;</span>,</div>
+<div class="line"><span class="lineno">  109</span>            <span class="stringliteral">&quot;iso8859-1&quot;</span>,</div>
+<div class="line"><span class="lineno">  110</span>            <span class="stringliteral">&quot;ascii&quot;</span>,</div>
+<div class="line"><span class="lineno">  111</span>            <span class="stringliteral">&quot;us-ascii&quot;</span>,</div>
+<div class="line"><span class="lineno">  112</span>        ):</div>
+<div class="line"><span class="lineno">  113</span>            <span class="comment"># these are all 1-byte-per-character encodings</span></div>
+<div class="line"><span class="lineno">  114</span>            self._bytes_per_char = 1</div>
+<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">elif</span> norm_encoding.startswith(<span class="stringliteral">&quot;utf-16&quot;</span>) <span class="keywordflow">or</span> norm_encoding.startswith(<span class="stringliteral">&quot;utf16&quot;</span>):</div>
+<div class="line"><span class="lineno">  116</span>            <span class="comment"># utf-16 has a variable number of bytes per character, 2-3</span></div>
+<div class="line"><span class="lineno">  117</span>            self._bytes_per_char = 2  <span class="comment"># assume average of 2 bytes per character</span></div>
+<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">elif</span> norm_encoding.startswith(<span class="stringliteral">&quot;utf-32&quot;</span>) <span class="keywordflow">or</span> norm_encoding.startswith(<span class="stringliteral">&quot;utf32&quot;</span>):</div>
+<div class="line"><span class="lineno">  119</span>            <span class="comment"># utf-32 is fixed length with 4 bytes per character</span></div>
+<div class="line"><span class="lineno">  120</span>            self._bytes_per_char = 4</div>
+<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  122</span>            <span class="comment"># not sure, just assume it is 2 bytes per character</span></div>
+<div class="line"><span class="lineno">  123</span>            self._bytes_per_char = 2</div>
+<div class="line"><span class="lineno">  124</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#aff33291ee47294adccd5e14614fb6316">BytesIOWrapper.__init__()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#aff33291ee47294adccd5e14614fb6316">BytesIOWrapper.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0d4b846b2077ce23a133b6e80e9602de" name="a0d4b846b2077ce23a133b6e80e9602de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d4b846b2077ce23a133b6e80e9602de">&#9670;&#160;</a></span>_check_fileno()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_check_fileno </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  162</span>    <span class="keyword">def </span>_check_fileno(self):</div>
+<div class="line"><span class="lineno">  163</span>        use_stream: Union[BytesIO, StringIO, BufferedIOBase, TextIOBase]</div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  165</span>            self._init()</div>
+<div class="line"><span class="lineno">  166</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  167</span>            use_stream = self.enc_str</div>
+<div class="line"><span class="lineno">  168</span>        <span class="keywordflow">elif</span> self.text_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  169</span>            use_stream = self.text_str</div>
+<div class="line"><span class="lineno">  170</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  171</span>            self._fileno = use_stream.fileno()</div>
+<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">except</span> OSError <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  173</span>            self._fileno = e</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  175</span>            self._fileno = -1</div>
+<div class="line"><span class="lineno">  176</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a12489cd3bfa2d2486ecd574cf12fa7f1">BytesIOWrapper.fileno()</a>.</p>
+
+</div>
+</div>
+<a id="a862df8a72da5e1746317ef685eadac91" name="a862df8a72da5e1746317ef685eadac91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a862df8a72da5e1746317ef685eadac91">&#9670;&#160;</a></span>_check_isatty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_check_isatty </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  177</span>    <span class="keyword">def </span>_check_isatty(self):</div>
+<div class="line"><span class="lineno">  178</span>        use_stream: Union[BytesIO, StringIO, BufferedIOBase, TextIOBase]</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  180</span>            self._init()</div>
+<div class="line"><span class="lineno">  181</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  182</span>            use_stream = self.enc_str</div>
+<div class="line"><span class="lineno">  183</span>        <span class="keywordflow">elif</span> self.text_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  184</span>            use_stream = self.text_str</div>
+<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  186</span>            self._isatty = use_stream.isatty()</div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">except</span> OSError <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  188</span>            self._isatty = e</div>
+<div class="line"><span class="lineno">  189</span>        <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  190</span>            self._isatty = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  191</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a4b16807692cbed627ff8819c8d96c0d3">BytesIOWrapper.isatty()</a>.</p>
+
+</div>
+</div>
+<a id="a818bfe5a6cb25335f9fb0b3ac831c9cf" name="a818bfe5a6cb25335f9fb0b3ac831c9cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a818bfe5a6cb25335f9fb0b3ac831c9cf">&#9670;&#160;</a></span>_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_init </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  125</span>    <span class="keyword">def </span>_init(self):</div>
+<div class="line"><span class="lineno">  126</span>        name: Optional[str] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">if</span> isinstance(self.wrapped, str):</div>
+<div class="line"><span class="lineno">  128</span>            b, blen = self.encoder(self.wrapped)</div>
+<div class="line"><span class="lineno">  129</span>            self.enc_str = BytesIO(b)</div>
+<div class="line"><span class="lineno">  130</span>            name = <span class="stringliteral">&quot;string&quot;</span></div>
+<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">elif</span> isinstance(self.wrapped, TextIOWrapper):</div>
+<div class="line"><span class="lineno">  132</span>            inner = self.wrapped.buffer</div>
+<div class="line"><span class="lineno">  133</span>            <span class="keywordflow">if</span> isinstance(inner, BytesIOWrapper):</div>
+<div class="line"><span class="lineno">  134</span>                <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(</div>
+<div class="line"><span class="lineno">  135</span>                    <span class="stringliteral">&quot;BytesIOWrapper cannot be wrapped in TextIOWrapper, &quot;</span></div>
+<div class="line"><span class="lineno">  136</span>                    <span class="stringliteral">&quot;then wrapped in another BytesIOWrapper&quot;</span></div>
+<div class="line"><span class="lineno">  137</span>                )</div>
+<div class="line"><span class="lineno">  138</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  139</span>                self.enc_str = cast(BufferedIOBase, inner)</div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">elif</span> isinstance(self.wrapped, (TextIOBase, StringIO)):</div>
+<div class="line"><span class="lineno">  141</span>            self.text_str = self.wrapped</div>
+<div class="line"><span class="lineno">  142</span>        use_stream: Union[BytesIO, StringIO, BufferedIOBase, TextIOBase]</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  144</span>            use_stream = self.enc_str</div>
+<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">elif</span> self.text_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  146</span>            use_stream = self.text_str</div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  148</span>            <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(<span class="stringliteral">&quot;No stream to read from&quot;</span>)</div>
+<div class="line"><span class="lineno">  149</span>        <span class="keywordflow">if</span> name <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  150</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  151</span>                name = use_stream.name  <span class="comment"># type: ignore[union-attr]</span></div>
+<div class="line"><span class="lineno">  152</span>            <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  153</span>                name = <span class="stringliteral">&quot;stream&quot;</span></div>
+<div class="line"><span class="lineno">  154</span>        self.has_read1 = hasattr(use_stream, <span class="stringliteral">&quot;read1&quot;</span>)</div>
+<div class="line"><span class="lineno">  155</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  156</span>            self.has_seek = use_stream.seekable()</div>
+<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  158</span>            self.has_seek = hasattr(use_stream, <span class="stringliteral">&quot;seek&quot;</span>)</div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span>        self._name = name</div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="ttc" id="aa07480_html"><div class="ttname"><a href="a07480.html">Exception</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#aff80d4aad8b4350f0ff3589d6363b417">BytesIOWrapper.encoder</a>, and <a class="el" href="a02096.html#af13180580a338fad7ca4e2e7c3f02c3b">BytesIOWrapper.wrapped</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a0d4b846b2077ce23a133b6e80e9602de">BytesIOWrapper._check_fileno()</a>, <a class="el" href="a02096.html#a862df8a72da5e1746317ef685eadac91">BytesIOWrapper._check_isatty()</a>, <a class="el" href="a02096.html#a52604536027f90ddf5d31f23a3a1a07b">BytesIOWrapper.name()</a>, <a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">BytesIOWrapper.read()</a>, <a class="el" href="a02096.html#aece8047be2d8abca155491640cf72721">BytesIOWrapper.read1()</a>, <a class="el" href="a02096.html#a98c77283b19463f8a96250be0e671213">BytesIOWrapper.readinto()</a>, <a class="el" href="a02096.html#a774fb3a92411df8067d175f4a24d62c0">BytesIOWrapper.readinto1()</a>, <a class="el" href="a02096.html#a94dd30f2a70ad3933b9b65d24ba6ccc5">BytesIOWrapper.seek()</a>, and <a class="el" href="a02096.html#a94a8210cb09a2397616d36257e5cd0b6">BytesIOWrapper.seekable()</a>.</p>
+
+</div>
+</div>
+<a id="a4781598a375dfbc7e0ed9cc52131a6c4" name="a4781598a375dfbc7e0ed9cc52131a6c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4781598a375dfbc7e0ed9cc52131a6c4">&#9670;&#160;</a></span>_read_bytes_from_text_stream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bytes _read_bytes_from_text_stream </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] &#160;</td>
+          <td class="paramname"><em>size</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  257</span>    <span class="keyword">def </span>_read_bytes_from_text_stream(self, size: Optional[int] = -1, /) -&gt; bytes:</div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">if</span> TYPE_CHECKING:</div>
+<div class="line"><span class="lineno">  259</span>            <span class="keyword">assert</span> self.text_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">if</span> size <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> size &lt; 0:</div>
+<div class="line"><span class="lineno">  261</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  262</span>                ret_str: str = self.text_str.read()</div>
+<div class="line"><span class="lineno">  263</span>            <span class="keywordflow">except</span> EOFError:</div>
+<div class="line"><span class="lineno">  264</span>                ret_str = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  265</span>            ret_encoded, enc_len = self.encoder(ret_str)</div>
+<div class="line"><span class="lineno">  266</span>            <span class="keywordflow">if</span> self._leftover:</div>
+<div class="line"><span class="lineno">  267</span>                ret_bytes = self._leftover + ret_encoded</div>
+<div class="line"><span class="lineno">  268</span>                self._leftover = b<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  269</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  270</span>                ret_bytes = ret_encoded</div>
+<div class="line"><span class="lineno">  271</span>        <span class="keywordflow">elif</span> size == len(self._leftover):</div>
+<div class="line"><span class="lineno">  272</span>            ret_bytes = self._leftover</div>
+<div class="line"><span class="lineno">  273</span>            self._leftover = b<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  274</span>        <span class="keywordflow">elif</span> size &lt; len(self._leftover):</div>
+<div class="line"><span class="lineno">  275</span>            ret_bytes = self._leftover[:size]</div>
+<div class="line"><span class="lineno">  276</span>            self._leftover = self._leftover[size:]</div>
+<div class="line"><span class="lineno">  277</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  278</span>            d, m = divmod(size, self._bytes_per_char)</div>
+<div class="line"><span class="lineno">  279</span>            get_per_loop = int(d) + (1 <span class="keywordflow">if</span> m &gt; 0 <span class="keywordflow">else</span> 0)</div>
+<div class="line"><span class="lineno">  280</span>            got_bytes: bytes = self._leftover</div>
+<div class="line"><span class="lineno">  281</span>            <span class="keywordflow">while</span> len(got_bytes) &lt; size:</div>
+<div class="line"><span class="lineno">  282</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  283</span>                    got_str: str = self.text_str.read(get_per_loop)</div>
+<div class="line"><span class="lineno">  284</span>                <span class="keywordflow">except</span> EOFError:</div>
+<div class="line"><span class="lineno">  285</span>                    got_str = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  286</span>                <span class="keywordflow">if</span> len(got_str) &lt; 1:</div>
+<div class="line"><span class="lineno">  287</span>                    <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  288</span>                ret_encoded, enc_len = self.encoder(got_str)</div>
+<div class="line"><span class="lineno">  289</span>                got_bytes += ret_encoded</div>
+<div class="line"><span class="lineno">  290</span>            <span class="keywordflow">if</span> len(got_bytes) == size:</div>
+<div class="line"><span class="lineno">  291</span>                self._leftover = b<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  292</span>                ret_bytes = got_bytes</div>
+<div class="line"><span class="lineno">  293</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  294</span>                ret_bytes = got_bytes[:size]</div>
+<div class="line"><span class="lineno">  295</span>                self._leftover = got_bytes[size:]</div>
+<div class="line"><span class="lineno">  296</span>                del got_bytes</div>
+<div class="line"><span class="lineno">  297</span>        self._text_bytes_offset += len(ret_bytes)</div>
+<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">return</span> ret_bytes</div>
+<div class="line"><span class="lineno">  299</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a4c2f2f3fbdca38d49e23e2a9aa9bbb7e">BytesIOWrapper._leftover</a>, <a class="el" href="a02096.html#aff80d4aad8b4350f0ff3589d6363b417">BytesIOWrapper.encoder</a>, <a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">BytesIOWrapper.read()</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">BytesIOWrapper.read()</a>, and <a class="el" href="a02096.html#a98c77283b19463f8a96250be0e671213">BytesIOWrapper.readinto()</a>.</p>
+
+</div>
+</div>
+<a id="a8ab79e14e24aa440dcd1d9e822eb1f1c" name="a8ab79e14e24aa440dcd1d9e822eb1f1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ab79e14e24aa440dcd1d9e822eb1f1c">&#9670;&#160;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">close </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  240</span>    <span class="keyword">def </span>close(self):</div>
+<div class="line"><span class="lineno">  241</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  242</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  243</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  244</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  245</span>                self.enc_str.close()</div>
+<div class="line"><span class="lineno">  246</span>            <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  247</span>                <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  248</span>        <span class="keywordflow">elif</span> self.text_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  249</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  250</span>                self.text_str.close()</div>
+<div class="line"><span class="lineno">  251</span>            <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  252</span>                <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  253</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">BytesIOWrapper.close()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01776.html#a9ea6bfea91f5b8e9919675d869ee1c66">RDF4JClient.__exit__()</a>, <a class="el" href="a02880.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a02912.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a02920.html#ab4a0ff7ecb35358bb38cbc0f1e5e8090">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>, <a class="el" href="a02096.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">BytesIOWrapper.close()</a>, <a class="el" href="a02884.html#a8a95231f04f9aa982da78135367dd68f">BaseLayerDialog.saveBaseLayer()</a>, <a class="el" href="a02904.html#a4bd5f0ea1dd89d4e07a05d530b008657">PrefixDialog.savePrefix()</a>, <a class="el" href="a02892.html#afb0802cb9ce06a195a5c1ff949a28cca">ExampleQueryDialog.saveQuery()</a>, and <a class="el" href="a02888.html#a9fd005fb9c3111a088c0813907ae43c0">BBOXDialog.setBBOXExtentQuery()</a>.</p>
+
+</div>
+</div>
+<a id="aeeae23ba00d10ab30b1ffe781da01372" name="aeeae23ba00d10ab30b1ffe781da01372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeae23ba00d10ab30b1ffe781da01372">&#9670;&#160;</a></span>closed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool closed </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  199</span>    <span class="keyword">def </span>closed(self) -&gt; bool:</div>
+<div class="line"><span class="lineno">  200</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  201</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  202</span>        closed: Optional[bool] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  204</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  205</span>                closed = self.enc_str.closed</div>
+<div class="line"><span class="lineno">  206</span>            <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  207</span>                closed = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  208</span>        <span class="keywordflow">elif</span> self.text_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  209</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  210</span>                closed = self.text_str.closed</div>
+<div class="line"><span class="lineno">  211</span>            <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  212</span>                closed = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  213</span>        <span class="keywordflow">return</span> <span class="keyword">False</span> <span class="keywordflow">if</span> closed <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> closed</div>
+<div class="line"><span class="lineno">  214</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#abf0f1fb5cb9a7301c39fadefbea1a33b">XMLWriter.__close_start_tag()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, and <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>.</p>
+
+</div>
+</div>
+<a id="a12489cd3bfa2d2486ecd574cf12fa7f1" name="a12489cd3bfa2d2486ecd574cf12fa7f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12489cd3bfa2d2486ecd574cf12fa7f1">&#9670;&#160;</a></span>fileno()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int fileno </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  232</span>    <span class="keyword">def </span>fileno(self) -&gt; int:</div>
+<div class="line"><span class="lineno">  233</span>        <span class="keywordflow">if</span> self._fileno <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  234</span>            self._check_fileno()</div>
+<div class="line"><span class="lineno">  235</span>        <span class="keywordflow">if</span> isinstance(self._fileno, BaseException):</div>
+<div class="line"><span class="lineno">  236</span>            <span class="keywordflow">raise</span> self._fileno</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  238</span>            <span class="keywordflow">return</span> -1 <span class="keywordflow">if</span> self._fileno <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> self._fileno</div>
+<div class="line"><span class="lineno">  239</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a0d4b846b2077ce23a133b6e80e9602de">BytesIOWrapper._check_fileno()</a>, and <a class="el" href="a02096.html#a8ccf89b40c285245d0361a4309095889">BytesIOWrapper._fileno</a>.</p>
+
+</div>
+</div>
+<a id="a80fc36f6ac807f2a33915ec2a59409ef" name="a80fc36f6ac807f2a33915ec2a59409ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80fc36f6ac807f2a33915ec2a59409ef">&#9670;&#160;</a></span>flush()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flush </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  254</span>    <span class="keyword">def </span>flush(self):</div>
+<div class="line"><span class="lineno">  255</span>        <span class="keywordflow">return</span>  <span class="comment"># Does nothing on read-only streams</span></div>
+<div class="line"><span class="lineno">  256</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4b16807692cbed627ff8819c8d96c0d3" name="a4b16807692cbed627ff8819c8d96c0d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b16807692cbed627ff8819c8d96c0d3">&#9670;&#160;</a></span>isatty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool isatty </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  224</span>    <span class="keyword">def </span>isatty(self) -&gt; bool:</div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">if</span> self._isatty <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  226</span>            self._check_isatty()</div>
+<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">if</span> isinstance(self._isatty, BaseException):</div>
+<div class="line"><span class="lineno">  228</span>            <span class="keywordflow">raise</span> self._isatty</div>
+<div class="line"><span class="lineno">  229</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  230</span>            <span class="keywordflow">return</span> bool(self._isatty)</div>
+<div class="line"><span class="lineno">  231</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a862df8a72da5e1746317ef685eadac91">BytesIOWrapper._check_isatty()</a>, and <a class="el" href="a02096.html#a34f509cb5abddaba18faf70cb0c1e2b4">BytesIOWrapper._isatty</a>.</p>
+
+</div>
+</div>
+<a id="a52604536027f90ddf5d31f23a3a1a07b" name="a52604536027f90ddf5d31f23a3a1a07b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52604536027f90ddf5d31f23a3a1a07b">&#9670;&#160;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Any name </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  193</span>    <span class="keyword">def </span>name(self) -&gt; Any:</div>
+<div class="line"><span class="lineno">  194</span>        <span class="keywordflow">if</span> self._name <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  195</span>            self._init()</div>
+<div class="line"><span class="lineno">  196</span>        <span class="keywordflow">return</span> self._name</div>
+<div class="line"><span class="lineno">  197</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, and <a class="el" href="a02096.html#a705391f3be33314bd5788a28f7538642">BytesIOWrapper._name</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01660.html#a61a1f3a6a4df93d491cd753f617782a2">Shape.__repr__()</a>, <a class="el" href="a02408.html#aea815b0c6c23fc48a11ee0404b782c7a">CompValue.__repr__()</a>, <a class="el" href="a01660.html#a40b37c981a056437fd94276341c63fe8">Shape.__str__()</a>, <a class="el" href="a02396.html#ae07f7930f92d3591c93e2381cd5be285">ParamValue.__str__()</a>, <a class="el" href="a02408.html#ae07f7930f92d3591c93e2381cd5be285">CompValue.__str__()</a>, <a class="el" href="a02408.html#abcb0ca3a077f9dc3dcbdda93a8ba7169">CompValue.clone()</a>, <a class="el" href="a02416.html#ad5d6522d4412e56d8c1c4784198bf93b">Comp.postParse()</a>, and <a class="el" href="a02884.html#a8a95231f04f9aa982da78135367dd68f">BaseLayerDialog.saveBaseLayer()</a>.</p>
+
+</div>
+</div>
+<a id="ae8bf2cc99273cdd57d6d30dfe5586de6" name="ae8bf2cc99273cdd57d6d30dfe5586de6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8bf2cc99273cdd57d6d30dfe5586de6">&#9670;&#160;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bytes read </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] &#160;</td>
+          <td class="paramname"><em>size</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Read at most size bytes, returned as a bytes object.
+
+If the size argument is negative or omitted read until EOF is reached.
+Return an empty bytes object if already at EOF.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  300</span>    <span class="keyword">def </span>read(self, size: Optional[int] = -1, /) -&gt; bytes:</div>
+<div class="line"><span class="lineno">  301</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  302</span><span class="stringliteral">        Read at most size bytes, returned as a bytes object.</span></div>
+<div class="line"><span class="lineno">  303</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  304</span><span class="stringliteral">        If the size argument is negative or omitted read until EOF is reached.</span></div>
+<div class="line"><span class="lineno">  305</span><span class="stringliteral">        Return an empty bytes object if already at EOF.</span></div>
+<div class="line"><span class="lineno">  306</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">if</span> size <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> size == 0:</div>
+<div class="line"><span class="lineno">  308</span>            <span class="keywordflow">return</span> b<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  309</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  310</span>            self._init()</div>
+<div class="line"><span class="lineno">  311</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  312</span>            ret_bytes = self.enc_str.read(size)</div>
+<div class="line"><span class="lineno">  313</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  314</span>            ret_bytes = self._read_bytes_from_text_stream(size)</div>
+<div class="line"><span class="lineno">  315</span>        <span class="keywordflow">return</span> ret_bytes</div>
+<div class="line"><span class="lineno">  316</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#a4781598a375dfbc7e0ed9cc52131a6c4">BytesIOWrapper._read_bytes_from_text_stream()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, <a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">BytesIOWrapper.read()</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a4781598a375dfbc7e0ed9cc52131a6c4">BytesIOWrapper._read_bytes_from_text_stream()</a>, and <a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">BytesIOWrapper.read()</a>.</p>
+
+</div>
+</div>
+<a id="aece8047be2d8abca155491640cf72721" name="aece8047be2d8abca155491640cf72721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aece8047be2d8abca155491640cf72721">&#9670;&#160;</a></span>read1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bytes read1 </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] &#160;</td>
+          <td class="paramname"><em>size</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Read at most size bytes, with at most one call to the underlying raw stream’s
+read() or readinto() method. Returned as a bytes object.
+
+If the size argument is negative or omitted, read until EOF is reached.
+Return an empty bytes object at EOF.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  317</span>    <span class="keyword">def </span>read1(self, size: Optional[int] = -1, /) -&gt; bytes:</div>
+<div class="line"><span class="lineno">  318</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  319</span><span class="stringliteral">        Read at most size bytes, with at most one call to the underlying raw stream’s</span></div>
+<div class="line"><span class="lineno">  320</span><span class="stringliteral">        read() or readinto() method. Returned as a bytes object.</span></div>
+<div class="line"><span class="lineno">  321</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  322</span><span class="stringliteral">        If the size argument is negative or omitted, read until EOF is reached.</span></div>
+<div class="line"><span class="lineno">  323</span><span class="stringliteral">        Return an empty bytes object at EOF.</span></div>
+<div class="line"><span class="lineno">  324</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  325</span>        <span class="keywordflow">if</span> (self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>) <span class="keywordflow">or</span> self.has_read1 <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  326</span>            self._init()</div>
+<div class="line"><span class="lineno">  327</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.has_read1:</div>
+<div class="line"><span class="lineno">  328</span>            <span class="keywordflow">raise</span> NotImplementedError()</div>
+<div class="line"><span class="lineno">  329</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  330</span>            <span class="keywordflow">if</span> size <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> size &lt; 0:</div>
+<div class="line"><span class="lineno">  331</span>                <span class="keywordflow">return</span> self.enc_str.read1()</div>
+<div class="line"><span class="lineno">  332</span>            <span class="keywordflow">return</span> self.enc_str.read1(size)</div>
+<div class="line"><span class="lineno">  333</span>        <span class="keywordflow">raise</span> NotImplementedError(<span class="stringliteral">&quot;read1() not supported for TextIO in BytesIOWrapper&quot;</span>)</div>
+<div class="line"><span class="lineno">  334</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, <a class="el" href="a02096.html#a0e880172f17447fc27ae2434398f2d5c">BytesIOWrapper.has_read1</a>, <a class="el" href="a02096.html#aece8047be2d8abca155491640cf72721">BytesIOWrapper.read1()</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#aece8047be2d8abca155491640cf72721">BytesIOWrapper.read1()</a>.</p>
+
+</div>
+</div>
+<a id="a44a63fd6f5402db231dfe42faf26e830" name="a44a63fd6f5402db231dfe42faf26e830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a63fd6f5402db231dfe42faf26e830">&#9670;&#160;</a></span>readable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool readable </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  215</span>    <span class="keyword">def </span>readable(self) -&gt; bool:</div>
+<div class="line"><span class="lineno">  216</span>        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  217</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a98c77283b19463f8a96250be0e671213" name="a98c77283b19463f8a96250be0e671213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c77283b19463f8a96250be0e671213">&#9670;&#160;</a></span>readinto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int readinto </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Buffer&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Read len(b) bytes into buffer b.
+
+Returns number of bytes read (0 for EOF), or error if the object
+is set not to block and has no data to read.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  335</span>    <span class="keyword">def </span>readinto(self, b: Buffer, /) -&gt; int:</div>
+<div class="line"><span class="lineno">  336</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  337</span><span class="stringliteral">        Read len(b) bytes into buffer b.</span></div>
+<div class="line"><span class="lineno">  338</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  339</span><span class="stringliteral">        Returns number of bytes read (0 for EOF), or error if the object</span></div>
+<div class="line"><span class="lineno">  340</span><span class="stringliteral">        is set not to block and has no data to read.</span></div>
+<div class="line"><span class="lineno">  341</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  342</span>        <span class="keywordflow">if</span> TYPE_CHECKING:</div>
+<div class="line"><span class="lineno">  343</span>            <span class="keyword">assert</span> isinstance(b, (memoryview, bytearray))</div>
+<div class="line"><span class="lineno">  344</span>        <span class="keywordflow">if</span> len(b) == 0:</div>
+<div class="line"><span class="lineno">  345</span>            <span class="keywordflow">return</span> 0</div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  347</span>            self._init()</div>
+<div class="line"><span class="lineno">  348</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  349</span>            <span class="keywordflow">return</span> self.enc_str.readinto(b)</div>
+<div class="line"><span class="lineno">  350</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  351</span>            size = len(b)</div>
+<div class="line"><span class="lineno">  352</span>            read_data: bytes = self._read_bytes_from_text_stream(size)</div>
+<div class="line"><span class="lineno">  353</span>            read_len = len(read_data)</div>
+<div class="line"><span class="lineno">  354</span>            <span class="keywordflow">if</span> read_len == 0:</div>
+<div class="line"><span class="lineno">  355</span>                <span class="keywordflow">return</span> 0</div>
+<div class="line"><span class="lineno">  356</span>            b[:read_len] = read_data</div>
+<div class="line"><span class="lineno">  357</span>            <span class="keywordflow">return</span> read_len</div>
+<div class="line"><span class="lineno">  358</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#a4781598a375dfbc7e0ed9cc52131a6c4">BytesIOWrapper._read_bytes_from_text_stream()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, <a class="el" href="a02096.html#a98c77283b19463f8a96250be0e671213">BytesIOWrapper.readinto()</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a98c77283b19463f8a96250be0e671213">BytesIOWrapper.readinto()</a>.</p>
+
+</div>
+</div>
+<a id="a774fb3a92411df8067d175f4a24d62c0" name="a774fb3a92411df8067d175f4a24d62c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a774fb3a92411df8067d175f4a24d62c0">&#9670;&#160;</a></span>readinto1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int readinto1 </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Buffer&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Read len(b) bytes into buffer b, with at most one call to the underlying raw
+stream's read() or readinto() method.
+
+Returns number of bytes read (0 for EOF), or error if the object
+is set not to block and has no data to read.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  359</span>    <span class="keyword">def </span>readinto1(self, b: Buffer, /) -&gt; int:</div>
+<div class="line"><span class="lineno">  360</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  361</span><span class="stringliteral">        Read len(b) bytes into buffer b, with at most one call to the underlying raw</span></div>
+<div class="line"><span class="lineno">  362</span><span class="stringliteral">        stream&#39;s read() or readinto() method.</span></div>
+<div class="line"><span class="lineno">  363</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  364</span><span class="stringliteral">        Returns number of bytes read (0 for EOF), or error if the object</span></div>
+<div class="line"><span class="lineno">  365</span><span class="stringliteral">        is set not to block and has no data to read.</span></div>
+<div class="line"><span class="lineno">  366</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  367</span>        <span class="keywordflow">if</span> TYPE_CHECKING:</div>
+<div class="line"><span class="lineno">  368</span>            <span class="keyword">assert</span> isinstance(b, (memoryview, bytearray))</div>
+<div class="line"><span class="lineno">  369</span>        <span class="keywordflow">if</span> (self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>) <span class="keywordflow">or</span> self.has_read1 <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  370</span>            self._init()</div>
+<div class="line"><span class="lineno">  371</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.has_read1:</div>
+<div class="line"><span class="lineno">  372</span>            <span class="keywordflow">raise</span> NotImplementedError()</div>
+<div class="line"><span class="lineno">  373</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  374</span>            <span class="keywordflow">return</span> self.enc_str.readinto1(b)</div>
+<div class="line"><span class="lineno">  375</span>        <span class="keywordflow">raise</span> NotImplementedError(</div>
+<div class="line"><span class="lineno">  376</span>            <span class="stringliteral">&quot;readinto1() not supported for TextIO in BytesIOWrapper&quot;</span></div>
+<div class="line"><span class="lineno">  377</span>        )</div>
+<div class="line"><span class="lineno">  378</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, <a class="el" href="a02096.html#a0e880172f17447fc27ae2434398f2d5c">BytesIOWrapper.has_read1</a>, <a class="el" href="a02096.html#a774fb3a92411df8067d175f4a24d62c0">BytesIOWrapper.readinto1()</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a774fb3a92411df8067d175f4a24d62c0">BytesIOWrapper.readinto1()</a>.</p>
+
+</div>
+</div>
+<a id="a94dd30f2a70ad3933b9b65d24ba6ccc5" name="a94dd30f2a70ad3933b9b65d24ba6ccc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94dd30f2a70ad3933b9b65d24ba6ccc5">&#9670;&#160;</a></span>seek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int seek </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>whence</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  379</span>    <span class="keyword">def </span>seek(self, offset: int, whence: int = 0, /) -&gt; int:</div>
+<div class="line"><span class="lineno">  380</span>        <span class="keywordflow">if</span> self.has_seek <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.has_seek:</div>
+<div class="line"><span class="lineno">  381</span>            <span class="keywordflow">raise</span> NotImplementedError()</div>
+<div class="line"><span class="lineno">  382</span>        <span class="keywordflow">if</span> (self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>) <span class="keywordflow">or</span> self.has_seek <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  383</span>            self._init()</div>
+<div class="line"><span class="lineno">  384</span> </div>
+<div class="line"><span class="lineno">  385</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> whence == 0:</div>
+<div class="line"><span class="lineno">  386</span>            <span class="keywordflow">raise</span> NotImplementedError(<span class="stringliteral">&quot;Only SEEK_SET is supported on BytesIOWrapper&quot;</span>)</div>
+<div class="line"><span class="lineno">  387</span>        <span class="keywordflow">if</span> offset != 0:</div>
+<div class="line"><span class="lineno">  388</span>            <span class="keywordflow">raise</span> NotImplementedError(</div>
+<div class="line"><span class="lineno">  389</span>                <span class="stringliteral">&quot;Only seeking to zero is supported on BytesIOWrapper&quot;</span></div>
+<div class="line"><span class="lineno">  390</span>            )</div>
+<div class="line"><span class="lineno">  391</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  392</span>            self.enc_str.seek(offset, whence)</div>
+<div class="line"><span class="lineno">  393</span>        <span class="keywordflow">elif</span> self.text_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  394</span>            self.text_str.seek(offset, whence)</div>
+<div class="line"><span class="lineno">  395</span>        self._text_bytes_offset = 0</div>
+<div class="line"><span class="lineno">  396</span>        self._leftover = b<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  397</span>        <span class="keywordflow">return</span> 0</div>
+<div class="line"><span class="lineno">  398</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, <a class="el" href="a02096.html#acc70cb126cd8ab3d106670d3d99b4c9d">BytesIOWrapper.has_seek</a>, <a class="el" href="a02096.html#a94dd30f2a70ad3933b9b65d24ba6ccc5">BytesIOWrapper.seek()</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a94dd30f2a70ad3933b9b65d24ba6ccc5">BytesIOWrapper.seek()</a>.</p>
+
+</div>
+</div>
+<a id="a94a8210cb09a2397616d36257e5cd0b6" name="a94a8210cb09a2397616d36257e5cd0b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94a8210cb09a2397616d36257e5cd0b6">&#9670;&#160;</a></span>seekable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">seekable </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  399</span>    <span class="keyword">def </span>seekable(self):</div>
+<div class="line"><span class="lineno">  400</span>        <span class="keywordflow">if</span> (self.enc_str <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.text_str <span class="keywordflow">is</span> <span class="keywordtype">None</span>) <span class="keywordflow">or</span> self.has_seek <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  401</span>            self._init()</div>
+<div class="line"><span class="lineno">  402</span>        <span class="keywordflow">return</span> self.has_seek</div>
+<div class="line"><span class="lineno">  403</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, <a class="el" href="a02096.html#acc70cb126cd8ab3d106670d3d99b4c9d">BytesIOWrapper.has_seek</a>, and <a class="el" href="a02096.html#a49d12b0c8039b806dcd4418d34a318ee">BytesIOWrapper.text_str</a>.</p>
+
+</div>
+</div>
+<a id="a6f61db0e14f51eac4143c1b563f08978" name="a6f61db0e14f51eac4143c1b563f08978"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f61db0e14f51eac4143c1b563f08978">&#9670;&#160;</a></span>tell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int tell </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  404</span>    <span class="keyword">def </span>tell(self) -&gt; int:</div>
+<div class="line"><span class="lineno">  405</span>        <span class="keywordflow">if</span> self.has_seek <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.has_seek:</div>
+<div class="line"><span class="lineno">  406</span>            <span class="keywordflow">raise</span> NotImplementedError(<span class="stringliteral">&quot;Cannot tell() pos because file is not seekable.&quot;</span>)</div>
+<div class="line"><span class="lineno">  407</span>        <span class="keywordflow">if</span> self.enc_str <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  408</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  409</span>                self._text_bytes_offset = self.enc_str.tell()</div>
+<div class="line"><span class="lineno">  410</span>            <span class="keywordflow">except</span> AttributeError:</div>
+<div class="line"><span class="lineno">  411</span>                <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  412</span>        <span class="keywordflow">return</span> self._text_bytes_offset</div>
+<div class="line"><span class="lineno">  413</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02096.html#a092c1ba42873b91209a6f2a97cfefae7">BytesIOWrapper._text_bytes_offset</a>, <a class="el" href="a02096.html#aa544c16dc8bab18a08e3bf387ec2b7c1">BytesIOWrapper.enc_str</a>, <a class="el" href="a02096.html#acc70cb126cd8ab3d106670d3d99b4c9d">BytesIOWrapper.has_seek</a>, and <a class="el" href="a02096.html#a6f61db0e14f51eac4143c1b563f08978">BytesIOWrapper.tell()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a6f61db0e14f51eac4143c1b563f08978">BytesIOWrapper.tell()</a>.</p>
+
+</div>
+</div>
+<a id="a32339a0544a0114f26142a8022c1adea" name="a32339a0544a0114f26142a8022c1adea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32339a0544a0114f26142a8022c1adea">&#9670;&#160;</a></span>truncate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int truncate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] &#160;</td>
+          <td class="paramname"><em>size</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  221</span>    <span class="keyword">def </span>truncate(self, size: Optional[int] = <span class="keywordtype">None</span>) -&gt; int:</div>
+<div class="line"><span class="lineno">  222</span>        <span class="keywordflow">raise</span> NotImplementedError(<span class="stringliteral">&quot;Cannot truncate on BytesIOWrapper&quot;</span>)</div>
+<div class="line"><span class="lineno">  223</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a3fb89e4bfb7902168ac456527cc520e6" name="a3fb89e4bfb7902168ac456527cc520e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fb89e4bfb7902168ac456527cc520e6">&#9670;&#160;</a></span>writable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool writable </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  218</span>    <span class="keyword">def </span>writable(self) -&gt; bool:</div>
+<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  220</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aaba36b77b9c0af01016f458211b2fa43" name="aaba36b77b9c0af01016f458211b2fa43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaba36b77b9c0af01016f458211b2fa43">&#9670;&#160;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">write </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  414</span>    <span class="keyword">def </span>write(self, b, /):</div>
+<div class="line"><span class="lineno">  415</span>        <span class="keywordflow">raise</span> NotImplementedError(<span class="stringliteral">&quot;Cannot write to a BytesIOWrapper&quot;</span>)</div>
+<div class="line"><span class="lineno">  416</span> </div>
+<div class="line"><span class="lineno">  417</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02276.html#ab7673737286781c4a4cb1ec7bf7e2165">LongTurtleSerializer.doList()</a>, <a class="el" href="a02276.html#a2fa29af36c6066e2b734de96659f1623">LongTurtleSerializer.endDocument()</a>, <a class="el" href="a02320.html#a42ed65c7023fcfdac6bd5fa710970389">TurtleSerializer.endDocument()</a>, <a class="el" href="a02276.html#a7de267791fea7b550ae5a3ad7de8f8e3">LongTurtleSerializer.objectList()</a>, <a class="el" href="a02320.html#a6559be93e93e568ed3b69109c8f9f2dd">TurtleSerializer.objectList()</a>, <a class="el" href="a02280.html#a5757b31299349b4d081d251638b0aba9">N3Serializer.p_clause()</a>, <a class="el" href="a02320.html#a74a5acd523cd008cc692940d2f9baedc">TurtleSerializer.p_default()</a>, <a class="el" href="a02276.html#afe0fce3a92799fc4c033bc1762f34431">LongTurtleSerializer.p_default()</a>, <a class="el" href="a02320.html#a97294ea7cda7107a17340f35952ab967">TurtleSerializer.p_squared()</a>, <a class="el" href="a02276.html#a67f53ad2b13fdd1cf7df398af37138ca">LongTurtleSerializer.p_squared()</a>, <a class="el" href="a02300.html#abb3096640b02b2bc2585cddccdc5881a">XMLSerializer.predicate()</a>, <a class="el" href="a02320.html#aacf9437979d2424590b342abf6b11871">TurtleSerializer.predicateList()</a>, <a class="el" href="a02276.html#a37286bae180c8d7e5e492d44c1e30ad0">LongTurtleSerializer.predicateList()</a>, <a class="el" href="a02280.html#a241230760e1ac2b0d77876ad7cf97b86">N3Serializer.s_clause()</a>, <a class="el" href="a02320.html#a743889f2906a3391bcc06e22f2f5bb98">TurtleSerializer.s_default()</a>, <a class="el" href="a02276.html#a14238908e906ef4fba9976b7bdc51eba">LongTurtleSerializer.s_default()</a>, <a class="el" href="a02320.html#a37b4c1b768ba0160882ff116a5851fda">TurtleSerializer.s_squared()</a>, <a class="el" href="a02276.html#a3ed8485f75ae9f0d0b0ea1d05925e726">LongTurtleSerializer.s_squared()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>, and <a class="el" href="a02300.html#afd3cd859641b498d041345fcf7a2b7b9">XMLSerializer.subject()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aef04051147f1d02390e4e37bc7a09417" name="aef04051147f1d02390e4e37bc7a09417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef04051147f1d02390e4e37bc7a09417">&#9670;&#160;</a></span>__slots__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple __slots__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=  (</div>
+<div class="line">        <span class="stringliteral">&quot;wrapped&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;enc_str&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;text_str&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;encoding&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;encoder&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;has_read1&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;has_seek&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;_name&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;_fileno&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;_isatty&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;_leftover&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;_bytes_per_char&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;_text_bytes_offset&quot;</span>,</div>
+<div class="line">    )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a89ebf3a6c223efb1839bb795ca3e05d7" name="a89ebf3a6c223efb1839bb795ca3e05d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89ebf3a6c223efb1839bb795ca3e05d7">&#9670;&#160;</a></span>_bytes_per_char</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_bytes_per_char</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ccf89b40c285245d0361a4309095889" name="a8ccf89b40c285245d0361a4309095889"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ccf89b40c285245d0361a4309095889">&#9670;&#160;</a></span>_fileno</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_fileno</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a12489cd3bfa2d2486ecd574cf12fa7f1">BytesIOWrapper.fileno()</a>.</p>
+
+</div>
+</div>
+<a id="a34f509cb5abddaba18faf70cb0c1e2b4" name="a34f509cb5abddaba18faf70cb0c1e2b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34f509cb5abddaba18faf70cb0c1e2b4">&#9670;&#160;</a></span>_isatty</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_isatty</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a4b16807692cbed627ff8819c8d96c0d3">BytesIOWrapper.isatty()</a>.</p>
+
+</div>
+</div>
+<a id="a4c2f2f3fbdca38d49e23e2a9aa9bbb7e" name="a4c2f2f3fbdca38d49e23e2a9aa9bbb7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c2f2f3fbdca38d49e23e2a9aa9bbb7e">&#9670;&#160;</a></span>_leftover</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_leftover</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a4781598a375dfbc7e0ed9cc52131a6c4">BytesIOWrapper._read_bytes_from_text_stream()</a>.</p>
+
+</div>
+</div>
+<a id="a705391f3be33314bd5788a28f7538642" name="a705391f3be33314bd5788a28f7538642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a705391f3be33314bd5788a28f7538642">&#9670;&#160;</a></span>_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a52604536027f90ddf5d31f23a3a1a07b">BytesIOWrapper.name()</a>.</p>
+
+</div>
+</div>
+<a id="a092c1ba42873b91209a6f2a97cfefae7" name="a092c1ba42873b91209a6f2a97cfefae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a092c1ba42873b91209a6f2a97cfefae7">&#9670;&#160;</a></span>_text_bytes_offset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_text_bytes_offset</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a6f61db0e14f51eac4143c1b563f08978">BytesIOWrapper.tell()</a>.</p>
+
+</div>
+</div>
+<a id="aa544c16dc8bab18a08e3bf387ec2b7c1" name="aa544c16dc8bab18a08e3bf387ec2b7c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa544c16dc8bab18a08e3bf387ec2b7c1">&#9670;&#160;</a></span>enc_str</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enc_str</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a0d4b846b2077ce23a133b6e80e9602de">BytesIOWrapper._check_fileno()</a>, <a class="el" href="a02096.html#a862df8a72da5e1746317ef685eadac91">BytesIOWrapper._check_isatty()</a>, <a class="el" href="a02096.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">BytesIOWrapper.close()</a>, <a class="el" href="a02096.html#aeeae23ba00d10ab30b1ffe781da01372">BytesIOWrapper.closed()</a>, <a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">BytesIOWrapper.read()</a>, <a class="el" href="a02096.html#aece8047be2d8abca155491640cf72721">BytesIOWrapper.read1()</a>, <a class="el" href="a02096.html#a98c77283b19463f8a96250be0e671213">BytesIOWrapper.readinto()</a>, <a class="el" href="a02096.html#a774fb3a92411df8067d175f4a24d62c0">BytesIOWrapper.readinto1()</a>, <a class="el" href="a02096.html#a94dd30f2a70ad3933b9b65d24ba6ccc5">BytesIOWrapper.seek()</a>, <a class="el" href="a02096.html#a94a8210cb09a2397616d36257e5cd0b6">BytesIOWrapper.seekable()</a>, and <a class="el" href="a02096.html#a6f61db0e14f51eac4143c1b563f08978">BytesIOWrapper.tell()</a>.</p>
+
+</div>
+</div>
+<a id="aff80d4aad8b4350f0ff3589d6363b417" name="aff80d4aad8b4350f0ff3589d6363b417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff80d4aad8b4350f0ff3589d6363b417">&#9670;&#160;</a></span>encoder</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">encoder</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>, and <a class="el" href="a02096.html#a4781598a375dfbc7e0ed9cc52131a6c4">BytesIOWrapper._read_bytes_from_text_stream()</a>.</p>
+
+</div>
+</div>
+<a id="ab1000d1f2ea9878f60bc119650013894" name="ab1000d1f2ea9878f60bc119650013894"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1000d1f2ea9878f60bc119650013894">&#9670;&#160;</a></span>encoding</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">encoding</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02620.html#aee378e78697aa7833279a585d65c10af">Serializer.__init__()</a>, <a class="el" href="a02284.html#aaaeeafe3dcc54692892e932afc82bdaa">NQuadsSerializer.serialize()</a>, and <a class="el" href="a02296.html#aaaeeafe3dcc54692892e932afc82bdaa">PatchSerializer.serialize()</a>.</p>
+
+</div>
+</div>
+<a id="a0e880172f17447fc27ae2434398f2d5c" name="a0e880172f17447fc27ae2434398f2d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e880172f17447fc27ae2434398f2d5c">&#9670;&#160;</a></span>has_read1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_read1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#aece8047be2d8abca155491640cf72721">BytesIOWrapper.read1()</a>, and <a class="el" href="a02096.html#a774fb3a92411df8067d175f4a24d62c0">BytesIOWrapper.readinto1()</a>.</p>
+
+</div>
+</div>
+<a id="acc70cb126cd8ab3d106670d3d99b4c9d" name="acc70cb126cd8ab3d106670d3d99b4c9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc70cb126cd8ab3d106670d3d99b4c9d">&#9670;&#160;</a></span>has_seek</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_seek</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a94dd30f2a70ad3933b9b65d24ba6ccc5">BytesIOWrapper.seek()</a>, <a class="el" href="a02096.html#a94a8210cb09a2397616d36257e5cd0b6">BytesIOWrapper.seekable()</a>, and <a class="el" href="a02096.html#a6f61db0e14f51eac4143c1b563f08978">BytesIOWrapper.tell()</a>.</p>
+
+</div>
+</div>
+<a id="a49d12b0c8039b806dcd4418d34a318ee" name="a49d12b0c8039b806dcd4418d34a318ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49d12b0c8039b806dcd4418d34a318ee">&#9670;&#160;</a></span>text_str</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">text_str</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a0d4b846b2077ce23a133b6e80e9602de">BytesIOWrapper._check_fileno()</a>, <a class="el" href="a02096.html#a862df8a72da5e1746317ef685eadac91">BytesIOWrapper._check_isatty()</a>, <a class="el" href="a02096.html#a4781598a375dfbc7e0ed9cc52131a6c4">BytesIOWrapper._read_bytes_from_text_stream()</a>, <a class="el" href="a02096.html#a8ab79e14e24aa440dcd1d9e822eb1f1c">BytesIOWrapper.close()</a>, <a class="el" href="a02096.html#aeeae23ba00d10ab30b1ffe781da01372">BytesIOWrapper.closed()</a>, <a class="el" href="a02096.html#ae8bf2cc99273cdd57d6d30dfe5586de6">BytesIOWrapper.read()</a>, <a class="el" href="a02096.html#aece8047be2d8abca155491640cf72721">BytesIOWrapper.read1()</a>, <a class="el" href="a02096.html#a98c77283b19463f8a96250be0e671213">BytesIOWrapper.readinto()</a>, <a class="el" href="a02096.html#a774fb3a92411df8067d175f4a24d62c0">BytesIOWrapper.readinto1()</a>, <a class="el" href="a02096.html#a94dd30f2a70ad3933b9b65d24ba6ccc5">BytesIOWrapper.seek()</a>, and <a class="el" href="a02096.html#a94a8210cb09a2397616d36257e5cd0b6">BytesIOWrapper.seekable()</a>.</p>
+
+</div>
+</div>
+<a id="af13180580a338fad7ca4e2e7c3f02c3b" name="af13180580a338fad7ca4e2e7c3f02c3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af13180580a338fad7ca4e2e7c3f02c3b">&#9670;&#160;</a></span>wrapped</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wrapped</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02096.html#a818bfe5a6cb25335f9fb0b3ac831c9cf">BytesIOWrapper._init()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01045.html">parser</a></li><li class="navelem"><a class="el" href="a02096.html">BytesIOWrapper</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

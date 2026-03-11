@@ -1,0 +1,768 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: XMLWriter Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02324.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#properties">Properties</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="a02321.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">XMLWriter Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8e4706c3deea8a9f8bafa55bd9d43b4a" id="r_a8e4706c3deea8a9f8bafa55bd9d43b4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a8e4706c3deea8a9f8bafa55bd9d43b4a">__init__</a> (self, IO[bytes] <a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">stream</a>, <a class="el" href="a01976.html">NamespaceManager</a> namespace_manager, Optional[str] encoding=None, int decl=1, Optional[Dict[str, <a class="el" href="a01956.html">Namespace</a>]] <a class="el" href="a02324.html#a692440154ecbfc16767d39dfe03dc350">extra_ns</a>=None)</td></tr>
+<tr class="separator:a8e4706c3deea8a9f8bafa55bd9d43b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af49f600f937c1ccc409afaa1e2be0c7c" id="r_af49f600f937c1ccc409afaa1e2be0c7c"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">push</a> (self, str uri)</td></tr>
+<tr class="separator:af49f600f937c1ccc409afaa1e2be0c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad7c80518e77ee17eadac494d96ea05d" id="r_aad7c80518e77ee17eadac494d96ea05d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">pop</a> (self, Optional[str] uri=None)</td></tr>
+<tr class="separator:aad7c80518e77ee17eadac494d96ea05d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac97204ce00c8fc2c771489c166df13c7" id="r_ac97204ce00c8fc2c771489c166df13c7"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#ac97204ce00c8fc2c771489c166df13c7">element</a> (self, str uri, str content, Dict[<a class="el" href="a02656.html">URIRef</a>, str] attributes={})</td></tr>
+<tr class="separator:ac97204ce00c8fc2c771489c166df13c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08695b394445598f066e54d7a8280269" id="r_a08695b394445598f066e54d7a8280269"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">namespaces</a> (self, Iterable[Tuple[str, str]] namespaces=None)</td></tr>
+<tr class="separator:a08695b394445598f066e54d7a8280269"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec0638aedbc4343d1960b2b9452b9e34" id="r_aec0638aedbc4343d1960b2b9452b9e34"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#aec0638aedbc4343d1960b2b9452b9e34">attribute</a> (self, str uri, str value)</td></tr>
+<tr class="separator:aec0638aedbc4343d1960b2b9452b9e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a389bc512c65b214faa9b89406679075d" id="r_a389bc512c65b214faa9b89406679075d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a389bc512c65b214faa9b89406679075d">text</a> (self, str text)</td></tr>
+<tr class="separator:a389bc512c65b214faa9b89406679075d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a390bd86f93dfb33871b08626ba4e8d" id="r_a2a390bd86f93dfb33871b08626ba4e8d"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a2a390bd86f93dfb33871b08626ba4e8d">qname</a> (self, str uri)</td></tr>
+<tr class="separator:a2a390bd86f93dfb33871b08626ba4e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ae489866f8220882799d2786ca0690e5b" id="r_ae489866f8220882799d2786ca0690e5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">stream</a></td></tr>
+<tr class="separator:ae489866f8220882799d2786ca0690e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1226351087b4af98010b0edd1c6282c9" id="r_a1226351087b4af98010b0edd1c6282c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a1226351087b4af98010b0edd1c6282c9">nm</a></td></tr>
+<tr class="separator:a1226351087b4af98010b0edd1c6282c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a692440154ecbfc16767d39dfe03dc350" id="r_a692440154ecbfc16767d39dfe03dc350"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a692440154ecbfc16767d39dfe03dc350">extra_ns</a></td></tr>
+<tr class="separator:a692440154ecbfc16767d39dfe03dc350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa224f0f4efae061104ca63c5e7fed014" id="r_aa224f0f4efae061104ca63c5e7fed014"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#aa224f0f4efae061104ca63c5e7fed014">closed</a></td></tr>
+<tr class="separator:aa224f0f4efae061104ca63c5e7fed014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c820bfd5c874edf220a8a7a358cf03b" id="r_a3c820bfd5c874edf220a8a7a358cf03b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a3c820bfd5c874edf220a8a7a358cf03b">element_stack</a></td></tr>
+<tr class="separator:a3c820bfd5c874edf220a8a7a358cf03b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a457d913bff1ebc8671c1eca1c9d5fc03" id="r_a457d913bff1ebc8671c1eca1c9d5fc03"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a457d913bff1ebc8671c1eca1c9d5fc03">parent</a></td></tr>
+<tr class="separator:a457d913bff1ebc8671c1eca1c9d5fc03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a9eb11910ba74d4b59975a5784b130732" id="r_a9eb11910ba74d4b59975a5784b130732"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a9eb11910ba74d4b59975a5784b130732">indent</a> = property(<a class="el" href="a02324.html#a4c502c78cdaf128165aeb85317ca45e1">__get_indent</a>)</td></tr>
+<tr class="separator:a9eb11910ba74d4b59975a5784b130732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a4c502c78cdaf128165aeb85317ca45e1" id="r_a4c502c78cdaf128165aeb85317ca45e1"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#a4c502c78cdaf128165aeb85317ca45e1">__get_indent</a> (self)</td></tr>
+<tr class="separator:a4c502c78cdaf128165aeb85317ca45e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf0f1fb5cb9a7301c39fadefbea1a33b" id="r_abf0f1fb5cb9a7301c39fadefbea1a33b"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02324.html#abf0f1fb5cb9a7301c39fadefbea1a33b">__close_start_tag</a> (self)</td></tr>
+<tr class="separator:abf0f1fb5cb9a7301c39fadefbea1a33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A simple XML writer that writes to a stream.</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8e4706c3deea8a9f8bafa55bd9d43b4a" name="a8e4706c3deea8a9f8bafa55bd9d43b4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e4706c3deea8a9f8bafa55bd9d43b4a">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IO[bytes]&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01976.html">NamespaceManager</a>&#160;</td>
+          <td class="paramname"><em>namespace_manager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>encoding</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>decl</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Dict[str, <a class="el" href="a01956.html">Namespace</a>]] &#160;</td>
+          <td class="paramname"><em>extra_ns</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   28</span>    ):</div>
+<div class="line"><span class="lineno">   29</span>        encoding = encoding <span class="keywordflow">or</span> <span class="stringliteral">&quot;utf-8&quot;</span></div>
+<div class="line"><span class="lineno">   30</span>        encoder, decoder, stream_reader, stream_writer = codecs.lookup(encoding)</div>
+<div class="line"><span class="lineno">   31</span>        <span class="comment"># NOTE on type ignores: this is mainly because the variable is being re-used.</span></div>
+<div class="line"><span class="lineno">   32</span>        <span class="comment"># type error: Incompatible types in assignment (expression has type &quot;StreamWriter&quot;, variable has type &quot;IO[bytes]&quot;)</span></div>
+<div class="line"><span class="lineno">   33</span>        self.stream = stream = stream_writer(stream)  <span class="comment"># type: ignore[assignment]</span></div>
+<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> decl:</div>
+<div class="line"><span class="lineno">   35</span>            <span class="comment"># type error: No overload variant of &quot;write&quot; of &quot;IO&quot; matches argument type &quot;str&quot;</span></div>
+<div class="line"><span class="lineno">   36</span>            stream.write(<span class="stringliteral">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;%s&quot;?&gt;&#39;</span> % encoding)  <span class="comment"># type: ignore[call-overload]</span></div>
+<div class="line"><span class="lineno">   37</span>        self.element_stack: List[str] = []</div>
+<div class="line"><span class="lineno">   38</span>        self.nm = namespace_manager</div>
+<div class="line"><span class="lineno">   39</span>        self.extra_ns = extra_ns <span class="keywordflow">or</span> {}</div>
+<div class="line"><span class="lineno">   40</span>        self.closed = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   41</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abf0f1fb5cb9a7301c39fadefbea1a33b" name="abf0f1fb5cb9a7301c39fadefbea1a33b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf0f1fb5cb9a7301c39fadefbea1a33b">&#9670;&#160;</a></span>__close_start_tag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None __close_start_tag </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   47</span>    <span class="keyword">def </span>__close_start_tag(self) -&gt; None:</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.closed:  <span class="comment"># TODO:</span></div>
+<div class="line"><span class="lineno">   49</span>            self.closed = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   50</span>            self.stream.write(<span class="stringliteral">&quot;&gt;&quot;</span>)</div>
+<div class="line"><span class="lineno">   51</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02056.html#adebd292c3bff32bf767a7ce41b8d3e78">SH.closed</a>, <a class="el" href="a02096.html#aeeae23ba00d10ab30b1ffe781da01372">BytesIOWrapper.closed()</a>, <a class="el" href="a02324.html#aa224f0f4efae061104ca63c5e7fed014">XMLWriter.closed</a>, <a class="el" href="a02020.html#a7fefa5af7aca0cec372bf97711a68229">ODRL2.stream</a>, <a class="el" href="a02276.html#ae489866f8220882799d2786ca0690e5b">LongTurtleSerializer.stream</a>, <a class="el" href="a02280.html#ae489866f8220882799d2786ca0690e5b">N3Serializer.stream</a>, <a class="el" href="a02308.html#ae489866f8220882799d2786ca0690e5b">TrigSerializer.stream</a>, <a class="el" href="a02320.html#ae489866f8220882799d2786ca0690e5b">TurtleSerializer.stream</a>, and <a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">XMLWriter.stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, and <a class="el" href="a02324.html#a389bc512c65b214faa9b89406679075d">XMLWriter.text()</a>.</p>
+
+</div>
+</div>
+<a id="a4c502c78cdaf128165aeb85317ca45e1" name="a4c502c78cdaf128165aeb85317ca45e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c502c78cdaf128165aeb85317ca45e1">&#9670;&#160;</a></span>__get_indent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str __get_indent </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   42</span>    <span class="keyword">def </span>__get_indent(self) -&gt; str:</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;  &quot;</span> * len(self.element_stack)</div>
+<div class="line"><span class="lineno">   44</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aec0638aedbc4343d1960b2b9452b9e34" name="aec0638aedbc4343d1960b2b9452b9e34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec0638aedbc4343d1960b2b9452b9e34">&#9670;&#160;</a></span>attribute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None attribute </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  106</span>    <span class="keyword">def </span>attribute(self, uri: str, value: str) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  107</span>        write = self.stream.write</div>
+<div class="line"><span class="lineno">  108</span>        write(<span class="stringliteral">&quot; %s=%s&quot;</span> % (self.qname(uri), quoteattr(value)))</div>
+<div class="line"><span class="lineno">  109</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01860.html#ad85ee362e4d3c01fe2dfe01e693174c5">Individual.qname</a>, <a class="el" href="a01912.html#ad85ee362e4d3c01fe2dfe01e693174c5">Property.qname</a>, <a class="el" href="a02616.html#ac3bf9d5f915ec4efca218d75073a46d8">Resource.qname()</a>, <a class="el" href="a02176.html#af372bf80db289030311011d14620de15">SinkParser.qname()</a>, <a class="el" href="a01920.html#a2a390bd86f93dfb33871b08626ba4e8d">Graph.qname()</a>, <a class="el" href="a01948.html#a2a390bd86f93dfb33871b08626ba4e8d">ReadOnlyGraphAggregate.qname()</a>, <a class="el" href="a01976.html#a2a390bd86f93dfb33871b08626ba4e8d">NamespaceManager.qname()</a>, <a class="el" href="a02324.html#a2a390bd86f93dfb33871b08626ba4e8d">XMLWriter.qname()</a>, <a class="el" href="a02020.html#a7fefa5af7aca0cec372bf97711a68229">ODRL2.stream</a>, <a class="el" href="a02276.html#ae489866f8220882799d2786ca0690e5b">LongTurtleSerializer.stream</a>, <a class="el" href="a02280.html#ae489866f8220882799d2786ca0690e5b">N3Serializer.stream</a>, <a class="el" href="a02308.html#ae489866f8220882799d2786ca0690e5b">TrigSerializer.stream</a>, <a class="el" href="a02320.html#ae489866f8220882799d2786ca0690e5b">TurtleSerializer.stream</a>, and <a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">XMLWriter.stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#ac97204ce00c8fc2c771489c166df13c7">XMLWriter.element()</a>.</p>
+
+</div>
+</div>
+<a id="ac97204ce00c8fc2c771489c166df13c7" name="ac97204ce00c8fc2c771489c166df13c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac97204ce00c8fc2c771489c166df13c7">&#9670;&#160;</a></span>element()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None element </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict[<a class="el" href="a02656.html">URIRef</a>, str] &#160;</td>
+          <td class="paramname"><em>attributes</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Utility method for adding a complete simple element</pre> <div class="fragment"><div class="line"><span class="lineno">   79</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   80</span>        <span class="stringliteral">&quot;&quot;&quot;Utility method for adding a complete simple element&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   81</span>        self.push(uri)</div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> attributes.items():</div>
+<div class="line"><span class="lineno">   83</span>            self.attribute(k, v)</div>
+<div class="line"><span class="lineno">   84</span>        self.text(content)</div>
+<div class="line"><span class="lineno">   85</span>        self.pop()</div>
+<div class="line"><span class="lineno">   86</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02020.html#aa97ab0bea1ff2ed53c5c6b5dd985ff15">ODRL2.attribute</a>, <a class="el" href="a02040.html#aa97ab0bea1ff2ed53c5c6b5dd985ff15">QB.attribute</a>, <a class="el" href="a02324.html#aec0638aedbc4343d1960b2b9452b9e34">XMLWriter.attribute()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02516.html#a09e9d7ed87643c44adfca7c0dd569414">QueryContext.push()</a>, <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, <a class="el" href="a02052.html#abaaeb7eb9c1bd7b307791cc2be69df6a">SDO.text</a>, and <a class="el" href="a02324.html#a389bc512c65b214faa9b89406679075d">XMLWriter.text()</a>.</p>
+
+</div>
+</div>
+<a id="a08695b394445598f066e54d7a8280269" name="a08695b394445598f066e54d7a8280269"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08695b394445598f066e54d7a8280269">&#9670;&#160;</a></span>namespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None namespaces </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Iterable[Tuple[str, str]] &#160;</td>
+          <td class="paramname"><em>namespaces</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   87</span>    <span class="keyword">def </span>namespaces(self, namespaces: Iterable[Tuple[str, str]] = <span class="keywordtype">None</span>) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> namespaces:</div>
+<div class="line"><span class="lineno">   89</span>            namespaces = self.nm.namespaces()</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>        write = self.stream.write</div>
+<div class="line"><span class="lineno">   92</span>        write(<span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">for</span> prefix, namespace <span class="keywordflow">in</span> namespaces:</div>
+<div class="line"><span class="lineno">   94</span>            <span class="keywordflow">if</span> prefix:</div>
+<div class="line"><span class="lineno">   95</span>                write(<span class="stringliteral">&#39;  xmlns:%s=&quot;%s&quot;\n&#39;</span> % (prefix, namespace))</div>
+<div class="line"><span class="lineno">   96</span>            <span class="comment"># Allow user-provided namespace bindings to prevail</span></div>
+<div class="line"><span class="lineno">   97</span>            <span class="keywordflow">elif</span> prefix <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.extra_ns:</div>
+<div class="line"><span class="lineno">   98</span>                write(<span class="stringliteral">&#39;  xmlns=&quot;%s&quot;\n&#39;</span> % namespace)</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">for</span> prefix, namespace <span class="keywordflow">in</span> self.extra_ns.items():</div>
+<div class="line"><span class="lineno">  101</span>            <span class="keywordflow">if</span> prefix:</div>
+<div class="line"><span class="lineno">  102</span>                write(<span class="stringliteral">&#39;  xmlns:%s=&quot;%s&quot;\n&#39;</span> % (prefix, namespace))</div>
+<div class="line"><span class="lineno">  103</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  104</span>                write(<span class="stringliteral">&#39;  xmlns=&quot;%s&quot;\n&#39;</span> % namespace)</div>
+<div class="line"><span class="lineno">  105</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02324.html#a692440154ecbfc16767d39dfe03dc350">XMLWriter.extra_ns</a>, <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>, <a class="el" href="a02304.html#a1226351087b4af98010b0edd1c6282c9">PrettyXMLSerializer.nm</a>, <a class="el" href="a02324.html#a1226351087b4af98010b0edd1c6282c9">XMLWriter.nm</a>, <a class="el" href="a02020.html#a7fefa5af7aca0cec372bf97711a68229">ODRL2.stream</a>, <a class="el" href="a02276.html#ae489866f8220882799d2786ca0690e5b">LongTurtleSerializer.stream</a>, <a class="el" href="a02280.html#ae489866f8220882799d2786ca0690e5b">N3Serializer.stream</a>, <a class="el" href="a02308.html#ae489866f8220882799d2786ca0690e5b">TrigSerializer.stream</a>, <a class="el" href="a02320.html#ae489866f8220882799d2786ca0690e5b">TurtleSerializer.stream</a>, and <a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">XMLWriter.stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a34129a0abb9037ca62ba2607412c8962">Graph.__add__()</a>, <a class="el" href="a01976.html#a0a9c3b6e2ace890a6a09a891dd50879a">NamespaceManager.__contains__()</a>, <a class="el" href="a02276.html#a6407d45dc646e58f0f60f8445265eda9">LongTurtleSerializer.addNamespace()</a>, <a class="el" href="a02320.html#a0d812c0741cfe20229cef6aeb37b0380">TurtleSerializer.addNamespace()</a>, <a class="el" href="a02316.html#abf5193236a62bac535ce449ad82b0d54">RecursiveSerializer.addNamespace()</a>, <a class="el" href="a02952.html#ac7eea24b5fa1c707c805a00e81984342">ExtractNamespaceTask.finishedExtractNS()</a>, <a class="el" href="a01764.html#a2488d371a763bdb7273c9dd9c8d30ccc">Repository.get()</a>, <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a02952.html#a08060e0924949738f75a0cdd8b49cef4">ExtractNamespaceTask.run()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="aad7c80518e77ee17eadac494d96ea05d" name="aad7c80518e77ee17eadac494d96ea05d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad7c80518e77ee17eadac494d96ea05d">&#9670;&#160;</a></span>pop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None pop </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>uri</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   62</span>    <span class="keyword">def </span>pop(self, uri: Optional[str] = <span class="keywordtype">None</span>) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   63</span>        top = self.element_stack.pop()</div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">if</span> uri:</div>
+<div class="line"><span class="lineno">   65</span>            <span class="keyword">assert</span> uri == top</div>
+<div class="line"><span class="lineno">   66</span>        write = self.stream.write</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.closed:</div>
+<div class="line"><span class="lineno">   68</span>            self.closed = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   69</span>            write(<span class="stringliteral">&quot;/&gt;&quot;</span>)</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   71</span>            <span class="keywordflow">if</span> self.parent:</div>
+<div class="line"><span class="lineno">   72</span>                write(<span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">   73</span>                write(self.indent)</div>
+<div class="line"><span class="lineno">   74</span>            write(<span class="stringliteral">&quot;&lt;/%s&gt;&quot;</span> % self.qname(top))</div>
+<div class="line"><span class="lineno">   75</span>        self.parent = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   76</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02056.html#adebd292c3bff32bf767a7ce41b8d3e78">SH.closed</a>, <a class="el" href="a02096.html#aeeae23ba00d10ab30b1ffe781da01372">BytesIOWrapper.closed()</a>, <a class="el" href="a02324.html#aa224f0f4efae061104ca63c5e7fed014">XMLWriter.closed</a>, <a class="el" href="a02324.html#a3c820bfd5c874edf220a8a7a358cf03b">XMLWriter.element_stack</a>, <a class="el" href="a02316.html#aa45e114e343c8f164f38bc23eb5ccb83">RecursiveSerializer.indent()</a>, <a class="el" href="a02280.html#acb3aa29e0931cf6f0401589ba25f0b7e">N3Serializer.indent()</a>, <a class="el" href="a02324.html#a9eb11910ba74d4b59975a5784b130732">XMLWriter.indent</a>, <a class="el" href="a02240.html#a457d913bff1ebc8671c1eca1c9d5fc03">RDFXMLHandler.parent</a>, <a class="el" href="a02280.html#a457d913bff1ebc8671c1eca1c9d5fc03">N3Serializer.parent</a>, <a class="el" href="a02324.html#a457d913bff1ebc8671c1eca1c9d5fc03">XMLWriter.parent</a>, <a class="el" href="a02956.html#a457d913bff1ebc8671c1eca1c9d5fc03">GraphValidationTask.parent</a>, <a class="el" href="a03336.html#a457d913bff1ebc8671c1eca1c9d5fc03">ToolTipPlainText.parent</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a01860.html#ad85ee362e4d3c01fe2dfe01e693174c5">Individual.qname</a>, <a class="el" href="a01912.html#ad85ee362e4d3c01fe2dfe01e693174c5">Property.qname</a>, <a class="el" href="a02616.html#ac3bf9d5f915ec4efca218d75073a46d8">Resource.qname()</a>, <a class="el" href="a02176.html#af372bf80db289030311011d14620de15">SinkParser.qname()</a>, <a class="el" href="a01920.html#a2a390bd86f93dfb33871b08626ba4e8d">Graph.qname()</a>, <a class="el" href="a01948.html#a2a390bd86f93dfb33871b08626ba4e8d">ReadOnlyGraphAggregate.qname()</a>, <a class="el" href="a01976.html#a2a390bd86f93dfb33871b08626ba4e8d">NamespaceManager.qname()</a>, <a class="el" href="a02324.html#a2a390bd86f93dfb33871b08626ba4e8d">XMLWriter.qname()</a>, <a class="el" href="a02020.html#a7fefa5af7aca0cec372bf97711a68229">ODRL2.stream</a>, <a class="el" href="a02276.html#ae489866f8220882799d2786ca0690e5b">LongTurtleSerializer.stream</a>, <a class="el" href="a02280.html#ae489866f8220882799d2786ca0690e5b">N3Serializer.stream</a>, <a class="el" href="a02308.html#ae489866f8220882799d2786ca0690e5b">TrigSerializer.stream</a>, <a class="el" href="a02320.html#ae489866f8220882799d2786ca0690e5b">TurtleSerializer.stream</a>, and <a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">XMLWriter.stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#ac97204ce00c8fc2c771489c166df13c7">XMLWriter.element()</a>, and <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>.</p>
+
+</div>
+</div>
+<a id="af49f600f937c1ccc409afaa1e2be0c7c" name="af49f600f937c1ccc409afaa1e2be0c7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af49f600f937c1ccc409afaa1e2be0c7c">&#9670;&#160;</a></span>push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None push </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   52</span>    <span class="keyword">def </span>push(self, uri: str) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   53</span>        self.__close_start_tag()</div>
+<div class="line"><span class="lineno">   54</span>        write = self.stream.write</div>
+<div class="line"><span class="lineno">   55</span>        write(<span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><span class="lineno">   56</span>        write(self.indent)</div>
+<div class="line"><span class="lineno">   57</span>        write(<span class="stringliteral">&quot;&lt;%s&quot;</span> % self.qname(uri))</div>
+<div class="line"><span class="lineno">   58</span>        self.element_stack.append(uri)</div>
+<div class="line"><span class="lineno">   59</span>        self.closed = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   60</span>        self.parent = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   61</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02324.html#abf0f1fb5cb9a7301c39fadefbea1a33b">XMLWriter.__close_start_tag()</a>, <a class="el" href="a02056.html#adebd292c3bff32bf767a7ce41b8d3e78">SH.closed</a>, <a class="el" href="a02096.html#aeeae23ba00d10ab30b1ffe781da01372">BytesIOWrapper.closed()</a>, <a class="el" href="a02324.html#aa224f0f4efae061104ca63c5e7fed014">XMLWriter.closed</a>, <a class="el" href="a02324.html#a3c820bfd5c874edf220a8a7a358cf03b">XMLWriter.element_stack</a>, <a class="el" href="a02316.html#aa45e114e343c8f164f38bc23eb5ccb83">RecursiveSerializer.indent()</a>, <a class="el" href="a02280.html#acb3aa29e0931cf6f0401589ba25f0b7e">N3Serializer.indent()</a>, <a class="el" href="a02324.html#a9eb11910ba74d4b59975a5784b130732">XMLWriter.indent</a>, <a class="el" href="a01860.html#ad85ee362e4d3c01fe2dfe01e693174c5">Individual.qname</a>, <a class="el" href="a01912.html#ad85ee362e4d3c01fe2dfe01e693174c5">Property.qname</a>, <a class="el" href="a02616.html#ac3bf9d5f915ec4efca218d75073a46d8">Resource.qname()</a>, <a class="el" href="a02176.html#af372bf80db289030311011d14620de15">SinkParser.qname()</a>, <a class="el" href="a01920.html#a2a390bd86f93dfb33871b08626ba4e8d">Graph.qname()</a>, <a class="el" href="a01948.html#a2a390bd86f93dfb33871b08626ba4e8d">ReadOnlyGraphAggregate.qname()</a>, <a class="el" href="a01976.html#a2a390bd86f93dfb33871b08626ba4e8d">NamespaceManager.qname()</a>, <a class="el" href="a02324.html#a2a390bd86f93dfb33871b08626ba4e8d">XMLWriter.qname()</a>, <a class="el" href="a02020.html#a7fefa5af7aca0cec372bf97711a68229">ODRL2.stream</a>, <a class="el" href="a02276.html#ae489866f8220882799d2786ca0690e5b">LongTurtleSerializer.stream</a>, <a class="el" href="a02280.html#ae489866f8220882799d2786ca0690e5b">N3Serializer.stream</a>, <a class="el" href="a02308.html#ae489866f8220882799d2786ca0690e5b">TrigSerializer.stream</a>, <a class="el" href="a02320.html#ae489866f8220882799d2786ca0690e5b">TurtleSerializer.stream</a>, and <a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">XMLWriter.stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#ac97204ce00c8fc2c771489c166df13c7">XMLWriter.element()</a>.</p>
+
+</div>
+</div>
+<a id="a2a390bd86f93dfb33871b08626ba4e8d" name="a2a390bd86f93dfb33871b08626ba4e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a390bd86f93dfb33871b08626ba4e8d">&#9670;&#160;</a></span>qname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str qname </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Compute qname for a uri using our extra namespaces,
+or the given namespace manager</pre> <div class="fragment"><div class="line"><span class="lineno">  119</span>    <span class="keyword">def </span>qname(self, uri: str) -&gt; str:</div>
+<div class="line"><span class="lineno">  120</span>        <span class="stringliteral">&quot;&quot;&quot;Compute qname for a uri using our extra namespaces,</span></div>
+<div class="line"><span class="lineno">  121</span><span class="stringliteral">        or the given namespace manager&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  122</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  123</span><span class="stringliteral">        for pre, ns in self.extra_ns.items():</span></div>
+<div class="line"><span class="lineno">  124</span><span class="stringliteral">            if uri.startswith(ns):</span></div>
+<div class="line"><span class="lineno">  125</span><span class="stringliteral">                if pre != &quot;&quot;:</span></div>
+<div class="line"><span class="lineno">  126</span><span class="stringliteral">                    return &quot;:&quot;.join([pre, uri[len(ns) :]])</span></div>
+<div class="line"><span class="lineno">  127</span><span class="stringliteral">                else:</span></div>
+<div class="line"><span class="lineno">  128</span><span class="stringliteral">                    return uri[len(ns) :]</span></div>
+<div class="line"><span class="lineno">  129</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  130</span><span class="stringliteral">        return self.nm.qname_strict(uri)</span></div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01860.html#a1da00d2e6f69bf4353de4f6284d875ed">Individual._set_identifier()</a>, <a class="el" href="a02324.html#aec0638aedbc4343d1960b2b9452b9e34">XMLWriter.attribute()</a>, <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>, and <a class="el" href="a02176.html#aa8d2961c5b54b20387730a918d0a25e4">SinkParser.uri_ref2()</a>.</p>
+
+</div>
+</div>
+<a id="a389bc512c65b214faa9b89406679075d" name="a389bc512c65b214faa9b89406679075d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a389bc512c65b214faa9b89406679075d">&#9670;&#160;</a></span>text()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None text </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  110</span>    <span class="keyword">def </span>text(self, text: str) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  111</span>        self.__close_start_tag()</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;&lt;&quot;</span> <span class="keywordflow">in</span> text <span class="keywordflow">and</span> <span class="stringliteral">&quot;&gt;&quot;</span> <span class="keywordflow">in</span> text <span class="keywordflow">and</span> <span class="stringliteral">&quot;]]&gt;&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> text:</div>
+<div class="line"><span class="lineno">  113</span>            self.stream.write(<span class="stringliteral">&quot;&lt;![CDATA[&quot;</span>)</div>
+<div class="line"><span class="lineno">  114</span>            self.stream.write(text)</div>
+<div class="line"><span class="lineno">  115</span>            self.stream.write(<span class="stringliteral">&quot;]]&gt;&quot;</span>)</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  117</span>            self.stream.write(escape(text, ESCAPE_ENTITIES))</div>
+<div class="line"><span class="lineno">  118</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02324.html#abf0f1fb5cb9a7301c39fadefbea1a33b">XMLWriter.__close_start_tag()</a>, <a class="el" href="a02020.html#a7fefa5af7aca0cec372bf97711a68229">ODRL2.stream</a>, <a class="el" href="a02276.html#ae489866f8220882799d2786ca0690e5b">LongTurtleSerializer.stream</a>, <a class="el" href="a02280.html#ae489866f8220882799d2786ca0690e5b">N3Serializer.stream</a>, <a class="el" href="a02308.html#ae489866f8220882799d2786ca0690e5b">TrigSerializer.stream</a>, <a class="el" href="a02320.html#ae489866f8220882799d2786ca0690e5b">TurtleSerializer.stream</a>, and <a class="el" href="a02324.html#ae489866f8220882799d2786ca0690e5b">XMLWriter.stream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#ac97204ce00c8fc2c771489c166df13c7">XMLWriter.element()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa224f0f4efae061104ca63c5e7fed014" name="aa224f0f4efae061104ca63c5e7fed014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa224f0f4efae061104ca63c5e7fed014">&#9670;&#160;</a></span>closed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">closed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#abf0f1fb5cb9a7301c39fadefbea1a33b">XMLWriter.__close_start_tag()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, and <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>.</p>
+
+</div>
+</div>
+<a id="a3c820bfd5c874edf220a8a7a358cf03b" name="a3c820bfd5c874edf220a8a7a358cf03b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c820bfd5c874edf220a8a7a358cf03b">&#9670;&#160;</a></span>element_stack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">element_stack</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, and <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>.</p>
+
+</div>
+</div>
+<a id="a692440154ecbfc16767d39dfe03dc350" name="a692440154ecbfc16767d39dfe03dc350"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a692440154ecbfc16767d39dfe03dc350">&#9670;&#160;</a></span>extra_ns</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">extra_ns</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>.</p>
+
+</div>
+</div>
+<a id="a1226351087b4af98010b0edd1c6282c9" name="a1226351087b4af98010b0edd1c6282c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1226351087b4af98010b0edd1c6282c9">&#9670;&#160;</a></span>nm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">nm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>, and <a class="el" href="a02304.html#af96143e1b2444d42a8e4456860d3a96d">PrettyXMLSerializer.subject()</a>.</p>
+
+</div>
+</div>
+<a id="a457d913bff1ebc8671c1eca1c9d5fc03" name="a457d913bff1ebc8671c1eca1c9d5fc03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a457d913bff1ebc8671c1eca1c9d5fc03">&#9670;&#160;</a></span>parent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">parent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02280.html#a2fa29af36c6066e2b734de96659f1623">N3Serializer.endDocument()</a>, <a class="el" href="a02956.html#a2df94208700932ceb7ae3b3fda36840c">GraphValidationTask.finished()</a>, <a class="el" href="a02332.html#ac03169160a618e2d153d604038c3ec45">Context.get_context_for_type()</a>, <a class="el" href="a02280.html#a7b4d55802f1659df0b4f5a0a7e6e3c61">N3Serializer.getQName()</a>, <a class="el" href="a02280.html#acb3aa29e0931cf6f0401589ba25f0b7e">N3Serializer.indent()</a>, <a class="el" href="a02240.html#a8f3f217f9b706f9f83311a11243fdd0f">RDFXMLHandler.list_node_element_end()</a>, <a class="el" href="a02240.html#a9dc008fc29e8c2f35d28f2cac91d9231">RDFXMLHandler.literal_element_end()</a>, <a class="el" href="a02240.html#a24df5868d62da3617733aca072e083cc">RDFXMLHandler.literal_element_start()</a>, <a class="el" href="a02240.html#a41e8f195f26f1540f3d6df0b9f39b344">RDFXMLHandler.node_element_end()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02240.html#a3606ccbbaeabefa3df223334901540c0">RDFXMLHandler.property_element_end()</a>, <a class="el" href="a02240.html#a8aa35a71dde62877b55fa417837b06fc">RDFXMLHandler.startElementNS()</a>, and <a class="el" href="a02332.html#acf4f02dbacea249ef4bbac20d18af0cd">Context.subcontext()</a>.</p>
+
+</div>
+</div>
+<a id="ae489866f8220882799d2786ca0690e5b" name="ae489866f8220882799d2786ca0690e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae489866f8220882799d2786ca0690e5b">&#9670;&#160;</a></span>stream</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">stream</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#abf0f1fb5cb9a7301c39fadefbea1a33b">XMLWriter.__close_start_tag()</a>, <a class="el" href="a02316.html#aee378e78697aa7833279a585d65c10af">RecursiveSerializer.__init__()</a>, <a class="el" href="a02324.html#aec0638aedbc4343d1960b2b9452b9e34">XMLWriter.attribute()</a>, <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, <a class="el" href="a02276.html#af12661824e7655a62a095ce91662ec00">LongTurtleSerializer.serialize()</a>, <a class="el" href="a02320.html#af12661824e7655a62a095ce91662ec00">TurtleSerializer.serialize()</a>, and <a class="el" href="a02324.html#a389bc512c65b214faa9b89406679075d">XMLWriter.text()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a9eb11910ba74d4b59975a5784b130732" name="a9eb11910ba74d4b59975a5784b130732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eb11910ba74d4b59975a5784b130732">&#9670;&#160;</a></span>indent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">indent = property(<a class="el" href="a02324.html#a4c502c78cdaf128165aeb85317ca45e1">__get_indent</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02276.html#ab7673737286781c4a4cb1ec7bf7e2165">LongTurtleSerializer.doList()</a>, <a class="el" href="a02276.html#a7de267791fea7b550ae5a3ad7de8f8e3">LongTurtleSerializer.objectList()</a>, <a class="el" href="a02320.html#a6559be93e93e568ed3b69109c8f9f2dd">TurtleSerializer.objectList()</a>, <a class="el" href="a02276.html#a67f53ad2b13fdd1cf7df398af37138ca">LongTurtleSerializer.p_squared()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02320.html#aacf9437979d2424590b342abf6b11871">TurtleSerializer.predicateList()</a>, <a class="el" href="a02276.html#a37286bae180c8d7e5e492d44c1e30ad0">LongTurtleSerializer.predicateList()</a>, <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, <a class="el" href="a02280.html#a241230760e1ac2b0d77876ad7cf97b86">N3Serializer.s_clause()</a>, <a class="el" href="a02320.html#a743889f2906a3391bcc06e22f2f5bb98">TurtleSerializer.s_default()</a>, <a class="el" href="a02276.html#a14238908e906ef4fba9976b7bdc51eba">LongTurtleSerializer.s_default()</a>, <a class="el" href="a02320.html#a37b4c1b768ba0160882ff116a5851fda">TurtleSerializer.s_squared()</a>, <a class="el" href="a02276.html#a3ed8485f75ae9f0d0b0ea1d05925e726">LongTurtleSerializer.s_squared()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, and <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01060.html">serializers</a></li><li class="navelem"><a class="el" href="a01072.html">xmlwriter</a></li><li class="navelem"><a class="el" href="a02324.html">XMLWriter</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

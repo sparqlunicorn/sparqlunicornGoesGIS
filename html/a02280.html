@@ -1,0 +1,730 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: N3Serializer Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02280.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="a02277.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">N3Serializer Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for N3Serializer:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02279.png" border="0" usemap="#aN3Serializer_inherit__map" alt="Inheritance graph"/></div>
+<map name="aN3Serializer_inherit__map" id="aN3Serializer_inherit__map">
+<area shape="rect" title=" " alt="" coords="28,225,129,251"/>
+<area shape="rect" href="a02320.html" title=" " alt="" coords="19,152,138,177"/>
+<area shape="poly" title=" " alt="" coords="81,191,81,225,76,225,76,191"/>
+<area shape="rect" href="a02316.html" title=" " alt="" coords="5,79,152,104"/>
+<area shape="poly" title=" " alt="" coords="81,118,81,152,76,152,76,118"/>
+<area shape="rect" href="a02620.html" title=" " alt="" coords="37,5,120,31"/>
+<area shape="poly" title=" " alt="" coords="81,44,81,79,76,79,76,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for N3Serializer:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02278.png" border="0" usemap="#aN3Serializer_coll__map" alt="Collaboration graph"/></div>
+<map name="aN3Serializer_coll__map" id="aN3Serializer_coll__map">
+<area shape="rect" title=" " alt="" coords="578,275,679,300"/>
+<area shape="rect" href="a02320.html" title=" " alt="" coords="509,200,628,225"/>
+<area shape="poly" title=" " alt="" coords="589,235,621,273,617,276,585,238"/>
+<area shape="rect" href="a02316.html" title=" " alt="" coords="174,110,321,135"/>
+<area shape="poly" title=" " alt="" coords="303,136,527,197,526,202,302,142"/>
+<area shape="rect" href="a02620.html" title=" " alt="" coords="73,5,155,31"/>
+<area shape="poly" title=" " alt="" coords="133,40,152,62,174,82,220,108,217,112,171,86,148,65,129,44"/>
+<area shape="rect" title=" " alt="" coords="179,5,222,31"/>
+<area shape="poly" title=" " alt="" coords="188,43,181,64,184,83,197,97,214,108,211,112,194,101,180,85,176,63,183,42"/>
+<area shape="rect" title=" " alt="" coords="5,5,44,31"/>
+<area shape="poly" title=" " alt="" coords="36,42,48,64,65,82,90,96,118,106,174,117,173,123,116,112,88,101,62,86,43,67,31,45"/>
+<area shape="rect" title=" " alt="" coords="549,5,588,31"/>
+<area shape="poly" title=" " alt="" coords="600,37,633,66,649,86,660,107,667,130,669,155,664,203,651,245,637,275,632,273,646,243,658,202,664,155,662,131,656,109,644,89,629,70,596,41"/>
+<area shape="poly" title=" " alt="" coords="571,44,571,200,566,200,566,44"/>
+<area shape="poly" title=" " alt="" coords="537,31,503,42,467,57,447,72,426,86,374,104,322,115,320,110,372,99,423,82,444,68,465,52,501,37,535,25"/>
+<area shape="rect" title=" " alt="" coords="285,5,340,31"/>
+<area shape="poly" title=" " alt="" coords="306,45,286,86,262,112,258,108,281,82,302,42"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2d8a3c539023a8b5e155824636b80264" id="r_a2d8a3c539023a8b5e155824636b80264"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a2d8a3c539023a8b5e155824636b80264">__init__</a> (self, <a class="el" href="a01920.html">Graph</a> store, <a class="el" href="a02280.html#a457d913bff1ebc8671c1eca1c9d5fc03">parent</a>=None)</td></tr>
+<tr class="separator:a2d8a3c539023a8b5e155824636b80264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecbc052233262275fc20a8ee8dfb8a47" id="r_aecbc052233262275fc20a8ee8dfb8a47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#aecbc052233262275fc20a8ee8dfb8a47">reset</a> (self)</td></tr>
+<tr class="separator:aecbc052233262275fc20a8ee8dfb8a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa29af36c6066e2b734de96659f1623" id="r_a2fa29af36c6066e2b734de96659f1623"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a2fa29af36c6066e2b734de96659f1623">endDocument</a> (self)</td></tr>
+<tr class="separator:a2fa29af36c6066e2b734de96659f1623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb3aa29e0931cf6f0401589ba25f0b7e" id="r_acb3aa29e0931cf6f0401589ba25f0b7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#acb3aa29e0931cf6f0401589ba25f0b7e">indent</a> (self, modifier=0)</td></tr>
+<tr class="separator:acb3aa29e0931cf6f0401589ba25f0b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a531f16bdf517cf6c1dd6ba6ccb5dcc30" id="r_a531f16bdf517cf6c1dd6ba6ccb5dcc30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a531f16bdf517cf6c1dd6ba6ccb5dcc30">preprocessTriple</a> (self, triple)</td></tr>
+<tr class="separator:a531f16bdf517cf6c1dd6ba6ccb5dcc30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b4d55802f1659df0b4f5a0a7e6e3c61" id="r_a7b4d55802f1659df0b4f5a0a7e6e3c61"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a7b4d55802f1659df0b4f5a0a7e6e3c61">getQName</a> (self, uri, gen_prefix=True)</td></tr>
+<tr class="separator:a7b4d55802f1659df0b4f5a0a7e6e3c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a063ae72f3b13294d96420964770dd8a2" id="r_a063ae72f3b13294d96420964770dd8a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a063ae72f3b13294d96420964770dd8a2">statement</a> (self, subject)</td></tr>
+<tr class="separator:a063ae72f3b13294d96420964770dd8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269decd8b28f02740cc8572d2fc91c70" id="r_a269decd8b28f02740cc8572d2fc91c70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a269decd8b28f02740cc8572d2fc91c70">path</a> (self, node, position, newline=False)</td></tr>
+<tr class="separator:a269decd8b28f02740cc8572d2fc91c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a241230760e1ac2b0d77876ad7cf97b86" id="r_a241230760e1ac2b0d77876ad7cf97b86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a241230760e1ac2b0d77876ad7cf97b86">s_clause</a> (self, subject)</td></tr>
+<tr class="separator:a241230760e1ac2b0d77876ad7cf97b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5757b31299349b4d081d251638b0aba9" id="r_a5757b31299349b4d081d251638b0aba9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a5757b31299349b4d081d251638b0aba9">p_clause</a> (self, node, position)</td></tr>
+<tr class="separator:a5757b31299349b4d081d251638b0aba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a457d913bff1ebc8671c1eca1c9d5fc03" id="r_a457d913bff1ebc8671c1eca1c9d5fc03"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a457d913bff1ebc8671c1eca1c9d5fc03">parent</a></td></tr>
+<tr class="separator:a457d913bff1ebc8671c1eca1c9d5fc03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae489866f8220882799d2786ca0690e5b" id="r_ae489866f8220882799d2786ca0690e5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#ae489866f8220882799d2786ca0690e5b">stream</a></td></tr>
+<tr class="separator:ae489866f8220882799d2786ca0690e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a26502d6f860babc63a3ce13f7306b106" id="r_a26502d6f860babc63a3ce13f7306b106"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#a26502d6f860babc63a3ce13f7306b106">short_name</a> = &quot;n3&quot;</td></tr>
+<tr class="separator:a26502d6f860babc63a3ce13f7306b106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ac850cc7aee5916f96d0d68b3663dff30" id="r_ac850cc7aee5916f96d0d68b3663dff30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02280.html#ac850cc7aee5916f96d0d68b3663dff30">_stores</a></td></tr>
+<tr class="separator:ac850cc7aee5916f96d0d68b3663dff30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Notation 3 (N3) RDF graph serializer.</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2d8a3c539023a8b5e155824636b80264" name="a2d8a3c539023a8b5e155824636b80264"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d8a3c539023a8b5e155824636b80264">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>store</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02320.html#aee378e78697aa7833279a585d65c10af">TurtleSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>    <span class="keyword">def </span>__init__(self, store: Graph, parent=<span class="keywordtype">None</span>):</div>
+<div class="line"><span class="lineno">   20</span>        super(N3Serializer, self).__init__(store)</div>
+<div class="line"><span class="lineno">   21</span>        self.keywords.update({OWL.sameAs: <span class="stringliteral">&quot;=&quot;</span>, SWAP_LOG.implies: <span class="stringliteral">&quot;=&gt;&quot;</span>})</div>
+<div class="line"><span class="lineno">   22</span>        self.parent = parent</div>
+<div class="line"><span class="lineno">   23</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02280.html#a2d8a3c539023a8b5e155824636b80264">N3Serializer.__init__()</a>, <a class="el" href="a02176.html#a55bd10e3116510cf80c41fe641064494">SinkParser.keywords</a>, <a class="el" href="a02276.html#a55bd10e3116510cf80c41fe641064494">LongTurtleSerializer.keywords</a>, and <a class="el" href="a03324.html#a0d17271000b81550ca6c5a1fde2f17f3">SPARQLHighlighter.keywords</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02280.html#a2d8a3c539023a8b5e155824636b80264">N3Serializer.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2fa29af36c6066e2b734de96659f1623" name="a2fa29af36c6066e2b734de96659f1623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa29af36c6066e2b734de96659f1623">&#9670;&#160;</a></span>endDocument()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">endDocument </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02320.html#a42ed65c7023fcfdac6bd5fa710970389">TurtleSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>    <span class="keyword">def </span>endDocument(self):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.parent:</div>
+<div class="line"><span class="lineno">   30</span>            super(N3Serializer, self).endDocument()</div>
+<div class="line"><span class="lineno">   31</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02280.html#a2fa29af36c6066e2b734de96659f1623">N3Serializer.endDocument()</a>, <a class="el" href="a02240.html#a457d913bff1ebc8671c1eca1c9d5fc03">RDFXMLHandler.parent</a>, <a class="el" href="a02280.html#a457d913bff1ebc8671c1eca1c9d5fc03">N3Serializer.parent</a>, <a class="el" href="a02324.html#a457d913bff1ebc8671c1eca1c9d5fc03">XMLWriter.parent</a>, <a class="el" href="a02956.html#a457d913bff1ebc8671c1eca1c9d5fc03">GraphValidationTask.parent</a>, and <a class="el" href="a03336.html#a457d913bff1ebc8671c1eca1c9d5fc03">ToolTipPlainText.parent</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02280.html#a2fa29af36c6066e2b734de96659f1623">N3Serializer.endDocument()</a>.</p>
+
+</div>
+</div>
+<a id="a7b4d55802f1659df0b4f5a0a7e6e3c61" name="a7b4d55802f1659df0b4f5a0a7e6e3c61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b4d55802f1659df0b4f5a0a7e6e3c61">&#9670;&#160;</a></span>getQName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getQName </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gen_prefix</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02320.html#a0252f5fc6d467c7c37218d4946fbe83c">TurtleSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   50</span>    <span class="keyword">def </span>getQName(self, uri, gen_prefix=True):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">   51</span>        qname = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">if</span> self.parent <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   53</span>            qname = self.parent.getQName(uri, gen_prefix)</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">if</span> qname <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   55</span>            qname = super(N3Serializer, self).getQName(uri, gen_prefix)</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> qname</div>
+<div class="line"><span class="lineno">   57</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02280.html#a7b4d55802f1659df0b4f5a0a7e6e3c61">N3Serializer.getQName()</a>, <a class="el" href="a02240.html#a457d913bff1ebc8671c1eca1c9d5fc03">RDFXMLHandler.parent</a>, <a class="el" href="a02280.html#a457d913bff1ebc8671c1eca1c9d5fc03">N3Serializer.parent</a>, <a class="el" href="a02324.html#a457d913bff1ebc8671c1eca1c9d5fc03">XMLWriter.parent</a>, <a class="el" href="a02956.html#a457d913bff1ebc8671c1eca1c9d5fc03">GraphValidationTask.parent</a>, and <a class="el" href="a03336.html#a457d913bff1ebc8671c1eca1c9d5fc03">ToolTipPlainText.parent</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02280.html#a7b4d55802f1659df0b4f5a0a7e6e3c61">N3Serializer.getQName()</a>, <a class="el" href="a02320.html#ac9fc62fccf9a7d7d364473f36a222036">TurtleSerializer.label()</a>, <a class="el" href="a02276.html#a72112c1e389713e24847173cc0f73cff">LongTurtleSerializer.label()</a>, <a class="el" href="a02276.html#a90762f3d1e475db9807d6ba03849f1fb">LongTurtleSerializer.preprocessTriple()</a>, and <a class="el" href="a02320.html#a90762f3d1e475db9807d6ba03849f1fb">TurtleSerializer.preprocessTriple()</a>.</p>
+
+</div>
+</div>
+<a id="acb3aa29e0931cf6f0401589ba25f0b7e" name="acb3aa29e0931cf6f0401589ba25f0b7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb3aa29e0931cf6f0401589ba25f0b7e">&#9670;&#160;</a></span>indent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">indent </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>modifier</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns indent string multiplied by the depth</pre> 
+<p>Reimplemented from <a class="el" href="a02316.html#aa45e114e343c8f164f38bc23eb5ccb83">RecursiveSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>    <span class="keyword">def </span>indent(self, modifier=0):</div>
+<div class="line"><span class="lineno">   33</span>        indent = super(N3Serializer, self).indent(modifier)</div>
+<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> self.parent <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   35</span>            indent += self.parent.indent()  <span class="comment"># modifier)</span></div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">return</span> indent</div>
+<div class="line"><span class="lineno">   37</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02240.html#a457d913bff1ebc8671c1eca1c9d5fc03">RDFXMLHandler.parent</a>, <a class="el" href="a02280.html#a457d913bff1ebc8671c1eca1c9d5fc03">N3Serializer.parent</a>, <a class="el" href="a02324.html#a457d913bff1ebc8671c1eca1c9d5fc03">XMLWriter.parent</a>, <a class="el" href="a02956.html#a457d913bff1ebc8671c1eca1c9d5fc03">GraphValidationTask.parent</a>, and <a class="el" href="a03336.html#a457d913bff1ebc8671c1eca1c9d5fc03">ToolTipPlainText.parent</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02276.html#ab7673737286781c4a4cb1ec7bf7e2165">LongTurtleSerializer.doList()</a>, <a class="el" href="a02276.html#a7de267791fea7b550ae5a3ad7de8f8e3">LongTurtleSerializer.objectList()</a>, <a class="el" href="a02320.html#a6559be93e93e568ed3b69109c8f9f2dd">TurtleSerializer.objectList()</a>, <a class="el" href="a02276.html#a67f53ad2b13fdd1cf7df398af37138ca">LongTurtleSerializer.p_squared()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02320.html#aacf9437979d2424590b342abf6b11871">TurtleSerializer.predicateList()</a>, <a class="el" href="a02276.html#a37286bae180c8d7e5e492d44c1e30ad0">LongTurtleSerializer.predicateList()</a>, <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, <a class="el" href="a02280.html#a241230760e1ac2b0d77876ad7cf97b86">N3Serializer.s_clause()</a>, <a class="el" href="a02320.html#a743889f2906a3391bcc06e22f2f5bb98">TurtleSerializer.s_default()</a>, <a class="el" href="a02276.html#a14238908e906ef4fba9976b7bdc51eba">LongTurtleSerializer.s_default()</a>, <a class="el" href="a02320.html#a37b4c1b768ba0160882ff116a5851fda">TurtleSerializer.s_squared()</a>, <a class="el" href="a02276.html#a3ed8485f75ae9f0d0b0ea1d05925e726">LongTurtleSerializer.s_squared()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, and <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>.</p>
+
+</div>
+</div>
+<a id="a5757b31299349b4d081d251638b0aba9" name="a5757b31299349b4d081d251638b0aba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5757b31299349b4d081d251638b0aba9">&#9670;&#160;</a></span>p_clause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">p_clause </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   79</span>    <span class="keyword">def </span>p_clause(self, node, position):</div>
+<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">if</span> isinstance(node, Graph):</div>
+<div class="line"><span class="lineno">   81</span>            self.subjectDone(node)</div>
+<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">if</span> position <span class="keywordflow">is</span> OBJECT:</div>
+<div class="line"><span class="lineno">   83</span>                self.write(<span class="stringliteral">&quot; &quot;</span>)</div>
+<div class="line"><span class="lineno">   84</span>            self.write(<span class="stringliteral">&quot;{&quot;</span>)</div>
+<div class="line"><span class="lineno">   85</span>            self.depth += 1</div>
+<div class="line"><span class="lineno">   86</span>            serializer = N3Serializer(node, parent=self)</div>
+<div class="line"><span class="lineno">   87</span>            <span class="comment"># type error: Argument 1 to &quot;serialize&quot; of &quot;TurtleSerializer&quot; has incompatible type &quot;Optional[IO[bytes]]&quot;; expected &quot;IO[bytes]&quot;</span></div>
+<div class="line"><span class="lineno">   88</span>            serializer.serialize(self.stream)  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">   89</span>            self.depth -= 1</div>
+<div class="line"><span class="lineno">   90</span>            self.write(self.indent() + <span class="stringliteral">&quot;}&quot;</span>)</div>
+<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   93</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02316.html#a40fbe8949b277afd0fac64228851b12a">RecursiveSerializer.depth</a>, <a class="el" href="a02316.html#ab2e530d7693e8883ca2e958f6b1faba8">RecursiveSerializer.subjectDone()</a>, <a class="el" href="a02020.html#a638b67b4858c1f2a7e417fd224e07e16">ODRL2.write</a>, <a class="el" href="a02596.html#a7928854c59fd21020c3a2ca3a3f2ff11">EncodeOnlyUnicode.write()</a>, <a class="el" href="a02096.html#aaba36b77b9c0af01016f458211b2fa43">BytesIOWrapper.write()</a>, <a class="el" href="a02300.html#a0328b2b476ba0d019492a722f334d2b6">XMLSerializer.write</a>, and <a class="el" href="a02316.html#a56f909266f0328392ed3384ee9e96146">RecursiveSerializer.write()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02280.html#a269decd8b28f02740cc8572d2fc91c70">N3Serializer.path()</a>, and <a class="el" href="a02280.html#a241230760e1ac2b0d77876ad7cf97b86">N3Serializer.s_clause()</a>.</p>
+
+</div>
+</div>
+<a id="a269decd8b28f02740cc8572d2fc91c70" name="a269decd8b28f02740cc8572d2fc91c70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a269decd8b28f02740cc8572d2fc91c70">&#9670;&#160;</a></span>path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">path </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>newline</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02320.html#a3011b29cb016f6f38219b2544d0d5975">TurtleSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span>    <span class="keyword">def </span>path(self, node, position, newline=False):</div>
+<div class="line"><span class="lineno">   66</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.p_clause(node, position):</div>
+<div class="line"><span class="lineno">   67</span>            super(N3Serializer, self).path(node, position, newline)</div>
+<div class="line"><span class="lineno">   68</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02280.html#a5757b31299349b4d081d251638b0aba9">N3Serializer.p_clause()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02136.html#aea815b0c6c23fc48a11ee0404b782c7a">MulPath.__repr__()</a>, <a class="el" href="a02276.html#ab7673737286781c4a4cb1ec7bf7e2165">LongTurtleSerializer.doList()</a>, <a class="el" href="a02320.html#a8c2d7aeefda68b66c9ab2841ef2098aa">TurtleSerializer.doList()</a>, <a class="el" href="a02136.html#a8c235e47c1eaf8cdd95b2cd2da40bd56">MulPath.eval()</a>, <a class="el" href="a02176.html#a1ca25244b00c076fdc2b56060aa33311">SinkParser.item()</a>, <a class="el" href="a01612.html#a2252bcedd3a1647b90ea3abb4598cc71">SHACLParameter.localname()</a>, <a class="el" href="a02136.html#a7fbd93d64a0ac408c12cb7dcd14d25db">MulPath.n3()</a>, <a class="el" href="a02276.html#a7de267791fea7b550ae5a3ad7de8f8e3">LongTurtleSerializer.objectList()</a>, <a class="el" href="a02320.html#a6559be93e93e568ed3b69109c8f9f2dd">TurtleSerializer.objectList()</a>, <a class="el" href="a02320.html#a743889f2906a3391bcc06e22f2f5bb98">TurtleSerializer.s_default()</a>, <a class="el" href="a02276.html#a14238908e906ef4fba9976b7bdc51eba">LongTurtleSerializer.s_default()</a>, <a class="el" href="a01660.html#acadb21f09824ef593f43e20fe72544da">Shape.value_nodes()</a>, <a class="el" href="a02320.html#a02bd2691dd7f3e6a0d4f0be97bf24cb6">TurtleSerializer.verb()</a>, and <a class="el" href="a02276.html#acc187eca8b9d03b87b8e33f4478ed722">LongTurtleSerializer.verb()</a>.</p>
+
+</div>
+</div>
+<a id="a531f16bdf517cf6c1dd6ba6ccb5dcc30" name="a531f16bdf517cf6c1dd6ba6ccb5dcc30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a531f16bdf517cf6c1dd6ba6ccb5dcc30">&#9670;&#160;</a></span>preprocessTriple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">preprocessTriple </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triple</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02320.html#a90762f3d1e475db9807d6ba03849f1fb">TurtleSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   38</span>    <span class="keyword">def </span>preprocessTriple(self, triple):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">   39</span>        super(N3Serializer, self).preprocessTriple(triple)</div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">if</span> isinstance(triple[0], Graph):</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">for</span> t <span class="keywordflow">in</span> triple[0]:</div>
+<div class="line"><span class="lineno">   42</span>                self.preprocessTriple(t)</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">if</span> isinstance(triple[1], Graph):</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">for</span> t <span class="keywordflow">in</span> triple[1]:</div>
+<div class="line"><span class="lineno">   45</span>                self.preprocessTriple(t)</div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">if</span> isinstance(triple[2], Graph):</div>
+<div class="line"><span class="lineno">   47</span>            <span class="keywordflow">for</span> t <span class="keywordflow">in</span> triple[2]:</div>
+<div class="line"><span class="lineno">   48</span>                self.preprocessTriple(t)</div>
+<div class="line"><span class="lineno">   49</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02316.html#a25dc2af0c98b61da210949202f967f88">RecursiveSerializer.preprocessTriple()</a>, <a class="el" href="a02276.html#a90762f3d1e475db9807d6ba03849f1fb">LongTurtleSerializer.preprocessTriple()</a>, <a class="el" href="a02320.html#a90762f3d1e475db9807d6ba03849f1fb">TurtleSerializer.preprocessTriple()</a>, and <a class="el" href="a02280.html#a531f16bdf517cf6c1dd6ba6ccb5dcc30">N3Serializer.preprocessTriple()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02316.html#a925317f7541d940b63b0d9cbc670cb92">RecursiveSerializer.preprocess()</a>, and <a class="el" href="a02280.html#a531f16bdf517cf6c1dd6ba6ccb5dcc30">N3Serializer.preprocessTriple()</a>.</p>
+
+</div>
+</div>
+<a id="aecbc052233262275fc20a8ee8dfb8a47" name="aecbc052233262275fc20a8ee8dfb8a47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecbc052233262275fc20a8ee8dfb8a47">&#9670;&#160;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">reset </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02320.html#a89732d4380ef53ab0394d237458376f7">TurtleSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   24</span>    <span class="keyword">def </span>reset(self):</div>
+<div class="line"><span class="lineno">   25</span>        super(N3Serializer, self).reset()</div>
+<div class="line"><span class="lineno">   26</span>        self._stores = {}</div>
+<div class="line"><span class="lineno">   27</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02280.html#aecbc052233262275fc20a8ee8dfb8a47">N3Serializer.reset()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02316.html#aee378e78697aa7833279a585d65c10af">RecursiveSerializer.__init__()</a>, <a class="el" href="a02320.html#aee378e78697aa7833279a585d65c10af">TurtleSerializer.__init__()</a>, <a class="el" href="a02280.html#aecbc052233262275fc20a8ee8dfb8a47">N3Serializer.reset()</a>, <a class="el" href="a02276.html#af12661824e7655a62a095ce91662ec00">LongTurtleSerializer.serialize()</a>, <a class="el" href="a02308.html#af12661824e7655a62a095ce91662ec00">TrigSerializer.serialize()</a>, and <a class="el" href="a02320.html#af12661824e7655a62a095ce91662ec00">TurtleSerializer.serialize()</a>.</p>
+
+</div>
+</div>
+<a id="a241230760e1ac2b0d77876ad7cf97b86" name="a241230760e1ac2b0d77876ad7cf97b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a241230760e1ac2b0d77876ad7cf97b86">&#9670;&#160;</a></span>s_clause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_clause </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>subject</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   69</span>    <span class="keyword">def </span>s_clause(self, subject):</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> isinstance(subject, Graph):</div>
+<div class="line"><span class="lineno">   71</span>            self.write(<span class="stringliteral">&quot;\n&quot;</span> + self.indent())</div>
+<div class="line"><span class="lineno">   72</span>            self.p_clause(subject, SUBJECT)</div>
+<div class="line"><span class="lineno">   73</span>            self.predicateList(subject)</div>
+<div class="line"><span class="lineno">   74</span>            self.write(<span class="stringliteral">&quot; .&quot;</span>)</div>
+<div class="line"><span class="lineno">   75</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   78</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02316.html#aa45e114e343c8f164f38bc23eb5ccb83">RecursiveSerializer.indent()</a>, <a class="el" href="a02280.html#acb3aa29e0931cf6f0401589ba25f0b7e">N3Serializer.indent()</a>, <a class="el" href="a02324.html#a9eb11910ba74d4b59975a5784b130732">XMLWriter.indent</a>, <a class="el" href="a02280.html#a5757b31299349b4d081d251638b0aba9">N3Serializer.p_clause()</a>, <a class="el" href="a02320.html#aacf9437979d2424590b342abf6b11871">TurtleSerializer.predicateList()</a>, <a class="el" href="a02276.html#a37286bae180c8d7e5e492d44c1e30ad0">LongTurtleSerializer.predicateList()</a>, <a class="el" href="a02020.html#a638b67b4858c1f2a7e417fd224e07e16">ODRL2.write</a>, <a class="el" href="a02596.html#a7928854c59fd21020c3a2ca3a3f2ff11">EncodeOnlyUnicode.write()</a>, <a class="el" href="a02096.html#aaba36b77b9c0af01016f458211b2fa43">BytesIOWrapper.write()</a>, <a class="el" href="a02300.html#a0328b2b476ba0d019492a722f334d2b6">XMLSerializer.write</a>, and <a class="el" href="a02316.html#a56f909266f0328392ed3384ee9e96146">RecursiveSerializer.write()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02280.html#a063ae72f3b13294d96420964770dd8a2">N3Serializer.statement()</a>.</p>
+
+</div>
+</div>
+<a id="a063ae72f3b13294d96420964770dd8a2" name="a063ae72f3b13294d96420964770dd8a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a063ae72f3b13294d96420964770dd8a2">&#9670;&#160;</a></span>statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">statement </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>subject</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02320.html#a2bf73a4059a15d59efe6acb19a205d74">TurtleSerializer</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>    <span class="keyword">def </span>statement(self, subject):</div>
+<div class="line"><span class="lineno">   59</span>        self.subjectDone(subject)</div>
+<div class="line"><span class="lineno">   60</span>        properties = self.buildPredicateHash(subject)</div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">if</span> len(properties) == 0:</div>
+<div class="line"><span class="lineno">   62</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">return</span> self.s_clause(subject) <span class="keywordflow">or</span> super(N3Serializer, self).statement(subject)</div>
+<div class="line"><span class="lineno">   64</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02316.html#a1946db2a1a0de498ea16181aa9db93a2">RecursiveSerializer.buildPredicateHash()</a>, <a class="el" href="a02280.html#a241230760e1ac2b0d77876ad7cf97b86">N3Serializer.s_clause()</a>, <a class="el" href="a02280.html#a063ae72f3b13294d96420964770dd8a2">N3Serializer.statement()</a>, and <a class="el" href="a02316.html#ab2e530d7693e8883ca2e958f6b1faba8">RecursiveSerializer.subjectDone()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02176.html#aacfb5a6a5b3f0b50ce8058a05c407bc7">SinkParser.directiveOrStatement()</a>, <a class="el" href="a02248.html#aacfb5a6a5b3f0b50ce8058a05c407bc7">TrigSinkParser.directiveOrStatement()</a>, and <a class="el" href="a02280.html#a063ae72f3b13294d96420964770dd8a2">N3Serializer.statement()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac850cc7aee5916f96d0d68b3663dff30" name="ac850cc7aee5916f96d0d68b3663dff30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac850cc7aee5916f96d0d68b3663dff30">&#9670;&#160;</a></span>_stores</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_stores</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a457d913bff1ebc8671c1eca1c9d5fc03" name="a457d913bff1ebc8671c1eca1c9d5fc03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a457d913bff1ebc8671c1eca1c9d5fc03">&#9670;&#160;</a></span>parent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">parent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02280.html#a2fa29af36c6066e2b734de96659f1623">N3Serializer.endDocument()</a>, <a class="el" href="a02956.html#a2df94208700932ceb7ae3b3fda36840c">GraphValidationTask.finished()</a>, <a class="el" href="a02332.html#ac03169160a618e2d153d604038c3ec45">Context.get_context_for_type()</a>, <a class="el" href="a02280.html#a7b4d55802f1659df0b4f5a0a7e6e3c61">N3Serializer.getQName()</a>, <a class="el" href="a02280.html#acb3aa29e0931cf6f0401589ba25f0b7e">N3Serializer.indent()</a>, <a class="el" href="a02240.html#a8f3f217f9b706f9f83311a11243fdd0f">RDFXMLHandler.list_node_element_end()</a>, <a class="el" href="a02240.html#a9dc008fc29e8c2f35d28f2cac91d9231">RDFXMLHandler.literal_element_end()</a>, <a class="el" href="a02240.html#a24df5868d62da3617733aca072e083cc">RDFXMLHandler.literal_element_start()</a>, <a class="el" href="a02240.html#a41e8f195f26f1540f3d6df0b9f39b344">RDFXMLHandler.node_element_end()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02240.html#a3606ccbbaeabefa3df223334901540c0">RDFXMLHandler.property_element_end()</a>, <a class="el" href="a02240.html#a8aa35a71dde62877b55fa417837b06fc">RDFXMLHandler.startElementNS()</a>, and <a class="el" href="a02332.html#acf4f02dbacea249ef4bbac20d18af0cd">Context.subcontext()</a>.</p>
+
+</div>
+</div>
+<a id="a26502d6f860babc63a3ce13f7306b106" name="a26502d6f860babc63a3ce13f7306b106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26502d6f860babc63a3ce13f7306b106">&#9670;&#160;</a></span>short_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str short_name = &quot;n3&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae489866f8220882799d2786ca0690e5b" name="ae489866f8220882799d2786ca0690e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae489866f8220882799d2786ca0690e5b">&#9670;&#160;</a></span>stream</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">stream</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02324.html#abf0f1fb5cb9a7301c39fadefbea1a33b">XMLWriter.__close_start_tag()</a>, <a class="el" href="a02316.html#aee378e78697aa7833279a585d65c10af">RecursiveSerializer.__init__()</a>, <a class="el" href="a02324.html#aec0638aedbc4343d1960b2b9452b9e34">XMLWriter.attribute()</a>, <a class="el" href="a02324.html#a08695b394445598f066e54d7a8280269">XMLWriter.namespaces()</a>, <a class="el" href="a02324.html#aad7c80518e77ee17eadac494d96ea05d">XMLWriter.pop()</a>, <a class="el" href="a02324.html#af49f600f937c1ccc409afaa1e2be0c7c">XMLWriter.push()</a>, <a class="el" href="a02276.html#af12661824e7655a62a095ce91662ec00">LongTurtleSerializer.serialize()</a>, <a class="el" href="a02320.html#af12661824e7655a62a095ce91662ec00">TurtleSerializer.serialize()</a>, and <a class="el" href="a02324.html#a389bc512c65b214faa9b89406679075d">XMLWriter.text()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01060.html">serializers</a></li><li class="navelem"><a class="el" href="a01064.html">n3</a></li><li class="navelem"><a class="el" href="a02280.html">N3Serializer</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

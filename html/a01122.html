@@ -1,0 +1,1605 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: rdflib.util Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01122.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">rdflib.util Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a582cb7114b02c262ca83c2f8e99025fa" id="r_a582cb7114b02c262ca83c2f8e99025fa"><td class="memItemLeft" align="right" valign="top">List[<a class="el" href="a01122.html#a4fdf13731bda5993cc9dd330c1976a81">_HashableT</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a582cb7114b02c262ca83c2f8e99025fa">list2set</a> (Iterable[<a class="el" href="a01122.html#a4fdf13731bda5993cc9dd330c1976a81">_HashableT</a>] seq)</td></tr>
+<tr class="separator:a582cb7114b02c262ca83c2f8e99025fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43bb5681f194336d7c05228b2e0ad5a9" id="r_a43bb5681f194336d7c05228b2e0ad5a9"><td class="memItemLeft" align="right" valign="top">Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a43bb5681f194336d7c05228b2e0ad5a9">first</a> (Iterable[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>] seq)</td></tr>
+<tr class="separator:a43bb5681f194336d7c05228b2e0ad5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71957c89c3610845863d9c33642534b5" id="r_a71957c89c3610845863d9c33642534b5"><td class="memItemLeft" align="right" valign="top">Set[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a71957c89c3610845863d9c33642534b5">uniq</a> (Iterable[str] sequence, int strip=0)</td></tr>
+<tr class="separator:a71957c89c3610845863d9c33642534b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a594f6e59bdec0621e93bbb7983b4aa" id="r_a8a594f6e59bdec0621e93bbb7983b4aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a8a594f6e59bdec0621e93bbb7983b4aa">more_than</a> (Iterable[Any] sequence, int number)</td></tr>
+<tr class="separator:a8a594f6e59bdec0621e93bbb7983b4aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a5e3111537a112894e500b95fc5a08" id="r_af1a5e3111537a112894e500b95fc5a08"><td class="memItemLeft" align="right" valign="top">Optional[<a class="el" href="a02648.html">rdflib.term.Identifier</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#af1a5e3111537a112894e500b95fc5a08">to_term</a> (Optional[str] s, Optional[<a class="el" href="a02648.html">rdflib.term.Identifier</a>] default=None)</td></tr>
+<tr class="separator:af1a5e3111537a112894e500b95fc5a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b0125bd82c55f5cf7b75afa1e5e0194" id="r_a6b0125bd82c55f5cf7b75afa1e5e0194"><td class="memItemLeft" align="right" valign="top">Optional[Union[<a class="el" href="a02644.html">rdflib.term.Node</a>, str]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a6b0125bd82c55f5cf7b75afa1e5e0194">from_n3</a> (str s, Optional[str] default=None, Optional[str] backend=None, Optional[<a class="el" href="a01976.html">rdflib.namespace.NamespaceManager</a>] nsm=None)</td></tr>
+<tr class="separator:a6b0125bd82c55f5cf7b75afa1e5e0194"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3937ebf06343bfc7a49f14dedf0190ad" id="r_a3937ebf06343bfc7a49f14dedf0190ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a3937ebf06343bfc7a49f14dedf0190ad">date_time</a> (t=None, local_time_zone=False)</td></tr>
+<tr class="separator:a3937ebf06343bfc7a49f14dedf0190ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab19f84712070dadf8ddfdf578cbef4aa" id="r_ab19f84712070dadf8ddfdf578cbef4aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#ab19f84712070dadf8ddfdf578cbef4aa">parse_date_time</a> (str val)</td></tr>
+<tr class="separator:ab19f84712070dadf8ddfdf578cbef4aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66419af3f425eb5d0869773de24d2058" id="r_a66419af3f425eb5d0869773de24d2058"><td class="memItemLeft" align="right" valign="top">Optional[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a66419af3f425eb5d0869773de24d2058">guess_format</a> (str fpath, Optional[Dict[str, str]] fmap=None)</td></tr>
+<tr class="separator:a66419af3f425eb5d0869773de24d2058"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ca51d15f3d3121a4a14c9cb8375cd4e" id="r_a9ca51d15f3d3121a4a14c9cb8375cd4e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a9ca51d15f3d3121a4a14c9cb8375cd4e">_get_ext</a> (str fpath, bool lower=True)</td></tr>
+<tr class="separator:a9ca51d15f3d3121a4a14c9cb8375cd4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a5428db095b922f2d72047f71b56224" id="r_a2a5428db095b922f2d72047f71b56224"><td class="memItemLeft" align="right" valign="top">Set[<a class="el" href="a02644.html">rdflib.term.Node</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a2a5428db095b922f2d72047f71b56224">find_roots</a> (<a class="el" href="a01920.html">Graph</a> graph, <a class="el" href="a02656.html">rdflib.term.URIRef</a> prop, Optional[Set[<a class="el" href="a02644.html">rdflib.term.Node</a>]] roots=None)</td></tr>
+<tr class="separator:a2a5428db095b922f2d72047f71b56224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a469ad0bdb954eb505b692d194a3bd644" id="r_a469ad0bdb954eb505b692d194a3bd644"><td class="memItemLeft" align="right" valign="top">Optional[Tuple[<a class="el" href="a02644.html">rdflib.term.Node</a>, List[Any]]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a469ad0bdb954eb505b692d194a3bd644">get_tree</a> (<a class="el" href="a01920.html">Graph</a> graph, <a class="el" href="a02644.html">rdflib.term.Node</a> root, <a class="el" href="a02656.html">rdflib.term.URIRef</a> prop, Callable[[<a class="el" href="a02644.html">rdflib.term.Node</a>], <a class="el" href="a02644.html">rdflib.term.Node</a>] mapper=lambda x:x, Optional[Callable[[Any], Any]] sortkey=None, Optional[Set[<a class="el" href="a02644.html">rdflib.term.Node</a>]] done=None, str dir=&quot;down&quot;)</td></tr>
+<tr class="separator:a469ad0bdb954eb505b692d194a3bd644"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad62175b9ad995873d56abd61a234a7c7" id="r_ad62175b9ad995873d56abd61a234a7c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#ad62175b9ad995873d56abd61a234a7c7">_coalesce</a> (*Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>] args, <a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a> default)</td></tr>
+<tr class="separator:ad62175b9ad995873d56abd61a234a7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a161b3757aab42aabe1d5f160b97ef559" id="r_a161b3757aab42aabe1d5f160b97ef559"><td class="memItemLeft" align="right" valign="top">Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a161b3757aab42aabe1d5f160b97ef559">_coalesce</a> (*Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>] args, Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>] default=...)</td></tr>
+<tr class="separator:a161b3757aab42aabe1d5f160b97ef559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afec077303aa210c1037d9034c04291cb" id="r_afec077303aa210c1037d9034c04291cb"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#afec077303aa210c1037d9034c04291cb">_iri2uri</a> (str iri)</td></tr>
+<tr class="separator:afec077303aa210c1037d9034c04291cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa4a022e6ddacd362b83964da5cc5d044" id="r_aa4a022e6ddacd362b83964da5cc5d044"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#aa4a022e6ddacd362b83964da5cc5d044">__all__</a></td></tr>
+<tr class="separator:aa4a022e6ddacd362b83964da5cc5d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fdf13731bda5993cc9dd330c1976a81" id="r_a4fdf13731bda5993cc9dd330c1976a81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a4fdf13731bda5993cc9dd330c1976a81">_HashableT</a> = TypeVar(&quot;_HashableT&quot;, bound=Hashable)</td></tr>
+<tr class="separator:a4fdf13731bda5993cc9dd330c1976a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d16dc4edd1292df4a2c8cd1da2a7201" id="r_a9d16dc4edd1292df4a2c8cd1da2a7201"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a> = TypeVar(&quot;_AnyT&quot;)</td></tr>
+<tr class="separator:a9d16dc4edd1292df4a2c8cd1da2a7201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad49724d68840c3359c39f501d69716ce" id="r_ad49724d68840c3359c39f501d69716ce"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#ad49724d68840c3359c39f501d69716ce">SUFFIX_FORMAT_MAP</a></td></tr>
+<tr class="separator:ad49724d68840c3359c39f501d69716ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace55e344c62540b4bf29695d9ad0ad09" id="r_ace55e344c62540b4bf29695d9ad0ad09"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#ace55e344c62540b4bf29695d9ad0ad09">FORMAT_MIMETYPE_MAP</a></td></tr>
+<tr class="separator:ace55e344c62540b4bf29695d9ad0ad09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bc5bc242dcfdba280c3eab3d6bd50e8" id="r_a2bc5bc242dcfdba280c3eab3d6bd50e8"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a2bc5bc242dcfdba280c3eab3d6bd50e8">RESPONSE_TABLE_FORMAT_MIMETYPE_MAP</a></td></tr>
+<tr class="separator:a2bc5bc242dcfdba280c3eab3d6bd50e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a299705ece3801753297ca1f6cd998cc2" id="r_a299705ece3801753297ca1f6cd998cc2"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a299705ece3801753297ca1f6cd998cc2">_RFC3986_SUBDELIMS</a> = &quot;!$&amp;'()*+,;=&quot;</td></tr>
+<tr class="separator:a299705ece3801753297ca1f6cd998cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f1dc7eb003640bd168ea26ece531d9e" id="r_a8f1dc7eb003640bd168ea26ece531d9e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a8f1dc7eb003640bd168ea26ece531d9e">_RFC3986_PCHAR_NU</a> = &quot;%&quot; + <a class="el" href="a01122.html#a299705ece3801753297ca1f6cd998cc2">_RFC3986_SUBDELIMS</a> + &quot;:@&quot;</td></tr>
+<tr class="separator:a8f1dc7eb003640bd168ea26ece531d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f7fcb2a39ee97b9c3f797b4211d9c26" id="r_a1f7fcb2a39ee97b9c3f797b4211d9c26"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a1f7fcb2a39ee97b9c3f797b4211d9c26">_QUERY_SAFE_CHARS</a> = <a class="el" href="a01122.html#a8f1dc7eb003640bd168ea26ece531d9e">_RFC3986_PCHAR_NU</a> + &quot;/?&quot;</td></tr>
+<tr class="separator:a1f7fcb2a39ee97b9c3f797b4211d9c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53e7b9b530771dd87f587a300c2380e3" id="r_a53e7b9b530771dd87f587a300c2380e3"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#a53e7b9b530771dd87f587a300c2380e3">_USERNAME_SAFE_CHARS</a> = <a class="el" href="a01122.html#a299705ece3801753297ca1f6cd998cc2">_RFC3986_SUBDELIMS</a> + &quot;%&quot;</td></tr>
+<tr class="separator:a53e7b9b530771dd87f587a300c2380e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0ee796619fb0cbca1aafb727cded3de" id="r_ac0ee796619fb0cbca1aafb727cded3de"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01122.html#ac0ee796619fb0cbca1aafb727cded3de">_PATH_SAFE_CHARS</a> = <a class="el" href="a01122.html#a8f1dc7eb003640bd168ea26ece531d9e">_RFC3986_PCHAR_NU</a> + &quot;/&quot;</td></tr>
+<tr class="separator:ac0ee796619fb0cbca1aafb727cded3de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Some utility functions.
+
+Miscellaneous utilities
+
+* list2set
+* first
+* uniq
+* more_than
+
+Term characterisation and generation
+
+* to_term
+* from_n3
+
+Date/time utilities
+
+* date_time
+* parse_date_time</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ad62175b9ad995873d56abd61a234a7c7" name="ad62175b9ad995873d56abd61a234a7c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad62175b9ad995873d56abd61a234a7c7">&#9670;&#160;</a></span>_coalesce() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a> _coalesce </td>
+          <td>(</td>
+          <td class="paramtype">*Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>]&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>&#160;</td>
+          <td class="paramname"><em>default</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  530</span><span class="keyword">def </span>_coalesce(*args: Optional[_AnyT], default: _AnyT) -&gt; _AnyT: ...</div>
+<div class="line"><span class="lineno">  531</span> </div>
+<div class="line"><span class="lineno">  532</span> </div>
+<div class="line"><span class="lineno">  533</span><span class="preprocessor">@overload</span></div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02672.html#a16ccea4ccd8dd32922d6e28891faaaf3">Literal.__new__()</a>, and <a class="el" href="a02672.html#a13421a2649e11b05a5e37390b29da5a4">Literal.eq()</a>.</p>
+
+</div>
+</div>
+<a id="a161b3757aab42aabe1d5f160b97ef559" name="a161b3757aab42aabe1d5f160b97ef559"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a161b3757aab42aabe1d5f160b97ef559">&#9670;&#160;</a></span>_coalesce() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>] _coalesce </td>
+          <td>(</td>
+          <td class="paramtype">*Optional&#160;</td>
+          <td class="paramname"><em>args</em>[_AnyT], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional&#160;</td>
+          <td class="paramname"><em>default</em>[_AnyT] = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">This is a null coalescing function, it will return the first non-`None`
+argument passed to it, otherwise it will return `default` which is `None`
+by default.
+
+For more info regarding the rationale of this function see deferred
+[PEP 505](https://peps.python.org/pep-0505/).
+
+Args:
+    *args: Values to consider as candidates to return, the first arg that
+        is not `None` will be returned. If no argument is passed this function
+        will return None.
+    default: The default value to return if none of the args are not `None`.
+
+Returns:
+    The first `args` that is not `None`, otherwise the value of
+        `default` if there are no `args` or if all `args` are `None`.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  536</span>) -&gt; Optional[_AnyT]: ...</div>
+<div class="line"><span class="lineno">  537</span> </div>
+<div class="line"><span class="lineno">  538</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9ca51d15f3d3121a4a14c9cb8375cd4e" name="a9ca51d15f3d3121a4a14c9cb8375cd4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ca51d15f3d3121a4a14c9cb8375cd4e">&#9670;&#160;</a></span>_get_ext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str _get_ext </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>fpath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>lower</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Gets the file extension from a file(path); stripped of leading '.' and in
+lower case.
+
+Example:
+    ```python
+    &gt;&gt;&gt; _get_ext("path/to/file.txt")
+    'txt'
+    &gt;&gt;&gt; _get_ext("OTHER.PDF")
+    'pdf'
+    &gt;&gt;&gt; _get_ext("noext")
+    ''
+    &gt;&gt;&gt; _get_ext(".rdf")
+    'rdf'
+
+    ```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  423</span><span class="keyword">def </span>_get_ext(fpath: str, lower: bool = <span class="keyword">True</span>) -&gt; str:</div>
+<div class="line"><span class="lineno">  424</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  425</span><span class="stringliteral">    Gets the file extension from a file(path); stripped of leading &#39;.&#39; and in</span></div>
+<div class="line"><span class="lineno">  426</span><span class="stringliteral">    lower case.</span></div>
+<div class="line"><span class="lineno">  427</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  428</span><span class="stringliteral">    Example:</span></div>
+<div class="line"><span class="lineno">  429</span><span class="stringliteral">        ```python</span></div>
+<div class="line"><span class="lineno">  430</span><span class="stringliteral">        &gt;&gt;&gt; _get_ext(&quot;path/to/file.txt&quot;)</span></div>
+<div class="line"><span class="lineno">  431</span><span class="stringliteral">        &#39;txt&#39;</span></div>
+<div class="line"><span class="lineno">  432</span><span class="stringliteral">        &gt;&gt;&gt; _get_ext(&quot;OTHER.PDF&quot;)</span></div>
+<div class="line"><span class="lineno">  433</span><span class="stringliteral">        &#39;pdf&#39;</span></div>
+<div class="line"><span class="lineno">  434</span><span class="stringliteral">        &gt;&gt;&gt; _get_ext(&quot;noext&quot;)</span></div>
+<div class="line"><span class="lineno">  435</span><span class="stringliteral">        &#39;&#39;</span></div>
+<div class="line"><span class="lineno">  436</span><span class="stringliteral">        &gt;&gt;&gt; _get_ext(&quot;.rdf&quot;)</span></div>
+<div class="line"><span class="lineno">  437</span><span class="stringliteral">        &#39;rdf&#39;</span></div>
+<div class="line"><span class="lineno">  438</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  439</span><span class="stringliteral">        ```</span></div>
+<div class="line"><span class="lineno">  440</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  441</span>    ext = splitext(fpath)[-1]</div>
+<div class="line"><span class="lineno">  442</span>    <span class="keywordflow">if</span> ext == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> fpath.startswith(<span class="stringliteral">&quot;.&quot;</span>):</div>
+<div class="line"><span class="lineno">  443</span>        ext = fpath</div>
+<div class="line"><span class="lineno">  444</span>    <span class="keywordflow">if</span> lower:</div>
+<div class="line"><span class="lineno">  445</span>        ext = ext.lower()</div>
+<div class="line"><span class="lineno">  446</span>    <span class="keywordflow">if</span> ext.startswith(<span class="stringliteral">&quot;.&quot;</span>):</div>
+<div class="line"><span class="lineno">  447</span>        ext = ext[1:]</div>
+<div class="line"><span class="lineno">  448</span>    <span class="keywordflow">return</span> ext</div>
+<div class="line"><span class="lineno">  449</span> </div>
+<div class="line"><span class="lineno">  450</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01122.html#a66419af3f425eb5d0869773de24d2058">rdflib.util.guess_format()</a>.</p>
+
+</div>
+</div>
+<a id="afec077303aa210c1037d9034c04291cb" name="afec077303aa210c1037d9034c04291cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afec077303aa210c1037d9034c04291cb">&#9670;&#160;</a></span>_iri2uri()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str _iri2uri </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>iri</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Prior art:
+
+- [iri_to_uri from Werkzeug](https://github.com/pallets/werkzeug/blob/92c6380248c7272ee668e1f8bbd80447027ccce2/src/werkzeug/urls.py#L926-L931)
+
+```python
+&gt;&gt;&gt; _iri2uri("https://dbpedia.org/resource/Almería")
+'https://dbpedia.org/resource/Almer%C3%ADa'
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  609</span><span class="keyword">def </span>_iri2uri(iri: str) -&gt; str:</div>
+<div class="line"><span class="lineno">  610</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  611</span><span class="stringliteral">    Prior art:</span></div>
+<div class="line"><span class="lineno">  612</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  613</span><span class="stringliteral">    - [iri_to_uri from Werkzeug](https://github.com/pallets/werkzeug/blob/92c6380248c7272ee668e1f8bbd80447027ccce2/src/werkzeug/urls.py#L926-L931)</span></div>
+<div class="line"><span class="lineno">  614</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  615</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  616</span><span class="stringliteral">    &gt;&gt;&gt; _iri2uri(&quot;https://dbpedia.org/resource/Almería&quot;)</span></div>
+<div class="line"><span class="lineno">  617</span><span class="stringliteral">    &#39;https://dbpedia.org/resource/Almer%C3%ADa&#39;</span></div>
+<div class="line"><span class="lineno">  618</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  619</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  620</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  621</span>    <span class="comment"># https://datatracker.ietf.org/doc/html/rfc3986</span></div>
+<div class="line"><span class="lineno">  622</span>    <span class="comment"># https://datatracker.ietf.org/doc/html/rfc3305</span></div>
+<div class="line"><span class="lineno">  623</span> </div>
+<div class="line"><span class="lineno">  624</span>    parts = urlsplit(iri)</div>
+<div class="line"><span class="lineno">  625</span>    (scheme, netloc, path, query, fragment) = parts</div>
+<div class="line"><span class="lineno">  626</span> </div>
+<div class="line"><span class="lineno">  627</span>    <span class="comment"># Just support http/https, otherwise return the iri unaltered</span></div>
+<div class="line"><span class="lineno">  628</span>    <span class="keywordflow">if</span> scheme <span class="keywordflow">not</span> <span class="keywordflow">in</span> [<span class="stringliteral">&quot;http&quot;</span>, <span class="stringliteral">&quot;https&quot;</span>]:</div>
+<div class="line"><span class="lineno">  629</span>        <span class="keywordflow">return</span> iri</div>
+<div class="line"><span class="lineno">  630</span> </div>
+<div class="line"><span class="lineno">  631</span>    path = quote(path, safe=_PATH_SAFE_CHARS)</div>
+<div class="line"><span class="lineno">  632</span>    query = quote(query, safe=_QUERY_SAFE_CHARS)</div>
+<div class="line"><span class="lineno">  633</span>    fragment = quote(fragment, safe=_QUERY_SAFE_CHARS)</div>
+<div class="line"><span class="lineno">  634</span> </div>
+<div class="line"><span class="lineno">  635</span>    <span class="keywordflow">if</span> parts.hostname:</div>
+<div class="line"><span class="lineno">  636</span>        netloc = parts.hostname.encode(<span class="stringliteral">&quot;idna&quot;</span>).decode(<span class="stringliteral">&quot;ascii&quot;</span>)</div>
+<div class="line"><span class="lineno">  637</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  638</span>        netloc = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  639</span> </div>
+<div class="line"><span class="lineno">  640</span>    <span class="keywordflow">if</span> <span class="stringliteral">&quot;:&quot;</span> <span class="keywordflow">in</span> netloc:</div>
+<div class="line"><span class="lineno">  641</span>        <span class="comment"># Quote IPv6 addresses</span></div>
+<div class="line"><span class="lineno">  642</span>        netloc = f<span class="stringliteral">&quot;[{netloc}]&quot;</span></div>
+<div class="line"><span class="lineno">  643</span> </div>
+<div class="line"><span class="lineno">  644</span>    <span class="keywordflow">if</span> parts.port:</div>
+<div class="line"><span class="lineno">  645</span>        netloc = f<span class="stringliteral">&quot;{netloc}:{parts.port}&quot;</span></div>
+<div class="line"><span class="lineno">  646</span> </div>
+<div class="line"><span class="lineno">  647</span>    <span class="keywordflow">if</span> parts.username:</div>
+<div class="line"><span class="lineno">  648</span>        auth = quote(parts.username, safe=_USERNAME_SAFE_CHARS)</div>
+<div class="line"><span class="lineno">  649</span>        <span class="keywordflow">if</span> parts.password:</div>
+<div class="line"><span class="lineno">  650</span>            pass_quoted = quote(parts.password, safe=_USERNAME_SAFE_CHARS)</div>
+<div class="line"><span class="lineno">  651</span>            auth = f<span class="stringliteral">&quot;{auth}:{pass_quoted}&quot;</span></div>
+<div class="line"><span class="lineno">  652</span>        netloc = f<span class="stringliteral">&quot;{auth}@{netloc}&quot;</span></div>
+<div class="line"><span class="lineno">  653</span> </div>
+<div class="line"><span class="lineno">  654</span>    uri = urlunsplit((scheme, netloc, path, query, fragment))</div>
+<div class="line"><span class="lineno">  655</span> </div>
+<div class="line"><span class="lineno">  656</span>    <span class="keywordflow">if</span> iri.endswith(<span class="stringliteral">&quot;#&quot;</span>) <span class="keywordflow">and</span> <span class="keywordflow">not</span> uri.endswith(<span class="stringliteral">&quot;#&quot;</span>):</div>
+<div class="line"><span class="lineno">  657</span>        uri += <span class="stringliteral">&quot;#&quot;</span></div>
+<div class="line"><span class="lineno">  658</span> </div>
+<div class="line"><span class="lineno">  659</span>    <span class="keywordflow">return</span> uri</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01045.html#a438ca28a3ad79505a4b7f21990d817ff">rdflib.parser._create_input_source_from_location()</a>.</p>
+
+</div>
+</div>
+<a id="a3937ebf06343bfc7a49f14dedf0190ad" name="a3937ebf06343bfc7a49f14dedf0190ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3937ebf06343bfc7a49f14dedf0190ad">&#9670;&#160;</a></span>date_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">date_time </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_time_zone</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">http://www.w3.org/TR/NOTE-datetime ex: 1997-07-16T19:20:30Z
+
+```python
+&gt;&gt;&gt; date_time(1126482850)
+'2005-09-11T23:54:10Z'
+
+@@ this will change depending on where it is run
+#&gt;&gt;&gt; date_time(1126482850, local_time_zone=True)
+#'2005-09-11T19:54:10-04:00'
+
+&gt;&gt;&gt; date_time(1)
+'1970-01-01T00:00:01Z'
+
+&gt;&gt;&gt; date_time(0)
+'1970-01-01T00:00:00Z'
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  297</span><span class="keyword">def </span>date_time(t=None, local_time_zone=False):</div>
+<div class="line"><span class="lineno">  298</span>    <span class="stringliteral">&quot;&quot;&quot;http://www.w3.org/TR/NOTE-datetime ex: 1997-07-16T19:20:30Z</span></div>
+<div class="line"><span class="lineno">  299</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  300</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  301</span><span class="stringliteral">    &gt;&gt;&gt; date_time(1126482850)</span></div>
+<div class="line"><span class="lineno">  302</span><span class="stringliteral">    &#39;2005-09-11T23:54:10Z&#39;</span></div>
+<div class="line"><span class="lineno">  303</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  304</span><span class="stringliteral">    @@ this will change depending on where it is run</span></div>
+<div class="line"><span class="lineno">  305</span><span class="stringliteral">    #&gt;&gt;&gt; date_time(1126482850, local_time_zone=True)</span></div>
+<div class="line"><span class="lineno">  306</span><span class="stringliteral">    #&#39;2005-09-11T19:54:10-04:00&#39;</span></div>
+<div class="line"><span class="lineno">  307</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  308</span><span class="stringliteral">    &gt;&gt;&gt; date_time(1)</span></div>
+<div class="line"><span class="lineno">  309</span><span class="stringliteral">    &#39;1970-01-01T00:00:01Z&#39;</span></div>
+<div class="line"><span class="lineno">  310</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  311</span><span class="stringliteral">    &gt;&gt;&gt; date_time(0)</span></div>
+<div class="line"><span class="lineno">  312</span><span class="stringliteral">    &#39;1970-01-01T00:00:00Z&#39;</span></div>
+<div class="line"><span class="lineno">  313</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  314</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  315</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  316</span>    <span class="keywordflow">if</span> t <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  317</span>        t = time()</div>
+<div class="line"><span class="lineno">  318</span> </div>
+<div class="line"><span class="lineno">  319</span>    <span class="keywordflow">if</span> local_time_zone:</div>
+<div class="line"><span class="lineno">  320</span>        time_tuple = localtime(t)</div>
+<div class="line"><span class="lineno">  321</span>        <span class="keywordflow">if</span> time_tuple[8]:</div>
+<div class="line"><span class="lineno">  322</span>            tz_mins = altzone // 60</div>
+<div class="line"><span class="lineno">  323</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  324</span>            tz_mins = timezone // 60</div>
+<div class="line"><span class="lineno">  325</span>        tzd = <span class="stringliteral">&quot;-%02d:%02d&quot;</span> % (tz_mins // 60, tz_mins % 60)</div>
+<div class="line"><span class="lineno">  326</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  327</span>        time_tuple = gmtime(t)</div>
+<div class="line"><span class="lineno">  328</span>        tzd = <span class="stringliteral">&quot;Z&quot;</span></div>
+<div class="line"><span class="lineno">  329</span> </div>
+<div class="line"><span class="lineno">  330</span>    year, month, day, hh, mm, ss, wd, y, z = time_tuple</div>
+<div class="line"><span class="lineno">  331</span>    s = <span class="stringliteral">&quot;%0004d-%02d-%02dT%02d:%02d:%02d%s&quot;</span> % (year, month, day, hh, mm, ss, tzd)</div>
+<div class="line"><span class="lineno">  332</span>    <span class="keywordflow">return</span> s</div>
+<div class="line"><span class="lineno">  333</span> </div>
+<div class="line"><span class="lineno">  334</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2a5428db095b922f2d72047f71b56224" name="a2a5428db095b922f2d72047f71b56224"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a5428db095b922f2d72047f71b56224">&#9670;&#160;</a></span>find_roots()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Set[<a class="el" href="a02644.html">rdflib.term.Node</a>] find_roots </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">rdflib.term.URIRef</a>&#160;</td>
+          <td class="paramname"><em>prop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Set[<a class="el" href="a02644.html">rdflib.term.Node</a>]] &#160;</td>
+          <td class="paramname"><em>roots</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Find the roots in some sort of transitive hierarchy.
+
+find_roots(graph, rdflib.RDFS.subClassOf)
+will return a set of all roots of the sub-class hierarchy
+
+Assumes triple of the form (child, prop, parent), i.e. the direction of
+`RDFS.subClassOf` or `SKOS.broader`
+</pre> <div class="fragment"><div class="line"><span class="lineno">  455</span>) -&gt; Set[<a class="code hl_class" href="a02644.html">rdflib.term.Node</a>]:</div>
+<div class="line"><span class="lineno">  456</span>    <span class="stringliteral">&quot;&quot;&quot;Find the roots in some sort of transitive hierarchy.</span></div>
+<div class="line"><span class="lineno">  457</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  458</span><span class="stringliteral">    find_roots(graph, rdflib.RDFS.subClassOf)</span></div>
+<div class="line"><span class="lineno">  459</span><span class="stringliteral">    will return a set of all roots of the sub-class hierarchy</span></div>
+<div class="line"><span class="lineno">  460</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  461</span><span class="stringliteral">    Assumes triple of the form (child, prop, parent), i.e. the direction of</span></div>
+<div class="line"><span class="lineno">  462</span><span class="stringliteral">    `RDFS.subClassOf` or `SKOS.broader`</span></div>
+<div class="line"><span class="lineno">  463</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  464</span> </div>
+<div class="line"><span class="lineno">  465</span>    non_roots: Set[<a class="code hl_class" href="a02644.html">rdflib.term.Node</a>] = set()</div>
+<div class="line"><span class="lineno">  466</span>    <span class="keywordflow">if</span> roots <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  467</span>        roots = set()</div>
+<div class="line"><span class="lineno">  468</span>    <span class="keywordflow">for</span> x, y <span class="keywordflow">in</span> graph.subject_objects(prop):</div>
+<div class="line"><span class="lineno">  469</span>        non_roots.add(x)</div>
+<div class="line"><span class="lineno">  470</span>        <span class="keywordflow">if</span> x <span class="keywordflow">in</span> roots:</div>
+<div class="line"><span class="lineno">  471</span>            roots.remove(x)</div>
+<div class="line"><span class="lineno">  472</span>        <span class="keywordflow">if</span> y <span class="keywordflow">not</span> <span class="keywordflow">in</span> non_roots:</div>
+<div class="line"><span class="lineno">  473</span>            roots.add(y)</div>
+<div class="line"><span class="lineno">  474</span>    <span class="keywordflow">return</span> roots</div>
+<div class="line"><span class="lineno">  475</span> </div>
+<div class="line"><span class="lineno">  476</span> </div>
+<div class="ttc" id="aa02644_html"><div class="ttname"><a href="a02644.html">rdflib.term.Node</a></div><div class="ttdef"><b>Definition</b> term.py:136</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a43bb5681f194336d7c05228b2e0ad5a9" name="a43bb5681f194336d7c05228b2e0ad5a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43bb5681f194336d7c05228b2e0ad5a9">&#9670;&#160;</a></span>first()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>] first </td>
+          <td>(</td>
+          <td class="paramtype">Iterable[<a class="el" href="a01122.html#a9d16dc4edd1292df4a2c8cd1da2a7201">_AnyT</a>]&#160;</td>
+          <td class="paramname"><em>seq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">return the first element in a python sequence
+for graphs, use graph.value instead
+</pre> <div class="fragment"><div class="line"><span class="lineno">  128</span><span class="keyword">def </span>first(seq: Iterable[_AnyT]) -&gt; Optional[_AnyT]:</div>
+<div class="line"><span class="lineno">  129</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  130</span><span class="stringliteral">    return the first element in a python sequence</span></div>
+<div class="line"><span class="lineno">  131</span><span class="stringliteral">    for graphs, use graph.value instead</span></div>
+<div class="line"><span class="lineno">  132</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">for</span> result <span class="keywordflow">in</span> seq:</div>
+<div class="line"><span class="lineno">  134</span>        <span class="keywordflow">return</span> result</div>
+<div class="line"><span class="lineno">  135</span>    <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  136</span> </div>
+<div class="line"><span class="lineno">  137</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6b0125bd82c55f5cf7b75afa1e5e0194" name="a6b0125bd82c55f5cf7b75afa1e5e0194"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b0125bd82c55f5cf7b75afa1e5e0194">&#9670;&#160;</a></span>from_n3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[Union[<a class="el" href="a02644.html">rdflib.term.Node</a>, str]] from_n3 </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>default</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>backend</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a01976.html">rdflib.namespace.NamespaceManager</a>] &#160;</td>
+          <td class="paramname"><em>nsm</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Creates the Identifier corresponding to the given n3 string.
+
+```python
+&gt;&gt;&gt; from rdflib.term import URIRef, Literal
+&gt;&gt;&gt; from rdflib.namespace import NamespaceManager
+&gt;&gt;&gt; from_n3('&lt;http://ex.com/foo&gt;') == URIRef('http://ex.com/foo')
+True
+&gt;&gt;&gt; from_n3('"foo"@de') == Literal('foo', lang='de')
+True
+&gt;&gt;&gt; from_n3('"""multi\nline\nstring"""@en') == Literal(
+...     'multi\nline\nstring', lang='en')
+True
+&gt;&gt;&gt; from_n3('42') == Literal(42)
+True
+&gt;&gt;&gt; from_n3(Literal(42).n3()) == Literal(42)
+True
+&gt;&gt;&gt; from_n3('"42"^^xsd:integer') == Literal(42)
+True
+&gt;&gt;&gt; from rdflib import RDFS
+&gt;&gt;&gt; from_n3('rdfs:label') == RDFS['label']
+True
+&gt;&gt;&gt; nsm = NamespaceManager(rdflib.graph.Graph())
+&gt;&gt;&gt; nsm.bind('dbpedia', 'http://dbpedia.org/resource/')
+&gt;&gt;&gt; berlin = URIRef('http://dbpedia.org/resource/Berlin')
+&gt;&gt;&gt; from_n3('dbpedia:Berlin', nsm=nsm) == berlin
+True
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  190</span>) -&gt; Optional[Union[<a class="code hl_class" href="a02644.html">rdflib.term.Node</a>, str]]:</div>
+<div class="line"><span class="lineno">  191</span>    <span class="stringliteral">r&#39;&#39;&#39;Creates the Identifier corresponding to the given n3 string.</span></div>
+<div class="line"><span class="lineno">  192</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  193</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  194</span><span class="stringliteral">    &gt;&gt;&gt; from rdflib.term import URIRef, Literal</span></div>
+<div class="line"><span class="lineno">  195</span><span class="stringliteral">    &gt;&gt;&gt; from rdflib.namespace import NamespaceManager</span></div>
+<div class="line"><span class="lineno">  196</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(&#39;&lt;http://ex.com/foo&gt;&#39;) == URIRef(&#39;http://ex.com/foo&#39;)</span></div>
+<div class="line"><span class="lineno">  197</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  198</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(&#39;&quot;foo&quot;@de&#39;) == Literal(&#39;foo&#39;, lang=&#39;de&#39;)</span></div>
+<div class="line"><span class="lineno">  199</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  200</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(&#39;&quot;&quot;&quot;multi\nline\nstring&quot;&quot;&quot;@en&#39;) == Literal(</span></div>
+<div class="line"><span class="lineno">  201</span><span class="stringliteral">    ...     &#39;multi\nline\nstring&#39;, lang=&#39;en&#39;)</span></div>
+<div class="line"><span class="lineno">  202</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  203</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(&#39;42&#39;) == Literal(42)</span></div>
+<div class="line"><span class="lineno">  204</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  205</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(Literal(42).n3()) == Literal(42)</span></div>
+<div class="line"><span class="lineno">  206</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  207</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(&#39;&quot;42&quot;^^xsd:integer&#39;) == Literal(42)</span></div>
+<div class="line"><span class="lineno">  208</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  209</span><span class="stringliteral">    &gt;&gt;&gt; from rdflib import RDFS</span></div>
+<div class="line"><span class="lineno">  210</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(&#39;rdfs:label&#39;) == RDFS[&#39;label&#39;]</span></div>
+<div class="line"><span class="lineno">  211</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  212</span><span class="stringliteral">    &gt;&gt;&gt; nsm = NamespaceManager(rdflib.graph.Graph())</span></div>
+<div class="line"><span class="lineno">  213</span><span class="stringliteral">    &gt;&gt;&gt; nsm.bind(&#39;dbpedia&#39;, &#39;http://dbpedia.org/resource/&#39;)</span></div>
+<div class="line"><span class="lineno">  214</span><span class="stringliteral">    &gt;&gt;&gt; berlin = URIRef(&#39;http://dbpedia.org/resource/Berlin&#39;)</span></div>
+<div class="line"><span class="lineno">  215</span><span class="stringliteral">    &gt;&gt;&gt; from_n3(&#39;dbpedia:Berlin&#39;, nsm=nsm) == berlin</span></div>
+<div class="line"><span class="lineno">  216</span><span class="stringliteral">    True</span></div>
+<div class="line"><span class="lineno">  217</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  218</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  219</span><span class="stringliteral">    &#39;&#39;&#39;</span></div>
+<div class="line"><span class="lineno">  220</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> s:</div>
+<div class="line"><span class="lineno">  221</span>        <span class="keywordflow">return</span> default</div>
+<div class="line"><span class="lineno">  222</span>    <span class="keywordflow">if</span> s.startswith(<span class="stringliteral">&quot;&lt;&quot;</span>):</div>
+<div class="line"><span class="lineno">  223</span>        <span class="comment"># Hack: this should correctly handle strings with either native unicode</span></div>
+<div class="line"><span class="lineno">  224</span>        <span class="comment"># characters, or \u1234 unicode escapes.</span></div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02656.html">rdflib.term.URIRef</a>(</div>
+<div class="line"><span class="lineno">  226</span>            s[1:-1].encode(<span class="stringliteral">&quot;raw-unicode-escape&quot;</span>).decode(<span class="stringliteral">&quot;unicode-escape&quot;</span>)</div>
+<div class="line"><span class="lineno">  227</span>        )</div>
+<div class="line"><span class="lineno">  228</span>    <span class="keywordflow">elif</span> s.startswith(<span class="stringliteral">&#39;&quot;&#39;</span>):</div>
+<div class="line"><span class="lineno">  229</span>        <span class="keywordflow">if</span> s.startswith(<span class="stringliteral">&#39;&quot;&quot;&quot;&#39;</span>):</div>
+<div class="line"><span class="lineno">  230</span>            quotes = <span class="stringliteral">&#39;&quot;&quot;&quot;&#39;</span></div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  232</span>            quotes = <span class="stringliteral">&#39;&quot;&#39;</span></div>
+<div class="line"><span class="lineno">  233</span>        value, rest = s.rsplit(quotes, 1)</div>
+<div class="line"><span class="lineno">  234</span>        value = value[len(quotes) :]  <span class="comment"># strip leading quotes</span></div>
+<div class="line"><span class="lineno">  235</span>        datatype = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  236</span>        language = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  237</span> </div>
+<div class="line"><span class="lineno">  238</span>        <span class="comment"># as a given datatype overrules lang-tag check for it first</span></div>
+<div class="line"><span class="lineno">  239</span>        dtoffset = rest.rfind(<span class="stringliteral">&quot;^^&quot;</span>)</div>
+<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">if</span> dtoffset &gt;= 0:</div>
+<div class="line"><span class="lineno">  241</span>            <span class="comment"># found a datatype</span></div>
+<div class="line"><span class="lineno">  242</span>            <span class="comment"># datatype has to come after lang-tag so ignore everything before</span></div>
+<div class="line"><span class="lineno">  243</span>            <span class="comment"># see: http://www.w3.org/TR/2011/WD-turtle-20110809/</span></div>
+<div class="line"><span class="lineno">  244</span>            <span class="comment"># #prod-turtle2-RDFLiteral</span></div>
+<div class="line"><span class="lineno">  245</span>            datatype = from_n3(rest[dtoffset + 2 :], default, backend, nsm)</div>
+<div class="line"><span class="lineno">  246</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  247</span>            <span class="keywordflow">if</span> rest.startswith(<span class="stringliteral">&quot;@&quot;</span>):</div>
+<div class="line"><span class="lineno">  248</span>                language = rest[1:]  <span class="comment"># strip leading at sign</span></div>
+<div class="line"><span class="lineno">  249</span> </div>
+<div class="line"><span class="lineno">  250</span>        value = value.replace(<span class="stringliteral">r&quot;\&quot;&quot;</span>, <span class="stringliteral">&#39;&quot;&#39;</span>)</div>
+<div class="line"><span class="lineno">  251</span>        <span class="comment"># unicode-escape interprets \xhh as an escape sequence,</span></div>
+<div class="line"><span class="lineno">  252</span>        <span class="comment"># but n3 does not define it as such.</span></div>
+<div class="line"><span class="lineno">  253</span>        value = value.replace(<span class="stringliteral">r&quot;\x&quot;</span>, <span class="stringliteral">r&quot;\\x&quot;</span>)</div>
+<div class="line"><span class="lineno">  254</span>        <span class="comment"># Hack: this should correctly handle strings with either native unicode</span></div>
+<div class="line"><span class="lineno">  255</span>        <span class="comment"># characters, or \u1234 unicode escapes.</span></div>
+<div class="line"><span class="lineno">  256</span>        value = value.encode(<span class="stringliteral">&quot;raw-unicode-escape&quot;</span>).decode(<span class="stringliteral">&quot;unicode-escape&quot;</span>)</div>
+<div class="line"><span class="lineno">  257</span>        <span class="comment"># type error: Argument 3 to &quot;Literal&quot; has incompatible type &quot;Union[Node, str, None]&quot;; expected &quot;Optional[str]&quot;</span></div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02672.html">rdflib.term.Literal</a>(value, language, datatype)  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  259</span>    <span class="keywordflow">elif</span> s == <span class="stringliteral">&quot;true&quot;</span> <span class="keywordflow">or</span> s == <span class="stringliteral">&quot;false&quot;</span>:</div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02672.html">rdflib.term.Literal</a>(s == <span class="stringliteral">&quot;true&quot;</span>)</div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">elif</span> (</div>
+<div class="line"><span class="lineno">  262</span>        s.lower()</div>
+<div class="line"><span class="lineno">  263</span>        .replace(<span class="stringliteral">&quot;.&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 1)</div>
+<div class="line"><span class="lineno">  264</span>        .replace(<span class="stringliteral">&quot;-&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 1)</div>
+<div class="line"><span class="lineno">  265</span>        .replace(<span class="stringliteral">&quot;e&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 1)</div>
+<div class="line"><span class="lineno">  266</span>        .isnumeric()</div>
+<div class="line"><span class="lineno">  267</span>    ):</div>
+<div class="line"><span class="lineno">  268</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;e&quot;</span> <span class="keywordflow">in</span> s.lower():</div>
+<div class="line"><span class="lineno">  269</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="a02672.html">rdflib.term.Literal</a>(s, datatype=rdflib.namespace.XSD.double)</div>
+<div class="line"><span class="lineno">  270</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;.&quot;</span> <span class="keywordflow">in</span> s:</div>
+<div class="line"><span class="lineno">  271</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="a02672.html">rdflib.term.Literal</a>(float(s), datatype=rdflib.namespace.XSD.decimal)</div>
+<div class="line"><span class="lineno">  272</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02672.html">rdflib.term.Literal</a>(int(s), datatype=rdflib.namespace.XSD.integer)</div>
+<div class="line"><span class="lineno">  273</span> </div>
+<div class="line"><span class="lineno">  274</span>    <span class="keywordflow">elif</span> s.startswith(<span class="stringliteral">&quot;{&quot;</span>):</div>
+<div class="line"><span class="lineno">  275</span>        identifier = from_n3(s[1:-1])</div>
+<div class="line"><span class="lineno">  276</span>        <span class="comment"># type error: Argument 1 to &quot;QuotedGraph&quot; has incompatible type &quot;Optional[str]&quot;; expected &quot;Union[Store, str]&quot;</span></div>
+<div class="line"><span class="lineno">  277</span>        <span class="comment"># type error: Argument 2 to &quot;QuotedGraph&quot; has incompatible type &quot;Union[Node, str, None]&quot;; expected &quot;Union[IdentifiedNode, str, None]&quot;</span></div>
+<div class="line"><span class="lineno">  278</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a01932.html">rdflib.graph.QuotedGraph</a>(backend, identifier)  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  279</span>    <span class="keywordflow">elif</span> s.startswith(<span class="stringliteral">&quot;[&quot;</span>):</div>
+<div class="line"><span class="lineno">  280</span>        identifier = from_n3(s[1:-1])</div>
+<div class="line"><span class="lineno">  281</span>        <span class="comment"># type error: Argument 1 to &quot;Graph&quot; has incompatible type &quot;Optional[str]&quot;; expected &quot;Union[Store, str]&quot;</span></div>
+<div class="line"><span class="lineno">  282</span>        <span class="comment"># type error: Argument 2 to &quot;Graph&quot; has incompatible type &quot;Union[Node, str, None]&quot;; expected &quot;Union[IdentifiedNode, str, None]&quot;</span></div>
+<div class="line"><span class="lineno">  283</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a01920.html">rdflib.graph.Graph</a>(backend, identifier)  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  284</span>    <span class="keywordflow">elif</span> s.startswith(<span class="stringliteral">&quot;_:&quot;</span>):</div>
+<div class="line"><span class="lineno">  285</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02668.html">rdflib.term.BNode</a>(s[2:])</div>
+<div class="line"><span class="lineno">  286</span>    <span class="keywordflow">elif</span> <span class="stringliteral">&quot;:&quot;</span> <span class="keywordflow">in</span> s:</div>
+<div class="line"><span class="lineno">  287</span>        <span class="keywordflow">if</span> nsm <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  288</span>            <span class="comment"># instantiate default NamespaceManager and rely on its defaults</span></div>
+<div class="line"><span class="lineno">  289</span>            nsm = <a class="code hl_class" href="a01976.html">rdflib.namespace.NamespaceManager</a>(<a class="code hl_class" href="a01920.html">rdflib.graph.Graph</a>())</div>
+<div class="line"><span class="lineno">  290</span>        prefix, last_part = s.split(<span class="stringliteral">&quot;:&quot;</span>, 1)</div>
+<div class="line"><span class="lineno">  291</span>        ns = dict(nsm.namespaces())[prefix]</div>
+<div class="line"><span class="lineno">  292</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a01956.html">rdflib.namespace.Namespace</a>(ns)[last_part]</div>
+<div class="line"><span class="lineno">  293</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  294</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02668.html">rdflib.term.BNode</a>(s)</div>
+<div class="line"><span class="lineno">  295</span> </div>
+<div class="line"><span class="lineno">  296</span> </div>
+<div class="ttc" id="aa01920_html"><div class="ttname"><a href="a01920.html">rdflib.graph.Graph</a></div><div class="ttdef"><b>Definition</b> graph.py:439</div></div>
+<div class="ttc" id="aa01932_html"><div class="ttname"><a href="a01932.html">rdflib.graph.QuotedGraph</a></div><div class="ttdef"><b>Definition</b> graph.py:2950</div></div>
+<div class="ttc" id="aa01956_html"><div class="ttname"><a href="a01956.html">rdflib.namespace.Namespace</a></div><div class="ttdef"><b>Definition</b> dependencies/rdflib/namespace/__init__.py:144</div></div>
+<div class="ttc" id="aa01976_html"><div class="ttname"><a href="a01976.html">rdflib.namespace.NamespaceManager</a></div><div class="ttdef"><b>Definition</b> dependencies/rdflib/namespace/__init__.py:429</div></div>
+<div class="ttc" id="aa02656_html"><div class="ttname"><a href="a02656.html">rdflib.term.URIRef</a></div><div class="ttdef"><b>Definition</b> term.py:266</div></div>
+<div class="ttc" id="aa02668_html"><div class="ttname"><a href="a02668.html">rdflib.term.BNode</a></div><div class="ttdef"><b>Definition</b> term.py:437</div></div>
+<div class="ttc" id="aa02672_html"><div class="ttname"><a href="a02672.html">rdflib.term.Literal</a></div><div class="ttdef"><b>Definition</b> term.py:525</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a469ad0bdb954eb505b692d194a3bd644" name="a469ad0bdb954eb505b692d194a3bd644"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a469ad0bdb954eb505b692d194a3bd644">&#9670;&#160;</a></span>get_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[Tuple[<a class="el" href="a02644.html">rdflib.term.Node</a>, List[Any]]] get_tree </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02644.html">rdflib.term.Node</a>&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">rdflib.term.URIRef</a>&#160;</td>
+          <td class="paramname"><em>prop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Callable[[<a class="el" href="a02644.html">rdflib.term.Node</a>], <a class="el" href="a02644.html">rdflib.term.Node</a>] &#160;</td>
+          <td class="paramname"><em>mapper</em> = <code>lambda&#160;x:&#160;x</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Callable[[Any], Any]] &#160;</td>
+          <td class="paramname"><em>sortkey</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Set[<a class="el" href="a02644.html">rdflib.term.Node</a>]] &#160;</td>
+          <td class="paramname"><em>done</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str &#160;</td>
+          <td class="paramname"><em>dir</em> = <code>&quot;down&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Return a nested list/tuple structure representing the tree
+built by the transitive property given, starting from the root given
+
+i.e.
+
+```python
+get_tree(
+    graph,
+    rdflib.URIRef("http://xmlns.com/foaf/0.1/Person"),
+    rdflib.RDFS.subClassOf,
+)
+```
+
+will return the structure for the subClassTree below person.
+
+dir='down' assumes triple of the form (child, prop, parent),
+i.e. the direction of RDFS.subClassOf or SKOS.broader
+Any other dir traverses in the other direction
+</pre> <div class="fragment"><div class="line"><span class="lineno">  485</span>) -&gt; Optional[Tuple[<a class="code hl_class" href="a02644.html">rdflib.term.Node</a>, List[Any]]]:</div>
+<div class="line"><span class="lineno">  486</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  487</span><span class="stringliteral">    Return a nested list/tuple structure representing the tree</span></div>
+<div class="line"><span class="lineno">  488</span><span class="stringliteral">    built by the transitive property given, starting from the root given</span></div>
+<div class="line"><span class="lineno">  489</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  490</span><span class="stringliteral">    i.e.</span></div>
+<div class="line"><span class="lineno">  491</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  492</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  493</span><span class="stringliteral">    get_tree(</span></div>
+<div class="line"><span class="lineno">  494</span><span class="stringliteral">        graph,</span></div>
+<div class="line"><span class="lineno">  495</span><span class="stringliteral">        rdflib.URIRef(&quot;http://xmlns.com/foaf/0.1/Person&quot;),</span></div>
+<div class="line"><span class="lineno">  496</span><span class="stringliteral">        rdflib.RDFS.subClassOf,</span></div>
+<div class="line"><span class="lineno">  497</span><span class="stringliteral">    )</span></div>
+<div class="line"><span class="lineno">  498</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  499</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  500</span><span class="stringliteral">    will return the structure for the subClassTree below person.</span></div>
+<div class="line"><span class="lineno">  501</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  502</span><span class="stringliteral">    dir=&#39;down&#39; assumes triple of the form (child, prop, parent),</span></div>
+<div class="line"><span class="lineno">  503</span><span class="stringliteral">    i.e. the direction of RDFS.subClassOf or SKOS.broader</span></div>
+<div class="line"><span class="lineno">  504</span><span class="stringliteral">    Any other dir traverses in the other direction</span></div>
+<div class="line"><span class="lineno">  505</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  506</span> </div>
+<div class="line"><span class="lineno">  507</span>    <span class="keywordflow">if</span> done <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  508</span>        done = set()</div>
+<div class="line"><span class="lineno">  509</span>    <span class="keywordflow">if</span> root <span class="keywordflow">in</span> done:</div>
+<div class="line"><span class="lineno">  510</span>        <span class="comment"># type error: Return value expected</span></div>
+<div class="line"><span class="lineno">  511</span>        <span class="keywordflow">return</span>  <span class="comment"># type: ignore[return-value]</span></div>
+<div class="line"><span class="lineno">  512</span>    done.add(root)</div>
+<div class="line"><span class="lineno">  513</span>    tree = []</div>
+<div class="line"><span class="lineno">  514</span> </div>
+<div class="line"><span class="lineno">  515</span>    branches: Iterator[<a class="code hl_class" href="a02644.html">rdflib.term.Node</a>]</div>
+<div class="line"><span class="lineno">  516</span>    <span class="keywordflow">if</span> dir == <span class="stringliteral">&quot;down&quot;</span>:</div>
+<div class="line"><span class="lineno">  517</span>        branches = graph.subjects(prop, root)</div>
+<div class="line"><span class="lineno">  518</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  519</span>        branches = graph.objects(root, prop)</div>
+<div class="line"><span class="lineno">  520</span> </div>
+<div class="line"><span class="lineno">  521</span>    <span class="keywordflow">for</span> branch <span class="keywordflow">in</span> branches:</div>
+<div class="line"><span class="lineno">  522</span>        t = get_tree(graph, branch, prop, mapper, sortkey, done, dir)</div>
+<div class="line"><span class="lineno">  523</span>        <span class="keywordflow">if</span> t:</div>
+<div class="line"><span class="lineno">  524</span>            tree.append(t)</div>
+<div class="line"><span class="lineno">  525</span> </div>
+<div class="line"><span class="lineno">  526</span>    <span class="keywordflow">return</span> (mapper(root), sorted(tree, key=sortkey))</div>
+<div class="line"><span class="lineno">  527</span> </div>
+<div class="line"><span class="lineno">  528</span> </div>
+<div class="line"><span class="lineno">  529</span><span class="preprocessor">@overload</span></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01122.html#a469ad0bdb954eb505b692d194a3bd644">rdflib.util.get_tree()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01122.html#a469ad0bdb954eb505b692d194a3bd644">rdflib.util.get_tree()</a>.</p>
+
+</div>
+</div>
+<a id="a66419af3f425eb5d0869773de24d2058" name="a66419af3f425eb5d0869773de24d2058"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66419af3f425eb5d0869773de24d2058">&#9670;&#160;</a></span>guess_format()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[str] guess_format </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>fpath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Dict[str, str]] &#160;</td>
+          <td class="paramname"><em>fmap</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Guess RDF serialization based on file suffix. Uses
+`SUFFIX_FORMAT_MAP` unless `fmap` is provided.
+
+Example:
+    ```python
+    &gt;&gt;&gt; guess_format('path/to/file.rdf')
+    'xml'
+    &gt;&gt;&gt; guess_format('path/to/file.owl')
+    'xml'
+    &gt;&gt;&gt; guess_format('path/to/file.ttl')
+    'turtle'
+    &gt;&gt;&gt; guess_format('path/to/file.json')
+    'json-ld'
+    &gt;&gt;&gt; guess_format('path/to/file.xhtml')
+    'rdfa'
+    &gt;&gt;&gt; guess_format('path/to/file.svg')
+    'rdfa'
+    &gt;&gt;&gt; guess_format('path/to/file.xhtml', {'xhtml': 'grddl'})
+    'grddl'
+
+    ```
+
+    This also works with just the suffixes, with or without leading dot, and
+    regardless of letter case:
+
+    ```python
+    &gt;&gt;&gt; guess_format('.rdf')
+    'xml'
+    &gt;&gt;&gt; guess_format('rdf')
+    'xml'
+    &gt;&gt;&gt; guess_format('RDF')
+    'xml'
+
+    ```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  382</span><span class="keyword">def </span>guess_format(fpath: str, fmap: Optional[Dict[str, str]] = <span class="keywordtype">None</span>) -&gt; Optional[str]:</div>
+<div class="line"><span class="lineno">  383</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  384</span><span class="stringliteral">    Guess RDF serialization based on file suffix. Uses</span></div>
+<div class="line"><span class="lineno">  385</span><span class="stringliteral">    `SUFFIX_FORMAT_MAP` unless `fmap` is provided.</span></div>
+<div class="line"><span class="lineno">  386</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  387</span><span class="stringliteral">    Example:</span></div>
+<div class="line"><span class="lineno">  388</span><span class="stringliteral">        ```python</span></div>
+<div class="line"><span class="lineno">  389</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;path/to/file.rdf&#39;)</span></div>
+<div class="line"><span class="lineno">  390</span><span class="stringliteral">        &#39;xml&#39;</span></div>
+<div class="line"><span class="lineno">  391</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;path/to/file.owl&#39;)</span></div>
+<div class="line"><span class="lineno">  392</span><span class="stringliteral">        &#39;xml&#39;</span></div>
+<div class="line"><span class="lineno">  393</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;path/to/file.ttl&#39;)</span></div>
+<div class="line"><span class="lineno">  394</span><span class="stringliteral">        &#39;turtle&#39;</span></div>
+<div class="line"><span class="lineno">  395</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;path/to/file.json&#39;)</span></div>
+<div class="line"><span class="lineno">  396</span><span class="stringliteral">        &#39;json-ld&#39;</span></div>
+<div class="line"><span class="lineno">  397</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;path/to/file.xhtml&#39;)</span></div>
+<div class="line"><span class="lineno">  398</span><span class="stringliteral">        &#39;rdfa&#39;</span></div>
+<div class="line"><span class="lineno">  399</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;path/to/file.svg&#39;)</span></div>
+<div class="line"><span class="lineno">  400</span><span class="stringliteral">        &#39;rdfa&#39;</span></div>
+<div class="line"><span class="lineno">  401</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;path/to/file.xhtml&#39;, {&#39;xhtml&#39;: &#39;grddl&#39;})</span></div>
+<div class="line"><span class="lineno">  402</span><span class="stringliteral">        &#39;grddl&#39;</span></div>
+<div class="line"><span class="lineno">  403</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  404</span><span class="stringliteral">        ```</span></div>
+<div class="line"><span class="lineno">  405</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  406</span><span class="stringliteral">        This also works with just the suffixes, with or without leading dot, and</span></div>
+<div class="line"><span class="lineno">  407</span><span class="stringliteral">        regardless of letter case:</span></div>
+<div class="line"><span class="lineno">  408</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  409</span><span class="stringliteral">        ```python</span></div>
+<div class="line"><span class="lineno">  410</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;.rdf&#39;)</span></div>
+<div class="line"><span class="lineno">  411</span><span class="stringliteral">        &#39;xml&#39;</span></div>
+<div class="line"><span class="lineno">  412</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;rdf&#39;)</span></div>
+<div class="line"><span class="lineno">  413</span><span class="stringliteral">        &#39;xml&#39;</span></div>
+<div class="line"><span class="lineno">  414</span><span class="stringliteral">        &gt;&gt;&gt; guess_format(&#39;RDF&#39;)</span></div>
+<div class="line"><span class="lineno">  415</span><span class="stringliteral">        &#39;xml&#39;</span></div>
+<div class="line"><span class="lineno">  416</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  417</span><span class="stringliteral">        ```</span></div>
+<div class="line"><span class="lineno">  418</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  419</span>    fmap = fmap <span class="keywordflow">or</span> SUFFIX_FORMAT_MAP</div>
+<div class="line"><span class="lineno">  420</span>    <span class="keywordflow">return</span> fmap.get(_get_ext(fpath)) <span class="keywordflow">or</span> fmap.get(fpath.lower())</div>
+<div class="line"><span class="lineno">  421</span> </div>
+<div class="line"><span class="lineno">  422</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01122.html#a9ca51d15f3d3121a4a14c9cb8375cd4e">rdflib.util._get_ext()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a34624d612ccdf5e5bbed638c4d0adca3">Graph.parse()</a>.</p>
+
+</div>
+</div>
+<a id="a582cb7114b02c262ca83c2f8e99025fa" name="a582cb7114b02c262ca83c2f8e99025fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a582cb7114b02c262ca83c2f8e99025fa">&#9670;&#160;</a></span>list2set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[<a class="el" href="a01122.html#a4fdf13731bda5993cc9dd330c1976a81">_HashableT</a>] list2set </td>
+          <td>(</td>
+          <td class="paramtype">Iterable[<a class="el" href="a01122.html#a4fdf13731bda5993cc9dd330c1976a81">_HashableT</a>]&#160;</td>
+          <td class="paramname"><em>seq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Return a new list without duplicates.
+Preserves the order, unlike set(seq)
+</pre> <div class="fragment"><div class="line"><span class="lineno">  118</span><span class="keyword">def </span>list2set(seq: Iterable[_HashableT]) -&gt; List[_HashableT]:</div>
+<div class="line"><span class="lineno">  119</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  120</span><span class="stringliteral">    Return a new list without duplicates.</span></div>
+<div class="line"><span class="lineno">  121</span><span class="stringliteral">    Preserves the order, unlike set(seq)</span></div>
+<div class="line"><span class="lineno">  122</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  123</span>    seen = set()</div>
+<div class="line"><span class="lineno">  124</span>    <span class="comment"># type error: &quot;add&quot; of &quot;set&quot; does not return a value</span></div>
+<div class="line"><span class="lineno">  125</span>    <span class="keywordflow">return</span> [x <span class="keywordflow">for</span> x <span class="keywordflow">in</span> seq <span class="keywordflow">if</span> x <span class="keywordflow">not</span> <span class="keywordflow">in</span> seen <span class="keywordflow">and</span> <span class="keywordflow">not</span> seen.add(x)]  <span class="comment"># type: ignore[func-returns-value]</span></div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8a594f6e59bdec0621e93bbb7983b4aa" name="a8a594f6e59bdec0621e93bbb7983b4aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a594f6e59bdec0621e93bbb7983b4aa">&#9670;&#160;</a></span>more_than()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int more_than </td>
+          <td>(</td>
+          <td class="paramtype">Iterable[Any]&#160;</td>
+          <td class="paramname"><em>sequence</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  146</span><span class="keyword">def </span>more_than(sequence: Iterable[Any], number: int) -&gt; int:</div>
+<div class="line"><span class="lineno">  147</span>    <span class="stringliteral">&quot;Returns 1 if sequence has more items than number and 0 if not.&quot;</span></div>
+<div class="line"><span class="lineno">  148</span>    i = 0</div>
+<div class="line"><span class="lineno">  149</span>    <span class="keywordflow">for</span> item <span class="keywordflow">in</span> sequence:</div>
+<div class="line"><span class="lineno">  150</span>        i += 1</div>
+<div class="line"><span class="lineno">  151</span>        <span class="keywordflow">if</span> i &gt; number:</div>
+<div class="line"><span class="lineno">  152</span>            <span class="keywordflow">return</span> 1</div>
+<div class="line"><span class="lineno">  153</span>    <span class="keywordflow">return</span> 0</div>
+<div class="line"><span class="lineno">  154</span> </div>
+<div class="line"><span class="lineno">  155</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab19f84712070dadf8ddfdf578cbef4aa" name="ab19f84712070dadf8ddfdf578cbef4aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab19f84712070dadf8ddfdf578cbef4aa">&#9670;&#160;</a></span>parse_date_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int parse_date_time </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">always returns seconds in UTC
+
+```python
+# tests are written like this to make any errors easier to understand
+&gt;&gt;&gt; parse_date_time('2005-09-11T23:54:10Z') - 1126482850.0
+0.0
+
+&gt;&gt;&gt; parse_date_time('2005-09-11T16:54:10-07:00') - 1126482850.0
+0.0
+
+&gt;&gt;&gt; parse_date_time('1970-01-01T00:00:01Z') - 1.0
+0.0
+
+&gt;&gt;&gt; parse_date_time('1970-01-01T00:00:00Z') - 0.0
+0.0
+&gt;&gt;&gt; parse_date_time("2005-09-05T10:42:00") - 1125916920.0
+0.0
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  335</span><span class="keyword">def </span>parse_date_time(val: str) -&gt; int:</div>
+<div class="line"><span class="lineno">  336</span>    <span class="stringliteral">&quot;&quot;&quot;always returns seconds in UTC</span></div>
+<div class="line"><span class="lineno">  337</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  338</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  339</span><span class="stringliteral">    # tests are written like this to make any errors easier to understand</span></div>
+<div class="line"><span class="lineno">  340</span><span class="stringliteral">    &gt;&gt;&gt; parse_date_time(&#39;2005-09-11T23:54:10Z&#39;) - 1126482850.0</span></div>
+<div class="line"><span class="lineno">  341</span><span class="stringliteral">    0.0</span></div>
+<div class="line"><span class="lineno">  342</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  343</span><span class="stringliteral">    &gt;&gt;&gt; parse_date_time(&#39;2005-09-11T16:54:10-07:00&#39;) - 1126482850.0</span></div>
+<div class="line"><span class="lineno">  344</span><span class="stringliteral">    0.0</span></div>
+<div class="line"><span class="lineno">  345</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  346</span><span class="stringliteral">    &gt;&gt;&gt; parse_date_time(&#39;1970-01-01T00:00:01Z&#39;) - 1.0</span></div>
+<div class="line"><span class="lineno">  347</span><span class="stringliteral">    0.0</span></div>
+<div class="line"><span class="lineno">  348</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  349</span><span class="stringliteral">    &gt;&gt;&gt; parse_date_time(&#39;1970-01-01T00:00:00Z&#39;) - 0.0</span></div>
+<div class="line"><span class="lineno">  350</span><span class="stringliteral">    0.0</span></div>
+<div class="line"><span class="lineno">  351</span><span class="stringliteral">    &gt;&gt;&gt; parse_date_time(&quot;2005-09-05T10:42:00&quot;) - 1125916920.0</span></div>
+<div class="line"><span class="lineno">  352</span><span class="stringliteral">    0.0</span></div>
+<div class="line"><span class="lineno">  353</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  354</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  355</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  356</span> </div>
+<div class="line"><span class="lineno">  357</span>    <span class="keywordflow">if</span> <span class="stringliteral">&quot;T&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> val:</div>
+<div class="line"><span class="lineno">  358</span>        val += <span class="stringliteral">&quot;T00:00:00Z&quot;</span></div>
+<div class="line"><span class="lineno">  359</span> </div>
+<div class="line"><span class="lineno">  360</span>    ymd, time = val.split(<span class="stringliteral">&quot;T&quot;</span>)</div>
+<div class="line"><span class="lineno">  361</span>    hms, tz_str = time[0:8], time[8:]</div>
+<div class="line"><span class="lineno">  362</span> </div>
+<div class="line"><span class="lineno">  363</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> tz_str <span class="keywordflow">or</span> tz_str == <span class="stringliteral">&quot;Z&quot;</span>:</div>
+<div class="line"><span class="lineno">  364</span>        time = time[:-1]</div>
+<div class="line"><span class="lineno">  365</span>        tz_offset = 0</div>
+<div class="line"><span class="lineno">  366</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  367</span>        signed_hrs = int(tz_str[:3])</div>
+<div class="line"><span class="lineno">  368</span>        mins = int(tz_str[4:6])</div>
+<div class="line"><span class="lineno">  369</span>        secs = (sign(signed_hrs) * mins + signed_hrs * 60) * 60</div>
+<div class="line"><span class="lineno">  370</span>        tz_offset = -secs</div>
+<div class="line"><span class="lineno">  371</span> </div>
+<div class="line"><span class="lineno">  372</span>    year, month, day = ymd.split(<span class="stringliteral">&quot;-&quot;</span>)</div>
+<div class="line"><span class="lineno">  373</span>    hour, minute, second = hms.split(<span class="stringliteral">&quot;:&quot;</span>)</div>
+<div class="line"><span class="lineno">  374</span> </div>
+<div class="line"><span class="lineno">  375</span>    t = timegm(</div>
+<div class="line"><span class="lineno">  376</span>        (int(year), int(month), int(day), int(hour), int(minute), int(second), 0, 0, 0)</div>
+<div class="line"><span class="lineno">  377</span>    )</div>
+<div class="line"><span class="lineno">  378</span>    t = t + tz_offset</div>
+<div class="line"><span class="lineno">  379</span>    <span class="keywordflow">return</span> t</div>
+<div class="line"><span class="lineno">  380</span> </div>
+<div class="line"><span class="lineno">  381</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af1a5e3111537a112894e500b95fc5a08" name="af1a5e3111537a112894e500b95fc5a08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a5e3111537a112894e500b95fc5a08">&#9670;&#160;</a></span>to_term()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[<a class="el" href="a02648.html">rdflib.term.Identifier</a>] to_term </td>
+          <td>(</td>
+          <td class="paramtype">Optional[str]&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a02648.html">rdflib.term.Identifier</a>] &#160;</td>
+          <td class="paramname"><em>default</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Creates and returns an Identifier of type corresponding
+to the pattern of the given positional argument string `s`:
+
+'' returns the `default` keyword argument value or `None`
+
+'&lt;s&gt;' returns `URIRef(s)` (i.e. without angle brackets)
+
+'"s"' returns `Literal(s)` (i.e. without doublequotes)
+
+'_s' returns `BNode(s)` (i.e. without leading underscore)</pre> <div class="fragment"><div class="line"><span class="lineno">  158</span>) -&gt; Optional[<a class="code hl_class" href="a02648.html">rdflib.term.Identifier</a>]:</div>
+<div class="line"><span class="lineno">  159</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  160</span><span class="stringliteral">    Creates and returns an Identifier of type corresponding</span></div>
+<div class="line"><span class="lineno">  161</span><span class="stringliteral">    to the pattern of the given positional argument string `s`:</span></div>
+<div class="line"><span class="lineno">  162</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  163</span><span class="stringliteral">    &#39;&#39; returns the `default` keyword argument value or `None`</span></div>
+<div class="line"><span class="lineno">  164</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  165</span><span class="stringliteral">    &#39;&lt;s&gt;&#39; returns `URIRef(s)` (i.e. without angle brackets)</span></div>
+<div class="line"><span class="lineno">  166</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  167</span><span class="stringliteral">    &#39;&quot;s&quot;&#39; returns `Literal(s)` (i.e. without doublequotes)</span></div>
+<div class="line"><span class="lineno">  168</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  169</span><span class="stringliteral">    &#39;_s&#39; returns `BNode(s)` (i.e. without leading underscore)</span></div>
+<div class="line"><span class="lineno">  170</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  171</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  172</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> s:</div>
+<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">return</span> default</div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordflow">elif</span> s.startswith(<span class="stringliteral">&quot;&lt;&quot;</span>) <span class="keywordflow">and</span> s.endswith(<span class="stringliteral">&quot;&gt;&quot;</span>):</div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02656.html">rdflib.term.URIRef</a>(s[1:-1])</div>
+<div class="line"><span class="lineno">  176</span>    <span class="keywordflow">elif</span> s.startswith(<span class="stringliteral">&#39;&quot;&#39;</span>) <span class="keywordflow">and</span> s.endswith(<span class="stringliteral">&#39;&quot;&#39;</span>):</div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02672.html">rdflib.term.Literal</a>(s[1:-1])</div>
+<div class="line"><span class="lineno">  178</span>    <span class="keywordflow">elif</span> s.startswith(<span class="stringliteral">&quot;_&quot;</span>):</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a02668.html">rdflib.term.BNode</a>(s)</div>
+<div class="line"><span class="lineno">  180</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  181</span>        msg = <span class="stringliteral">&quot;Unrecognised term syntax: &#39;%s&#39;&quot;</span> % s</div>
+<div class="line"><span class="lineno">  182</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(msg)</div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="ttc" id="aa02648_html"><div class="ttname"><a href="a02648.html">rdflib.term.Identifier</a></div><div class="ttdef"><b>Definition</b> term.py:145</div></div>
+<div class="ttc" id="aa07480_html"><div class="ttname"><a href="a07480.html">Exception</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a71957c89c3610845863d9c33642534b5" name="a71957c89c3610845863d9c33642534b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71957c89c3610845863d9c33642534b5">&#9670;&#160;</a></span>uniq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Set[str] uniq </td>
+          <td>(</td>
+          <td class="paramtype">Iterable[str]&#160;</td>
+          <td class="paramname"><em>sequence</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>strip</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">removes duplicate strings from the sequence.</pre> <div class="fragment"><div class="line"><span class="lineno">  138</span><span class="keyword">def </span>uniq(sequence: Iterable[str], strip: int = 0) -&gt; Set[str]:</div>
+<div class="line"><span class="lineno">  139</span>    <span class="stringliteral">&quot;&quot;&quot;removes duplicate strings from the sequence.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  140</span>    <span class="keywordflow">if</span> strip:</div>
+<div class="line"><span class="lineno">  141</span>        <span class="keywordflow">return</span> set(s.strip() <span class="keywordflow">for</span> s <span class="keywordflow">in</span> sequence)</div>
+<div class="line"><span class="lineno">  142</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">return</span> set(sequence)</div>
+<div class="line"><span class="lineno">  144</span> </div>
+<div class="line"><span class="lineno">  145</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa4a022e6ddacd362b83964da5cc5d044" name="aa4a022e6ddacd362b83964da5cc5d044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a022e6ddacd362b83964da5cc5d044">&#9670;&#160;</a></span>__all__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list __all__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  [</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;list2set&quot;</span>,</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;first&quot;</span>,</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;uniq&quot;</span>,</div>
+<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;more_than&quot;</span>,</div>
+<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;to_term&quot;</span>,</div>
+<div class="line"><span class="lineno">    7</span>    <span class="stringliteral">&quot;from_n3&quot;</span>,</div>
+<div class="line"><span class="lineno">    8</span>    <span class="stringliteral">&quot;date_time&quot;</span>,</div>
+<div class="line"><span class="lineno">    9</span>    <span class="stringliteral">&quot;parse_date_time&quot;</span>,</div>
+<div class="line"><span class="lineno">   10</span>    <span class="stringliteral">&quot;guess_format&quot;</span>,</div>
+<div class="line"><span class="lineno">   11</span>    <span class="stringliteral">&quot;find_roots&quot;</span>,</div>
+<div class="line"><span class="lineno">   12</span>    <span class="stringliteral">&quot;get_tree&quot;</span>,</div>
+<div class="line"><span class="lineno">   13</span>    <span class="stringliteral">&quot;_coalesce&quot;</span>,</div>
+<div class="line"><span class="lineno">   14</span>    <span class="stringliteral">&quot;_iri2uri&quot;</span>,</div>
+<div class="line"><span class="lineno">   15</span>]</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9d16dc4edd1292df4a2c8cd1da2a7201" name="a9d16dc4edd1292df4a2c8cd1da2a7201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d16dc4edd1292df4a2c8cd1da2a7201">&#9670;&#160;</a></span>_AnyT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_AnyT = TypeVar(&quot;_AnyT&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4fdf13731bda5993cc9dd330c1976a81" name="a4fdf13731bda5993cc9dd330c1976a81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fdf13731bda5993cc9dd330c1976a81">&#9670;&#160;</a></span>_HashableT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_HashableT = TypeVar(&quot;_HashableT&quot;, bound=Hashable)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0ee796619fb0cbca1aafb727cded3de" name="ac0ee796619fb0cbca1aafb727cded3de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0ee796619fb0cbca1aafb727cded3de">&#9670;&#160;</a></span>_PATH_SAFE_CHARS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str _PATH_SAFE_CHARS = <a class="el" href="a01122.html#a8f1dc7eb003640bd168ea26ece531d9e">_RFC3986_PCHAR_NU</a> + &quot;/&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f7fcb2a39ee97b9c3f797b4211d9c26" name="a1f7fcb2a39ee97b9c3f797b4211d9c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f7fcb2a39ee97b9c3f797b4211d9c26">&#9670;&#160;</a></span>_QUERY_SAFE_CHARS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str _QUERY_SAFE_CHARS = <a class="el" href="a01122.html#a8f1dc7eb003640bd168ea26ece531d9e">_RFC3986_PCHAR_NU</a> + &quot;/?&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f1dc7eb003640bd168ea26ece531d9e" name="a8f1dc7eb003640bd168ea26ece531d9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1dc7eb003640bd168ea26ece531d9e">&#9670;&#160;</a></span>_RFC3986_PCHAR_NU</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str _RFC3986_PCHAR_NU = &quot;%&quot; + <a class="el" href="a01122.html#a299705ece3801753297ca1f6cd998cc2">_RFC3986_SUBDELIMS</a> + &quot;:@&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a299705ece3801753297ca1f6cd998cc2" name="a299705ece3801753297ca1f6cd998cc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a299705ece3801753297ca1f6cd998cc2">&#9670;&#160;</a></span>_RFC3986_SUBDELIMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str _RFC3986_SUBDELIMS = &quot;!$&amp;'()*+,;=&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53e7b9b530771dd87f587a300c2380e3" name="a53e7b9b530771dd87f587a300c2380e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53e7b9b530771dd87f587a300c2380e3">&#9670;&#160;</a></span>_USERNAME_SAFE_CHARS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str _USERNAME_SAFE_CHARS = <a class="el" href="a01122.html#a299705ece3801753297ca1f6cd998cc2">_RFC3986_SUBDELIMS</a> + &quot;%&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace55e344c62540b4bf29695d9ad0ad09" name="ace55e344c62540b4bf29695d9ad0ad09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace55e344c62540b4bf29695d9ad0ad09">&#9670;&#160;</a></span>FORMAT_MIMETYPE_MAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict FORMAT_MIMETYPE_MAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;xml&quot;</span>: [<span class="stringliteral">&quot;application/rdf+xml&quot;</span>],</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;n3&quot;</span>: [<span class="stringliteral">&quot;text/n3&quot;</span>],</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;turtle&quot;</span>: [<span class="stringliteral">&quot;text/turtle&quot;</span>],</div>
+<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;nt&quot;</span>: [<span class="stringliteral">&quot;application/n-triples&quot;</span>],</div>
+<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;trix&quot;</span>: [<span class="stringliteral">&quot;application/trix&quot;</span>],</div>
+<div class="line"><span class="lineno">    7</span>    <span class="stringliteral">&quot;rdfa&quot;</span>: [<span class="stringliteral">&quot;text/html&quot;</span>, <span class="stringliteral">&quot;application/xhtml+xml&quot;</span>],</div>
+<div class="line"><span class="lineno">    8</span>    <span class="stringliteral">&quot;nquads&quot;</span>: [<span class="stringliteral">&quot;application/n-quads&quot;</span>],</div>
+<div class="line"><span class="lineno">    9</span>    <span class="stringliteral">&quot;trig&quot;</span>: [<span class="stringliteral">&quot;application/trig&quot;</span>],</div>
+<div class="line"><span class="lineno">   10</span>    <span class="stringliteral">&quot;json-ld&quot;</span>: [<span class="stringliteral">&quot;application/ld+json&quot;</span>],</div>
+<div class="line"><span class="lineno">   11</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2bc5bc242dcfdba280c3eab3d6bd50e8" name="a2bc5bc242dcfdba280c3eab3d6bd50e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bc5bc242dcfdba280c3eab3d6bd50e8">&#9670;&#160;</a></span>RESPONSE_TABLE_FORMAT_MIMETYPE_MAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict RESPONSE_TABLE_FORMAT_MIMETYPE_MAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;xml&quot;</span>: [<span class="stringliteral">&quot;application/sparql-results+xml&quot;</span>],</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;json&quot;</span>: [<span class="stringliteral">&quot;application/sparql-results+json&quot;</span>],</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;csv&quot;</span>: [<span class="stringliteral">&quot;text/csv&quot;</span>],</div>
+<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;tsv&quot;</span>: [<span class="stringliteral">&quot;text/tab-separated-values&quot;</span>],</div>
+<div class="line"><span class="lineno">    6</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad49724d68840c3359c39f501d69716ce" name="ad49724d68840c3359c39f501d69716ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad49724d68840c3359c39f501d69716ce">&#9670;&#160;</a></span>SUFFIX_FORMAT_MAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict SUFFIX_FORMAT_MAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;xml&quot;</span>: <span class="stringliteral">&quot;xml&quot;</span>,</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;rdf&quot;</span>: <span class="stringliteral">&quot;xml&quot;</span>,</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;owl&quot;</span>: <span class="stringliteral">&quot;xml&quot;</span>,</div>
+<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;n3&quot;</span>: <span class="stringliteral">&quot;n3&quot;</span>,</div>
+<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;ttl&quot;</span>: <span class="stringliteral">&quot;turtle&quot;</span>,</div>
+<div class="line"><span class="lineno">    7</span>    <span class="stringliteral">&quot;nt&quot;</span>: <span class="stringliteral">&quot;nt&quot;</span>,</div>
+<div class="line"><span class="lineno">    8</span>    <span class="stringliteral">&quot;trix&quot;</span>: <span class="stringliteral">&quot;trix&quot;</span>,</div>
+<div class="line"><span class="lineno">    9</span>    <span class="stringliteral">&quot;xhtml&quot;</span>: <span class="stringliteral">&quot;rdfa&quot;</span>,</div>
+<div class="line"><span class="lineno">   10</span>    <span class="stringliteral">&quot;html&quot;</span>: <span class="stringliteral">&quot;rdfa&quot;</span>,</div>
+<div class="line"><span class="lineno">   11</span>    <span class="stringliteral">&quot;svg&quot;</span>: <span class="stringliteral">&quot;rdfa&quot;</span>,</div>
+<div class="line"><span class="lineno">   12</span>    <span class="stringliteral">&quot;nq&quot;</span>: <span class="stringliteral">&quot;nquads&quot;</span>,</div>
+<div class="line"><span class="lineno">   13</span>    <span class="stringliteral">&quot;nquads&quot;</span>: <span class="stringliteral">&quot;nquads&quot;</span>,</div>
+<div class="line"><span class="lineno">   14</span>    <span class="stringliteral">&quot;trig&quot;</span>: <span class="stringliteral">&quot;trig&quot;</span>,</div>
+<div class="line"><span class="lineno">   15</span>    <span class="stringliteral">&quot;json&quot;</span>: <span class="stringliteral">&quot;json-ld&quot;</span>,</div>
+<div class="line"><span class="lineno">   16</span>    <span class="stringliteral">&quot;jsonld&quot;</span>: <span class="stringliteral">&quot;json-ld&quot;</span>,</div>
+<div class="line"><span class="lineno">   17</span>    <span class="stringliteral">&quot;json-ld&quot;</span>: <span class="stringliteral">&quot;json-ld&quot;</span>,</div>
+<div class="line"><span class="lineno">   18</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01122.html">util</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

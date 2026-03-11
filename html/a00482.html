@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: isostrf.py File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00482.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">isostrf.py File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00912" id="r_a00912"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00912.html">isodate</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00918" id="r_a00918"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html">isodate.isostrf</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2cc09e8093afcf26f9392f8396166655" id="r_a2cc09e8093afcf26f9392f8396166655"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a2cc09e8093afcf26f9392f8396166655">_strfduration</a> (tdt, format, yeardigits=4)</td></tr>
+<tr class="separator:a2cc09e8093afcf26f9392f8396166655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8cc19083edf6e0d3bc75dd24ca90e0a" id="r_ab8cc19083edf6e0d3bc75dd24ca90e0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#ab8cc19083edf6e0d3bc75dd24ca90e0a">_strfdt</a> (tdt, format, yeardigits=4)</td></tr>
+<tr class="separator:ab8cc19083edf6e0d3bc75dd24ca90e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52853528521fe0121026a64fbc74ae3d" id="r_a52853528521fe0121026a64fbc74ae3d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a52853528521fe0121026a64fbc74ae3d">strftime</a> (tdt, format, yeardigits=4)</td></tr>
+<tr class="separator:a52853528521fe0121026a64fbc74ae3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa4feccea1015375931b561822fce6ee5" id="r_aa4feccea1015375931b561822fce6ee5"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#aa4feccea1015375931b561822fce6ee5">DATE_BAS_COMPLETE</a> = '%Y%m%d'</td></tr>
+<tr class="separator:aa4feccea1015375931b561822fce6ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9242d9e094ebf7d539c104248cf4046" id="r_ad9242d9e094ebf7d539c104248cf4046"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#ad9242d9e094ebf7d539c104248cf4046">DATE_EXT_COMPLETE</a> = '%Y-%m-%d'</td></tr>
+<tr class="separator:ad9242d9e094ebf7d539c104248cf4046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2efdef1122f685ecc75324e106b4caab" id="r_a2efdef1122f685ecc75324e106b4caab"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a2efdef1122f685ecc75324e106b4caab">DATE_BAS_WEEK_COMPLETE</a> = '%YW%W%w'</td></tr>
+<tr class="separator:a2efdef1122f685ecc75324e106b4caab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0514d9bc8fd8ee0b0cd5fd2151e2a1f" id="r_aa0514d9bc8fd8ee0b0cd5fd2151e2a1f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#aa0514d9bc8fd8ee0b0cd5fd2151e2a1f">DATE_EXT_WEEK_COMPLETE</a> = '%Y-W%W-%w'</td></tr>
+<tr class="separator:aa0514d9bc8fd8ee0b0cd5fd2151e2a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a184a037759bea2bde11f02e8a56e9472" id="r_a184a037759bea2bde11f02e8a56e9472"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a184a037759bea2bde11f02e8a56e9472">DATE_BAS_ORD_COMPLETE</a> = '%Y%j'</td></tr>
+<tr class="separator:a184a037759bea2bde11f02e8a56e9472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa02f3f7bce20c0cfa10f05d043d93959" id="r_aa02f3f7bce20c0cfa10f05d043d93959"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#aa02f3f7bce20c0cfa10f05d043d93959">DATE_EXT_ORD_COMPLETE</a> = '%Y-%j'</td></tr>
+<tr class="separator:aa02f3f7bce20c0cfa10f05d043d93959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4665edce2c5e5df1dfb3e68061a4b1de" id="r_a4665edce2c5e5df1dfb3e68061a4b1de"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a4665edce2c5e5df1dfb3e68061a4b1de">DATE_BAS_WEEK</a> = '%YW%W'</td></tr>
+<tr class="separator:a4665edce2c5e5df1dfb3e68061a4b1de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6687e7fb663f969e97a525396e3ae0d9" id="r_a6687e7fb663f969e97a525396e3ae0d9"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a6687e7fb663f969e97a525396e3ae0d9">DATE_EXT_WEEK</a> = '%Y-W%W'</td></tr>
+<tr class="separator:a6687e7fb663f969e97a525396e3ae0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9287623dea94b862adf3902b01a1cd" id="r_a9e9287623dea94b862adf3902b01a1cd"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a9e9287623dea94b862adf3902b01a1cd">DATE_BAS_MONTH</a> = '%Y%m'</td></tr>
+<tr class="separator:a9e9287623dea94b862adf3902b01a1cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad88fd84eedbb2fe9503000072a413f8c" id="r_ad88fd84eedbb2fe9503000072a413f8c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#ad88fd84eedbb2fe9503000072a413f8c">DATE_EXT_MONTH</a> = '%Y-%m'</td></tr>
+<tr class="separator:ad88fd84eedbb2fe9503000072a413f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b0a8c4a36ada5bdfb32f7a748e34b2f" id="r_a4b0a8c4a36ada5bdfb32f7a748e34b2f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a4b0a8c4a36ada5bdfb32f7a748e34b2f">DATE_YEAR</a> = '%Y'</td></tr>
+<tr class="separator:a4b0a8c4a36ada5bdfb32f7a748e34b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bcd011ed19bcb31fc359ccda823b744" id="r_a6bcd011ed19bcb31fc359ccda823b744"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a6bcd011ed19bcb31fc359ccda823b744">DATE_CENTURY</a> = '%C'</td></tr>
+<tr class="separator:a6bcd011ed19bcb31fc359ccda823b744"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82083add5042e8982dcc877a9a70fd6e" id="r_a82083add5042e8982dcc877a9a70fd6e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a82083add5042e8982dcc877a9a70fd6e">TIME_BAS_COMPLETE</a> = '%H%M%S'</td></tr>
+<tr class="separator:a82083add5042e8982dcc877a9a70fd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a119bc93786205b9c81dd06ce1d754312" id="r_a119bc93786205b9c81dd06ce1d754312"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a119bc93786205b9c81dd06ce1d754312">TIME_EXT_COMPLETE</a> = '%H:%M:%S'</td></tr>
+<tr class="separator:a119bc93786205b9c81dd06ce1d754312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa813228f20a16fa6d03ad23f98dcf190" id="r_aa813228f20a16fa6d03ad23f98dcf190"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#aa813228f20a16fa6d03ad23f98dcf190">TIME_BAS_MINUTE</a> = '%H%M'</td></tr>
+<tr class="separator:aa813228f20a16fa6d03ad23f98dcf190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afab93a188a53344484a8d3de982d6984" id="r_afab93a188a53344484a8d3de982d6984"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#afab93a188a53344484a8d3de982d6984">TIME_EXT_MINUTE</a> = '%H:%M'</td></tr>
+<tr class="separator:afab93a188a53344484a8d3de982d6984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a98b08b8af0bab77849d298410d8732" id="r_a1a98b08b8af0bab77849d298410d8732"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a1a98b08b8af0bab77849d298410d8732">TIME_HOUR</a> = '%H'</td></tr>
+<tr class="separator:a1a98b08b8af0bab77849d298410d8732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a145af581975d286ccbbf8e4437c192e5" id="r_a145af581975d286ccbbf8e4437c192e5"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a145af581975d286ccbbf8e4437c192e5">TZ_BAS</a> = '%z'</td></tr>
+<tr class="separator:a145af581975d286ccbbf8e4437c192e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae48265caba390f71b4c9096fb42ee4b9" id="r_ae48265caba390f71b4c9096fb42ee4b9"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#ae48265caba390f71b4c9096fb42ee4b9">TZ_EXT</a> = '%Z'</td></tr>
+<tr class="separator:ae48265caba390f71b4c9096fb42ee4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a472c8bf97bbd95bc6262538d4dce1e2c" id="r_a472c8bf97bbd95bc6262538d4dce1e2c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a472c8bf97bbd95bc6262538d4dce1e2c">TZ_HOUR</a> = '%h'</td></tr>
+<tr class="separator:a472c8bf97bbd95bc6262538d4dce1e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf301adb0f9e94fd314cc0b79f1cb99f" id="r_acf301adb0f9e94fd314cc0b79f1cb99f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#acf301adb0f9e94fd314cc0b79f1cb99f">DT_EXT_COMPLETE</a> = <a class="el" href="a00918.html#ad9242d9e094ebf7d539c104248cf4046">DATE_EXT_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a119bc93786205b9c81dd06ce1d754312">TIME_EXT_COMPLETE</a> + <a class="el" href="a00918.html#ae48265caba390f71b4c9096fb42ee4b9">TZ_EXT</a></td></tr>
+<tr class="separator:acf301adb0f9e94fd314cc0b79f1cb99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6de0c1ffb21fd4893c7efc41c0be2893" id="r_a6de0c1ffb21fd4893c7efc41c0be2893"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a6de0c1ffb21fd4893c7efc41c0be2893">DT_BAS_COMPLETE</a> = <a class="el" href="a00918.html#aa4feccea1015375931b561822fce6ee5">DATE_BAS_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a82083add5042e8982dcc877a9a70fd6e">TIME_BAS_COMPLETE</a> + <a class="el" href="a00918.html#a145af581975d286ccbbf8e4437c192e5">TZ_BAS</a></td></tr>
+<tr class="separator:a6de0c1ffb21fd4893c7efc41c0be2893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71ce827bac216aa514ce7e4a580e691c" id="r_a71ce827bac216aa514ce7e4a580e691c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a71ce827bac216aa514ce7e4a580e691c">DT_EXT_ORD_COMPLETE</a> = <a class="el" href="a00918.html#aa02f3f7bce20c0cfa10f05d043d93959">DATE_EXT_ORD_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a119bc93786205b9c81dd06ce1d754312">TIME_EXT_COMPLETE</a> + <a class="el" href="a00918.html#ae48265caba390f71b4c9096fb42ee4b9">TZ_EXT</a></td></tr>
+<tr class="separator:a71ce827bac216aa514ce7e4a580e691c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1210614b825f0b388ea9c0907ecb83ef" id="r_a1210614b825f0b388ea9c0907ecb83ef"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a1210614b825f0b388ea9c0907ecb83ef">DT_BAS_ORD_COMPLETE</a> = <a class="el" href="a00918.html#a184a037759bea2bde11f02e8a56e9472">DATE_BAS_ORD_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a82083add5042e8982dcc877a9a70fd6e">TIME_BAS_COMPLETE</a> + <a class="el" href="a00918.html#a145af581975d286ccbbf8e4437c192e5">TZ_BAS</a></td></tr>
+<tr class="separator:a1210614b825f0b388ea9c0907ecb83ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b1e8f5c64cf16166c5b3f0ea63a3d97" id="r_a1b1e8f5c64cf16166c5b3f0ea63a3d97"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a1b1e8f5c64cf16166c5b3f0ea63a3d97">DT_EXT_WEEK_COMPLETE</a></td></tr>
+<tr class="separator:a1b1e8f5c64cf16166c5b3f0ea63a3d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97860372befe7e4a28e541236b74feb0" id="r_a97860372befe7e4a28e541236b74feb0"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a97860372befe7e4a28e541236b74feb0">DT_BAS_WEEK_COMPLETE</a></td></tr>
+<tr class="separator:a97860372befe7e4a28e541236b74feb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7dfa74438a65e233974682e9b81886b" id="r_ad7dfa74438a65e233974682e9b81886b"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#ad7dfa74438a65e233974682e9b81886b">D_DEFAULT</a> = 'P%P'</td></tr>
+<tr class="separator:ad7dfa74438a65e233974682e9b81886b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e91df3a372e7167e13d14ea4e9a9949" id="r_a4e91df3a372e7167e13d14ea4e9a9949"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a4e91df3a372e7167e13d14ea4e9a9949">D_WEEK</a> = 'P%p'</td></tr>
+<tr class="separator:a4e91df3a372e7167e13d14ea4e9a9949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af43ac2a7bd32199f47605d8b3d18ba8f" id="r_af43ac2a7bd32199f47605d8b3d18ba8f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#af43ac2a7bd32199f47605d8b3d18ba8f">D_ALT_EXT</a> = 'P' + <a class="el" href="a00918.html#ad9242d9e094ebf7d539c104248cf4046">DATE_EXT_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a119bc93786205b9c81dd06ce1d754312">TIME_EXT_COMPLETE</a></td></tr>
+<tr class="separator:af43ac2a7bd32199f47605d8b3d18ba8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5104ac012becba482520ebdc0132738a" id="r_a5104ac012becba482520ebdc0132738a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a5104ac012becba482520ebdc0132738a">D_ALT_BAS</a> = 'P' + <a class="el" href="a00918.html#aa4feccea1015375931b561822fce6ee5">DATE_BAS_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a82083add5042e8982dcc877a9a70fd6e">TIME_BAS_COMPLETE</a></td></tr>
+<tr class="separator:a5104ac012becba482520ebdc0132738a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd88b7afbe5fd9e61b97b38f16239ed9" id="r_abd88b7afbe5fd9e61b97b38f16239ed9"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#abd88b7afbe5fd9e61b97b38f16239ed9">D_ALT_EXT_ORD</a> = 'P' + <a class="el" href="a00918.html#aa02f3f7bce20c0cfa10f05d043d93959">DATE_EXT_ORD_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a119bc93786205b9c81dd06ce1d754312">TIME_EXT_COMPLETE</a></td></tr>
+<tr class="separator:abd88b7afbe5fd9e61b97b38f16239ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa721a07d12b2cb38bd647f45e98c7263" id="r_aa721a07d12b2cb38bd647f45e98c7263"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#aa721a07d12b2cb38bd647f45e98c7263">D_ALT_BAS_ORD</a> = 'P' + <a class="el" href="a00918.html#a184a037759bea2bde11f02e8a56e9472">DATE_BAS_ORD_COMPLETE</a> + 'T' + <a class="el" href="a00918.html#a82083add5042e8982dcc877a9a70fd6e">TIME_BAS_COMPLETE</a></td></tr>
+<tr class="separator:aa721a07d12b2cb38bd647f45e98c7263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afca699a95ebabd832bc83dfe58a4a900" id="r_afca699a95ebabd832bc83dfe58a4a900"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#afca699a95ebabd832bc83dfe58a4a900">STRF_DT_MAP</a></td></tr>
+<tr class="separator:afca699a95ebabd832bc83dfe58a4a900"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26645edd8125708a17aa5de99449cb4e" id="r_a26645edd8125708a17aa5de99449cb4e"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html#a26645edd8125708a17aa5de99449cb4e">STRF_D_MAP</a></td></tr>
+<tr class="separator:a26645edd8125708a17aa5de99449cb4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_ad0530cb1f8052897640e112eb83a9d7.html">dependencies</a></li><li class="navelem"><a class="el" href="dir_72b39247f2c66b328c719f56da5ae714.html">isodate</a></li><li class="navelem"><a class="el" href="a00482.html">isostrf.py</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

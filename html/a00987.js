@@ -1,0 +1,25 @@
+var a00987 =
+[
+    [ "InferenceKind", "a01644.html", "a01644" ],
+    [ "InputRDFFormat", "a01648.html", "a01648" ],
+    [ "ValidationRequest", "a01652.html", "a01652" ],
+    [ "ValidationResponseSimple", "a01656.html", "a01656" ],
+    [ "app_factory", "a00987.html#a33517cad18f9534ca52c40d15730a782", null ],
+    [ "main", "a00987.html#ae3410d7d530df3a40efe42f8b3c4186c", null ],
+    [ "make_validation_response_RDF", "a00987.html#a2886c8a1062dd26f6443774a19e93472", null ],
+    [ "run_server", "a00987.html#adfdeff7a3d9ab62a65631954e953f63f", null ],
+    [ "sh_validate", "a00987.html#a1fb0945e3c1f3b44ff82aebfa4e46ded", null ],
+    [ "ALLOWED_RESPONSE_TYPES", "a00987.html#aa49dbc928deb816a5abbbd5acb2abff5", null ],
+    [ "API_VERSION", "a00987.html#a092c84081a8ac9208678584af5b2c5f5", null ],
+    [ "BASE_LOGO", "a00987.html#a0fd16fa5c26fe72d8c2924dd09d0c6f0", null ],
+    [ "COLOR_LOGO", "a00987.html#af340a5556e9436f68472b4d9bb73ef1b", null ],
+    [ "failures_array_ref", "a00987.html#aadf8b8dc0991f377322d4d917e566b67", null ],
+    [ "FULL_COLOR_LOGO", "a00987.html#a0f8a1667d1fefb3ef240e391718c9839", null ],
+    [ "validation_request_ref", "a00987.html#a9070b1f938072d88c716e2387c8284d4", null ],
+    [ "validation_response_json_ld_ref", "a00987.html#a5897fc2f08d413ac8f67c5ff3fff3d03", null ],
+    [ "validation_response_ntriples_ref", "a00987.html#a8c425e3f8674e9dca4bfb657338c2b1d", null ],
+    [ "validation_response_rdf_ref", "a00987.html#a21c1ddb40befe40e50d3969b14cae4a8", null ],
+    [ "validation_response_simple_ref", "a00987.html#a1d393f18e3010306cd4106764ce3933d", null ],
+    [ "validation_response_ttl_ref", "a00987.html#a710369e6f452ae90da62cd2d1895342c", null ],
+    [ "validation_response_xml_ref", "a00987.html#a4014d8dea6455ea305267fd0f7e001b0", null ]
+];

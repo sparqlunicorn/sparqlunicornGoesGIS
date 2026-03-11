@@ -1,0 +1,732 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: ConvertCRS Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a03252.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a03249.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ConvertCRS Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abdd362d5f799ad16b5d6700efe590290" id="r_abdd362d5f799ad16b5d6700efe590290"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#abdd362d5f799ad16b5d6700efe590290">__init__</a> (self)</td></tr>
+<tr class="separator:abdd362d5f799ad16b5d6700efe590290"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af53276a8e3a119a8ec66ca4a5791d483" id="r_af53276a8e3a119a8ec66ca4a5791d483"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#af53276a8e3a119a8ec66ca4a5791d483">addNamespaces</a> (graph)</td></tr>
+<tr class="separator:af53276a8e3a119a8ec66ca4a5791d483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c18a6074662423fe9619f149fd0e258" id="r_a6c18a6074662423fe9619f149fd0e258"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#a6c18a6074662423fe9619f149fd0e258">convertCRSFromEPSG</a> (epsgcode, ttl)</td></tr>
+<tr class="separator:a6c18a6074662423fe9619f149fd0e258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af06d5ce5791ece24bf2204313f6da214" id="r_af06d5ce5791ece24bf2204313f6da214"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#af06d5ce5791ece24bf2204313f6da214">convertCRSFromWKTStringSet</a> (wkt, ttl, authcode=None)</td></tr>
+<tr class="separator:af06d5ce5791ece24bf2204313f6da214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8033853b0ad60c09d293aed73cddc23d" id="r_a8033853b0ad60c09d293aed73cddc23d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#a8033853b0ad60c09d293aed73cddc23d">convertCRSFromWKTString</a> (wkt, ttl, authcode=None)</td></tr>
+<tr class="separator:a8033853b0ad60c09d293aed73cddc23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0397a62108af567c90e6b5d342e05c8" id="r_aa0397a62108af567c90e6b5d342e05c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#aa0397a62108af567c90e6b5d342e05c8">crsToTTL</a> (ttl, curcrs, x, geodcounter, crsclass)</td></tr>
+<tr class="separator:aa0397a62108af567c90e6b5d342e05c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ad382225511cbcbdfadae28d3f3641911" id="r_ad382225511cbcbdfadae28d3f3641911"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#ad382225511cbcbdfadae28d3f3641911">ttlhead</a></td></tr>
+<tr class="separator:ad382225511cbcbdfadae28d3f3641911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abdd362d5f799ad16b5d6700efe590290" name="abdd362d5f799ad16b5d6700efe590290"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd362d5f799ad16b5d6700efe590290">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  148</span>        <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><span class="lineno">  149</span>                self.ttlhead = <span class="stringliteral">&quot;@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  150</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  151</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  152</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  153</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  154</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix prov: &lt;http://www.w3.org/ns/prov-o/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  155</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geoepsg: &lt;http://www.opengis.net/def/crs/EPSG/0/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  156</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geo: &lt;http://www.opengis.net/ont/geosparql#&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  157</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrs: &lt;http://www.opengis.net/ont/crs/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  158</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsdatum: &lt;http://www.opengis.net/ont/crs/datum/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  159</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsisbody: &lt;http://www.opengis.net/ont/crs/isbody/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  160</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsgrid: &lt;http://www.opengis.net/ont/crs/grid/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  161</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsproj: &lt;http://www.opengis.net/ont/crs/proj/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  162</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsaxis: &lt;http://www.opengis.net/ont/crs/cs/axis/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  163</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsgeod: &lt;http://www.opengis.net/ont/crs/geod/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  164</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsaou: &lt;http://www.opengis.net/ont/crs/areaofuse/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  165</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsmeridian: &lt;http://www.opengis.net/ont/crs/primeMeridian/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  166</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocrsoperation: &lt;http://www.opengis.net/ont/crs/operation/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  167</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix geocs: &lt;http://www.opengis.net/ont/crs/cs/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  168</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  169</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  170</span>                self.ttlhead += <span class="stringliteral">&quot;@prefix om: &lt;http://www.ontology-of-units-of-measure.org/resource/om-2/&gt; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  171</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af53276a8e3a119a8ec66ca4a5791d483" name="af53276a8e3a119a8ec66ca4a5791d483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af53276a8e3a119a8ec66ca4a5791d483">&#9670;&#160;</a></span>addNamespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">addNamespaces </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  173</span>        <span class="keyword">def </span>addNamespaces(graph):</div>
+<div class="line"><span class="lineno">  174</span>                graph.bind(<span class="stringliteral">&quot;rdf&quot;</span>,RDF)</div>
+<div class="line"><span class="lineno">  175</span>                graph.bind(<span class="stringliteral">&quot;rdfs&quot;</span>,RDFS)</div>
+<div class="line"><span class="lineno">  176</span>                graph.bind(<span class="stringliteral">&quot;owl&quot;</span>,OWL)</div>
+<div class="line"><span class="lineno">  177</span>                graph.bind(<span class="stringliteral">&quot;xsd&quot;</span>,XSD)</div>
+<div class="line"><span class="lineno">  178</span>                graph.bind(<span class="stringliteral">&quot;skos&quot;</span>,SKOS)</div>
+<div class="line"><span class="lineno">  179</span>                graph.bind(<span class="stringliteral">&quot;prov&quot;</span>,PROV)</div>
+<div class="line"><span class="lineno">  180</span>                graph.bind(<span class="stringliteral">&quot;geo&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#&quot;</span>)</div>
+<div class="line"><span class="lineno">  181</span>                graph.bind(<span class="stringliteral">&quot;geocrs&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/&quot;</span>)</div>
+<div class="line"><span class="lineno">  182</span>                graph.bind(<span class="stringliteral">&quot;geocrsdatum&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/datum/&quot;</span>)</div>
+<div class="line"><span class="lineno">  183</span>                graph.bind(<span class="stringliteral">&quot;geocrsgrid&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/grid/&quot;</span>)</div>
+<div class="line"><span class="lineno">  184</span>                graph.bind(<span class="stringliteral">&quot;geocrsisbody&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/isbody/&quot;</span>)</div>
+<div class="line"><span class="lineno">  185</span>                graph.bind(<span class="stringliteral">&quot;geoepsg&quot;</span>,<span class="stringliteral">&quot;http://www.opengis.net/def/crs/EPSG/0/&quot;</span>)</div>
+<div class="line"><span class="lineno">  186</span>                graph.bind(<span class="stringliteral">&quot;geocrsgrid&quot;</span>,<span class="stringliteral">&quot;http://www.opengis.net/ont/crs/grid/&quot;</span>)</div>
+<div class="line"><span class="lineno">  187</span>                graph.bind(<span class="stringliteral">&quot;geocrsproj&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/proj/&quot;</span>)</div>
+<div class="line"><span class="lineno">  188</span>                graph.bind(<span class="stringliteral">&quot;geocrsaxis&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/cs/axis/&quot;</span>)</div>
+<div class="line"><span class="lineno">  189</span>                graph.bind(<span class="stringliteral">&quot;geocrsgeod&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/geod/&quot;</span>)</div>
+<div class="line"><span class="lineno">  190</span>                graph.bind(<span class="stringliteral">&quot;geocrsaou&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/areaofuse/&quot;</span>)</div>
+<div class="line"><span class="lineno">  191</span>                graph.bind(<span class="stringliteral">&quot;geocrsmeridian&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/primeMeridian/&quot;</span>)</div>
+<div class="line"><span class="lineno">  192</span>                graph.bind(<span class="stringliteral">&quot;geocrsoperation&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/operation/&quot;</span>)</div>
+<div class="line"><span class="lineno">  193</span>                graph.bind(<span class="stringliteral">&quot;geocs&quot;</span>, <span class="stringliteral">&quot;http://www.opengis.net/ont/crs/cs/&quot;</span>)</div>
+<div class="line"><span class="lineno">  194</span>                graph.bind(<span class="stringliteral">&quot;dc&quot;</span>, <span class="stringliteral">&quot;http://purl.org/dc/elements/1.1/&quot;</span>)</div>
+<div class="line"><span class="lineno">  195</span>                graph.bind(<span class="stringliteral">&quot;wd&quot;</span>, <span class="stringliteral">&quot;http://www.wikidata.org/entity/&quot;</span>)</div>
+<div class="line"><span class="lineno">  196</span>                graph.bind(<span class="stringliteral">&quot;om&quot;</span>, <span class="stringliteral">&quot;http://www.ontology-of-units-of-measure.org/resource/om-2/&quot;</span>)</div>
+<div class="line"><span class="lineno">  197</span>                <span class="keywordflow">return</span> graph</div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="line"><span class="lineno">  199</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6c18a6074662423fe9619f149fd0e258" name="a6c18a6074662423fe9619f149fd0e258"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c18a6074662423fe9619f149fd0e258">&#9670;&#160;</a></span>convertCRSFromEPSG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">convertCRSFromEPSG </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>epsgcode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ttl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  201</span>        <span class="keyword">def </span>convertCRSFromEPSG(epsgcode,ttl):</div>
+<div class="line"><span class="lineno">  202</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;EPSG:&quot;</span> <span class="keywordflow">in</span> epsgcode:</div>
+<div class="line"><span class="lineno">  203</span>                        epsgcode=epsgcode.replace(<span class="stringliteral">&quot;EPSG:&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  204</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  205</span>                        curcrs=CRS.from_epsg(int(epsgcode))</div>
+<div class="line"><span class="lineno">  206</span>                        print(<span class="stringliteral">&quot;EPSG: &quot;</span>+str(epsgcode))</div>
+<div class="line"><span class="lineno">  207</span>                        ttl+=ConvertCRS.crsToTTL(ttl, curcrs, epsgcode, 1, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  208</span>                <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  209</span>                        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Could not parse EPSG code &quot;</span>+str(epsgcode), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  210</span>                <span class="keywordflow">return</span> ttl</div>
+<div class="line"><span class="lineno">  211</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8033853b0ad60c09d293aed73cddc23d" name="a8033853b0ad60c09d293aed73cddc23d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8033853b0ad60c09d293aed73cddc23d">&#9670;&#160;</a></span>convertCRSFromWKTString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">convertCRSFromWKTString </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>wkt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ttl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>authcode</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  231</span>        <span class="keyword">def </span>convertCRSFromWKTString(wkt,ttl, authcode=None):</div>
+<div class="line"><span class="lineno">  232</span>                set=ConvertCRS.convertCRSFromWKTStringSet(wkt,ttl, authcode)</div>
+<div class="line"><span class="lineno">  233</span>                <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>.join(set)</div>
+<div class="line"><span class="lineno">  234</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af06d5ce5791ece24bf2204313f6da214" name="af06d5ce5791ece24bf2204313f6da214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af06d5ce5791ece24bf2204313f6da214">&#9670;&#160;</a></span>convertCRSFromWKTStringSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">convertCRSFromWKTStringSet </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>wkt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ttl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>authcode</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  213</span>        <span class="keyword">def </span>convertCRSFromWKTStringSet(wkt,ttl, authcode=None):</div>
+<div class="line"><span class="lineno">  214</span>                <span class="keywordflow">if</span> authcode!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;EPSG:&quot;</span> <span class="keywordflow">in</span> authcode:</div>
+<div class="line"><span class="lineno">  215</span>                        authcode=authcode.replace(<span class="stringliteral">&quot;EPSG:&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  216</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  217</span>                        <span class="comment">#QgsMessageLog.logMessage(&quot;WKT &quot; + str(wkt), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  218</span>                        curcrs=CRS.from_wkt(wkt)</div>
+<div class="line"><span class="lineno">  219</span>                        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Parsed WKT &quot;</span> + str(curcrs), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  220</span>                        <span class="keywordflow">if</span> authcode!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> authcode!=<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  221</span>                                res=ConvertCRS.crsToTTL(ttl, curcrs, authcode, 1, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  222</span>                        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  223</span>                                res=ConvertCRS.crsToTTL(ttl, curcrs, <span class="stringliteral">&quot;WKT&quot;</span>, 1, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  224</span>                        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Parsed WKT Res &quot;</span> + str(res), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  225</span>                        ttl=res</div>
+<div class="line"><span class="lineno">  226</span>                <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  227</span>                        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Could not parse WKT &quot;</span>+str(wkt), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  228</span>                <span class="keywordflow">return</span> ttl</div>
+<div class="line"><span class="lineno">  229</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa0397a62108af567c90e6b5d342e05c8" name="aa0397a62108af567c90e6b5d342e05c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0397a62108af567c90e6b5d342e05c8">&#9670;&#160;</a></span>crsToTTL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">crsToTTL </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ttl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>curcrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geodcounter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>crsclass</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  236</span>        <span class="keyword">def </span>crsToTTL(ttl,curcrs,x,geodcounter,crsclass):</div>
+<div class="line"><span class="lineno">  237</span>                epsgcode=str(x)</div>
+<div class="line"><span class="lineno">  238</span>                csuri=URIRef(GEOEPSG + epsgcode + <span class="stringliteral">&quot;_cs&quot;</span>)</div>
+<div class="line"><span class="lineno">  239</span>                crsuri=URIRef(GEOEPSG+str(x))</div>
+<div class="line"><span class="lineno">  240</span>                wkt=curcrs.to_wkt().replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).strip()</div>
+<div class="line"><span class="lineno">  241</span>                <span class="keywordflow">if</span> crsclass <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  242</span>                        ttl.add((crsuri,RDF.type,URIRef(crsclass)))</div>
+<div class="line"><span class="lineno">  243</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Projected CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  244</span>                        ttl.add((crsuri, RDF.type, GEOCRS.ProjectedCRS))</div>
+<div class="line"><span class="lineno">  245</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Geographic 2D CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  246</span>                        ttl.add((crsuri, RDF.type, GEOCRS.GeographicCRS))</div>
+<div class="line"><span class="lineno">  247</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Geographic 3D CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  248</span>                        ttl.add((crsuri, RDF.type, GEOCRS.GeographicCRS))</div>
+<div class="line"><span class="lineno">  249</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Bound CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  250</span>                        ttl.add((crsuri, RDF.type, GEOCRS.BoundCRS))</div>
+<div class="line"><span class="lineno">  251</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Vertical CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  252</span>                        ttl.add((crsuri, RDF.type, GEOCRS.VerticalCRS))</div>
+<div class="line"><span class="lineno">  253</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Geocentric CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  254</span>                        ttl.add((crsuri, RDF.type, GEOCRS.GeocentricCRS))</div>
+<div class="line"><span class="lineno">  255</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Geographic 3D CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  256</span>                        ttl.add((crsuri, RDF.type, GEOCRS.GeographicCRS))</div>
+<div class="line"><span class="lineno">  257</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Compound CRS&quot;</span> <span class="keywordflow">in</span> curcrs.type_name:</div>
+<div class="line"><span class="lineno">  258</span>                        ttl.add((crsuri, RDF.type, GEOCRS.CompoundCRS))</div>
+<div class="line"><span class="lineno">  259</span>                        <span class="keywordflow">for</span> subcrs <span class="keywordflow">in</span> curcrs.sub_crs_list:</div>
+<div class="line"><span class="lineno">  260</span>                                ttl.add((crsuri, GEOCRS.includesSRS,URIRef(GEOEPSG+str(subcrs.to_epsg()))))</div>
+<div class="line"><span class="lineno">  261</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  262</span>                        ttl.add((crsuri, RDF.type, GEOCRS.CRS))</div>
+<div class="line"><span class="lineno">  263</span>                ttl.add((crsuri, RDF.type, PROV.Entity))</div>
+<div class="line"><span class="lineno">  264</span>                ttl.add((crsuri, GEOCRS.isApplicableTo, URIRef(GEOCRSISBODY+<span class="stringliteral">&quot;Earth&quot;</span>)))</div>
+<div class="line"><span class="lineno">  265</span>                ttl.add((crsuri, RDF.type, OWL.NamedIndividual))</div>
+<div class="line"><span class="lineno">  266</span>                ttl.add((crsuri, RDFS.label, Literal(curcrs.name.strip(),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  267</span>                ttl.add((crsuri, GEOCRS.isBound, Literal(str(curcrs.is_bound).lower(),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  268</span>                <span class="keywordflow">if</span> curcrs.coordinate_system <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> curcrs.coordinate_system.name <span class="keywordflow">in</span> coordinatesystem:</div>
+<div class="line"><span class="lineno">  269</span>                        ttl.add((csuri, RDF.type, coordinatesystem[curcrs.coordinate_system.name]))</div>
+<div class="line"><span class="lineno">  270</span>                        <span class="keywordflow">if</span> len(curcrs.coordinate_system.axis_list)==2:</div>
+<div class="line"><span class="lineno">  271</span>                                ttl.add((csuri, RDF.type, GEOCRS.PlanarCoordinateSystem))</div>
+<div class="line"><span class="lineno">  272</span>                        <span class="keywordflow">elif</span> len(curcrs.coordinate_system.axis_list)==3:</div>
+<div class="line"><span class="lineno">  273</span>                                ttl.add((csuri, RDF.type, URIRef(GEOCRS+<span class="stringliteral">&quot;3DCoordinateSystem&quot;</span>)))</div>
+<div class="line"><span class="lineno">  274</span>                        ttl.add((csuri, RDFS.label, Literal(<span class="stringliteral">&quot;EPSG:&quot;</span>+epsgcode+<span class="stringliteral">&quot; CS: &quot;</span>+curcrs.coordinate_system.name)))</div>
+<div class="line"><span class="lineno">  275</span>                        <span class="keywordflow">if</span> curcrs.coordinate_system.remarks <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  276</span>                                ttl.add((csuri, RDFS.comment, Literal(str(curcrs.coordinate_system.remarks),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  277</span>                        <span class="keywordflow">if</span> curcrs.coordinate_system.scope <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  278</span>                                ttl.add((csuri, GEOCRS.scope,  Literal(str(curcrs.coordinate_system.scope),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  279</span>                        <span class="keywordflow">for</span> axis <span class="keywordflow">in</span> curcrs.coordinate_system.axis_list:</div>
+<div class="line"><span class="lineno">  280</span>                                axisid=axis.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;(&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;/&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;&#39;&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)+<span class="stringliteral">&quot;_&quot;</span>+axis.unit_name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;(&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;/&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;&#39;&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)+<span class="stringliteral">&quot;_&quot;</span>+axis.direction.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;(&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;/&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;&#39;&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)</div>
+<div class="line"><span class="lineno">  281</span>                                axisuri=URIRef(GEOCRSAXIS+axisid)</div>
+<div class="line"><span class="lineno">  282</span>                                ttl.add((csuri, GEOCRS.axis, axisuri))</div>
+<div class="line"><span class="lineno">  283</span>                                ttl.add((axisuri, RDF.type, GEOCRS.CoordinateSystemAxis))</div>
+<div class="line"><span class="lineno">  284</span>                                ttl.add((axisuri, GEOCRS.direction, URIRef(GEOCRS+axis.direction)))</div>
+<div class="line"><span class="lineno">  285</span>                                ttl.add((axisuri, GEOCRS.abbreviation, Literal(str(axis.abbrev).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  286</span>                                ttl.add((axisuri, GEOCRS.unit_conversion_factor, Literal(str(axis.unit_conversion_factor),datatype=XSD.double)))</div>
+<div class="line"><span class="lineno">  287</span>                                ttl.add((axisuri, GEOCRS.unit_auth_code,Literal(str(axis.unit_auth_code),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  288</span>                                ttl.add((axisuri, GEOCRS.unit_code, Literal(str(axis.unit_code),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  289</span>                                ttl.add((URIRef(GEOCRSAXIS+axis.direction), RDF.type, GEOCRS.AxisDirection))</div>
+<div class="line"><span class="lineno">  290</span>                                <span class="keywordflow">if</span> axis.unit_name <span class="keywordflow">in</span> units:</div>
+<div class="line"><span class="lineno">  291</span>                                        ttl.add((axisuri, GEOCRS.unit, URIRef(units[axis.unit_name])))</div>
+<div class="line"><span class="lineno">  292</span>                                        ttl.add((axisuri, RDFS.label, Literal(f<span class="stringliteral">&quot;{axis.name} ({SPARQLUtils.labelFromURI(str(units[axis.unit_name]))})&quot;</span>,lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  293</span>                                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  294</span>                                        ttl.add((axisuri,GEOCRS.unit, Literal(str(axis.unit_name),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  295</span>                                        ttl.add((axisuri, RDFS.label, Literal(f<span class="stringliteral">&quot;{axis.name} ({axis.unit_name})&quot;</span>,lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  296</span>                        ttl.add((csuri, GEOCRS.asWKT, Literal(str(curcrs.coordinate_system.to_wkt()).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>))))</div>
+<div class="line"><span class="lineno">  297</span>                        ttl.add((csuri, GEOCRS.asProjJSON, Literal(str(curcrs.coordinate_system.to_json()).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>))))</div>
+<div class="line"><span class="lineno">  298</span>                        ttl.add((crsuri,GEOCRS.coordinateSystem, URIRef(GEOEPSG+epsgcode+<span class="stringliteral">&quot;_cs&quot;</span>)))</div>
+<div class="line"><span class="lineno">  299</span>                <span class="keywordflow">elif</span> curcrs.coordinate_system <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  300</span>                        ttl.add((crsuri, GEOCRS.coordinateSystem, Literal(str(curcrs.coordinate_system),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  301</span>                <span class="keywordflow">if</span> curcrs.source_crs <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  302</span>                        ttl.add((crsuri, GEOCRS.sourceCRS, URIRef(GEOEPSG+curcrs.source_crs.to_epsg())))</div>
+<div class="line"><span class="lineno">  303</span>                <span class="keywordflow">if</span> curcrs.target_crs <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  304</span>                        ttl.add((crsuri, GEOCRS.targetCRS, URIRef(GEOEPSG+str(curcrs.target_crs.to_epsg()))))</div>
+<div class="line"><span class="lineno">  305</span>                <span class="keywordflow">if</span> curcrs.scope <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  306</span>                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;,&quot;</span> <span class="keywordflow">in</span> curcrs.scope:</div>
+<div class="line"><span class="lineno">  307</span>                                <span class="keywordflow">for</span> scp <span class="keywordflow">in</span> curcrs.scope.split(<span class="stringliteral">&quot;,&quot;</span>):</div>
+<div class="line"><span class="lineno">  308</span>                                        <span class="comment">#print(&quot;Scope: &quot;+scp)</span></div>
+<div class="line"><span class="lineno">  309</span>                                        <span class="keywordflow">if</span> scp.lower().strip().replace(<span class="stringliteral">&quot;.&quot;</span>,<span class="stringliteral">&quot;&quot;</span>) <span class="keywordflow">in</span> scope:</div>
+<div class="line"><span class="lineno">  310</span>                                                ttl.add((crsuri,GEOCRS.usage, URIRef(scope[scp.lower().strip().replace(<span class="stringliteral">&quot;.&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)])))</div>
+<div class="line"><span class="lineno">  311</span>                                                ttl.add(URIRef(scope[scp.lower().strip().replace(<span class="stringliteral">&quot;.&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)]), RDFS.subClassOf, GEOCRS.SRSApplication)</div>
+<div class="line"><span class="lineno">  312</span>                                        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  313</span>                                                ttl.add((crsuri, GEOCRS.usage, Literal(str(curcrs.datum.scope),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  314</span>                        ttl.add((crsuri, GEOCRS.scope, Literal(str(curcrs.scope).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  315</span>                <span class="keywordflow">if</span> curcrs.area_of_use <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  316</span>                        ttl.add((crsuri, GEOCRS.area_of_use, URIRef(GEOEPSG+epsgcode+<span class="stringliteral">&quot;_area_of_use&quot;</span>)))</div>
+<div class="line"><span class="lineno">  317</span>                        ttl.add((URIRef(GEOEPSG + epsgcode+<span class="stringliteral">&quot;_area_of_use&quot;</span>), RDF.type, GEOCRS.AreaOfUse))</div>
+<div class="line"><span class="lineno">  318</span>                        ttl.add((URIRef(GEOEPSG + epsgcode+<span class="stringliteral">&quot;_area_of_use&quot;</span>), RDFS.label,  Literal(str(curcrs.area_of_use.name).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  319</span>                        <span class="comment">#b = box(curcrs.area_of_use.west, curcrs.area_of_use.south, curcrs.area_of_use.east, curcrs.area_of_use.north)</span></div>
+<div class="line"><span class="lineno">  320</span>                        <span class="comment">#ttl.add(crsuri+&quot;_area_of_use&quot;+&quot; geocrs:extent   \&quot;&lt;http://www.opengis.net/def/crs/OGC/1.3/CRS84&gt; &quot;+str(b.wkt)+&quot;\&quot;^^geo:wktLiteral . \n&quot;)</span></div>
+<div class="line"><span class="lineno">  321</span>                        <span class="comment">#\&quot;ENVELOPE(&quot;+str(curcrs.area_of_use.west)+&quot; &quot;+str(curcrs.area_of_use.south)+&quot;,&quot;+str(curcrs.area_of_use.east)+&quot; &quot;+str(curcrs.area_of_use.north)+&quot;)\&quot;^^geo:wktLiteral . \n&quot;)</span></div>
+<div class="line"><span class="lineno">  322</span>                <span class="keywordflow">if</span> curcrs.get_geod() <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  323</span>                        geoid= GEOCRSGEOD+<span class="stringliteral">&quot;&quot;</span>+str(geodcounter)</div>
+<div class="line"><span class="lineno">  324</span>                        <span class="keywordflow">if</span> curcrs.datum.ellipsoid <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  325</span>                                <span class="keywordflow">if</span> curcrs.datum.ellipsoid.name <span class="keywordflow">in</span> spheroids:</div>
+<div class="line"><span class="lineno">  326</span>                                        geoid=URIRef(spheroids[curcrs.datum.ellipsoid.name])</div>
+<div class="line"><span class="lineno">  327</span>                                        ttl.add((geoid, RDF.type, GEOCRS.Ellipsoid))</div>
+<div class="line"><span class="lineno">  328</span>                                        ttl.add((geoid, RDFS.label, Literal(str(curcrs.datum.ellipsoid.name),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  329</span>                                        ttl.add((geoid, GEOCRS.approximates, URIRef(GEOCRSISBODY+<span class="stringliteral">&quot;Earth&quot;</span>)))</div>
+<div class="line"><span class="lineno">  330</span>                                <span class="keywordflow">elif</span> curcrs.get_geod().sphere:</div>
+<div class="line"><span class="lineno">  331</span>                                        geoid=URIRef(GEOCRSGEOD+str(curcrs.datum.ellipsoid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;(&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>))</div>
+<div class="line"><span class="lineno">  332</span>                                        ttl.add((geoid, RDF.type, GEOCRS.Sphere))</div>
+<div class="line"><span class="lineno">  333</span>                                        ttl.add((geoid, RDFS.label, Literal(str(curcrs.datum.ellipsoid.name),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  334</span>                                        ttl.add((geoid, GEOCRS.approximates, URIRef(GEOCRSISBODY+<span class="stringliteral">&quot;Earth&quot;</span>)))</div>
+<div class="line"><span class="lineno">  335</span>                                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  336</span>                                        geoid=URIRef(GEOCRSGEOD+str(curcrs.datum.ellipsoid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;(&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>))</div>
+<div class="line"><span class="lineno">  337</span>                                        ttl.add((geoid, RDF.type, GEOCRS.Geoid))</div>
+<div class="line"><span class="lineno">  338</span>                                        ttl.add((geoid, RDFS.label, Literal(str(curcrs.datum.ellipsoid.name),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  339</span>                                        ttl.add((geoid, GEOCRS.approximates, URIRef(GEOCRSISBODY+<span class="stringliteral">&quot;Earth&quot;</span>)))</div>
+<div class="line"><span class="lineno">  340</span>                        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  341</span>                                ttl.add((crsuri, GEOCRS.ellipsoid, URIRef(GEOCRSGEOD+str(geodcounter))))</div>
+<div class="line"><span class="lineno">  342</span>                                ttl.add((URIRef(GEOCRSGEOD+str(geodcounter)), RDF.type, GEOCRS.Geoid))</div>
+<div class="line"><span class="lineno">  343</span>                                ttl.add((geoid, RDFS.label, Literal(<span class="stringliteral">&quot;Geoid &quot;</span>+str(geodcounter),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  344</span>                                ttl.add((geoid, GEOCRS.approximates, URIRef(GEOCRSISBODY+<span class="stringliteral">&quot;Earth&quot;</span>)))</div>
+<div class="line"><span class="lineno">  345</span>                        ttl.add((geoid, SKOS.definition, Literal(str(curcrs.get_geod().initstring),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  346</span>                        ttl.add((geoid, GEOCRS.eccentricity, Literal(str(curcrs.get_geod().es),datatype=XSD.double)))</div>
+<div class="line"><span class="lineno">  347</span>                        ttl.add((geoid, GEOCRS.isSphere, Literal(str(curcrs.get_geod().sphere),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  348</span>                        ttl.add((geoid, GEOCRS.semiMajorAxis, Literal(str(curcrs.get_geod().a),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  349</span>                        ttl.add((geoid, GEOCRS.semiMinorAxis, Literal(str(curcrs.get_geod().b),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  350</span>                        ttl.add((geoid, GEOCRS.flatteningParameter, Literal(str(curcrs.get_geod().f),datatype=XSD.double)))</div>
+<div class="line"><span class="lineno">  351</span>                        geodcounter+=1</div>
+<div class="line"><span class="lineno">  352</span>                <span class="keywordflow">if</span> curcrs.coordinate_operation <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  353</span>                        coordoperationid=curcrs.coordinate_operation.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;(&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;/&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;&#39;&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;,&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;&amp;&quot;</span>,<span class="stringliteral">&quot;and&quot;</span>).strip()</div>
+<div class="line"><span class="lineno">  354</span>                        csopuri=URIRef(GEOCRSOPERATION+str(coordoperationid))</div>
+<div class="line"><span class="lineno">  355</span>                        ttl.add((crsuri, GEOCRS.coordinateOperation,csopuri))</div>
+<div class="line"><span class="lineno">  356</span>                        ttl.add((csopuri, GEOCRS.accuracy, Literal(str(curcrs.coordinate_operation.accuracy),datatype=XSD.double)))</div>
+<div class="line"><span class="lineno">  357</span>                        ttl.add((csopuri,GEOCRS.method_name,Literal(str(curcrs.coordinate_operation.method_name))))</div>
+<div class="line"><span class="lineno">  358</span>                        ttl.add((csopuri,GEOCRS.asProj4, Literal(str(curcrs.coordinate_operation.to_proj4()).strip().replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>))))</div>
+<div class="line"><span class="lineno">  359</span>                        ttl.add((csopuri,GEOCRS.asProjJSON,Literal(str(curcrs.coordinate_operation.to_json()).strip().replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>))))</div>
+<div class="line"><span class="lineno">  360</span>                        ttl.add((csopuri,GEOCRS.asWKT, Literal(str(curcrs.coordinate_operation.to_wkt()).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>),datatype=GEOCRS.wktLiteral)))</div>
+<div class="line"><span class="lineno">  361</span>                        <span class="keywordflow">if</span> curcrs.coordinate_operation.scope <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  362</span>                                ttl.add((csopuri, GEOCRS.scope, Literal(str(curcrs.coordinate_operation.scope).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  363</span>                        <span class="keywordflow">if</span> curcrs.coordinate_operation.remarks <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  364</span>                                ttl.add((csopuri,RDFS.comment, Literal(str(curcrs.coordinate_operation.remarks).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  365</span>                        ttl.add((csopuri, GEOCRS.has_ballpark_transformation, Literal(str(curcrs.coordinate_operation.has_ballpark_transformation),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  366</span>                        <span class="keywordflow">if</span> curcrs.coordinate_operation.area_of_use <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  367</span>                                ttl.add((csopuri,GEOCRS.area_of_use,URIRef(GEOCRSAOU+str(coordoperationid)+<span class="stringliteral">&quot;_area_of_use&quot;</span>)))</div>
+<div class="line"><span class="lineno">  368</span>                                ttl.add(URIRef(GEOCRSAOU+str(coordoperationid)+<span class="stringliteral">&quot;_area_of_use&quot;</span>),RDF.type, GEOCRS.AreaOfUse)</div>
+<div class="line"><span class="lineno">  369</span>                                ttl.add(URIRef(GEOCRSAOU+str(coordoperationid)+<span class="stringliteral">&quot;_area_of_use&quot;</span>), RDFS.label, Literal(str(curcrs.coordinate_operation.area_of_use.name).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>),lang=<span class="stringliteral">&quot;en&quot;</span>))</div>
+<div class="line"><span class="lineno">  370</span>                                <span class="comment">#b = box(curcrs.coordinate_operation.area_of_use.west, curcrs.coordinate_operation.area_of_use.south, curcrs.coordinate_operation.area_of_use.east, curcrs.coordinate_operation.area_of_use.north)</span></div>
+<div class="line"><span class="lineno">  371</span>                                <span class="comment">#ttl.add(&quot;geocrsaou:&quot;+str(coordoperationid)+&quot;_area_of_use geocrs:extent \&quot;&lt;http://www.opengis.net/def/crs/OGC/1.3/CRS84&gt; &quot;+str(b.wkt)+&quot;\&quot;^^geo:wktLiteral . \n&quot;)</span></div>
+<div class="line"><span class="lineno">  372</span>                                <span class="comment">#ENVELOPE(&quot;+str(curcrs.coordinate_operation.area_of_use.west)+&quot; &quot;+str(curcrs.coordinate_operation.area_of_use.south)+&quot;,&quot;+str(curcrs.coordinate_operation.area_of_use.east)+&quot; &quot;+str(curcrs.coordinate_operation.area_of_use.north)+&quot;)\&quot;^^geocrs:wktLiteral . \n&quot;)</span></div>
+<div class="line"><span class="lineno">  373</span>                        <span class="keywordflow">if</span> curcrs.coordinate_operation.towgs84 <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  374</span>                                print(curcrs.coordinate_operation.towgs84)</div>
+<div class="line"><span class="lineno">  375</span>                        <span class="keywordflow">for</span> par <span class="keywordflow">in</span> curcrs.coordinate_operation.params:</div>
+<div class="line"><span class="lineno">  376</span>                                ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)[1:]), RDF.type, OWL.DatatypeProperty)</div>
+<div class="line"><span class="lineno">  377</span>                                ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)[1:]), RDFS.range, XSD.double)</div>
+<div class="line"><span class="lineno">  378</span>                                ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)[1:]), RDFS.domain, GEOCRS.CoordinateOperation)</div>
+<div class="line"><span class="lineno">  379</span>                                ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)[1:]), RDFS.label, Literal(str(par.name),lang=<span class="stringliteral">&quot;en&quot;</span>))</div>
+<div class="line"><span class="lineno">  380</span>                                ttl.add(csopuri, URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)[1:]),Literal(str(par.value),datatype=XSD.double))</div>
+<div class="line"><span class="lineno">  381</span>                        <span class="keywordflow">for</span> grid <span class="keywordflow">in</span> curcrs.coordinate_operation.grids:</div>
+<div class="line"><span class="lineno">  382</span>                                ttl.add((csopuri, GEOCRS.grid, URIRef(GEOCRSGRID+str(grid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>))))</div>
+<div class="line"><span class="lineno">  383</span>                                ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)), RDF.type, GEOCRS.Grid))</div>
+<div class="line"><span class="lineno">  384</span>                                ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)), RDFS.label, Literal(str(grid.full_name),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  385</span>                                ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)), RDFS.label, Literal(str(grid.short_name),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  386</span>                                ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)),GEOCRS.open_license, Literal(str(grid.open_license),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  387</span>                                ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>)), RDFS.comment, Literal(str(grid.url),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  388</span>                        <span class="keywordflow">if</span> curcrs.coordinate_operation.operations <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  389</span>                                <span class="keywordflow">for</span> operation <span class="keywordflow">in</span> curcrs.coordinate_operation.operations:</div>
+<div class="line"><span class="lineno">  390</span>                                        ttl.add(csopuri, GEOCRS.operation, Literal(str(operation).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>),datatype=XSD.string))</div>
+<div class="line"><span class="lineno">  391</span>                        <span class="keywordflow">if</span> curcrs.coordinate_operation.type_name <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  392</span>                                ttl.add(csopuri, RDF.type, GEOCRS.CoordinateOperation)</div>
+<div class="line"><span class="lineno">  393</span>                        <span class="keywordflow">elif</span> curcrs.coordinate_operation.type_name==<span class="stringliteral">&quot;Conversion&quot;</span>:</div>
+<div class="line"><span class="lineno">  394</span>                                found=<span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  395</span>                                <span class="keywordflow">if</span> curcrs.coordinate_operation.to_proj4() <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  396</span>                                        proj4string=curcrs.coordinate_operation.to_proj4().strip().replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  397</span>                                        <span class="keywordflow">for</span> prj <span class="keywordflow">in</span> projections:</div>
+<div class="line"><span class="lineno">  398</span>                                                <span class="keywordflow">if</span> prj <span class="keywordflow">in</span> proj4string:</div>
+<div class="line"><span class="lineno">  399</span>                                                        ttl.add((csopuri, RDF.type,projections[prj]))</div>
+<div class="line"><span class="lineno">  400</span>                                                        found=<span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  401</span>                                                        <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  402</span>                                <span class="keywordflow">if</span> <span class="keywordflow">not</span> found:</div>
+<div class="line"><span class="lineno">  403</span>                                        ttl.add((csopuri,RDF.type, GEOCRS.CoordinateConversionOperation))</div>
+<div class="line"><span class="lineno">  404</span>                        <span class="keywordflow">elif</span> curcrs.coordinate_operation.type_name==<span class="stringliteral">&quot;Transformation&quot;</span>:</div>
+<div class="line"><span class="lineno">  405</span>                                ttl.add(csopuri, RDF.type, GEOCRS.CoordinateTransformationOperation)</div>
+<div class="line"><span class="lineno">  406</span>                        <span class="keywordflow">elif</span> curcrs.coordinate_operation.type_name==<span class="stringliteral">&quot;Concatenated Operation&quot;</span>:</div>
+<div class="line"><span class="lineno">  407</span>                                ttl.add(csopuri, RDF.type, GEOCRS.CoordinateConcatenatedOperation)</div>
+<div class="line"><span class="lineno">  408</span>                        <span class="keywordflow">elif</span> curcrs.coordinate_operation.type_name==<span class="stringliteral">&quot;Other Coordinate Operation&quot;</span>:</div>
+<div class="line"><span class="lineno">  409</span>                                ttl.add(csopuri, RDF.type, GEOCRS.OtherCoordinateOperation)</div>
+<div class="line"><span class="lineno">  410</span>                        ttl.add((csopuri), RDFS.label, Literal(curcrs.coordinate_operation.name+<span class="stringliteral">&quot;: &quot;</span>+curcrs.coordinate_operation.method_name,lang=<span class="stringliteral">&quot;en&quot;</span>))</div>
+<div class="line"><span class="lineno">  411</span>                <span class="keywordflow">if</span> curcrs.datum <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  412</span>                        datumid=str(curcrs.datum.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;(&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;/&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;&#39;&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;+&quot;</span>,<span class="stringliteral">&quot;_plus&quot;</span>).replace(<span class="stringliteral">&quot;[&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;]&quot;</span>,<span class="stringliteral">&quot;_&quot;</span>))</div>
+<div class="line"><span class="lineno">  413</span>                        ttl.add(crsuri, GEOCRS.datum, URIRef(GEOCRSDATUM+str(datumid)))</div>
+<div class="line"><span class="lineno">  414</span>                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;Geodetic Reference Frame&quot;</span> <span class="keywordflow">in</span> curcrs.datum.type_name:</div>
+<div class="line"><span class="lineno">  415</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), RDF.type, GEOCRS.GeodeticReferenceFrame))</div>
+<div class="line"><span class="lineno">  416</span>                        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Dynamic Vertical Reference Frame&quot;</span> <span class="keywordflow">in</span> curcrs.datum.type_name:</div>
+<div class="line"><span class="lineno">  417</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), RDF.type, GEOCRS.DynamicVerticalReferenceFrame))</div>
+<div class="line"><span class="lineno">  418</span>                        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Vertical Reference Frame&quot;</span> <span class="keywordflow">in</span> curcrs.datum.type_name:</div>
+<div class="line"><span class="lineno">  419</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), RDF.type, GEOCRS.VerticalReferenceFrame))</div>
+<div class="line"><span class="lineno">  420</span>                        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  421</span>                                print(curcrs.datum.type_name)</div>
+<div class="line"><span class="lineno">  422</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)),RDF.type, GEOCRS.Datum))</div>
+<div class="line"><span class="lineno">  423</span>                        ttl.add((URIRef(GEOCRSDATUM+str(datumid)), RDFS.label, Literal(<span class="stringliteral">&quot;Datum: &quot;</span>+str(curcrs.datum.name),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  424</span>                        <span class="keywordflow">if</span> curcrs.datum.remarks <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  425</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), RDFS.comment, Literal(str(curcrs.datum.remarks),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  426</span>                        <span class="keywordflow">if</span> curcrs.datum.scope <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  427</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), GEOCRS.scope, Literal(str(curcrs.datum.scope),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  428</span>                                <span class="keywordflow">if</span> <span class="stringliteral">&quot;,&quot;</span> <span class="keywordflow">in</span> curcrs.datum.scope:</div>
+<div class="line"><span class="lineno">  429</span>                                        <span class="keywordflow">for</span> scp <span class="keywordflow">in</span> curcrs.datum.scope.split(<span class="stringliteral">&quot;,&quot;</span>):</div>
+<div class="line"><span class="lineno">  430</span>                                                <span class="comment">#print(&quot;Scope: &quot;+scp)</span></div>
+<div class="line"><span class="lineno">  431</span>                                                <span class="keywordflow">if</span> scp.lower().strip().replace(<span class="stringliteral">&quot;.&quot;</span>,<span class="stringliteral">&quot;&quot;</span>) <span class="keywordflow">in</span> scope:</div>
+<div class="line"><span class="lineno">  432</span>                                                        ttl.add((URIRef(GEOCRSDATUM+str(datumid)), GEOCRS.usage,URIRef(scope[scp.lower().strip().replace(<span class="stringliteral">&quot;.&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)])))</div>
+<div class="line"><span class="lineno">  433</span>                                                        ttl.add((URIRef(scope[scp.lower().strip().replace(<span class="stringliteral">&quot;.&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)]),RDFS.subClassOf, GEOCRS.SRSApplication))</div>
+<div class="line"><span class="lineno">  434</span>                                                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  435</span>                                                        ttl.add((URIRef(GEOCRSDATUM+str(datumid)), GEOCRS.usage, Literal(str(curcrs.datum.scope),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  436</span>                                print(str(curcrs.datum.scope))</div>
+<div class="line"><span class="lineno">  437</span>                        <span class="keywordflow">if</span> curcrs.datum.ellipsoid <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> curcrs.datum.ellipsoid.name <span class="keywordflow">in</span> spheroids:</div>
+<div class="line"><span class="lineno">  438</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), GEOCRS.ellipse, URIRef(spheroids[curcrs.datum.ellipsoid.name])))</div>
+<div class="line"><span class="lineno">  439</span>                                ttl.add((URIRef(spheroids[curcrs.datum.ellipsoid.name]), RDFS.label, Literal(str(curcrs.datum.ellipsoid.name),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  440</span>                                ttl.add((URIRef(spheroids[curcrs.datum.ellipsoid.name]), RDF.type, GEOCRS.Ellipsoid))</div>
+<div class="line"><span class="lineno">  441</span>                                ttl.add((URIRef(spheroids[curcrs.datum.ellipsoid.name]), GEOCRS.inverse_flattening, Literal(str(curcrs.datum.ellipsoid.inverse_flattening),datatype=XSD.double)))</div>
+<div class="line"><span class="lineno">  442</span>                                <span class="keywordflow">if</span> curcrs.datum.ellipsoid.remarks <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  443</span>                                        ttl.add((URIRef(spheroids[curcrs.datum.ellipsoid.name]), RDFS.comment, Literal(str(curcrs.datum.ellipsoid.remarks),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  444</span>                                ttl.add((URIRef(spheroids[curcrs.datum.ellipsoid.name]), GEOCRS.is_semi_minor_computed, Literal(str(curcrs.datum.ellipsoid.is_semi_minor_computed).lower(),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  445</span>                        <span class="keywordflow">elif</span> curcrs.datum.ellipsoid <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  446</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), GEOCRS.ellipse, Literal(curcrs.datum.ellipsoid.name,datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  447</span>                        <span class="keywordflow">if</span> curcrs.prime_meridian <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  448</span>                                ttl.add((URIRef(GEOCRSDATUM+str(datumid)), GEOCRS.primeMeridian,URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>))))</div>
+<div class="line"><span class="lineno">  449</span>                                ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), RDF.type, GEOCRS.PrimeMeridian))</div>
+<div class="line"><span class="lineno">  450</span>                                ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), RDFS.label, Literal(curcrs.prime_meridian.name,lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  451</span>                                ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), GEOCRS.longitude, Literal(str(curcrs.prime_meridian.longitude),datatype=XSD.double)))</div>
+<div class="line"><span class="lineno">  452</span>                                <span class="keywordflow">if</span> curcrs.prime_meridian.unit_name <span class="keywordflow">in</span> units:</div>
+<div class="line"><span class="lineno">  453</span>                                        ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), GEOCRS.unit, URIRef(OM+units[curcrs.prime_meridian.unit_name])))</div>
+<div class="line"><span class="lineno">  454</span>                                        ttl.add((URIRef(units[curcrs.prime_meridian.unit_name]), RDF.type, URIRef(OM+<span class="stringliteral">&quot;Unit&quot;</span>)))</div>
+<div class="line"><span class="lineno">  455</span>                                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  456</span>                                        ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), GEOCRS.unit, Literal(str(curcrs.prime_meridian.unit_name),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  457</span>                                ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), GEOCRS.asWKT, Literal(str(curcrs.prime_meridian.to_wkt()).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  458</span>                                ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), GEOCRS.asProjJSON, Literal(str(curcrs.prime_meridian.to_json()).replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&quot;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  459</span>                                <span class="keywordflow">if</span> curcrs.prime_meridian.remarks <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  460</span>                                        ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)),RDFS.comment,Literal(str(curcrs.prime_meridian.remarks),lang=<span class="stringliteral">&quot;en&quot;</span>)))</div>
+<div class="line"><span class="lineno">  461</span>                                <span class="keywordflow">if</span> curcrs.prime_meridian.scope <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  462</span>                                        ttl.add((URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;&quot;</span>)), GEOCRS.scope, Literal(str(curcrs.prime_meridian.scope),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  463</span>                ttl.add((crsuri, GEOCRS.isVertical, URIRef(str(curcrs.is_vertical).lower(),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  464</span>                ttl.add((crsuri, GEOCRS.isProjected, Literal(str(curcrs.is_projected).lower(),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  465</span>                ttl.add((crsuri, GEOCRS.isGeocentric, Literal(str(curcrs.is_geocentric).lower(),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  466</span>                ttl.add((crsuri, GEOCRS.isGeographic, Literal(str(curcrs.is_geographic).lower(),datatype=XSD.boolean)))</div>
+<div class="line"><span class="lineno">  467</span>                <span class="keywordflow">if</span> curcrs.utm_zone <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  468</span>                        ttl.add((crsuri,GEOCRS.utm_zone, Literal(str(curcrs.utm_zone),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  469</span>                <span class="keywordflow">if</span> curcrs.to_proj4() <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  470</span>                        ttl.add((crsuri,GEOCRS.asProj4, Literal(curcrs.to_proj4().strip().replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  471</span>                <span class="keywordflow">if</span> curcrs.to_json() <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  472</span>                        ttl.add((crsuri,GEOCRS.asProjJSON, Literal(str(curcrs.to_json().strip().replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&#39;&quot;</span>)),datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  473</span>                <span class="keywordflow">if</span> wkt!=<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  474</span>                        ttl.add((crsuri, GEOCRS.asWKT, Literal(wkt,datatype=GEOCRS.wktLiteral)))</div>
+<div class="line"><span class="lineno">  475</span>                ttl.add((crsuri, GEOCRS.epsgCode,Literal(<span class="stringliteral">&quot;EPSG:&quot;</span>+epsgcode,datatype=XSD.string)))</div>
+<div class="line"><span class="lineno">  476</span>                <span class="keywordflow">return</span> ttl</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad382225511cbcbdfadae28d3f3641911" name="ad382225511cbcbdfadae28d3f3641911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad382225511cbcbdfadae28d3f3641911">&#9670;&#160;</a></span>ttlhead</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ttlhead</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01229.html">util</a></li><li class="navelem"><a class="el" href="a01243.html">export</a></li><li class="navelem"><a class="el" href="a01276.html">srs</a></li><li class="navelem"><a class="el" href="a01277.html">crsexporttools</a></li><li class="navelem"><a class="el" href="a03252.html">ConvertCRS</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,1351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: rdflib.extras.infixowl Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01013.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">rdflib.extras.infixowl Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html">AnnotatableTerms</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01904.html">BooleanClass</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01896.html">BooleanClassExtentHelper</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01900.html">Callable</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01884.html">Class</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01872.html">ClassNamespaceFactory</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01892.html">EnumeratedClass</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01860.html">Individual</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01852.html">Infix</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html">MalformedClass</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01880.html">MalformedClassError</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01868.html">Ontology</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01888.html">OWLRDFListProxy</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01912.html">Property</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01908.html">Restriction</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01856.html">TermDeletionHelper</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5758f3f378f54ff3cc5c7516ca37fa86" id="r_a5758f3f378f54ff3cc5c7516ca37fa86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a5758f3f378f54ff3cc5c7516ca37fa86">generateQName</a> (graph, uri)</td></tr>
+<tr class="separator:a5758f3f378f54ff3cc5c7516ca37fa86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae10c693c1f0f0aff4e1d950a24e42100" id="r_ae10c693c1f0f0aff4e1d950a24e42100"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#ae10c693c1f0f0aff4e1d950a24e42100">classOrTerm</a> (thing)</td></tr>
+<tr class="separator:ae10c693c1f0f0aff4e1d950a24e42100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e8e9144aac4f195ac26eb17ad0ac0bd" id="r_a3e8e9144aac4f195ac26eb17ad0ac0bd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a3e8e9144aac4f195ac26eb17ad0ac0bd">classOrIdentifier</a> (thing)</td></tr>
+<tr class="separator:a3e8e9144aac4f195ac26eb17ad0ac0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5438b243a624693887c4b75a81a2895b" id="r_a5438b243a624693887c4b75a81a2895b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a5438b243a624693887c4b75a81a2895b">propertyOrIdentifier</a> (thing)</td></tr>
+<tr class="separator:a5438b243a624693887c4b75a81a2895b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1008a74b0e692b73ff82bb3c3ca23910" id="r_a1008a74b0e692b73ff82bb3c3ca23910"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a1008a74b0e692b73ff82bb3c3ca23910">manchesterSyntax</a> (thing, store, boolean=None, transientList=False # noqa:N803)</td></tr>
+<tr class="separator:a1008a74b0e692b73ff82bb3c3ca23910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52a30d724c8ae1699db2f2f8e492a0a9" id="r_a52a30d724c8ae1699db2f2f8e492a0a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a52a30d724c8ae1699db2f2f8e492a0a9">GetIdentifiedClasses</a> (graph)</td></tr>
+<tr class="separator:a52a30d724c8ae1699db2f2f8e492a0a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b4029f320098066d67785961dba830" id="r_ad0b4029f320098066d67785961dba830"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#ad0b4029f320098066d67785961dba830">AllClasses</a> (graph)</td></tr>
+<tr class="separator:ad0b4029f320098066d67785961dba830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d1cedb0d00e33a1ea2f4047365e44f" id="r_a79d1cedb0d00e33a1ea2f4047365e44f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a79d1cedb0d00e33a1ea2f4047365e44f">AllProperties</a> (graph)</td></tr>
+<tr class="separator:a79d1cedb0d00e33a1ea2f4047365e44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a067036fdd413967d77baad04cc282c38" id="r_a067036fdd413967d77baad04cc282c38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a067036fdd413967d77baad04cc282c38">ComponentTerms</a> (cls)</td></tr>
+<tr class="separator:a067036fdd413967d77baad04cc282c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0514aac213583ade1cc9f3c70f1c43b8" id="r_a0514aac213583ade1cc9f3c70f1c43b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a0514aac213583ade1cc9f3c70f1c43b8">DeepClassClear</a> (class_to_prune)</td></tr>
+<tr class="separator:a0514aac213583ade1cc9f3c70f1c43b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18be4ac14d377832cbd8cfac250877d1" id="r_a18be4ac14d377832cbd8cfac250877d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a18be4ac14d377832cbd8cfac250877d1">CastClass</a> (c, graph=None)</td></tr>
+<tr class="separator:a18be4ac14d377832cbd8cfac250877d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af049982c1cd5daf05dcb3f519e63f261" id="r_af049982c1cd5daf05dcb3f519e63f261"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#af049982c1cd5daf05dcb3f519e63f261">AllDifferent</a> (members)</td></tr>
+<tr class="separator:af049982c1cd5daf05dcb3f519e63f261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bbd425aa56969143809e6bfb182670c" id="r_a2bbd425aa56969143809e6bfb182670c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a2bbd425aa56969143809e6bfb182670c">CommonNSBindings</a> (graph, additionalNS=None)</td></tr>
+<tr class="separator:a2bbd425aa56969143809e6bfb182670c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a0b14e488ae28d98d262453f3e9cd6e4d" id="r_a0b14e488ae28d98d262453f3e9cd6e4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a0b14e488ae28d98d262453f3e9cd6e4d">logger</a> = logging.getLogger(__name__)</td></tr>
+<tr class="separator:a0b14e488ae28d98d262453f3e9cd6e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a022e6ddacd362b83964da5cc5d044" id="r_aa4a022e6ddacd362b83964da5cc5d044"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#aa4a022e6ddacd362b83964da5cc5d044">__all__</a></td></tr>
+<tr class="separator:aa4a022e6ddacd362b83964da5cc5d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeac09e1a9702b3b7c894c96bfa5edfe2" id="r_aeac09e1a9702b3b7c894c96bfa5edfe2"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#aeac09e1a9702b3b7c894c96bfa5edfe2">nsBinds</a></td></tr>
+<tr class="separator:aeac09e1a9702b3b7c894c96bfa5edfe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b1c05864341228718df4796625506f" id="r_ad0b1c05864341228718df4796625506f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#ad0b1c05864341228718df4796625506f">ACE_NS</a> = <a class="el" href="a01956.html">Namespace</a>(&quot;http://attempto.ifi.uzh.ch/ace_lexicon#&quot;)</td></tr>
+<tr class="separator:ad0b1c05864341228718df4796625506f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1ea62daf1069a30dc7ae69dc4b02dc" id="r_aef1ea62daf1069a30dc7ae69dc4b02dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#aef1ea62daf1069a30dc7ae69dc4b02dc">CLASS_RELATIONS</a></td></tr>
+<tr class="separator:aef1ea62daf1069a30dc7ae69dc4b02dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1c8e8b031b01921d6b563e89af78ed7" id="r_ae1c8e8b031b01921d6b563e89af78ed7"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#ae1c8e8b031b01921d6b563e89af78ed7">BooleanPredicates</a> = [<a class="el" href="a02028.html#a3cd0da1fc5ae7de4e230df361a3f02c1">OWL.intersectionOf</a>, <a class="el" href="a02028.html#ab3936d94fb6d99bc11bfe96a3c20e29c">OWL.unionOf</a>]</td></tr>
+<tr class="separator:ae1c8e8b031b01921d6b563e89af78ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c241d4d6456c365460e48ce9197e49a" id="r_a2c241d4d6456c365460e48ce9197e49a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a2c241d4d6456c365460e48ce9197e49a">some</a></td></tr>
+<tr class="separator:a2c241d4d6456c365460e48ce9197e49a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d7ec1014a87925fc82e0a2734fa281" id="r_a72d7ec1014a87925fc82e0a2734fa281"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a72d7ec1014a87925fc82e0a2734fa281">only</a></td></tr>
+<tr class="separator:a72d7ec1014a87925fc82e0a2734fa281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83862769f78fffb512bc9283007ef67" id="r_aa83862769f78fffb512bc9283007ef67"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#aa83862769f78fffb512bc9283007ef67">max</a></td></tr>
+<tr class="separator:aa83862769f78fffb512bc9283007ef67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4735a0c4d1b11f62ea44115d54a93087" id="r_a4735a0c4d1b11f62ea44115d54a93087"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a4735a0c4d1b11f62ea44115d54a93087">min</a></td></tr>
+<tr class="separator:a4735a0c4d1b11f62ea44115d54a93087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2029345dcd07e65856626a972044b798" id="r_a2029345dcd07e65856626a972044b798"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a2029345dcd07e65856626a972044b798">exactly</a></td></tr>
+<tr class="separator:a2029345dcd07e65856626a972044b798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcc7a4b78ecd8fa7e713f8cfa0f51017" id="r_afcc7a4b78ecd8fa7e713f8cfa0f51017"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#afcc7a4b78ecd8fa7e713f8cfa0f51017">value</a> = <a class="el" href="a01852.html">Infix</a>(lambda prop, _class: <a class="el" href="a01908.html">Restriction</a>(prop, graph=prop.graph, value=_class))</td></tr>
+<tr class="separator:afcc7a4b78ecd8fa7e713f8cfa0f51017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d63455db64e5ed67035bac4790e5529" id="r_a8d63455db64e5ed67035bac4790e5529"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#a8d63455db64e5ed67035bac4790e5529">PropertyAbstractSyntax</a></td></tr>
+<tr class="separator:a8d63455db64e5ed67035bac4790e5529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc486b0767ef05e2dc12f5b98be72902" id="r_afc486b0767ef05e2dc12f5b98be72902"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html#afc486b0767ef05e2dc12f5b98be72902">identifier</a></td></tr>
+<tr class="separator:afc486b0767ef05e2dc12f5b98be72902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">RDFLib Python binding for OWL Abstract Syntax
+
+| OWL Constructor   | DL Syntax     | Manchester OWL Syntax | Example                          |
+|------------------|---------------|------------------------|----------------------------------|
+| `intersectionOf` | C ∩ D         | C AND D                | Human AND Male                   |
+| `unionOf`        | C ∪ D         | C OR D                 | Man OR Woman                     |
+| `complementOf`   | ¬C            | NOT C                  | NOT Male                         |
+| `oneOf`          | {a} ∪ {b}...  | {a b ...}              | {England Italy Spain}           |
+| `someValuesFrom` | ∃ R C         | R SOME C               | hasColleague SOME Professor      |
+| `allValuesFrom`  | ∀ R C         | R ONLY C               | hasColleague ONLY Professor      |
+| `minCardinality` | ≥ N R         | R MIN 3                | hasColleague MIN 3               |
+| `maxCardinality` | ≤ N R         | R MAX 3                | hasColleague MAX 3               |
+| `cardinality`    | = N R         | R EXACTLY 3            | hasColleague EXACTLY 3           |
+| `hasValue`       | ∃ R.{a}       | R VALUE a              | hasColleague VALUE Matthew       |
+
+See:
+- http://www.w3.org/TR/owl-semantics/syntax.html
+- http://owl-workshop.man.ac.uk/acceptedLong/submission_9.pdf
+
+3.2.3 Axioms for complete classes without using owl:equivalentClass
+
+Named class description of type 2 (with owl:oneOf) or type 4-6
+(with owl:intersectionOf, owl:unionOf or owl:complementOf
+
+Uses Manchester Syntax for `__repr__`
+
+```python
+&gt;&gt;&gt; exNs = Namespace("http://example.com/")
+&gt;&gt;&gt; g = Graph()
+&gt;&gt;&gt; g.bind("ex", exNs, override=False)
+
+```
+
+Now we have an empty graph, we can construct OWL classes in it
+using the Python classes defined in this module
+
+```python
+&gt;&gt;&gt; a = Class(exNs.Opera, graph=g)
+
+```
+
+Now we can assert rdfs:subClassOf and owl:equivalentClass relationships
+(in the underlying graph) with other classes using the 'subClassOf'
+and 'equivalentClass' descriptors which can be set to a list
+of objects for the corresponding predicates.
+
+```python
+&gt;&gt;&gt; a.subClassOf = [exNs.MusicalWork]
+
+```
+
+We can then access the rdfs:subClassOf relationships
+
+```python
+&gt;&gt;&gt; print(list(a.subClassOf))
+[Class: ex:MusicalWork ]
+
+```
+
+This can also be used against already populated graphs:
+
+```python
+&gt;&gt;&gt; owlGraph = Graph().parse(str(OWL))
+&gt;&gt;&gt; list(Class(OWL.Class, graph=owlGraph).subClassOf)
+[Class: rdfs:Class ]
+
+```
+
+Operators are also available. For instance we can add ex:Opera to the extension
+of the ex:CreativeWork class via the '+=' operator
+
+```python
+&gt;&gt;&gt; a
+Class: ex:Opera SubClassOf: ex:MusicalWork
+&gt;&gt;&gt; b = Class(exNs.CreativeWork, graph=g)
+&gt;&gt;&gt; b += a
+&gt;&gt;&gt; print(sorted(a.subClassOf, key=lambda c:c.identifier))
+[Class: ex:CreativeWork , Class: ex:MusicalWork ]
+
+```
+
+And we can then remove it from the extension as well
+
+```python
+&gt;&gt;&gt; b -= a
+&gt;&gt;&gt; a
+Class: ex:Opera SubClassOf: ex:MusicalWork
+
+```
+
+Boolean class constructions can also  be created with Python operators.
+For example, The | operator can be used to construct a class consisting of a
+owl:unionOf the operands:
+
+```python
+&gt;&gt;&gt; c =  a | b | Class(exNs.Work, graph=g)
+&gt;&gt;&gt; c
+( ex:Opera OR ex:CreativeWork OR ex:Work )
+
+```
+
+Boolean class expressions can also be operated as lists (using python list
+operators)
+
+```python
+&gt;&gt;&gt; del c[c.index(Class(exNs.Work, graph=g))]
+&gt;&gt;&gt; c
+( ex:Opera OR ex:CreativeWork )
+
+```
+
+The '&amp;' operator can be used to construct class intersection:
+
+```python
+&gt;&gt;&gt; woman = Class(exNs.Female, graph=g) &amp; Class(exNs.Human, graph=g)
+&gt;&gt;&gt; woman.identifier = exNs.Woman
+&gt;&gt;&gt; woman
+( ex:Female AND ex:Human )
+&gt;&gt;&gt; len(woman)
+2
+
+```
+
+Enumerated classes can also be manipulated
+
+```python
+&gt;&gt;&gt; contList = [Class(exNs.Africa, graph=g), Class(exNs.NorthAmerica, graph=g)]
+&gt;&gt;&gt; EnumeratedClass(members=contList, graph=g)
+{ ex:Africa ex:NorthAmerica }
+
+```
+
+owl:Restrictions can also be instantiated:
+
+```python
+&gt;&gt;&gt; Restriction(exNs.hasParent, graph=g, allValuesFrom=exNs.Human)
+( ex:hasParent ONLY ex:Human )
+
+```
+
+Restrictions can also be created using Manchester OWL syntax in 'colloquial' Python
+
+```python
+&gt;&gt;&gt; exNs.hasParent @ some @ Class(exNs.Physician, graph=g)
+( ex:hasParent SOME ex:Physician )
+&gt;&gt;&gt; Property(exNs.hasParent, graph=g) @ max @ Literal(1)
+( ex:hasParent MAX 1 )
+&gt;&gt;&gt; print(g.serialize(format='pretty-xml'))  # doctest: +SKIP
+```
+</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ad0b4029f320098066d67785961dba830" name="ad0b4029f320098066d67785961dba830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0b4029f320098066d67785961dba830">&#9670;&#160;</a></span>AllClasses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AllClasses </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  791</span><span class="keyword">def </span>AllClasses(graph):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  792</span>    <span class="keywordflow">for</span> c <span class="keywordflow">in</span> set(graph.subjects(predicate=RDF.type, object=OWL.Class)):</div>
+<div class="line"><span class="lineno">  793</span>        <span class="keywordflow">yield</span> Class(c)</div>
+<div class="line"><span class="lineno">  794</span> </div>
+<div class="line"><span class="lineno">  795</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af049982c1cd5daf05dcb3f519e63f261" name="af049982c1cd5daf05dcb3f519e63f261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af049982c1cd5daf05dcb3f519e63f261">&#9670;&#160;</a></span>AllDifferent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AllDifferent </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>members</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">TODO: implement this function
+
+DisjointClasses(' description description { description } ')'
+</pre> <div class="fragment"><div class="line"><span class="lineno"> 1772</span><span class="keyword">def </span>AllDifferent(members):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno"> 1773</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno"> 1774</span><span class="stringliteral">    TODO: implement this function</span></div>
+<div class="line"><span class="lineno"> 1775</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno"> 1776</span><span class="stringliteral">    DisjointClasses(&#39; description description { description } &#39;)&#39;</span></div>
+<div class="line"><span class="lineno"> 1777</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno"> 1778</span>    <span class="keywordflow">pass</span>  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno"> 1779</span> </div>
+<div class="line"><span class="lineno"> 1780</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a79d1cedb0d00e33a1ea2f4047365e44f" name="a79d1cedb0d00e33a1ea2f4047365e44f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79d1cedb0d00e33a1ea2f4047365e44f">&#9670;&#160;</a></span>AllProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AllProperties </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  796</span><span class="keyword">def </span>AllProperties(graph):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  797</span>    prevprops = set()</div>
+<div class="line"><span class="lineno">  798</span>    <span class="keywordflow">for</span> s, _p, o <span class="keywordflow">in</span> graph.triples_choices(</div>
+<div class="line"><span class="lineno">  799</span>        (</div>
+<div class="line"><span class="lineno">  800</span>            <span class="keywordtype">None</span>,</div>
+<div class="line"><span class="lineno">  801</span>            RDF.type,</div>
+<div class="line"><span class="lineno">  802</span>            [</div>
+<div class="line"><span class="lineno">  803</span>                OWL.SymmetricProperty,</div>
+<div class="line"><span class="lineno">  804</span>                OWL.FunctionalProperty,</div>
+<div class="line"><span class="lineno">  805</span>                OWL.InverseFunctionalProperty,</div>
+<div class="line"><span class="lineno">  806</span>                OWL.TransitiveProperty,</div>
+<div class="line"><span class="lineno">  807</span>                OWL.DatatypeProperty,</div>
+<div class="line"><span class="lineno">  808</span>                OWL.ObjectProperty,</div>
+<div class="line"><span class="lineno">  809</span>                OWL.AnnotationProperty,</div>
+<div class="line"><span class="lineno">  810</span>            ],</div>
+<div class="line"><span class="lineno">  811</span>        )</div>
+<div class="line"><span class="lineno">  812</span>    ):</div>
+<div class="line"><span class="lineno">  813</span>        <span class="keywordflow">if</span> o <span class="keywordflow">in</span> [</div>
+<div class="line"><span class="lineno">  814</span>            OWL.SymmetricProperty,</div>
+<div class="line"><span class="lineno">  815</span>            OWL.InverseFunctionalProperty,</div>
+<div class="line"><span class="lineno">  816</span>            OWL.TransitiveProperty,</div>
+<div class="line"><span class="lineno">  817</span>            OWL.ObjectProperty,</div>
+<div class="line"><span class="lineno">  818</span>        ]:</div>
+<div class="line"><span class="lineno">  819</span>            bType = OWL.ObjectProperty  <span class="comment"># noqa: N806</span></div>
+<div class="line"><span class="lineno">  820</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  821</span>            bType = OWL.DatatypeProperty  <span class="comment"># noqa: N806</span></div>
+<div class="line"><span class="lineno">  822</span>        <span class="keywordflow">if</span> s <span class="keywordflow">not</span> <span class="keywordflow">in</span> prevprops:</div>
+<div class="line"><span class="lineno">  823</span>            prevprops.add(s)</div>
+<div class="line"><span class="lineno">  824</span>            <span class="keywordflow">yield</span> Property(s, graph=graph, baseType=bType)</div>
+<div class="line"><span class="lineno">  825</span> </div>
+<div class="line"><span class="lineno">  826</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a18be4ac14d377832cbd8cfac250877d1" name="a18be4ac14d377832cbd8cfac250877d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18be4ac14d377832cbd8cfac250877d1">&#9670;&#160;</a></span>CastClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CastClass </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  994</span><span class="keyword">def </span>CastClass(c, graph=None):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  995</span>    graph = graph <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> c.factoryGraph <span class="keywordflow">or</span> graph</div>
+<div class="line"><span class="lineno">  996</span>    <span class="keywordflow">for</span> kind <span class="keywordflow">in</span> graph.objects(subject=classOrIdentifier(c), predicate=RDF.type):</div>
+<div class="line"><span class="lineno">  997</span>        <span class="keywordflow">if</span> kind == OWL.Restriction:</div>
+<div class="line"><span class="lineno">  998</span>            kwargs = {<span class="stringliteral">&quot;identifier&quot;</span>: classOrIdentifier(c), <span class="stringliteral">&quot;graph&quot;</span>: graph}</div>
+<div class="line"><span class="lineno">  999</span>            <span class="keywordflow">for</span> _s, p, o <span class="keywordflow">in</span> graph.triples((classOrIdentifier(c), <span class="keywordtype">None</span>, <span class="keywordtype">None</span>)):</div>
+<div class="line"><span class="lineno"> 1000</span>                <span class="keywordflow">if</span> p != RDF.type:</div>
+<div class="line"><span class="lineno"> 1001</span>                    <span class="keywordflow">if</span> p == OWL.onProperty:</div>
+<div class="line"><span class="lineno"> 1002</span>                        kwargs[<span class="stringliteral">&quot;onProperty&quot;</span>] = o</div>
+<div class="line"><span class="lineno"> 1003</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno"> 1004</span>                        <span class="keywordflow">if</span> p <span class="keywordflow">not</span> <span class="keywordflow">in</span> Restriction.restrictionKinds:</div>
+<div class="line"><span class="lineno"> 1005</span>                            <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno"> 1006</span>                        kwargs[str(p.split(str(OWL))[-1])] = o</div>
+<div class="line"><span class="lineno"> 1007</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> set(</div>
+<div class="line"><span class="lineno"> 1008</span>                [str(i.split(str(OWL))[-1]) <span class="keywordflow">for</span> i <span class="keywordflow">in</span> Restriction.restrictionKinds]</div>
+<div class="line"><span class="lineno"> 1009</span>            ).intersection(kwargs):</div>
+<div class="line"><span class="lineno"> 1010</span>                <span class="keywordflow">raise</span> MalformedClassError(<span class="stringliteral">&quot;Malformed owl:Restriction&quot;</span>)</div>
+<div class="line"><span class="lineno"> 1011</span>            <span class="keywordflow">return</span> Restriction(**kwargs)</div>
+<div class="line"><span class="lineno"> 1012</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno"> 1013</span>            <span class="keywordflow">for</span> _s, p, _o <span class="keywordflow">in</span> graph.triples_choices(</div>
+<div class="line"><span class="lineno"> 1014</span>                (</div>
+<div class="line"><span class="lineno"> 1015</span>                    classOrIdentifier(c),</div>
+<div class="line"><span class="lineno"> 1016</span>                    [OWL.intersectionOf, OWL.unionOf, OWL.oneOf],</div>
+<div class="line"><span class="lineno"> 1017</span>                    <span class="keywordtype">None</span>,</div>
+<div class="line"><span class="lineno"> 1018</span>                )</div>
+<div class="line"><span class="lineno"> 1019</span>            ):</div>
+<div class="line"><span class="lineno"> 1020</span>                <span class="keywordflow">if</span> p == OWL.oneOf:</div>
+<div class="line"><span class="lineno"> 1021</span>                    <span class="keywordflow">return</span> EnumeratedClass(classOrIdentifier(c), graph=graph)</div>
+<div class="line"><span class="lineno"> 1022</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno"> 1023</span>                    <span class="keywordflow">return</span> BooleanClass(classOrIdentifier(c), operator=p, graph=graph)</div>
+<div class="line"><span class="lineno"> 1024</span>            <span class="comment"># assert (classOrIdentifier(c),RDF.type,OWL.Class) in graph</span></div>
+<div class="line"><span class="lineno"> 1025</span>            <span class="keywordflow">return</span> Class(classOrIdentifier(c), graph=graph, skipOWLClassMembership=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno"> 1026</span> </div>
+<div class="line"><span class="lineno"> 1027</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01013.html#a3e8e9144aac4f195ac26eb17ad0ac0bd">rdflib.extras.infixowl.classOrIdentifier()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01013.html#a067036fdd413967d77baad04cc282c38">rdflib.extras.infixowl.ComponentTerms()</a>, <a class="el" href="a01013.html#a0514aac213583ade1cc9f3c70f1c43b8">rdflib.extras.infixowl.DeepClassClear()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, and <a class="el" href="a01892.html#a49954c1f2c464e00e44a0730abc7abea">EnumeratedClass.serialize()</a>.</p>
+
+</div>
+</div>
+<a id="a3e8e9144aac4f195ac26eb17ad0ac0bd" name="a3e8e9144aac4f195ac26eb17ad0ac0bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e8e9144aac4f195ac26eb17ad0ac0bd">&#9670;&#160;</a></span>classOrIdentifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">classOrIdentifier </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>thing</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  264</span><span class="keyword">def </span>classOrIdentifier(thing):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  265</span>    <span class="keywordflow">if</span> isinstance(thing, (Property, Class)):</div>
+<div class="line"><span class="lineno">  266</span>        <span class="keywordflow">return</span> thing.identifier</div>
+<div class="line"><span class="lineno">  267</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  268</span>        <span class="keyword">assert</span> isinstance(thing, (URIRef, BNode)), (</div>
+<div class="line"><span class="lineno">  269</span>            <span class="stringliteral">&quot;Expecting a Class, Property, URIRef, or BNode.. not a %s&quot;</span> % thing</div>
+<div class="line"><span class="lineno">  270</span>        )</div>
+<div class="line"><span class="lineno">  271</span>        <span class="keywordflow">return</span> thing</div>
+<div class="line"><span class="lineno">  272</span> </div>
+<div class="line"><span class="lineno">  273</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01888.html#ad535f76651ab77b6a510a5ba1e007d16">OWLRDFListProxy.__contains__()</a>, <a class="el" href="a01888.html#a389648deee4824b77cf3dee60c69bf67">OWLRDFListProxy.__iadd__()</a>, <a class="el" href="a01884.html#a16eabceda9da3da9537f68ec2f3359da">Class.__isub__()</a>, <a class="el" href="a01904.html#a17c29c49d277bbea5da79fec1b70f0a7">BooleanClass.__or__()</a>, <a class="el" href="a01888.html#a1c34aca910daae273d0be6ebc41f886c">OWLRDFListProxy.__setitem__()</a>, <a class="el" href="a01908.html#a379eaaa03e235439faac11a843711d14">Restriction._set_allvaluesfrom()</a>, <a class="el" href="a01884.html#a671bd688b91a077edb239e639ba1bb0d">Class._set_complementof()</a>, <a class="el" href="a01884.html#adf824aaf8146f07f0cd327389a1756c3">Class._set_disjointwith()</a>, <a class="el" href="a01912.html#ad420a70eb36cc038b2d7437fe7ee3b32">Property._set_domain()</a>, <a class="el" href="a01884.html#a7dac2695229dda5fe90f40acbe8224d2">Class._set_equivalentclass()</a>, <a class="el" href="a01884.html#a345d4803336bbfa494e464e4ca82ca78">Class._set_extent()</a>, <a class="el" href="a01908.html#a0b5ebc962ff3a15066372412a2d7e02a">Restriction._set_hasvalue()</a>, <a class="el" href="a01912.html#ac9e3c9110cdb1fdfd2534ca122aa29be">Property._set_inverseof()</a>, <a class="el" href="a01908.html#a06d6e0049e8c71e56a7b169f835e1b47">Restriction._set_mincardinality()</a>, <a class="el" href="a01912.html#a62032d0eaa7c3c85ff10b4882fce698c">Property._set_range()</a>, <a class="el" href="a01860.html#ab21ad2a97b70d98dd6d7cdba2a43f6e4">Individual._set_sameAs()</a>, <a class="el" href="a01908.html#aa5e9ce686fadcc31c0f435c932e429ab">Restriction._set_somevaluesfrom()</a>, <a class="el" href="a01884.html#a00465a5755cd13ca971471175cc01704">Class._set_subclassof()</a>, <a class="el" href="a01912.html#a8cb4cc76ca9b24e65b1aa0c6473205cc">Property._set_subpropertyof()</a>, <a class="el" href="a01860.html#aa3f6865ed295fca374637cd47b2c3a10">Individual._set_type()</a>, <a class="el" href="a01013.html#a18be4ac14d377832cbd8cfac250877d1">rdflib.extras.infixowl.CastClass()</a>, <a class="el" href="a01013.html#a0514aac213583ade1cc9f3c70f1c43b8">rdflib.extras.infixowl.DeepClassClear()</a>, <a class="el" href="a01013.html#a5758f3f378f54ff3cc5c7516ca37fa86">rdflib.extras.infixowl.generateQName()</a>, <a class="el" href="a01888.html#ac7d9c12774e3cafa9e9bf83d453b4309">OWLRDFListProxy.index()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, and <a class="el" href="a01860.html#a20936ef5d7c383a7d62726506b2383a3">Individual.replace()</a>.</p>
+
+</div>
+</div>
+<a id="ae10c693c1f0f0aff4e1d950a24e42100" name="ae10c693c1f0f0aff4e1d950a24e42100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae10c693c1f0f0aff4e1d950a24e42100">&#9670;&#160;</a></span>classOrTerm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">classOrTerm </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>thing</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  256</span><span class="keyword">def </span>classOrTerm(thing):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  257</span>    <span class="keywordflow">if</span> isinstance(thing, Class):</div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">return</span> thing.identifier</div>
+<div class="line"><span class="lineno">  259</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  260</span>        <span class="keyword">assert</span> isinstance(thing, (URIRef, BNode, Literal))</div>
+<div class="line"><span class="lineno">  261</span>        <span class="keywordflow">return</span> thing</div>
+<div class="line"><span class="lineno">  262</span> </div>
+<div class="line"><span class="lineno">  263</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01908.html#a363600a54ab590a52c78c49cb8157bb3">Restriction._set_cardinality()</a>, and <a class="el" href="a01908.html#a26e5573716fa17aab91dbc39961e98b4">Restriction._set_maxcardinality()</a>.</p>
+
+</div>
+</div>
+<a id="a2bbd425aa56969143809e6bfb182670c" name="a2bbd425aa56969143809e6bfb182670c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bbd425aa56969143809e6bfb182670c">&#9670;&#160;</a></span>CommonNSBindings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CommonNSBindings </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>additionalNS</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Takes a graph and binds the common namespaces (rdf,rdfs, &amp; owl)
+</pre> <div class="fragment"><div class="line"><span class="lineno"> 2396</span><span class="keyword">def </span>CommonNSBindings(graph, additionalNS=None):  <span class="comment"># noqa: N802, N803</span></div>
+<div class="line"><span class="lineno"> 2397</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno"> 2398</span><span class="stringliteral">    Takes a graph and binds the common namespaces (rdf,rdfs, &amp; owl)</span></div>
+<div class="line"><span class="lineno"> 2399</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno"> 2400</span>    additional_ns = {} <span class="keywordflow">if</span> additionalNS <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> additionalNS</div>
+<div class="line"><span class="lineno"> 2401</span>    namespace_manager = NamespaceManager(graph)</div>
+<div class="line"><span class="lineno"> 2402</span>    namespace_manager.bind(<span class="stringliteral">&quot;rdfs&quot;</span>, RDFS)</div>
+<div class="line"><span class="lineno"> 2403</span>    namespace_manager.bind(<span class="stringliteral">&quot;rdf&quot;</span>, RDF)</div>
+<div class="line"><span class="lineno"> 2404</span>    namespace_manager.bind(<span class="stringliteral">&quot;owl&quot;</span>, OWL)</div>
+<div class="line"><span class="lineno"> 2405</span>    <span class="keywordflow">for</span> prefix, uri <span class="keywordflow">in</span> list(additional_ns.items()):</div>
+<div class="line"><span class="lineno"> 2406</span>        namespace_manager.bind(prefix, uri, override=<span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno"> 2407</span>    graph.namespace_manager = namespace_manager</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a067036fdd413967d77baad04cc282c38" name="a067036fdd413967d77baad04cc282c38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a067036fdd413967d77baad04cc282c38">&#9670;&#160;</a></span>ComponentTerms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ComponentTerms </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Takes a Class instance and returns a generator over the classes that
+are involved in its definition, ignoring unnamed classes
+</pre> <div class="fragment"><div class="line"><span class="lineno">  861</span><span class="keyword">def </span>ComponentTerms(cls):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  862</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  863</span><span class="stringliteral">    Takes a Class instance and returns a generator over the classes that</span></div>
+<div class="line"><span class="lineno">  864</span><span class="stringliteral">    are involved in its definition, ignoring unnamed classes</span></div>
+<div class="line"><span class="lineno">  865</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  866</span>    <span class="keywordflow">if</span> OWL.Restriction <span class="keywordflow">in</span> cls.type:</div>
+<div class="line"><span class="lineno">  867</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  868</span>            cls = CastClass(cls, Individual.factoryGraph)</div>
+<div class="line"><span class="lineno">  869</span>            <span class="keywordflow">for</span> _s, _p, inner_class_id <span class="keywordflow">in</span> cls.factoryGraph.triples_choices(</div>
+<div class="line"><span class="lineno">  870</span>                (cls.identifier, [OWL.allValuesFrom, OWL.someValuesFrom], <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  871</span>            ):</div>
+<div class="line"><span class="lineno">  872</span>                inner_class = Class(inner_class_id, skipOWLClassMembership=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  873</span>                <span class="keywordflow">if</span> isinstance(inner_class_id, BNode):</div>
+<div class="line"><span class="lineno">  874</span>                    <span class="keywordflow">for</span> _c <span class="keywordflow">in</span> ComponentTerms(inner_class):</div>
+<div class="line"><span class="lineno">  875</span>                        <span class="keywordflow">yield</span> _c</div>
+<div class="line"><span class="lineno">  876</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  877</span>                    <span class="keywordflow">yield</span> inner_class</div>
+<div class="line"><span class="lineno">  878</span>        <span class="keywordflow">except</span> Exception:  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno">  879</span>            <span class="keywordflow">pass</span>  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno">  880</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  881</span>        cls = CastClass(cls, Individual.factoryGraph)</div>
+<div class="line"><span class="lineno">  882</span>        <span class="keywordflow">if</span> isinstance(cls, BooleanClass):</div>
+<div class="line"><span class="lineno">  883</span>            <span class="keywordflow">for</span> _cls <span class="keywordflow">in</span> cls:</div>
+<div class="line"><span class="lineno">  884</span>                _cls = Class(_cls, skipOWLClassMembership=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  885</span>                <span class="keywordflow">if</span> isinstance(_cls.identifier, BNode):</div>
+<div class="line"><span class="lineno">  886</span>                    <span class="keywordflow">for</span> _c <span class="keywordflow">in</span> ComponentTerms(_cls):</div>
+<div class="line"><span class="lineno">  887</span>                        <span class="keywordflow">yield</span> _c</div>
+<div class="line"><span class="lineno">  888</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  889</span>                    <span class="keywordflow">yield</span> _cls</div>
+<div class="line"><span class="lineno">  890</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  891</span>            <span class="keywordflow">for</span> inner_class <span class="keywordflow">in</span> cls.subClassOf:</div>
+<div class="line"><span class="lineno">  892</span>                <span class="keywordflow">if</span> isinstance(inner_class.identifier, BNode):</div>
+<div class="line"><span class="lineno">  893</span>                    <span class="keywordflow">for</span> _c <span class="keywordflow">in</span> ComponentTerms(inner_class):</div>
+<div class="line"><span class="lineno">  894</span>                        <span class="keywordflow">yield</span> _c</div>
+<div class="line"><span class="lineno">  895</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  896</span>                    <span class="keywordflow">yield</span> inner_class</div>
+<div class="line"><span class="lineno">  897</span>            <span class="keywordflow">for</span> _s, _p, o <span class="keywordflow">in</span> cls.factoryGraph.triples_choices(</div>
+<div class="line"><span class="lineno">  898</span>                (classOrIdentifier(cls), CLASS_RELATIONS, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  899</span>            ):</div>
+<div class="line"><span class="lineno">  900</span>                <span class="keywordflow">if</span> isinstance(o, BNode):</div>
+<div class="line"><span class="lineno">  901</span>                    <span class="keywordflow">for</span> _c <span class="keywordflow">in</span> ComponentTerms(CastClass(o, Individual.factoryGraph)):</div>
+<div class="line"><span class="lineno">  902</span>                        <span class="keywordflow">yield</span> _c</div>
+<div class="line"><span class="lineno">  903</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  904</span>                    <span class="keywordflow">yield</span> inner_class</div>
+<div class="line"><span class="lineno">  905</span> </div>
+<div class="line"><span class="lineno">  906</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01013.html#a18be4ac14d377832cbd8cfac250877d1">rdflib.extras.infixowl.CastClass()</a>.</p>
+
+</div>
+</div>
+<a id="a0514aac213583ade1cc9f3c70f1c43b8" name="a0514aac213583ade1cc9f3c70f1c43b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0514aac213583ade1cc9f3c70f1c43b8">&#9670;&#160;</a></span>DeepClassClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DeepClassClear </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>class_to_prune</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Recursively clear the given class, continuing
+where any related class is an anonymous class
+
+```python
+&gt;&gt;&gt; EX = Namespace("http://example.com/")
+&gt;&gt;&gt; g = Graph()
+&gt;&gt;&gt; g.bind("ex", EX, override=False)
+&gt;&gt;&gt; Individual.factoryGraph = g
+&gt;&gt;&gt; classB = Class(EX.B)
+&gt;&gt;&gt; classC = Class(EX.C)
+&gt;&gt;&gt; classD = Class(EX.D)
+&gt;&gt;&gt; classE = Class(EX.E)
+&gt;&gt;&gt; classF = Class(EX.F)
+&gt;&gt;&gt; anonClass = EX.someProp @ some @ classD
+&gt;&gt;&gt; classF += anonClass
+&gt;&gt;&gt; list(anonClass.subClassOf)
+[Class: ex:F ]
+&gt;&gt;&gt; classA = classE | classF | anonClass
+&gt;&gt;&gt; classB += classA
+&gt;&gt;&gt; classA.equivalentClass = [Class()]
+&gt;&gt;&gt; classB.subClassOf = [EX.someProp @ some @ classC]
+&gt;&gt;&gt; classA
+( ex:E OR ex:F OR ( ex:someProp SOME ex:D ) )
+&gt;&gt;&gt; DeepClassClear(classA)
+&gt;&gt;&gt; classA
+(  )
+&gt;&gt;&gt; list(anonClass.subClassOf)
+[]
+&gt;&gt;&gt; classB
+Class: ex:B SubClassOf: ( ex:someProp SOME ex:C )
+
+&gt;&gt;&gt; otherClass = classD | anonClass
+&gt;&gt;&gt; otherClass
+( ex:D OR ( ex:someProp SOME ex:D ) )
+&gt;&gt;&gt; DeepClassClear(otherClass)
+&gt;&gt;&gt; otherClass
+(  )
+&gt;&gt;&gt; otherClass.delete()
+&gt;&gt;&gt; list(g.triples((otherClass.identifier, None, None)))
+[]
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  907</span><span class="keyword">def </span>DeepClassClear(class_to_prune):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  908</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  909</span><span class="stringliteral">    Recursively clear the given class, continuing</span></div>
+<div class="line"><span class="lineno">  910</span><span class="stringliteral">    where any related class is an anonymous class</span></div>
+<div class="line"><span class="lineno">  911</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  912</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">  913</span><span class="stringliteral">    &gt;&gt;&gt; EX = Namespace(&quot;http://example.com/&quot;)</span></div>
+<div class="line"><span class="lineno">  914</span><span class="stringliteral">    &gt;&gt;&gt; g = Graph()</span></div>
+<div class="line"><span class="lineno">  915</span><span class="stringliteral">    &gt;&gt;&gt; g.bind(&quot;ex&quot;, EX, override=False)</span></div>
+<div class="line"><span class="lineno">  916</span><span class="stringliteral">    &gt;&gt;&gt; Individual.factoryGraph = g</span></div>
+<div class="line"><span class="lineno">  917</span><span class="stringliteral">    &gt;&gt;&gt; classB = Class(EX.B)</span></div>
+<div class="line"><span class="lineno">  918</span><span class="stringliteral">    &gt;&gt;&gt; classC = Class(EX.C)</span></div>
+<div class="line"><span class="lineno">  919</span><span class="stringliteral">    &gt;&gt;&gt; classD = Class(EX.D)</span></div>
+<div class="line"><span class="lineno">  920</span><span class="stringliteral">    &gt;&gt;&gt; classE = Class(EX.E)</span></div>
+<div class="line"><span class="lineno">  921</span><span class="stringliteral">    &gt;&gt;&gt; classF = Class(EX.F)</span></div>
+<div class="line"><span class="lineno">  922</span><span class="stringliteral">    &gt;&gt;&gt; anonClass = EX.someProp @ some @ classD</span></div>
+<div class="line"><span class="lineno">  923</span><span class="stringliteral">    &gt;&gt;&gt; classF += anonClass</span></div>
+<div class="line"><span class="lineno">  924</span><span class="stringliteral">    &gt;&gt;&gt; list(anonClass.subClassOf)</span></div>
+<div class="line"><span class="lineno">  925</span><span class="stringliteral">    [Class: ex:F ]</span></div>
+<div class="line"><span class="lineno">  926</span><span class="stringliteral">    &gt;&gt;&gt; classA = classE | classF | anonClass</span></div>
+<div class="line"><span class="lineno">  927</span><span class="stringliteral">    &gt;&gt;&gt; classB += classA</span></div>
+<div class="line"><span class="lineno">  928</span><span class="stringliteral">    &gt;&gt;&gt; classA.equivalentClass = [Class()]</span></div>
+<div class="line"><span class="lineno">  929</span><span class="stringliteral">    &gt;&gt;&gt; classB.subClassOf = [EX.someProp @ some @ classC]</span></div>
+<div class="line"><span class="lineno">  930</span><span class="stringliteral">    &gt;&gt;&gt; classA</span></div>
+<div class="line"><span class="lineno">  931</span><span class="stringliteral">    ( ex:E OR ex:F OR ( ex:someProp SOME ex:D ) )</span></div>
+<div class="line"><span class="lineno">  932</span><span class="stringliteral">    &gt;&gt;&gt; DeepClassClear(classA)</span></div>
+<div class="line"><span class="lineno">  933</span><span class="stringliteral">    &gt;&gt;&gt; classA</span></div>
+<div class="line"><span class="lineno">  934</span><span class="stringliteral">    (  )</span></div>
+<div class="line"><span class="lineno">  935</span><span class="stringliteral">    &gt;&gt;&gt; list(anonClass.subClassOf)</span></div>
+<div class="line"><span class="lineno">  936</span><span class="stringliteral">    []</span></div>
+<div class="line"><span class="lineno">  937</span><span class="stringliteral">    &gt;&gt;&gt; classB</span></div>
+<div class="line"><span class="lineno">  938</span><span class="stringliteral">    Class: ex:B SubClassOf: ( ex:someProp SOME ex:C )</span></div>
+<div class="line"><span class="lineno">  939</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  940</span><span class="stringliteral">    &gt;&gt;&gt; otherClass = classD | anonClass</span></div>
+<div class="line"><span class="lineno">  941</span><span class="stringliteral">    &gt;&gt;&gt; otherClass</span></div>
+<div class="line"><span class="lineno">  942</span><span class="stringliteral">    ( ex:D OR ( ex:someProp SOME ex:D ) )</span></div>
+<div class="line"><span class="lineno">  943</span><span class="stringliteral">    &gt;&gt;&gt; DeepClassClear(otherClass)</span></div>
+<div class="line"><span class="lineno">  944</span><span class="stringliteral">    &gt;&gt;&gt; otherClass</span></div>
+<div class="line"><span class="lineno">  945</span><span class="stringliteral">    (  )</span></div>
+<div class="line"><span class="lineno">  946</span><span class="stringliteral">    &gt;&gt;&gt; otherClass.delete()</span></div>
+<div class="line"><span class="lineno">  947</span><span class="stringliteral">    &gt;&gt;&gt; list(g.triples((otherClass.identifier, None, None)))</span></div>
+<div class="line"><span class="lineno">  948</span><span class="stringliteral">    []</span></div>
+<div class="line"><span class="lineno">  949</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  950</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">  951</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  952</span> </div>
+<div class="line"><span class="lineno">  953</span>    <span class="keyword">def </span>deepClearIfBNode(_class):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  954</span>        <span class="keywordflow">if</span> isinstance(classOrIdentifier(_class), BNode):</div>
+<div class="line"><span class="lineno">  955</span>            DeepClassClear(_class)</div>
+<div class="line"><span class="lineno">  956</span> </div>
+<div class="line"><span class="lineno">  957</span>    class_to_prune = CastClass(class_to_prune, Individual.factoryGraph)</div>
+<div class="line"><span class="lineno">  958</span>    <span class="keywordflow">for</span> c <span class="keywordflow">in</span> class_to_prune.subClassOf:</div>
+<div class="line"><span class="lineno">  959</span>        deepClearIfBNode(c)</div>
+<div class="line"><span class="lineno">  960</span>    class_to_prune.graph.remove((class_to_prune.identifier, RDFS.subClassOf, <span class="keywordtype">None</span>))</div>
+<div class="line"><span class="lineno">  961</span>    <span class="keywordflow">for</span> c <span class="keywordflow">in</span> class_to_prune.equivalentClass:</div>
+<div class="line"><span class="lineno">  962</span>        deepClearIfBNode(c)</div>
+<div class="line"><span class="lineno">  963</span>    class_to_prune.graph.remove((class_to_prune.identifier, OWL.equivalentClass, <span class="keywordtype">None</span>))</div>
+<div class="line"><span class="lineno">  964</span>    inverse_class = class_to_prune.complementOf</div>
+<div class="line"><span class="lineno">  965</span>    <span class="keywordflow">if</span> inverse_class:</div>
+<div class="line"><span class="lineno">  966</span>        class_to_prune.graph.remove((class_to_prune.identifier, OWL.complementOf, <span class="keywordtype">None</span>))</div>
+<div class="line"><span class="lineno">  967</span>        deepClearIfBNode(inverse_class)</div>
+<div class="line"><span class="lineno">  968</span>    <span class="keywordflow">if</span> isinstance(class_to_prune, BooleanClass):</div>
+<div class="line"><span class="lineno">  969</span>        <span class="keywordflow">for</span> c <span class="keywordflow">in</span> class_to_prune:</div>
+<div class="line"><span class="lineno">  970</span>            deepClearIfBNode(c)</div>
+<div class="line"><span class="lineno">  971</span>        class_to_prune.clear()</div>
+<div class="line"><span class="lineno">  972</span>        class_to_prune.graph.remove(</div>
+<div class="line"><span class="lineno">  973</span>            (class_to_prune.identifier, class_to_prune._operator, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  974</span>        )</div>
+<div class="line"><span class="lineno">  975</span> </div>
+<div class="line"><span class="lineno">  976</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01013.html#a18be4ac14d377832cbd8cfac250877d1">rdflib.extras.infixowl.CastClass()</a>, <a class="el" href="a01013.html#a3e8e9144aac4f195ac26eb17ad0ac0bd">rdflib.extras.infixowl.classOrIdentifier()</a>, and <a class="el" href="a01013.html#a0514aac213583ade1cc9f3c70f1c43b8">rdflib.extras.infixowl.DeepClassClear()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01013.html#a0514aac213583ade1cc9f3c70f1c43b8">rdflib.extras.infixowl.DeepClassClear()</a>.</p>
+
+</div>
+</div>
+<a id="a5758f3f378f54ff3cc5c7516ca37fa86" name="a5758f3f378f54ff3cc5c7516ca37fa86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5758f3f378f54ff3cc5c7516ca37fa86">&#9670;&#160;</a></span>generateQName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">generateQName </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  251</span><span class="keyword">def </span>generateQName(graph, uri):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  252</span>    prefix, uri, localname = graph.compute_qname(classOrIdentifier(uri))</div>
+<div class="line"><span class="lineno">  253</span>    <span class="keywordflow">return</span> <span class="stringliteral">&quot;:&quot;</span>.join([prefix, localname])</div>
+<div class="line"><span class="lineno">  254</span> </div>
+<div class="line"><span class="lineno">  255</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01013.html#a3e8e9144aac4f195ac26eb17ad0ac0bd">rdflib.extras.infixowl.classOrIdentifier()</a>.</p>
+
+</div>
+</div>
+<a id="a52a30d724c8ae1699db2f2f8e492a0a9" name="a52a30d724c8ae1699db2f2f8e492a0a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52a30d724c8ae1699db2f2f8e492a0a9">&#9670;&#160;</a></span>GetIdentifiedClasses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GetIdentifiedClasses </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  386</span><span class="keyword">def </span>GetIdentifiedClasses(graph):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  387</span>    <span class="keywordflow">for</span> c <span class="keywordflow">in</span> graph.subjects(predicate=RDF.type, object=OWL.Class):</div>
+<div class="line"><span class="lineno">  388</span>        <span class="keywordflow">if</span> isinstance(c, URIRef):</div>
+<div class="line"><span class="lineno">  389</span>            <span class="keywordflow">yield</span> Class(c)</div>
+<div class="line"><span class="lineno">  390</span> </div>
+<div class="line"><span class="lineno">  391</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1008a74b0e692b73ff82bb3c3ca23910" name="a1008a74b0e692b73ff82bb3c3ca23910"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1008a74b0e692b73ff82bb3c3ca23910">&#9670;&#160;</a></span>manchesterSyntax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">manchesterSyntax </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>thing</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>store</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>boolean</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>transientList</em> = <code>False&#160;&#160;#&#160;noqa:&#160;N803</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Core serialization
+thing is a Class and is processed as a subject
+store is an RDFLib Graph to be queried about thing
+</pre> <div class="fragment"><div class="line"><span class="lineno">  284</span>):</div>
+<div class="line"><span class="lineno">  285</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  286</span><span class="stringliteral">    Core serialization</span></div>
+<div class="line"><span class="lineno">  287</span><span class="stringliteral">    thing is a Class and is processed as a subject</span></div>
+<div class="line"><span class="lineno">  288</span><span class="stringliteral">    store is an RDFLib Graph to be queried about thing</span></div>
+<div class="line"><span class="lineno">  289</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  290</span>    <span class="keyword">assert</span> thing <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  291</span>    <span class="keywordflow">if</span> boolean:</div>
+<div class="line"><span class="lineno">  292</span>        <span class="keywordflow">if</span> transientList:</div>
+<div class="line"><span class="lineno">  293</span>            livechildren = iter(thing)</div>
+<div class="line"><span class="lineno">  294</span>            children = [manchesterSyntax(child, store) <span class="keywordflow">for</span> child <span class="keywordflow">in</span> thing]</div>
+<div class="line"><span class="lineno">  295</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  296</span>            livechildren = iter(Collection(store, thing))</div>
+<div class="line"><span class="lineno">  297</span>            children = [</div>
+<div class="line"><span class="lineno">  298</span>                manchesterSyntax(child, store) <span class="keywordflow">for</span> child <span class="keywordflow">in</span> Collection(store, thing)</div>
+<div class="line"><span class="lineno">  299</span>            ]</div>
+<div class="line"><span class="lineno">  300</span>        <span class="keywordflow">if</span> boolean == OWL.intersectionOf:</div>
+<div class="line"><span class="lineno">  301</span>            childlist = []</div>
+<div class="line"><span class="lineno">  302</span>            named = []</div>
+<div class="line"><span class="lineno">  303</span>            <span class="keywordflow">for</span> child <span class="keywordflow">in</span> livechildren:</div>
+<div class="line"><span class="lineno">  304</span>                <span class="keywordflow">if</span> isinstance(child, URIRef):</div>
+<div class="line"><span class="lineno">  305</span>                    named.append(child)</div>
+<div class="line"><span class="lineno">  306</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  307</span>                    childlist.append(child)</div>
+<div class="line"><span class="lineno">  308</span>            <span class="keywordflow">if</span> named:</div>
+<div class="line"><span class="lineno">  309</span> </div>
+<div class="line"><span class="lineno">  310</span>                <span class="keyword">def </span>castToQName(x):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  311</span>                    prefix, uri, localname = store.compute_qname(x)</div>
+<div class="line"><span class="lineno">  312</span>                    <span class="keywordflow">return</span> <span class="stringliteral">&quot;:&quot;</span>.join([prefix, localname])</div>
+<div class="line"><span class="lineno">  313</span> </div>
+<div class="line"><span class="lineno">  314</span>                <span class="keywordflow">if</span> len(named) &gt; 1:</div>
+<div class="line"><span class="lineno">  315</span>                    prefix = <span class="stringliteral">&quot;( &quot;</span> + <span class="stringliteral">&quot; AND &quot;</span>.join(map(castToQName, named)) + <span class="stringliteral">&quot; )&quot;</span></div>
+<div class="line"><span class="lineno">  316</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  317</span>                    prefix = manchesterSyntax(named[0], store)</div>
+<div class="line"><span class="lineno">  318</span>                <span class="keywordflow">if</span> childlist:</div>
+<div class="line"><span class="lineno">  319</span>                    <span class="keywordflow">return</span> (</div>
+<div class="line"><span class="lineno">  320</span>                        str(prefix)</div>
+<div class="line"><span class="lineno">  321</span>                        + <span class="stringliteral">&quot; THAT &quot;</span></div>
+<div class="line"><span class="lineno">  322</span>                        + <span class="stringliteral">&quot; AND &quot;</span>.join(</div>
+<div class="line"><span class="lineno">  323</span>                            [str(manchesterSyntax(x, store)) <span class="keywordflow">for</span> x <span class="keywordflow">in</span> childlist]</div>
+<div class="line"><span class="lineno">  324</span>                        )</div>
+<div class="line"><span class="lineno">  325</span>                    )</div>
+<div class="line"><span class="lineno">  326</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  327</span>                    <span class="keywordflow">return</span> prefix</div>
+<div class="line"><span class="lineno">  328</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  329</span>                <span class="keywordflow">return</span> <span class="stringliteral">&quot;( &quot;</span> + <span class="stringliteral">&quot; AND &quot;</span>.join([str(c) <span class="keywordflow">for</span> c <span class="keywordflow">in</span> children]) + <span class="stringliteral">&quot; )&quot;</span></div>
+<div class="line"><span class="lineno">  330</span>        <span class="keywordflow">elif</span> boolean == OWL.unionOf:</div>
+<div class="line"><span class="lineno">  331</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;( &quot;</span> + <span class="stringliteral">&quot; OR &quot;</span>.join([str(c) <span class="keywordflow">for</span> c <span class="keywordflow">in</span> children]) + <span class="stringliteral">&quot; )&quot;</span></div>
+<div class="line"><span class="lineno">  332</span>        <span class="keywordflow">elif</span> boolean == OWL.oneOf:</div>
+<div class="line"><span class="lineno">  333</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;{ &quot;</span> + <span class="stringliteral">&quot; &quot;</span>.join([str(c) <span class="keywordflow">for</span> c <span class="keywordflow">in</span> children]) + <span class="stringliteral">&quot; }&quot;</span></div>
+<div class="line"><span class="lineno">  334</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  335</span>            <span class="keyword">assert</span> boolean == OWL.complementOf</div>
+<div class="line"><span class="lineno">  336</span>    <span class="keywordflow">elif</span> OWL.Restriction <span class="keywordflow">in</span> store.objects(subject=thing, predicate=RDF.type):</div>
+<div class="line"><span class="lineno">  337</span>        prop = list(store.objects(subject=thing, predicate=OWL.onProperty))[0]</div>
+<div class="line"><span class="lineno">  338</span>        prefix, uri, localname = store.compute_qname(prop)</div>
+<div class="line"><span class="lineno">  339</span>        propstring = <span class="stringliteral">&quot;:&quot;</span>.join([prefix, localname])</div>
+<div class="line"><span class="lineno">  340</span>        label = first(store.objects(subject=prop, predicate=RDFS.label))</div>
+<div class="line"><span class="lineno">  341</span>        <span class="keywordflow">if</span> label:</div>
+<div class="line"><span class="lineno">  342</span>            propstring = <span class="stringliteral">&quot;&#39;%s&#39;&quot;</span> % label</div>
+<div class="line"><span class="lineno">  343</span>        <span class="keywordflow">for</span> onlyclass <span class="keywordflow">in</span> store.objects(subject=thing, predicate=OWL.allValuesFrom):</div>
+<div class="line"><span class="lineno">  344</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;( %s ONLY %s )&quot;</span> % (propstring, manchesterSyntax(onlyclass, store))</div>
+<div class="line"><span class="lineno">  345</span>        <span class="keywordflow">for</span> val <span class="keywordflow">in</span> store.objects(subject=thing, predicate=OWL.hasValue):</div>
+<div class="line"><span class="lineno">  346</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;( %s VALUE %s )&quot;</span> % (propstring, manchesterSyntax(val, store))</div>
+<div class="line"><span class="lineno">  347</span>        <span class="keywordflow">for</span> someclass <span class="keywordflow">in</span> store.objects(subject=thing, predicate=OWL.someValuesFrom):</div>
+<div class="line"><span class="lineno">  348</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;( %s SOME %s )&quot;</span> % (propstring, manchesterSyntax(someclass, store))</div>
+<div class="line"><span class="lineno">  349</span>        cardlookup = {</div>
+<div class="line"><span class="lineno">  350</span>            OWL.maxCardinality: <span class="stringliteral">&quot;MAX&quot;</span>,</div>
+<div class="line"><span class="lineno">  351</span>            OWL.minCardinality: <span class="stringliteral">&quot;MIN&quot;</span>,</div>
+<div class="line"><span class="lineno">  352</span>            OWL.cardinality: <span class="stringliteral">&quot;EQUALS&quot;</span>,</div>
+<div class="line"><span class="lineno">  353</span>        }</div>
+<div class="line"><span class="lineno">  354</span>        <span class="keywordflow">for</span> _s, p, o <span class="keywordflow">in</span> store.triples_choices((thing, list(cardlookup.keys()), <span class="keywordtype">None</span>)):</div>
+<div class="line"><span class="lineno">  355</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;( %s %s %s )&quot;</span> % (propstring, cardlookup[p], o)</div>
+<div class="line"><span class="lineno">  356</span>    <span class="comment"># is thing a complement of anything</span></div>
+<div class="line"><span class="lineno">  357</span>    compl = list(store.objects(subject=thing, predicate=OWL.complementOf))</div>
+<div class="line"><span class="lineno">  358</span>    <span class="keywordflow">if</span> compl:</div>
+<div class="line"><span class="lineno">  359</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;( NOT %s )&quot;</span> % (manchesterSyntax(compl[0], store))</div>
+<div class="line"><span class="lineno">  360</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  361</span>        prolog = <span class="stringliteral">&quot;\n&quot;</span>.join([<span class="stringliteral">&quot;PREFIX %s: &lt;%s&gt;&quot;</span> % (k, nsBinds[k]) <span class="keywordflow">for</span> k <span class="keywordflow">in</span> nsBinds])</div>
+<div class="line"><span class="lineno">  362</span>        qstr = (</div>
+<div class="line"><span class="lineno">  363</span>            prolog</div>
+<div class="line"><span class="lineno">  364</span>            + <span class="stringliteral">&quot;\nSELECT ?p ?bool WHERE {?class a owl:Class; ?p ?bool .&quot;</span></div>
+<div class="line"><span class="lineno">  365</span>            + <span class="stringliteral">&quot;?bool rdf:first ?foo }&quot;</span></div>
+<div class="line"><span class="lineno">  366</span>        )</div>
+<div class="line"><span class="lineno">  367</span>        initb = {Variable(<span class="stringliteral">&quot;?class&quot;</span>): thing}</div>
+<div class="line"><span class="lineno">  368</span>        <span class="keywordflow">for</span> boolprop, col <span class="keywordflow">in</span> store.query(qstr, processor=<span class="stringliteral">&quot;sparql&quot;</span>, initBindings=initb):</div>
+<div class="line"><span class="lineno">  369</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(thing, URIRef):</div>
+<div class="line"><span class="lineno">  370</span>                <span class="keywordflow">return</span> manchesterSyntax(col, store, boolean=boolprop)</div>
+<div class="line"><span class="lineno">  371</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  372</span>            prefix, uri, localname = store.compute_qname(thing)</div>
+<div class="line"><span class="lineno">  373</span>            qname = <span class="stringliteral">&quot;:&quot;</span>.join([prefix, localname])</div>
+<div class="line"><span class="lineno">  374</span>        <span class="keywordflow">except</span> Exception:</div>
+<div class="line"><span class="lineno">  375</span>            <span class="keywordflow">if</span> isinstance(thing, BNode):</div>
+<div class="line"><span class="lineno">  376</span>                <span class="keywordflow">return</span> thing.n3()</div>
+<div class="line"><span class="lineno">  377</span>            <span class="comment"># Expect the unexpected</span></div>
+<div class="line"><span class="lineno">  378</span>            <span class="keywordflow">return</span> thing.identifier <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(thing, str) <span class="keywordflow">else</span> thing</div>
+<div class="line"><span class="lineno">  379</span>        label = first(Class(thing, graph=store).label)</div>
+<div class="line"><span class="lineno">  380</span>        <span class="keywordflow">if</span> label:</div>
+<div class="line"><span class="lineno">  381</span>            <span class="keywordflow">return</span> label</div>
+<div class="line"><span class="lineno">  382</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  383</span>            <span class="keywordflow">return</span> qname</div>
+<div class="line"><span class="lineno">  384</span> </div>
+<div class="line"><span class="lineno">  385</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01013.html#a1008a74b0e692b73ff82bb3c3ca23910">rdflib.extras.infixowl.manchesterSyntax()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01904.html#a61a1f3a6a4df93d491cd753f617782a2">BooleanClass.__repr__()</a>, <a class="el" href="a01908.html#a61a1f3a6a4df93d491cd753f617782a2">Restriction.__repr__()</a>, <a class="el" href="a01884.html#ac06d497b0ec97f3bb89c640e76237004">Class.isPrimitive()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, and <a class="el" href="a01013.html#a1008a74b0e692b73ff82bb3c3ca23910">rdflib.extras.infixowl.manchesterSyntax()</a>.</p>
+
+</div>
+</div>
+<a id="a5438b243a624693887c4b75a81a2895b" name="a5438b243a624693887c4b75a81a2895b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5438b243a624693887c4b75a81a2895b">&#9670;&#160;</a></span>propertyOrIdentifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">propertyOrIdentifier </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>thing</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  274</span><span class="keyword">def </span>propertyOrIdentifier(thing):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  275</span>    <span class="keywordflow">if</span> isinstance(thing, Property):</div>
+<div class="line"><span class="lineno">  276</span>        <span class="keywordflow">return</span> thing.identifier</div>
+<div class="line"><span class="lineno">  277</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  278</span>        <span class="keyword">assert</span> isinstance(thing, URIRef)</div>
+<div class="line"><span class="lineno">  279</span>        <span class="keywordflow">return</span> thing</div>
+<div class="line"><span class="lineno">  280</span> </div>
+<div class="line"><span class="lineno">  281</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01908.html#ac8879ef2a2162c8a44b790b2015d7f43">Restriction._set_onproperty()</a>, and <a class="el" href="a01912.html#a20936ef5d7c383a7d62726506b2383a3">Property.replace()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa4a022e6ddacd362b83964da5cc5d044" name="aa4a022e6ddacd362b83964da5cc5d044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a022e6ddacd362b83964da5cc5d044">&#9670;&#160;</a></span>__all__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list __all__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0b1c05864341228718df4796625506f" name="ad0b1c05864341228718df4796625506f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0b1c05864341228718df4796625506f">&#9670;&#160;</a></span>ACE_NS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ACE_NS = <a class="el" href="a01956.html">Namespace</a>(&quot;http://attempto.ifi.uzh.ch/ace_lexicon#&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae1c8e8b031b01921d6b563e89af78ed7" name="ae1c8e8b031b01921d6b563e89af78ed7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1c8e8b031b01921d6b563e89af78ed7">&#9670;&#160;</a></span>BooleanPredicates</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list BooleanPredicates = [<a class="el" href="a02028.html#a3cd0da1fc5ae7de4e230df361a3f02c1">OWL.intersectionOf</a>, <a class="el" href="a02028.html#ab3936d94fb6d99bc11bfe96a3c20e29c">OWL.unionOf</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef1ea62daf1069a30dc7ae69dc4b02dc" name="aef1ea62daf1069a30dc7ae69dc4b02dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1ea62daf1069a30dc7ae69dc4b02dc">&#9670;&#160;</a></span>CLASS_RELATIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CLASS_RELATIONS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  set(</div>
+<div class="line"><span class="lineno">    2</span>    Namespace(<span class="stringliteral">&quot;http://www.w3.org/2002/07/owl#resourceProperties&quot;</span>)</div>
+<div class="line"><span class="lineno">    3</span>).difference(</div>
+<div class="line"><span class="lineno">    4</span>    [</div>
+<div class="line"><span class="lineno">    5</span>        OWL.onProperty,</div>
+<div class="line"><span class="lineno">    6</span>        OWL.allValuesFrom,</div>
+<div class="line"><span class="lineno">    7</span>        OWL.hasValue,</div>
+<div class="line"><span class="lineno">    8</span>        OWL.someValuesFrom,</div>
+<div class="line"><span class="lineno">    9</span>        OWL.inverseOf,</div>
+<div class="line"><span class="lineno">   10</span>        OWL.imports,</div>
+<div class="line"><span class="lineno">   11</span>        OWL.versionInfo,</div>
+<div class="line"><span class="lineno">   12</span>        OWL.backwardCompatibleWith,</div>
+<div class="line"><span class="lineno">   13</span>        OWL.incompatibleWith,</div>
+<div class="line"><span class="lineno">   14</span>        OWL.unionOf,</div>
+<div class="line"><span class="lineno">   15</span>        OWL.intersectionOf,</div>
+<div class="line"><span class="lineno">   16</span>        OWL.oneOf,</div>
+<div class="line"><span class="lineno">   17</span>    ]</div>
+<div class="line"><span class="lineno">   18</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2029345dcd07e65856626a972044b798" name="a2029345dcd07e65856626a972044b798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2029345dcd07e65856626a972044b798">&#9670;&#160;</a></span>exactly</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exactly</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  Infix(</div>
+<div class="line"><span class="lineno">    2</span>    <span class="keyword">lambda</span> prop, _class: Restriction(prop, graph=prop.graph, cardinality=_class)</div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="afc486b0767ef05e2dc12f5b98be72902" name="afc486b0767ef05e2dc12f5b98be72902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc486b0767ef05e2dc12f5b98be72902">&#9670;&#160;</a></span>identifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">identifier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b14e488ae28d98d262453f3e9cd6e4d" name="a0b14e488ae28d98d262453f3e9cd6e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b14e488ae28d98d262453f3e9cd6e4d">&#9670;&#160;</a></span>logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">logger = logging.getLogger(__name__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa83862769f78fffb512bc9283007ef67" name="aa83862769f78fffb512bc9283007ef67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa83862769f78fffb512bc9283007ef67">&#9670;&#160;</a></span>max</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">max</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  Infix(</div>
+<div class="line"><span class="lineno">    2</span>    <span class="keyword">lambda</span> prop, _class: Restriction(prop, graph=prop.graph, maxCardinality=_class)</div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4735a0c4d1b11f62ea44115d54a93087" name="a4735a0c4d1b11f62ea44115d54a93087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4735a0c4d1b11f62ea44115d54a93087">&#9670;&#160;</a></span>min</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">min</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  Infix(</div>
+<div class="line"><span class="lineno">    2</span>    <span class="keyword">lambda</span> prop, _class: Restriction(prop, graph=prop.graph, minCardinality=_class)</div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aeac09e1a9702b3b7c894c96bfa5edfe2" name="aeac09e1a9702b3b7c894c96bfa5edfe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac09e1a9702b3b7c894c96bfa5edfe2">&#9670;&#160;</a></span>nsBinds</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict nsBinds</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {  <span class="comment"># noqa: N816</span></div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;skos&quot;</span>: <span class="stringliteral">&quot;http://www.w3.org/2004/02/skos/core#&quot;</span>,</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;rdf&quot;</span>: RDF,</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;rdfs&quot;</span>: RDFS,</div>
+<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;owl&quot;</span>: OWL,</div>
+<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;list&quot;</span>: URIRef(<span class="stringliteral">&quot;http://www.w3.org/2000/10/swap/list#&quot;</span>),</div>
+<div class="line"><span class="lineno">    7</span>    <span class="stringliteral">&quot;dc&quot;</span>: <span class="stringliteral">&quot;http://purl.org/dc/elements/1.1/&quot;</span>,</div>
+<div class="line"><span class="lineno">    8</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a72d7ec1014a87925fc82e0a2734fa281" name="a72d7ec1014a87925fc82e0a2734fa281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d7ec1014a87925fc82e0a2734fa281">&#9670;&#160;</a></span>only</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">only</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  Infix(</div>
+<div class="line"><span class="lineno">    2</span>    <span class="keyword">lambda</span> prop, _class: Restriction(prop, graph=_class.graph, allValuesFrom=_class)</div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8d63455db64e5ed67035bac4790e5529" name="a8d63455db64e5ed67035bac4790e5529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d63455db64e5ed67035bac4790e5529">&#9670;&#160;</a></span>PropertyAbstractSyntax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str PropertyAbstractSyntax</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">%s( %s { %s }</span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral">%s</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral">{ &#39;super(&#39; datavaluedPropertyID &#39;)&#39;} [&#39;Functional&#39;]</span></div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral">{ domain( %s ) } { range( %s ) } )&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2c241d4d6456c365460e48ce9197e49a" name="a2c241d4d6456c365460e48ce9197e49a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c241d4d6456c365460e48ce9197e49a">&#9670;&#160;</a></span>some</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">some</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  Infix(</div>
+<div class="line"><span class="lineno">    2</span>    <span class="keyword">lambda</span> prop, _class: Restriction(prop, graph=_class.graph, someValuesFrom=_class)</div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="afcc7a4b78ecd8fa7e713f8cfa0f51017" name="afcc7a4b78ecd8fa7e713f8cfa0f51017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcc7a4b78ecd8fa7e713f8cfa0f51017">&#9670;&#160;</a></span>value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">value = <a class="el" href="a01852.html">Infix</a>(lambda prop, _class: <a class="el" href="a01908.html">Restriction</a>(prop, graph=prop.graph, value=_class))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01009.html">extras</a></li><li class="navelem"><a class="el" href="a01013.html">infixowl</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

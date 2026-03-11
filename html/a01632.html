@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: SPARQLRule Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01632.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="a01629.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">SPARQLRule Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for SPARQLRule:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01631.png" border="0" usemap="#aSPARQLRule_inherit__map" alt="Inheritance graph"/></div>
+<map name="aSPARQLRule_inherit__map" id="aSPARQLRule_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,152,107,177"/>
+<area shape="rect" href="a01628.html" title=" " alt="" coords="9,79,103,104"/>
+<area shape="poly" title=" " alt="" coords="59,118,59,152,53,152,53,118"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="25,5,87,31"/>
+<area shape="poly" title=" " alt="" coords="59,44,59,79,53,79,53,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for SPARQLRule:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01630.png" border="0" usemap="#aSPARQLRule_coll__map" alt="Collaboration graph"/></div>
+<map name="aSPARQLRule_coll__map" id="aSPARQLRule_coll__map">
+<area shape="rect" title=" " alt="" coords="66,168,167,193"/>
+<area shape="rect" href="a01628.html" title=" " alt="" coords="21,93,116,119"/>
+<area shape="poly" title=" " alt="" coords="86,129,111,166,107,169,82,132"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,5,68,31"/>
+<area shape="poly" title=" " alt="" coords="48,42,58,68,67,92,62,94,53,70,43,44"/>
+<area shape="rect" title=" " alt="" coords="115,5,169,31"/>
+<area shape="poly" title=" " alt="" coords="148,44,149,55,147,88,141,120,124,169,119,167,136,118,142,87,143,55,143,45"/>
+<area shape="poly" title=" " alt="" coords="104,39,84,56,75,75,72,94,67,93,70,73,80,53,100,35"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a96334a0e31129c107ac4d2392f2da961" id="r_a96334a0e31129c107ac4d2392f2da961"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01632.html#a96334a0e31129c107ac4d2392f2da961">__init__</a> (self, '<a class="el" href="a01616.html">SHACLExecutor</a>' <a class="el" href="a01628.html#a10dc5a794b998e68e49f378273ec7346">executor</a>, '<a class="el" href="a01660.html">Shape</a>' <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">shape</a>, '<a class="el" href="a02648.html">rdflib.term.Identifier</a>' rule_node, **kwargs)</td></tr>
+<tr class="separator:a96334a0e31129c107ac4d2392f2da961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a607c6891fc84ad076012e6ffc40164c5" id="r_a607c6891fc84ad076012e6ffc40164c5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01632.html#a607c6891fc84ad076012e6ffc40164c5">apply</a> (self, 'GraphLike' data_graph, Optional[Sequence['RDFNode']] focus_nodes=None, Optional['<a class="el" href="a02656.html">URIRef</a>'] target_graph_identifier=None)</td></tr>
+<tr class="separator:a607c6891fc84ad076012e6ffc40164c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a7cf1077d941fdba0dca36d7e13def4a3" id="r_a7cf1077d941fdba0dca36d7e13def4a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01632.html#a7cf1077d941fdba0dca36d7e13def4a3">_constructs</a></td></tr>
+<tr class="separator:a7cf1077d941fdba0dca36d7e13def4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3f10ea46a27ad99338c0940a68b4e6" id="r_aeb3f10ea46a27ad99338c0940a68b4e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01632.html#aeb3f10ea46a27ad99338c0940a68b4e6">_qh</a></td></tr>
+<tr class="separator:aeb3f10ea46a27ad99338c0940a68b4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aef04051147f1d02390e4e37bc7a09417" id="r_aef04051147f1d02390e4e37bc7a09417"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01632.html#aef04051147f1d02390e4e37bc7a09417">__slots__</a> = (&quot;_constructs&quot;, &quot;_qh&quot;)</td></tr>
+<tr class="separator:aef04051147f1d02390e4e37bc7a09417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a96334a0e31129c107ac4d2392f2da961" name="a96334a0e31129c107ac4d2392f2da961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96334a0e31129c107ac4d2392f2da961">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a01616.html">SHACLExecutor</a>'&#160;</td>
+          <td class="paramname"><em>executor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a01660.html">Shape</a>'&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'<a class="el" href="a02648.html">rdflib.term.Identifier</a>'&#160;</td>
+          <td class="paramname"><em>rule_node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param executor:
+:type executor: SHACLExecutor
+:param shape:
+:type shape: Shape
+:param rule_node:
+:type rule_node: rdflib.term.Identifier
+</pre> 
+<p>Reimplemented from <a class="el" href="a01628.html#adbfc1c6daf9b560b2b05f0c3a1febb50">SHACLRule</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>    <span class="keyword">def </span>__init__(self, executor: <span class="stringliteral">&#39;SHACLExecutor&#39;</span>, shape: <span class="stringliteral">&#39;Shape&#39;</span>, rule_node: <span class="stringliteral">&#39;rdflib.term.Identifier&#39;</span>, **kwargs):</div>
+<div class="line"><span class="lineno">   30</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   31</span><span class="stringliteral">        :param executor:</span></div>
+<div class="line"><span class="lineno">   32</span><span class="stringliteral">        :type executor: SHACLExecutor</span></div>
+<div class="line"><span class="lineno">   33</span><span class="stringliteral">        :param shape:</span></div>
+<div class="line"><span class="lineno">   34</span><span class="stringliteral">        :type shape: Shape</span></div>
+<div class="line"><span class="lineno">   35</span><span class="stringliteral">        :param rule_node:</span></div>
+<div class="line"><span class="lineno">   36</span><span class="stringliteral">        :type rule_node: rdflib.term.Identifier</span></div>
+<div class="line"><span class="lineno">   37</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   38</span>        super(SPARQLRule, self).__init__(executor, shape, rule_node, **kwargs)</div>
+<div class="line"><span class="lineno">   39</span>        construct_nodes = set(self.shape.sg.objects(self.node, SH_construct))</div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">if</span> len(construct_nodes) &lt; 1:</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">raise</span> RuleLoadError(<span class="stringliteral">&quot;No sh:construct on SPARQLRule&quot;</span>, <span class="stringliteral">&quot;https://www.w3.org/TR/shacl-af/#SPARQLRule&quot;</span>)</div>
+<div class="line"><span class="lineno">   42</span>        self._constructs = []</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">for</span> c <span class="keywordflow">in</span> construct_nodes:</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(c, Literal) <span class="keywordflow">or</span> <span class="keywordflow">not</span> (</div>
+<div class="line"><span class="lineno">   45</span>                c.datatype == XSD_string <span class="keywordflow">or</span> c.language <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> isinstance(c.value, str)</div>
+<div class="line"><span class="lineno">   46</span>            ):</div>
+<div class="line"><span class="lineno">   47</span>                <span class="keywordflow">raise</span> RuleLoadError(</div>
+<div class="line"><span class="lineno">   48</span>                    <span class="stringliteral">&quot;SPARQLRule sh:construct must be an xsd:string&quot;</span>, <span class="stringliteral">&quot;https://www.w3.org/TR/shacl-af/#SPARQLRule&quot;</span></div>
+<div class="line"><span class="lineno">   49</span>                )</div>
+<div class="line"><span class="lineno">   50</span>            self._constructs.append(str(c.value))</div>
+<div class="line"><span class="lineno">   51</span>        SPARQLQueryHelper = get_query_helper_cls()</div>
+<div class="line"><span class="lineno">   52</span>        query_helper = SPARQLQueryHelper(self.shape, self.node, <span class="keywordtype">None</span>, deactivated=self._deactivated)</div>
+<div class="line"><span class="lineno">   53</span>        query_helper.collect_prefixes()</div>
+<div class="line"><span class="lineno">   54</span>        self._qh = query_helper</div>
+<div class="line"><span class="lineno">   55</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01632.html#a96334a0e31129c107ac4d2392f2da961">SPARQLRule.__init__()</a>, <a class="el" href="a01344.html#a117fe0e1b0051460bbe9ee2b3c5d0cdd">CustomConstraintComponent.node</a>, <a class="el" href="a01468.html#ae0682e96cacac1e6c208357a99dbd6d0">SPARQLConstraintComponentValidator.node</a>, <a class="el" href="a01568.html#ae0682e96cacac1e6c208357a99dbd6d0">JSFunction.node</a>, <a class="el" href="a01572.html#ae0682e96cacac1e6c208357a99dbd6d0">JSExecutable.node</a>, <a class="el" href="a01592.html#ae0682e96cacac1e6c208357a99dbd6d0">SHACLFunction.node</a>, <a class="el" href="a01596.html#ae0682e96cacac1e6c208357a99dbd6d0">SPARQLFunction.node</a>, <a class="el" href="a01600.html#ae0682e96cacac1e6c208357a99dbd6d0">SPARQLQueryHelper.node</a>, <a class="el" href="a01628.html#ae0682e96cacac1e6c208357a99dbd6d0">SHACLRule.node</a>, <a class="el" href="a01660.html#ae0682e96cacac1e6c208357a99dbd6d0">Shape.node</a>, <a class="el" href="a01668.html#ae0682e96cacac1e6c208357a99dbd6d0">SHACLTargetType.node</a>, <a class="el" href="a01672.html#ae0682e96cacac1e6c208357a99dbd6d0">TargetDeclarationWrapper.node</a>, <a class="el" href="a02056.html#a257b3e16cfb2803002a27f4372d6e84c">SH.node</a>, <a class="el" href="a02176.html#a691008001e90bcfb22992f0180bf70c6">SinkParser.node()</a>, <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">ConstraintComponent.shape</a>, <a class="el" href="a01464.html#a45cde9abb508c62d67c3bb2b9bf566a5">BoundShapeValidatorComponent.shape</a>, <a class="el" href="a01600.html#a45cde9abb508c62d67c3bb2b9bf566a5">SPARQLQueryHelper.shape</a>, <a class="el" href="a01600.html#a7a596cec507a98f0d155b6847f5cfb39">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>, and <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">SHACLRule.shape</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01632.html#a96334a0e31129c107ac4d2392f2da961">SPARQLRule.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a607c6891fc84ad076012e6ffc40164c5" name="a607c6891fc84ad076012e6ffc40164c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a607c6891fc84ad076012e6ffc40164c5">&#9670;&#160;</a></span>apply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int apply </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">'GraphLike'&#160;</td>
+          <td class="paramname"><em>data_graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Sequence['RDFNode']] &#160;</td>
+          <td class="paramname"><em>focus_nodes</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional['<a class="el" href="a02656.html">URIRef</a>'] &#160;</td>
+          <td class="paramname"><em>target_graph_identifier</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01628.html#af92b0965a8dc0642ca2b0161d1af7a1c">SHACLRule</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   61</span>    ) -&gt; int:</div>
+<div class="line"><span class="lineno">   62</span>        focus_list: Sequence[<span class="stringliteral">&#39;RDFNode&#39;</span>]</div>
+<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">if</span> focus_nodes <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   64</span>            focus_list = list(focus_nodes)</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   66</span>            focus_list = list(self.shape.focus_nodes(data_graph))</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">if</span> self.executor.focus_nodes <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> len(self.executor.focus_nodes) &gt; 0:</div>
+<div class="line"><span class="lineno">   68</span>            filtered_focus_nodes: List[Union[<a class="code hl_class" href="a02656.html">rdflib.URIRef</a>]] = []</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">for</span> _fo <span class="keywordflow">in</span> focus_list:  <span class="comment"># type: RDFNode</span></div>
+<div class="line"><span class="lineno">   70</span>                <span class="keywordflow">if</span> isinstance(_fo, <a class="code hl_class" href="a02656.html">rdflib.URIRef</a>) <span class="keywordflow">and</span> _fo <span class="keywordflow">in</span> self.executor.focus_nodes:</div>
+<div class="line"><span class="lineno">   71</span>                    filtered_focus_nodes.append(_fo)</div>
+<div class="line"><span class="lineno">   72</span>            len_filtered_focus = len(filtered_focus_nodes)</div>
+<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">if</span> len_filtered_focus &lt; 1:</div>
+<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">return</span> 0</div>
+<div class="line"><span class="lineno">   75</span>            focus_list = filtered_focus_nodes</div>
+<div class="line"><span class="lineno">   76</span>        all_added = 0</div>
+<div class="line"><span class="lineno">   77</span>        SPARQLQueryHelper = get_query_helper_cls()</div>
+<div class="line"><span class="lineno">   78</span>        iterate_limit = int(SPARQL_RULE_ITERATE_LIMIT)</div>
+<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
+<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">if</span> iterate_limit &lt; 1:</div>
+<div class="line"><span class="lineno">   81</span>                <span class="keywordflow">raise</span> ReportableRuntimeError(</div>
+<div class="line"><span class="lineno">   82</span>                    f<span class="stringliteral">&quot;Local SPARQLRule iteration exceeded iteration limit of {SPARQL_RULE_ITERATE_LIMIT}.&quot;</span></div>
+<div class="line"><span class="lineno">   83</span>                )</div>
+<div class="line"><span class="lineno">   84</span>            iterate_limit -= 1</div>
+<div class="line"><span class="lineno">   85</span>            added = 0</div>
+<div class="line"><span class="lineno">   86</span>            applicable_nodes = self.filter_conditions(focus_list, data_graph)</div>
+<div class="line"><span class="lineno">   87</span>            construct_graphs = set()</div>
+<div class="line"><span class="lineno">   88</span>            <span class="keywordflow">for</span> a <span class="keywordflow">in</span> applicable_nodes:</div>
+<div class="line"><span class="lineno">   89</span>                <span class="keywordflow">for</span> c <span class="keywordflow">in</span> self._constructs:</div>
+<div class="line"><span class="lineno">   90</span>                    init_bindings = {}</div>
+<div class="line"><span class="lineno">   91</span>                    found_this = SPARQLQueryHelper.bind_this_regex.search(c)</div>
+<div class="line"><span class="lineno">   92</span>                    <span class="keywordflow">if</span> found_this:</div>
+<div class="line"><span class="lineno">   93</span>                        init_bindings[<span class="stringliteral">&#39;this&#39;</span>] = a</div>
+<div class="line"><span class="lineno">   94</span>                    c = self._qh.apply_prefixes(c)</div>
+<div class="line"><span class="lineno">   95</span>                    results = data_graph.query(c, initBindings=init_bindings)</div>
+<div class="line"><span class="lineno">   96</span>                    <span class="keywordflow">if</span> results.type != <span class="stringliteral">&quot;CONSTRUCT&quot;</span>:</div>
+<div class="line"><span class="lineno">   97</span>                        <span class="keywordflow">raise</span> ReportableRuntimeError(<span class="stringliteral">&quot;Query executed by a SHACL SPARQLRule must be CONSTRUCT query.&quot;</span>)</div>
+<div class="line"><span class="lineno">   98</span>                    this_added = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   99</span>                    result_graph = results.graph</div>
+<div class="line"><span class="lineno">  100</span>                    <span class="keywordflow">if</span> result_graph <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  101</span>                        <span class="keywordflow">raise</span> ReportableRuntimeError(<span class="stringliteral">&quot;Query executed by a SHACL SPARQLRule did not return a Graph.&quot;</span>)</div>
+<div class="line"><span class="lineno">  102</span>                    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> result_graph:</div>
+<div class="line"><span class="lineno">  103</span>                        <span class="keywordflow">if</span> <span class="keywordflow">not</span> this_added <span class="keywordflow">and</span> i <span class="keywordflow">not</span> <span class="keywordflow">in</span> data_graph:</div>
+<div class="line"><span class="lineno">  104</span>                            this_added = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  105</span>                            <span class="comment"># We only need to know at least one triple was added, then break!</span></div>
+<div class="line"><span class="lineno">  106</span>                            <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  107</span>                    <span class="keywordflow">if</span> this_added:</div>
+<div class="line"><span class="lineno">  108</span>                        added += 1</div>
+<div class="line"><span class="lineno">  109</span>                        construct_graphs.add(result_graph)</div>
+<div class="line"><span class="lineno">  110</span>            <span class="keywordflow">if</span> added &gt; 0:</div>
+<div class="line"><span class="lineno">  111</span>                <span class="keywordflow">if</span> isinstance(data_graph, (<a class="code hl_class" href="a01928.html">rdflib.Dataset</a>, <a class="code hl_class" href="a01924.html">rdflib.ConjunctiveGraph</a>)):</div>
+<div class="line"><span class="lineno">  112</span>                    <span class="keywordflow">if</span> target_graph_identifier <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  113</span>                        target_graph = data_graph.get_context(target_graph_identifier)</div>
+<div class="line"><span class="lineno">  114</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  115</span>                        target_graph = data_graph.default_context</div>
+<div class="line"><span class="lineno">  116</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  117</span>                    target_graph = data_graph</div>
+<div class="line"><span class="lineno">  118</span>                <span class="keywordflow">for</span> g <span class="keywordflow">in</span> construct_graphs:</div>
+<div class="line"><span class="lineno">  119</span>                    data_graph = clone_graph(g, target_graph=target_graph)</div>
+<div class="line"><span class="lineno">  120</span>                all_added += added</div>
+<div class="line"><span class="lineno">  121</span>                <span class="keywordflow">if</span> self.iterate:</div>
+<div class="line"><span class="lineno">  122</span>                    <span class="keywordflow">continue</span>  <span class="comment"># Jump up to iterate</span></div>
+<div class="line"><span class="lineno">  123</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  124</span>                    <span class="keywordflow">break</span>  <span class="comment"># Don&#39;t iterate</span></div>
+<div class="line"><span class="lineno">  125</span>            <span class="keywordflow">break</span>  <span class="comment"># We&#39;ve reached a local steady state</span></div>
+<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">return</span> all_added</div>
+<div class="ttc" id="aa01924_html"><div class="ttname"><a href="a01924.html">rdflib.graph.ConjunctiveGraph</a></div><div class="ttdef"><b>Definition</b> graph.py:2093</div></div>
+<div class="ttc" id="aa01928_html"><div class="ttname"><a href="a01928.html">rdflib.graph.Dataset</a></div><div class="ttdef"><b>Definition</b> graph.py:2504</div></div>
+<div class="ttc" id="aa02656_html"><div class="ttname"><a href="a02656.html">rdflib.term.URIRef</a></div><div class="ttdef"><b>Definition</b> term.py:266</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01632.html#a7cf1077d941fdba0dca36d7e13def4a3">SPARQLRule._constructs</a>, <a class="el" href="a01596.html#aeb3f10ea46a27ad99338c0940a68b4e6">SPARQLFunction._qh</a>, <a class="el" href="a01632.html#aeb3f10ea46a27ad99338c0940a68b4e6">SPARQLRule._qh</a>, <a class="el" href="a01628.html#a10dc5a794b998e68e49f378273ec7346">SHACLRule.executor</a>, <a class="el" href="a01628.html#a95155c37b1fa0765b3b1dae5dbaf4057">SHACLRule.filter_conditions()</a>, <a class="el" href="a01628.html#a92a75937517a54060932a2811ab65e92">SHACLRule.iterate</a>, <a class="el" href="a01336.html#a45cde9abb508c62d67c3bb2b9bf566a5">ConstraintComponent.shape</a>, <a class="el" href="a01464.html#a45cde9abb508c62d67c3bb2b9bf566a5">BoundShapeValidatorComponent.shape</a>, <a class="el" href="a01600.html#a45cde9abb508c62d67c3bb2b9bf566a5">SPARQLQueryHelper.shape</a>, <a class="el" href="a01600.html#a7a596cec507a98f0d155b6847f5cfb39">SPARQLQueryHelper.shape()</a>, <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>, and <a class="el" href="a01628.html#a45cde9abb508c62d67c3bb2b9bf566a5">SHACLRule.shape</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aef04051147f1d02390e4e37bc7a09417" name="aef04051147f1d02390e4e37bc7a09417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef04051147f1d02390e4e37bc7a09417">&#9670;&#160;</a></span>__slots__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple __slots__ = (&quot;_constructs&quot;, &quot;_qh&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7cf1077d941fdba0dca36d7e13def4a3" name="a7cf1077d941fdba0dca36d7e13def4a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cf1077d941fdba0dca36d7e13def4a3">&#9670;&#160;</a></span>_constructs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_constructs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01632.html#a607c6891fc84ad076012e6ffc40164c5">SPARQLRule.apply()</a>.</p>
+
+</div>
+</div>
+<a id="aeb3f10ea46a27ad99338c0940a68b4e6" name="aeb3f10ea46a27ad99338c0940a68b4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3f10ea46a27ad99338c0940a68b4e6">&#9670;&#160;</a></span>_qh</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_qh</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01632.html#a607c6891fc84ad076012e6ffc40164c5">SPARQLRule.apply()</a>, <a class="el" href="a01596.html#af5072ac950de4f9cd6afcada9cfec610">SPARQLFunction.execute_ask()</a>, and <a class="el" href="a01596.html#a3674f6c159be65c044dd0e78b888e933">SPARQLFunction.execute_select()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00982.html">rules</a></li><li class="navelem"><a class="el" href="a00984.html">sparql</a></li><li class="navelem"><a class="el" href="a01632.html">SPARQLRule</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

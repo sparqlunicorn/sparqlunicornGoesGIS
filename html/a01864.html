@@ -1,0 +1,989 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: AnnotatableTerms Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01864.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
+<a href="a01861.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">AnnotatableTerms Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for AnnotatableTerms:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01863.png" border="0" usemap="#aAnnotatableTerms_inherit__map" alt="Inheritance graph"/></div>
+<map name="aAnnotatableTerms_inherit__map" id="aAnnotatableTerms_inherit__map">
+<area shape="rect" title=" " alt="" coords="232,79,372,104"/>
+<area shape="rect" href="a01884.html" title=" " alt="" coords="180,152,237,177"/>
+<area shape="poly" title=" " alt="" coords="278,114,226,154,222,150,275,110"/>
+<area shape="rect" href="a01868.html" title=" " alt="" coords="261,152,343,177"/>
+<area shape="poly" title=" " alt="" coords="305,118,305,152,299,152,299,118"/>
+<area shape="rect" href="a01912.html" title=" " alt="" coords="367,152,445,177"/>
+<area shape="poly" title=" " alt="" coords="332,110,390,150,387,154,329,114"/>
+<area shape="rect" href="a01860.html" title=" " alt="" coords="259,5,345,31"/>
+<area shape="poly" title=" " alt="" coords="305,44,305,79,299,79,299,44"/>
+<area shape="rect" href="a01904.html" title=" " alt="" coords="5,225,116,251"/>
+<area shape="poly" title=" " alt="" coords="174,186,86,228,84,223,172,181"/>
+<area shape="rect" href="a01892.html" title=" " alt="" coords="141,225,277,251"/>
+<area shape="poly" title=" " alt="" coords="211,191,211,225,206,225,206,191"/>
+<area shape="rect" href="a01908.html" title=" " alt="" coords="301,225,393,251"/>
+<area shape="poly" title=" " alt="" coords="244,181,326,223,323,227,242,186"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for AnnotatableTerms:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01862.png" border="0" usemap="#aAnnotatableTerms_coll__map" alt="Collaboration graph"/></div>
+<map name="aAnnotatableTerms_coll__map" id="aAnnotatableTerms_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,145,104"/>
+<area shape="rect" href="a01860.html" title=" " alt="" coords="32,5,119,31"/>
+<area shape="poly" title=" " alt="" coords="78,44,78,79,73,79,73,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a305eafb2e4951a4ad31abbe147e71c07" id="r_a305eafb2e4951a4ad31abbe147e71c07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a305eafb2e4951a4ad31abbe147e71c07">__init__</a> (self, <a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">identifier</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">graph</a>=None, nameAnnotation=None, nameIsLabel=False)</td></tr>
+<tr class="separator:a305eafb2e4951a4ad31abbe147e71c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad345cc474570da311762c8e7266bf383" id="r_ad345cc474570da311762c8e7266bf383"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#ad345cc474570da311762c8e7266bf383">handleAnnotation</a> (self, val)</td></tr>
+<tr class="separator:ad345cc474570da311762c8e7266bf383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac278915d4b9c8f6130bee8c51e1520a3" id="r_ac278915d4b9c8f6130bee8c51e1520a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#ac278915d4b9c8f6130bee8c51e1520a3">setupACEAnnotations</a> (self)</td></tr>
+<tr class="separator:ac278915d4b9c8f6130bee8c51e1520a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:afc486b0767ef05e2dc12f5b98be72902" id="r_afc486b0767ef05e2dc12f5b98be72902"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">identifier</a></td></tr>
+<tr class="separator:afc486b0767ef05e2dc12f5b98be72902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ee1ac9909f7c76acadc2bacddaa8b72" id="r_a9ee1ac9909f7c76acadc2bacddaa8b72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a9ee1ac9909f7c76acadc2bacddaa8b72">PN_sgprop</a></td></tr>
+<tr class="separator:a9ee1ac9909f7c76acadc2bacddaa8b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc8167699285ae17e8fc240f9a083832" id="r_adc8167699285ae17e8fc240f9a083832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#adc8167699285ae17e8fc240f9a083832">CN_sgprop</a></td></tr>
+<tr class="separator:adc8167699285ae17e8fc240f9a083832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb1fca38ac5af4f3fb43b4e6ac71d7d2" id="r_afb1fca38ac5af4f3fb43b4e6ac71d7d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#afb1fca38ac5af4f3fb43b4e6ac71d7d2">CN_plprop</a></td></tr>
+<tr class="separator:afb1fca38ac5af4f3fb43b4e6ac71d7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a294fc7c8b2b9939a5a74fc6a1208f795" id="r_a294fc7c8b2b9939a5a74fc6a1208f795"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a294fc7c8b2b9939a5a74fc6a1208f795">tv_sgprop</a></td></tr>
+<tr class="separator:a294fc7c8b2b9939a5a74fc6a1208f795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae2955847d94587aeb8e05c238b27e55" id="r_aae2955847d94587aeb8e05c238b27e55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#aae2955847d94587aeb8e05c238b27e55">tv_plprop</a></td></tr>
+<tr class="separator:aae2955847d94587aeb8e05c238b27e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c8665ff898d2f9c114fa123d1bc723" id="r_a81c8665ff898d2f9c114fa123d1bc723"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a81c8665ff898d2f9c114fa123d1bc723">tv_vbgprop</a></td></tr>
+<tr class="separator:a81c8665ff898d2f9c114fa123d1bc723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aa0a41fd856015313d61b68137de193c8" id="r_aa0a41fd856015313d61b68137de193c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#aa0a41fd856015313d61b68137de193c8">_get_comment</a> (self)</td></tr>
+<tr class="separator:aa0a41fd856015313d61b68137de193c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad843c9ef9d8e4bfd79f48a318f022ffb" id="r_ad843c9ef9d8e4bfd79f48a318f022ffb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#ad843c9ef9d8e4bfd79f48a318f022ffb">_set_comment</a> (self, <a class="el" href="a01864.html#a8c0288707ed90c2275d70e22bd1f16d9">comment</a>)</td></tr>
+<tr class="separator:ad843c9ef9d8e4bfd79f48a318f022ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad74e58c20a4d5ad63c821f79a63b8641" id="r_ad74e58c20a4d5ad63c821f79a63b8641"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#ad74e58c20a4d5ad63c821f79a63b8641">_del_comment</a> (self)</td></tr>
+<tr class="separator:ad74e58c20a4d5ad63c821f79a63b8641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05eed294f84345525ca74baa0a43f5a8" id="r_a05eed294f84345525ca74baa0a43f5a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a05eed294f84345525ca74baa0a43f5a8">_get_seealso</a> (self)</td></tr>
+<tr class="separator:a05eed294f84345525ca74baa0a43f5a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4f97cd5a1a856cd3e990c5999a48e05" id="r_af4f97cd5a1a856cd3e990c5999a48e05"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#af4f97cd5a1a856cd3e990c5999a48e05">_set_seealso</a> (self, seealsos)</td></tr>
+<tr class="separator:af4f97cd5a1a856cd3e990c5999a48e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a732715ace9f532df8d72b8d2d0832cd0" id="r_a732715ace9f532df8d72b8d2d0832cd0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a732715ace9f532df8d72b8d2d0832cd0">_del_seealso</a> (self)</td></tr>
+<tr class="separator:a732715ace9f532df8d72b8d2d0832cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3417142c6c2b862c46cfde07962e97a" id="r_ad3417142c6c2b862c46cfde07962e97a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#ad3417142c6c2b862c46cfde07962e97a">_get_label</a> (self)</td></tr>
+<tr class="separator:ad3417142c6c2b862c46cfde07962e97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d3f979778783ebd2849d3490b31e78" id="r_a69d3f979778783ebd2849d3490b31e78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a69d3f979778783ebd2849d3490b31e78">_set_label</a> (self, <a class="el" href="a01864.html#a22f45a3cb4f074e609f58ebaeef0ecf9">label</a>)</td></tr>
+<tr class="separator:a69d3f979778783ebd2849d3490b31e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a878a309233aab6c57383a93511ba7c26" id="r_a878a309233aab6c57383a93511ba7c26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a878a309233aab6c57383a93511ba7c26">_delete_label</a> (self)</td></tr>
+<tr class="separator:a878a309233aab6c57383a93511ba7c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a8c0288707ed90c2275d70e22bd1f16d9" id="r_a8c0288707ed90c2275d70e22bd1f16d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a8c0288707ed90c2275d70e22bd1f16d9">comment</a> = property(<a class="el" href="a01864.html#aa0a41fd856015313d61b68137de193c8">_get_comment</a>, <a class="el" href="a01864.html#ad843c9ef9d8e4bfd79f48a318f022ffb">_set_comment</a>, <a class="el" href="a01864.html#ad74e58c20a4d5ad63c821f79a63b8641">_del_comment</a>)</td></tr>
+<tr class="separator:a8c0288707ed90c2275d70e22bd1f16d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14b79f442acd162bd638d75cd8308566" id="r_a14b79f442acd162bd638d75cd8308566"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a14b79f442acd162bd638d75cd8308566">seeAlso</a> = property(<a class="el" href="a01864.html#a05eed294f84345525ca74baa0a43f5a8">_get_seealso</a>, <a class="el" href="a01864.html#af4f97cd5a1a856cd3e990c5999a48e05">_set_seealso</a>, <a class="el" href="a01864.html#a732715ace9f532df8d72b8d2d0832cd0">_del_seealso</a>)</td></tr>
+<tr class="separator:a14b79f442acd162bd638d75cd8308566"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22f45a3cb4f074e609f58ebaeef0ecf9" id="r_a22f45a3cb4f074e609f58ebaeef0ecf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html#a22f45a3cb4f074e609f58ebaeef0ecf9">label</a> = property(<a class="el" href="a01864.html#ad3417142c6c2b862c46cfde07962e97a">_get_label</a>, <a class="el" href="a01864.html#a69d3f979778783ebd2849d3490b31e78">_set_label</a>, <a class="el" href="a01864.html#a878a309233aab6c57383a93511ba7c26">_delete_label</a>)</td></tr>
+<tr class="separator:a22f45a3cb4f074e609f58ebaeef0ecf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Terms in an OWL ontology with rdfs:label and rdfs:comment
+
+Interface with ATTEMPTO (http://attempto.ifi.uzh.ch/site)
+
+## Verbalisation of OWL entity IRIS
+
+### How are OWL entity IRIs verbalized?
+
+The OWL verbalizer maps OWL entity IRIs to ACE content words such
+that
+
+- OWL individuals map to ACE proper names (PN)
+- OWL classes map to ACE common nouns (CN)
+- OWL properties map to ACE transitive verbs (TV)
+
+There are 6 morphological categories that determine the surface form
+of an IRI:
+
+- singular form of a proper name (e.g. John)
+- singular form of a common noun (e.g. man)
+- plural form of a common noun (e.g. men)
+- singular form of a transitive verb (e.g. mans)
+- plural form of a transitive verb (e.g. man)
+- past participle form a transitive verb (e.g. manned)
+
+The user has full control over the eventual surface forms of the IRIs
+but has to choose them in terms of the above categories.
+Furthermore,
+
+- the surface forms must be legal ACE content words (e.g. they
+  should not contain punctuation symbols);
+- the mapping of IRIs to surface forms must be bidirectional
+  within the same word class, in order to be able to (if needed)
+  parse the verbalization back into OWL in a semantics preserving
+  way.
+
+### Using the lexicon
+
+It is possible to specify the mapping of IRIs to surface forms using
+the following annotation properties:
+
+```
+http://attempto.ifi.uzh.ch/ace_lexicon#PN_sg
+http://attempto.ifi.uzh.ch/ace_lexicon#CN_sg
+http://attempto.ifi.uzh.ch/ace_lexicon#CN_pl
+http://attempto.ifi.uzh.ch/ace_lexicon#TV_sg
+http://attempto.ifi.uzh.ch/ace_lexicon#TV_pl
+http://attempto.ifi.uzh.ch/ace_lexicon#TV_vbg
+```
+
+For example, the following axioms state that if the IRI "#man" is used
+as a plural common noun, then the wordform men must be used by the
+verbalizer. If, however, it is used as a singular transitive verb,
+then mans must be used.
+
+```xml
+&lt;AnnotationAssertion&gt;
+    &lt;AnnotationProperty IRI="http://attempto.ifi.uzh.ch/ace_lexicon#CN_pl"/&gt;
+    &lt;IRI&gt;#man&lt;/IRI&gt;
+    &lt;Literal datatypeIRI="&amp;xsd;string"&gt;men&lt;/Literal&gt;
+&lt;/AnnotationAssertion&gt;
+
+&lt;AnnotationAssertion&gt;
+    &lt;AnnotationProperty IRI="http://attempto.ifi.uzh.ch/ace_lexicon#TV_sg"/&gt;
+    &lt;IRI&gt;#man&lt;/IRI&gt;
+    &lt;Literal datatypeIRI="&amp;xsd;string"&gt;mans&lt;/Literal&gt;
+&lt;/AnnotationAssertion&gt;
+```
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a305eafb2e4951a4ad31abbe147e71c07" name="a305eafb2e4951a4ad31abbe147e71c07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a305eafb2e4951a4ad31abbe147e71c07">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>identifier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graph</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>nameAnnotation</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>nameIsLabel</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a01860.html#ab687e6d4040cce177bc99c68e9ef2bf2">Individual</a>.</p>
+
+<p>Reimplemented in <a class="el" href="a01912.html#ac7c43483a06b9e2b08772b217daabc1e">Property</a>, <a class="el" href="a01868.html#a13308da5762c15c114e4053801fc899e">Ontology</a>, <a class="el" href="a01892.html#ab828cba12f3eb86ddb63d1b344de2250">EnumeratedClass</a>, <a class="el" href="a01904.html#abb6344b3c02f259ac6a7aecb7c10011a">BooleanClass</a>, <a class="el" href="a01884.html#ab28fe30541476d272094925a4a89baf8">Class</a>, and <a class="el" href="a01908.html#ac9ea3bd97b3c1dd2633353bf4a666370">Restriction</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  641</span>    ):</div>
+<div class="line"><span class="lineno">  642</span>        super(AnnotatableTerms, self).__init__(identifier, graph)</div>
+<div class="line"><span class="lineno">  643</span>        <span class="keywordflow">if</span> nameAnnotation:</div>
+<div class="line"><span class="lineno">  644</span>            self.setupACEAnnotations()</div>
+<div class="line"><span class="lineno">  645</span>            self.PN_sgprop.extent = [</div>
+<div class="line"><span class="lineno">  646</span>                (self.identifier, self.handleAnnotation(nameAnnotation))</div>
+<div class="line"><span class="lineno">  647</span>            ]</div>
+<div class="line"><span class="lineno">  648</span>            <span class="keywordflow">if</span> nameIsLabel:</div>
+<div class="line"><span class="lineno">  649</span>                self.label = [nameAnnotation]</div>
+<div class="line"><span class="lineno">  650</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01864.html#a305eafb2e4951a4ad31abbe147e71c07">AnnotatableTerms.__init__()</a>, <a class="el" href="a01864.html#a9ee1ac9909f7c76acadc2bacddaa8b72">AnnotatableTerms.PN_sgprop</a>, and <a class="el" href="a01864.html#ac278915d4b9c8f6130bee8c51e1520a3">AnnotatableTerms.setupACEAnnotations()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01864.html#a305eafb2e4951a4ad31abbe147e71c07">AnnotatableTerms.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad74e58c20a4d5ad63c821f79a63b8641" name="ad74e58c20a4d5ad63c821f79a63b8641"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad74e58c20a4d5ad63c821f79a63b8641">&#9670;&#160;</a></span>_del_comment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_del_comment </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  703</span>    <span class="keyword">def </span>_del_comment(self):</div>
+<div class="line"><span class="lineno">  704</span>        <span class="keywordflow">pass</span>  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno">  705</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a732715ace9f532df8d72b8d2d0832cd0" name="a732715ace9f532df8d72b8d2d0832cd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a732715ace9f532df8d72b8d2d0832cd0">&#9670;&#160;</a></span>_del_seealso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_del_seealso </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  721</span>    <span class="keyword">def </span>_del_seealso(self):</div>
+<div class="line"><span class="lineno">  722</span>        <span class="keywordflow">pass</span>  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno">  723</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a878a309233aab6c57383a93511ba7c26" name="a878a309233aab6c57383a93511ba7c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a878a309233aab6c57383a93511ba7c26">&#9670;&#160;</a></span>_delete_label()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_delete_label </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">```python
+&gt;&gt;&gt; g = Graph()
+&gt;&gt;&gt; b = Individual(OWL.Restriction,g)
+&gt;&gt;&gt; b.label = Literal('boo')
+&gt;&gt;&gt; len(list(b.label))
+1
+&gt;&gt;&gt; del b.label
+&gt;&gt;&gt; len(list(b.label))
+0
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">  740</span>    <span class="keyword">def </span>_delete_label(self):</div>
+<div class="line"><span class="lineno">  741</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  742</span><span class="stringliteral">        ```python</span></div>
+<div class="line"><span class="lineno">  743</span><span class="stringliteral">        &gt;&gt;&gt; g = Graph()</span></div>
+<div class="line"><span class="lineno">  744</span><span class="stringliteral">        &gt;&gt;&gt; b = Individual(OWL.Restriction,g)</span></div>
+<div class="line"><span class="lineno">  745</span><span class="stringliteral">        &gt;&gt;&gt; b.label = Literal(&#39;boo&#39;)</span></div>
+<div class="line"><span class="lineno">  746</span><span class="stringliteral">        &gt;&gt;&gt; len(list(b.label))</span></div>
+<div class="line"><span class="lineno">  747</span><span class="stringliteral">        1</span></div>
+<div class="line"><span class="lineno">  748</span><span class="stringliteral">        &gt;&gt;&gt; del b.label</span></div>
+<div class="line"><span class="lineno">  749</span><span class="stringliteral">        &gt;&gt;&gt; len(list(b.label))</span></div>
+<div class="line"><span class="lineno">  750</span><span class="stringliteral">        0</span></div>
+<div class="line"><span class="lineno">  751</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  752</span><span class="stringliteral">        ```</span></div>
+<div class="line"><span class="lineno">  753</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  754</span>        <span class="keywordflow">pass</span>  <span class="comment"># pragma: no cover</span></div>
+<div class="line"><span class="lineno">  755</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa0a41fd856015313d61b68137de193c8" name="aa0a41fd856015313d61b68137de193c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0a41fd856015313d61b68137de193c8">&#9670;&#160;</a></span>_get_comment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_get_comment </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  687</span>    <span class="keyword">def </span>_get_comment(self):</div>
+<div class="line"><span class="lineno">  688</span>        <span class="keywordflow">for</span> comment <span class="keywordflow">in</span> self.graph.objects(</div>
+<div class="line"><span class="lineno">  689</span>            subject=self.identifier, predicate=RDFS.comment</div>
+<div class="line"><span class="lineno">  690</span>        ):</div>
+<div class="line"><span class="lineno">  691</span>            <span class="keywordflow">yield</span> comment</div>
+<div class="line"><span class="lineno">  692</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>, <a class="el" href="a01548.html#a71098ba1dd8204d775126bcc87106984">BNodeNativeWrapper.identifier()</a>, <a class="el" href="a01752.html#a71098ba1dd8204d775126bcc87106984">RDF4JNamespaceManager.identifier()</a>, <a class="el" href="a01756.html#a71098ba1dd8204d775126bcc87106984">GraphStoreManager.identifier()</a>, <a class="el" href="a01760.html#a5729cec2d4bc44490fcd1af667c12680">RepositoryListingResult.identifier</a>, <a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">Repository.identifier()</a>, <a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">Repository.identifier</a>, <a class="el" href="a01860.html#afc486b0767ef05e2dc12f5b98be72902">Individual.identifier</a>, <a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">AnnotatableTerms.identifier</a>, <a class="el" href="a01868.html#afc486b0767ef05e2dc12f5b98be72902">Ontology.identifier</a>, <a class="el" href="a01884.html#afc486b0767ef05e2dc12f5b98be72902">Class.identifier</a>, <a class="el" href="a01888.html#afc486b0767ef05e2dc12f5b98be72902">OWLRDFListProxy.identifier</a>, <a class="el" href="a01892.html#afc486b0767ef05e2dc12f5b98be72902">EnumeratedClass.identifier</a>, <a class="el" href="a01904.html#afc486b0767ef05e2dc12f5b98be72902">BooleanClass.identifier</a>, <a class="el" href="a01908.html#afc486b0767ef05e2dc12f5b98be72902">Restriction.identifier</a>, <a class="el" href="a01912.html#afc486b0767ef05e2dc12f5b98be72902">Property.identifier</a>, <a class="el" href="a01920.html#a98aa4e5dc3a101e28f8849c7ba48ca21">Graph.identifier()</a>, <a class="el" href="a01920.html#afc486b0767ef05e2dc12f5b98be72902">Graph.identifier</a>, <a class="el" href="a01924.html#afc486b0767ef05e2dc12f5b98be72902">ConjunctiveGraph.identifier</a>, <a class="el" href="a01928.html#a71098ba1dd8204d775126bcc87106984">Dataset.identifier()</a>, <a class="el" href="a01928.html#afc486b0767ef05e2dc12f5b98be72902">Dataset.identifier</a>, <a class="el" href="a01932.html#afc486b0767ef05e2dc12f5b98be72902">QuotedGraph.identifier</a>, <a class="el" href="a01988.html#afc486b0767ef05e2dc12f5b98be72902">DC.identifier</a>, <a class="el" href="a02004.html#afc486b0767ef05e2dc12f5b98be72902">DCTERMS.identifier</a>, <a class="el" href="a02024.html#a29d9b74aadaf03be18fa4edd359ed565">ORG.identifier</a>, <a class="el" href="a02536.html#afc486b0767ef05e2dc12f5b98be72902">BerkeleyDB.identifier</a>, <a class="el" href="a02548.html#afc486b0767ef05e2dc12f5b98be72902">SimpleMemory.identifier</a>, <a class="el" href="a02552.html#afc486b0767ef05e2dc12f5b98be72902">Memory.identifier</a>, <a class="el" href="a02616.html#a71098ba1dd8204d775126bcc87106984">Resource.identifier()</a>, and <a class="el" href="a02616.html#afc486b0767ef05e2dc12f5b98be72902">Resource.identifier</a>.</p>
+
+</div>
+</div>
+<a id="ad3417142c6c2b862c46cfde07962e97a" name="ad3417142c6c2b862c46cfde07962e97a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3417142c6c2b862c46cfde07962e97a">&#9670;&#160;</a></span>_get_label()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_get_label </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  726</span>    <span class="keyword">def </span>_get_label(self):</div>
+<div class="line"><span class="lineno">  727</span>        <span class="keywordflow">for</span> label <span class="keywordflow">in</span> self.graph.objects(subject=self.identifier, predicate=RDFS.label):</div>
+<div class="line"><span class="lineno">  728</span>            <span class="keywordflow">yield</span> label</div>
+<div class="line"><span class="lineno">  729</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>, <a class="el" href="a01548.html#a71098ba1dd8204d775126bcc87106984">BNodeNativeWrapper.identifier()</a>, <a class="el" href="a01752.html#a71098ba1dd8204d775126bcc87106984">RDF4JNamespaceManager.identifier()</a>, <a class="el" href="a01756.html#a71098ba1dd8204d775126bcc87106984">GraphStoreManager.identifier()</a>, <a class="el" href="a01760.html#a5729cec2d4bc44490fcd1af667c12680">RepositoryListingResult.identifier</a>, <a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">Repository.identifier()</a>, <a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">Repository.identifier</a>, <a class="el" href="a01860.html#afc486b0767ef05e2dc12f5b98be72902">Individual.identifier</a>, <a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">AnnotatableTerms.identifier</a>, <a class="el" href="a01868.html#afc486b0767ef05e2dc12f5b98be72902">Ontology.identifier</a>, <a class="el" href="a01884.html#afc486b0767ef05e2dc12f5b98be72902">Class.identifier</a>, <a class="el" href="a01888.html#afc486b0767ef05e2dc12f5b98be72902">OWLRDFListProxy.identifier</a>, <a class="el" href="a01892.html#afc486b0767ef05e2dc12f5b98be72902">EnumeratedClass.identifier</a>, <a class="el" href="a01904.html#afc486b0767ef05e2dc12f5b98be72902">BooleanClass.identifier</a>, <a class="el" href="a01908.html#afc486b0767ef05e2dc12f5b98be72902">Restriction.identifier</a>, <a class="el" href="a01912.html#afc486b0767ef05e2dc12f5b98be72902">Property.identifier</a>, <a class="el" href="a01920.html#a98aa4e5dc3a101e28f8849c7ba48ca21">Graph.identifier()</a>, <a class="el" href="a01920.html#afc486b0767ef05e2dc12f5b98be72902">Graph.identifier</a>, <a class="el" href="a01924.html#afc486b0767ef05e2dc12f5b98be72902">ConjunctiveGraph.identifier</a>, <a class="el" href="a01928.html#a71098ba1dd8204d775126bcc87106984">Dataset.identifier()</a>, <a class="el" href="a01928.html#afc486b0767ef05e2dc12f5b98be72902">Dataset.identifier</a>, <a class="el" href="a01932.html#afc486b0767ef05e2dc12f5b98be72902">QuotedGraph.identifier</a>, <a class="el" href="a01988.html#afc486b0767ef05e2dc12f5b98be72902">DC.identifier</a>, <a class="el" href="a02004.html#afc486b0767ef05e2dc12f5b98be72902">DCTERMS.identifier</a>, <a class="el" href="a02024.html#a29d9b74aadaf03be18fa4edd359ed565">ORG.identifier</a>, <a class="el" href="a02536.html#afc486b0767ef05e2dc12f5b98be72902">BerkeleyDB.identifier</a>, <a class="el" href="a02548.html#afc486b0767ef05e2dc12f5b98be72902">SimpleMemory.identifier</a>, <a class="el" href="a02552.html#afc486b0767ef05e2dc12f5b98be72902">Memory.identifier</a>, <a class="el" href="a02616.html#a71098ba1dd8204d775126bcc87106984">Resource.identifier()</a>, and <a class="el" href="a02616.html#afc486b0767ef05e2dc12f5b98be72902">Resource.identifier</a>.</p>
+
+</div>
+</div>
+<a id="a05eed294f84345525ca74baa0a43f5a8" name="a05eed294f84345525ca74baa0a43f5a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05eed294f84345525ca74baa0a43f5a8">&#9670;&#160;</a></span>_get_seealso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_get_seealso </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  708</span>    <span class="keyword">def </span>_get_seealso(self):</div>
+<div class="line"><span class="lineno">  709</span>        <span class="keywordflow">for</span> seealso <span class="keywordflow">in</span> self.graph.objects(</div>
+<div class="line"><span class="lineno">  710</span>            subject=self.identifier, predicate=RDFS.seeAlso</div>
+<div class="line"><span class="lineno">  711</span>        ):</div>
+<div class="line"><span class="lineno">  712</span>            <span class="keywordflow">yield</span> seealso</div>
+<div class="line"><span class="lineno">  713</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>, <a class="el" href="a01548.html#a71098ba1dd8204d775126bcc87106984">BNodeNativeWrapper.identifier()</a>, <a class="el" href="a01752.html#a71098ba1dd8204d775126bcc87106984">RDF4JNamespaceManager.identifier()</a>, <a class="el" href="a01756.html#a71098ba1dd8204d775126bcc87106984">GraphStoreManager.identifier()</a>, <a class="el" href="a01760.html#a5729cec2d4bc44490fcd1af667c12680">RepositoryListingResult.identifier</a>, <a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">Repository.identifier()</a>, <a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">Repository.identifier</a>, <a class="el" href="a01860.html#afc486b0767ef05e2dc12f5b98be72902">Individual.identifier</a>, <a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">AnnotatableTerms.identifier</a>, <a class="el" href="a01868.html#afc486b0767ef05e2dc12f5b98be72902">Ontology.identifier</a>, <a class="el" href="a01884.html#afc486b0767ef05e2dc12f5b98be72902">Class.identifier</a>, <a class="el" href="a01888.html#afc486b0767ef05e2dc12f5b98be72902">OWLRDFListProxy.identifier</a>, <a class="el" href="a01892.html#afc486b0767ef05e2dc12f5b98be72902">EnumeratedClass.identifier</a>, <a class="el" href="a01904.html#afc486b0767ef05e2dc12f5b98be72902">BooleanClass.identifier</a>, <a class="el" href="a01908.html#afc486b0767ef05e2dc12f5b98be72902">Restriction.identifier</a>, <a class="el" href="a01912.html#afc486b0767ef05e2dc12f5b98be72902">Property.identifier</a>, <a class="el" href="a01920.html#a98aa4e5dc3a101e28f8849c7ba48ca21">Graph.identifier()</a>, <a class="el" href="a01920.html#afc486b0767ef05e2dc12f5b98be72902">Graph.identifier</a>, <a class="el" href="a01924.html#afc486b0767ef05e2dc12f5b98be72902">ConjunctiveGraph.identifier</a>, <a class="el" href="a01928.html#a71098ba1dd8204d775126bcc87106984">Dataset.identifier()</a>, <a class="el" href="a01928.html#afc486b0767ef05e2dc12f5b98be72902">Dataset.identifier</a>, <a class="el" href="a01932.html#afc486b0767ef05e2dc12f5b98be72902">QuotedGraph.identifier</a>, <a class="el" href="a01988.html#afc486b0767ef05e2dc12f5b98be72902">DC.identifier</a>, <a class="el" href="a02004.html#afc486b0767ef05e2dc12f5b98be72902">DCTERMS.identifier</a>, <a class="el" href="a02024.html#a29d9b74aadaf03be18fa4edd359ed565">ORG.identifier</a>, <a class="el" href="a02536.html#afc486b0767ef05e2dc12f5b98be72902">BerkeleyDB.identifier</a>, <a class="el" href="a02548.html#afc486b0767ef05e2dc12f5b98be72902">SimpleMemory.identifier</a>, <a class="el" href="a02552.html#afc486b0767ef05e2dc12f5b98be72902">Memory.identifier</a>, <a class="el" href="a02616.html#a71098ba1dd8204d775126bcc87106984">Resource.identifier()</a>, and <a class="el" href="a02616.html#afc486b0767ef05e2dc12f5b98be72902">Resource.identifier</a>.</p>
+
+</div>
+</div>
+<a id="ad843c9ef9d8e4bfd79f48a318f022ffb" name="ad843c9ef9d8e4bfd79f48a318f022ffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad843c9ef9d8e4bfd79f48a318f022ffb">&#9670;&#160;</a></span>_set_comment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_set_comment </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>comment</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  693</span>    <span class="keyword">def </span>_set_comment(self, comment):</div>
+<div class="line"><span class="lineno">  694</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> comment:</div>
+<div class="line"><span class="lineno">  695</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  696</span>        <span class="keywordflow">if</span> isinstance(comment, Identifier):</div>
+<div class="line"><span class="lineno">  697</span>            self.graph.add((self.identifier, RDFS.comment, comment))</div>
+<div class="line"><span class="lineno">  698</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  699</span>            <span class="keywordflow">for</span> c <span class="keywordflow">in</span> comment:</div>
+<div class="line"><span class="lineno">  700</span>                self.graph.add((self.identifier, RDFS.comment, c))</div>
+<div class="line"><span class="lineno">  701</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>, <a class="el" href="a01548.html#a71098ba1dd8204d775126bcc87106984">BNodeNativeWrapper.identifier()</a>, <a class="el" href="a01752.html#a71098ba1dd8204d775126bcc87106984">RDF4JNamespaceManager.identifier()</a>, <a class="el" href="a01756.html#a71098ba1dd8204d775126bcc87106984">GraphStoreManager.identifier()</a>, <a class="el" href="a01760.html#a5729cec2d4bc44490fcd1af667c12680">RepositoryListingResult.identifier</a>, <a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">Repository.identifier()</a>, <a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">Repository.identifier</a>, <a class="el" href="a01860.html#afc486b0767ef05e2dc12f5b98be72902">Individual.identifier</a>, <a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">AnnotatableTerms.identifier</a>, <a class="el" href="a01868.html#afc486b0767ef05e2dc12f5b98be72902">Ontology.identifier</a>, <a class="el" href="a01884.html#afc486b0767ef05e2dc12f5b98be72902">Class.identifier</a>, <a class="el" href="a01888.html#afc486b0767ef05e2dc12f5b98be72902">OWLRDFListProxy.identifier</a>, <a class="el" href="a01892.html#afc486b0767ef05e2dc12f5b98be72902">EnumeratedClass.identifier</a>, <a class="el" href="a01904.html#afc486b0767ef05e2dc12f5b98be72902">BooleanClass.identifier</a>, <a class="el" href="a01908.html#afc486b0767ef05e2dc12f5b98be72902">Restriction.identifier</a>, <a class="el" href="a01912.html#afc486b0767ef05e2dc12f5b98be72902">Property.identifier</a>, <a class="el" href="a01920.html#a98aa4e5dc3a101e28f8849c7ba48ca21">Graph.identifier()</a>, <a class="el" href="a01920.html#afc486b0767ef05e2dc12f5b98be72902">Graph.identifier</a>, <a class="el" href="a01924.html#afc486b0767ef05e2dc12f5b98be72902">ConjunctiveGraph.identifier</a>, <a class="el" href="a01928.html#a71098ba1dd8204d775126bcc87106984">Dataset.identifier()</a>, <a class="el" href="a01928.html#afc486b0767ef05e2dc12f5b98be72902">Dataset.identifier</a>, <a class="el" href="a01932.html#afc486b0767ef05e2dc12f5b98be72902">QuotedGraph.identifier</a>, <a class="el" href="a01988.html#afc486b0767ef05e2dc12f5b98be72902">DC.identifier</a>, <a class="el" href="a02004.html#afc486b0767ef05e2dc12f5b98be72902">DCTERMS.identifier</a>, <a class="el" href="a02024.html#a29d9b74aadaf03be18fa4edd359ed565">ORG.identifier</a>, <a class="el" href="a02536.html#afc486b0767ef05e2dc12f5b98be72902">BerkeleyDB.identifier</a>, <a class="el" href="a02548.html#afc486b0767ef05e2dc12f5b98be72902">SimpleMemory.identifier</a>, <a class="el" href="a02552.html#afc486b0767ef05e2dc12f5b98be72902">Memory.identifier</a>, <a class="el" href="a02616.html#a71098ba1dd8204d775126bcc87106984">Resource.identifier()</a>, and <a class="el" href="a02616.html#afc486b0767ef05e2dc12f5b98be72902">Resource.identifier</a>.</p>
+
+</div>
+</div>
+<a id="a69d3f979778783ebd2849d3490b31e78" name="a69d3f979778783ebd2849d3490b31e78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69d3f979778783ebd2849d3490b31e78">&#9670;&#160;</a></span>_set_label()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_set_label </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>label</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  730</span>    <span class="keyword">def </span>_set_label(self, label):</div>
+<div class="line"><span class="lineno">  731</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> label:</div>
+<div class="line"><span class="lineno">  732</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  733</span>        <span class="keywordflow">if</span> isinstance(label, Identifier):</div>
+<div class="line"><span class="lineno">  734</span>            self.graph.add((self.identifier, RDFS.label, label))</div>
+<div class="line"><span class="lineno">  735</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  736</span>            <span class="keywordflow">for</span> l_ <span class="keywordflow">in</span> label:</div>
+<div class="line"><span class="lineno">  737</span>                self.graph.add((self.identifier, RDFS.label, l_))</div>
+<div class="line"><span class="lineno">  738</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>, <a class="el" href="a01548.html#a71098ba1dd8204d775126bcc87106984">BNodeNativeWrapper.identifier()</a>, <a class="el" href="a01752.html#a71098ba1dd8204d775126bcc87106984">RDF4JNamespaceManager.identifier()</a>, <a class="el" href="a01756.html#a71098ba1dd8204d775126bcc87106984">GraphStoreManager.identifier()</a>, <a class="el" href="a01760.html#a5729cec2d4bc44490fcd1af667c12680">RepositoryListingResult.identifier</a>, <a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">Repository.identifier()</a>, <a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">Repository.identifier</a>, <a class="el" href="a01860.html#afc486b0767ef05e2dc12f5b98be72902">Individual.identifier</a>, <a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">AnnotatableTerms.identifier</a>, <a class="el" href="a01868.html#afc486b0767ef05e2dc12f5b98be72902">Ontology.identifier</a>, <a class="el" href="a01884.html#afc486b0767ef05e2dc12f5b98be72902">Class.identifier</a>, <a class="el" href="a01888.html#afc486b0767ef05e2dc12f5b98be72902">OWLRDFListProxy.identifier</a>, <a class="el" href="a01892.html#afc486b0767ef05e2dc12f5b98be72902">EnumeratedClass.identifier</a>, <a class="el" href="a01904.html#afc486b0767ef05e2dc12f5b98be72902">BooleanClass.identifier</a>, <a class="el" href="a01908.html#afc486b0767ef05e2dc12f5b98be72902">Restriction.identifier</a>, <a class="el" href="a01912.html#afc486b0767ef05e2dc12f5b98be72902">Property.identifier</a>, <a class="el" href="a01920.html#a98aa4e5dc3a101e28f8849c7ba48ca21">Graph.identifier()</a>, <a class="el" href="a01920.html#afc486b0767ef05e2dc12f5b98be72902">Graph.identifier</a>, <a class="el" href="a01924.html#afc486b0767ef05e2dc12f5b98be72902">ConjunctiveGraph.identifier</a>, <a class="el" href="a01928.html#a71098ba1dd8204d775126bcc87106984">Dataset.identifier()</a>, <a class="el" href="a01928.html#afc486b0767ef05e2dc12f5b98be72902">Dataset.identifier</a>, <a class="el" href="a01932.html#afc486b0767ef05e2dc12f5b98be72902">QuotedGraph.identifier</a>, <a class="el" href="a01988.html#afc486b0767ef05e2dc12f5b98be72902">DC.identifier</a>, <a class="el" href="a02004.html#afc486b0767ef05e2dc12f5b98be72902">DCTERMS.identifier</a>, <a class="el" href="a02024.html#a29d9b74aadaf03be18fa4edd359ed565">ORG.identifier</a>, <a class="el" href="a02536.html#afc486b0767ef05e2dc12f5b98be72902">BerkeleyDB.identifier</a>, <a class="el" href="a02548.html#afc486b0767ef05e2dc12f5b98be72902">SimpleMemory.identifier</a>, <a class="el" href="a02552.html#afc486b0767ef05e2dc12f5b98be72902">Memory.identifier</a>, <a class="el" href="a02616.html#a71098ba1dd8204d775126bcc87106984">Resource.identifier()</a>, and <a class="el" href="a02616.html#afc486b0767ef05e2dc12f5b98be72902">Resource.identifier</a>.</p>
+
+</div>
+</div>
+<a id="af4f97cd5a1a856cd3e990c5999a48e05" name="af4f97cd5a1a856cd3e990c5999a48e05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4f97cd5a1a856cd3e990c5999a48e05">&#9670;&#160;</a></span>_set_seealso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_set_seealso </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>seealsos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  714</span>    <span class="keyword">def </span>_set_seealso(self, seealsos):</div>
+<div class="line"><span class="lineno">  715</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> seealsos:</div>
+<div class="line"><span class="lineno">  716</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  717</span>        <span class="keywordflow">for</span> s <span class="keywordflow">in</span> seealsos:</div>
+<div class="line"><span class="lineno">  718</span>            self.graph.add((self.identifier, RDFS.seeAlso, s))</div>
+<div class="line"><span class="lineno">  719</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>, <a class="el" href="a01548.html#a71098ba1dd8204d775126bcc87106984">BNodeNativeWrapper.identifier()</a>, <a class="el" href="a01752.html#a71098ba1dd8204d775126bcc87106984">RDF4JNamespaceManager.identifier()</a>, <a class="el" href="a01756.html#a71098ba1dd8204d775126bcc87106984">GraphStoreManager.identifier()</a>, <a class="el" href="a01760.html#a5729cec2d4bc44490fcd1af667c12680">RepositoryListingResult.identifier</a>, <a class="el" href="a01764.html#a71098ba1dd8204d775126bcc87106984">Repository.identifier()</a>, <a class="el" href="a01764.html#afc486b0767ef05e2dc12f5b98be72902">Repository.identifier</a>, <a class="el" href="a01860.html#afc486b0767ef05e2dc12f5b98be72902">Individual.identifier</a>, <a class="el" href="a01864.html#afc486b0767ef05e2dc12f5b98be72902">AnnotatableTerms.identifier</a>, <a class="el" href="a01868.html#afc486b0767ef05e2dc12f5b98be72902">Ontology.identifier</a>, <a class="el" href="a01884.html#afc486b0767ef05e2dc12f5b98be72902">Class.identifier</a>, <a class="el" href="a01888.html#afc486b0767ef05e2dc12f5b98be72902">OWLRDFListProxy.identifier</a>, <a class="el" href="a01892.html#afc486b0767ef05e2dc12f5b98be72902">EnumeratedClass.identifier</a>, <a class="el" href="a01904.html#afc486b0767ef05e2dc12f5b98be72902">BooleanClass.identifier</a>, <a class="el" href="a01908.html#afc486b0767ef05e2dc12f5b98be72902">Restriction.identifier</a>, <a class="el" href="a01912.html#afc486b0767ef05e2dc12f5b98be72902">Property.identifier</a>, <a class="el" href="a01920.html#a98aa4e5dc3a101e28f8849c7ba48ca21">Graph.identifier()</a>, <a class="el" href="a01920.html#afc486b0767ef05e2dc12f5b98be72902">Graph.identifier</a>, <a class="el" href="a01924.html#afc486b0767ef05e2dc12f5b98be72902">ConjunctiveGraph.identifier</a>, <a class="el" href="a01928.html#a71098ba1dd8204d775126bcc87106984">Dataset.identifier()</a>, <a class="el" href="a01928.html#afc486b0767ef05e2dc12f5b98be72902">Dataset.identifier</a>, <a class="el" href="a01932.html#afc486b0767ef05e2dc12f5b98be72902">QuotedGraph.identifier</a>, <a class="el" href="a01988.html#afc486b0767ef05e2dc12f5b98be72902">DC.identifier</a>, <a class="el" href="a02004.html#afc486b0767ef05e2dc12f5b98be72902">DCTERMS.identifier</a>, <a class="el" href="a02024.html#a29d9b74aadaf03be18fa4edd359ed565">ORG.identifier</a>, <a class="el" href="a02536.html#afc486b0767ef05e2dc12f5b98be72902">BerkeleyDB.identifier</a>, <a class="el" href="a02548.html#afc486b0767ef05e2dc12f5b98be72902">SimpleMemory.identifier</a>, <a class="el" href="a02552.html#afc486b0767ef05e2dc12f5b98be72902">Memory.identifier</a>, <a class="el" href="a02616.html#a71098ba1dd8204d775126bcc87106984">Resource.identifier()</a>, and <a class="el" href="a02616.html#afc486b0767ef05e2dc12f5b98be72902">Resource.identifier</a>.</p>
+
+</div>
+</div>
+<a id="ad345cc474570da311762c8e7266bf383" name="ad345cc474570da311762c8e7266bf383"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad345cc474570da311762c8e7266bf383">&#9670;&#160;</a></span>handleAnnotation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">handleAnnotation </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  651</span>    <span class="keyword">def </span>handleAnnotation(self, val):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  652</span>        <span class="keywordflow">return</span> val <span class="keywordflow">if</span> isinstance(val, Literal) <span class="keywordflow">else</span> Literal(val)</div>
+<div class="line"><span class="lineno">  653</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01884.html#afae9f66416afba5b8d9517e8eeb98cd3">Class.setupNounAnnotations()</a>.</p>
+
+</div>
+</div>
+<a id="ac278915d4b9c8f6130bee8c51e1520a3" name="ac278915d4b9c8f6130bee8c51e1520a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac278915d4b9c8f6130bee8c51e1520a3">&#9670;&#160;</a></span>setupACEAnnotations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setupACEAnnotations </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  654</span>    <span class="keyword">def </span>setupACEAnnotations(self):  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  655</span>        self.graph.bind(<span class="stringliteral">&quot;ace&quot;</span>, ACE_NS, override=<span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">  656</span> </div>
+<div class="line"><span class="lineno">  657</span>        <span class="comment"># PN_sg singular form of a proper name ()</span></div>
+<div class="line"><span class="lineno">  658</span>        self.PN_sgprop = Property(</div>
+<div class="line"><span class="lineno">  659</span>            ACE_NS.PN_sg, baseType=OWL.AnnotationProperty, graph=self.graph</div>
+<div class="line"><span class="lineno">  660</span>        )</div>
+<div class="line"><span class="lineno">  661</span> </div>
+<div class="line"><span class="lineno">  662</span>        <span class="comment"># CN_sg singular form of a common noun</span></div>
+<div class="line"><span class="lineno">  663</span>        self.CN_sgprop = Property(</div>
+<div class="line"><span class="lineno">  664</span>            ACE_NS.CN_sg, baseType=OWL.AnnotationProperty, graph=self.graph</div>
+<div class="line"><span class="lineno">  665</span>        )</div>
+<div class="line"><span class="lineno">  666</span> </div>
+<div class="line"><span class="lineno">  667</span>        <span class="comment"># CN_pl plural form of a common noun</span></div>
+<div class="line"><span class="lineno">  668</span>        self.CN_plprop = Property(</div>
+<div class="line"><span class="lineno">  669</span>            ACE_NS.CN_pl, baseType=OWL.AnnotationProperty, graph=self.graph</div>
+<div class="line"><span class="lineno">  670</span>        )</div>
+<div class="line"><span class="lineno">  671</span> </div>
+<div class="line"><span class="lineno">  672</span>        <span class="comment"># singular form of a transitive verb</span></div>
+<div class="line"><span class="lineno">  673</span>        self.tv_sgprop = Property(</div>
+<div class="line"><span class="lineno">  674</span>            ACE_NS.TV_sg, baseType=OWL.AnnotationProperty, graph=self.graph</div>
+<div class="line"><span class="lineno">  675</span>        )</div>
+<div class="line"><span class="lineno">  676</span> </div>
+<div class="line"><span class="lineno">  677</span>        <span class="comment"># plural form of a transitive verb</span></div>
+<div class="line"><span class="lineno">  678</span>        self.tv_plprop = Property(</div>
+<div class="line"><span class="lineno">  679</span>            ACE_NS.TV_pl, baseType=OWL.AnnotationProperty, graph=self.graph</div>
+<div class="line"><span class="lineno">  680</span>        )</div>
+<div class="line"><span class="lineno">  681</span> </div>
+<div class="line"><span class="lineno">  682</span>        <span class="comment"># past participle form a transitive verb</span></div>
+<div class="line"><span class="lineno">  683</span>        self.tv_vbgprop = Property(</div>
+<div class="line"><span class="lineno">  684</span>            ACE_NS.TV_vbg, baseType=OWL.AnnotationProperty, graph=self.graph</div>
+<div class="line"><span class="lineno">  685</span>        )</div>
+<div class="line"><span class="lineno">  686</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01664.html#a8ca49c796430e66a10450bfc2d218c81">ShapesGraph.graph</a>, <a class="el" href="a01692.html#a8ca49c796430e66a10450bfc2d218c81">Collection.graph</a>, <a class="el" href="a01712.html#a8ca49c796430e66a10450bfc2d218c81">_TripleCanonicalizer.graph</a>, <a class="el" href="a01716.html#a8ca49c796430e66a10450bfc2d218c81">Container.graph</a>, <a class="el" href="a01848.html#a8ca49c796430e66a10450bfc2d218c81">Describer.graph</a>, <a class="el" href="a01860.html#a8ca49c796430e66a10450bfc2d218c81">Individual.graph</a>, <a class="el" href="a01884.html#a8ca49c796430e66a10450bfc2d218c81">Class.graph</a>, <a class="el" href="a01888.html#a8ca49c796430e66a10450bfc2d218c81">OWLRDFListProxy.graph</a>, <a class="el" href="a01892.html#a8ca49c796430e66a10450bfc2d218c81">EnumeratedClass.graph</a>, <a class="el" href="a01904.html#a8ca49c796430e66a10450bfc2d218c81">BooleanClass.graph</a>, <a class="el" href="a01908.html#a8ca49c796430e66a10450bfc2d218c81">Restriction.graph</a>, <a class="el" href="a01912.html#a8ca49c796430e66a10450bfc2d218c81">Property.graph</a>, <a class="el" href="a01976.html#a8ca49c796430e66a10450bfc2d218c81">NamespaceManager.graph</a>, <a class="el" href="a02420.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLResult.graph</a>, <a class="el" href="a02460.html#a8ca49c796430e66a10450bfc2d218c81">RDFResult.graph</a>, <a class="el" href="a02616.html#a07cd1f8e1cbdbd49d7873d9697d8f56b">Resource.graph()</a>, <a class="el" href="a01928.html#a75572175a9892be68ad99b9033855b04">Dataset.graph()</a>, <a class="el" href="a01952.html#a8ca49c796430e66a10450bfc2d218c81">BatchAddGraph.graph</a>, <a class="el" href="a02188.html#a8ca49c796430e66a10450bfc2d218c81">RDFSink.graph</a>, <a class="el" href="a02248.html#a893c37ae694e10fb674ea704b1f5a411">TrigSinkParser.graph()</a>, <a class="el" href="a02256.html#a8ca49c796430e66a10450bfc2d218c81">TriXHandler.graph</a>, <a class="el" href="a02424.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLUpdateProcessor.graph</a>, <a class="el" href="a02428.html#a8ca49c796430e66a10450bfc2d218c81">SPARQLProcessor.graph</a>, <a class="el" href="a02516.html#a8ca49c796430e66a10450bfc2d218c81">QueryContext.graph</a>, <a class="el" href="a02604.html#a8ca49c796430e66a10450bfc2d218c81">Result.graph</a>, <a class="el" href="a02940.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a02956.html#a8ca49c796430e66a10450bfc2d218c81">GraphValidationTask.graph</a>, <a class="el" href="a02964.html#a8ca49c796430e66a10450bfc2d218c81">LoadGraphTask.graph</a>, <a class="el" href="a02968.html#a8ca49c796430e66a10450bfc2d218c81">LoadTripleStoreTask.graph</a>, <a class="el" href="a02972.html#a8ca49c796430e66a10450bfc2d218c81">OntDocTask.graph</a>, and <a class="el" href="a03132.html#a8ca49c796430e66a10450bfc2d218c81">OntDocGeneration.graph</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01864.html#a305eafb2e4951a4ad31abbe147e71c07">AnnotatableTerms.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="afb1fca38ac5af4f3fb43b4e6ac71d7d2" name="afb1fca38ac5af4f3fb43b4e6ac71d7d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb1fca38ac5af4f3fb43b4e6ac71d7d2">&#9670;&#160;</a></span>CN_plprop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CN_plprop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01884.html#afae9f66416afba5b8d9517e8eeb98cd3">Class.setupNounAnnotations()</a>.</p>
+
+</div>
+</div>
+<a id="adc8167699285ae17e8fc240f9a083832" name="adc8167699285ae17e8fc240f9a083832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc8167699285ae17e8fc240f9a083832">&#9670;&#160;</a></span>CN_sgprop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CN_sgprop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01884.html#afae9f66416afba5b8d9517e8eeb98cd3">Class.setupNounAnnotations()</a>.</p>
+
+</div>
+</div>
+<a id="afc486b0767ef05e2dc12f5b98be72902" name="afc486b0767ef05e2dc12f5b98be72902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc486b0767ef05e2dc12f5b98be72902">&#9670;&#160;</a></span>identifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">identifier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#ab7ad5f8118edc35d543424177980a080">Graph.__cmp__()</a>, <a class="el" href="a01884.html#a909a2bc6a3c96fc53d3ae93305e81486">Class.__eq__()</a>, <a class="el" href="a01888.html#a909a2bc6a3c96fc53d3ae93305e81486">OWLRDFListProxy.__eq__()</a>, <a class="el" href="a01920.html#a9a6fefcb3e86dc34c6997503c11aa578">Graph.__eq__()</a>, <a class="el" href="a02616.html#a0c07577391874f9ad440e7c45408bb9d">Resource.__getitem__()</a>, <a class="el" href="a01920.html#af322b0c62ec68c08ba73238c4c43eb1a">Graph.__gt__()</a>, <a class="el" href="a01884.html#a171e6903c0464958dd8a214b15a038cb">Class.__hash__()</a>, <a class="el" href="a01920.html#ae27a7920f84bb5c804c9615ef57874e5">Graph.__hash__()</a>, <a class="el" href="a01912.html#ac7c43483a06b9e2b08772b217daabc1e">Property.__init__()</a>, <a class="el" href="a01892.html#ab828cba12f3eb86ddb63d1b344de2250">EnumeratedClass.__init__()</a>, <a class="el" href="a01884.html#ab28fe30541476d272094925a4a89baf8">Class.__init__()</a>, <a class="el" href="a01884.html#a16eabceda9da3da9537f68ec2f3359da">Class.__isub__()</a>, <a class="el" href="a01920.html#ab91d072cdfd0846789aa752436c4745a">Graph.__lt__()</a>, <a class="el" href="a01920.html#a30bff505f2377bca25408a0e9317b88c">Graph.__reduce__()</a>, <a class="el" href="a01908.html#a61a1f3a6a4df93d491cd753f617782a2">Restriction.__repr__()</a>, <a class="el" href="a01920.html#ae07f7930f92d3591c93e2381cd5be285">Graph.__str__()</a>, <a class="el" href="a01908.html#aa5f0358c02e3850e22f6fac2cf56e19c">Restriction._get_allvaluesfrom()</a>, <a class="el" href="a01884.html#a5b75d04614193e02169ed1f750d01f26">Class._get_annotation()</a>, <a class="el" href="a01908.html#a84639d2971e96c3ebd5b695d35e55e3b">Restriction._get_cardinality()</a>, <a class="el" href="a01864.html#aa0a41fd856015313d61b68137de193c8">AnnotatableTerms._get_comment()</a>, <a class="el" href="a01884.html#a59f78c7754f88912fd73399cae6b6235">Class._get_complementof()</a>, <a class="el" href="a01884.html#a7eaf3330c2cd627f97d6eec972deeb17">Class._get_disjointwith()</a>, <a class="el" href="a01912.html#a58dc40d74083635117e533dcde33a776">Property._get_domain()</a>, <a class="el" href="a01884.html#a21f286f4e1ccfc73483cf46e8d4a3631">Class._get_equivalentclass()</a>, <a class="el" href="a01884.html#a95f26443b4501e3d6046c7e80de3a3d7">Class._get_extent()</a>, <a class="el" href="a01912.html#a95f26443b4501e3d6046c7e80de3a3d7">Property._get_extent()</a>, <a class="el" href="a01884.html#a6448a0ae4f486e2d40d8ef1372e136dd">Class._get_extentquery()</a>, <a class="el" href="a01908.html#ab03219f3b432c2b371f0fdaf2de9d5dc">Restriction._get_hasvalue()</a>, <a class="el" href="a01868.html#a7df13a6ad419941a144564be524571d6">Ontology._get_imports()</a>, <a class="el" href="a01912.html#aa7159f621a083bf183d709928a206c41">Property._get_inverseof()</a>, <a class="el" href="a01864.html#ad3417142c6c2b862c46cfde07962e97a">AnnotatableTerms._get_label()</a>, <a class="el" href="a01908.html#acf27c0bc461b061151b30d8fce6a4b6d">Restriction._get_maxcardinality()</a>, <a class="el" href="a01908.html#a0b9da9268f80ab5e06b2aae2acc28f66">Restriction._get_mincardinality()</a>, <a class="el" href="a01908.html#ae3dfd3e2ee645600c82621ead4a179fa">Restriction._get_onproperty()</a>, <a class="el" href="a01884.html#a5e7fc1ba3a2a487b34ae1b9dee6dd72e">Class._get_parents()</a>, <a class="el" href="a01912.html#a4f1443b39e3854758eb608febaad90c9">Property._get_range()</a>, <a class="el" href="a01860.html#a830c923dd230cad0c51472f30ed0bfc3">Individual._get_sameAs()</a>, <a class="el" href="a01864.html#a05eed294f84345525ca74baa0a43f5a8">AnnotatableTerms._get_seealso()</a>, <a class="el" href="a01908.html#acab424d4516954e5398cccbf39b82110">Restriction._get_somevaluesfrom()</a>, <a class="el" href="a01884.html#a90ebb8fd92b6b7f918ab6e20e67786a3">Class._get_subclassof()</a>, <a class="el" href="a01912.html#a4a66607a456162fd89ac0aeb1df6bbfa">Property._get_subpropertyof()</a>, <a class="el" href="a01860.html#aa1279893bc02423a8ef49660b90b293a">Individual._get_type()</a>, <a class="el" href="a01908.html#a379eaaa03e235439faac11a843711d14">Restriction._set_allvaluesfrom()</a>, <a class="el" href="a01908.html#a363600a54ab590a52c78c49cb8157bb3">Restriction._set_cardinality()</a>, <a class="el" href="a01864.html#ad843c9ef9d8e4bfd79f48a318f022ffb">AnnotatableTerms._set_comment()</a>, <a class="el" href="a01884.html#a671bd688b91a077edb239e639ba1bb0d">Class._set_complementof()</a>, <a class="el" href="a01884.html#adf824aaf8146f07f0cd327389a1756c3">Class._set_disjointwith()</a>, <a class="el" href="a01912.html#ad420a70eb36cc038b2d7437fe7ee3b32">Property._set_domain()</a>, <a class="el" href="a01884.html#a7dac2695229dda5fe90f40acbe8224d2">Class._set_equivalentclass()</a>, <a class="el" href="a01884.html#a345d4803336bbfa494e464e4ca82ca78">Class._set_extent()</a>, <a class="el" href="a01912.html#a345d4803336bbfa494e464e4ca82ca78">Property._set_extent()</a>, <a class="el" href="a01908.html#a0b5ebc962ff3a15066372412a2d7e02a">Restriction._set_hasvalue()</a>, <a class="el" href="a01868.html#a54922ecf51a9dbb19312b20078f35854">Ontology._set_imports()</a>, <a class="el" href="a01912.html#ac9e3c9110cdb1fdfd2534ca122aa29be">Property._set_inverseof()</a>, <a class="el" href="a01864.html#a69d3f979778783ebd2849d3490b31e78">AnnotatableTerms._set_label()</a>, <a class="el" href="a01908.html#a26e5573716fa17aab91dbc39961e98b4">Restriction._set_maxcardinality()</a>, <a class="el" href="a01908.html#a06d6e0049e8c71e56a7b169f835e1b47">Restriction._set_mincardinality()</a>, <a class="el" href="a01908.html#ac8879ef2a2162c8a44b790b2015d7f43">Restriction._set_onproperty()</a>, <a class="el" href="a01912.html#a62032d0eaa7c3c85ff10b4882fce698c">Property._set_range()</a>, <a class="el" href="a01860.html#ab21ad2a97b70d98dd6d7cdba2a43f6e4">Individual._set_sameAs()</a>, <a class="el" href="a01864.html#af4f97cd5a1a856cd3e990c5999a48e05">AnnotatableTerms._set_seealso()</a>, <a class="el" href="a01908.html#aa5e9ce686fadcc31c0f435c932e429ab">Restriction._set_somevaluesfrom()</a>, <a class="el" href="a01884.html#a00465a5755cd13ca971471175cc01704">Class._set_subclassof()</a>, <a class="el" href="a01912.html#a8cb4cc76ca9b24e65b1aa0c6473205cc">Property._set_subpropertyof()</a>, <a class="el" href="a01860.html#aa3f6865ed295fca374637cd47b2c3a10">Individual._set_type()</a>, <a class="el" href="a01920.html#accb39c19dc1a6bf53ccaeb1557e609e5">Graph.addN()</a>, <a class="el" href="a01904.html#a999279c63295ebb46f9bf47ebcef57ae">BooleanClass.changeOperator()</a>, <a class="el" href="a01860.html#a56a3948a1bcff91c773d2c93d5b6f6e4">Individual.clearInDegree()</a>, <a class="el" href="a01860.html#a39a18a4fb4c7b873c717c577d745cfe4">Individual.clearOutDegree()</a>, <a class="el" href="a01884.html#ac06d497b0ec97f3bb89c640e76237004">Class.isPrimitive()</a>, <a class="el" href="a01884.html#a8c99d89eca109c7b159ee0a3f78c2f39">Class.manchesterClass()</a>, <a class="el" href="a01920.html#a7fbd93d64a0ac408c12cb7dcd14d25db">Graph.n3()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a01860.html#a20936ef5d7c383a7d62726506b2383a3">Individual.replace()</a>, <a class="el" href="a01912.html#a20936ef5d7c383a7d62726506b2383a3">Property.replace()</a>, <a class="el" href="a01860.html#a49954c1f2c464e00e44a0730abc7abea">Individual.serialize()</a>, <a class="el" href="a01908.html#a49954c1f2c464e00e44a0730abc7abea">Restriction.serialize()</a>, <a class="el" href="a01912.html#a49954c1f2c464e00e44a0730abc7abea">Property.serialize()</a>, <a class="el" href="a01884.html#afae9f66416afba5b8d9517e8eeb98cd3">Class.setupNounAnnotations()</a>, <a class="el" href="a01868.html#a43b255deaccd5c7a413b693e44cfaff7">Ontology.setVersion()</a>, <a class="el" href="a01884.html#a10f35fc1c23068ab7676fd56720e7fbc">Class.subSumpteeIds()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="a9ee1ac9909f7c76acadc2bacddaa8b72" name="a9ee1ac9909f7c76acadc2bacddaa8b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ee1ac9909f7c76acadc2bacddaa8b72">&#9670;&#160;</a></span>PN_sgprop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PN_sgprop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01864.html#a305eafb2e4951a4ad31abbe147e71c07">AnnotatableTerms.__init__()</a>.</p>
+
+</div>
+</div>
+<a id="aae2955847d94587aeb8e05c238b27e55" name="aae2955847d94587aeb8e05c238b27e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae2955847d94587aeb8e05c238b27e55">&#9670;&#160;</a></span>tv_plprop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tv_plprop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a294fc7c8b2b9939a5a74fc6a1208f795" name="a294fc7c8b2b9939a5a74fc6a1208f795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a294fc7c8b2b9939a5a74fc6a1208f795">&#9670;&#160;</a></span>tv_sgprop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tv_sgprop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01912.html#a5143c6e72f4afb5a9a93a5073e048f01">Property.setupVerbAnnotations()</a>.</p>
+
+</div>
+</div>
+<a id="a81c8665ff898d2f9c114fa123d1bc723" name="a81c8665ff898d2f9c114fa123d1bc723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c8665ff898d2f9c114fa123d1bc723">&#9670;&#160;</a></span>tv_vbgprop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tv_vbgprop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a8c0288707ed90c2275d70e22bd1f16d9" name="a8c0288707ed90c2275d70e22bd1f16d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c0288707ed90c2275d70e22bd1f16d9">&#9670;&#160;</a></span>comment</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">comment = property(<a class="el" href="a01864.html#aa0a41fd856015313d61b68137de193c8">_get_comment</a>, <a class="el" href="a01864.html#ad843c9ef9d8e4bfd79f48a318f022ffb">_set_comment</a>, <a class="el" href="a01864.html#ad74e58c20a4d5ad63c821f79a63b8641">_del_comment</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a22f45a3cb4f074e609f58ebaeef0ecf9" name="a22f45a3cb4f074e609f58ebaeef0ecf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22f45a3cb4f074e609f58ebaeef0ecf9">&#9670;&#160;</a></span>label</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">label = property(<a class="el" href="a01864.html#ad3417142c6c2b862c46cfde07962e97a">_get_label</a>, <a class="el" href="a01864.html#a69d3f979778783ebd2849d3490b31e78">_set_label</a>, <a class="el" href="a01864.html#a878a309233aab6c57383a93511ba7c26">_delete_label</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01696.html#a04d26b6216ba469c072091e2642b0e5c">_runtime.__call__()</a>, <a class="el" href="a01700.html#a04d26b6216ba469c072091e2642b0e5c">_call_count.__call__()</a>, <a class="el" href="a02320.html#a74a5acd523cd008cc692940d2f9baedc">TurtleSerializer.p_default()</a>, <a class="el" href="a02276.html#afe0fce3a92799fc4c033bc1762f34431">LongTurtleSerializer.p_default()</a>, <a class="el" href="a03000.html#a8c1f19a7d84895ca4d31275e09a73046">FindRelatedConceptQueryTask.processClassResult()</a>, <a class="el" href="a03000.html#a4de73dcf93c5bf94647640e65cdebce7">FindRelatedConceptQueryTask.processPropertyResult()</a>, <a class="el" href="a02812.html#aca092fde8acae610a332ae69c0ebf9d8">GraphRelationViewDialog.showRelated()</a>, and <a class="el" href="a02812.html#a43b70dc0391e6b96c9c67e1154d3c01f">GraphRelationViewDialog.showRelatedFromIndex()</a>.</p>
+
+</div>
+</div>
+<a id="a14b79f442acd162bd638d75cd8308566" name="a14b79f442acd162bd638d75cd8308566"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14b79f442acd162bd638d75cd8308566">&#9670;&#160;</a></span>seeAlso</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">seeAlso = property(<a class="el" href="a01864.html#a05eed294f84345525ca74baa0a43f5a8">_get_seealso</a>, <a class="el" href="a01864.html#af4f97cd5a1a856cd3e990c5999a48e05">_set_seealso</a>, <a class="el" href="a01864.html#a732715ace9f532df8d72b8d2d0832cd0">_del_seealso</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01009.html">extras</a></li><li class="navelem"><a class="el" href="a01013.html">infixowl</a></li><li class="navelem"><a class="el" href="a01864.html">AnnotatableTerms</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

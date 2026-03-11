@@ -1,0 +1,7 @@
+<map id="EnrichmentTab" name="EnrichmentTab">
+<area shape="rect" id="Node000001" title=" " alt="" coords="38,108,157,133"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="28,44,28,64,34,83,46,96,62,106,60,110,43,100,30,85,23,65,23,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="145,5,183,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,45,137,86,114,110,110,106,132,82,153,43"/>
+</map>

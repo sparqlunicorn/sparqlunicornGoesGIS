@@ -1,0 +1,550 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: rdflib.tools.rdfpipe Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01119.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">rdflib.tools.rdfpipe Namespace Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6009958082082f070e106fb6e8eb695f" id="r_a6009958082082f070e106fb6e8eb695f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01119.html#a6009958082082f070e106fb6e8eb695f">parse_and_serialize</a> (input_files, input_format, guess, outfile, output_format, ns_bindings, store_conn=&quot;&quot;, store_type=None)</td></tr>
+<tr class="separator:a6009958082082f070e106fb6e8eb695f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae83b05359004380bb98ab9567ea9b57c" id="r_ae83b05359004380bb98ab9567ea9b57c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01119.html#ae83b05359004380bb98ab9567ea9b57c">_format_and_kws</a> (fmt)</td></tr>
+<tr class="separator:ae83b05359004380bb98ab9567ea9b57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b78589499e9043f0fe4db00e7f9b906" id="r_a7b78589499e9043f0fe4db00e7f9b906"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01119.html#a7b78589499e9043f0fe4db00e7f9b906">make_option_parser</a> ()</td></tr>
+<tr class="separator:a7b78589499e9043f0fe4db00e7f9b906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af28f3f3581c558d30fe53ba49314e77d" id="r_af28f3f3581c558d30fe53ba49314e77d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01119.html#af28f3f3581c558d30fe53ba49314e77d">_get_plugin_names</a> (kind)</td></tr>
+<tr class="separator:af28f3f3581c558d30fe53ba49314e77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51af30a60f9f02777c6396b8247e356f" id="r_a51af30a60f9f02777c6396b8247e356f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01119.html#a51af30a60f9f02777c6396b8247e356f">main</a> ()</td></tr>
+<tr class="separator:a51af30a60f9f02777c6396b8247e356f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6b6100e3a3831ea864be3f5f0ef94ee5" id="r_a6b6100e3a3831ea864be3f5f0ef94ee5"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01119.html#a6b6100e3a3831ea864be3f5f0ef94ee5">DEFAULT_INPUT_FORMAT</a> = &quot;xml&quot;</td></tr>
+<tr class="separator:a6b6100e3a3831ea864be3f5f0ef94ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b39320374316ed870f71191239a68a" id="r_ad4b39320374316ed870f71191239a68a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01119.html#ad4b39320374316ed870f71191239a68a">DEFAULT_OUTPUT_FORMAT</a> = &quot;n3&quot;</td></tr>
+<tr class="separator:ad4b39320374316ed870f71191239a68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A commandline tool for parsing RDF in different formats and serializing the
+resulting graph to a chosen format.
+</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ae83b05359004380bb98ab9567ea9b57c" name="ae83b05359004380bb98ab9567ea9b57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae83b05359004380bb98ab9567ea9b57c">&#9670;&#160;</a></span>_format_and_kws()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_format_and_kws </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fmt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">```python
+&gt;&gt;&gt; _format_and_kws("fmt")
+('fmt', {})
+&gt;&gt;&gt; _format_and_kws("fmt:+a")
+('fmt', {'a': True})
+&gt;&gt;&gt; _format_and_kws("fmt:a")
+('fmt', {'a': True})
+&gt;&gt;&gt; _format_and_kws("fmt:+a,-b") #doctest: +SKIP
+('fmt', {'a': True, 'b': False})
+&gt;&gt;&gt; _format_and_kws("fmt:c=d")
+('fmt', {'c': 'd'})
+&gt;&gt;&gt; _format_and_kws("fmt:a=b:c")
+('fmt', {'a': 'b:c'})
+
+```
+</pre> <div class="fragment"><div class="line"><span class="lineno">   64</span><span class="keyword">def </span>_format_and_kws(fmt):</div>
+<div class="line"><span class="lineno">   65</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   66</span><span class="stringliteral">    ```python</span></div>
+<div class="line"><span class="lineno">   67</span><span class="stringliteral">    &gt;&gt;&gt; _format_and_kws(&quot;fmt&quot;)</span></div>
+<div class="line"><span class="lineno">   68</span><span class="stringliteral">    (&#39;fmt&#39;, {})</span></div>
+<div class="line"><span class="lineno">   69</span><span class="stringliteral">    &gt;&gt;&gt; _format_and_kws(&quot;fmt:+a&quot;)</span></div>
+<div class="line"><span class="lineno">   70</span><span class="stringliteral">    (&#39;fmt&#39;, {&#39;a&#39;: True})</span></div>
+<div class="line"><span class="lineno">   71</span><span class="stringliteral">    &gt;&gt;&gt; _format_and_kws(&quot;fmt:a&quot;)</span></div>
+<div class="line"><span class="lineno">   72</span><span class="stringliteral">    (&#39;fmt&#39;, {&#39;a&#39;: True})</span></div>
+<div class="line"><span class="lineno">   73</span><span class="stringliteral">    &gt;&gt;&gt; _format_and_kws(&quot;fmt:+a,-b&quot;) #doctest: +SKIP</span></div>
+<div class="line"><span class="lineno">   74</span><span class="stringliteral">    (&#39;fmt&#39;, {&#39;a&#39;: True, &#39;b&#39;: False})</span></div>
+<div class="line"><span class="lineno">   75</span><span class="stringliteral">    &gt;&gt;&gt; _format_and_kws(&quot;fmt:c=d&quot;)</span></div>
+<div class="line"><span class="lineno">   76</span><span class="stringliteral">    (&#39;fmt&#39;, {&#39;c&#39;: &#39;d&#39;})</span></div>
+<div class="line"><span class="lineno">   77</span><span class="stringliteral">    &gt;&gt;&gt; _format_and_kws(&quot;fmt:a=b:c&quot;)</span></div>
+<div class="line"><span class="lineno">   78</span><span class="stringliteral">    (&#39;fmt&#39;, {&#39;a&#39;: &#39;b:c&#39;})</span></div>
+<div class="line"><span class="lineno">   79</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   80</span><span class="stringliteral">    ```</span></div>
+<div class="line"><span class="lineno">   81</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   82</span>    fmt, kws = fmt, {}</div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordflow">if</span> fmt <span class="keywordflow">and</span> <span class="stringliteral">&quot;:&quot;</span> <span class="keywordflow">in</span> fmt:</div>
+<div class="line"><span class="lineno">   84</span>        fmt, kwrepr = fmt.split(<span class="stringliteral">&quot;:&quot;</span>, 1)</div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">for</span> kw <span class="keywordflow">in</span> kwrepr.split(<span class="stringliteral">&quot;,&quot;</span>):</div>
+<div class="line"><span class="lineno">   86</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;=&quot;</span> <span class="keywordflow">in</span> kw:</div>
+<div class="line"><span class="lineno">   87</span>                k, v = kw.split(<span class="stringliteral">&quot;=&quot;</span>)</div>
+<div class="line"><span class="lineno">   88</span>                kws[k] = v</div>
+<div class="line"><span class="lineno">   89</span>            <span class="keywordflow">elif</span> kw.startswith(<span class="stringliteral">&quot;-&quot;</span>):</div>
+<div class="line"><span class="lineno">   90</span>                kws[kw[1:]] = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">elif</span> kw.startswith(<span class="stringliteral">&quot;+&quot;</span>):</div>
+<div class="line"><span class="lineno">   92</span>                kws[kw[1:]] = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   93</span>            <span class="keywordflow">else</span>:  <span class="comment"># same as &quot;+&quot;</span></div>
+<div class="line"><span class="lineno">   94</span>                kws[kw] = <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   95</span>    <span class="keywordflow">return</span> fmt, kws</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af28f3f3581c558d30fe53ba49314e77d" name="af28f3f3581c558d30fe53ba49314e77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af28f3f3581c558d30fe53ba49314e77d">&#9670;&#160;</a></span>_get_plugin_names()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_get_plugin_names </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>kind</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  174</span><span class="keyword">def </span>_get_plugin_names(kind):</div>
+<div class="line"><span class="lineno">  175</span>    <span class="keywordflow">return</span> <span class="stringliteral">&quot;, &quot;</span>.join(p.name <span class="keywordflow">for</span> p <span class="keywordflow">in</span> plugin.plugins(kind=kind))</div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01119.html#a7b78589499e9043f0fe4db00e7f9b906">rdflib.tools.rdfpipe.make_option_parser()</a>.</p>
+
+</div>
+</div>
+<a id="a51af30a60f9f02777c6396b8247e356f" name="a51af30a60f9f02777c6396b8247e356f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51af30a60f9f02777c6396b8247e356f">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  178</span><span class="keyword">def </span>main():</div>
+<div class="line"><span class="lineno">  179</span>    oparser = make_option_parser()</div>
+<div class="line"><span class="lineno">  180</span>    opts, args = oparser.parse_args()</div>
+<div class="line"><span class="lineno">  181</span>    <span class="keywordflow">if</span> len(args) &lt; 1:</div>
+<div class="line"><span class="lineno">  182</span>        oparser.print_usage()</div>
+<div class="line"><span class="lineno">  183</span>        oparser.exit()</div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="line"><span class="lineno">  185</span>    <span class="keywordflow">if</span> opts.warn:</div>
+<div class="line"><span class="lineno">  186</span>        loglevel = logging.WARNING</div>
+<div class="line"><span class="lineno">  187</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  188</span>        loglevel = logging.CRITICAL</div>
+<div class="line"><span class="lineno">  189</span>    logging.basicConfig(level=loglevel)</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>    ns_bindings = {}</div>
+<div class="line"><span class="lineno">  192</span>    <span class="keywordflow">if</span> opts.ns:</div>
+<div class="line"><span class="lineno">  193</span>        <span class="keywordflow">for</span> ns_kw <span class="keywordflow">in</span> opts.ns:</div>
+<div class="line"><span class="lineno">  194</span>            pfx, uri = ns_kw.split(<span class="stringliteral">&quot;=&quot;</span>)</div>
+<div class="line"><span class="lineno">  195</span>            ns_bindings[pfx] = uri</div>
+<div class="line"><span class="lineno">  196</span> </div>
+<div class="line"><span class="lineno">  197</span>    outfile: Optional[BinaryIO] = sys.stdout.buffer</div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="line"><span class="lineno">  199</span>    <span class="keywordflow">if</span> opts.no_out:</div>
+<div class="line"><span class="lineno">  200</span>        outfile = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  201</span> </div>
+<div class="line"><span class="lineno">  202</span>    parse_and_serialize(</div>
+<div class="line"><span class="lineno">  203</span>        args, opts.input_format, opts.guess, outfile, opts.output_format, ns_bindings</div>
+<div class="line"><span class="lineno">  204</span>    )</div>
+<div class="line"><span class="lineno">  205</span> </div>
+<div class="line"><span class="lineno">  206</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01119.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdfpipe.main()</a>, <a class="el" href="a01119.html#a7b78589499e9043f0fe4db00e7f9b906">rdflib.tools.rdfpipe.make_option_parser()</a>, and <a class="el" href="a01119.html#a6009958082082f070e106fb6e8eb695f">rdflib.tools.rdfpipe.parse_and_serialize()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01119.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdfpipe.main()</a>.</p>
+
+</div>
+</div>
+<a id="a7b78589499e9043f0fe4db00e7f9b906" name="a7b78589499e9043f0fe4db00e7f9b906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b78589499e9043f0fe4db00e7f9b906">&#9670;&#160;</a></span>make_option_parser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">make_option_parser </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   98</span><span class="keyword">def </span>make_option_parser():</div>
+<div class="line"><span class="lineno">   99</span>    parser_names = _get_plugin_names(Parser)</div>
+<div class="line"><span class="lineno">  100</span>    serializer_names = _get_plugin_names(Serializer)</div>
+<div class="line"><span class="lineno">  101</span>    kw_example = <span class="stringliteral">&quot;FORMAT:(+)KW1,-KW2,KW3=VALUE&quot;</span></div>
+<div class="line"><span class="lineno">  102</span> </div>
+<div class="line"><span class="lineno">  103</span>    oparser = OptionParser(</div>
+<div class="line"><span class="lineno">  104</span>        <span class="stringliteral">&quot;%prog [-h] [-i INPUT_FORMAT] [-o OUTPUT_FORMAT] &quot;</span></div>
+<div class="line"><span class="lineno">  105</span>        + <span class="stringliteral">&quot;[--ns=PFX=NS ...] [-] [FILE ...]&quot;</span>,</div>
+<div class="line"><span class="lineno">  106</span>        description=__doc__.strip()</div>
+<div class="line"><span class="lineno">  107</span>        + (</div>
+<div class="line"><span class="lineno">  108</span>            <span class="stringliteral">&quot; Reads file system paths, URLs or from stdin if &#39;-&#39; is given.&quot;</span></div>
+<div class="line"><span class="lineno">  109</span>            <span class="stringliteral">&quot; The result is serialized to stdout.&quot;</span></div>
+<div class="line"><span class="lineno">  110</span>        ),</div>
+<div class="line"><span class="lineno">  111</span>        version=<span class="stringliteral">&quot;%prog &quot;</span> + <span class="stringliteral">&quot;(using rdflib %s)&quot;</span> % rdflib.__version__,</div>
+<div class="line"><span class="lineno">  112</span>    )</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span>    oparser.add_option(</div>
+<div class="line"><span class="lineno">  115</span>        <span class="stringliteral">&quot;-i&quot;</span>,</div>
+<div class="line"><span class="lineno">  116</span>        <span class="stringliteral">&quot;--input-format&quot;</span>,</div>
+<div class="line"><span class="lineno">  117</span>        type=str,  <span class="comment"># default=DEFAULT_INPUT_FORMAT,</span></div>
+<div class="line"><span class="lineno">  118</span>        help=<span class="stringliteral">&quot;Format of the input document(s).&quot;</span></div>
+<div class="line"><span class="lineno">  119</span>        <span class="stringliteral">&quot; Available input formats are: %s.&quot;</span> % parser_names</div>
+<div class="line"><span class="lineno">  120</span>        + <span class="stringliteral">&quot; If no format is given, it will be &quot;</span></div>
+<div class="line"><span class="lineno">  121</span>        + <span class="stringliteral">&quot;guessed from the file name extension.&quot;</span></div>
+<div class="line"><span class="lineno">  122</span>        + <span class="stringliteral">&quot; Keywords to parser can be given after format like: %s.&quot;</span> % kw_example,</div>
+<div class="line"><span class="lineno">  123</span>        metavar=<span class="stringliteral">&quot;INPUT_FORMAT&quot;</span>,</div>
+<div class="line"><span class="lineno">  124</span>    )</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>    oparser.add_option(</div>
+<div class="line"><span class="lineno">  127</span>        <span class="stringliteral">&quot;-o&quot;</span>,</div>
+<div class="line"><span class="lineno">  128</span>        <span class="stringliteral">&quot;--output-format&quot;</span>,</div>
+<div class="line"><span class="lineno">  129</span>        type=str,</div>
+<div class="line"><span class="lineno">  130</span>        default=DEFAULT_OUTPUT_FORMAT,</div>
+<div class="line"><span class="lineno">  131</span>        help=<span class="stringliteral">&quot;Format of the graph serialization.&quot;</span></div>
+<div class="line"><span class="lineno">  132</span>        <span class="stringliteral">&quot; Available output formats are: %s.&quot;</span> % serializer_names</div>
+<div class="line"><span class="lineno">  133</span>        + <span class="stringliteral">&quot; Default format is: &#39;%default&#39;.&quot;</span></div>
+<div class="line"><span class="lineno">  134</span>        + <span class="stringliteral">&quot; Keywords to serializer can be given after format like: %s.&quot;</span> % kw_example,</div>
+<div class="line"><span class="lineno">  135</span>        metavar=<span class="stringliteral">&quot;OUTPUT_FORMAT&quot;</span>,</div>
+<div class="line"><span class="lineno">  136</span>    )</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>    oparser.add_option(</div>
+<div class="line"><span class="lineno">  139</span>        <span class="stringliteral">&quot;--ns&quot;</span>,</div>
+<div class="line"><span class="lineno">  140</span>        action=<span class="stringliteral">&quot;append&quot;</span>,</div>
+<div class="line"><span class="lineno">  141</span>        type=str,</div>
+<div class="line"><span class="lineno">  142</span>        help=<span class="stringliteral">&quot;Register a namespace binding (QName prefix to a base URI). &quot;</span></div>
+<div class="line"><span class="lineno">  143</span>        <span class="stringliteral">&quot;This can be used more than once.&quot;</span>,</div>
+<div class="line"><span class="lineno">  144</span>        metavar=<span class="stringliteral">&quot;PREFIX=NAMESPACE&quot;</span>,</div>
+<div class="line"><span class="lineno">  145</span>    )</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>    oparser.add_option(</div>
+<div class="line"><span class="lineno">  148</span>        <span class="stringliteral">&quot;--no-guess&quot;</span>,</div>
+<div class="line"><span class="lineno">  149</span>        dest=<span class="stringliteral">&quot;guess&quot;</span>,</div>
+<div class="line"><span class="lineno">  150</span>        action=<span class="stringliteral">&quot;store_false&quot;</span>,</div>
+<div class="line"><span class="lineno">  151</span>        default=<span class="keyword">True</span>,</div>
+<div class="line"><span class="lineno">  152</span>        help=<span class="stringliteral">&quot;Don&#39;t guess format based on file suffix.&quot;</span>,</div>
+<div class="line"><span class="lineno">  153</span>    )</div>
+<div class="line"><span class="lineno">  154</span> </div>
+<div class="line"><span class="lineno">  155</span>    oparser.add_option(</div>
+<div class="line"><span class="lineno">  156</span>        <span class="stringliteral">&quot;--no-out&quot;</span>,</div>
+<div class="line"><span class="lineno">  157</span>        action=<span class="stringliteral">&quot;store_true&quot;</span>,</div>
+<div class="line"><span class="lineno">  158</span>        default=<span class="keyword">False</span>,</div>
+<div class="line"><span class="lineno">  159</span>        help=<span class="stringliteral">&quot;Don&#39;t output the resulting graph &quot;</span></div>
+<div class="line"><span class="lineno">  160</span>        + <span class="stringliteral">&quot;(useful for checking validity of input).&quot;</span>,</div>
+<div class="line"><span class="lineno">  161</span>    )</div>
+<div class="line"><span class="lineno">  162</span> </div>
+<div class="line"><span class="lineno">  163</span>    oparser.add_option(</div>
+<div class="line"><span class="lineno">  164</span>        <span class="stringliteral">&quot;-w&quot;</span>,</div>
+<div class="line"><span class="lineno">  165</span>        <span class="stringliteral">&quot;--warn&quot;</span>,</div>
+<div class="line"><span class="lineno">  166</span>        action=<span class="stringliteral">&quot;store_true&quot;</span>,</div>
+<div class="line"><span class="lineno">  167</span>        default=<span class="keyword">False</span>,</div>
+<div class="line"><span class="lineno">  168</span>        help=<span class="stringliteral">&quot;Output warnings to stderr (by default only critical errors).&quot;</span>,</div>
+<div class="line"><span class="lineno">  169</span>    )</div>
+<div class="line"><span class="lineno">  170</span> </div>
+<div class="line"><span class="lineno">  171</span>    <span class="keywordflow">return</span> oparser</div>
+<div class="line"><span class="lineno">  172</span> </div>
+<div class="line"><span class="lineno">  173</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01119.html#af28f3f3581c558d30fe53ba49314e77d">rdflib.tools.rdfpipe._get_plugin_names()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01119.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdfpipe.main()</a>.</p>
+
+</div>
+</div>
+<a id="a6009958082082f070e106fb6e8eb695f" name="a6009958082082f070e106fb6e8eb695f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6009958082082f070e106fb6e8eb695f">&#9670;&#160;</a></span>parse_and_serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">parse_and_serialize </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>input_files</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>input_format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>guess</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>outfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>output_format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ns_bindings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>store_conn</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>store_type</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   35</span>):</div>
+<div class="line"><span class="lineno">   36</span>    <span class="keywordflow">if</span> store_type:</div>
+<div class="line"><span class="lineno">   37</span>        store = plugin.get(store_type, Store)()</div>
+<div class="line"><span class="lineno">   38</span>        store.open(store_conn)</div>
+<div class="line"><span class="lineno">   39</span>        graph = ConjunctiveGraph(store)</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   41</span>        store = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   42</span>        graph = ConjunctiveGraph()</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">for</span> prefix, uri <span class="keywordflow">in</span> ns_bindings.items():</div>
+<div class="line"><span class="lineno">   45</span>        graph.namespace_manager.bind(prefix, uri, override=<span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">   46</span> </div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">for</span> fpath <span class="keywordflow">in</span> input_files:</div>
+<div class="line"><span class="lineno">   48</span>        use_format, kws = _format_and_kws(input_format)</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">if</span> fpath == <span class="stringliteral">&quot;-&quot;</span>:</div>
+<div class="line"><span class="lineno">   50</span>            fpath = sys.stdin</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">elif</span> <span class="keywordflow">not</span> input_format <span class="keywordflow">and</span> guess:</div>
+<div class="line"><span class="lineno">   52</span>            use_format = guess_format(fpath) <span class="keywordflow">or</span> DEFAULT_INPUT_FORMAT</div>
+<div class="line"><span class="lineno">   53</span>        graph.parse(fpath, format=use_format, **kws)</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>    <span class="keywordflow">if</span> outfile:</div>
+<div class="line"><span class="lineno">   56</span>        output_format, kws = _format_and_kws(output_format)</div>
+<div class="line"><span class="lineno">   57</span>        kws.setdefault(<span class="stringliteral">&quot;base&quot;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">   58</span>        graph.serialize(destination=outfile, format=output_format, **kws)</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>    <span class="keywordflow">if</span> store:</div>
+<div class="line"><span class="lineno">   61</span>        store.rollback()</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01119.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdfpipe.main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a6b6100e3a3831ea864be3f5f0ef94ee5" name="a6b6100e3a3831ea864be3f5f0ef94ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b6100e3a3831ea864be3f5f0ef94ee5">&#9670;&#160;</a></span>DEFAULT_INPUT_FORMAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str DEFAULT_INPUT_FORMAT = &quot;xml&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4b39320374316ed870f71191239a68a" name="ad4b39320374316ed870f71191239a68a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4b39320374316ed870f71191239a68a">&#9670;&#160;</a></span>DEFAULT_OUTPUT_FORMAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str DEFAULT_OUTPUT_FORMAT = &quot;n3&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01113.html">tools</a></li><li class="navelem"><a class="el" href="a01119.html">rdfpipe</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+var a01054 =
+[
+    [ "DummySink", "a02204.html", "a02204" ],
+    [ "NTGraphSink", "a02212.html", "a02212" ],
+    [ "NTParser", "a02216.html", "a02216" ],
+    [ "W3CNTriplesParser", "a02208.html", "a02208" ],
+    [ "unquote", "a01054.html#a030772d039eb643bb964ea003980403a", null ],
+    [ "uriquote", "a01054.html#a5f0240d9f610b744a73665d91a4b897a", null ],
+    [ "__all__", "a01054.html#aa4a022e6ddacd362b83964da5cc5d044", null ],
+    [ "_BNodeContextType", "a01054.html#a07d0a25f2cbcc5ec947f976ea3be09f4", null ],
+    [ "bufsiz", "a01054.html#ab1711638fc168079c99c4826bc1e2d24", null ],
+    [ "literal", "a01054.html#a5d45675b8c7d1dcabb1527bf81e4b981", null ],
+    [ "litinfo", "a01054.html#a298491c2d2b4c7398be0ad0ca6a8612a", null ],
+    [ "r_hibyte", "a01054.html#a4078ef2edc99be25f7bd6b0963546116", null ],
+    [ "r_line", "a01054.html#ad44f83360e45fbd212ed634ab810990b", null ],
+    [ "r_literal", "a01054.html#a6fe86fe16d333c61491b8221d933c781", null ],
+    [ "r_nodeid", "a01054.html#aac6428cdf05c8f6331dbf6500d5a5b49", null ],
+    [ "r_quot", "a01054.html#ae0ec3f8d9c0df80144f6b6e6fc5560a8", null ],
+    [ "r_safe", "a01054.html#a8962da2d5d8eb4e3ef78026342c8472f", null ],
+    [ "r_tail", "a01054.html#a29f1858ab415da48f491a3b6e5a83d0e", null ],
+    [ "r_uniquot", "a01054.html#a8c98892316768b3d97c8d248d9b9f2cb", null ],
+    [ "r_uriref", "a01054.html#a44bcdc79aa8e81e18cb8d6479ac9a2ec", null ],
+    [ "r_wspace", "a01054.html#ab6fed437cfa355db28b6c97895aa8c49", null ],
+    [ "r_wspaces", "a01054.html#a0629f28091b47151a66a9e68f35069af", null ],
+    [ "uriref", "a01054.html#af305c5814c2f2dc99ba20e8236229af2", null ],
+    [ "validate", "a01054.html#a4f77e49d6d6b815f9996e52d7afd9631", null ]
+];

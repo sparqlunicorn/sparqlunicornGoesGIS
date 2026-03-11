@@ -1,0 +1,11 @@
+<map id="CustomRDFSOWLRLSemantics" name="CustomRDFSOWLRLSemantics">
+<area shape="rect" id="Node000001" title=" " alt="" coords="165,168,385,193"/>
+<area shape="rect" id="Node000002" href="$a01604.html" title=" " alt="" coords="5,80,180,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,109,252,165,249,170,129,114"/>
+<area shape="rect" id="Node000003" href="$a07527.html" title=" " alt="" coords="17,5,168,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="95,45,95,80,90,80,90,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="204,80,347,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="278,119,278,167,273,167,273,119"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="371,80,414,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="367,116,293,170,290,166,364,111"/>
+</map>

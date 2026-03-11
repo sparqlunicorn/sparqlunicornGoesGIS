@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: Bindings Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02752.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a02749.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Bindings Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for Bindings:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02751.png" border="0" usemap="#aBindings_inherit__map" alt="Inheritance graph"/></div>
+<map name="aBindings_inherit__map" id="aBindings_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,84,104"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="13,5,76,31"/>
+<area shape="poly" title=" " alt="" coords="47,44,47,79,42,79,42,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Bindings:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02750.png" border="0" usemap="#aBindings_coll__map" alt="Collaboration graph"/></div>
+<map name="aBindings_coll__map" id="aBindings_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,84,104"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="13,5,76,31"/>
+<area shape="poly" title=" " alt="" coords="47,44,47,79,42,79,42,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aafe2fef136a0c3ee480b4f02257d84b3" id="r_aafe2fef136a0c3ee480b4f02257d84b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#aafe2fef136a0c3ee480b4f02257d84b3">__init__</a> (self, <a class="el" href="a02792.html">QueryResult</a> retval)</td></tr>
+<tr class="separator:aafe2fef136a0c3ee480b4f02257d84b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae83835eceaf132531f25dbbca89275bd" id="r_ae83835eceaf132531f25dbbca89275bd"><td class="memItemLeft" align="right" valign="top">Optional[List[<a class="el" href="a02748.html">Value</a>]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#ae83835eceaf132531f25dbbca89275bd">getValues</a> (self, str key)</td></tr>
+<tr class="separator:ae83835eceaf132531f25dbbca89275bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75ae53557eb75b6f70169b00c984c9a5" id="r_a75ae53557eb75b6f70169b00c984c9a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#a75ae53557eb75b6f70169b00c984c9a5">__contains__</a> (self, Union[str, List[str], Tuple[str]] key)</td></tr>
+<tr class="separator:a75ae53557eb75b6f70169b00c984c9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a7ee6815d07850937029b431d1a1e1b" id="r_a0a7ee6815d07850937029b431d1a1e1b"><td class="memItemLeft" align="right" valign="top">List[Dict[str, <a class="el" href="a02748.html">Value</a>]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#a0a7ee6815d07850937029b431d1a1e1b">__getitem__</a> (self, Union[slice, str, List[str]] key)</td></tr>
+<tr class="separator:a0a7ee6815d07850937029b431d1a1e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add61090dab5f7c42a3f99c1eecc92012" id="r_add61090dab5f7c42a3f99c1eecc92012"><td class="memItemLeft" align="right" valign="top">&quot;Bindings&quot;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#add61090dab5f7c42a3f99c1eecc92012">convert</a> (self)</td></tr>
+<tr class="separator:add61090dab5f7c42a3f99c1eecc92012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:abd73702787e67fc3cb03ff8b5fc50f12" id="r_abd73702787e67fc3cb03ff8b5fc50f12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#abd73702787e67fc3cb03ff8b5fc50f12">fullResult</a></td></tr>
+<tr class="separator:abd73702787e67fc3cb03ff8b5fc50f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434acd167ada209c34621739b6b8c583" id="r_a434acd167ada209c34621739b6b8c583"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#a434acd167ada209c34621739b6b8c583">head</a></td></tr>
+<tr class="separator:a434acd167ada209c34621739b6b8c583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a626e63c7be6e71872233832cce1dccc0" id="r_a626e63c7be6e71872233832cce1dccc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#a626e63c7be6e71872233832cce1dccc0">variables</a></td></tr>
+<tr class="separator:a626e63c7be6e71872233832cce1dccc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaab5019b6fd2daba25a403d1b8a4fc5f" id="r_aaab5019b6fd2daba25a403d1b8a4fc5f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#aaab5019b6fd2daba25a403d1b8a4fc5f">askResult</a></td></tr>
+<tr class="separator:aaab5019b6fd2daba25a403d1b8a4fc5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2503f7396834668def3805e73d7d1a45" id="r_a2503f7396834668def3805e73d7d1a45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02752.html#a2503f7396834668def3805e73d7d1a45">bindings</a></td></tr>
+<tr class="separator:a2503f7396834668def3805e73d7d1a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Class encapsulating one query result, based on the JSON return format. It decodes the
+return values to make it a bit more usable for a standard usage. The class consumes the
+return value and instantiates a number of attributes that can be consulted directly. See
+the list of variables.
+
+The `Serializing SPARQL Query Results in JSON &lt;http://www.w3.org/TR/rdf-sparql-json-res/&gt;`_ explains the details of
+the JSON return structures. Very succinctly: the return data has "bindings", which means a list of dictionaries.
+Each dictionary is a possible binding of the SELECT variables to :class:`Value` instances. This structure is made a
+bit more usable by this class.
+
+:ivar fullResult: The original dictionary of the results, stored for an easier reference.
+:vartype fullResult: dict
+:ivar head: Header part of the return, see the JSON return format document for details.
+:vartype head: dict
+:ivar variables: List of unbounds (variables) of the original query. It is a list of strings. ``None`` in the case
+                    of an ASK query.
+:vartype variables: list
+:ivar bindings: The final bindings: list of dictionaries, mapping variables to :class:`Value` instances. \
+If unbound, then no value is set in the dictionary; that can be easily checked with \
+``var in res.bindings[..]``, for example.
+:vartype bindings: list
+:ivar askResult: by default, set to **False**; in case of an ASK query, the result of the query.
+:vartype askResult: bool
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aafe2fef136a0c3ee480b4f02257d84b3" name="aafe2fef136a0c3ee480b4f02257d84b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafe2fef136a0c3ee480b4f02257d84b3">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02792.html">QueryResult</a>&#160;</td>
+          <td class="paramname"><em>retval</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param retval: the query result.
+:type retval: :class:`QueryResult&lt;SPARQLWrapper.Wrapper.QueryResult&gt;`
+</pre> <div class="fragment"><div class="line"><span class="lineno">  114</span>    <span class="keyword">def </span>__init__(self, retval: QueryResult):</div>
+<div class="line"><span class="lineno">  115</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  116</span><span class="stringliteral">        :param retval: the query result.</span></div>
+<div class="line"><span class="lineno">  117</span><span class="stringliteral">        :type retval: :class:`QueryResult&lt;SPARQLWrapper.Wrapper.QueryResult&gt;`</span></div>
+<div class="line"><span class="lineno">  118</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  119</span>        self.fullResult = retval._convertJSON()</div>
+<div class="line"><span class="lineno">  120</span>        self.head = self.fullResult[<span class="stringliteral">&quot;head&quot;</span>]</div>
+<div class="line"><span class="lineno">  121</span>        self.variables: Optional[List[str]] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  123</span>            self.variables = self.fullResult[<span class="stringliteral">&quot;head&quot;</span>][<span class="stringliteral">&quot;vars&quot;</span>]</div>
+<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  125</span>            <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>        self.bindings: List[Dict[str, Value]] = []</div>
+<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  129</span>            <span class="keywordflow">for</span> b <span class="keywordflow">in</span> self.fullResult[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><span class="lineno">  130</span>                <span class="comment"># This is a single binding. It is a dictionary per variable; each value is a dictionary again</span></div>
+<div class="line"><span class="lineno">  131</span>                <span class="comment"># that has to be converted into a Value instance</span></div>
+<div class="line"><span class="lineno">  132</span>                newBind = {}</div>
+<div class="line"><span class="lineno">  133</span>                <span class="comment"># type error: Item &quot;None&quot; of &quot;Union[List[str], Any, None]&quot; has no attribute &quot;__iter__&quot; (not iterable)</span></div>
+<div class="line"><span class="lineno">  134</span>                <span class="keywordflow">for</span> key <span class="keywordflow">in</span> self.variables:  <span class="comment"># type: ignore [union-attr]</span></div>
+<div class="line"><span class="lineno">  135</span>                    <span class="keywordflow">if</span> key <span class="keywordflow">in</span> b:</div>
+<div class="line"><span class="lineno">  136</span>                        <span class="comment"># there is a real binding for this key</span></div>
+<div class="line"><span class="lineno">  137</span>                        newBind[key] = Value(key, b[key])</div>
+<div class="line"><span class="lineno">  138</span>                self.bindings.append(newBind)</div>
+<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  140</span>            <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>        self.askResult = <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  144</span>            self.askResult = self.fullResult[<span class="stringliteral">&quot;boolean&quot;</span>]</div>
+<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  146</span>            <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  147</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a75ae53557eb75b6f70169b00c984c9a5" name="a75ae53557eb75b6f70169b00c984c9a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75ae53557eb75b6f70169b00c984c9a5">&#9670;&#160;</a></span>__contains__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool __contains__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[str, List[str], Tuple[str]]&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Emulation of the "``key in obj``" operator. Key can be a string for a variable or an array/tuple
+of strings.
+
+If ``key`` is a variable, the return value is ``True`` if there is at least one binding where ``key`` is
+bound. If ``key`` is an array or tuple, the return value is ``True`` if there is at least one binding
+where *all* variables in ``key`` are bound.
+
+:param key: possible variable, or array/tuple of variables
+:return: whether there is a binding of the variable in the return
+:rtype: Boolean
+</pre> <div class="fragment"><div class="line"><span class="lineno">  162</span>    <span class="keyword">def </span>__contains__(self, key: Union[str, List[str], Tuple[str]]) -&gt; bool:</div>
+<div class="line"><span class="lineno">  163</span>        <span class="stringliteral">&quot;&quot;&quot;Emulation of the &quot;``key in obj``&quot; operator. Key can be a string for a variable or an array/tuple</span></div>
+<div class="line"><span class="lineno">  164</span><span class="stringliteral">        of strings.</span></div>
+<div class="line"><span class="lineno">  165</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  166</span><span class="stringliteral">        If ``key`` is a variable, the return value is ``True`` if there is at least one binding where ``key`` is</span></div>
+<div class="line"><span class="lineno">  167</span><span class="stringliteral">        bound. If ``key`` is an array or tuple, the return value is ``True`` if there is at least one binding</span></div>
+<div class="line"><span class="lineno">  168</span><span class="stringliteral">        where *all* variables in ``key`` are bound.</span></div>
+<div class="line"><span class="lineno">  169</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  170</span><span class="stringliteral">        :param key: possible variable, or array/tuple of variables</span></div>
+<div class="line"><span class="lineno">  171</span><span class="stringliteral">        :return: whether there is a binding of the variable in the return</span></div>
+<div class="line"><span class="lineno">  172</span><span class="stringliteral">        :rtype: Boolean</span></div>
+<div class="line"><span class="lineno">  173</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">if</span> len(self.bindings) == 0:</div>
+<div class="line"><span class="lineno">  175</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  176</span>        <span class="keywordflow">if</span> <a class="code hl_class" href="a07531.html">type</a>(key) <span class="keywordflow">is</span> list <span class="keywordflow">or</span> <a class="code hl_class" href="a07531.html">type</a>(key) <span class="keywordflow">is</span> tuple:</div>
+<div class="line"><span class="lineno">  177</span>            <span class="comment"># check first whether they are all really variables</span></div>
+<div class="line"><span class="lineno">  178</span>            <span class="comment"># type error: Unsupported right operand type for in (&quot;Optional[List[str]]&quot;)</span></div>
+<div class="line"><span class="lineno">  179</span>            <span class="keywordflow">if</span> <span class="keyword">False</span> <span class="keywordflow">in</span> [k <span class="keywordflow">in</span> self.variables <span class="keywordflow">for</span> k <span class="keywordflow">in</span> key]:  <span class="comment"># type: ignore [operator]</span></div>
+<div class="line"><span class="lineno">  180</span>                <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  181</span>            <span class="keywordflow">for</span> b <span class="keywordflow">in</span> self.bindings:</div>
+<div class="line"><span class="lineno">  182</span>                <span class="comment"># try to find a binding where all key elements are present</span></div>
+<div class="line"><span class="lineno">  183</span>                <span class="keywordflow">if</span> <span class="keyword">False</span> <span class="keywordflow">in</span> [k <span class="keywordflow">in</span> b <span class="keywordflow">for</span> k <span class="keywordflow">in</span> key]:</div>
+<div class="line"><span class="lineno">  184</span>                    <span class="comment"># this is not a binding for the key combination, move on...</span></div>
+<div class="line"><span class="lineno">  185</span>                    <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  186</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  187</span>                    <span class="comment"># yep, this one is good!</span></div>
+<div class="line"><span class="lineno">  188</span>                    <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  189</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  190</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  191</span>            <span class="comment"># type error: Unsupported right operand type for in (&quot;Optional[List[str]]&quot;)</span></div>
+<div class="line"><span class="lineno">  192</span>            <span class="keywordflow">if</span> key <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.variables:  <span class="comment"># type: ignore [operator]</span></div>
+<div class="line"><span class="lineno">  193</span>                <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  194</span>            <span class="keywordflow">for</span> b <span class="keywordflow">in</span> self.bindings:</div>
+<div class="line"><span class="lineno">  195</span>                <span class="keywordflow">if</span> key <span class="keywordflow">in</span> b:</div>
+<div class="line"><span class="lineno">  196</span>                    <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  197</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="ttc" id="aa07531_html"><div class="ttname"><a href="a07531.html">type</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0a7ee6815d07850937029b431d1a1e1b" name="a0a7ee6815d07850937029b431d1a1e1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7ee6815d07850937029b431d1a1e1b">&#9670;&#160;</a></span>__getitem__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[Dict[str, <a class="el" href="a02748.html">Value</a>]] __getitem__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[slice, str, List[str]]&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Emulation of the ``obj[key]`` operator.  Slice notation is also available.
+The goal is to choose the right bindings among the available ones. The return values are always
+arrays  of bindings, ie, arrays of dictionaries mapping variable keys to :class:`Value` instances.
+The different value settings mean the followings:
+
+ - ``obj[key]`` returns the bindings where ``key`` has a valid value
+ - ``obj[key1,key2,...]`` returns the bindings where *all* ``key1,key2,...`` have valid values
+ - ``obj[(key1,key2,...):(nkey1,nkey2,...)]`` returns the bindings where all ``key1,key2,...`` have
+ valid values and *none* of the ``nkey1,nkey2,...`` have valid values
+ - ``obj[:(nkey1,nkey2,...)]`` returns the bindings where *none* of the ``nkey1,nkey2,...`` have valid values
+
+In all cases complete bindings are returned, ie, the values for other variables, not present among
+the keys in the call, may or may not be present depending on the query results.
+
+:param key: possible variable or array/tuple of keys with possible slice notation
+:return: list of bindings
+:rtype: array of variable -&gt; :class:`Value`  dictionaries
+</pre> <div class="fragment"><div class="line"><span class="lineno">  199</span>    <span class="keyword">def </span>__getitem__(self, key: Union[slice, str, List[str]]) -&gt; List[Dict[str, Value]]:</div>
+<div class="line"><span class="lineno">  200</span>        <span class="stringliteral">&quot;&quot;&quot;Emulation of the ``obj[key]`` operator.  Slice notation is also available.</span></div>
+<div class="line"><span class="lineno">  201</span><span class="stringliteral">        The goal is to choose the right bindings among the available ones. The return values are always</span></div>
+<div class="line"><span class="lineno">  202</span><span class="stringliteral">        arrays  of bindings, ie, arrays of dictionaries mapping variable keys to :class:`Value` instances.</span></div>
+<div class="line"><span class="lineno">  203</span><span class="stringliteral">        The different value settings mean the followings:</span></div>
+<div class="line"><span class="lineno">  204</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  205</span><span class="stringliteral">         - ``obj[key]`` returns the bindings where ``key`` has a valid value</span></div>
+<div class="line"><span class="lineno">  206</span><span class="stringliteral">         - ``obj[key1,key2,...]`` returns the bindings where *all* ``key1,key2,...`` have valid values</span></div>
+<div class="line"><span class="lineno">  207</span><span class="stringliteral">         - ``obj[(key1,key2,...):(nkey1,nkey2,...)]`` returns the bindings where all ``key1,key2,...`` have</span></div>
+<div class="line"><span class="lineno">  208</span><span class="stringliteral">         valid values and *none* of the ``nkey1,nkey2,...`` have valid values</span></div>
+<div class="line"><span class="lineno">  209</span><span class="stringliteral">         - ``obj[:(nkey1,nkey2,...)]`` returns the bindings where *none* of the ``nkey1,nkey2,...`` have valid values</span></div>
+<div class="line"><span class="lineno">  210</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  211</span><span class="stringliteral">        In all cases complete bindings are returned, ie, the values for other variables, not present among</span></div>
+<div class="line"><span class="lineno">  212</span><span class="stringliteral">        the keys in the call, may or may not be present depending on the query results.</span></div>
+<div class="line"><span class="lineno">  213</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  214</span><span class="stringliteral">        :param key: possible variable or array/tuple of keys with possible slice notation</span></div>
+<div class="line"><span class="lineno">  215</span><span class="stringliteral">        :return: list of bindings</span></div>
+<div class="line"><span class="lineno">  216</span><span class="stringliteral">        :rtype: array of variable -&gt; :class:`Value`  dictionaries</span></div>
+<div class="line"><span class="lineno">  217</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  218</span> </div>
+<div class="line"><span class="lineno">  219</span>        <span class="keyword">def </span>_checkKeys(keys: Union[List[Any], Tuple[Any, ...]]) -&gt; bool:</div>
+<div class="line"><span class="lineno">  220</span>            <span class="keywordflow">if</span> len(keys) == 0:</div>
+<div class="line"><span class="lineno">  221</span>                <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  222</span>            <span class="keywordflow">for</span> k <span class="keywordflow">in</span> keys:</div>
+<div class="line"><span class="lineno">  223</span>                <span class="comment"># type error: Unsupported right operand type for in (&quot;Optional[List[str]]&quot;)</span></div>
+<div class="line"><span class="lineno">  224</span>                <span class="keywordflow">if</span> (</div>
+<div class="line"><span class="lineno">  225</span>                    <span class="keywordflow">not</span> isinstance(k, str)</div>
+<div class="line"><span class="lineno">  226</span>                    <span class="keywordflow">or</span> k <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.variables  <span class="comment"># type: ignore [operator]</span></div>
+<div class="line"><span class="lineno">  227</span>                ):</div>
+<div class="line"><span class="lineno">  228</span>                    <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  229</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  230</span> </div>
+<div class="line"><span class="lineno">  231</span>        <span class="keyword">def </span>_nonSliceCase(</div>
+<div class="line"><span class="lineno">  232</span>            key: Union[</div>
+<div class="line"><span class="lineno">  233</span>                str,</div>
+<div class="line"><span class="lineno">  234</span>                List[Any],</div>
+<div class="line"><span class="lineno">  235</span>                Tuple[Any],</div>
+<div class="line"><span class="lineno">  236</span>            ]</div>
+<div class="line"><span class="lineno">  237</span>        ) -&gt; Union[List[Any], bool, Tuple[Any]]:</div>
+<div class="line"><span class="lineno">  238</span>            <span class="comment"># type error: Unsupported right operand type for in (&quot;Optional[List[str]]&quot;)</span></div>
+<div class="line"><span class="lineno">  239</span>            <span class="keywordflow">if</span> isinstance(key, str) <span class="keywordflow">and</span> key != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> key <span class="keywordflow">in</span> self.variables:  <span class="comment"># type: ignore[operator]</span></div>
+<div class="line"><span class="lineno">  240</span>                <span class="comment"># unicode or string:</span></div>
+<div class="line"><span class="lineno">  241</span>                <span class="keywordflow">return</span> [key]</div>
+<div class="line"><span class="lineno">  242</span>            <span class="keywordflow">elif</span> <a class="code hl_class" href="a07531.html">type</a>(key) <span class="keywordflow">is</span> list <span class="keywordflow">or</span> <a class="code hl_class" href="a07531.html">type</a>(key) <span class="keywordflow">is</span> tuple:</div>
+<div class="line"><span class="lineno">  243</span>                <span class="keywordflow">if</span> _checkKeys(key):</div>
+<div class="line"><span class="lineno">  244</span>                    <span class="keywordflow">return</span> key</div>
+<div class="line"><span class="lineno">  245</span>            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  246</span> </div>
+<div class="line"><span class="lineno">  247</span>        <span class="comment"># The arguments should be reduced to arrays of variables, ie, unicode strings</span></div>
+<div class="line"><span class="lineno">  248</span>        yes_keys: Union[List[Any], bool, Tuple[Any]] = []</div>
+<div class="line"><span class="lineno">  249</span>        no_keys: Union[List[Any], bool, Tuple[Any]] = []</div>
+<div class="line"><span class="lineno">  250</span>        <span class="keywordflow">if</span> <a class="code hl_class" href="a07531.html">type</a>(key) <span class="keywordflow">is</span> slice:</div>
+<div class="line"><span class="lineno">  251</span>            <span class="comment"># Note: None for start or stop is all right</span></div>
+<div class="line"><span class="lineno">  252</span>            <span class="keywordflow">if</span> key.start:</div>
+<div class="line"><span class="lineno">  253</span>                yes_keys = _nonSliceCase(key.start)</div>
+<div class="line"><span class="lineno">  254</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> yes_keys:</div>
+<div class="line"><span class="lineno">  255</span>                    <span class="keywordflow">raise</span> TypeError</div>
+<div class="line"><span class="lineno">  256</span>            <span class="keywordflow">if</span> key.stop:</div>
+<div class="line"><span class="lineno">  257</span>                no_keys = _nonSliceCase(key.stop)</div>
+<div class="line"><span class="lineno">  258</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> no_keys:</div>
+<div class="line"><span class="lineno">  259</span>                    <span class="keywordflow">raise</span> TypeError</div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  261</span>            yes_keys = _nonSliceCase(key)</div>
+<div class="line"><span class="lineno">  262</span> </div>
+<div class="line"><span class="lineno">  263</span>        <span class="comment"># got it right, now get the right binding line with the constraints</span></div>
+<div class="line"><span class="lineno">  264</span>        retval: List[Dict[str, Value]] = []</div>
+<div class="line"><span class="lineno">  265</span>        <span class="keywordflow">for</span> b <span class="keywordflow">in</span> self.bindings:</div>
+<div class="line"><span class="lineno">  266</span>            <span class="comment"># first check whether the &#39;yes&#39; part is all there:</span></div>
+<div class="line"><span class="lineno">  267</span>            <span class="comment"># type error: Item &quot;bool&quot; of &quot;Union[List[Any], bool, Tuple[Any]]&quot; has no attribute &quot;__iter__&quot; (not iterable)</span></div>
+<div class="line"><span class="lineno">  268</span>            <span class="keywordflow">if</span> <span class="keyword">False</span> <span class="keywordflow">in</span> [k <span class="keywordflow">in</span> b <span class="keywordflow">for</span> k <span class="keywordflow">in</span> yes_keys]:  <span class="comment"># type: ignore[union-attr]</span></div>
+<div class="line"><span class="lineno">  269</span>                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  270</span>            <span class="comment"># type error: Item &quot;bool&quot; of &quot;Union[List[Any], bool, Tuple[Any]]&quot; has no attribute &quot;__iter__&quot; (not iterable)</span></div>
+<div class="line"><span class="lineno">  271</span>            <span class="keywordflow">if</span> <span class="keyword">True</span> <span class="keywordflow">in</span> [k <span class="keywordflow">in</span> b <span class="keywordflow">for</span> k <span class="keywordflow">in</span> no_keys]:  <span class="comment"># type: ignore[union-attr]</span></div>
+<div class="line"><span class="lineno">  272</span>                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  273</span>            <span class="comment"># if we got that far, we should be all right!</span></div>
+<div class="line"><span class="lineno">  274</span>            retval.append(b)</div>
+<div class="line"><span class="lineno">  275</span>        <span class="comment"># if retval is of zero length, no hit; an exception should be raised to stay within the python style</span></div>
+<div class="line"><span class="lineno">  276</span>        <span class="keywordflow">if</span> len(retval) == 0:</div>
+<div class="line"><span class="lineno">  277</span>            <span class="keywordflow">raise</span> IndexError</div>
+<div class="line"><span class="lineno">  278</span>        <span class="keywordflow">return</span> retval</div>
+<div class="line"><span class="lineno">  279</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02380.html#a2503f7396834668def3805e73d7d1a45">Aggregator.bindings</a>, <a class="el" href="a02420.html#a2503f7396834668def3805e73d7d1a45">SPARQLResult.bindings</a>, <a class="el" href="a02452.html#a2503f7396834668def3805e73d7d1a45">JSONResult.bindings</a>, <a class="el" href="a02460.html#a2503f7396834668def3805e73d7d1a45">RDFResult.bindings</a>, <a class="el" href="a02476.html#a2503f7396834668def3805e73d7d1a45">XMLResult.bindings</a>, <a class="el" href="a02516.html#a2503f7396834668def3805e73d7d1a45">QueryContext.bindings</a>, <a class="el" href="a02604.html#a3c53ae1cfaff6c522753e2dddc522543">Result.bindings()</a>, <a class="el" href="a02604.html#ad230012f8c5b786a92730e6c7af00213">Result.bindings()</a>, <a class="el" href="a02604.html#a2503f7396834668def3805e73d7d1a45">Result.bindings</a>, <a class="el" href="a02752.html#a2503f7396834668def3805e73d7d1a45">Bindings.bindings</a>, and <a class="el" href="a02752.html#a626e63c7be6e71872233832cce1dccc0">Bindings.variables</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01964.html#a1ed58de5b0a58d1878444f2bdf47de38">DefinedNamespaceMeta.__add__()</a>, and <a class="el" href="a01964.html#ac1b77d5bab7f4ccc0381b10a744e6983">DefinedNamespaceMeta.__getattr__()</a>.</p>
+
+</div>
+</div>
+<a id="add61090dab5f7c42a3f99c1eecc92012" name="add61090dab5f7c42a3f99c1eecc92012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add61090dab5f7c42a3f99c1eecc92012">&#9670;&#160;</a></span>convert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> &quot;Bindings&quot; convert </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">This is just a convenience method, returns ``self``.
+
+Although :class:`SPARQLWrapper2.Bindings` is not a subclass of
+:class:`SPARQLWrapper.QueryResult&lt;SPARQLWrapper.Wrapper.QueryResult&gt;`, it is returned as a result by
+:func:`SPARQLWrapper2.query`, just like :class:`QueryResult&lt;SPARQLWrapper.Wrapper.QueryResult&gt;` is returned by
+:func:`SPARQLWrapper.query()&lt;SPARQLWrapper.Wrapper.SPARQLWrapper.query&gt;`. Consequently,
+having an empty :func:`convert` method to imitate
+:class:`QueryResult's convert() method&lt;SPARQLWrapper.Wrapper.QueryResult.convert&gt;`
+may avoid unnecessary problems.
+</pre> <div class="fragment"><div class="line"><span class="lineno">  280</span>    <span class="keyword">def </span>convert(self) -&gt; &quot;Bindings&quot;:</div>
+<div class="line"><span class="lineno">  281</span>        <span class="stringliteral">&quot;&quot;&quot;This is just a convenience method, returns ``self``.</span></div>
+<div class="line"><span class="lineno">  282</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  283</span><span class="stringliteral">        Although :class:`SPARQLWrapper2.Bindings` is not a subclass of</span></div>
+<div class="line"><span class="lineno">  284</span><span class="stringliteral">        :class:`SPARQLWrapper.QueryResult&lt;SPARQLWrapper.Wrapper.QueryResult&gt;`, it is returned as a result by</span></div>
+<div class="line"><span class="lineno">  285</span><span class="stringliteral">        :func:`SPARQLWrapper2.query`, just like :class:`QueryResult&lt;SPARQLWrapper.Wrapper.QueryResult&gt;` is returned by</span></div>
+<div class="line"><span class="lineno">  286</span><span class="stringliteral">        :func:`SPARQLWrapper.query()&lt;SPARQLWrapper.Wrapper.SPARQLWrapper.query&gt;`. Consequently,</span></div>
+<div class="line"><span class="lineno">  287</span><span class="stringliteral">        having an empty :func:`convert` method to imitate</span></div>
+<div class="line"><span class="lineno">  288</span><span class="stringliteral">        :class:`QueryResult&#39;s convert() method&lt;SPARQLWrapper.Wrapper.QueryResult.convert&gt;`</span></div>
+<div class="line"><span class="lineno">  289</span><span class="stringliteral">        may avoid unnecessary problems.</span></div>
+<div class="line"><span class="lineno">  290</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">return</span> self</div>
+<div class="line"><span class="lineno">  292</span> </div>
+<div class="line"><span class="lineno">  293</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02240.html#a9d55c9d58beb03a37004c8a33554f67f">RDFXMLHandler.node_element_start()</a>, and <a class="el" href="a02240.html#aec14fbb445390682c3bbe46c9c2a44e8">RDFXMLHandler.property_element_start()</a>.</p>
+
+</div>
+</div>
+<a id="ae83835eceaf132531f25dbbca89275bd" name="ae83835eceaf132531f25dbbca89275bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae83835eceaf132531f25dbbca89275bd">&#9670;&#160;</a></span>getValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[List[<a class="el" href="a02748.html">Value</a>]] getValues </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">A shorthand for the retrieval of all bindings for a single key. It is
+equivalent to ``[b[key] for b in self[key]]``
+
+:param key: possible variable name.
+:type key: string
+:return: list of :class:`Value` instances.
+:rtype: list
+</pre> <div class="fragment"><div class="line"><span class="lineno">  148</span>    <span class="keyword">def </span>getValues(self, key: str) -&gt; Optional[List[Value]]:</div>
+<div class="line"><span class="lineno">  149</span>        <span class="stringliteral">&quot;&quot;&quot;A shorthand for the retrieval of all bindings for a single key. It is</span></div>
+<div class="line"><span class="lineno">  150</span><span class="stringliteral">        equivalent to ``[b[key] for b in self[key]]``</span></div>
+<div class="line"><span class="lineno">  151</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  152</span><span class="stringliteral">        :param key: possible variable name.</span></div>
+<div class="line"><span class="lineno">  153</span><span class="stringliteral">        :type key: string</span></div>
+<div class="line"><span class="lineno">  154</span><span class="stringliteral">        :return: list of :class:`Value` instances.</span></div>
+<div class="line"><span class="lineno">  155</span><span class="stringliteral">        :rtype: list</span></div>
+<div class="line"><span class="lineno">  156</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  158</span>            <span class="keywordflow">return</span> [b[key] <span class="keywordflow">for</span> b <span class="keywordflow">in</span> self[key]]</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  160</span>            <span class="keywordflow">return</span> []</div>
+<div class="line"><span class="lineno">  161</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aaab5019b6fd2daba25a403d1b8a4fc5f" name="aaab5019b6fd2daba25a403d1b8a4fc5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaab5019b6fd2daba25a403d1b8a4fc5f">&#9670;&#160;</a></span>askResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">askResult</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2503f7396834668def3805e73d7d1a45" name="a2503f7396834668def3805e73d7d1a45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2503f7396834668def3805e73d7d1a45">&#9670;&#160;</a></span>bindings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bindings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02604.html#a973d1b0af56ccdf40e49a94753adfbc5">Result.__getattr__()</a>, <a class="el" href="a02752.html#a0a7ee6815d07850937029b431d1a1e1b">Bindings.__getitem__()</a>, <a class="el" href="a02516.html#a63e019e1fb2e1c50c13960823cd84152">QueryContext.__getitem__()</a>, <a class="el" href="a02380.html#abae93b5eaa56efd613629416df050a49">Aggregator.__init__()</a>, <a class="el" href="a02516.html#a9ed54fa622cfce67a956667b9ae76848">QueryContext.__setitem__()</a>, <a class="el" href="a02516.html#ad63f160b7106a7ab016e1c23521d6ef0">QueryContext.clone()</a>, <a class="el" href="a02516.html#a09e9d7ed87643c44adfca7c0dd569414">QueryContext.push()</a>, and <a class="el" href="a02516.html#ade897fe145365eba29577f0d9e191368">QueryContext.solution()</a>.</p>
+
+</div>
+</div>
+<a id="abd73702787e67fc3cb03ff8b5fc50f12" name="abd73702787e67fc3cb03ff8b5fc50f12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd73702787e67fc3cb03ff8b5fc50f12">&#9670;&#160;</a></span>fullResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fullResult</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a434acd167ada209c34621739b6b8c583" name="a434acd167ada209c34621739b6b8c583"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a434acd167ada209c34621739b6b8c583">&#9670;&#160;</a></span>head</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">head</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a626e63c7be6e71872233832cce1dccc0" name="a626e63c7be6e71872233832cce1dccc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a626e63c7be6e71872233832cce1dccc0">&#9670;&#160;</a></span>variables</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">variables</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02752.html#a0a7ee6815d07850937029b431d1a1e1b">Bindings.__getitem__()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a01125.html">SPARQLWrapper</a></li><li class="navelem"><a class="el" href="a01128.html">SmartWrapper</a></li><li class="navelem"><a class="el" href="a02752.html">Bindings</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

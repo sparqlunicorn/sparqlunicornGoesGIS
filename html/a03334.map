@@ -1,0 +1,11 @@
+<map id="ToolTipPlainText" name="ToolTipPlainText">
+<area shape="rect" id="Node000001" title=" " alt="" coords="163,93,289,119"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,121,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,35,205,91,203,95,96,39"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="145,5,192,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="167,44,172,68,183,81,198,91,195,95,180,85,168,71,162,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="265,5,304,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,44,258,71,238,95,234,92,253,68,270,42"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="374,5,425,31"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="385,44,356,72,323,87,290,97,289,92,322,82,352,67,382,40"/>
+</map>

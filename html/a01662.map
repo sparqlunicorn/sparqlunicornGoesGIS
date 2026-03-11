@@ -1,0 +1,7 @@
+<map id="ShapesGraph" name="ShapesGraph">
+<area shape="rect" id="Node000001" title=" " alt="" coords="21,93,129,119"/>
+<area shape="rect" id="Node000002" href="$a07484.html" title=" " alt="" coords="5,5,68,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="50,42,72,92,68,94,45,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,5,135,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,44,83,94,78,92,101,42"/>
+</map>

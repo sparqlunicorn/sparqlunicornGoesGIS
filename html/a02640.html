@@ -1,0 +1,1589 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: Store Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02640.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="a02637.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Store Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for Store:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02639.png" border="0" usemap="#aStore_inherit__map" alt="Inheritance graph"/></div>
+<map name="aStore_inherit__map" id="aStore_inherit__map">
+<area shape="rect" title=" " alt="" coords="405,5,461,31"/>
+<area shape="rect" href="a02532.html" title=" " alt="" coords="5,79,124,104"/>
+<area shape="poly" title=" " alt="" coords="392,30,124,81,123,76,391,25"/>
+<area shape="rect" href="a02536.html" title=" " alt="" coords="149,79,247,104"/>
+<area shape="poly" title=" " alt="" coords="392,34,236,81,235,76,391,29"/>
+<area shape="rect" href="a02552.html" title=" " alt="" coords="272,79,348,104"/>
+<area shape="poly" title=" " alt="" coords="403,40,331,81,329,76,400,35"/>
+<area shape="rect" href="a02548.html" title=" " alt="" coords="372,79,493,104"/>
+<area shape="poly" title=" " alt="" coords="435,44,435,79,430,79,430,44"/>
+<area shape="rect" href="a02556.html" title=" " alt="" coords="517,79,612,104"/>
+<area shape="poly" title=" " alt="" coords="467,35,544,76,542,81,464,39"/>
+<area shape="rect" href="a02564.html" title=" " alt="" coords="636,79,763,104"/>
+<area shape="poly" title=" " alt="" coords="474,28,657,76,656,81,473,33"/>
+<area shape="rect" href="a02576.html" title=" " alt="" coords="787,79,894,104"/>
+<area shape="poly" title=" " alt="" coords="475,24,776,76,788,78,787,83,775,81,474,29"/>
+<area shape="rect" href="a02580.html" title=" " alt="" coords="764,152,917,177"/>
+<area shape="poly" title=" " alt="" coords="843,118,843,152,838,152,838,118"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Store:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02638.png" border="0" usemap="#aStore_coll__map" alt="Collaboration graph"/></div>
+<map name="aStore_coll__map" id="aStore_coll__map">
+<area shape="rect" title=" " alt="" coords="5,137,61,163"/>
+<area shape="rect" title=" " alt="" coords="8,5,59,31"/>
+<area shape="poly" title=" " alt="" coords="36,44,36,137,31,137,31,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a02b4cd8c0997d0188097ce7accf31dc8" id="r_a02b4cd8c0997d0188097ce7accf31dc8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a02b4cd8c0997d0188097ce7accf31dc8">__init__</a> (self, Optional[str] configuration=None, Optional[<a class="el" href="a02648.html">Identifier</a>] identifier=None)</td></tr>
+<tr class="separator:a02b4cd8c0997d0188097ce7accf31dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7ddb173163cc29792b6d08dd853a85e" id="r_af7ddb173163cc29792b6d08dd853a85e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02636.html">NodePickler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#af7ddb173163cc29792b6d08dd853a85e">node_pickler</a> (self)</td></tr>
+<tr class="separator:af7ddb173163cc29792b6d08dd853a85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c0fc185a0f85585afbb25c238855e33" id="r_a6c0fc185a0f85585afbb25c238855e33"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a6c0fc185a0f85585afbb25c238855e33">create</a> (self, str configuration)</td></tr>
+<tr class="separator:a6c0fc185a0f85585afbb25c238855e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d52201a97a168e85a008c19e9736f94" id="r_a1d52201a97a168e85a008c19e9736f94"><td class="memItemLeft" align="right" valign="top">Optional[int]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a1d52201a97a168e85a008c19e9736f94">open</a> (self, Union[str, tuple[str, str]] configuration, bool <a class="el" href="a02640.html#a6c0fc185a0f85585afbb25c238855e33">create</a>=False)</td></tr>
+<tr class="separator:a1d52201a97a168e85a008c19e9736f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6806dc354f8c20b51cc4559b9ab3135" id="r_aa6806dc354f8c20b51cc4559b9ab3135"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#aa6806dc354f8c20b51cc4559b9ab3135">close</a> (self, bool commit_pending_transaction=False)</td></tr>
+<tr class="separator:aa6806dc354f8c20b51cc4559b9ab3135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4814386e342c4b51f7d6927767d7fffd" id="r_a4814386e342c4b51f7d6927767d7fffd"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a4814386e342c4b51f7d6927767d7fffd">destroy</a> (self, str configuration)</td></tr>
+<tr class="separator:a4814386e342c4b51f7d6927767d7fffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aafe1c3e9d7c4f839c2f9265fbb4254" id="r_a5aafe1c3e9d7c4f839c2f9265fbb4254"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a5aafe1c3e9d7c4f839c2f9265fbb4254">gc</a> (self)</td></tr>
+<tr class="separator:a5aafe1c3e9d7c4f839c2f9265fbb4254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9bb20c4ea13c6a83f2ce67e632881c" id="r_a0e9bb20c4ea13c6a83f2ce67e632881c"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a0e9bb20c4ea13c6a83f2ce67e632881c">add</a> (self, _TripleType triple, _ContextType context, bool quoted=False)</td></tr>
+<tr class="separator:a0e9bb20c4ea13c6a83f2ce67e632881c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0266459f64867ee571d9f08176411bc8" id="r_a0266459f64867ee571d9f08176411bc8"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a0266459f64867ee571d9f08176411bc8">addN</a> (self, Iterable[_QuadType] quads)</td></tr>
+<tr class="separator:a0266459f64867ee571d9f08176411bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e366110ab6b961cd0e049aa7073e3d" id="r_af5e366110ab6b961cd0e049aa7073e3d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#af5e366110ab6b961cd0e049aa7073e3d">remove</a> (self, _TriplePatternType triple, Optional[_ContextType] context=None)</td></tr>
+<tr class="separator:af5e366110ab6b961cd0e049aa7073e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca2761a15329d20e5274451ceb6c7c18" id="r_aca2761a15329d20e5274451ceb6c7c18"><td class="memItemLeft" align="right" valign="top">Generator[ Tuple[ _TripleType, Iterator[Optional[_ContextType]],], None, None,]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#aca2761a15329d20e5274451ceb6c7c18">triples_choices</a> (self, _TripleChoiceType triple, Optional[_ContextType] context=None)</td></tr>
+<tr class="separator:aca2761a15329d20e5274451ceb6c7c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8335edaf47862e5bd335865d4537cc0" id="r_af8335edaf47862e5bd335865d4537cc0"><td class="memItemLeft" align="right" valign="top">Iterator[Tuple[_TripleType, Iterator[Optional[_ContextType]]]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#af8335edaf47862e5bd335865d4537cc0">triples</a> (self, _TriplePatternType triple_pattern, Optional[_ContextType] context=None)</td></tr>
+<tr class="separator:af8335edaf47862e5bd335865d4537cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5b3c7344a9531aed37ea76a4a998f97" id="r_ac5b3c7344a9531aed37ea76a4a998f97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#ac5b3c7344a9531aed37ea76a4a998f97">__len__</a> (self, Optional[_ContextType] context=None)</td></tr>
+<tr class="separator:ac5b3c7344a9531aed37ea76a4a998f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d1647a3283def4ead1c4f797ed3a0d" id="r_ac0d1647a3283def4ead1c4f797ed3a0d"><td class="memItemLeft" align="right" valign="top">Generator[_ContextType, None, None]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#ac0d1647a3283def4ead1c4f797ed3a0d">contexts</a> (self, Optional[_TripleType] triple=None)</td></tr>
+<tr class="separator:ac0d1647a3283def4ead1c4f797ed3a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c710ae8a6b4feb31e4ba0d1f39538df" id="r_a0c710ae8a6b4feb31e4ba0d1f39538df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02604.html">Result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a0c710ae8a6b4feb31e4ba0d1f39538df">query</a> (self, Union[<a class="el" href="a02524.html">Query</a>, str] query, Mapping[str, Any] initNs, Mapping[str, <a class="el" href="a02648.html">Identifier</a>] initBindings, str queryGraph, **Any kwargs)</td></tr>
+<tr class="separator:a0c710ae8a6b4feb31e4ba0d1f39538df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32f6c8ae0916c216da90237203328134" id="r_a32f6c8ae0916c216da90237203328134"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a32f6c8ae0916c216da90237203328134">update</a> (self, Union[<a class="el" href="a02528.html">Update</a>, str] update, Mapping[str, Any] initNs, Mapping[str, <a class="el" href="a02648.html">Identifier</a>] initBindings, str queryGraph, **Any kwargs)</td></tr>
+<tr class="separator:a32f6c8ae0916c216da90237203328134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76979cf23c9d00b88b434f007b4037eb" id="r_a76979cf23c9d00b88b434f007b4037eb"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a76979cf23c9d00b88b434f007b4037eb">bind</a> (self, str <a class="el" href="a02640.html#a1876f361153f147aadad368d461b3a6e">prefix</a>, <a class="el" href="a02656.html">URIRef</a> <a class="el" href="a02640.html#a2be532436b279e8437bd19e0d2559a3a">namespace</a>, bool override=True)</td></tr>
+<tr class="separator:a76979cf23c9d00b88b434f007b4037eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1876f361153f147aadad368d461b3a6e" id="r_a1876f361153f147aadad368d461b3a6e"><td class="memItemLeft" align="right" valign="top">Optional[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a1876f361153f147aadad368d461b3a6e">prefix</a> (self, <a class="el" href="a02656.html">URIRef</a> <a class="el" href="a02640.html#a2be532436b279e8437bd19e0d2559a3a">namespace</a>)</td></tr>
+<tr class="separator:a1876f361153f147aadad368d461b3a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2be532436b279e8437bd19e0d2559a3a" id="r_a2be532436b279e8437bd19e0d2559a3a"><td class="memItemLeft" align="right" valign="top">Optional[<a class="el" href="a02656.html">URIRef</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a2be532436b279e8437bd19e0d2559a3a">namespace</a> (self, str <a class="el" href="a02640.html#a1876f361153f147aadad368d461b3a6e">prefix</a>)</td></tr>
+<tr class="separator:a2be532436b279e8437bd19e0d2559a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82b100d6114a28cdd0cbd9880305ca38" id="r_a82b100d6114a28cdd0cbd9880305ca38"><td class="memItemLeft" align="right" valign="top">Iterator[Tuple[str, <a class="el" href="a02656.html">URIRef</a>]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a82b100d6114a28cdd0cbd9880305ca38">namespaces</a> (self)</td></tr>
+<tr class="separator:a82b100d6114a28cdd0cbd9880305ca38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a285af719b0165ca44e124c7efe8421fb" id="r_a285af719b0165ca44e124c7efe8421fb"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a285af719b0165ca44e124c7efe8421fb">commit</a> (self)</td></tr>
+<tr class="separator:a285af719b0165ca44e124c7efe8421fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eedfb93b9acadd42d8eb1948492ab00" id="r_a0eedfb93b9acadd42d8eb1948492ab00"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a0eedfb93b9acadd42d8eb1948492ab00">rollback</a> (self)</td></tr>
+<tr class="separator:a0eedfb93b9acadd42d8eb1948492ab00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef47b97f428f44527c9114f868058c00" id="r_aef47b97f428f44527c9114f868058c00"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#aef47b97f428f44527c9114f868058c00">add_graph</a> (self, <a class="el" href="a01920.html">Graph</a> graph)</td></tr>
+<tr class="separator:aef47b97f428f44527c9114f868058c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a158e0bab10c9fcd5863b6198eef4f313" id="r_a158e0bab10c9fcd5863b6198eef4f313"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a158e0bab10c9fcd5863b6198eef4f313">remove_graph</a> (self, <a class="el" href="a01920.html">Graph</a> graph)</td></tr>
+<tr class="separator:a158e0bab10c9fcd5863b6198eef4f313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:acc7de78fffa2e683fae0b6c6080a46fd" id="r_acc7de78fffa2e683fae0b6c6080a46fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#acc7de78fffa2e683fae0b6c6080a46fd">dispatcher</a></td></tr>
+<tr class="separator:acc7de78fffa2e683fae0b6c6080a46fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a0a484884a934aa0c88f30e742b173404" id="r_a0a484884a934aa0c88f30e742b173404"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a0a484884a934aa0c88f30e742b173404">context_aware</a> = False</td></tr>
+<tr class="separator:a0a484884a934aa0c88f30e742b173404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc2b00a8e76ede259d80baac11601df2" id="r_afc2b00a8e76ede259d80baac11601df2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#afc2b00a8e76ede259d80baac11601df2">formula_aware</a> = False</td></tr>
+<tr class="separator:afc2b00a8e76ede259d80baac11601df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace32d9f7db85f65a9ada77c5f1737cfa" id="r_ace32d9f7db85f65a9ada77c5f1737cfa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#ace32d9f7db85f65a9ada77c5f1737cfa">transaction_aware</a> = False</td></tr>
+<tr class="separator:ace32d9f7db85f65a9ada77c5f1737cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1367316249ce935b4c72d916780667db" id="r_a1367316249ce935b4c72d916780667db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#a1367316249ce935b4c72d916780667db">graph_aware</a> = False</td></tr>
+<tr class="separator:a1367316249ce935b4c72d916780667db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:acc50a072829a04b57a5f17ee9103d537" id="r_acc50a072829a04b57a5f17ee9103d537"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html#acc50a072829a04b57a5f17ee9103d537">__node_pickler</a></td></tr>
+<tr class="separator:acc50a072829a04b57a5f17ee9103d537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a02b4cd8c0997d0188097ce7accf31dc8" name="a02b4cd8c0997d0188097ce7accf31dc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b4cd8c0997d0188097ce7accf31dc8">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>configuration</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[<a class="el" href="a02648.html">Identifier</a>] &#160;</td>
+          <td class="paramname"><em>identifier</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Initialize the Store.
+
+Args:
+    identifier: URIRef of the Store. Defaults to CWD
+    configuration: String containing information open can use to
+        connect to datastore.
+</pre> 
+<p>Reimplemented in <a class="el" href="a02536.html#a02b4cd8c0997d0188097ce7accf31dc8">BerkeleyDB</a>, <a class="el" href="a02548.html#a02b4cd8c0997d0188097ce7accf31dc8">SimpleMemory</a>, <a class="el" href="a02552.html#a02b4cd8c0997d0188097ce7accf31dc8">Memory</a>, <a class="el" href="a02576.html#accaa5ba02f932df8bd0f806d020a3b4d">SPARQLStore</a>, <a class="el" href="a02580.html#a07b53eea6a8bc687c901f5699d07c5c8">SPARQLUpdateStore</a>, <a class="el" href="a02564.html#aa2cbba94809b25295d01160db5b0d639">REGEXMatching</a>, <a class="el" href="a02532.html#ab4a4edfed41ec81a9730f74b40b6158d">AuditableStore</a>, and <a class="el" href="a02556.html#a74e45445cbfe71e83e4dea56ce4459ee">RDF4JStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  164</span>    ):</div>
+<div class="line"><span class="lineno">  165</span>        <span class="stringliteral">&quot;&quot;&quot;Initialize the Store.</span></div>
+<div class="line"><span class="lineno">  166</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  167</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  168</span><span class="stringliteral">            identifier: URIRef of the Store. Defaults to CWD</span></div>
+<div class="line"><span class="lineno">  169</span><span class="stringliteral">            configuration: String containing information open can use to</span></div>
+<div class="line"><span class="lineno">  170</span><span class="stringliteral">                connect to datastore.</span></div>
+<div class="line"><span class="lineno">  171</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  172</span>        self.__node_pickler: Optional[NodePickler] = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  173</span>        self.dispatcher = Dispatcher()</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">if</span> configuration:</div>
+<div class="line"><span class="lineno">  175</span>            self.open(configuration)</div>
+<div class="line"><span class="lineno">  176</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02640.html#acc50a072829a04b57a5f17ee9103d537">Store.__node_pickler</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac5b3c7344a9531aed37ea76a4a998f97" name="ac5b3c7344a9531aed37ea76a4a998f97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5b3c7344a9531aed37ea76a4a998f97">&#9670;&#160;</a></span>__len__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int __len__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_ContextType] &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Number of statements in the store. This should only account for non-
+quoted (asserted) statements if the context is not specified,
+otherwise it should return the number of statements in the formula or
+context given.
+
+Args:
+    context: a graph instance to query or None
+</pre> 
+<p>Reimplemented in <a class="el" href="a02580.html#a5b17070d255f46d095597e1f0513a0ee">SPARQLUpdateStore</a>, <a class="el" href="a02556.html#a146606b94d8c52bf03359a790f6b39cb">RDF4JStore</a>, <a class="el" href="a02564.html#aa636f624247720ed3b225ecaf49343c7">REGEXMatching</a>, <a class="el" href="a02532.html#af6ee0c7a21c6a59e5fe4f1a14f911019">AuditableStore</a>, <a class="el" href="a02536.html#ac5b3c7344a9531aed37ea76a4a998f97">BerkeleyDB</a>, <a class="el" href="a02548.html#ac5b3c7344a9531aed37ea76a4a998f97">SimpleMemory</a>, <a class="el" href="a02552.html#ac5b3c7344a9531aed37ea76a4a998f97">Memory</a>, and <a class="el" href="a02576.html#ac5b3c7344a9531aed37ea76a4a998f97">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  367</span>    <span class="keyword">def </span>__len__(self, context: Optional[_ContextType] = <span class="keywordtype">None</span>) -&gt; int:  <span class="comment"># type: ignore[empty-body]</span></div>
+<div class="line"><span class="lineno">  368</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  369</span><span class="stringliteral">        Number of statements in the store. This should only account for non-</span></div>
+<div class="line"><span class="lineno">  370</span><span class="stringliteral">        quoted (asserted) statements if the context is not specified,</span></div>
+<div class="line"><span class="lineno">  371</span><span class="stringliteral">        otherwise it should return the number of statements in the formula or</span></div>
+<div class="line"><span class="lineno">  372</span><span class="stringliteral">        context given.</span></div>
+<div class="line"><span class="lineno">  373</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  374</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  375</span><span class="stringliteral">            context: a graph instance to query or None</span></div>
+<div class="line"><span class="lineno">  376</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  377</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0e9bb20c4ea13c6a83f2ce67e632881c" name="a0e9bb20c4ea13c6a83f2ce67e632881c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e9bb20c4ea13c6a83f2ce67e632881c">&#9670;&#160;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None add </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_TripleType&#160;</td>
+          <td class="paramname"><em>triple</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_ContextType&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>quoted</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Adds the given statement to a specific context or to the model.
+
+Args:
+    triple: The triple to add
+    context: The context to add the triple to
+    quoted: If True, indicates this statement is quoted/hypothetical
+        (for formula-aware stores)
+
+Note:
+    It should be an error to not specify a context and have the quoted
+    argument be True. It should also be an error for the quoted argument
+    to be True when the store is not formula-aware.
+</pre> 
+<p>Reimplemented in <a class="el" href="a02576.html#ad8fd3d5030bbcd220bc81b3c9067501d">SPARQLStore</a>, <a class="el" href="a02580.html#a52712f52850280fd87e3229e28cc2896">SPARQLUpdateStore</a>, <a class="el" href="a02532.html#a0e9bb20c4ea13c6a83f2ce67e632881c">AuditableStore</a>, <a class="el" href="a02548.html#a0e9bb20c4ea13c6a83f2ce67e632881c">SimpleMemory</a>, <a class="el" href="a02552.html#a0e9bb20c4ea13c6a83f2ce67e632881c">Memory</a>, <a class="el" href="a02536.html#a931d5b84102558a93237ac03768672dd">BerkeleyDB</a>, <a class="el" href="a02556.html#afb1d6c8965a9203bcdc584667faa78db">RDF4JStore</a>, and <a class="el" href="a02564.html#ac7298ea5b136c0e48bd0176f102d6626">REGEXMatching</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  241</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  242</span>        <span class="stringliteral">&quot;&quot;&quot;Adds the given statement to a specific context or to the model.</span></div>
+<div class="line"><span class="lineno">  243</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  244</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  245</span><span class="stringliteral">            triple: The triple to add</span></div>
+<div class="line"><span class="lineno">  246</span><span class="stringliteral">            context: The context to add the triple to</span></div>
+<div class="line"><span class="lineno">  247</span><span class="stringliteral">            quoted: If True, indicates this statement is quoted/hypothetical</span></div>
+<div class="line"><span class="lineno">  248</span><span class="stringliteral">                (for formula-aware stores)</span></div>
+<div class="line"><span class="lineno">  249</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  250</span><span class="stringliteral">        Note:</span></div>
+<div class="line"><span class="lineno">  251</span><span class="stringliteral">            It should be an error to not specify a context and have the quoted</span></div>
+<div class="line"><span class="lineno">  252</span><span class="stringliteral">            argument be True. It should also be an error for the quoted argument</span></div>
+<div class="line"><span class="lineno">  253</span><span class="stringliteral">            to be True when the store is not formula-aware.</span></div>
+<div class="line"><span class="lineno">  254</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  255</span>        self.dispatcher.dispatch(TripleAddedEvent(triple=triple, context=context))</div>
+<div class="line"><span class="lineno">  256</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02640.html#acc7de78fffa2e683fae0b6c6080a46fd">Store.dispatcher</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02640.html#a0266459f64867ee571d9f08176411bc8">Store.addN()</a>, and <a class="el" href="a01920.html#af03ef57cf5d8237fabce7436e85301d6">Graph.set()</a>.</p>
+
+</div>
+</div>
+<a id="aef47b97f428f44527c9114f868058c00" name="aef47b97f428f44527c9114f868058c00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef47b97f428f44527c9114f868058c00">&#9670;&#160;</a></span>add_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None add_graph </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Add a graph to the store, no effect if the graph already
+exists.
+
+Args:
+    graph: a Graph instance
+</pre> 
+<p>Reimplemented in <a class="el" href="a02536.html#aef47b97f428f44527c9114f868058c00">BerkeleyDB</a>, <a class="el" href="a02552.html#aef47b97f428f44527c9114f868058c00">Memory</a>, <a class="el" href="a02556.html#aef47b97f428f44527c9114f868058c00">RDF4JStore</a>, <a class="el" href="a02576.html#aef47b97f428f44527c9114f868058c00">SPARQLStore</a>, and <a class="el" href="a02580.html#aef47b97f428f44527c9114f868058c00">SPARQLUpdateStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  470</span>    <span class="keyword">def </span>add_graph(self, graph: Graph) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  471</span>        <span class="stringliteral">&quot;&quot;&quot;Add a graph to the store, no effect if the graph already</span></div>
+<div class="line"><span class="lineno">  472</span><span class="stringliteral">        exists.</span></div>
+<div class="line"><span class="lineno">  473</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  474</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  475</span><span class="stringliteral">            graph: a Graph instance</span></div>
+<div class="line"><span class="lineno">  476</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  477</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(<span class="stringliteral">&quot;Graph method called on non-graph_aware store&quot;</span>)</div>
+<div class="line"><span class="lineno">  478</span> </div>
+<div class="ttc" id="aa07480_html"><div class="ttname"><a href="a07480.html">Exception</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0266459f64867ee571d9f08176411bc8" name="a0266459f64867ee571d9f08176411bc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0266459f64867ee571d9f08176411bc8">&#9670;&#160;</a></span>addN()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None addN </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Iterable[_QuadType]&#160;</td>
+          <td class="paramname"><em>quads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Adds each item in the list of statements to a specific context.
+
+The quoted argument is interpreted by formula-aware stores to indicate this
+statement is quoted/hypothetical.
+
+Note:
+    The default implementation is a redirect to add.
+
+Args:
+    quads: An iterable of quads to add
+</pre> 
+<p>Reimplemented in <a class="el" href="a02556.html#a0266459f64867ee571d9f08176411bc8">RDF4JStore</a>, <a class="el" href="a02576.html#a0266459f64867ee571d9f08176411bc8">SPARQLStore</a>, and <a class="el" href="a02580.html#a0266459f64867ee571d9f08176411bc8">SPARQLUpdateStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  257</span>    <span class="keyword">def </span>addN(self, quads: Iterable[_QuadType]) -&gt; <span class="keywordtype">None</span>:  <span class="comment"># noqa: N802</span></div>
+<div class="line"><span class="lineno">  258</span>        <span class="stringliteral">&quot;&quot;&quot;Adds each item in the list of statements to a specific context.</span></div>
+<div class="line"><span class="lineno">  259</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  260</span><span class="stringliteral">        The quoted argument is interpreted by formula-aware stores to indicate this</span></div>
+<div class="line"><span class="lineno">  261</span><span class="stringliteral">        statement is quoted/hypothetical.</span></div>
+<div class="line"><span class="lineno">  262</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  263</span><span class="stringliteral">        Note:</span></div>
+<div class="line"><span class="lineno">  264</span><span class="stringliteral">            The default implementation is a redirect to add.</span></div>
+<div class="line"><span class="lineno">  265</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  266</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  267</span><span class="stringliteral">            quads: An iterable of quads to add</span></div>
+<div class="line"><span class="lineno">  268</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  269</span>        <span class="keywordflow">for</span> s, p, o, c <span class="keywordflow">in</span> quads:</div>
+<div class="line"><span class="lineno">  270</span>            <span class="keyword">assert</span> c <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>, <span class="stringliteral">&quot;Context associated with %s %s %s is None!&quot;</span> % (</div>
+<div class="line"><span class="lineno">  271</span>                s,</div>
+<div class="line"><span class="lineno">  272</span>                p,</div>
+<div class="line"><span class="lineno">  273</span>                o,</div>
+<div class="line"><span class="lineno">  274</span>            )</div>
+<div class="line"><span class="lineno">  275</span>            self.add((s, p, o), c)</div>
+<div class="line"><span class="lineno">  276</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01924.html#acbdf1da493517ca79a0b1915271cdcb3">ConjunctiveGraph.add()</a>, <a class="el" href="a01920.html#a78737c280f0e29073db17f6302f8a407">Graph.add()</a>, <a class="el" href="a01932.html#a78737c280f0e29073db17f6302f8a407">QuotedGraph.add()</a>, <a class="el" href="a01948.html#ab984b1010c40a7fbf748ccc3540579fa">ReadOnlyGraphAggregate.add()</a>, <a class="el" href="a02576.html#ad8fd3d5030bbcd220bc81b3c9067501d">SPARQLStore.add()</a>, <a class="el" href="a02580.html#a52712f52850280fd87e3229e28cc2896">SPARQLUpdateStore.add()</a>, <a class="el" href="a02532.html#a0e9bb20c4ea13c6a83f2ce67e632881c">AuditableStore.add()</a>, <a class="el" href="a02548.html#a0e9bb20c4ea13c6a83f2ce67e632881c">SimpleMemory.add()</a>, <a class="el" href="a02552.html#a0e9bb20c4ea13c6a83f2ce67e632881c">Memory.add()</a>, <a class="el" href="a02640.html#a0e9bb20c4ea13c6a83f2ce67e632881c">Store.add()</a>, <a class="el" href="a02536.html#a931d5b84102558a93237ac03768672dd">BerkeleyDB.add()</a>, <a class="el" href="a02556.html#afb1d6c8965a9203bcdc584667faa78db">RDF4JStore.add()</a>, <a class="el" href="a02616.html#a0d8c33f2bc1fd1814f26fb7d80ebd650">Resource.add()</a>, <a class="el" href="a02544.html#a71ce5fee6d49c5ab4f20e3fc389b6db7">ConcurrentStore.add()</a>, <a class="el" href="a02564.html#ac7298ea5b136c0e48bd0176f102d6626">REGEXMatching.add()</a>, <a class="el" href="a01952.html#a5131ebb8b3655281d01483e53750787c">BatchAddGraph.add()</a>, and <a class="el" href="a01756.html#a215c78b2e4c03d549d18fb06ab9d70f0">GraphStoreManager.add()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a9d90bc580ad3e6d9f4fd1a50eef08bdf">Graph.__iadd__()</a>.</p>
+
+</div>
+</div>
+<a id="a76979cf23c9d00b88b434f007b4037eb" name="a76979cf23c9d00b88b434f007b4037eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76979cf23c9d00b88b434f007b4037eb">&#9670;&#160;</a></span>bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None bind </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>prefix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a>&#160;</td>
+          <td class="paramname"><em>namespace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>override</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Bind a namespace to a prefix.
+
+Args:
+    prefix: The prefix to bind the namespace to.
+    namespace: The URIRef of the namespace to bind.
+    override: If True, rebind even if the given namespace is already bound
+        to another prefix
+</pre> 
+<p>Reimplemented in <a class="el" href="a02564.html#a32599e3cf61e3f1c406f71e289b40096">REGEXMatching</a>, <a class="el" href="a02532.html#a76979cf23c9d00b88b434f007b4037eb">AuditableStore</a>, <a class="el" href="a02536.html#a76979cf23c9d00b88b434f007b4037eb">BerkeleyDB</a>, <a class="el" href="a02548.html#a76979cf23c9d00b88b434f007b4037eb">SimpleMemory</a>, <a class="el" href="a02552.html#a76979cf23c9d00b88b434f007b4037eb">Memory</a>, <a class="el" href="a02556.html#a76979cf23c9d00b88b434f007b4037eb">RDF4JStore</a>, and <a class="el" href="a02576.html#a76979cf23c9d00b88b434f007b4037eb">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  436</span>    <span class="keyword">def </span>bind(self, prefix: str, namespace: URIRef, override: bool = <span class="keyword">True</span>) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  437</span>        <span class="stringliteral">&quot;&quot;&quot;Bind a namespace to a prefix.</span></div>
+<div class="line"><span class="lineno">  438</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  439</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  440</span><span class="stringliteral">            prefix: The prefix to bind the namespace to.</span></div>
+<div class="line"><span class="lineno">  441</span><span class="stringliteral">            namespace: The URIRef of the namespace to bind.</span></div>
+<div class="line"><span class="lineno">  442</span><span class="stringliteral">            override: If True, rebind even if the given namespace is already bound</span></div>
+<div class="line"><span class="lineno">  443</span><span class="stringliteral">                to another prefix</span></div>
+<div class="line"><span class="lineno">  444</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  445</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, and <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>.</p>
+
+</div>
+</div>
+<a id="aa6806dc354f8c20b51cc4559b9ab3135" name="aa6806dc354f8c20b51cc4559b9ab3135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6806dc354f8c20b51cc4559b9ab3135">&#9670;&#160;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None close </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>commit_pending_transaction</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Closes the database connection.
+
+Args:
+    commit_pending_transaction: Whether to commit all pending
+        transactions before closing (if the store is transactional).
+</pre> 
+<p>Reimplemented in <a class="el" href="a02532.html#aa6806dc354f8c20b51cc4559b9ab3135">AuditableStore</a>, <a class="el" href="a02536.html#aa6806dc354f8c20b51cc4559b9ab3135">BerkeleyDB</a>, <a class="el" href="a02556.html#aa6806dc354f8c20b51cc4559b9ab3135">RDF4JStore</a>, and <a class="el" href="a02564.html#a5b5113ed1c650bb89397961db034c994">REGEXMatching</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  216</span>    <span class="keyword">def </span>close(self, commit_pending_transaction: bool = <span class="keyword">False</span>) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  217</span>        <span class="stringliteral">&quot;&quot;&quot;Closes the database connection.</span></div>
+<div class="line"><span class="lineno">  218</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  219</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  220</span><span class="stringliteral">            commit_pending_transaction: Whether to commit all pending</span></div>
+<div class="line"><span class="lineno">  221</span><span class="stringliteral">                transactions before closing (if the store is transactional).</span></div>
+<div class="line"><span class="lineno">  222</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  223</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01776.html#a9ea6bfea91f5b8e9919675d869ee1c66">RDF4JClient.__exit__()</a>, <a class="el" href="a02880.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a02912.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a02920.html#ab4a0ff7ecb35358bb38cbc0f1e5e8090">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a02924.html#a3a39d9fbda01c8dd0699f529ec7a9c11">VarInputDialog.applyVar()</a>, <a class="el" href="a02884.html#a8a95231f04f9aa982da78135367dd68f">BaseLayerDialog.saveBaseLayer()</a>, <a class="el" href="a02904.html#a4bd5f0ea1dd89d4e07a05d530b008657">PrefixDialog.savePrefix()</a>, <a class="el" href="a02892.html#afb0802cb9ce06a195a5c1ff949a28cca">ExampleQueryDialog.saveQuery()</a>, and <a class="el" href="a02888.html#a9fd005fb9c3111a088c0813907ae43c0">BBOXDialog.setBBOXExtentQuery()</a>.</p>
+
+</div>
+</div>
+<a id="a285af719b0165ca44e124c7efe8421fb" name="a285af719b0165ca44e124c7efe8421fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a285af719b0165ca44e124c7efe8421fb">&#9670;&#160;</a></span>commit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None commit </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment"> </pre> 
+<p>Reimplemented in <a class="el" href="a02532.html#a285af719b0165ca44e124c7efe8421fb">AuditableStore</a>, <a class="el" href="a02564.html#aef9f050f08f3a95553a0d15762f9dad2">REGEXMatching</a>, <a class="el" href="a02576.html#a285af719b0165ca44e124c7efe8421fb">SPARQLStore</a>, and <a class="el" href="a02580.html#a285af719b0165ca44e124c7efe8421fb">SPARQLUpdateStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  462</span>    <span class="keyword">def </span>commit(self) -&gt; None:</div>
+<div class="line"><span class="lineno">  463</span>        <span class="stringliteral">&quot;&quot;&quot; &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  464</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01768.html#a9ea6bfea91f5b8e9919675d869ee1c66">Transaction.__exit__()</a>, <a class="el" href="a02580.html#a5b17070d255f46d095597e1f0513a0ee">SPARQLUpdateStore.__len__()</a>, <a class="el" href="a02580.html#a52712f52850280fd87e3229e28cc2896">SPARQLUpdateStore.add()</a>, <a class="el" href="a02580.html#a0266459f64867ee571d9f08176411bc8">SPARQLUpdateStore.addN()</a>, <a class="el" href="a02580.html#a9a52f3eacacda86d1bda30652818523f">SPARQLUpdateStore.contexts()</a>, <a class="el" href="a02580.html#ae01cb632653c4271ac64941987d6f61e">SPARQLUpdateStore.query()</a>, <a class="el" href="a02580.html#a55498d91dd2cbda916878e25fd19c11d">SPARQLUpdateStore.remove()</a>, and <a class="el" href="a02580.html#a0abe3e973a8b040a91a48a84daab6b7d">SPARQLUpdateStore.triples()</a>.</p>
+
+</div>
+</div>
+<a id="ac0d1647a3283def4ead1c4f797ed3a0d" name="ac0d1647a3283def4ead1c4f797ed3a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d1647a3283def4ead1c4f797ed3a0d">&#9670;&#160;</a></span>contexts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Generator[_ContextType, None, None] contexts </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_TripleType] &#160;</td>
+          <td class="paramname"><em>triple</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Generator over all contexts in the graph. If triple is specified,
+a generator over all contexts the triple is in.
+
+if store is graph_aware, may also return empty contexts
+
+:returns: a generator over Nodes
+</pre> 
+<p>Reimplemented in <a class="el" href="a02580.html#a9a52f3eacacda86d1bda30652818523f">SPARQLUpdateStore</a>, <a class="el" href="a02532.html#ac0d1647a3283def4ead1c4f797ed3a0d">AuditableStore</a>, <a class="el" href="a02536.html#ac0d1647a3283def4ead1c4f797ed3a0d">BerkeleyDB</a>, <a class="el" href="a02552.html#ac0d1647a3283def4ead1c4f797ed3a0d">Memory</a>, <a class="el" href="a02556.html#ac0d1647a3283def4ead1c4f797ed3a0d">RDF4JStore</a>, <a class="el" href="a02576.html#af317b198203b0e14829541aa20f50fd6">SPARQLStore</a>, and <a class="el" href="a02564.html#a732212b2f2dfd626a3df0f81af2b13ee">REGEXMatching</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  381</span>    ) -&gt; Generator[_ContextType, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>]:</div>
+<div class="line"><span class="lineno">  382</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  383</span><span class="stringliteral">        Generator over all contexts in the graph. If triple is specified,</span></div>
+<div class="line"><span class="lineno">  384</span><span class="stringliteral">        a generator over all contexts the triple is in.</span></div>
+<div class="line"><span class="lineno">  385</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  386</span><span class="stringliteral">        if store is graph_aware, may also return empty contexts</span></div>
+<div class="line"><span class="lineno">  387</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  388</span><span class="stringliteral">        :returns: a generator over Nodes</span></div>
+<div class="line"><span class="lineno">  389</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  390</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02308.html#a925317f7541d940b63b0d9cbc670cb92">TrigSerializer.preprocess()</a>, and <a class="el" href="a02264.html#a5522752fdac7bc3653dbbf017744ee84">HextuplesSerializer.serialize()</a>.</p>
+
+</div>
+</div>
+<a id="a6c0fc185a0f85585afbb25c238855e33" name="a6c0fc185a0f85585afbb25c238855e33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c0fc185a0f85585afbb25c238855e33">&#9670;&#160;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None create </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>configuration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="a02576.html#a6c0fc185a0f85585afbb25c238855e33">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  195</span>    <span class="keyword">def </span>create(self, configuration: str) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  196</span>        self.dispatcher.dispatch(StoreCreatedEvent(configuration=configuration))</div>
+<div class="line"><span class="lineno">  197</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02640.html#acc7de78fffa2e683fae0b6c6080a46fd">Store.dispatcher</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02536.html#a2c7d2936122a46bbf0bbac9c0a7690c2">BerkeleyDB._init_db_environment()</a>.</p>
+
+</div>
+</div>
+<a id="a4814386e342c4b51f7d6927767d7fffd" name="a4814386e342c4b51f7d6927767d7fffd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4814386e342c4b51f7d6927767d7fffd">&#9670;&#160;</a></span>destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None destroy </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>configuration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Destroys the instance of the store.
+
+Args:
+    configuration: The configuration string identifying the store instance.
+</pre> 
+<p>Reimplemented in <a class="el" href="a02564.html#ac060b44ddbd2d757e0f5f85aa3f4792c">REGEXMatching</a>, <a class="el" href="a02532.html#a4814386e342c4b51f7d6927767d7fffd">AuditableStore</a>, and <a class="el" href="a02576.html#a4814386e342c4b51f7d6927767d7fffd">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  224</span>    <span class="keyword">def </span>destroy(self, configuration: str) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  225</span>        <span class="stringliteral">&quot;&quot;&quot;Destroys the instance of the store.</span></div>
+<div class="line"><span class="lineno">  226</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  227</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  228</span><span class="stringliteral">            configuration: The configuration string identifying the store instance.</span></div>
+<div class="line"><span class="lineno">  229</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  230</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5aafe1c3e9d7c4f839c2f9265fbb4254" name="a5aafe1c3e9d7c4f839c2f9265fbb4254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aafe1c3e9d7c4f839c2f9265fbb4254">&#9670;&#160;</a></span>gc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None gc </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Allows the store to perform any needed garbage collection.</pre> <div class="fragment"><div class="line"><span class="lineno">  231</span>    <span class="keyword">def </span>gc(self) -&gt; None:</div>
+<div class="line"><span class="lineno">  232</span>        <span class="stringliteral">&quot;&quot;&quot;Allows the store to perform any needed garbage collection.&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  233</span>        <span class="keywordflow">pass</span></div>
+<div class="line"><span class="lineno">  234</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2be532436b279e8437bd19e0d2559a3a" name="a2be532436b279e8437bd19e0d2559a3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2be532436b279e8437bd19e0d2559a3a">&#9670;&#160;</a></span>namespace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[<a class="el" href="a02656.html">URIRef</a>] namespace </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>prefix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment"> </pre> 
+<p>Reimplemented in <a class="el" href="a02564.html#a0f5a6c36d84d8de4b85a6315f572e686">REGEXMatching</a>, <a class="el" href="a02532.html#a2be532436b279e8437bd19e0d2559a3a">AuditableStore</a>, <a class="el" href="a02536.html#a2be532436b279e8437bd19e0d2559a3a">BerkeleyDB</a>, <a class="el" href="a02548.html#a2be532436b279e8437bd19e0d2559a3a">SimpleMemory</a>, <a class="el" href="a02552.html#a2be532436b279e8437bd19e0d2559a3a">Memory</a>, <a class="el" href="a02556.html#a2be532436b279e8437bd19e0d2559a3a">RDF4JStore</a>, and <a class="el" href="a02576.html#a2be532436b279e8437bd19e0d2559a3a">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  449</span>    <span class="keyword">def </span>namespace(self, prefix: str) -&gt; Optional[URIRef]:</div>
+<div class="line"><span class="lineno">  450</span>        <span class="stringliteral">&quot;&quot;&quot; &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  451</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a82b100d6114a28cdd0cbd9880305ca38" name="a82b100d6114a28cdd0cbd9880305ca38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82b100d6114a28cdd0cbd9880305ca38">&#9670;&#160;</a></span>namespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Iterator[Tuple[str, <a class="el" href="a02656.html">URIRef</a>]] namespaces </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment"> </pre> 
+<p>Reimplemented in <a class="el" href="a02532.html#a82b100d6114a28cdd0cbd9880305ca38">AuditableStore</a>, <a class="el" href="a02536.html#a20ed34a6c868a7c795ad084b25ddd1e2">BerkeleyDB</a>, <a class="el" href="a02548.html#a82b100d6114a28cdd0cbd9880305ca38">SimpleMemory</a>, <a class="el" href="a02552.html#a82b100d6114a28cdd0cbd9880305ca38">Memory</a>, <a class="el" href="a02556.html#a82b100d6114a28cdd0cbd9880305ca38">RDF4JStore</a>, <a class="el" href="a02564.html#adb79aea984ab953adf7d3a607511fea1">REGEXMatching</a>, and <a class="el" href="a02576.html#a82b100d6114a28cdd0cbd9880305ca38">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  452</span>    <span class="keyword">def </span>namespaces(self) -&gt; Iterator[Tuple[str, URIRef]]:</div>
+<div class="line"><span class="lineno">  453</span>        <span class="stringliteral">&quot;&quot;&quot; &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  454</span>        <span class="comment"># This is here so that the function becomes an empty generator.</span></div>
+<div class="line"><span class="lineno">  455</span>        <span class="comment"># See https://stackoverflow.com/q/13243766 and</span></div>
+<div class="line"><span class="lineno">  456</span>        <span class="comment"># https://www.python.org/dev/peps/pep-0255/#why-a-new-keyword-for-yield-why-not-a-builtin-function-instead</span></div>
+<div class="line"><span class="lineno">  457</span>        <span class="keywordflow">if</span> <span class="keyword">False</span>:</div>
+<div class="line"><span class="lineno">  458</span>            <span class="keywordflow">yield</span> <span class="keywordtype">None</span>  <span class="comment"># type: ignore[unreachable]</span></div>
+<div class="line"><span class="lineno">  459</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01920.html#a34129a0abb9037ca62ba2607412c8962">Graph.__add__()</a>, <a class="el" href="a01976.html#a0a9c3b6e2ace890a6a09a891dd50879a">NamespaceManager.__contains__()</a>, <a class="el" href="a02276.html#a6407d45dc646e58f0f60f8445265eda9">LongTurtleSerializer.addNamespace()</a>, <a class="el" href="a02320.html#a0d812c0741cfe20229cef6aeb37b0380">TurtleSerializer.addNamespace()</a>, <a class="el" href="a02316.html#abf5193236a62bac535ce449ad82b0d54">RecursiveSerializer.addNamespace()</a>, <a class="el" href="a02952.html#ac7eea24b5fa1c707c805a00e81984342">ExtractNamespaceTask.finishedExtractNS()</a>, <a class="el" href="a01764.html#a2488d371a763bdb7273c9dd9c8d30ccc">Repository.get()</a>, <a class="el" href="a01920.html#acda968b75354a484bc446713360f2445">Graph.query()</a>, <a class="el" href="a02952.html#a08060e0924949738f75a0cdd8b49cef4">ExtractNamespaceTask.run()</a>, <a class="el" href="a02276.html#a9dcc4ce906924321404ff731ffdd5a94">LongTurtleSerializer.startDocument()</a>, <a class="el" href="a02320.html#a9c4e39b6ffca494ea2f8fb065412e7b5">TurtleSerializer.startDocument()</a>, and <a class="el" href="a01920.html#a4040593c4f36662828a2914e70d42792">Graph.update()</a>.</p>
+
+</div>
+</div>
+<a id="af7ddb173163cc29792b6d08dd853a85e" name="af7ddb173163cc29792b6d08dd853a85e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7ddb173163cc29792b6d08dd853a85e">&#9670;&#160;</a></span>node_pickler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a02636.html">NodePickler</a> node_pickler </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  178</span>    <span class="keyword">def </span>node_pickler(self) -&gt; NodePickler:</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">if</span> self.__node_pickler <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  180</span>            <span class="keyword">from</span> <a class="code hl_namespace" href="a01015.html">rdflib.graph</a> <span class="keyword">import</span> Graph, QuotedGraph</div>
+<div class="line"><span class="lineno">  181</span>            <span class="keyword">from</span> <a class="code hl_namespace" href="a01112.html">rdflib.term</a> <span class="keyword">import</span> BNode, Literal, URIRef, Variable</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span>            self.__node_pickler = np = NodePickler()</div>
+<div class="line"><span class="lineno">  184</span>            np.register(self, <span class="stringliteral">&quot;S&quot;</span>)</div>
+<div class="line"><span class="lineno">  185</span>            np.register(URIRef, <span class="stringliteral">&quot;U&quot;</span>)</div>
+<div class="line"><span class="lineno">  186</span>            np.register(BNode, <span class="stringliteral">&quot;B&quot;</span>)</div>
+<div class="line"><span class="lineno">  187</span>            np.register(Literal, <span class="stringliteral">&quot;L&quot;</span>)</div>
+<div class="line"><span class="lineno">  188</span>            np.register(Graph, <span class="stringliteral">&quot;G&quot;</span>)</div>
+<div class="line"><span class="lineno">  189</span>            np.register(QuotedGraph, <span class="stringliteral">&quot;Q&quot;</span>)</div>
+<div class="line"><span class="lineno">  190</span>            np.register(Variable, <span class="stringliteral">&quot;V&quot;</span>)</div>
+<div class="line"><span class="lineno">  191</span>        <span class="keywordflow">return</span> self.__node_pickler</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="ttc" id="aa01015_html"><div class="ttname"><a href="a01015.html">rdflib.graph</a></div><div class="ttdef"><b>Definition</b> graph.py:1</div></div>
+<div class="ttc" id="aa01112_html"><div class="ttname"><a href="a01112.html">rdflib.term</a></div><div class="ttdef"><b>Definition</b> term.py:1</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02640.html#acc50a072829a04b57a5f17ee9103d537">Store.__node_pickler</a>.</p>
+
+</div>
+</div>
+<a id="a1d52201a97a168e85a008c19e9736f94" name="a1d52201a97a168e85a008c19e9736f94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d52201a97a168e85a008c19e9736f94">&#9670;&#160;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[int] open </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[str, tuple[str, str]]&#160;</td>
+          <td class="paramname"><em>configuration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>create</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Opens the store specified by the configuration string.
+
+Args:
+    configuration: Store configuration string
+    create: If True, a store will be created if it doesn't exist.
+        If False and the store doesn't exist, an exception is raised.
+
+Returns:
+    One of: VALID_STORE, CORRUPTED_STORE, or NO_STORE
+
+Raises:
+    Exception: If there are insufficient permissions to open the store.
+</pre> 
+<p>Reimplemented in <a class="el" href="a02564.html#afdb6803842ce4f5b82e7974467f78538">REGEXMatching</a>, <a class="el" href="a02556.html#a2446f345d39241531ce8c564c88fc870">RDF4JStore</a>, <a class="el" href="a02576.html#a1d52201a97a168e85a008c19e9736f94">SPARQLStore</a>, <a class="el" href="a02580.html#a8f7ef95f453d6a3735cf9924c45fa151">SPARQLUpdateStore</a>, <a class="el" href="a02532.html#afd8cbbcc74da83ee99da9f5e08d965d5">AuditableStore</a>, and <a class="el" href="a02536.html#afd8cbbcc74da83ee99da9f5e08d965d5">BerkeleyDB</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  200</span>    ) -&gt; Optional[int]:</div>
+<div class="line"><span class="lineno">  201</span>        <span class="stringliteral">&quot;&quot;&quot;Opens the store specified by the configuration string.</span></div>
+<div class="line"><span class="lineno">  202</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  203</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  204</span><span class="stringliteral">            configuration: Store configuration string</span></div>
+<div class="line"><span class="lineno">  205</span><span class="stringliteral">            create: If True, a store will be created if it doesn&#39;t exist.</span></div>
+<div class="line"><span class="lineno">  206</span><span class="stringliteral">                If False and the store doesn&#39;t exist, an exception is raised.</span></div>
+<div class="line"><span class="lineno">  207</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  208</span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><span class="lineno">  209</span><span class="stringliteral">            One of: VALID_STORE, CORRUPTED_STORE, or NO_STORE</span></div>
+<div class="line"><span class="lineno">  210</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  211</span><span class="stringliteral">        Raises:</span></div>
+<div class="line"><span class="lineno">  212</span><span class="stringliteral">            Exception: If there are insufficient permissions to open the store.</span></div>
+<div class="line"><span class="lineno">  213</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">return</span> UNKNOWN</div>
+<div class="line"><span class="lineno">  215</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1876f361153f147aadad368d461b3a6e" name="a1876f361153f147aadad368d461b3a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1876f361153f147aadad368d461b3a6e">&#9670;&#160;</a></span>prefix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[str] prefix </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02656.html">URIRef</a>&#160;</td>
+          <td class="paramname"><em>namespace</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="a02564.html#a613d942bf085f44d47cf41e74bd3b4ac">REGEXMatching</a>, <a class="el" href="a02532.html#a1876f361153f147aadad368d461b3a6e">AuditableStore</a>, <a class="el" href="a02536.html#a1876f361153f147aadad368d461b3a6e">BerkeleyDB</a>, <a class="el" href="a02548.html#a1876f361153f147aadad368d461b3a6e">SimpleMemory</a>, <a class="el" href="a02552.html#a1876f361153f147aadad368d461b3a6e">Memory</a>, <a class="el" href="a02556.html#a1876f361153f147aadad368d461b3a6e">RDF4JStore</a>, and <a class="el" href="a02576.html#a1876f361153f147aadad368d461b3a6e">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  446</span>    <span class="keyword">def </span>prefix(self, namespace: URIRef) -&gt; Optional[str]:</div>
+<div class="line"><span class="lineno">  447</span>        <span class="stringliteral">&quot;&quot;&quot;&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  448</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02684.html#adb09a112c7c147ab1171f8664a79f427">NodeUri.__call__()</a>, and <a class="el" href="a02576.html#a76979cf23c9d00b88b434f007b4037eb">SPARQLStore.bind()</a>.</p>
+
+</div>
+</div>
+<a id="a0c710ae8a6b4feb31e4ba0d1f39538df" name="a0c710ae8a6b4feb31e4ba0d1f39538df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c710ae8a6b4feb31e4ba0d1f39538df">&#9670;&#160;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="a02604.html">Result</a> query </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[<a class="el" href="a02524.html">Query</a>, str]&#160;</td>
+          <td class="paramname"><em>query</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Mapping[str, Any]&#160;</td>
+          <td class="paramname"><em>initNs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Mapping[str, <a class="el" href="a02648.html">Identifier</a>]&#160;</td>
+          <td class="paramname"><em>initBindings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>queryGraph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**Any&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">If stores provide their own SPARQL implementation, override this.
+
+queryGraph is None, a URIRef or `__UNION__`
+If None the graph is specified in the query-string/object
+If URIRef it specifies the graph to query,
+If  `__UNION__` the union of all named graphs should be queried
+(This is used by ConjunctiveGraphs
+Values other than None obviously only makes sense for
+context-aware stores.)
+</pre> 
+<p>Reimplemented in <a class="el" href="a02532.html#a8c4f563dddf701c1ef11d403aba3b43e">AuditableStore</a>, <a class="el" href="a02580.html#ae01cb632653c4271ac64941987d6f61e">SPARQLUpdateStore</a>, <a class="el" href="a02548.html#a0c710ae8a6b4feb31e4ba0d1f39538df">SimpleMemory</a>, <a class="el" href="a02552.html#ac600afb37f846708ce153af241826bc7">Memory</a>, and <a class="el" href="a02576.html#af4dd4796ca6c523a84454857853dbda9">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  399</span>    ) -&gt; Result:</div>
+<div class="line"><span class="lineno">  400</span>        <span class="stringliteral">&quot;&quot;&quot;If stores provide their own SPARQL implementation, override this.</span></div>
+<div class="line"><span class="lineno">  401</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  402</span><span class="stringliteral">        queryGraph is None, a URIRef or `__UNION__`</span></div>
+<div class="line"><span class="lineno">  403</span><span class="stringliteral">        If None the graph is specified in the query-string/object</span></div>
+<div class="line"><span class="lineno">  404</span><span class="stringliteral">        If URIRef it specifies the graph to query,</span></div>
+<div class="line"><span class="lineno">  405</span><span class="stringliteral">        If  `__UNION__` the union of all named graphs should be queried</span></div>
+<div class="line"><span class="lineno">  406</span><span class="stringliteral">        (This is used by ConjunctiveGraphs</span></div>
+<div class="line"><span class="lineno">  407</span><span class="stringliteral">        Values other than None obviously only makes sense for</span></div>
+<div class="line"><span class="lineno">  408</span><span class="stringliteral">        context-aware stores.)</span></div>
+<div class="line"><span class="lineno">  409</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  410</span> </div>
+<div class="line"><span class="lineno">  411</span>        <span class="keywordflow">raise</span> NotImplementedError</div>
+<div class="line"><span class="lineno">  412</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a03048.html#a2df94208700932ceb7ae3b3fda36840c">SearchTask.finished()</a>, <a class="el" href="a02756.html#a7652be2fb875f4452778f324c9573a13">SPARQLWrapper2.queryAndConvert()</a>, <a class="el" href="a02788.html#abce671fe18aae182fd36749c091563dc">SPARQLWrapper.queryAndConvert()</a>, <a class="el" href="a02976.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a02980.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a02984.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a02992.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a03004.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a03008.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a03012.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a03016.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a03020.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, and <a class="el" href="a03028.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="af5e366110ab6b961cd0e049aa7073e3d" name="af5e366110ab6b961cd0e049aa7073e3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e366110ab6b961cd0e049aa7073e3d">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None remove </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_TriplePatternType&#160;</td>
+          <td class="paramname"><em>triple</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_ContextType] &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Remove the set of triples matching the pattern from the store</pre> 
+<p>Reimplemented in <a class="el" href="a02576.html#ac10279ac330383ee5ca943c52791e2b3">SPARQLStore</a>, <a class="el" href="a02580.html#a55498d91dd2cbda916878e25fd19c11d">SPARQLUpdateStore</a>, <a class="el" href="a02536.html#afeeeb26d5e8549ca21fe79f1cac31a81">BerkeleyDB</a>, <a class="el" href="a02532.html#a4a7691467651bb5432428e087f0cd53b">AuditableStore</a>, <a class="el" href="a02556.html#af5e366110ab6b961cd0e049aa7073e3d">RDF4JStore</a>, <a class="el" href="a02548.html#ac12adf8a861b609d59229e0a3406ed0d">SimpleMemory</a>, <a class="el" href="a02552.html#ac12adf8a861b609d59229e0a3406ed0d">Memory</a>, and <a class="el" href="a02564.html#af47b0807af215a8db5ab86ef2ec04c39">REGEXMatching</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  281</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  282</span>        <span class="stringliteral">&quot;&quot;&quot;Remove the set of triples matching the pattern from the store&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  283</span>        self.dispatcher.dispatch(TripleRemovedEvent(triple=triple, context=context))</div>
+<div class="line"><span class="lineno">  284</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02640.html#acc7de78fffa2e683fae0b6c6080a46fd">Store.dispatcher</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01920.html#a2c90371769a2954eea149a4c70802f68">Graph.__isub__()</a>, <a class="el" href="a02536.html#a2a1fb3adfc5fa3d07498a8303c4aba8f">BerkeleyDB.remove_graph()</a>, <a class="el" href="a02552.html#a158e0bab10c9fcd5863b6198eef4f313">Memory.remove_graph()</a>, and <a class="el" href="a01920.html#af03ef57cf5d8237fabce7436e85301d6">Graph.set()</a>.</p>
+
+</div>
+</div>
+<a id="a158e0bab10c9fcd5863b6198eef4f313" name="a158e0bab10c9fcd5863b6198eef4f313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a158e0bab10c9fcd5863b6198eef4f313">&#9670;&#160;</a></span>remove_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None remove_graph </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01920.html">Graph</a>&#160;</td>
+          <td class="paramname"><em>graph</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Remove a graph from the store, this should also remove all
+triples in the graph
+
+Args:
+    graphid: a Graph instance
+</pre> 
+<p>Reimplemented in <a class="el" href="a02536.html#a2a1fb3adfc5fa3d07498a8303c4aba8f">BerkeleyDB</a>, <a class="el" href="a02552.html#a158e0bab10c9fcd5863b6198eef4f313">Memory</a>, <a class="el" href="a02556.html#a158e0bab10c9fcd5863b6198eef4f313">RDF4JStore</a>, <a class="el" href="a02576.html#a158e0bab10c9fcd5863b6198eef4f313">SPARQLStore</a>, and <a class="el" href="a02580.html#a158e0bab10c9fcd5863b6198eef4f313">SPARQLUpdateStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  479</span>    <span class="keyword">def </span>remove_graph(self, graph: Graph) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  480</span>        <span class="stringliteral">&quot;&quot;&quot;Remove a graph from the store, this should also remove all</span></div>
+<div class="line"><span class="lineno">  481</span><span class="stringliteral">        triples in the graph</span></div>
+<div class="line"><span class="lineno">  482</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  483</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  484</span><span class="stringliteral">            graphid: a Graph instance</span></div>
+<div class="line"><span class="lineno">  485</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  486</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07480.html">Exception</a>(<span class="stringliteral">&quot;Graph method called on non-graph_aware store&quot;</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0eedfb93b9acadd42d8eb1948492ab00" name="a0eedfb93b9acadd42d8eb1948492ab00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eedfb93b9acadd42d8eb1948492ab00">&#9670;&#160;</a></span>rollback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None rollback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment"> </pre> 
+<p>Reimplemented in <a class="el" href="a02532.html#a0eedfb93b9acadd42d8eb1948492ab00">AuditableStore</a>, <a class="el" href="a02564.html#ac412064a6266aadf962039adb6e20e74">REGEXMatching</a>, <a class="el" href="a02576.html#a0eedfb93b9acadd42d8eb1948492ab00">SPARQLStore</a>, and <a class="el" href="a02580.html#a0eedfb93b9acadd42d8eb1948492ab00">SPARQLUpdateStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  465</span>    <span class="keyword">def </span>rollback(self) -&gt; None:</div>
+<div class="line"><span class="lineno">  466</span>        <span class="stringliteral">&quot;&quot;&quot; &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  467</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01768.html#a9ea6bfea91f5b8e9919675d869ee1c66">Transaction.__exit__()</a>.</p>
+
+</div>
+</div>
+<a id="af8335edaf47862e5bd335865d4537cc0" name="af8335edaf47862e5bd335865d4537cc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8335edaf47862e5bd335865d4537cc0">&#9670;&#160;</a></span>triples()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Iterator[Tuple[_TripleType, Iterator[Optional[_ContextType]]]] triples </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_TriplePatternType&#160;</td>
+          <td class="paramname"><em>triple_pattern</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_ContextType] &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">A generator over all the triples matching the pattern. Pattern can
+include any objects for used for comparing against nodes in the store,
+for example, REGEXTerm, URIRef, Literal, BNode, Variable, Graph,
+QuotedGraph, Date? DateRange?
+
+Args:
+    context: A conjunctive query can be indicated by either
+        providing a value of None, or a specific context can be
+        queries by passing a Graph instance (if store is context aware).
+</pre> 
+<p>Reimplemented in <a class="el" href="a02580.html#a0abe3e973a8b040a91a48a84daab6b7d">SPARQLUpdateStore</a>, <a class="el" href="a02576.html#a1593bb3991be425d68fec7eab5d94ce5">SPARQLStore</a>, <a class="el" href="a02536.html#a5f61e408fe4b0b9b897f630280a4042a">BerkeleyDB</a>, <a class="el" href="a02532.html#a3e840b20108b2c2e2095b93f20063e9d">AuditableStore</a>, <a class="el" href="a02548.html#af8335edaf47862e5bd335865d4537cc0">SimpleMemory</a>, <a class="el" href="a02552.html#af69d8597d9d1f49e14e252646b698601">Memory</a>, <a class="el" href="a02556.html#af8335edaf47862e5bd335865d4537cc0">RDF4JStore</a>, and <a class="el" href="a02564.html#a5e3ac38f18bfa255ff52d22a84cb3ba7">REGEXMatching</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  350</span>    ) -&gt; Iterator[Tuple[_TripleType, Iterator[Optional[_ContextType]]]]:</div>
+<div class="line"><span class="lineno">  351</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  352</span><span class="stringliteral">        A generator over all the triples matching the pattern. Pattern can</span></div>
+<div class="line"><span class="lineno">  353</span><span class="stringliteral">        include any objects for used for comparing against nodes in the store,</span></div>
+<div class="line"><span class="lineno">  354</span><span class="stringliteral">        for example, REGEXTerm, URIRef, Literal, BNode, Variable, Graph,</span></div>
+<div class="line"><span class="lineno">  355</span><span class="stringliteral">        QuotedGraph, Date? DateRange?</span></div>
+<div class="line"><span class="lineno">  356</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  357</span><span class="stringliteral">        Args:</span></div>
+<div class="line"><span class="lineno">  358</span><span class="stringliteral">            context: A conjunctive query can be indicated by either</span></div>
+<div class="line"><span class="lineno">  359</span><span class="stringliteral">                providing a value of None, or a specific context can be</span></div>
+<div class="line"><span class="lineno">  360</span><span class="stringliteral">                queries by passing a Graph instance (if store is context aware).</span></div>
+<div class="line"><span class="lineno">  361</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  362</span>        subject, predicate, object = triple_pattern</div>
+<div class="line"><span class="lineno">  363</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01924.html#a4cf620caa0941552ba2a5e4262ed5f17">ConjunctiveGraph.__contains__()</a>, <a class="el" href="a01920.html#ab5fc4912de8c323c60142baa5f16ba19">Graph.__contains__()</a>, <a class="el" href="a01920.html#a0c07577391874f9ad440e7c45408bb9d">Graph.__getitem__()</a>, <a class="el" href="a01920.html#a03d92a27e0e6dd13070d58d2e3758921">Graph.__iter__()</a>, <a class="el" href="a02548.html#ac5b3c7344a9531aed37ea76a4a998f97">SimpleMemory.__len__()</a>, <a class="el" href="a01920.html#a702c61da0a89645aa59c45fb927a20c5">Graph._process_skolem_tuples()</a>, <a class="el" href="a01920.html#aa546feec15f1413d0da60aa03143606c">Graph.cbd()</a>, <a class="el" href="a02576.html#a482a7cfeb7f6952a6fb9ce0c8e72242a">SPARQLStore.objects()</a>, <a class="el" href="a02580.html#a482a7cfeb7f6952a6fb9ce0c8e72242a">SPARQLUpdateStore.objects()</a>, <a class="el" href="a01920.html#a5faaf768068ced70ebbc055afd49eac3">Graph.objects()</a>, <a class="el" href="a02576.html#af386e0c3a0f7da698307ac6554fdd99d">SPARQLStore.predicate_objects()</a>, <a class="el" href="a02580.html#af386e0c3a0f7da698307ac6554fdd99d">SPARQLUpdateStore.predicate_objects()</a>, <a class="el" href="a01920.html#ace420021d21a8527c6008ea022a2128e">Graph.predicate_objects()</a>, <a class="el" href="a02576.html#ab74fe9c5a6fd6c23b0fcc6fd46b80e55">SPARQLStore.predicates()</a>, <a class="el" href="a02580.html#ab74fe9c5a6fd6c23b0fcc6fd46b80e55">SPARQLUpdateStore.predicates()</a>, <a class="el" href="a01920.html#af54fa128512cc72e6910a8b5ff5a3391">Graph.predicates()</a>, <a class="el" href="a02532.html#a4a7691467651bb5432428e087f0cd53b">AuditableStore.remove()</a>, <a class="el" href="a02548.html#ac12adf8a861b609d59229e0a3406ed0d">SimpleMemory.remove()</a>, <a class="el" href="a02552.html#ac12adf8a861b609d59229e0a3406ed0d">Memory.remove()</a>, <a class="el" href="a02576.html#a2973e203726208148eb927893010556c">SPARQLStore.subject_objects()</a>, <a class="el" href="a02580.html#a2973e203726208148eb927893010556c">SPARQLUpdateStore.subject_objects()</a>, <a class="el" href="a01920.html#ab142be6e48e8a35d9b9b8832e5c1cb06">Graph.subject_objects()</a>, <a class="el" href="a02576.html#a6e85dfe8e30e83fa0ec2d271e96ea409">SPARQLStore.subject_predicates()</a>, <a class="el" href="a02580.html#a6e85dfe8e30e83fa0ec2d271e96ea409">SPARQLUpdateStore.subject_predicates()</a>, <a class="el" href="a01920.html#a186273adb6fd201b4f6fca98130695f3">Graph.subject_predicates()</a>, <a class="el" href="a02576.html#ae878cbc45ffbb526dcd4df1b491b49a0">SPARQLStore.subjects()</a>, <a class="el" href="a02580.html#ae878cbc45ffbb526dcd4df1b491b49a0">SPARQLUpdateStore.subjects()</a>, <a class="el" href="a01920.html#a1429dfd1c631e7c46c3e13eab35a4230">Graph.subjects()</a>, <a class="el" href="a02716.html#a16cb8faa849af3b591842a726b94c07f">CSV2RDF.triple()</a>, and <a class="el" href="a02640.html#aca2761a15329d20e5274451ceb6c7c18">Store.triples_choices()</a>.</p>
+
+</div>
+</div>
+<a id="aca2761a15329d20e5274451ceb6c7c18" name="aca2761a15329d20e5274451ceb6c7c18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca2761a15329d20e5274451ceb6c7c18">&#9670;&#160;</a></span>triples_choices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Generator[
+        Tuple[
+            _TripleType,
+            Iterator[Optional[_ContextType]],
+        ],
+        None,
+        None,
+    ] triples_choices </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">_TripleChoiceType&#160;</td>
+          <td class="paramname"><em>triple</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[_ContextType] &#160;</td>
+          <td class="paramname"><em>context</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">A variant of triples that can take a list of terms instead of a single
+term in any slot.  Stores can implement this to optimize the response
+time from the default 'fallback' implementation, which will iterate
+over each term in the list and dispatch to triples
+</pre> 
+<p>Reimplemented in <a class="el" href="a02576.html#a6f5c79b65d00350a81956844b46df44d">SPARQLStore</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  296</span>    ]:</div>
+<div class="line"><span class="lineno">  297</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  298</span><span class="stringliteral">        A variant of triples that can take a list of terms instead of a single</span></div>
+<div class="line"><span class="lineno">  299</span><span class="stringliteral">        term in any slot.  Stores can implement this to optimize the response</span></div>
+<div class="line"><span class="lineno">  300</span><span class="stringliteral">        time from the default &#39;fallback&#39; implementation, which will iterate</span></div>
+<div class="line"><span class="lineno">  301</span><span class="stringliteral">        over each term in the list and dispatch to triples</span></div>
+<div class="line"><span class="lineno">  302</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  303</span>        subject, predicate, object_ = triple</div>
+<div class="line"><span class="lineno">  304</span>        <span class="keywordflow">if</span> isinstance(object_, list):</div>
+<div class="line"><span class="lineno">  305</span>            <span class="keyword">assert</span> <span class="keywordflow">not</span> isinstance(subject, list), <span class="stringliteral">&quot;object_ / subject are both lists&quot;</span></div>
+<div class="line"><span class="lineno">  306</span>            <span class="keyword">assert</span> <span class="keywordflow">not</span> isinstance(predicate, list), <span class="stringliteral">&quot;object_ / predicate are both lists&quot;</span></div>
+<div class="line"><span class="lineno">  307</span>            <span class="keywordflow">if</span> object_:</div>
+<div class="line"><span class="lineno">  308</span>                <span class="keywordflow">for</span> obj <span class="keywordflow">in</span> object_:</div>
+<div class="line"><span class="lineno">  309</span>                    <span class="keywordflow">for</span> (s1, p1, o1), cg <span class="keywordflow">in</span> self.triples(</div>
+<div class="line"><span class="lineno">  310</span>                        (subject, predicate, obj), context</div>
+<div class="line"><span class="lineno">  311</span>                    ):</div>
+<div class="line"><span class="lineno">  312</span>                        <span class="keywordflow">yield</span> (s1, p1, o1), cg</div>
+<div class="line"><span class="lineno">  313</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  314</span>                <span class="keywordflow">for</span> (s1, p1, o1), cg <span class="keywordflow">in</span> self.triples(</div>
+<div class="line"><span class="lineno">  315</span>                    (subject, predicate, <span class="keywordtype">None</span>), context</div>
+<div class="line"><span class="lineno">  316</span>                ):</div>
+<div class="line"><span class="lineno">  317</span>                    <span class="keywordflow">yield</span> (s1, p1, o1), cg</div>
+<div class="line"><span class="lineno">  318</span> </div>
+<div class="line"><span class="lineno">  319</span>        <span class="keywordflow">elif</span> isinstance(subject, list):</div>
+<div class="line"><span class="lineno">  320</span>            <span class="keyword">assert</span> <span class="keywordflow">not</span> isinstance(predicate, list), <span class="stringliteral">&quot;subject / predicate are both lists&quot;</span></div>
+<div class="line"><span class="lineno">  321</span>            <span class="keywordflow">if</span> subject:</div>
+<div class="line"><span class="lineno">  322</span>                <span class="keywordflow">for</span> subj <span class="keywordflow">in</span> subject:</div>
+<div class="line"><span class="lineno">  323</span>                    <span class="keywordflow">for</span> (s1, p1, o1), cg <span class="keywordflow">in</span> self.triples(</div>
+<div class="line"><span class="lineno">  324</span>                        (subj, predicate, object_), context</div>
+<div class="line"><span class="lineno">  325</span>                    ):</div>
+<div class="line"><span class="lineno">  326</span>                        <span class="keywordflow">yield</span> (s1, p1, o1), cg</div>
+<div class="line"><span class="lineno">  327</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  328</span>                <span class="keywordflow">for</span> (s1, p1, o1), cg <span class="keywordflow">in</span> self.triples(</div>
+<div class="line"><span class="lineno">  329</span>                    (<span class="keywordtype">None</span>, predicate, object_), context</div>
+<div class="line"><span class="lineno">  330</span>                ):</div>
+<div class="line"><span class="lineno">  331</span>                    <span class="keywordflow">yield</span> (s1, p1, o1), cg</div>
+<div class="line"><span class="lineno">  332</span> </div>
+<div class="line"><span class="lineno">  333</span>        <span class="keywordflow">elif</span> isinstance(predicate, list):</div>
+<div class="line"><span class="lineno">  334</span>            <span class="keyword">assert</span> <span class="keywordflow">not</span> isinstance(subject, list), <span class="stringliteral">&quot;predicate / subject are both lists&quot;</span></div>
+<div class="line"><span class="lineno">  335</span>            <span class="keywordflow">if</span> predicate:</div>
+<div class="line"><span class="lineno">  336</span>                <span class="keywordflow">for</span> pred <span class="keywordflow">in</span> predicate:</div>
+<div class="line"><span class="lineno">  337</span>                    <span class="keywordflow">for</span> (s1, p1, o1), cg <span class="keywordflow">in</span> self.triples(</div>
+<div class="line"><span class="lineno">  338</span>                        (subject, pred, object_), context</div>
+<div class="line"><span class="lineno">  339</span>                    ):</div>
+<div class="line"><span class="lineno">  340</span>                        <span class="keywordflow">yield</span> (s1, p1, o1), cg</div>
+<div class="line"><span class="lineno">  341</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  342</span>                <span class="keywordflow">for</span> (s1, p1, o1), cg <span class="keywordflow">in</span> self.triples((subject, <span class="keywordtype">None</span>, object_), context):</div>
+<div class="line"><span class="lineno">  343</span>                    <span class="keywordflow">yield</span> (s1, p1, o1), cg</div>
+<div class="line"><span class="lineno">  344</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02580.html#a0abe3e973a8b040a91a48a84daab6b7d">SPARQLUpdateStore.triples()</a>, <a class="el" href="a01924.html#a69464f0445aebcfa10244065b60e8e26">ConjunctiveGraph.triples()</a>, <a class="el" href="a01924.html#ac8d56e1abcb95c33b6314271f308f3ae">ConjunctiveGraph.triples()</a>, <a class="el" href="a01924.html#a441b394c984b884166a512587032f6ac">ConjunctiveGraph.triples()</a>, <a class="el" href="a01924.html#a558fa63ce6afe53c6b82f1cfde0eb1b3">ConjunctiveGraph.triples()</a>, <a class="el" href="a01920.html#a3ce84e56144f861f670e1f90584e15df">Graph.triples()</a>, <a class="el" href="a01948.html#a3ce84e56144f861f670e1f90584e15df">ReadOnlyGraphAggregate.triples()</a>, <a class="el" href="a02576.html#a1593bb3991be425d68fec7eab5d94ce5">SPARQLStore.triples()</a>, <a class="el" href="a02536.html#a5f61e408fe4b0b9b897f630280a4042a">BerkeleyDB.triples()</a>, <a class="el" href="a01920.html#a84ca713044d03e04d9590e965f3c42c1">Graph.triples()</a>, <a class="el" href="a01948.html#a84ca713044d03e04d9590e965f3c42c1">ReadOnlyGraphAggregate.triples()</a>, <a class="el" href="a02532.html#a3e840b20108b2c2e2095b93f20063e9d">AuditableStore.triples()</a>, <a class="el" href="a02548.html#af8335edaf47862e5bd335865d4537cc0">SimpleMemory.triples()</a>, <a class="el" href="a02552.html#af69d8597d9d1f49e14e252646b698601">Memory.triples()</a>, <a class="el" href="a02556.html#af8335edaf47862e5bd335865d4537cc0">RDF4JStore.triples()</a>, <a class="el" href="a02640.html#af8335edaf47862e5bd335865d4537cc0">Store.triples()</a>, <a class="el" href="a01920.html#a3db4ed9e5a98b8a0c786543173e68bc1">Graph.triples()</a>, <a class="el" href="a01948.html#a3db4ed9e5a98b8a0c786543173e68bc1">ReadOnlyGraphAggregate.triples()</a>, <a class="el" href="a02080.html#a4c743318bf40d97209259d804f5ad30d">VOID.triples</a>, <a class="el" href="a02544.html#aa73840bec4dab6c8a8cf2519f4a6eeda">ConcurrentStore.triples()</a>, <a class="el" href="a02564.html#a5e3ac38f18bfa255ff52d22a84cb3ba7">REGEXMatching.triples()</a>, and <a class="el" href="a02716.html#a76b790ac7c6d749d1d3de93cdab19f44">CSV2RDF.triples</a>.</p>
+
+</div>
+</div>
+<a id="a32f6c8ae0916c216da90237203328134" name="a32f6c8ae0916c216da90237203328134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32f6c8ae0916c216da90237203328134">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None update </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Union[<a class="el" href="a02528.html">Update</a>, str]&#160;</td>
+          <td class="paramname"><em>update</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Mapping[str, Any]&#160;</td>
+          <td class="paramname"><em>initNs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Mapping[str, <a class="el" href="a02648.html">Identifier</a>]&#160;</td>
+          <td class="paramname"><em>initBindings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>queryGraph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**Any&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">If stores provide their own (SPARQL) Update implementation, override this.
+
+queryGraph is None, a URIRef or `__UNION__`
+If None the graph is specified in the query-string/object
+If URIRef it specifies the graph to query,
+If  `__UNION__` the union of all named graphs should be queried
+(This is used by ConjunctiveGraphs
+Values other than None obviously only makes sense for
+context-aware stores.)
+</pre> 
+<p>Reimplemented in <a class="el" href="a02552.html#a11a06ee21ca4aec4d1dc2aadad6f657b">Memory</a>, <a class="el" href="a02576.html#aa6a94c33d04451327171a29be99c2cb7">SPARQLStore</a>, <a class="el" href="a02580.html#a053c7e646fa313f2b2595af3cd4b3bf5">SPARQLUpdateStore</a>, and <a class="el" href="a02548.html#a32f6c8ae0916c216da90237203328134">SimpleMemory</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  420</span>    ) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  421</span>        <span class="stringliteral">&quot;&quot;&quot;If stores provide their own (SPARQL) Update implementation, override this.</span></div>
+<div class="line"><span class="lineno">  422</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  423</span><span class="stringliteral">        queryGraph is None, a URIRef or `__UNION__`</span></div>
+<div class="line"><span class="lineno">  424</span><span class="stringliteral">        If None the graph is specified in the query-string/object</span></div>
+<div class="line"><span class="lineno">  425</span><span class="stringliteral">        If URIRef it specifies the graph to query,</span></div>
+<div class="line"><span class="lineno">  426</span><span class="stringliteral">        If  `__UNION__` the union of all named graphs should be queried</span></div>
+<div class="line"><span class="lineno">  427</span><span class="stringliteral">        (This is used by ConjunctiveGraphs</span></div>
+<div class="line"><span class="lineno">  428</span><span class="stringliteral">        Values other than None obviously only makes sense for</span></div>
+<div class="line"><span class="lineno">  429</span><span class="stringliteral">        context-aware stores.)</span></div>
+<div class="line"><span class="lineno">  430</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  431</span> </div>
+<div class="line"><span class="lineno">  432</span>        <span class="keywordflow">raise</span> NotImplementedError</div>
+<div class="line"><span class="lineno">  433</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02344.html#a6863b95e546395d63501271ed5d48295">Accumulator.__init__()</a>, <a class="el" href="a02556.html#aef47b97f428f44527c9114f868058c00">RDF4JStore.add_graph()</a>, <a class="el" href="a02580.html#aef47b97f428f44527c9114f868058c00">SPARQLUpdateStore.add_graph()</a>, and <a class="el" href="a02580.html#a158e0bab10c9fcd5863b6198eef4f313">SPARQLUpdateStore.remove_graph()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="acc50a072829a04b57a5f17ee9103d537" name="acc50a072829a04b57a5f17ee9103d537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc50a072829a04b57a5f17ee9103d537">&#9670;&#160;</a></span>__node_pickler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__node_pickler</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02640.html#a02b4cd8c0997d0188097ce7accf31dc8">Store.__init__()</a>, and <a class="el" href="a02640.html#af7ddb173163cc29792b6d08dd853a85e">Store.node_pickler()</a>.</p>
+
+</div>
+</div>
+<a id="a0a484884a934aa0c88f30e742b173404" name="a0a484884a934aa0c88f30e742b173404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a484884a934aa0c88f30e742b173404">&#9670;&#160;</a></span>context_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool context_aware = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02576.html#af71994917366bb757a2e5b8c777e35fe">SPARQLStore._is_contextual()</a>.</p>
+
+</div>
+</div>
+<a id="acc7de78fffa2e683fae0b6c6080a46fd" name="acc7de78fffa2e683fae0b6c6080a46fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc7de78fffa2e683fae0b6c6080a46fd">&#9670;&#160;</a></span>dispatcher</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dispatcher</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02640.html#a0e9bb20c4ea13c6a83f2ce67e632881c">Store.add()</a>, <a class="el" href="a02640.html#a6c0fc185a0f85585afbb25c238855e33">Store.create()</a>, and <a class="el" href="a02640.html#af5e366110ab6b961cd0e049aa7073e3d">Store.remove()</a>.</p>
+
+</div>
+</div>
+<a id="afc2b00a8e76ede259d80baac11601df2" name="afc2b00a8e76ede259d80baac11601df2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc2b00a8e76ede259d80baac11601df2">&#9670;&#160;</a></span>formula_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool formula_aware = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1367316249ce935b4c72d916780667db" name="a1367316249ce935b4c72d916780667db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1367316249ce935b4c72d916780667db">&#9670;&#160;</a></span>graph_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool graph_aware = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02552.html#aef47b97f428f44527c9114f868058c00">Memory.add_graph()</a>, <a class="el" href="a02580.html#aef47b97f428f44527c9114f868058c00">SPARQLUpdateStore.add_graph()</a>, <a class="el" href="a02552.html#ac12adf8a861b609d59229e0a3406ed0d">Memory.remove()</a>, <a class="el" href="a02552.html#a158e0bab10c9fcd5863b6198eef4f313">Memory.remove_graph()</a>, and <a class="el" href="a02580.html#a158e0bab10c9fcd5863b6198eef4f313">SPARQLUpdateStore.remove_graph()</a>.</p>
+
+</div>
+</div>
+<a id="ace32d9f7db85f65a9ada77c5f1737cfa" name="ace32d9f7db85f65a9ada77c5f1737cfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace32d9f7db85f65a9ada77c5f1737cfa">&#9670;&#160;</a></span>transaction_aware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool transaction_aware = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02536.html#a8a13920b021fbdda6403c6bee45e4bfc">BerkeleyDB._to_string()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01111.html">store</a></li><li class="navelem"><a class="el" href="a02640.html">Store</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

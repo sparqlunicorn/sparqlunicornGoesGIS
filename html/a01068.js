@@ -1,0 +1,10 @@
+var a01068 =
+[
+    [ "PrettyXMLSerializer", "a02304.html", "a02304" ],
+    [ "XMLSerializer", "a02300.html", "a02300" ],
+    [ "fix", "a01068.html#ad10fcbce26a9097bdb2ab8c83b0c7922", null ],
+    [ "__all__", "a01068.html#aa4a022e6ddacd362b83964da5cc5d044", null ],
+    [ "OWL_NS", "a01068.html#a16282dd81e34c03a3e706518ce051518", null ],
+    [ "XMLBASE", "a01068.html#afc56e5cf9c48fd2c90d6d60a29336b7d", null ],
+    [ "XMLLANG", "a01068.html#a1613616773eccd0298280484f17b2ab7", null ]
+];

@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: URLInputSource Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a02112.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a02109.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">URLInputSource Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for URLInputSource:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02111.png" border="0" usemap="#aURLInputSource_inherit__map" alt="Inheritance graph"/></div>
+<map name="aURLInputSource_inherit__map" id="aURLInputSource_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,152,131,177"/>
+<area shape="rect" href="a02100.html" title=" " alt="" coords="19,79,117,104"/>
+<area shape="poly" title=" " alt="" coords="71,118,71,152,65,152,65,118"/>
+<area shape="rect" title=" " alt="" coords="19,5,117,31"/>
+<area shape="poly" title=" " alt="" coords="71,44,71,79,65,79,65,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for URLInputSource:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02110.png" border="0" usemap="#aURLInputSource_coll__map" alt="Collaboration graph"/></div>
+<map name="aURLInputSource_coll__map" id="aURLInputSource_coll__map">
+<area shape="rect" title=" " alt="" coords="64,168,189,193"/>
+<area shape="rect" href="a02100.html" title=" " alt="" coords="5,80,104,105"/>
+<area shape="poly" title=" " alt="" coords="75,114,119,166,115,169,71,118"/>
+<area shape="rect" title=" " alt="" coords="5,5,104,31"/>
+<area shape="poly" title=" " alt="" coords="57,45,57,80,52,80,52,45"/>
+<area shape="rect" title=" " alt="" coords="128,80,173,105"/>
+<area shape="poly" title=" " alt="" coords="146,119,133,168,127,167,141,118"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1f21436b287815b7e0d832edb5ccef17" id="r_a1f21436b287815b7e0d832edb5ccef17"><td class="memItemLeft" align="right" valign="top">List[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#a1f21436b287815b7e0d832edb5ccef17">getallmatchingheaders</a> (cls, Message message, name)</td></tr>
+<tr class="separator:a1f21436b287815b7e0d832edb5ccef17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd7a2caff16e1270cc2fd6bc98c5aa68" id="r_afd7a2caff16e1270cc2fd6bc98c5aa68"><td class="memItemLeft" align="right" valign="top">List[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#afd7a2caff16e1270cc2fd6bc98c5aa68">get_links</a> (cls, addinfourl response)</td></tr>
+<tr class="separator:afd7a2caff16e1270cc2fd6bc98c5aa68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fcea6214b9bf7f2e7979167d43430f" id="r_a80fcea6214b9bf7f2e7979167d43430f"><td class="memItemLeft" align="right" valign="top">List[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#a80fcea6214b9bf7f2e7979167d43430f">get_alternates</a> (self, Optional[str] type_=None)</td></tr>
+<tr class="separator:a80fcea6214b9bf7f2e7979167d43430f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a579d920816c5b6fcb47cc849ca26c6f6" id="r_a579d920816c5b6fcb47cc849ca26c6f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#a579d920816c5b6fcb47cc849ca26c6f6">__init__</a> (self, Optional[str] system_id=None, Optional[str] format=None)</td></tr>
+<tr class="separator:a579d920816c5b6fcb47cc849ca26c6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea815b0c6c23fc48a11ee0404b782c7a" id="r_aea815b0c6c23fc48a11ee0404b782c7a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#aea815b0c6c23fc48a11ee0404b782c7a">__repr__</a> (self)</td></tr>
+<tr class="separator:aea815b0c6c23fc48a11ee0404b782c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:afcd5a3e84f2adb7f83fa6c99911f31e4" id="r_afcd5a3e84f2adb7f83fa6c99911f31e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#afcd5a3e84f2adb7f83fa6c99911f31e4">url</a></td></tr>
+<tr class="separator:afcd5a3e84f2adb7f83fa6c99911f31e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b1604e7b7187db5ec24d140792014a" id="r_af5b1604e7b7187db5ec24d140792014a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#af5b1604e7b7187db5ec24d140792014a">links</a></td></tr>
+<tr class="separator:af5b1604e7b7187db5ec24d140792014a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a221623422ea72de630e7e446a84e9f1f" id="r_a221623422ea72de630e7e446a84e9f1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#a221623422ea72de630e7e446a84e9f1f">content_type</a></td></tr>
+<tr class="separator:a221623422ea72de630e7e446a84e9f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f33443a9c165dac669d171cb36f86ac" id="r_a4f33443a9c165dac669d171cb36f86ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#a4f33443a9c165dac669d171cb36f86ac">response_info</a></td></tr>
+<tr class="separator:a4f33443a9c165dac669d171cb36f86ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a045be9a6472e95ccd82b4123a9e1edb4" id="r_a045be9a6472e95ccd82b4123a9e1edb4"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02112.html#a045be9a6472e95ccd82b4123a9e1edb4">links</a> [str]</td></tr>
+<tr class="separator:a045be9a6472e95ccd82b4123a9e1edb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Constructs an RDFLib Parser InputSource from a URL to read it from the Web.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a579d920816c5b6fcb47cc849ca26c6f6" name="a579d920816c5b6fcb47cc849ca26c6f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a579d920816c5b6fcb47cc849ca26c6f6">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>system_id</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>format</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="a02100.html#a1286cc3532adefc287e7947b14b4e4f6">InputSource</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  554</span>    <span class="keyword">def </span>__init__(self, system_id: Optional[str] = <span class="keywordtype">None</span>, format: Optional[str] = <span class="keywordtype">None</span>):</div>
+<div class="line"><span class="lineno">  555</span>        super(URLInputSource, self).__init__(system_id)</div>
+<div class="line"><span class="lineno">  556</span>        self.url = system_id</div>
+<div class="line"><span class="lineno">  557</span> </div>
+<div class="line"><span class="lineno">  558</span>        <span class="comment"># copy headers to change</span></div>
+<div class="line"><span class="lineno">  559</span>        myheaders = dict(headers)</div>
+<div class="line"><span class="lineno">  560</span>        <span class="keywordflow">if</span> format == <span class="stringliteral">&quot;xml&quot;</span>:</div>
+<div class="line"><span class="lineno">  561</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = <span class="stringliteral">&quot;application/rdf+xml, */*;q=0.1&quot;</span></div>
+<div class="line"><span class="lineno">  562</span>        <span class="keywordflow">elif</span> format == <span class="stringliteral">&quot;n3&quot;</span>:</div>
+<div class="line"><span class="lineno">  563</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = <span class="stringliteral">&quot;text/n3, */*;q=0.1&quot;</span></div>
+<div class="line"><span class="lineno">  564</span>        <span class="keywordflow">elif</span> format <span class="keywordflow">in</span> [<span class="stringliteral">&quot;turtle&quot;</span>, <span class="stringliteral">&quot;ttl&quot;</span>]:</div>
+<div class="line"><span class="lineno">  565</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = <span class="stringliteral">&quot;text/turtle, application/x-turtle, */*;q=0.1&quot;</span></div>
+<div class="line"><span class="lineno">  566</span>        <span class="keywordflow">elif</span> format == <span class="stringliteral">&quot;nt&quot;</span>:</div>
+<div class="line"><span class="lineno">  567</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = <span class="stringliteral">&quot;text/plain, */*;q=0.1&quot;</span></div>
+<div class="line"><span class="lineno">  568</span>        <span class="keywordflow">elif</span> format == <span class="stringliteral">&quot;trig&quot;</span>:</div>
+<div class="line"><span class="lineno">  569</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = <span class="stringliteral">&quot;application/trig, */*;q=0.1&quot;</span></div>
+<div class="line"><span class="lineno">  570</span>        <span class="keywordflow">elif</span> format == <span class="stringliteral">&quot;trix&quot;</span>:</div>
+<div class="line"><span class="lineno">  571</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = <span class="stringliteral">&quot;application/trix, */*;q=0.1&quot;</span></div>
+<div class="line"><span class="lineno">  572</span>        <span class="keywordflow">elif</span> format == <span class="stringliteral">&quot;json-ld&quot;</span>:</div>
+<div class="line"><span class="lineno">  573</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = (</div>
+<div class="line"><span class="lineno">  574</span>                <span class="stringliteral">&quot;application/ld+json, application/json;q=0.9, */*;q=0.1&quot;</span></div>
+<div class="line"><span class="lineno">  575</span>            )</div>
+<div class="line"><span class="lineno">  576</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  577</span>            <span class="comment"># if format not given, create an Accept header from all registered</span></div>
+<div class="line"><span class="lineno">  578</span>            <span class="comment"># parser Media Types</span></div>
+<div class="line"><span class="lineno">  579</span>            <span class="keyword">from</span> <a class="code hl_namespace" href="a01045.html">rdflib.parser</a> <span class="keyword">import</span> Parser</div>
+<div class="line"><span class="lineno">  580</span>            <span class="keyword">from</span> <a class="code hl_namespace" href="a01047.html">rdflib.plugin</a> <span class="keyword">import</span> plugins</div>
+<div class="line"><span class="lineno">  581</span> </div>
+<div class="line"><span class="lineno">  582</span>            acc = []</div>
+<div class="line"><span class="lineno">  583</span>            <span class="keywordflow">for</span> p <span class="keywordflow">in</span> plugins(kind=Parser):  <span class="comment"># only get parsers</span></div>
+<div class="line"><span class="lineno">  584</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;/&quot;</span> <span class="keywordflow">in</span> p.name:  <span class="comment"># all Media Types known have a / in them</span></div>
+<div class="line"><span class="lineno">  585</span>                    acc.append(p.name)</div>
+<div class="line"><span class="lineno">  586</span> </div>
+<div class="line"><span class="lineno">  587</span>            myheaders[<span class="stringliteral">&quot;Accept&quot;</span>] = <span class="stringliteral">&quot;, &quot;</span>.join(acc)</div>
+<div class="line"><span class="lineno">  588</span> </div>
+<div class="line"><span class="lineno">  589</span>        req = Request(system_id, <span class="keywordtype">None</span>, myheaders)  <span class="comment"># type: ignore[arg-type]</span></div>
+<div class="line"><span class="lineno">  590</span> </div>
+<div class="line"><span class="lineno">  591</span>        response: addinfourl = _urlopen(req)</div>
+<div class="line"><span class="lineno">  592</span>        self.url = response.geturl()  <span class="comment"># in case redirections took place</span></div>
+<div class="line"><span class="lineno">  593</span>        self.links = self.get_links(response)</div>
+<div class="line"><span class="lineno">  594</span>        <span class="keywordflow">if</span> format <span class="keywordflow">in</span> (<span class="stringliteral">&quot;json-ld&quot;</span>, <span class="stringliteral">&quot;application/ld+json&quot;</span>):</div>
+<div class="line"><span class="lineno">  595</span>            alts = self.get_alternates(type_=<span class="stringliteral">&quot;application/ld+json&quot;</span>)</div>
+<div class="line"><span class="lineno">  596</span>            <span class="keywordflow">for</span> link <span class="keywordflow">in</span> alts:</div>
+<div class="line"><span class="lineno">  597</span>                full_link = urljoin(self.url, link)</div>
+<div class="line"><span class="lineno">  598</span>                <span class="keywordflow">if</span> full_link != self.url <span class="keywordflow">and</span> full_link != system_id:</div>
+<div class="line"><span class="lineno">  599</span>                    response = _urlopen(Request(full_link))</div>
+<div class="line"><span class="lineno">  600</span>                    self.url = response.geturl()  <span class="comment"># in case redirections took place</span></div>
+<div class="line"><span class="lineno">  601</span>                    <span class="keywordflow">break</span></div>
+<div class="line"><span class="lineno">  602</span> </div>
+<div class="line"><span class="lineno">  603</span>        self.setPublicId(self.url)</div>
+<div class="line"><span class="lineno">  604</span>        content_types = self.getallmatchingheaders(response.headers, <span class="stringliteral">&quot;content-type&quot;</span>)</div>
+<div class="line"><span class="lineno">  605</span>        self.content_type = content_types[0] <span class="keywordflow">if</span> content_types <span class="keywordflow">else</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  606</span>        <span class="keywordflow">if</span> self.content_type <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  607</span>            self.content_type = self.content_type.split(<span class="stringliteral">&quot;;&quot;</span>, 1)[0]</div>
+<div class="line"><span class="lineno">  608</span>        self.setByteStream(response)</div>
+<div class="line"><span class="lineno">  609</span>        <span class="comment"># TODO: self.setEncoding(encoding)</span></div>
+<div class="line"><span class="lineno">  610</span>        self.response_info = response.info()  <span class="comment"># a mimetools.Message instance</span></div>
+<div class="line"><span class="lineno">  611</span> </div>
+<div class="ttc" id="aa01045_html"><div class="ttname"><a href="a01045.html">rdflib.parser</a></div><div class="ttdef"><b>Definition</b> parser.py:1</div></div>
+<div class="ttc" id="aa01047_html"><div class="ttname"><a href="a01047.html">rdflib.plugin</a></div><div class="ttdef"><b>Definition</b> plugin.py:1</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02112.html#a579d920816c5b6fcb47cc849ca26c6f6">URLInputSource.__init__()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a02112.html#a579d920816c5b6fcb47cc849ca26c6f6">URLInputSource.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aea815b0c6c23fc48a11ee0404b782c7a" name="aea815b0c6c23fc48a11ee0404b782c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea815b0c6c23fc48a11ee0404b782c7a">&#9670;&#160;</a></span>__repr__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str __repr__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  612</span>    <span class="keyword">def </span>__repr__(self) -&gt; str:</div>
+<div class="line"><span class="lineno">  613</span>        <span class="comment"># type error: Incompatible return value type (got &quot;Optional[str]&quot;, expected &quot;str&quot;)</span></div>
+<div class="line"><span class="lineno">  614</span>        <span class="keywordflow">return</span> self.url  <span class="comment"># type: ignore[return-value]</span></div>
+<div class="line"><span class="lineno">  615</span> </div>
+<div class="line"><span class="lineno">  616</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01768.html#a27786770ccecb48f912ddde65af13c22">Transaction.url()</a>, <a class="el" href="a01768.html#afcd5a3e84f2adb7f83fa6c99911f31e4">Transaction.url</a>, <a class="el" href="a01984.html#a814c8ddb0b7daa17768a06e99beb32b3">CSVW.url</a>, <a class="el" href="a02052.html#a814c8ddb0b7daa17768a06e99beb32b3">SDO.url</a>, and <a class="el" href="a02112.html#afcd5a3e84f2adb7f83fa6c99911f31e4">URLInputSource.url</a>.</p>
+
+</div>
+</div>
+<a id="a80fcea6214b9bf7f2e7979167d43430f" name="a80fcea6214b9bf7f2e7979167d43430f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80fcea6214b9bf7f2e7979167d43430f">&#9670;&#160;</a></span>get_alternates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[str] get_alternates </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] &#160;</td>
+          <td class="paramname"><em>type_</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  539</span>    <span class="keyword">def </span>get_alternates(self, type_: Optional[str] = <span class="keywordtype">None</span>) -&gt; List[str]:</div>
+<div class="line"><span class="lineno">  540</span>        typestr: Optional[str] = f<span class="stringliteral">&#39;type=&quot;{type_}&quot;&#39;</span> <span class="keywordflow">if</span> type_ <span class="keywordflow">else</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  541</span>        relstr = <span class="stringliteral">&#39;rel=&quot;alternate&quot;&#39;</span></div>
+<div class="line"><span class="lineno">  542</span>        alts = []</div>
+<div class="line"><span class="lineno">  543</span>        <span class="keywordflow">for</span> link <span class="keywordflow">in</span> self.links:</div>
+<div class="line"><span class="lineno">  544</span>            parts = [p.strip() <span class="keywordflow">for</span> p <span class="keywordflow">in</span> link.split(<span class="stringliteral">&quot;;&quot;</span>)]</div>
+<div class="line"><span class="lineno">  545</span>            <span class="keywordflow">if</span> relstr <span class="keywordflow">not</span> <span class="keywordflow">in</span> parts:</div>
+<div class="line"><span class="lineno">  546</span>                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  547</span>            <span class="keywordflow">if</span> typestr:</div>
+<div class="line"><span class="lineno">  548</span>                <span class="keywordflow">if</span> typestr <span class="keywordflow">in</span> parts:</div>
+<div class="line"><span class="lineno">  549</span>                    alts.append(parts[0].strip(<span class="stringliteral">&quot;&lt;&gt;&quot;</span>))</div>
+<div class="line"><span class="lineno">  550</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  551</span>                alts.append(parts[0].strip(<span class="stringliteral">&quot;&lt;&gt;&quot;</span>))</div>
+<div class="line"><span class="lineno">  552</span>        <span class="keywordflow">return</span> alts</div>
+<div class="line"><span class="lineno">  553</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02112.html#a045be9a6472e95ccd82b4123a9e1edb4">URLInputSource.links</a>.</p>
+
+</div>
+</div>
+<a id="afd7a2caff16e1270cc2fd6bc98c5aa68" name="afd7a2caff16e1270cc2fd6bc98c5aa68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd7a2caff16e1270cc2fd6bc98c5aa68">&#9670;&#160;</a></span>get_links()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[str] get_links </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">addinfourl&#160;</td>
+          <td class="paramname"><em>response</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  530</span>    <span class="keyword">def </span>get_links(cls, response: addinfourl) -&gt; List[str]:</div>
+<div class="line"><span class="lineno">  531</span>        linkslines = cls.getallmatchingheaders(response.headers, <span class="stringliteral">&quot;Link&quot;</span>)</div>
+<div class="line"><span class="lineno">  532</span>        retarray: List[str] = []</div>
+<div class="line"><span class="lineno">  533</span>        <span class="keywordflow">for</span> linksline <span class="keywordflow">in</span> linkslines:</div>
+<div class="line"><span class="lineno">  534</span>            links = [linkstr.strip() <span class="keywordflow">for</span> linkstr <span class="keywordflow">in</span> linksline.split(<span class="stringliteral">&quot;,&quot;</span>)]</div>
+<div class="line"><span class="lineno">  535</span>            <span class="keywordflow">for</span> link <span class="keywordflow">in</span> links:</div>
+<div class="line"><span class="lineno">  536</span>                retarray.append(link)</div>
+<div class="line"><span class="lineno">  537</span>        <span class="keywordflow">return</span> retarray</div>
+<div class="line"><span class="lineno">  538</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a02112.html#a1f21436b287815b7e0d832edb5ccef17">URLInputSource.getallmatchingheaders()</a>.</p>
+
+</div>
+</div>
+<a id="a1f21436b287815b7e0d832edb5ccef17" name="a1f21436b287815b7e0d832edb5ccef17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f21436b287815b7e0d832edb5ccef17">&#9670;&#160;</a></span>getallmatchingheaders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List[str] getallmatchingheaders </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Message&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  523</span>    <span class="keyword">def </span>getallmatchingheaders(cls, message: Message, name) -&gt; List[str]:</div>
+<div class="line"><span class="lineno">  524</span>        <span class="comment"># This is reimplemented here, because the method</span></div>
+<div class="line"><span class="lineno">  525</span>        <span class="comment"># getallmatchingheaders from HTTPMessage is broken since Python 3.0</span></div>
+<div class="line"><span class="lineno">  526</span>        name = name.lower()</div>
+<div class="line"><span class="lineno">  527</span>        <span class="keywordflow">return</span> [val <span class="keywordflow">for</span> key, val <span class="keywordflow">in</span> message.items() <span class="keywordflow">if</span> key.lower() == name]</div>
+<div class="line"><span class="lineno">  528</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a02112.html#afd7a2caff16e1270cc2fd6bc98c5aa68">URLInputSource.get_links()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a221623422ea72de630e7e446a84e9f1f" name="a221623422ea72de630e7e446a84e9f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a221623422ea72de630e7e446a84e9f1f">&#9670;&#160;</a></span>content_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">content_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02100.html#a1286cc3532adefc287e7947b14b4e4f6">InputSource.__init__()</a>.</p>
+
+</div>
+</div>
+<a id="a045be9a6472e95ccd82b4123a9e1edb4" name="a045be9a6472e95ccd82b4123a9e1edb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a045be9a6472e95ccd82b4123a9e1edb4">&#9670;&#160;</a></span>links <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List links [str]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02112.html#a80fcea6214b9bf7f2e7979167d43430f">URLInputSource.get_alternates()</a>.</p>
+
+</div>
+</div>
+<a id="af5b1604e7b7187db5ec24d140792014a" name="af5b1604e7b7187db5ec24d140792014a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5b1604e7b7187db5ec24d140792014a">&#9670;&#160;</a></span>links <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">links</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02112.html#a80fcea6214b9bf7f2e7979167d43430f">URLInputSource.get_alternates()</a>.</p>
+
+</div>
+</div>
+<a id="a4f33443a9c165dac669d171cb36f86ac" name="a4f33443a9c165dac669d171cb36f86ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f33443a9c165dac669d171cb36f86ac">&#9670;&#160;</a></span>response_info</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">response_info</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcd5a3e84f2adb7f83fa6c99911f31e4" name="afcd5a3e84f2adb7f83fa6c99911f31e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcd5a3e84f2adb7f83fa6c99911f31e4">&#9670;&#160;</a></span>url</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">url</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02112.html#aea815b0c6c23fc48a11ee0404b782c7a">URLInputSource.__repr__()</a>, <a class="el" href="a01768.html#aef9f050f08f3a95553a0d15762f9dad2">Transaction.commit()</a>, <a class="el" href="a01768.html#a6845824f23bd2be9c8842282f9ec7d62">Transaction.delete()</a>, <a class="el" href="a01768.html#a2488d371a763bdb7273c9dd9c8d30ccc">Transaction.get()</a>, <a class="el" href="a01768.html#a04d7e57ecd43531f0e109bb5936926ea">Transaction.ping()</a>, <a class="el" href="a01768.html#ac412064a6266aadf962039adb6e20e74">Transaction.rollback()</a>, <a class="el" href="a01768.html#a6df980155b9badd012947d3d8563ece7">Transaction.size()</a>, <a class="el" href="a01768.html#aaf8eba4fb8ecdcb531272a89821f6c3c">Transaction.update()</a>, and <a class="el" href="a01768.html#a1560ef6a3dc1f91af7bee92ffcaf3917">Transaction.upload()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01045.html">parser</a></li><li class="navelem"><a class="el" href="a02112.html">URLInputSource</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

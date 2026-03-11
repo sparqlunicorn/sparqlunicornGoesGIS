@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['badsyntax_0',['BadSyntax',['../a02180.html',1,'rdflib::plugins::parsers::notation3']]],
+  ['bag_1',['Bag',['../a01720.html',1,'rdflib::container']]],
+  ['bagid_2',['BagID',['../a02232.html',1,'rdflib::plugins::parsers::rdfxml']]],
+  ['baselayerdialog_3',['BaseLayerDialog',['../a02884.html',1,'sparqlunicornGoesGIS::dialogs::util::baselayerdialog']]],
+  ['batchaddgraph_4',['BatchAddGraph',['../a01952.html',1,'rdflib::graph']]],
+  ['bboxdialog_5',['BBOXDialog',['../a02888.html',1,'sparqlunicornGoesGIS::dialogs::util::bboxdialog']]],
+  ['berkeleydb_6',['BerkeleyDB',['../a02536.html',1,'rdflib::plugins::stores::berkeleydb']]],
+  ['bibpage_7',['BibPage',['../a03196.html',1,'sparqlunicornGoesGIS::util::export::pages::bibpage']]],
+  ['bindings_8',['bindings',['../a02504.html',1,'Bindings'],['../a02752.html',1,'Bindings']]],
+  ['bnode_9',['BNode',['../a02668.html',1,'rdflib::term']]],
+  ['bnodenativewrapper_10',['BNodeNativeWrapper',['../a01548.html',1,'pyshacl::extras::js::context']]],
+  ['booleanclass_11',['BooleanClass',['../a01904.html',1,'rdflib::extras::infixowl']]],
+  ['booleanclassextenthelper_12',['BooleanClassExtentHelper',['../a01896.html',1,'rdflib::extras::infixowl']]],
+  ['boundjstargettype_13',['BoundJSTargetType',['../a01584.html',1,'pyshacl::extras::js::target']]],
+  ['boundshacltargettype_14',['BoundSHACLTargetType',['../a01676.html',1,'pyshacl::target']]],
+  ['boundshapejsvalidatorcomponent_15',['BoundShapeJSValidatorComponent',['../a01528.html',1,'pyshacl::extras::js::constraint_component']]],
+  ['boundshapevalidatorcomponent_16',['BoundShapeValidatorComponent',['../a01464.html',1,'pyshacl::constraints::sparql::sparql_based_constraint_components']]],
+  ['boundsparqltargettype_17',['BoundSPARQLTargetType',['../a01680.html',1,'pyshacl::target']]],
+  ['brick_18',['BRICK',['../a01980.html',1,'rdflib::namespace::_BRICK']]],
+  ['buildlogpage_19',['BuildLogPage',['../a03200.html',1,'sparqlunicornGoesGIS::util::export::pages::buildlogpage']]],
+  ['bytesiowrapper_20',['BytesIOWrapper',['../a02096.html',1,'rdflib::parser']]]
+];

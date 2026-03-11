@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>SPARQL Unicorn QGIS Plugin: SHACLTargetType Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/situx/rdflib-geosparql" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SPARQL Unicorn QGIS Plugin
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part --><!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a01668.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="a01665.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">SHACLTargetType Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for SHACLTargetType:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01667.png" border="0" usemap="#aSHACLTargetType_inherit__map" alt="Inheritance graph"/></div>
+<map name="aSHACLTargetType_inherit__map" id="aSHACLTargetType_inherit__map">
+<area shape="rect" title=" " alt="" coords="63,79,198,104"/>
+<area shape="rect" href="a01588.html" title=" " alt="" coords="5,152,109,177"/>
+<area shape="poly" title=" " alt="" coords="111,116,71,154,67,150,107,112"/>
+<area shape="rect" href="a01684.html" title=" " alt="" coords="133,152,275,177"/>
+<area shape="poly" title=" " alt="" coords="154,112,194,150,190,154,151,116"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="99,5,162,31"/>
+<area shape="poly" title=" " alt="" coords="133,44,133,79,128,79,128,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for SHACLTargetType:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01666.png" border="0" usemap="#aSHACLTargetType_coll__map" alt="Collaboration graph"/></div>
+<map name="aSHACLTargetType_coll__map" id="aSHACLTargetType_coll__map">
+<area shape="rect" title=" " alt="" coords="11,93,145,119"/>
+<area shape="rect" href="a07484.html" title=" " alt="" coords="5,5,68,31"/>
+<area shape="poly" title=" " alt="" coords="51,42,75,92,70,94,46,44"/>
+<area shape="rect" title=" " alt="" coords="92,5,147,31"/>
+<area shape="poly" title=" " alt="" coords="110,44,86,94,81,92,105,42"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af02eeb6f360234ce51e5ecb9b21f9629" id="r_af02eeb6f360234ce51e5ecb9b21f9629"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#af02eeb6f360234ce51e5ecb9b21f9629">__init__</a> (self, t_node, <a class="el" href="a01668.html#a70b5b30af01d60937d4f7d46d6dec873">sg</a>)</td></tr>
+<tr class="separator:af02eeb6f360234ce51e5ecb9b21f9629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cacfa4f3a0edc366206b1669e67a983" id="r_a7cacfa4f3a0edc366206b1669e67a983"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#a7cacfa4f3a0edc366206b1669e67a983">apply</a> (self)</td></tr>
+<tr class="separator:a7cacfa4f3a0edc366206b1669e67a983"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ca48fb53e0fa6523566cc5696b1bba3" id="r_a9ca48fb53e0fa6523566cc5696b1bba3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#a9ca48fb53e0fa6523566cc5696b1bba3">check_params</a> (self, target_declaration)</td></tr>
+<tr class="separator:a9ca48fb53e0fa6523566cc5696b1bba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1f93d75a8dec0c9d49c477764d4a3ff" id="r_ae1f93d75a8dec0c9d49c477764d4a3ff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#ae1f93d75a8dec0c9d49c477764d4a3ff">bind</a> (self, shape, target_declaration)</td></tr>
+<tr class="separator:ae1f93d75a8dec0c9d49c477764d4a3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ae0682e96cacac1e6c208357a99dbd6d0" id="r_ae0682e96cacac1e6c208357a99dbd6d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#ae0682e96cacac1e6c208357a99dbd6d0">node</a></td></tr>
+<tr class="separator:ae0682e96cacac1e6c208357a99dbd6d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70b5b30af01d60937d4f7d46d6dec873" id="r_a70b5b30af01d60937d4f7d46d6dec873"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#a70b5b30af01d60937d4f7d46d6dec873">sg</a></td></tr>
+<tr class="separator:a70b5b30af01d60937d4f7d46d6dec873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad827090038061f4a04a789ab61df8c1d" id="r_ad827090038061f4a04a789ab61df8c1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#ad827090038061f4a04a789ab61df8c1d">parameters</a></td></tr>
+<tr class="separator:ad827090038061f4a04a789ab61df8c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad10d560e3be3aa34ab282649d6cfce34" id="r_ad10d560e3be3aa34ab282649d6cfce34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#ad10d560e3be3aa34ab282649d6cfce34">label_template</a></td></tr>
+<tr class="separator:ad10d560e3be3aa34ab282649d6cfce34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aef04051147f1d02390e4e37bc7a09417" id="r_aef04051147f1d02390e4e37bc7a09417"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01668.html#aef04051147f1d02390e4e37bc7a09417">__slots__</a> = (&quot;sg&quot;, &quot;node&quot;, &quot;parameters&quot;, &quot;label_template&quot;)</td></tr>
+<tr class="separator:aef04051147f1d02390e4e37bc7a09417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af02eeb6f360234ce51e5ecb9b21f9629" name="af02eeb6f360234ce51e5ecb9b21f9629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af02eeb6f360234ce51e5ecb9b21f9629">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t_node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>sg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">:param t_node:
+:type t_node: rdflib.Identifier
+:param sg:
+:type sg: ShapesGraph
+</pre> 
+<p>Reimplemented in <a class="el" href="a01684.html#af02eeb6f360234ce51e5ecb9b21f9629">SPARQLTargetType</a>, and <a class="el" href="a01588.html#ae327cbb73325db0aa60ca5fb8cba9411">JSTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>    <span class="keyword">def </span>__init__(self, t_node, sg):</div>
+<div class="line"><span class="lineno">   29</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   30</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   31</span><span class="stringliteral">        :param t_node:</span></div>
+<div class="line"><span class="lineno">   32</span><span class="stringliteral">        :type t_node: rdflib.Identifier</span></div>
+<div class="line"><span class="lineno">   33</span><span class="stringliteral">        :param sg:</span></div>
+<div class="line"><span class="lineno">   34</span><span class="stringliteral">        :type sg: ShapesGraph</span></div>
+<div class="line"><span class="lineno">   35</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   36</span>        super(SHACLTargetType, self).__init__()</div>
+<div class="line"><span class="lineno">   37</span>        self.node = t_node</div>
+<div class="line"><span class="lineno">   38</span>        self.sg = sg</div>
+<div class="line"><span class="lineno">   39</span>        params = list(sg.objects(t_node, SH_parameter))</div>
+<div class="line"><span class="lineno">   40</span>        self.parameters = [SHACLParameter(sg, p) <span class="keywordflow">for</span> p <span class="keywordflow">in</span> params]  <span class="comment"># type: List[SHACLParameter]</span></div>
+<div class="line"><span class="lineno">   41</span>        ltemps = list(sg.objects(t_node, SH_labelTempalate))</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">if</span> len(ltemps) &lt; 1:</div>
+<div class="line"><span class="lineno">   43</span>            self.label_template = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">elif</span> len(ltemps) &gt; 1:</div>
+<div class="line"><span class="lineno">   45</span>            <span class="keywordflow">raise</span> ConstraintLoadError(</div>
+<div class="line"><span class="lineno">   46</span>                <span class="stringliteral">&quot;SHACLTargetType cannot have more than one value for sh:labelTemplate.&quot;</span>,</div>
+<div class="line"><span class="lineno">   47</span>                <span class="stringliteral">&quot;https://www.w3.org/TR/shacl-af/#SPARQLTargetType&quot;</span>,</div>
+<div class="line"><span class="lineno">   48</span>            )</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">   50</span>            self.label_template = ltemps[0]</div>
+<div class="line"><span class="lineno">   51</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01668.html#af02eeb6f360234ce51e5ecb9b21f9629">SHACLTargetType.__init__()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01668.html#af02eeb6f360234ce51e5ecb9b21f9629">SHACLTargetType.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7cacfa4f3a0edc366206b1669e67a983" name="a7cacfa4f3a0edc366206b1669e67a983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cacfa4f3a0edc366206b1669e67a983">&#9670;&#160;</a></span>apply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">apply </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">   52</span>    <span class="keyword">def </span>apply(self):</div>
+<div class="line"><span class="lineno">   53</span>        self.sg.add_shacl_target_type(self.node, self)</div>
+<div class="line"><span class="lineno">   54</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01344.html#a117fe0e1b0051460bbe9ee2b3c5d0cdd">CustomConstraintComponent.node</a>, <a class="el" href="a01468.html#ae0682e96cacac1e6c208357a99dbd6d0">SPARQLConstraintComponentValidator.node</a>, <a class="el" href="a01568.html#ae0682e96cacac1e6c208357a99dbd6d0">JSFunction.node</a>, <a class="el" href="a01572.html#ae0682e96cacac1e6c208357a99dbd6d0">JSExecutable.node</a>, <a class="el" href="a01592.html#ae0682e96cacac1e6c208357a99dbd6d0">SHACLFunction.node</a>, <a class="el" href="a01596.html#ae0682e96cacac1e6c208357a99dbd6d0">SPARQLFunction.node</a>, <a class="el" href="a01600.html#ae0682e96cacac1e6c208357a99dbd6d0">SPARQLQueryHelper.node</a>, <a class="el" href="a01628.html#ae0682e96cacac1e6c208357a99dbd6d0">SHACLRule.node</a>, <a class="el" href="a01660.html#ae0682e96cacac1e6c208357a99dbd6d0">Shape.node</a>, <a class="el" href="a01668.html#ae0682e96cacac1e6c208357a99dbd6d0">SHACLTargetType.node</a>, <a class="el" href="a01672.html#ae0682e96cacac1e6c208357a99dbd6d0">TargetDeclarationWrapper.node</a>, <a class="el" href="a02056.html#a257b3e16cfb2803002a27f4372d6e84c">SH.node</a>, <a class="el" href="a02176.html#a691008001e90bcfb22992f0180bf70c6">SinkParser.node()</a>, <a class="el" href="a01344.html#a2b2b11c9e1c4875554f2b38ac0bea7ce">CustomConstraintComponent.sg</a>, <a class="el" href="a01532.html#a70b5b30af01d60937d4f7d46d6dec873">JSConstraintComponent.sg</a>, <a class="el" href="a01572.html#a70b5b30af01d60937d4f7d46d6dec873">JSExecutable.sg</a>, <a class="el" href="a01592.html#a70b5b30af01d60937d4f7d46d6dec873">SHACLFunction.sg</a>, <a class="el" href="a01660.html#a70b5b30af01d60937d4f7d46d6dec873">Shape.sg</a>, <a class="el" href="a01668.html#a70b5b30af01d60937d4f7d46d6dec873">SHACLTargetType.sg</a>, and <a class="el" href="a01672.html#a70b5b30af01d60937d4f7d46d6dec873">TargetDeclarationWrapper.sg</a>.</p>
+
+</div>
+</div>
+<a id="ae1f93d75a8dec0c9d49c477764d4a3ff" name="ae1f93d75a8dec0c9d49c477764d4a3ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1f93d75a8dec0c9d49c477764d4a3ff">&#9670;&#160;</a></span>bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bind </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>target_declaration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="a01588.html#ae1f93d75a8dec0c9d49c477764d4a3ff">JSTargetType</a>, and <a class="el" href="a01684.html#ae1f93d75a8dec0c9d49c477764d4a3ff">SPARQLTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   73</span>    <span class="keyword">def </span>bind(self, shape, target_declaration):</div>
+<div class="line"><span class="lineno">   74</span>        <span class="keyword">assert</span> <span class="keyword">False</span>  <span class="comment"># is this even used?</span></div>
+<div class="line"><span class="lineno">   75</span>        param_vals = self.check_params(target_declaration)</div>
+<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">return</span> BoundSHACLTargetType(self, target_declaration, shape, param_vals)</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01588.html#a9ca48fb53e0fa6523566cc5696b1bba3">JSTargetType.check_params()</a>, and <a class="el" href="a01668.html#a9ca48fb53e0fa6523566cc5696b1bba3">SHACLTargetType.check_params()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01976.html#a85c93d61769bee9100ef36ef7d097e7e">NamespaceManager.compute_qname()</a>, <a class="el" href="a01976.html#a9c26d09f9ec87d9429bb642d8d181bb1">NamespaceManager.compute_qname_strict()</a>, <a class="el" href="a02176.html#a773a83e155c2fb34c65380a1726dcf6e">SinkParser.directive()</a>, and <a class="el" href="a02176.html#afccbc1b5890af9d3b0c51cca0e4d6f1d">SinkParser.sparqlDirective()</a>.</p>
+
+</div>
+</div>
+<a id="a9ca48fb53e0fa6523566cc5696b1bba3" name="a9ca48fb53e0fa6523566cc5696b1bba3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ca48fb53e0fa6523566cc5696b1bba3">&#9670;&#160;</a></span>check_params()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">check_params </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>target_declaration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="a01588.html#a9ca48fb53e0fa6523566cc5696b1bba3">JSTargetType</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>    <span class="keyword">def </span>check_params(self, target_declaration):</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keyword">assert</span> <span class="keyword">False</span>  <span class="comment"># is this even used?</span></div>
+<div class="line"><span class="lineno">   57</span>        param_kv = {}</div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">for</span> p <span class="keywordflow">in</span> self.parameters:</div>
+<div class="line"><span class="lineno">   59</span>            n = p.node</div>
+<div class="line"><span class="lineno">   60</span>            vals = set(self.sg.objects(target_declaration, n))</div>
+<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">if</span> len(vals) &lt; 1:</div>
+<div class="line"><span class="lineno">   62</span>                <span class="keywordflow">if</span> p.optional:</div>
+<div class="line"><span class="lineno">   63</span>                    <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">   64</span>                <span class="keywordflow">raise</span> ShapeLoadError(</div>
+<div class="line"><span class="lineno">   65</span>                    <span class="stringliteral">&quot;sh:target does not have a value for {}&quot;</span>.format(n),</div>
+<div class="line"><span class="lineno">   66</span>                    <span class="stringliteral">&quot;https://www.w3.org/TR/shacl-af/#SPARQLTargetType&quot;</span>,</div>
+<div class="line"><span class="lineno">   67</span>                )</div>
+<div class="line"><span class="lineno">   68</span>            <span class="keywordflow">if</span> len(vals) &gt; 1:</div>
+<div class="line"><span class="lineno">   69</span>                warn(Warning(<span class="stringliteral">&quot;Found more than one value for {} on sh:target. Using just first one.&quot;</span>.format(n)))</div>
+<div class="line"><span class="lineno">   70</span>            param_kv[p] = next(iter(vals))</div>
+<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">return</span> param_kv</div>
+<div class="line"><span class="lineno">   72</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01344.html#aeafb87ff3c2b5f0847093d6e39e02ad8">CustomConstraintComponent.parameters</a>, <a class="el" href="a01592.html#ad827090038061f4a04a789ab61df8c1d">SHACLFunction.parameters</a>, <a class="el" href="a01600.html#ad827090038061f4a04a789ab61df8c1d">SPARQLQueryHelper.parameters</a>, <a class="el" href="a01668.html#ad827090038061f4a04a789ab61df8c1d">SHACLTargetType.parameters</a>, <a class="el" href="a01344.html#a2b2b11c9e1c4875554f2b38ac0bea7ce">CustomConstraintComponent.sg</a>, <a class="el" href="a01532.html#a70b5b30af01d60937d4f7d46d6dec873">JSConstraintComponent.sg</a>, <a class="el" href="a01572.html#a70b5b30af01d60937d4f7d46d6dec873">JSExecutable.sg</a>, <a class="el" href="a01592.html#a70b5b30af01d60937d4f7d46d6dec873">SHACLFunction.sg</a>, <a class="el" href="a01660.html#a70b5b30af01d60937d4f7d46d6dec873">Shape.sg</a>, <a class="el" href="a01668.html#a70b5b30af01d60937d4f7d46d6dec873">SHACLTargetType.sg</a>, and <a class="el" href="a01672.html#a70b5b30af01d60937d4f7d46d6dec873">TargetDeclarationWrapper.sg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01588.html#ae1f93d75a8dec0c9d49c477764d4a3ff">JSTargetType.bind()</a>, and <a class="el" href="a01668.html#ae1f93d75a8dec0c9d49c477764d4a3ff">SHACLTargetType.bind()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aef04051147f1d02390e4e37bc7a09417" name="aef04051147f1d02390e4e37bc7a09417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef04051147f1d02390e4e37bc7a09417">&#9670;&#160;</a></span>__slots__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple __slots__ = (&quot;sg&quot;, &quot;node&quot;, &quot;parameters&quot;, &quot;label_template&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad10d560e3be3aa34ab282649d6cfce34" name="ad10d560e3be3aa34ab282649d6cfce34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad10d560e3be3aa34ab282649d6cfce34">&#9670;&#160;</a></span>label_template</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">label_template</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae0682e96cacac1e6c208357a99dbd6d0" name="ae0682e96cacac1e6c208357a99dbd6d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0682e96cacac1e6c208357a99dbd6d0">&#9670;&#160;</a></span>node</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">node</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01632.html#a96334a0e31129c107ac4d2392f2da961">SPARQLRule.__init__()</a>, <a class="el" href="a01636.html#a96334a0e31129c107ac4d2392f2da961">TripleRule.__init__()</a>, <a class="el" href="a01596.html#ae807414cc8a674267d369bdccf3c8fb0">SPARQLFunction.__init__()</a>, <a class="el" href="a01612.html#ad169b01784c6f4b06c22111f9aadcab9">SHACLParameter.__init__()</a>, <a class="el" href="a01684.html#af02eeb6f360234ce51e5ecb9b21f9629">SPARQLTargetType.__init__()</a>, <a class="el" href="a01660.html#a61a1f3a6a4df93d491cd753f617782a2">Shape.__repr__()</a>, <a class="el" href="a01612.html#a40b37c981a056437fd94276341c63fe8">SHACLParameter.__str__()</a>, <a class="el" href="a01660.html#a40b37c981a056437fd94276341c63fe8">Shape.__str__()</a>, <a class="el" href="a01660.html#ae8b26df917f054bb9e7ede0c568a8b54">Shape.advanced_target()</a>, <a class="el" href="a01668.html#a7cacfa4f3a0edc366206b1669e67a983">SHACLTargetType.apply()</a>, <a class="el" href="a01600.html#adf9d14b513b9b32f5b8d34454ff07bf2">SPARQLQueryHelper.collect_prefixes()</a>, <a class="el" href="a01660.html#aa284562f4214aeb98bdd62ea8ceab451">Shape.find_custom_constraints()</a>, <a class="el" href="a01628.html#acc67675520ab51b1614b5a3c05f83424">SHACLRule.get_conditions()</a>, <a class="el" href="a01660.html#a8dbf981db53b096cf09d4e62d3af0cf0">Shape.implicit_class_targets()</a>, <a class="el" href="a01672.html#ab4dfe3ca5456f43711a1080e2e46bee6">TargetDeclarationWrapper.objects()</a>, <a class="el" href="a01592.html#afa0a005ded8ec9ed06686baaea296147">SHACLFunction.objects()</a>, <a class="el" href="a01660.html#afa0a005ded8ec9ed06686baaea296147">Shape.objects()</a>, <a class="el" href="a01628.html#a8473e6eee4acde1082743e0fbc7d15ba">SHACLRule.order()</a>, <a class="el" href="a02176.html#aa226fe0c06891cfc8c9da21f88a45433">SinkParser.path()</a>, <a class="el" href="a02176.html#a5b54a20e518e83f95038c7163ba836fb">SinkParser.property_list()</a>, <a class="el" href="a01660.html#a8fc6fc5c15cce81a35beff59fcd7938c">Shape.property_shapes()</a>, <a class="el" href="a01660.html#a672a79135da754fe1a35fa4a21e411dd">Shape.target_classes()</a>, <a class="el" href="a01660.html#a569ed733d176aeffc018b91afd067e8f">Shape.target_nodes()</a>, <a class="el" href="a01660.html#abf0dd26b7fd7dc105ed54886d06eab27">Shape.target_objects_of()</a>, <a class="el" href="a01660.html#a4bb559117f042cf147810f42ece03c2b">Shape.target_subjects_of()</a>, <a class="el" href="a01568.html#ae04aa5d5bf2553610e1e9cb32d210701">JSFunction.unapply()</a>, <a class="el" href="a01592.html#ae04aa5d5bf2553610e1e9cb32d210701">SHACLFunction.unapply()</a>, <a class="el" href="a01596.html#ae04aa5d5bf2553610e1e9cb32d210701">SPARQLFunction.unapply()</a>, and <a class="el" href="a01660.html#a6971d9ca9c2934be3c66d04ab1a790b0">Shape.validate()</a>.</p>
+
+</div>
+</div>
+<a id="ad827090038061f4a04a789ab61df8c1d" name="ad827090038061f4a04a789ab61df8c1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad827090038061f4a04a789ab61df8c1d">&#9670;&#160;</a></span>parameters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">parameters</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a02788.html#a50dcbf88cfbce02f51024984d4815779">SPARQLWrapper._getRequestEncodedParameters()</a>, <a class="el" href="a02788.html#a58bd0759dc6c676e1f1a9ca6d26a34bd">SPARQLWrapper.addParameter()</a>, <a class="el" href="a01600.html#a020512bd4da7a2050bcbfa1155335a23">SPARQLQueryHelper.bind_params()</a>, <a class="el" href="a01588.html#a9ca48fb53e0fa6523566cc5696b1bba3">JSTargetType.check_params()</a>, <a class="el" href="a01668.html#a9ca48fb53e0fa6523566cc5696b1bba3">SHACLTargetType.check_params()</a>, <a class="el" href="a02788.html#ae6fbb72277e6fae880b0ab07254d9dd8">SPARQLWrapper.clearParameter()</a>, <a class="el" href="a02788.html#a2ba40de93bfe562c1e2910674d1c3a03">SPARQLWrapper.resetQuery()</a>, and <a class="el" href="a01600.html#ac694a7079e239a36c194b5d7b0cf8457">SPARQLQueryHelper.shape()</a>.</p>
+
+</div>
+</div>
+<a id="a70b5b30af01d60937d4f7d46d6dec873" name="a70b5b30af01d60937d4f7d46d6dec873"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70b5b30af01d60937d4f7d46d6dec873">&#9670;&#160;</a></span>sg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01596.html#ae807414cc8a674267d369bdccf3c8fb0">SPARQLFunction.__init__()</a>, <a class="el" href="a01684.html#af02eeb6f360234ce51e5ecb9b21f9629">SPARQLTargetType.__init__()</a>, <a class="el" href="a01660.html#ae8b26df917f054bb9e7ede0c568a8b54">Shape.advanced_target()</a>, <a class="el" href="a01668.html#a7cacfa4f3a0edc366206b1669e67a983">SHACLTargetType.apply()</a>, <a class="el" href="a01588.html#a9ca48fb53e0fa6523566cc5696b1bba3">JSTargetType.check_params()</a>, <a class="el" href="a01668.html#a9ca48fb53e0fa6523566cc5696b1bba3">SHACLTargetType.check_params()</a>, <a class="el" href="a01572.html#a6cabc48260bd827ffe1b7a03cfaea42f">JSExecutable.execute()</a>, <a class="el" href="a01660.html#aa284562f4214aeb98bdd62ea8ceab451">Shape.find_custom_constraints()</a>, <a class="el" href="a01660.html#a37e1b507d59ead46a8cac4691cf33c6c">Shape.get_other_shape()</a>, <a class="el" href="a01660.html#a8dbf981db53b096cf09d4e62d3af0cf0">Shape.implicit_class_targets()</a>, <a class="el" href="a01480.html#ab36278aa4219fa933ac832e2c08a35a0">SPARQLConstraintComponent.make_validator_for_shape()</a>, <a class="el" href="a01672.html#ab4dfe3ca5456f43711a1080e2e46bee6">TargetDeclarationWrapper.objects()</a>, <a class="el" href="a01592.html#afa0a005ded8ec9ed06686baaea296147">SHACLFunction.objects()</a>, <a class="el" href="a01660.html#afa0a005ded8ec9ed06686baaea296147">Shape.objects()</a>, <a class="el" href="a01660.html#a8fc6fc5c15cce81a35beff59fcd7938c">Shape.property_shapes()</a>, <a class="el" href="a01660.html#a672a79135da754fe1a35fa4a21e411dd">Shape.target_classes()</a>, <a class="el" href="a01660.html#a569ed733d176aeffc018b91afd067e8f">Shape.target_nodes()</a>, <a class="el" href="a01660.html#abf0dd26b7fd7dc105ed54886d06eab27">Shape.target_objects_of()</a>, <a class="el" href="a01660.html#a4bb559117f042cf147810f42ece03c2b">Shape.target_subjects_of()</a>, <a class="el" href="a01592.html#ae04aa5d5bf2553610e1e9cb32d210701">SHACLFunction.unapply()</a>, <a class="el" href="a01660.html#a6971d9ca9c2934be3c66d04ab1a790b0">Shape.validate()</a>, and <a class="el" href="a01660.html#acadb21f09824ef593f43e20fe72544da">Shape.value_nodes()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00990.html">target</a></li><li class="navelem"><a class="el" href="a01668.html">SHACLTargetType</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>
