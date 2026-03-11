@@ -1,31 +1,4 @@
 var searchData=
 [
-  ['n3parser_0',['N3Parser',['../a02196.html',1,'rdflib::plugins::parsers::notation3']]],
-  ['n3serializer_1',['N3Serializer',['../a02280.html',1,'rdflib::plugins::serializers::n3']]],
-  ['namespace_2',['Namespace',['../a01956.html',1,'rdflib::namespace']]],
-  ['namespacelistingresult_3',['NamespaceListingResult',['../a01748.html',1,'rdflib::contrib::rdf4j::client']]],
-  ['namespacemanager_4',['NamespaceManager',['../a01976.html',1,'rdflib::namespace']]],
-  ['negatedpath_5',['NegatedPath',['../a02140.html',1,'rdflib::paths']]],
-  ['node_6',['Node',['../a02644.html',1,'rdflib::term']]],
-  ['nodebool_7',['NodeBool',['../a02700.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodeconstraintcomponent_8',['NodeConstraintComponent',['../a01404.html',1,'pyshacl::constraints::core::shape_based_constraints']]],
-  ['nodedate_9',['NodeDate',['../a02708.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodefloat_10',['NodeFloat',['../a02692.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodeint_11',['NodeInt',['../a02696.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodekindconstraintcomponent_12',['NodeKindConstraintComponent',['../a01444.html',1,'pyshacl::constraints::core::value_constraints']]],
-  ['nodeliteral_13',['NodeLiteral',['../a02688.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodemaker_14',['NodeMaker',['../a02680.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodepickler_15',['NodePickler',['../a02636.html',1,'rdflib::store']]],
-  ['nodereplace_16',['NodeReplace',['../a02704.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodesplit_17',['NodeSplit',['../a02712.html',1,'rdflib::tools::csv2rdf']]],
-  ['nodeuri_18',['NodeUri',['../a02684.html',1,'rdflib::tools::csv2rdf']]],
-  ['noelementexception_19',['NoElementException',['../a01732.html',1,'rdflib::container']]],
-  ['notbounderror_20',['NotBoundError',['../a02492.html',1,'rdflib::plugins::sparql::sparql']]],
-  ['notconstraintcomponent_21',['NotConstraintComponent',['../a01356.html',1,'pyshacl::constraints::core::logical_constraints']]],
-  ['nquadsparser_22',['NQuadsParser',['../a02200.html',1,'rdflib::plugins::parsers::nquads']]],
-  ['nquadsserializer_23',['NQuadsSerializer',['../a02284.html',1,'rdflib::plugins::serializers::nquads']]],
-  ['nt11serializer_24',['NT11Serializer',['../a02292.html',1,'rdflib::plugins::serializers::nt']]],
-  ['ntgraphsink_25',['NTGraphSink',['../a02212.html',1,'rdflib::plugins::parsers::ntriples']]],
-  ['ntparser_26',['NTParser',['../a02216.html',1,'rdflib::plugins::parsers::ntriples']]],
-  ['ntserializer_27',['NTSerializer',['../a02288.html',1,'rdflib::plugins::serializers::nt']]]
+  ['rectanglemaptool_0',['RectangleMapTool',['../a01597.html',1,'sparqlunicornGoesGIS::util::ui::mappingtools']]]
 ];

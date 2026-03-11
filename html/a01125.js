@@ -1,12 +1,11 @@
 var a01125 =
 [
-    [ "KeyCaseInsensitiveDict", "a01126.html", "a01126" ],
-    [ "main", "a01127.html", "a01127" ],
-    [ "SmartWrapper", "a01128.html", "a01128" ],
-    [ "sparql_dataframe", "a01129.html", "a01129" ],
-    [ "SPARQLExceptions", "a01130.html", "a01130" ],
-    [ "Wrapper", "a01131.html", "a01131" ],
-    [ "__agent__", "a01125.html#a6729c556871aae16a1479f223b36e000", null ],
-    [ "__all__", "a01125.html#aa4a022e6ddacd362b83964da5cc5d044", null ],
-    [ "__version__", "a01125.html#afd922a9cb53c51de64066937d830fbc6", null ]
+    [ "__init__", "a01125.html#a54af98fa99ab981b00e4c4dfd341a1da", null ],
+    [ "saveClassesTreeToRDF", "a01125.html#aa0c42df67fab84c774728eb3b4e11cfe", null ],
+    [ "saveTreeToRDF", "a01125.html#a5a73b076bbb46fc96ace34fa96292f06", null ],
+    [ "saveVisibleTreeToRDF", "a01125.html#a1b206dd1d79b2f3ca4fc445ef929cc1b", null ],
+    [ "saveClassesTreeToRDF", "a01125.html#a6bbc6a6314e9cb2cc7e4609f49ca6c47", null ],
+    [ "saveTreeToRDF", "a01125.html#a65bea60f8f6770d05b52e1c4be934dd6", null ],
+    [ "saveVisibleTreeToRDF", "a01125.html#abf2322ad4895b95f45a20537fa4a9a53", null ],
+    [ "triplestoreconf", "a01125.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

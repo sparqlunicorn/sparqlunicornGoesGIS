@@ -1,6 +1,5 @@
 var files_dup =
 [
-    [ "dependencies", "dir_ad0530cb1f8052897640e112eb83a9d7.html", "dir_ad0530cb1f8052897640e112eb83a9d7" ],
     [ "dialogs", "dir_56b9387f66bbb1dccc82a920d3dbd989.html", "dir_56b9387f66bbb1dccc82a920d3dbd989" ],
     [ "help", "dir_28a083f4f6983168a4525eb7df1d313c.html", "dir_28a083f4f6983168a4525eb7df1d313c" ],
     [ "scripts", "dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html", "dir_53e6fa9553ac22a5646d2a2b2d7b97a1" ],

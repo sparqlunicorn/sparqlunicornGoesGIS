@@ -1,7 +1,0 @@
-<map id="SimpleMemory" name="SimpleMemory">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,212,127,237"/>
-<area shape="rect" id="Node000002" href="$a02640.html" title=" " alt="" coords="38,137,94,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,177,69,212,63,212,63,177"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="41,5,91,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="69,44,69,137,63,137,63,44"/>
-</map>

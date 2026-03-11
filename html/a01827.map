@@ -1,9 +1,0 @@
-<map id="Event" name="Event">
-<area shape="rect" id="Node000001" title=" " alt="" coords="212,5,271,31"/>
-<area shape="rect" id="Node000002" href="$a02624.html" title=" " alt="" coords="5,79,149,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,39,105,81,103,76,201,34"/>
-<area shape="rect" id="Node000003" href="$a02628.html" title=" " alt="" coords="174,79,309,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,44,244,79,239,79,239,44"/>
-<area shape="rect" id="Node000004" href="$a02632.html" title=" " alt="" coords="333,79,489,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="282,34,384,76,382,81,280,38"/>
-</map>

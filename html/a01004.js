@@ -1,14 +1,8 @@
 var a01004 =
 [
-    [ "GraphStoreManager", "a01756.html", "a01756" ],
-    [ "NamespaceListingResult", "a01748.html", "a01748" ],
-    [ "RDF4JClient", "a01776.html", "a01776" ],
-    [ "RDF4JNamespaceManager", "a01752.html", "a01752" ],
-    [ "Repository", "a01764.html", "a01764" ],
-    [ "RepositoryListingResult", "a01760.html", "a01760" ],
-    [ "RepositoryManager", "a01772.html", "a01772" ],
-    [ "Transaction", "a01768.html", "a01768" ],
-    [ "ObjectType", "a01004.html#a842c5e2e69277690b064bf363c017980", null ],
-    [ "PredicateType", "a01004.html#a74200fe7b3fc40cf1385f05359608667", null ],
-    [ "SubjectType", "a01004.html#ab30ae0cdb97a5339718c533a78d22e9b", null ]
+    [ "QGISTest", "a01365.html", "a01365" ],
+    [ "__author__", "a01004.html#a6d83c2c29b6966a3000f7becd492d5e8", null ],
+    [ "__copyright__", "a01004.html#afd6c6c19c418fb86063895621d2723c6", null ],
+    [ "__date__", "a01004.html#a8dd371d4f3266d21d2e70cc1b4742edd", null ],
+    [ "QGIS_APP", "a01004.html#a8c2a350a9b438d9e214dc6bb460b8dc0", null ]
 ];

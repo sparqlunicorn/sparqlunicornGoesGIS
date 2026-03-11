@@ -1,7 +1,13 @@
 var a01141 =
 [
-    [ "PropertySchemaDialog", "a02820.html", "a02820" ],
-    [ "_", "a01141.html#a18f05aeddc212b523b40818fa2b87b33", null ],
-    [ "FORM_CLASS", "a01141.html#a0357d3c7a5047524e1543f2f43bc3e38", null ],
-    [ "MESSAGE_CATEGORY", "a01141.html#ae3349e13b3993e2c87c18074a77fb8f9", null ]
+    [ "__init__", "a01141.html#a4762a4377b526aa6de5d7728bf1e8bef", null ],
+    [ "startConversion", "a01141.html#ac4445b598ac9e85920ce138b586f4fa4", null ],
+    [ "vocabularyCBoxIndexChanged", "a01141.html#a05170f5c85f3a75eb59150d1a3a8a44a", null ],
+    [ "dlg", "a01141.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "maindlg", "a01141.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "prefixes", "a01141.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qtask", "a01141.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "startConversion", "a01141.html#a608b865a13b542eaab565b79d016f679", null ],
+    [ "triplestoreconf", "a01141.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "vocabularyCBoxIndexChanged", "a01141.html#a91572e9cb88c2fd2222a60ce6435dc66", null ]
 ];

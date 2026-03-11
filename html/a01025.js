@@ -1,4 +1,4 @@
 var a01025 =
 [
-    [ "FOAF", "a02012.html", "a02012" ]
+    [ "CardDAVExporter", "a01425.html", "a01425" ]
 ];

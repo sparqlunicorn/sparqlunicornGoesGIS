@@ -1,6 +1,6 @@
 var a00530 =
 [
-    [ "SPAQLunicornDialogTest", "a03088.html", "a03088" ],
+    [ "SPAQLunicornDialogTest", "a01373.html", "a01373" ],
     [ "__author__", "a00530.html#a6d83c2c29b6966a3000f7becd492d5e8", null ],
     [ "__copyright__", "a00530.html#a231785d9d2b061e302a581d235679a4c", null ],
     [ "__date__", "a00530.html#a8dd371d4f3266d21d2e70cc1b4742edd", null ],

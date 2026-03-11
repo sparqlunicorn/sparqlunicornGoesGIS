@@ -1,6 +1,5 @@
 var a00984 =
 [
-    [ "SPARQLRule", "a01632.html", "a01632" ],
-    [ "SPARQL_RULE_ITERATE_LIMIT", "a00984.html#a236678ed467ae564a082db07d6ec4eb4", null ],
-    [ "XSD_string", "a00984.html#acc4db5fafb88cc41f9d451f3c43b1006", null ]
+    [ "SubClassQueryTask", "a01305.html", "a01305" ],
+    [ "MESSAGE_CATEGORY", "a00984.html#ae3349e13b3993e2c87c18074a77fb8f9", null ]
 ];

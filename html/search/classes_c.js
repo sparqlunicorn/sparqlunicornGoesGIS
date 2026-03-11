@@ -1,20 +1,11 @@
 var searchData=
 [
-  ['languageinconstraintcomponent_0',['LanguageInConstraintComponent',['../a01428.html',1,'pyshacl::constraints::core::string_based_constraints']]],
-  ['layerexporter_1',['LayerExporter',['../a03192.html',1,'sparqlunicornGoesGIS::util::export::layer::layerexporter']]],
-  ['layermatchingtask_2',['LayerMatchingTask',['../a02960.html',1,'sparqlunicornGoesGIS::tasks::processing::layermatchingtask']]],
-  ['layerquerydialog_3',['LayerQueryDialog',['../a02896.html',1,'sparqlunicornGoesGIS::dialogs::util::layerquerydialog']]],
-  ['layerutils_4',['LayerUtils',['../a03276.html',1,'sparqlunicornGoesGIS::util::layerutils']]],
-  ['lessthanconstraintcomponent_5',['LessThanConstraintComponent',['../a01392.html',1,'pyshacl::constraints::core::property_pair_constraints']]],
-  ['lessthanorequalsconstraintcomponent_6',['LessThanOrEqualsConstraintComponent',['../a01396.html',1,'pyshacl::constraints::core::property_pair_constraints']]],
-  ['lexiconpage_7',['LexiconPage',['../a03216.html',1,'sparqlunicornGoesGIS::util::export::pages::lexiconpage']]],
-  ['linenumberarea_8',['LineNumberArea',['../a03332.html',1,'sparqlunicornGoesGIS::util::ui::tooltipplaintext']]],
-  ['literal_9',['Literal',['../a02672.html',1,'rdflib::term']]],
-  ['literalnativewrapper_10',['LiteralNativeWrapper',['../a01552.html',1,'pyshacl::extras::js::context']]],
-  ['literalutils_11',['LiteralUtils',['../a03128.html',1,'sparqlunicornGoesGIS::util::doc::literalutils']]],
-  ['loadgraphtask_12',['LoadGraphTask',['../a02964.html',1,'sparqlunicornGoesGIS::tasks::processing::loadgraphtask']]],
-  ['loadtriplestoretask_13',['LoadTripleStoreTask',['../a02968.html',1,'sparqlunicornGoesGIS::tasks::processing::loadtriplestoretask']]],
-  ['localtimezone_14',['LocalTimezone',['../a01324.html',1,'isodate::tzinfo']]],
-  ['loginwindowdialog_15',['LoginWindowDialog',['../a02900.html',1,'sparqlunicornGoesGIS::dialogs::util::loginwindowdialog']]],
-  ['longturtleserializer_16',['LongTurtleSerializer',['../a02276.html',1,'rdflib::plugins::serializers::longturtle']]]
+  ['page_0',['Page',['../a01521.html',1,'sparqlunicornGoesGIS::util::export::pages::page']]],
+  ['personpage_1',['PersonPage',['../a01525.html',1,'sparqlunicornGoesGIS::util::export::pages::personpage']]],
+  ['pointmaptool_2',['PointMapTool',['../a01601.html',1,'sparqlunicornGoesGIS::util::ui::mappingtools']]],
+  ['polygonselectmaptool_3',['PolygonSelectMapTool',['../a01593.html',1,'sparqlunicornGoesGIS::util::ui::mappingtools']]],
+  ['preferencesdialog_4',['PreferencesDialog',['../a01081.html',1,'sparqlunicornGoesGIS::dialogs::conf::preferencesdialog']]],
+  ['prefixdialog_5',['PrefixDialog',['../a01189.html',1,'sparqlunicornGoesGIS::dialogs::util::prefixdialog']]],
+  ['propertyschemadialog_6',['PropertySchemaDialog',['../a01105.html',1,'sparqlunicornGoesGIS::dialogs::dataview::propertyschemadialog']]],
+  ['propertyschemaquerytask_7',['PropertySchemaQueryTask',['../a01301.html',1,'sparqlunicornGoesGIS::tasks::query::discovery::propertyschemaquerytask']]]
 ];

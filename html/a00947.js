@@ -1,10 +1,6 @@
 var a00947 =
 [
-    [ "AskConstraintValidator", "a01472.html", "a01472" ],
-    [ "BoundShapeValidatorComponent", "a01464.html", "a01464" ],
-    [ "SelectConstraintValidator", "a01476.html", "a01476" ],
-    [ "SPARQLConstraintComponent", "a01480.html", "a01480" ],
-    [ "SPARQLConstraintComponentValidator", "a01468.html", "a01468" ],
-    [ "SH_SPARQLAskValidator", "a00947.html#a1e2bc324db684ed42ce23ecf1d6ce086", null ],
-    [ "SH_SPARQLSelectValidator", "a00947.html#a56bd7f6df44e2027c254acab2bb5d1a5", null ]
+    [ "QueryLimitedInstancesDialog", "a01193.html", "a01193" ],
+    [ "_", "a00947.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00947.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

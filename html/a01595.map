@@ -1,7 +1,9 @@
-<map id="SPARQLFunction" name="SPARQLFunction">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,132,177"/>
-<area shape="rect" id="Node000002" href="$a01592.html" title=" " alt="" coords="9,79,129,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,118,71,152,66,152,66,118"/>
-<area shape="rect" id="Node000003" href="$a07484.html" title=" " alt="" coords="37,5,100,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="71,44,71,79,66,79,66,44"/>
+<map id="RectangleMapTool" name="RectangleMapTool">
+<area shape="rect" id="Node000001" title=" " alt="" coords="142,137,283,163"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,169,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,39,203,135,199,139,106,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="193,5,232,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,44,215,137,210,137,210,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="263,5,314,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="288,45,279,79,261,115,235,139,231,135,257,112,274,78,283,44"/>
 </map>

@@ -1,7 +1,0 @@
-<map id="Operation" name="Operation">
-<area shape="rect" id="Node000001" title=" " alt="" coords="27,196,114,221"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,64,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="42,44,71,195,66,196,37,45"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="89,5,127,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,45,76,196,70,195,100,44"/>
-</map>

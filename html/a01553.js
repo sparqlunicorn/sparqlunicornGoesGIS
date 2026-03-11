@@ -1,0 +1,25 @@
+var a01553 =
+[
+    [ "__init__", "a01553.html#a5b10f45a466f988b469f5bd73878c3ba", null ],
+    [ "addDefaultConfigurationParameters", "a01553.html#a3af4c47071a5b5cd12913903ea6277e5", null ],
+    [ "createCapabilityMessage", "a01553.html#ac53ab0be43660b586919731e663f997b", null ],
+    [ "detectEquivalentClasses", "a01553.html#a2916cd9e8208ce3f7312769f1f8f017d", null ],
+    [ "detectEquivalentProperties", "a01553.html#ae21ec4798a4d20b3fcb8678a3a664af8", null ],
+    [ "detectGeometryLiteralRelations", "a01553.html#a7a0e9362380d87bc99fdd2855b34a452", null ],
+    [ "detectGeometryObjectRelations", "a01553.html#af0e387cfbb4fda4096ad937cd05b99bb", null ],
+    [ "detectLiteralType", "a01553.html#a3e603eb627893860b990ab7226730454", null ],
+    [ "detectNamespaces", "a01553.html#acd1d5b44d66c53ccd1c7baa4d142cf4c", null ],
+    [ "detectPropertiesByName", "a01553.html#a156d4007bc3d0aae49851ef31e7b9abd", null ],
+    [ "detectSubClassOfProperty", "a01553.html#a067f020faf682e863539452566fc34b3", null ],
+    [ "detectTripleStoreConfiguration", "a01553.html#a19624772ce5d4d2c90a699cb7887f96e", null ],
+    [ "detectTripleStoreType", "a01553.html#adf9cf1d217d291ce5a25d04389ac0eb0", null ],
+    [ "detectTypeProperty", "a01553.html#ad8c1c57ee545b6128c9554955ee99e73", null ],
+    [ "testTripleStoreConnection", "a01553.html#a6990525d68208edf5a15a40006187ffc", null ],
+    [ "configuration", "a01553.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
+    [ "feasibleConfiguration", "a01553.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
+    [ "labelToPropertyTypes", "a01553.html#ac52609d15d4584234ff77be48f18c3de", null ],
+    [ "message", "a01553.html#ab8140947611504abcb64a4c277effcf5", null ],
+    [ "missingproperties", "a01553.html#ac760b42f76d85fbda7b6a6b4d1a1ab39", null ],
+    [ "testQueries", "a01553.html#afe00bb0b0c5fee849ea8660a8e212554", null ],
+    [ "testURL", "a01553.html#aacac69f65111f90a0c0d4749ff99a530", null ]
+];

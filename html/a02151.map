@@ -1,9 +1,0 @@
-<map id="Plugin" name="Plugin">
-<area shape="rect" id="Node000001" title=" " alt="" coords="58,79,121,104"/>
-<area shape="rect" id="Node000004" href="$a02156.html" title=" " alt="" coords="45,152,134,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="92,118,92,152,87,152,87,118"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,77,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,41,84,77,79,80,55,44"/>
-<area shape="rect" id="Node000003" href="$a07540.html" title=" " alt="" coords="102,5,173,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="124,44,99,80,95,77,120,41"/>
-</map>

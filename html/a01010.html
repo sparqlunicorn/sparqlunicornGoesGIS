@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: rdflib.extras.cmdlineutils Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.util.conf Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -129,165 +129,27 @@ $(document).ready(function(){initNavTree('a01010.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">rdflib.extras.cmdlineutils Namespace Reference</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.util.conf Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a937f2d6ce71be249faf2bce9137ecc69" id="r_a937f2d6ce71be249faf2bce9137ecc69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01010.html#a937f2d6ce71be249faf2bce9137ecc69">_help</a> ()</td></tr>
-<tr class="separator:a937f2d6ce71be249faf2bce9137ecc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab527402538c237105e6971a0b572ac23" id="r_ab527402538c237105e6971a0b572ac23"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01010.html#ab527402538c237105e6971a0b572ac23">main</a> (target, <a class="el" href="a01010.html#a937f2d6ce71be249faf2bce9137ecc69">_help</a>=<a class="el" href="a01010.html#a937f2d6ce71be249faf2bce9137ecc69">_help</a>, options=&quot;&quot;, stdin=True)</td></tr>
-<tr class="separator:ab527402538c237105e6971a0b572ac23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01011" id="r_a01011"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html">cacheutils</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01012" id="r_a01012"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01012.html">configutils</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01013" id="r_a01013"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html">oauth</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a937f2d6ce71be249faf2bce9137ecc69" name="a937f2d6ce71be249faf2bce9137ecc69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a937f2d6ce71be249faf2bce9137ecc69">&#9670;&#160;</a></span>_help()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">_help </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   13</span><span class="keyword">def </span>_help():</div>
-<div class="line"><span class="lineno">   14</span>    sys.stderr.write(</div>
-<div class="line"><span class="lineno">   15</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   16</span><span class="stringliteral">program.py [-f &lt;format&gt;] [-o &lt;output&gt;] [files...]</span></div>
-<div class="line"><span class="lineno">   17</span><span class="stringliteral">Read RDF files given on STDOUT - does something to the resulting graph</span></div>
-<div class="line"><span class="lineno">   18</span><span class="stringliteral">If no files are given, read from stdin</span></div>
-<div class="line"><span class="lineno">   19</span><span class="stringliteral">-o specifies file for output, if not given stdout is used</span></div>
-<div class="line"><span class="lineno">   20</span><span class="stringliteral">-f specifies parser to use, if not given it is guessed from extension</span></div>
-<div class="line"><span class="lineno">   21</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   22</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   23</span>    )</div>
-<div class="line"><span class="lineno">   24</span> </div>
-<div class="line"><span class="lineno">   25</span> </div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a01010.html#ab527402538c237105e6971a0b572ac23">rdflib.extras.cmdlineutils.main()</a>.</p>
-
-</div>
-</div>
-<a id="ab527402538c237105e6971a0b572ac23" name="ab527402538c237105e6971a0b572ac23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab527402538c237105e6971a0b572ac23">&#9670;&#160;</a></span>main()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">main </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>_help</em> = <code><a class="el" href="a01010.html#a937f2d6ce71be249faf2bce9137ecc69">_help</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>options</em> = <code>&quot;&quot;</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>stdin</em> = <code>True</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">A main function for tools that read RDF from files given on commandline
-or from STDIN (if stdin parameter is true)
-</pre> <div class="fragment"><div class="line"><span class="lineno">   26</span><span class="keyword">def </span>main(target, _help=_help, options=&quot;&quot;, stdin=True):</div>
-<div class="line"><span class="lineno">   27</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   28</span><span class="stringliteral">    A main function for tools that read RDF from files given on commandline</span></div>
-<div class="line"><span class="lineno">   29</span><span class="stringliteral">    or from STDIN (if stdin parameter is true)</span></div>
-<div class="line"><span class="lineno">   30</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   31</span> </div>
-<div class="line"><span class="lineno">   32</span>    args, files = getopt.getopt(sys.argv[1:], <span class="stringliteral">&quot;hf:o:&quot;</span> + options)</div>
-<div class="line"><span class="lineno">   33</span>    dargs = dict(args)</div>
-<div class="line"><span class="lineno">   34</span> </div>
-<div class="line"><span class="lineno">   35</span>    <span class="keywordflow">if</span> <span class="stringliteral">&quot;-h&quot;</span> <span class="keywordflow">in</span> dargs:</div>
-<div class="line"><span class="lineno">   36</span>        _help()</div>
-<div class="line"><span class="lineno">   37</span>        sys.exit(-1)</div>
-<div class="line"><span class="lineno">   38</span> </div>
-<div class="line"><span class="lineno">   39</span>    g = <a class="code hl_class" href="a01920.html">rdflib.Graph</a>()</div>
-<div class="line"><span class="lineno">   40</span> </div>
-<div class="line"><span class="lineno">   41</span>    <span class="keywordflow">if</span> <span class="stringliteral">&quot;-f&quot;</span> <span class="keywordflow">in</span> dargs:</div>
-<div class="line"><span class="lineno">   42</span>        f = dargs[<span class="stringliteral">&quot;-f&quot;</span>]</div>
-<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">   44</span>        f = <span class="keywordtype">None</span></div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>    out: Union[TextIO, codecs.StreamReaderWriter]</div>
-<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">if</span> <span class="stringliteral">&quot;-o&quot;</span> <span class="keywordflow">in</span> dargs:</div>
-<div class="line"><span class="lineno">   48</span>        sys.stderr.write(<span class="stringliteral">&quot;Output to %s\n&quot;</span> % dargs[<span class="stringliteral">&quot;-o&quot;</span>])</div>
-<div class="line"><span class="lineno">   49</span>        out = codecs.open(dargs[<span class="stringliteral">&quot;-o&quot;</span>], <span class="stringliteral">&quot;w&quot;</span>, <span class="stringliteral">&quot;utf-8&quot;</span>)</div>
-<div class="line"><span class="lineno">   50</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">   51</span>        out = sys.stdout</div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>    start = time.time()</div>
-<div class="line"><span class="lineno">   54</span>    <span class="keywordflow">if</span> len(files) == 0 <span class="keywordflow">and</span> stdin:</div>
-<div class="line"><span class="lineno">   55</span>        sys.stderr.write(<span class="stringliteral">&quot;Reading from stdin as %s...&quot;</span> % f)</div>
-<div class="line"><span class="lineno">   56</span>        g.parse(sys.stdin, format=f)</div>
-<div class="line"><span class="lineno">   57</span>        sys.stderr.write(<span class="stringliteral">&quot;[done]\n&quot;</span>)</div>
-<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">   59</span>        size = 0</div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">for</span> x <span class="keywordflow">in</span> files:</div>
-<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">if</span> f <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">   62</span>                f = guess_format(x)</div>
-<div class="line"><span class="lineno">   63</span>            start1 = time.time()</div>
-<div class="line"><span class="lineno">   64</span>            sys.stderr.write(<span class="stringliteral">&quot;Loading %s as %s... &quot;</span> % (x, f))</div>
-<div class="line"><span class="lineno">   65</span>            g.parse(x, format=f)</div>
-<div class="line"><span class="lineno">   66</span>            sys.stderr.write(</div>
-<div class="line"><span class="lineno">   67</span>                <span class="stringliteral">&quot;done.\t(%d triples\t%.2f seconds)\n&quot;</span></div>
-<div class="line"><span class="lineno">   68</span>                % (len(g) - size, time.time() - start1)</div>
-<div class="line"><span class="lineno">   69</span>            )</div>
-<div class="line"><span class="lineno">   70</span>            size = len(g)</div>
-<div class="line"><span class="lineno">   71</span> </div>
-<div class="line"><span class="lineno">   72</span>    sys.stderr.write(</div>
-<div class="line"><span class="lineno">   73</span>        <span class="stringliteral">&quot;Loaded a total of %d triples in %.2f seconds.\n&quot;</span></div>
-<div class="line"><span class="lineno">   74</span>        % (len(g), time.time() - start)</div>
-<div class="line"><span class="lineno">   75</span>    )</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>    target(g, out, args)</div>
-<div class="ttc" id="aa01920_html"><div class="ttname"><a href="a01920.html">rdflib.graph.Graph</a></div><div class="ttdef"><b>Definition</b> graph.py:439</div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a01010.html#a937f2d6ce71be249faf2bce9137ecc69">rdflib.extras.cmdlineutils._help()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="a01118.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdf2dot.main()</a>, and <a class="el" href="a01120.html#a51af30a60f9f02777c6396b8247e356f">rdflib.tools.rdfs2dot.main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01009.html">extras</a></li><li class="navelem"><a class="el" href="a01010.html">cmdlineutils</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01009.html">util</a></li><li class="navelem"><a class="el" href="a01010.html">conf</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

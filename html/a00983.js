@@ -1,6 +1,5 @@
 var a00983 =
 [
-    [ "SHACLRule", "a01628.html", "a01628" ],
-    [ "SHACLRuleCondition", "a01624.html", "a01624" ],
-    [ "RDF_first", "a00983.html#ad912a85dc73cb87792e1a4b34ef8cccf", null ]
+    [ "PropertySchemaQueryTask", "a01301.html", "a01301" ],
+    [ "MESSAGE_CATEGORY", "a00983.html#ae3349e13b3993e2c87c18074a77fb8f9", null ]
 ];

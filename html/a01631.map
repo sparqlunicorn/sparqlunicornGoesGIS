@@ -1,7 +1,7 @@
-<map id="SPARQLRule" name="SPARQLRule">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,107,177"/>
-<area shape="rect" id="Node000002" href="$a01628.html" title=" " alt="" coords="9,79,103,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,118,59,152,53,152,53,118"/>
-<area shape="rect" id="Node000003" href="$a07484.html" title=" " alt="" coords="25,5,87,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="59,44,59,79,53,79,53,44"/>
+<map id="GEOCRS" name="GEOCRS">
+<area shape="rect" id="Node000001" title=" " alt="" coords="107,255,183,280"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,155,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,44,145,254,140,255,84,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="179,5,245,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,45,151,255,146,254,203,44"/>
 </map>

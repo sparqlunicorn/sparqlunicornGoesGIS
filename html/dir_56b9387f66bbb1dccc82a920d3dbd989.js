@@ -7,6 +7,6 @@ var dir_56b9387f66bbb1dccc82a920d3dbd989 =
     [ "tool", "dir_decfd54b94e5872e7664795f5d4d2b49.html", "dir_decfd54b94e5872e7664795f5d4d2b49" ],
     [ "ui", "dir_ecb19de5dd708511231fe34554c29f0e.html", "dir_ecb19de5dd708511231fe34554c29f0e" ],
     [ "util", "dir_bc2bd44f0aa52c90c0d4c2016cb5d2d3.html", "dir_bc2bd44f0aa52c90c0d4c2016cb5d2d3" ],
-    [ "__init__.py", "a07683.html", null ],
+    [ "__init__.py", "a02524.html", null ],
     [ "sparql_unicorn_dialog.py", "a00593.html", "a00593" ]
 ];

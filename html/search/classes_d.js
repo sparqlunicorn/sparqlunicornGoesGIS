@@ -1,23 +1,10 @@
 var searchData=
 [
-  ['malformedclass_0',['MalformedClass',['../a01876.html',1,'rdflib::extras::infixowl']]],
-  ['malformedclasserror_1',['MalformedClassError',['../a01880.html',1,'rdflib::extras::infixowl']]],
-  ['matchingtools_2',['MatchingTools',['../a03284.html',1,'sparqlunicornGoesGIS::util::matchingtools']]],
-  ['maxcountconstraintcomponent_3',['MaxCountConstraintComponent',['../a01352.html',1,'pyshacl::constraints::core::cardinality_constraints']]],
-  ['maxexclusiveconstraintcomponent_4',['MaxExclusiveConstraintComponent',['../a01456.html',1,'pyshacl::constraints::core::value_range_constraints']]],
-  ['maximum_5',['Maximum',['../a02368.html',1,'rdflib::plugins::sparql::aggregates']]],
-  ['maxinclusiveconstraintcomponent_6',['MaxInclusiveConstraintComponent',['../a01460.html',1,'pyshacl::constraints::core::value_range_constraints']]],
-  ['maxlengthconstraintcomponent_7',['MaxLengthConstraintComponent',['../a01420.html',1,'pyshacl::constraints::core::string_based_constraints']]],
-  ['mediapage_8',['MediaPage',['../a03220.html',1,'sparqlunicornGoesGIS::util::export::pages::mediapage']]],
-  ['memory_9',['Memory',['../a02552.html',1,'rdflib::plugins::stores::memory']]],
-  ['metaclass_10',['metaclass',['../a07514.html',1,'']]],
-  ['mincountconstraintcomponent_11',['MinCountConstraintComponent',['../a01348.html',1,'pyshacl::constraints::core::cardinality_constraints']]],
-  ['minexclusiveconstraintcomponent_12',['MinExclusiveConstraintComponent',['../a01448.html',1,'pyshacl::constraints::core::value_range_constraints']]],
-  ['minimum_13',['Minimum',['../a02364.html',1,'rdflib::plugins::sparql::aggregates']]],
-  ['mininclusiveconstraintcomponent_14',['MinInclusiveConstraintComponent',['../a01452.html',1,'pyshacl::constraints::core::value_range_constraints']]],
-  ['minlengthconstraintcomponent_15',['MinLengthConstraintComponent',['../a01416.html',1,'pyshacl::constraints::core::string_based_constraints']]],
-  ['miscexporter_16',['MiscExporter',['../a03176.html',1,'sparqlunicornGoesGIS::util::export::data::miscexporter']]],
-  ['model3dpage_17',['Model3DPage',['../a03224.html',1,'sparqlunicornGoesGIS::util::export::pages::model3dpage']]],
-  ['modificationexception_18',['ModificationException',['../a01940.html',1,'rdflib::graph']]],
-  ['mulpath_19',['MulPath',['../a02136.html',1,'rdflib::paths']]]
+  ['qgisinterface_0',['QgisInterface',['../a01357.html',1,'sparqlunicornGoesGIS::test::qgis_interface']]],
+  ['qgistest_1',['QGISTest',['../a01365.html',1,'sparqlunicornGoesGIS::test::test_qgis_environment']]],
+  ['qgsnominatimrevgeocoder_2',['QgsNominatimRevGeocoder',['../a01545.html',1,'sparqlunicornGoesGIS::util::geocodingutils']]],
+  ['qstandardclasstreeitem_3',['QStandardClassTreeItem',['../a01605.html',1,'sparqlunicornGoesGIS::util::ui::qstandardclasstreeitem']]],
+  ['querylayertask_4',['QueryLayerTask',['../a01261.html',1,'sparqlunicornGoesGIS::tasks::query::data::querylayertask']]],
+  ['querylimitedinstancesdialog_5',['QueryLimitedInstancesDialog',['../a01193.html',1,'sparqlunicornGoesGIS::dialogs::util::querylimitedinstancesdialog']]],
+  ['querysubgraphtask_6',['QuerySubGraphTask',['../a01265.html',1,'sparqlunicornGoesGIS::tasks::query::data::querysubgraphtask']]]
 ];

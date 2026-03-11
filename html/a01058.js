@@ -1,6 +1,7 @@
 var a01058 =
 [
-    [ "TrigParser", "a02252.html", "a02252" ],
-    [ "TrigSinkParser", "a02248.html", "a02248" ],
-    [ "becauseSubGraph", "a01058.html#aa3c7f6f892b37d5dbb9c36025fc19291", null ]
+    [ "GeocodingUtils", "a01549.html", "a01549" ],
+    [ "QgsNominatimRevGeocoder", "a01545.html", "a01545" ],
+    [ "SPARQLCompleter", "a01541.html", "a01541" ],
+    [ "MESSAGE_CATEGORY", "a01058.html#ae3349e13b3993e2c87c18074a77fb8f9", null ]
 ];

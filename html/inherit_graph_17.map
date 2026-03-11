@@ -1,3 +1,102 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$a01900.html" title=" " alt="" coords="5,5,80,31"/>
+<area shape="rect" id="Node000000" href="$a02509.html" title=" " alt="" coords="8,795,119,820"/>
+<area shape="rect" id="Node000001" href="$a01081.html" title=" " alt="" coords="207,992,349,1017"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="75,832,89,866,109,906,136,946,171,979,189,988,208,995,206,1000,186,993,168,983,132,949,104,909,84,868,70,834"/>
+<area shape="rect" id="Node000003" href="$a01085.html" title=" " alt="" coords="219,1041,337,1067"/>
+<area shape="poly" id="edge6_Node000000_Node000003" title=" " alt="" coords="72,833,83,876,102,929,131,983,149,1007,171,1028,194,1041,220,1048,218,1053,192,1046,168,1032,145,1011,126,986,97,932,77,878,67,834"/>
+<area shape="rect" id="Node000004" href="$a01089.html" title=" " alt="" coords="211,1091,345,1116"/>
+<area shape="poly" id="edge7_Node000000_Node000004" title=" " alt="" coords="69,834,77,886,95,952,108,987,125,1020,146,1051,171,1077,190,1089,212,1097,210,1102,188,1094,168,1081,141,1054,120,1023,103,989,89,954,72,887,64,834"/>
+<area shape="rect" id="Node000021" href="$a01093.html" title=" " alt="" coords="205,153,351,179"/>
+<area shape="poly" id="edge8_Node000000_Node000021" title=" " alt="" coords="67,781,119,486,124,419,130,331,142,247,152,213,167,188,184,175,204,167,206,172,187,180,171,192,157,215,147,248,135,332,130,419,124,486,72,782"/>
+<area shape="rect" id="Node000023" href="$a01097.html" title=" " alt="" coords="183,203,373,228"/>
+<area shape="poly" id="edge9_Node000000_Node000023" title=" " alt="" coords="67,781,122,470,167,238,182,226,185,230,172,241,127,471,72,782"/>
+<area shape="rect" id="Node000024" href="$a01101.html" title=" " alt="" coords="203,55,353,80"/>
+<area shape="poly" id="edge10_Node000000_Node000024" title=" " alt="" coords="67,781,91,654,119,486,123,397,125,280,129,222,136,168,148,122,167,90,183,77,201,69,203,74,186,82,171,93,153,125,141,169,134,222,131,281,129,397,124,486,96,655,72,782"/>
+<area shape="rect" id="Node000025" href="$a01105.html" title=" " alt="" coords="193,104,363,129"/>
+<area shape="poly" id="edge11_Node000000_Node000025" title=" " alt="" coords="67,781,119,486,124,408,128,306,132,254,139,207,150,168,167,139,191,122,194,127,171,142,155,170,144,208,137,255,133,306,129,408,124,486,72,782"/>
+<area shape="rect" id="Node000005" href="$a01109.html" title=" " alt="" coords="227,1140,329,1165"/>
+<area shape="poly" id="edge12_Node000000_Node000005" title=" " alt="" coords="68,833,73,894,88,974,101,1016,119,1056,142,1094,171,1127,197,1142,227,1149,226,1154,195,1147,168,1131,138,1097,114,1059,96,1017,83,975,67,895,62,834"/>
+<area shape="rect" id="Node000006" href="$a01113.html" title=" " alt="" coords="169,1189,387,1215"/>
+<area shape="poly" id="edge13_Node000000_Node000006" title=" " alt="" coords="71,833,85,912,107,1015,136,1113,153,1151,171,1176,187,1187,184,1191,167,1180,148,1154,131,1115,102,1017,79,913,66,834"/>
+<area shape="rect" id="Node000007" href="$a01117.html" title=" " alt="" coords="210,1239,346,1264"/>
+<area shape="poly" id="edge14_Node000000_Node000007" title=" " alt="" coords="73,833,124,1058,153,1172,171,1226,189,1238,211,1246,209,1251,187,1243,167,1229,148,1173,119,1060,68,834"/>
+<area shape="rect" id="Node000027" href="$a01129.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="197,252,359,277"/>
+<area shape="poly" id="edge15_Node000000_Node000027" title=" " alt="" coords="67,780,117,502,146,358,158,310,167,287,195,269,198,274,171,290,163,312,151,359,122,503,72,781"/>
+<area shape="rect" id="Node000029" href="$a01133.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="195,499,361,524"/>
+<area shape="poly" id="edge16_Node000000_Node000029" title=" " alt="" coords="64,780,72,728,89,661,103,626,120,592,141,561,168,533,193,518,196,523,171,537,146,564,125,595,108,628,95,663,77,729,69,781"/>
+<area shape="rect" id="Node000031" href="$a01137.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="207,548,349,573"/>
+<area shape="poly" id="edge17_Node000000_Node000031" title=" " alt="" coords="67,781,78,737,97,684,126,630,145,605,168,584,186,573,206,565,208,570,188,577,171,588,149,609,131,633,102,686,83,739,72,782"/>
+<area shape="rect" id="Node000032" href="$a01141.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="203,597,353,623"/>
+<area shape="poly" id="edge18_Node000000_Node000032" title=" " alt="" coords="71,781,84,747,105,707,132,667,168,633,201,617,203,622,171,638,137,670,109,710,89,749,75,783"/>
+<area shape="rect" id="Node000033" href="$a01145.html" title="Class representing the graph validation dialog." alt="" coords="194,301,362,327"/>
+<area shape="poly" id="edge19_Node000000_Node000033" title=" " alt="" coords="66,780,110,535,140,407,154,361,167,336,192,320,195,325,171,340,159,363,145,408,115,536,72,781"/>
+<area shape="rect" id="Node000034" href="$a01149.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="193,351,363,376"/>
+<area shape="poly" id="edge20_Node000000_Node000034" title=" " alt="" coords="65,780,77,692,98,573,128,460,147,416,167,385,191,370,194,375,171,389,151,418,133,462,103,574,82,692,70,781"/>
+<area shape="rect" id="Node000035" href="$a01153.html" title="Class representing the graph validation dialog." alt="" coords="222,400,334,425"/>
+<area shape="poly" id="edge21_Node000000_Node000035" title=" " alt="" coords="61,781,63,711,76,618,89,568,108,520,134,474,168,435,193,419,221,411,222,416,195,424,171,439,138,477,113,522,94,570,81,619,68,712,66,781"/>
+<area shape="rect" id="Node000008" href="$a01157.html" title=" " alt="" coords="181,1288,375,1313"/>
+<area shape="poly" id="edge22_Node000000_Node000008" title=" " alt="" coords="73,833,127,1088,156,1217,172,1275,186,1286,183,1290,167,1278,151,1218,122,1089,68,834"/>
+<area shape="rect" id="Node000036" href="$a01161.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="195,449,361,475"/>
+<area shape="poly" id="edge23_Node000000_Node000036" title=" " alt="" coords="62,781,67,720,83,640,96,597,114,556,138,517,168,484,193,469,196,473,171,488,142,521,119,558,101,599,88,641,73,721,68,781"/>
+<area shape="rect" id="Node000009" href="$a01165.html" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="209,1337,347,1363"/>
+<area shape="poly" id="edge24_Node000000_Node000009" title=" " alt="" coords="73,833,124,1079,129,1118,130,1153,127,1214,128,1241,135,1268,148,1295,171,1324,188,1337,209,1344,207,1349,186,1341,167,1328,144,1298,130,1270,123,1242,122,1214,125,1153,124,1118,119,1080,68,834"/>
+<area shape="rect" id="Node000010" href="$a01169.html" title=" " alt="" coords="212,1387,344,1412"/>
+<area shape="poly" id="edge25_Node000000_Node000010" title=" " alt="" coords="73,833,124,1079,130,1146,135,1233,147,1317,157,1350,171,1374,190,1387,213,1395,211,1400,188,1392,167,1377,152,1352,142,1318,130,1234,125,1147,119,1080,68,834"/>
+<area shape="rect" id="Node000011" href="$a01173.html" title=" " alt="" coords="227,1436,329,1461"/>
+<area shape="poly" id="edge26_Node000000_Node000011" title=" " alt="" coords="73,833,97,940,124,1079,130,1157,133,1259,137,1310,144,1357,155,1396,171,1423,197,1440,228,1447,227,1452,195,1445,167,1427,150,1398,139,1358,132,1311,128,1259,124,1158,119,1080,92,941,68,834"/>
+<area shape="rect" id="Node000012" href="$a01177.html" title=" " alt="" coords="198,1485,358,1511"/>
+<area shape="poly" id="edge27_Node000000_Node000012" title=" " alt="" coords="73,833,97,940,124,1079,129,1168,131,1285,135,1343,141,1396,153,1441,171,1472,184,1483,199,1490,197,1495,181,1487,167,1476,148,1443,136,1397,129,1344,126,1285,124,1169,119,1080,92,941,68,834"/>
+<area shape="rect" id="Node000013" href="$a01181.html" title=" " alt="" coords="209,1535,347,1560"/>
+<area shape="poly" id="edge28_Node000000_Node000013" title=" " alt="" coords="74,833,98,940,124,1079,128,1123,129,1180,129,1310,132,1376,139,1436,151,1486,160,1506,171,1521,189,1535,210,1543,208,1548,186,1539,167,1525,156,1509,146,1488,133,1437,127,1376,124,1310,123,1180,122,1124,119,1080,92,941,68,834"/>
+<area shape="rect" id="Node000014" href="$a01185.html" title=" " alt="" coords="203,647,353,672"/>
+<area shape="poly" id="edge29_Node000000_Node000014" title=" " alt="" coords="77,781,113,731,139,704,168,682,202,668,204,673,171,687,142,708,117,734,81,785"/>
+<area shape="rect" id="Node000015" href="$a01189.html" title=" " alt="" coords="227,696,329,721"/>
+<area shape="poly" id="edge30_Node000000_Node000015" title=" " alt="" coords="88,783,125,756,168,732,227,714,228,719,170,736,128,761,91,788"/>
+<area shape="rect" id="Node000016" href="$a01193.html" title=" " alt="" coords="171,745,385,771"/>
+<area shape="poly" id="edge31_Node000000_Node000016" title=" " alt="" coords="131,789,221,768,223,773,132,794"/>
+<area shape="rect" id="Node000017" href="$a01197.html" title=" " alt="" coords="224,795,332,820"/>
+<area shape="poly" id="edge32_Node000000_Node000017" title=" " alt="" coords="132,805,224,805,224,810,132,810"/>
+<area shape="rect" id="Node000018" href="$a01201.html" title="Dialog to upload a generated RDF result to a triple store." alt="" coords="209,844,347,869"/>
+<area shape="poly" id="edge33_Node000000_Node000018" title=" " alt="" coords="130,821,170,830,219,841,218,846,169,835,129,826"/>
+<area shape="rect" id="Node000019" href="$a01205.html" title=" " alt="" coords="200,893,356,919"/>
+<area shape="poly" id="edge34_Node000000_Node000019" title=" " alt="" coords="91,827,127,855,170,880,202,891,201,896,168,884,124,859,88,832"/>
+<area shape="rect" id="Node000020" href="$a01209.html" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="219,943,337,968"/>
+<area shape="poly" id="edge35_Node000000_Node000020" title=" " alt="" coords="81,830,117,881,142,907,171,929,194,940,219,947,218,952,192,945,168,934,139,911,113,885,76,834"/>
+<area shape="rect" id="Node000030" title=" " alt="" coords="26,449,101,475"/>
+<area shape="poly" id="edge36_Node000030_Node000029" title=" " alt="" coords="115,471,223,496,221,501,114,476"/>
+<area shape="poly" id="edge37_Node000030_Node000031" title=" " alt="" coords="91,482,128,509,170,533,208,546,206,551,168,538,125,513,88,486"/>
+<area shape="poly" id="edge38_Node000030_Node000032" title=" " alt="" coords="81,485,117,536,142,562,171,584,204,598,202,603,168,588,139,566,113,539,76,488"/>
+<area shape="poly" id="edge39_Node000030_Node000033" title=" " alt="" coords="76,436,113,385,139,358,168,336,193,324,195,329,171,340,142,362,117,388,81,439"/>
+<area shape="poly" id="edge40_Node000030_Node000034" title=" " alt="" coords="88,438,124,410,168,385,201,374,202,379,170,390,127,415,91,442"/>
+<area shape="poly" id="edge41_Node000030_Node000035" title=" " alt="" coords="114,447,169,434,221,422,222,427,170,439,115,452"/>
+<area shape="poly" id="edge42_Node000030_Node000036" title=" " alt="" coords="114,459,195,459,195,465,114,465"/>
+<area shape="rect" id="Node000028" title=" " alt="" coords="5,252,121,277"/>
+<area shape="poly" id="edge43_Node000028_Node000027" title=" " alt="" coords="135,262,197,262,197,267,135,267"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="26,1091,101,1116"/>
+<area shape="poly" id="edge44_Node000002_Node000001" title=" " alt="" coords="88,1079,125,1052,168,1028,206,1014,208,1019,170,1032,128,1057,91,1084"/>
+<area shape="poly" id="edge45_Node000002_Node000003" title=" " alt="" coords="114,1089,221,1064,223,1069,115,1094"/>
+<area shape="poly" id="edge46_Node000002_Node000004" title=" " alt="" coords="115,1101,211,1101,211,1106,115,1106"/>
+<area shape="poly" id="edge47_Node000002_Node000005" title=" " alt="" coords="115,1113,170,1126,227,1139,226,1144,169,1131,114,1118"/>
+<area shape="poly" id="edge48_Node000002_Node000006" title=" " alt="" coords="91,1123,127,1151,170,1176,202,1187,201,1192,168,1180,124,1155,88,1128"/>
+<area shape="poly" id="edge49_Node000002_Node000007" title=" " alt="" coords="81,1126,117,1177,142,1203,171,1225,211,1241,209,1246,168,1230,139,1207,113,1181,76,1130"/>
+<area shape="poly" id="edge50_Node000002_Node000008" title=" " alt="" coords="75,1128,89,1162,109,1202,136,1242,171,1275,191,1286,189,1290,168,1279,132,1245,104,1205,84,1164,70,1130"/>
+<area shape="poly" id="edge51_Node000002_Node000009" title=" " alt="" coords="72,1129,83,1172,102,1225,131,1279,149,1303,171,1324,189,1335,209,1342,207,1347,187,1340,168,1328,145,1307,126,1282,97,1228,77,1174,67,1130"/>
+<area shape="poly" id="edge52_Node000002_Node000010" title=" " alt="" coords="69,1130,77,1182,95,1248,108,1283,125,1316,146,1347,171,1373,190,1385,213,1393,211,1398,188,1390,168,1377,141,1350,120,1319,103,1285,89,1250,72,1183,64,1130"/>
+<area shape="poly" id="edge53_Node000002_Node000011" title=" " alt="" coords="68,1129,73,1190,88,1270,101,1312,119,1352,142,1390,171,1423,197,1438,228,1445,226,1451,195,1443,168,1427,138,1393,114,1355,96,1313,83,1271,67,1191,62,1130"/>
+<area shape="poly" id="edge54_Node000002_Node000012" title=" " alt="" coords="66,1130,68,1199,81,1292,94,1341,113,1389,138,1433,171,1472,199,1489,196,1493,168,1476,134,1436,108,1391,89,1342,76,1293,63,1199,61,1130"/>
+<area shape="poly" id="edge55_Node000002_Node000013" title=" " alt="" coords="70,1130,82,1218,103,1336,133,1449,151,1493,171,1521,189,1534,210,1541,208,1546,186,1538,167,1525,147,1495,128,1451,98,1337,77,1219,65,1130"/>
+<area shape="poly" id="edge56_Node000002_Node000014" title=" " alt="" coords="68,1076,119,852,148,739,167,683,183,671,201,663,204,668,186,676,171,686,153,740,125,853,73,1078"/>
+<area shape="poly" id="edge57_Node000002_Node000015" title=" " alt="" coords="66,1077,80,998,102,894,131,796,149,758,168,732,195,715,227,707,228,712,197,720,171,736,153,761,136,798,107,896,85,999,71,1077"/>
+<area shape="poly" id="edge58_Node000002_Node000016" title=" " alt="" coords="62,1077,68,1016,83,937,96,894,114,853,138,815,168,781,186,769,189,773,171,785,142,818,119,856,101,896,88,938,73,1017,68,1077"/>
+<area shape="poly" id="edge59_Node000002_Node000017" title=" " alt="" coords="64,1076,72,1024,90,958,103,923,120,889,142,858,168,831,194,815,223,807,225,812,196,820,171,835,146,861,125,892,108,925,95,960,78,1025,70,1077"/>
+<area shape="poly" id="edge60_Node000002_Node000018" title=" " alt="" coords="67,1077,78,1033,97,980,126,926,145,901,168,880,187,868,208,861,210,866,189,873,171,884,149,905,131,929,102,982,83,1035,72,1078"/>
+<area shape="poly" id="edge61_Node000002_Node000019" title=" " alt="" coords="71,1077,84,1043,105,1003,132,963,168,929,198,914,201,919,171,934,137,966,109,1006,89,1045,75,1079"/>
+<area shape="poly" id="edge62_Node000002_Node000020" title=" " alt="" coords="77,1077,113,1027,139,1000,168,978,192,967,218,960,219,965,194,972,171,983,142,1004,117,1030,81,1081"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="24,104,103,129"/>
+<area shape="poly" id="edge63_Node000022_Node000021" title=" " alt="" coords="117,126,223,151,222,156,116,131"/>
+<area shape="poly" id="edge64_Node000022_Node000023" title=" " alt="" coords="91,136,128,163,170,188,206,200,205,205,168,192,125,168,88,141"/>
+<area shape="poly" id="edge65_Node000022_Node000024" title=" " alt="" coords="115,101,169,89,218,78,219,83,170,94,117,107"/>
+<area shape="poly" id="edge66_Node000022_Node000025" title=" " alt="" coords="117,114,192,114,192,119,117,119"/>
+<area shape="rect" id="Node000026" href="$a01617.html" title=" " alt="" coords="213,5,343,31"/>
+<area shape="poly" id="edge67_Node000022_Node000026" title=" " alt="" coords="88,92,124,65,168,40,211,25,213,31,170,44,127,69,91,97"/>
 </map>

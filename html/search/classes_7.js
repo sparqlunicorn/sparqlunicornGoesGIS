@@ -1,23 +1,4 @@
 var searchData=
 [
-  ['genid_0',['Genid',['../a02660.html',1,'rdflib::term']]],
-  ['geo_1',['GEO',['../a02016.html',1,'rdflib::namespace::_GEO']]],
-  ['geocodingutils_2',['GeocodingUtils',['../a03264.html',1,'sparqlunicornGoesGIS::util::geocodingutils']]],
-  ['geocollectionsquerytask_3',['GeoCollectionsQueryTask',['../a03004.html',1,'sparqlunicornGoesGIS::tasks::query::discovery::geocollectionsquerytask']]],
-  ['geoconceptsquerytask_4',['GeoConceptsQueryTask',['../a03008.html',1,'sparqlunicornGoesGIS::tasks::query::discovery::geoconceptsquerytask']]],
-  ['geocrs_5',['GEOCRS',['../a03348.html',1,'sparqlunicornGoesGIS::util::vocab::GEOCRS']]],
-  ['geoexporter_6',['GeoExporter',['../a03164.html',1,'sparqlunicornGoesGIS::util::export::data::geoexporter']]],
-  ['geometryviewpage_7',['GeometryViewPage',['../a03208.html',1,'sparqlunicornGoesGIS::util::export::pages::geometryviewpage']]],
-  ['getstylequerytask_8',['GetStyleQueryTask',['../a03056.html',1,'sparqlunicornGoesGIS::tasks::query::style::getstyletask']]],
-  ['graph_9',['Graph',['../a01920.html',1,'rdflib::graph']]],
-  ['graphdbclient_10',['GraphDBClient',['../a01744.html',1,'rdflib::contrib::graphdb::client']]],
-  ['graphexporter_11',['GraphExporter',['../a03168.html',1,'sparqlunicornGoesGIS::util::export::data::graphexporter']]],
-  ['graphnativewrapper_12',['GraphNativeWrapper',['../a01556.html',1,'pyshacl::extras::js::context']]],
-  ['graphrelationviewdialog_13',['GraphRelationViewDialog',['../a02812.html',1,'sparqlunicornGoesGIS::dialogs::dataview::graphrelationviewdialog']]],
-  ['graphresultparser_14',['GraphResultParser',['../a02440.html',1,'rdflib::plugins::sparql::results::graph']]],
-  ['graphstoremanager_15',['GraphStoreManager',['../a01756.html',1,'rdflib::contrib::rdf4j::client']]],
-  ['graphutils_16',['graphutils',['../a03124.html',1,'GraphUtils'],['../a03268.html',1,'GraphUtils']]],
-  ['graphvalidationdialog_17',['GraphValidationDialog',['../a02860.html',1,'sparqlunicornGoesGIS::dialogs::tool::graphvalidationdialog']]],
-  ['graphvalidationtask_18',['GraphValidationTask',['../a02956.html',1,'sparqlunicornGoesGIS::tasks::processing::graphvalidationtask']]],
-  ['groupconcat_19',['GroupConcat',['../a02376.html',1,'rdflib::plugins::sparql::aggregates']]]
+  ['htmlexporter_0',['HTMLExporter',['../a01457.html',1,'sparqlunicornGoesGIS::util::export::data::htmlexporter']]]
 ];

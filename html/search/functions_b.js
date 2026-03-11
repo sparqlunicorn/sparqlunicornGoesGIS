@@ -1,5 +1,26 @@
 var searchData=
 [
-  ['key_0',['key',['../a01708.html#a87c506d7f36ad4aba51316c5912dfac7',1,'rdflib::compare::Color']]],
-  ['keypressevent_1',['keypressevent',['../a03308.html#a0e99393416933b1c9ef3a1151a0e1317',1,'sparqlunicornGoesGIS.util.ui.mappingtools.PolygonSelectMapTool.keyPressEvent()'],['../a03336.html#a696eab5a4fa439c62e62525d716742e2',1,'sparqlunicornGoesGIS.util.ui.tooltipplaintext.ToolTipPlainText.keyPressEvent()']]]
+  ['labelfromuri_0',['labelFromURI',['../a01573.html#ad3f1d839721ef5129452ea3998c63096',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
+  ['layerasgeojsonld_1',['layerAsGeoJSONLD',['../a01477.html#a63cd6ec21b9cb468253d22087432b2e4',1,'sparqlunicornGoesGIS::util::export::layer::layerexporter::LayerExporter']]],
+  ['layertodot_2',['layerToDot',['../a01477.html#a22c4c61c1100a4b0c1a8fbfeab0b484c',1,'sparqlunicornGoesGIS::util::export::layer::layerexporter::LayerExporter']]],
+  ['layertographml_3',['layerToGraphML',['../a01477.html#a3056a371b38345f6eec83daa77a13261',1,'sparqlunicornGoesGIS::util::export::layer::layerexporter::LayerExporter']]],
+  ['layertottlstring_4',['layertottlstring',['../a01477.html#ab7f31d1f6c35161677b98e716be12dd1',1,'sparqlunicornGoesGIS.util.export.layer.layerexporter.LayerExporter.layerToTTLString(layer, prefixes, vocab=&quot;GeoSPARQL&quot;, literaltype=[&quot;WKT&quot;], columntypes=None)'],['../a01477.html#aba7e19d48b6585c8c27b2b9242ff3e78',1,'sparqlunicornGoesGIS.util.export.layer.layerexporter.LayerExporter.layerToTTLString(layer, prefixes, vocab=&quot;GeoSPARQL&quot;, literaltype=[&quot;WKT&quot;], urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None, valuequeries=None, exportNameSpace=None, exportIdCol=None, exportSetClass=None)']]],
+  ['legendinterface_5',['legendInterface',['../a01357.html#a56b78398ea9f3bba12283de8f192d079',1,'sparqlunicornGoesGIS::test::qgis_interface::QgisInterface']]],
+  ['lessthan_6',['lessThan',['../a01585.html#af9773a51e9562b5b85c38a5d3ef8b44f',1,'sparqlunicornGoesGIS::util::ui::classtreesortproxymodel::ClassTreeSortProxyModel']]],
+  ['linenumberareapaintevent_7',['lineNumberAreaPaintEvent',['../a01621.html#aaf68ca2bfead1c4de1b86c2098bdf03e',1,'sparqlunicornGoesGIS::util::ui::tooltipplaintext::ToolTipPlainText']]],
+  ['linenumberareawidth_8',['lineNumberAreaWidth',['../a01621.html#ac7cb1ec78a7de6661b193f83ed82622e',1,'sparqlunicornGoesGIS::util::ui::tooltipplaintext::ToolTipPlainText']]],
+  ['loadadditionalgraphresources_9',['loadAdditionalGraphResources',['../a01573.html#a923cb4135c27f62863c6367dca040007',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
+  ['loadbboxdialog_10',['loadBBOXDialog',['../a01093.html#a63fae44558f7db151e7bd3f23f5ecfd7',1,'sparqlunicornGoesGIS::dialogs::dataview::dataschemadialog::DataSchemaDialog']]],
+  ['loadfile_11',['loadfile',['../a01137.html#a8e5426daca8c2c532e7c226b0beca8ad',1,'sparqlunicornGoesGIS.dialogs.tool.convertcrsdialog.ConvertCRSDialog.loadFile()'],['../a01145.html#a8e5426daca8c2c532e7c226b0beca8ad',1,'sparqlunicornGoesGIS.dialogs.tool.graphvalidationdialog.GraphValidationDialog.loadFile()']]],
+  ['loadfromrepository_12',['loadFromRepository',['../a01157.html#a64570620791c8c4b854f0015eac6383a',1,'sparqlunicornGoesGIS::dialogs::tool::triplestorequickadddialog::TripleStoreQuickAddDialog']]],
+  ['loadgraph_13',['loadGraph',['../a01573.html#ab91cabf941f484e1a539d18c73224dcb',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
+  ['loadlayerforenrichment_14',['loadLayerForEnrichment',['../a01217.html#a4a57b7ed2a306518e674d3bf00e8bef3',1,'enrichmenttab::EnrichmentTab']]],
+  ['loadlayerforinterlink_15',['loadLayerForInterlink',['../a01221.html#acf4244a9c3a65a32d8e105ab9bb23cd4',1,'interlinkingtab::InterlinkingTab']]],
+  ['loadmapping_16',['loadMapping',['../a01221.html#af9f1c1e304b7a1f3449ddf86c21e8b45',1,'interlinkingtab::InterlinkingTab']]],
+  ['loadqueryfunc_17',['loadQueryFunc',['../a01129.html#ab83f6f0cdb299fad1d892b60cae1f9ea',1,'sparqlunicornGoesGIS::dialogs::sparql_unicorn_dialog::SPARQLunicornDialog']]],
+  ['loadsamples_18',['loadsamples',['../a01093.html#a9e6600341cffb10c7cda6509ec87e3f9',1,'sparqlunicornGoesGIS.dialogs.dataview.dataschemadialog.DataSchemaDialog.loadSamples()'],['../a01105.html#a9e6600341cffb10c7cda6509ec87e3f9',1,'sparqlunicornGoesGIS.dialogs.dataview.propertyschemadialog.PropertySchemaDialog.loadSamples()'],['../a01165.html#a9e6600341cffb10c7cda6509ec87e3f9',1,'sparqlunicornGoesGIS.dialogs.tool.whattoenrichdialog.EnrichmentDialog.loadSamples()']]],
+  ['loadsubclasses_19',['loadSubClasses',['../a01121.html#a6c3997d35d6e2ecfd61db7ee7dea8683',1,'conceptcontextmenu::ConceptContextMenu']]],
+  ['loadtreefromjsonfile_20',['loadTreeFromJSONFile',['../a01625.html#a880136f9eb3deafb9c4c9f134566b82b',1,'sparqlunicornGoesGIS::util::ui::uiutils::UIUtils']]],
+  ['loadtriplestoreconfig_21',['loadTripleStoreConfig',['../a01089.html#a8883f2e619c89b4ae0e9a35d11897f0c',1,'sparqlunicornGoesGIS::dialogs::conf::triplestoredialog::TripleStoreDialog']]],
+  ['loaduri_22',['loaduri',['../a01137.html#ade98bf54803773dc57e906ccefc6fe3c',1,'sparqlunicornGoesGIS.dialogs.tool.convertcrsdialog.ConvertCRSDialog.loadURI()'],['../a01145.html#ade98bf54803773dc57e906ccefc6fe3c',1,'sparqlunicornGoesGIS.dialogs.tool.graphvalidationdialog.GraphValidationDialog.loadURI()']]]
 ];

@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: rdflib.plugins.serializers.nquads Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.util.style.styleobject Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -130,99 +130,32 @@ $(document).ready(function(){initNavTree('a01065.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">rdflib.plugins.serializers.nquads Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.util.style.styleobject Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02284.html">NQuadsSerializer</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01577.html">StyleObject</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a599d01a9c4c58654e5e32b310a576977" id="r_a599d01a9c4c58654e5e32b310a576977"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01065.html#a599d01a9c4c58654e5e32b310a576977">_nq_row</a> (triple, context)</td></tr>
-<tr class="separator:a599d01a9c4c58654e5e32b310a576977"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa4a022e6ddacd362b83964da5cc5d044" id="r_aa4a022e6ddacd362b83964da5cc5d044"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01065.html#aa4a022e6ddacd362b83964da5cc5d044">__all__</a> = [&quot;NQuadsSerializer&quot;]</td></tr>
-<tr class="separator:aa4a022e6ddacd362b83964da5cc5d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3349e13b3993e2c87c18074a77fb8f9" id="r_ae3349e13b3993e2c87c18074a77fb8f9"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01065.html#ae3349e13b3993e2c87c18074a77fb8f9">MESSAGE_CATEGORY</a> = &quot;Style Utils&quot;</td></tr>
+<tr class="separator:ae3349e13b3993e2c87c18074a77fb8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a599d01a9c4c58654e5e32b310a576977" name="a599d01a9c4c58654e5e32b310a576977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a599d01a9c4c58654e5e32b310a576977">&#9670;&#160;</a></span>_nq_row()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">_nq_row </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triple</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   49</span><span class="keyword">def </span>_nq_row(triple, context):</div>
-<div class="line"><span class="lineno">   50</span>    graph_name = context.n3() <span class="keywordflow">if</span> context <span class="keywordflow">and</span> context != DATASET_DEFAULT_GRAPH_ID <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   51</span>    <span class="keywordflow">if</span> isinstance(triple[2], Literal):</div>
-<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;%s %s %s %s .\n&quot;</span> % (</div>
-<div class="line"><span class="lineno">   53</span>            triple[0].n3(),</div>
-<div class="line"><span class="lineno">   54</span>            triple[1].n3(),</div>
-<div class="line"><span class="lineno">   55</span>            _quoteLiteral(triple[2]),</div>
-<div class="line"><span class="lineno">   56</span>            graph_name,</div>
-<div class="line"><span class="lineno">   57</span>        )</div>
-<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;%s %s %s %s .\n&quot;</span> % (</div>
-<div class="line"><span class="lineno">   60</span>            triple[0].n3(),</div>
-<div class="line"><span class="lineno">   61</span>            triple[1].n3(),</div>
-<div class="line"><span class="lineno">   62</span>            triple[2].n3(),</div>
-<div class="line"><span class="lineno">   63</span>            graph_name,</div>
-<div class="line"><span class="lineno">   64</span>        )</div>
-</div><!-- fragment -->
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="aa4a022e6ddacd362b83964da5cc5d044" name="aa4a022e6ddacd362b83964da5cc5d044"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4a022e6ddacd362b83964da5cc5d044">&#9670;&#160;</a></span>__all__</h2>
+<a id="ae3349e13b3993e2c87c18074a77fb8f9" name="ae3349e13b3993e2c87c18074a77fb8f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3349e13b3993e2c87c18074a77fb8f9">&#9670;&#160;</a></span>MESSAGE_CATEGORY</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">list __all__ = [&quot;NQuadsSerializer&quot;]</td>
+          <td class="memname">str MESSAGE_CATEGORY = &quot;Style Utils&quot;</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -233,7 +166,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01048.html">plugins</a></li><li class="navelem"><a class="el" href="a01060.html">serializers</a></li><li class="navelem"><a class="el" href="a01065.html">nquads</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01009.html">util</a></li><li class="navelem"><a class="el" href="a01064.html">style</a></li><li class="navelem"><a class="el" href="a01065.html">styleobject</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

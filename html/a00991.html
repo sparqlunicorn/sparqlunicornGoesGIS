@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: pyshacl.validator Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.tasks.query.instance.instancelistquerytask Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -130,76 +130,30 @@ $(document).ready(function(){initNavTree('a00991.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">pyshacl.validator Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.tasks.query.instance.instancelistquerytask Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01688.html">Validator</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01325.html">InstanceListQueryTask</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:acd27ec5cac81745c9fd2ef3065e35ff5" id="r_acd27ec5cac81745c9fd2ef3065e35ff5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00991.html#acd27ec5cac81745c9fd2ef3065e35ff5">assign_baked_in</a> ()</td></tr>
-<tr class="separator:acd27ec5cac81745c9fd2ef3065e35ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ae575e56622709bd1474337a4d97de5a5" id="r_ae575e56622709bd1474337a4d97de5a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00991.html#ae575e56622709bd1474337a4d97de5a5">USE_FULL_MIXIN</a> = getenv(&quot;PYSHACL_USE_FULL_MIXIN&quot;) in env_truths</td></tr>
-<tr class="separator:ae575e56622709bd1474337a4d97de5a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3349e13b3993e2c87c18074a77fb8f9" id="r_ae3349e13b3993e2c87c18074a77fb8f9"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00991.html#ae3349e13b3993e2c87c18074a77fb8f9">MESSAGE_CATEGORY</a> = '<a class="el" href="a01325.html">InstanceListQueryTask</a>'</td></tr>
+<tr class="separator:ae3349e13b3993e2c87c18074a77fb8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="acd27ec5cac81745c9fd2ef3065e35ff5" name="acd27ec5cac81745c9fd2ef3065e35ff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd27ec5cac81745c9fd2ef3065e35ff5">&#9670;&#160;</a></span>assign_baked_in()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">assign_baked_in </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  327</span><span class="keyword">def </span>assign_baked_in():</div>
-<div class="line"><span class="lineno">  328</span>    <span class="keywordflow">if</span> getattr(sys, <span class="stringliteral">&#39;frozen&#39;</span>, <span class="keyword">False</span>):</div>
-<div class="line"><span class="lineno">  329</span>        <span class="comment"># runs in a pyinstaller bundle</span></div>
-<div class="line"><span class="lineno">  330</span>        HERE = sys._MEIPASS</div>
-<div class="line"><span class="lineno">  331</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  332</span>        HERE = path.dirname(__file__)</div>
-<div class="line"><span class="lineno">  333</span>    shacl_file = path.join(HERE, <span class="stringliteral">&quot;assets&quot;</span>, <span class="stringliteral">&quot;shacl.pickle&quot;</span>)</div>
-<div class="line"><span class="lineno">  334</span>    add_baked_in(<span class="stringliteral">&quot;http://www.w3.org/ns/shacl&quot;</span>, shacl_file)</div>
-<div class="line"><span class="lineno">  335</span>    add_baked_in(<span class="stringliteral">&quot;https://www.w3.org/ns/shacl&quot;</span>, shacl_file)</div>
-<div class="line"><span class="lineno">  336</span>    add_baked_in(<span class="stringliteral">&quot;http://www.w3.org/ns/shacl.ttl&quot;</span>, shacl_file)</div>
-<div class="line"><span class="lineno">  337</span>    shacl_shacl_file = path.join(HERE, <span class="stringliteral">&quot;assets&quot;</span>, <span class="stringliteral">&quot;shacl-shacl.pickle&quot;</span>)</div>
-<div class="line"><span class="lineno">  338</span>    add_baked_in(<span class="stringliteral">&quot;http://www.w3.org/ns/shacl-shacl&quot;</span>, shacl_shacl_file)</div>
-<div class="line"><span class="lineno">  339</span>    add_baked_in(<span class="stringliteral">&quot;https://www.w3.org/ns/shacl-shacl&quot;</span>, shacl_shacl_file)</div>
-<div class="line"><span class="lineno">  340</span>    add_baked_in(<span class="stringliteral">&quot;http://www.w3.org/ns/shacl-shacl.ttl&quot;</span>, shacl_shacl_file)</div>
-<div class="line"><span class="lineno">  341</span>    schema_file = path.join(HERE, <span class="stringliteral">&quot;assets&quot;</span>, <span class="stringliteral">&quot;schema.pickle&quot;</span>)</div>
-<div class="line"><span class="lineno">  342</span>    add_baked_in(<span class="stringliteral">&quot;http://datashapes.org/schema&quot;</span>, schema_file)</div>
-<div class="line"><span class="lineno">  343</span>    add_baked_in(<span class="stringliteral">&quot;https://datashapes.org/schema&quot;</span>, schema_file)</div>
-<div class="line"><span class="lineno">  344</span>    add_baked_in(<span class="stringliteral">&quot;http://datashapes.org/schema.ttl&quot;</span>, schema_file)</div>
-<div class="line"><span class="lineno">  345</span>    dash_file = path.join(HERE, <span class="stringliteral">&quot;assets&quot;</span>, <span class="stringliteral">&quot;dash.pickle&quot;</span>)</div>
-<div class="line"><span class="lineno">  346</span>    add_baked_in(<span class="stringliteral">&quot;http://datashapes.org/dash&quot;</span>, dash_file)</div>
-<div class="line"><span class="lineno">  347</span>    add_baked_in(<span class="stringliteral">&quot;https://datashapes.org/dash&quot;</span>, dash_file)</div>
-<div class="line"><span class="lineno">  348</span>    add_baked_in(<span class="stringliteral">&quot;http://datashapes.org/dash.ttl&quot;</span>, dash_file)</div>
-</div><!-- fragment -->
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ae575e56622709bd1474337a4d97de5a5" name="ae575e56622709bd1474337a4d97de5a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae575e56622709bd1474337a4d97de5a5">&#9670;&#160;</a></span>USE_FULL_MIXIN</h2>
+<a id="ae3349e13b3993e2c87c18074a77fb8f9" name="ae3349e13b3993e2c87c18074a77fb8f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3349e13b3993e2c87c18074a77fb8f9">&#9670;&#160;</a></span>MESSAGE_CATEGORY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">USE_FULL_MIXIN = getenv(&quot;PYSHACL_USE_FULL_MIXIN&quot;) in env_truths</td>
+          <td class="memname">str MESSAGE_CATEGORY = '<a class="el" href="a01325.html">InstanceListQueryTask</a>'</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -212,7 +166,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00991.html">validator</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00959.html">tasks</a></li><li class="navelem"><a class="el" href="a00970.html">query</a></li><li class="navelem"><a class="el" href="a00989.html">instance</a></li><li class="navelem"><a class="el" href="a00991.html">instancelistquerytask</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

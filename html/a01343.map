@@ -1,9 +1,5 @@
-<map id="CustomConstraintComponent" name="CustomConstraintComponent">
-<area shape="rect" id="Node000001" title=" " alt="" coords="115,79,329,104"/>
-<area shape="rect" id="Node000003" href="$a01480.html" title=" " alt="" coords="5,152,220,177"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,114,132,154,129,150,192,109"/>
-<area shape="rect" id="Node000004" href="$a01532.html" title=" " alt="" coords="245,152,421,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="253,109,316,150,313,154,250,114"/>
-<area shape="rect" id="Node000002" href="$a07484.html" title=" " alt="" coords="191,5,253,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,44,225,79,219,79,219,44"/>
+<map id="DetectTripleStoreTask" name="DetectTripleStoreTask">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,168,104"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="49,5,125,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,44,89,79,84,79,84,44"/>
 </map>

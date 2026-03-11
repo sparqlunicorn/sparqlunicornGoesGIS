@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: rdflib._networking Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.tasks.query.style Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -129,236 +129,25 @@ $(document).ready(function(){initNavTree('a00994.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">rdflib._networking Namespace Reference</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.tasks.query.style Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a883a48b651cf3c87d6e4507911897960" id="r_a883a48b651cf3c87d6e4507911897960"><td class="memItemLeft" align="right" valign="top">Request&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00994.html#a883a48b651cf3c87d6e4507911897960">_make_redirect_request</a> (Request request, HTTPError http_error)</td></tr>
-<tr class="separator:a883a48b651cf3c87d6e4507911897960"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2f8adaf713c1075da1db06da86ea726" id="r_af2f8adaf713c1075da1db06da86ea726"><td class="memItemLeft" align="right" valign="top">addinfourl&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00994.html#af2f8adaf713c1075da1db06da86ea726">_urlopen</a> (Request request)</td></tr>
-<tr class="separator:af2f8adaf713c1075da1db06da86ea726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00995" id="r_a00995"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00995.html">findstylestask</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00996" id="r_a00996"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00996.html">getstyletask</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a883a48b651cf3c87d6e4507911897960" name="a883a48b651cf3c87d6e4507911897960"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a883a48b651cf3c87d6e4507911897960">&#9670;&#160;</a></span>_make_redirect_request()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"> Request _make_redirect_request </td>
-          <td>(</td>
-          <td class="paramtype">Request&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">HTTPError&#160;</td>
-          <td class="paramname"><em>http_error</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<pre class="fragment">Create a new request object for a redirected request.
-
-The logic is based on [HTTPRedirectHandler](https://github.com/python/cpython/blob/b58bc8c2a9a316891a5ea1a0487aebfc86c2793a/Lib/urllib/request.py#L641-L751) from urllib.request.
-
-Args:
-    request: The original request that resulted in the redirect.
-    http_error: The response to the original request that indicates a
-        redirect should occur and contains the new location.
-
-Returns:
-    A new request object to the location indicated by the response.
-
-Raises:
-    HTTPError: the supplied `http_error` if the redirect request
-        cannot be created.
-    ValueError: If the response code is None.
-    ValueError: If the response does not contain a `Location` header
-        or the `Location` header is not a string.
-    HTTPError: If the scheme of the new location is not `http`,
-        `https`, or `ftp`.
-    HTTPError: If there are too many redirects or a redirect loop.
-</pre> <div class="fragment"><div class="line"><span class="lineno">   13</span><span class="keyword">def </span>_make_redirect_request(request: Request, http_error: HTTPError) -&gt; Request:</div>
-<div class="line"><span class="lineno">   14</span>    <span class="stringliteral">&quot;&quot;&quot;Create a new request object for a redirected request.</span></div>
-<div class="line"><span class="lineno">   15</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   16</span><span class="stringliteral">    The logic is based on [HTTPRedirectHandler](https://github.com/python/cpython/blob/b58bc8c2a9a316891a5ea1a0487aebfc86c2793a/Lib/urllib/request.py#L641-L751) from urllib.request.</span></div>
-<div class="line"><span class="lineno">   17</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   18</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">   19</span><span class="stringliteral">        request: The original request that resulted in the redirect.</span></div>
-<div class="line"><span class="lineno">   20</span><span class="stringliteral">        http_error: The response to the original request that indicates a</span></div>
-<div class="line"><span class="lineno">   21</span><span class="stringliteral">            redirect should occur and contains the new location.</span></div>
-<div class="line"><span class="lineno">   22</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   23</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><span class="lineno">   24</span><span class="stringliteral">        A new request object to the location indicated by the response.</span></div>
-<div class="line"><span class="lineno">   25</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   26</span><span class="stringliteral">    Raises:</span></div>
-<div class="line"><span class="lineno">   27</span><span class="stringliteral">        HTTPError: the supplied `http_error` if the redirect request</span></div>
-<div class="line"><span class="lineno">   28</span><span class="stringliteral">            cannot be created.</span></div>
-<div class="line"><span class="lineno">   29</span><span class="stringliteral">        ValueError: If the response code is None.</span></div>
-<div class="line"><span class="lineno">   30</span><span class="stringliteral">        ValueError: If the response does not contain a `Location` header</span></div>
-<div class="line"><span class="lineno">   31</span><span class="stringliteral">            or the `Location` header is not a string.</span></div>
-<div class="line"><span class="lineno">   32</span><span class="stringliteral">        HTTPError: If the scheme of the new location is not `http`,</span></div>
-<div class="line"><span class="lineno">   33</span><span class="stringliteral">            `https`, or `ftp`.</span></div>
-<div class="line"><span class="lineno">   34</span><span class="stringliteral">        HTTPError: If there are too many redirects or a redirect loop.</span></div>
-<div class="line"><span class="lineno">   35</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   36</span>    new_url = http_error.headers.get(<span class="stringliteral">&quot;Location&quot;</span>)</div>
-<div class="line"><span class="lineno">   37</span>    <span class="keywordflow">if</span> new_url <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">raise</span> http_error</div>
-<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(new_url, str):</div>
-<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">raise</span> <a class="code hl_class" href="a07501.html">ValueError</a>(f<span class="stringliteral">&quot;Location header {new_url!r} is not a string&quot;</span>)</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>    new_url_parts = urlsplit(new_url)</div>
-<div class="line"><span class="lineno">   43</span> </div>
-<div class="line"><span class="lineno">   44</span>    <span class="comment"># For security reasons don&#39;t allow redirection to anything other than http,</span></div>
-<div class="line"><span class="lineno">   45</span>    <span class="comment"># https or ftp.</span></div>
-<div class="line"><span class="lineno">   46</span>    <span class="keywordflow">if</span> new_url_parts.scheme <span class="keywordflow">not</span> <span class="keywordflow">in</span> (<span class="stringliteral">&quot;http&quot;</span>, <span class="stringliteral">&quot;https&quot;</span>, <span class="stringliteral">&quot;ftp&quot;</span>, <span class="stringliteral">&quot;&quot;</span>):</div>
-<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">raise</span> HTTPError(</div>
-<div class="line"><span class="lineno">   48</span>            new_url,</div>
-<div class="line"><span class="lineno">   49</span>            http_error.code,</div>
-<div class="line"><span class="lineno">   50</span>            f<span class="stringliteral">&quot;{http_error.reason} - Redirection to url {new_url!r} is not allowed&quot;</span>,</div>
-<div class="line"><span class="lineno">   51</span>            http_error.headers,</div>
-<div class="line"><span class="lineno">   52</span>            http_error.fp,</div>
-<div class="line"><span class="lineno">   53</span>        )</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>    <span class="comment"># http.client.parse_headers() decodes as ISO-8859-1.  Recover the original</span></div>
-<div class="line"><span class="lineno">   56</span>    <span class="comment"># bytes and percent-encode non-ASCII bytes, and any special characters such</span></div>
-<div class="line"><span class="lineno">   57</span>    <span class="comment"># as the space.</span></div>
-<div class="line"><span class="lineno">   58</span>    new_url = urlquote(new_url, encoding=<span class="stringliteral">&quot;iso-8859-1&quot;</span>, safe=string.punctuation)</div>
-<div class="line"><span class="lineno">   59</span>    new_url = urljoin(request.full_url, new_url)</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>    <span class="comment"># XXX Probably want to forget about the state of the current</span></div>
-<div class="line"><span class="lineno">   62</span>    <span class="comment"># request, although that might interact poorly with other</span></div>
-<div class="line"><span class="lineno">   63</span>    <span class="comment"># handlers that also use handler-specific request attributes</span></div>
-<div class="line"><span class="lineno">   64</span>    content_headers = (<span class="stringliteral">&quot;content-length&quot;</span>, <span class="stringliteral">&quot;content-type&quot;</span>)</div>
-<div class="line"><span class="lineno">   65</span>    newheaders = {</div>
-<div class="line"><span class="lineno">   66</span>        k: v <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> request.headers.items() <span class="keywordflow">if</span> k.lower() <span class="keywordflow">not</span> <span class="keywordflow">in</span> content_headers</div>
-<div class="line"><span class="lineno">   67</span>    }</div>
-<div class="line"><span class="lineno">   68</span>    new_request = Request(</div>
-<div class="line"><span class="lineno">   69</span>        new_url,</div>
-<div class="line"><span class="lineno">   70</span>        headers=newheaders,</div>
-<div class="line"><span class="lineno">   71</span>        origin_req_host=request.origin_req_host,</div>
-<div class="line"><span class="lineno">   72</span>        unverifiable=<span class="keyword">True</span>,</div>
-<div class="line"><span class="lineno">   73</span>    )</div>
-<div class="line"><span class="lineno">   74</span> </div>
-<div class="line"><span class="lineno">   75</span>    visited: Dict[str, int]</div>
-<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">if</span> hasattr(request, <span class="stringliteral">&quot;redirect_dict&quot;</span>):</div>
-<div class="line"><span class="lineno">   77</span>        visited = request.redirect_dict</div>
-<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (</div>
-<div class="line"><span class="lineno">   79</span>            visited.get(new_url, 0) &gt;= HTTPRedirectHandler.max_repeats</div>
-<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">or</span> len(visited) &gt;= HTTPRedirectHandler.max_redirections</div>
-<div class="line"><span class="lineno">   81</span>        ):</div>
-<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">raise</span> HTTPError(</div>
-<div class="line"><span class="lineno">   83</span>                request.full_url,</div>
-<div class="line"><span class="lineno">   84</span>                http_error.code,</div>
-<div class="line"><span class="lineno">   85</span>                HTTPRedirectHandler.inf_msg + http_error.reason,</div>
-<div class="line"><span class="lineno">   86</span>                http_error.headers,</div>
-<div class="line"><span class="lineno">   87</span>                http_error.fp,</div>
-<div class="line"><span class="lineno">   88</span>            )</div>
-<div class="line"><span class="lineno">   89</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">   90</span>        visited = {}</div>
-<div class="line"><span class="lineno">   91</span>        setattr(request, <span class="stringliteral">&quot;redirect_dict&quot;</span>, visited)</div>
-<div class="line"><span class="lineno">   92</span> </div>
-<div class="line"><span class="lineno">   93</span>    setattr(new_request, <span class="stringliteral">&quot;redirect_dict&quot;</span>, visited)</div>
-<div class="line"><span class="lineno">   94</span>    visited[new_url] = visited.get(new_url, 0) + 1</div>
-<div class="line"><span class="lineno">   95</span>    <span class="keywordflow">return</span> new_request</div>
-<div class="line"><span class="lineno">   96</span> </div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="ttc" id="aa07501_html"><div class="ttname"><a href="a07501.html">ValueError</a></div></div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00994.html#af2f8adaf713c1075da1db06da86ea726">rdflib._networking._urlopen()</a>.</p>
-
-</div>
-</div>
-<a id="af2f8adaf713c1075da1db06da86ea726" name="af2f8adaf713c1075da1db06da86ea726"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2f8adaf713c1075da1db06da86ea726">&#9670;&#160;</a></span>_urlopen()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"> addinfourl _urlopen </td>
-          <td>(</td>
-          <td class="paramtype">Request&#160;</td>
-          <td class="paramname"><em>request</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<pre class="fragment">This is a shim for `urlopen` that handles HTTP redirects with status code
-308 (Permanent Redirect).
-
-This function should be removed once all supported versions of Python
-handles the 308 HTTP status code.
-
-Args:
-    request: The request to open.
-
-Returns:
-    The response to the request.
-</pre> <div class="fragment"><div class="line"><span class="lineno">   98</span><span class="keyword">def </span>_urlopen(request: Request) -&gt; addinfourl:</div>
-<div class="line"><span class="lineno">   99</span>    <span class="stringliteral">&quot;&quot;&quot;This is a shim for `urlopen` that handles HTTP redirects with status code</span></div>
-<div class="line"><span class="lineno">  100</span><span class="stringliteral">    308 (Permanent Redirect).</span></div>
-<div class="line"><span class="lineno">  101</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  102</span><span class="stringliteral">    This function should be removed once all supported versions of Python</span></div>
-<div class="line"><span class="lineno">  103</span><span class="stringliteral">    handles the 308 HTTP status code.</span></div>
-<div class="line"><span class="lineno">  104</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  105</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">  106</span><span class="stringliteral">        request: The request to open.</span></div>
-<div class="line"><span class="lineno">  107</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  108</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><span class="lineno">  109</span><span class="stringliteral">        The response to the request.</span></div>
-<div class="line"><span class="lineno">  110</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  111</span>    <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">return</span> urlopen(request)</div>
-<div class="line"><span class="lineno">  113</span>    <span class="keywordflow">except</span> HTTPError <span class="keyword">as</span> error:</div>
-<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">if</span> error.code == 308 <span class="keywordflow">and</span> sys.version_info &lt; (3, 11):</div>
-<div class="line"><span class="lineno">  115</span>            <span class="comment"># HTTP response code 308 (Permanent Redirect) is not supported by python</span></div>
-<div class="line"><span class="lineno">  116</span>            <span class="comment"># versions older than 3.11. See &lt;https://bugs.python.org/issue40321&gt; and</span></div>
-<div class="line"><span class="lineno">  117</span>            <span class="comment"># &lt;https://github.com/python/cpython/issues/84501&gt; for more details.</span></div>
-<div class="line"><span class="lineno">  118</span>            <span class="comment"># This custom error handling should be removed once all supported</span></div>
-<div class="line"><span class="lineno">  119</span>            <span class="comment"># versions of Python handles 308.</span></div>
-<div class="line"><span class="lineno">  120</span>            new_request = _make_redirect_request(request, error)</div>
-<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">return</span> _urlopen(new_request)</div>
-<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  123</span>            <span class="keywordflow">raise</span></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00994.html#a883a48b651cf3c87d6e4507911897960">rdflib._networking._make_redirect_request()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a00994.html">_networking</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00959.html">tasks</a></li><li class="navelem"><a class="el" href="a00970.html">query</a></li><li class="navelem"><a class="el" href="a00994.html">style</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

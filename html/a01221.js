@@ -1,17 +1,29 @@
 var a01221 =
 [
-    [ "qgis_interface", "a01222.html", "a01222" ],
-    [ "test_init", "a01223.html", "a01223" ],
-    [ "test_qgis_environment", "a01224.html", "a01224" ],
-    [ "test_resources", "a01225.html", "a01225" ],
-    [ "test_sparql_unicorn_dialog", "a01226.html", "a01226" ],
-    [ "test_translations", "a01227.html", "a01227" ],
-    [ "utilities", "a01228.html", [
-      [ "get_qgis_app", "a01228.html#a9b6d4e7c20058ec76777932797a97c1f", null ],
-      [ "CANVAS", "a01228.html#a4c50f6f3340ae37e2532fe22a9eb82f5", null ],
-      [ "IFACE", "a01228.html#a6b46367b6b15f58709a230af439d6282", null ],
-      [ "LOGGER", "a01228.html#a8584d053884ac6d108fdf93861b51cd0", null ],
-      [ "PARENT", "a01228.html#ab5fea4356a0690cb83bbfdfda0b15442", null ],
-      [ "QGIS_APP", "a01228.html#a8c2a350a9b438d9e214dc6bb460b8dc0", null ]
-    ] ]
+    [ "__init__", "a01221.html#a47f40e16c3c758738a40dd88650d9ac5", null ],
+    [ "createInterlinkSearchDialog", "a01221.html#aaebaa784dd52ca69569441a5aac60eb9", null ],
+    [ "exportInterlinkedLayer", "a01221.html#ad2c8961a836965e6db69187947df4461", null ],
+    [ "exportMapping", "a01221.html#a6bd060c97f701a40aa10cdd930b92f4d", null ],
+    [ "exportMappingProcess", "a01221.html#a503cde2c17df59afdaad2db0cf9d5f0f", null ],
+    [ "loadLayerForInterlink", "a01221.html#acf4244a9c3a65a32d8e105ab9bb23cd4", null ],
+    [ "loadMapping", "a01221.html#af9f1c1e304b7a1f3449ddf86c21e8b45", null ],
+    [ "readMapping", "a01221.html#a956718d367bc265e6cc2e31b524c3690", null ],
+    [ "suggestSchema", "a01221.html#a4b4e20bf80956e600c5edc7af3b68847", null ],
+    [ "addVocabConf", "a01221.html#a1c0f392d53979b034116808ade371029", null ],
+    [ "chooseLayerInterlink", "a01221.html#a9a07f58fb6a472ff276828b967628866", null ],
+    [ "createInterlinkSearchDialog", "a01221.html#ad31af5442834feeb9c3c18137509c0d0", null ],
+    [ "dlg", "a01221.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "enrichLayer", "a01221.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
+    [ "exportInterlink", "a01221.html#a8e3642406134b64d85ce0a4dd71820a2", null ],
+    [ "exportInterlinkedLayer", "a01221.html#ab2e3f920133deda185c4d0f76023ddea", null ],
+    [ "exportMapping", "a01221.html#a4328c36e73dc2afaf3733e87e05c5f92", null ],
+    [ "interlinkNameSpace", "a01221.html#a66d70dd3d5231aa65202762d90f15a2e", null ],
+    [ "interlinkTable", "a01221.html#ad8155062f83fdaf2cde17dd1ee12b335", null ],
+    [ "loadLayerForInterlink", "a01221.html#a61133167be868071e02fb6e330ddc4c2", null ],
+    [ "loadLayerInterlink", "a01221.html#a0d3155f98a5c2bcebec27031ad882837", null ],
+    [ "loadMapping", "a01221.html#a08a34fd8cc5fe2f9743280dd7567dfaa", null ],
+    [ "qtask", "a01221.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "searchClass", "a01221.html#a7713ef4dae227ea670bffcbcc7eb8b2a", null ],
+    [ "suggestSchema", "a01221.html#a880500ecdde35ca4720dcd14be628b14", null ],
+    [ "valueconcept", "a01221.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
 ];

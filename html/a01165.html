@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.dialogs.util.loginwindowdialog Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: EnrichmentDialog Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -129,27 +129,813 @@ $(document).ready(function(){initNavTree('a01165.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.dialogs.util.loginwindowdialog Namespace Reference</div></div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a01162.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">EnrichmentDialog Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Enrichment dialog to enrich properties to a geodataset.  
+ <a href="a01165.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for EnrichmentDialog:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01164.png" border="0" usemap="#aEnrichmentDialog_inherit__map" alt="Inheritance graph"/></div>
+<map name="aEnrichmentDialog_inherit__map" id="aEnrichmentDialog_inherit__map">
+<area shape="rect" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="32,79,171,104"/>
+<area shape="rect" title=" " alt="" coords="5,5,80,31"/>
+<area shape="poly" title=" " alt="" coords="63,40,94,77,90,80,59,43"/>
+<area shape="rect" href="a02509.html" title=" " alt="" coords="105,5,215,31"/>
+<area shape="poly" title=" " alt="" coords="144,43,113,80,109,77,140,40"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for EnrichmentDialog:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01163.png" border="0" usemap="#aEnrichmentDialog_coll__map" alt="Collaboration graph"/></div>
+<map name="aEnrichmentDialog_coll__map" id="aEnrichmentDialog_coll__map">
+<area shape="rect" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="125,108,264,133"/>
+<area shape="rect" title=" " alt="" coords="5,5,80,31"/>
+<area shape="poly" title=" " alt="" coords="73,36,179,106,176,110,70,41"/>
+<area shape="rect" href="a02509.html" title=" " alt="" coords="105,5,215,31"/>
+<area shape="poly" title=" " alt="" coords="171,43,193,107,188,109,166,44"/>
+<area shape="rect" title=" " alt="" coords="239,5,278,31"/>
+<area shape="poly" title=" " alt="" coords="243,43,234,56,203,109,199,106,230,53,239,40"/>
+<area shape="rect" title=" " alt="" coords="332,5,383,31"/>
+<area shape="poly" title=" " alt="" coords="354,45,345,66,330,86,299,105,265,115,263,110,297,100,326,82,341,64,349,43"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02900.html">LoginWindowDialog</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2b751c7ff0870929445b392520b5b07e" id="r_a2b751c7ff0870929445b392520b5b07e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a2b751c7ff0870929445b392520b5b07e">__init__</a> (self, <a class="el" href="a01165.html#a399a9e2610a521ee23b0655ac3324037">languagemap</a>, <a class="el" href="a01165.html#a3c8f4911b6ff46c324750495bb9d7315">triplestoreconf</a>, <a class="el" href="a01165.html#a302e350558edcbbd7b85927b33550548">prefixes</a>, <a class="el" href="a01165.html#afa736d201198c3312f2d2c6f7f534880">enrichtable</a>, <a class="el" href="a01165.html#a95f2e9e3b2b2d837f962bcfb58a2011e">layer</a>, <a class="el" href="a01165.html#a89f25b52ad6e937437ba0b4585d05d78">classid</a>=&quot;&quot;, <a class="el" href="a01165.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a>=&quot;&quot;)</td></tr>
+<tr class="memdesc:a2b751c7ff0870929445b392520b5b07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this dialog.  <br /></td></tr>
+<tr class="separator:a2b751c7ff0870929445b392520b5b07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72a4c9d48a23002ca9e44644841bd891" id="r_a72a4c9d48a23002ca9e44644841bd891"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a72a4c9d48a23002ca9e44644841bd891">searchResultObtained</a> (self, text)</td></tr>
+<tr class="separator:a72a4c9d48a23002ca9e44644841bd891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a778227560be40bd575cbf42e7ef0d404" id="r_a778227560be40bd575cbf42e7ef0d404"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a778227560be40bd575cbf42e7ef0d404">matchConceptsForIdentifier</a> (self)</td></tr>
+<tr class="separator:a778227560be40bd575cbf42e7ef0d404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a851b78d2c5e3e167443f05d1f4cd0aa2" id="r_a851b78d2c5e3e167443f05d1f4cd0aa2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a851b78d2c5e3e167443f05d1f4cd0aa2">createValueMappingSearchDialog</a> (self, row=-1, column=-1)</td></tr>
+<tr class="separator:a851b78d2c5e3e167443f05d1f4cd0aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9ed403d1ada1a07cefed6a1ea34ce1" id="r_a5f9ed403d1ada1a07cefed6a1ea34ce1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">toggleSelect</a> (self)</td></tr>
+<tr class="separator:a5f9ed403d1ada1a07cefed6a1ea34ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6600341cffb10c7cda6509ec87e3f9" id="r_a9e6600341cffb10c7cda6509ec87e3f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a9e6600341cffb10c7cda6509ec87e3f9">loadSamples</a> (self, modelindex)</td></tr>
+<tr class="separator:a9e6600341cffb10c7cda6509ec87e3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57b9f50e7466961f1a162b3ed7c87037" id="r_a57b9f50e7466961f1a162b3ed7c87037"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a57b9f50e7466961f1a162b3ed7c87037">buildSearchDialog</a> (self, row, column, <a class="el" href="a01165.html#a22becd814f00141dbdbb9167f5b9551f">interlinkOrEnrich</a>, <a class="el" href="a01165.html#ab31a20ab07de26623b45757ffb619144">table</a>)</td></tr>
+<tr class="memdesc:a57b9f50e7466961f1a162b3ed7c87037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the search dialog for the concept search.  <br /></td></tr>
+<tr class="separator:a57b9f50e7466961f1a162b3ed7c87037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32036992c6b701e352e0567902eb1a04" id="r_a32036992c6b701e352e0567902eb1a04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">getAttributeStatistics</a> (self, concept=&quot;wd:Q3914&quot;, endpoint_url=&quot;https://query.wikidata.org/sparql&quot;, labellang=&quot;en&quot;, inarea=&quot;wd:Q183&quot;)</td></tr>
+<tr class="memdesc:a32036992c6b701e352e0567902eb1a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives statistics about most commonly occuring properties from a certain class in a given triple store.  <br /></td></tr>
+<tr class="separator:a32036992c6b701e352e0567902eb1a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a092511d1d39fd4e00c22c9f1073d3289" id="r_a092511d1d39fd4e00c22c9f1073d3289"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">applyConceptToColumn</a> (self, costumURI=False)</td></tr>
+<tr class="memdesc:a092511d1d39fd4e00c22c9f1073d3289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a chosen concept to the calling dialog.  <br /></td></tr>
+<tr class="separator:a092511d1d39fd4e00c22c9f1073d3289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a0357d3c7a5047524e1543f2f43bc3e38" id="r_a0357d3c7a5047524e1543f2f43bc3e38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a0357d3c7a5047524e1543f2f43bc3e38">FORM_CLASS</a></td></tr>
-<tr class="separator:a0357d3c7a5047524e1543f2f43bc3e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18f05aeddc212b523b40818fa2b87b33" id="r_a18f05aeddc212b523b40818fa2b87b33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a18f05aeddc212b523b40818fa2b87b33">_</a></td></tr>
-<tr class="separator:a18f05aeddc212b523b40818fa2b87b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a89f25b52ad6e937437ba0b4585d05d78" id="r_a89f25b52ad6e937437ba0b4585d05d78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a89f25b52ad6e937437ba0b4585d05d78">classid</a></td></tr>
+<tr class="separator:a89f25b52ad6e937437ba0b4585d05d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a399a9e2610a521ee23b0655ac3324037" id="r_a399a9e2610a521ee23b0655ac3324037"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a399a9e2610a521ee23b0655ac3324037">languagemap</a></td></tr>
+<tr class="separator:a399a9e2610a521ee23b0655ac3324037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b8734be629bbc1f64723d90a67861ab" id="r_a9b8734be629bbc1f64723d90a67861ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a></td></tr>
+<tr class="separator:a9b8734be629bbc1f64723d90a67861ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a330d24be0afd5a96238ca9e128328a2d" id="r_a330d24be0afd5a96238ca9e128328a2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a></td></tr>
+<tr class="separator:a330d24be0afd5a96238ca9e128328a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a302e350558edcbbd7b85927b33550548" id="r_a302e350558edcbbd7b85927b33550548"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a302e350558edcbbd7b85927b33550548">prefixes</a></td></tr>
+<tr class="separator:a302e350558edcbbd7b85927b33550548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa736d201198c3312f2d2c6f7f534880" id="r_afa736d201198c3312f2d2c6f7f534880"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#afa736d201198c3312f2d2c6f7f534880">enrichtable</a></td></tr>
+<tr class="separator:afa736d201198c3312f2d2c6f7f534880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf65a34531091c482d3844fac8a32f6d" id="r_acf65a34531091c482d3844fac8a32f6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#acf65a34531091c482d3844fac8a32f6d">alreadyloadedSample</a></td></tr>
+<tr class="separator:acf65a34531091c482d3844fac8a32f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95f2e9e3b2b2d837f962bcfb58a2011e" id="r_a95f2e9e3b2b2d837f962bcfb58a2011e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a95f2e9e3b2b2d837f962bcfb58a2011e">layer</a></td></tr>
+<tr class="separator:a95f2e9e3b2b2d837f962bcfb58a2011e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29599b806d279b922daaba0fd2517fee" id="r_a29599b806d279b922daaba0fd2517fee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a29599b806d279b922daaba0fd2517fee">languageComboBox</a></td></tr>
+<tr class="separator:a29599b806d279b922daaba0fd2517fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0c3e689661481a4da4ddb082c013f4" id="r_a9f0c3e689661481a4da4ddb082c013f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a9f0c3e689661481a4da4ddb082c013f4">tablemodel</a></td></tr>
+<tr class="separator:a9f0c3e689661481a4da4ddb082c013f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d828fa188e4fc612101d64e2c7de582" id="r_a6d828fa188e4fc612101d64e2c7de582"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a6d828fa188e4fc612101d64e2c7de582">filter_proxy_model</a></td></tr>
+<tr class="separator:a6d828fa188e4fc612101d64e2c7de582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6137aef73caf41c68c2be3550f14aba1" id="r_a6137aef73caf41c68c2be3550f14aba1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a6137aef73caf41c68c2be3550f14aba1">tablemodel2</a></td></tr>
+<tr class="separator:a6137aef73caf41c68c2be3550f14aba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2224ec0958a602aef926b6a3715e094e" id="r_a2224ec0958a602aef926b6a3715e094e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a2224ec0958a602aef926b6a3715e094e">selected</a></td></tr>
+<tr class="separator:a2224ec0958a602aef926b6a3715e094e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f355b6c9536ccb798ea8e8f70959809" id="r_a6f355b6c9536ccb798ea8e8f70959809"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a6f355b6c9536ccb798ea8e8f70959809">toggleSelect</a></td></tr>
+<tr class="separator:a6f355b6c9536ccb798ea8e8f70959809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab48b62232dd874a44c51d15d0da4b913" id="r_ab48b62232dd874a44c51d15d0da4b913"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#ab48b62232dd874a44c51d15d0da4b913">filter_proxy_model2</a></td></tr>
+<tr class="separator:ab48b62232dd874a44c51d15d0da4b913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89996d0afe7fabbb3cd6c81ce7b85d51" id="r_a89996d0afe7fabbb3cd6c81ce7b85d51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a89996d0afe7fabbb3cd6c81ce7b85d51">matchConceptsForIdentifier</a></td></tr>
+<tr class="separator:a89996d0afe7fabbb3cd6c81ce7b85d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e243f776f08c4dd077c3bca68a755a2" id="r_a0e243f776f08c4dd077c3bca68a755a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a0e243f776f08c4dd077c3bca68a755a2">searchResult</a></td></tr>
+<tr class="separator:a0e243f776f08c4dd077c3bca68a755a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b17a1723250cdd4893939874c1f91bb" id="r_a3b17a1723250cdd4893939874c1f91bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a3b17a1723250cdd4893939874c1f91bb">statusBarLabel</a></td></tr>
+<tr class="separator:a3b17a1723250cdd4893939874c1f91bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ddd9dada5f49804b3cd0a8f67002a7d" id="r_a4ddd9dada5f49804b3cd0a8f67002a7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a4ddd9dada5f49804b3cd0a8f67002a7d">matchingConceptsResult</a></td></tr>
+<tr class="separator:a4ddd9dada5f49804b3cd0a8f67002a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de6785e4c52a306fbecb8ff7bb882fa" id="r_a4de6785e4c52a306fbecb8ff7bb882fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a4de6785e4c52a306fbecb8ff7bb882fa">getAttributeStatistics</a></td></tr>
+<tr class="separator:a4de6785e4c52a306fbecb8ff7bb882fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae807eb1a257f835894d74bf70f2ff883" id="r_ae807eb1a257f835894d74bf70f2ff883"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#ae807eb1a257f835894d74bf70f2ff883">createValueMappingSearchDialog</a></td></tr>
+<tr class="separator:ae807eb1a257f835894d74bf70f2ff883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3479004228edd023d5781a2f76918942" id="r_a3479004228edd023d5781a2f76918942"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a3479004228edd023d5781a2f76918942">searchResultObtained</a></td></tr>
+<tr class="separator:a3479004228edd023d5781a2f76918942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2a61e8c946cec446e022b7e62b54768" id="r_ae2a61e8c946cec446e022b7e62b54768"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#ae2a61e8c946cec446e022b7e62b54768">applyConceptToColumn</a></td></tr>
+<tr class="separator:ae2a61e8c946cec446e022b7e62b54768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec96fd78e346ce7c64f88869b2124688" id="r_aec96fd78e346ce7c64f88869b2124688"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#aec96fd78e346ce7c64f88869b2124688">loadSamples</a></td></tr>
+<tr class="separator:aec96fd78e346ce7c64f88869b2124688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d50eb3cf3371553e18aeea38638af8f" id="r_a6d50eb3cf3371553e18aeea38638af8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a6d50eb3cf3371553e18aeea38638af8f">qtask3</a></td></tr>
+<tr class="separator:a6d50eb3cf3371553e18aeea38638af8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8693315516631fd8a8106a654055d2" id="r_aef8693315516631fd8a8106a654055d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#aef8693315516631fd8a8106a654055d2">conceptSearchEdit</a></td></tr>
+<tr class="separator:aef8693315516631fd8a8106a654055d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39b0b293840045c1835cdd6fe7fd92bb" id="r_a39b0b293840045c1835cdd6fe7fd92bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a39b0b293840045c1835cdd6fe7fd92bb">qtask2</a></td></tr>
+<tr class="separator:a39b0b293840045c1835cdd6fe7fd92bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a486aeee0a5d3170bc193bc29caf8a7b8" id="r_a486aeee0a5d3170bc193bc29caf8a7b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a486aeee0a5d3170bc193bc29caf8a7b8">currentcol</a></td></tr>
+<tr class="separator:a486aeee0a5d3170bc193bc29caf8a7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a086f47cacf997373ef862200fcfb4612" id="r_a086f47cacf997373ef862200fcfb4612"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a086f47cacf997373ef862200fcfb4612">currentrow</a></td></tr>
+<tr class="separator:a086f47cacf997373ef862200fcfb4612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816bebaf94e989ec4293bfee7a615a98" id="r_a816bebaf94e989ec4293bfee7a615a98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a816bebaf94e989ec4293bfee7a615a98">interlinkdialog</a></td></tr>
+<tr class="separator:a816bebaf94e989ec4293bfee7a615a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a93c11e539824b92f020be72e4a876617" id="r_a93c11e539824b92f020be72e4a876617"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a93c11e539824b92f020be72e4a876617">currentrow</a> = &quot;&quot;</td></tr>
+<tr class="separator:a93c11e539824b92f020be72e4a876617"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8f4911b6ff46c324750495bb9d7315" id="r_a3c8f4911b6ff46c324750495bb9d7315"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a3c8f4911b6ff46c324750495bb9d7315">triplestoreconf</a> = &quot;&quot;</td></tr>
+<tr class="separator:a3c8f4911b6ff46c324750495bb9d7315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22becd814f00141dbdbb9167f5b9551f" id="r_a22becd814f00141dbdbb9167f5b9551f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a22becd814f00141dbdbb9167f5b9551f">interlinkOrEnrich</a> = False</td></tr>
+<tr class="separator:a22becd814f00141dbdbb9167f5b9551f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab31a20ab07de26623b45757ffb619144" id="r_ab31a20ab07de26623b45757ffb619144"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#ab31a20ab07de26623b45757ffb619144">table</a> = False</td></tr>
+<tr class="separator:ab31a20ab07de26623b45757ffb619144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09dec5fb4a23fd0028407eddbe26cc16" id="r_a09dec5fb4a23fd0028407eddbe26cc16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html#a09dec5fb4a23fd0028407eddbe26cc16">qtask</a> = None</td></tr>
+<tr class="separator:a09dec5fb4a23fd0028407eddbe26cc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a18f05aeddc212b523b40818fa2b87b33" name="a18f05aeddc212b523b40818fa2b87b33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18f05aeddc212b523b40818fa2b87b33">&#9670;&#160;</a></span>_</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Enrichment dialog to enrich properties to a geodataset. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2b751c7ff0870929445b392520b5b07e" name="a2b751c7ff0870929445b392520b5b07e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b751c7ff0870929445b392520b5b07e">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>languagemap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triplestoreconf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>enrichtable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>classid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triplestoreurl</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes this dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">triplestoreconf</td><td>The triplestore configuration file </td></tr>
+    <tr><td class="paramname">prefixes</td><td>RDF prefixes to be used in this dialog </td></tr>
+    <tr><td class="paramname">enrichtable</td><td>the GUI object to save the results in </td></tr>
+    <tr><td class="paramname">layer</td><td>the layer to enrich </td></tr>
+    <tr><td class="paramname">classid</td><td>the classid to use for enrichment </td></tr>
+    <tr><td class="paramname">triplestoreurl</td><td>the url of the triplestore to use for enrichment </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>    <span class="keyword">def </span>__init__(self, languagemap,triplestoreconf, prefixes, enrichtable, layer, classid=&quot;&quot;, triplestoreurl=&quot;&quot;):</div>
+<div class="line"><span class="lineno">   45</span>        super(QDialog, self).__init__()</div>
+<div class="line"><span class="lineno">   46</span>        self.setupUi(self)</div>
+<div class="line"><span class="lineno">   47</span>        self.classid = classid</div>
+<div class="line"><span class="lineno">   48</span>        self.languagemap=languagemap</div>
+<div class="line"><span class="lineno">   49</span>        self.triplestoreurl = triplestoreurl</div>
+<div class="line"><span class="lineno">   50</span>        self.triplestoreconf = triplestoreconf</div>
+<div class="line"><span class="lineno">   51</span>        self.prefixes = prefixes</div>
+<div class="line"><span class="lineno">   52</span>        self.enrichtable = enrichtable</div>
+<div class="line"><span class="lineno">   53</span>        self.alreadyloadedSample=[]</div>
+<div class="line"><span class="lineno">   54</span>        self.layer = layer</div>
+<div class="line"><span class="lineno">   55</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   56</span><span class="stringliteral">        actionPan = QAction(&quot;Pan&quot;, self)</span></div>
+<div class="line"><span class="lineno">   57</span><span class="stringliteral">        actionPan.setCheckable(True)</span></div>
+<div class="line"><span class="lineno">   58</span><span class="stringliteral">        actionPan.triggered.connect(lambda: self.map_canvas.setMapTool(self.toolPan))</span></div>
+<div class="line"><span class="lineno">   59</span><span class="stringliteral">        self.toolPan = QgsMapToolPan(self.map_canvas)</span></div>
+<div class="line"><span class="lineno">   60</span><span class="stringliteral">        self.toolPan.setAction(actionPan)</span></div>
+<div class="line"><span class="lineno">   61</span><span class="stringliteral">        self.map_canvas.hide()</span></div>
+<div class="line"><span class="lineno">   62</span><span class="stringliteral">        uri = &quot;url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&amp;zmin=0&amp;type=xyz&amp;zmax=19&amp;crs=EPSG3857&quot;</span></div>
+<div class="line"><span class="lineno">   63</span><span class="stringliteral">        self.mts_layer = QgsRasterLayer(uri, &#39;OSM&#39;, &#39;wms&#39;)</span></div>
+<div class="line"><span class="lineno">   64</span><span class="stringliteral">        if not self.mts_layer.isValid():</span></div>
+<div class="line"><span class="lineno">   65</span><span class="stringliteral">            print(&quot;Layer failed to load!&quot;)</span></div>
+<div class="line"><span class="lineno">   66</span><span class="stringliteral">        self.map_canvas.setExtent(self.mts_layer.extent())</span></div>
+<div class="line"><span class="lineno">   67</span><span class="stringliteral">        self.map_canvas.setLayers([self.mts_layer])</span></div>
+<div class="line"><span class="lineno">   68</span><span class="stringliteral">        self.map_canvas.setCurrentLayer(self.mts_layer)</span></div>
+<div class="line"><span class="lineno">   69</span><span class="stringliteral">        self.map_canvas.setMapTool(self.toolPan)</span></div>
+<div class="line"><span class="lineno">   70</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   71</span>        UIUtils.createLanguageSelectionCBox(self.languageComboBox,self.languagemap)</div>
+<div class="line"><span class="lineno">   72</span>        self.tablemodel=QStandardItemModel()</div>
+<div class="line"><span class="lineno">   73</span>        self.tablemodel.setHeaderData(0, Qt.Orientation.Horizontal, <span class="stringliteral">&quot;Selection&quot;</span>)</div>
+<div class="line"><span class="lineno">   74</span>        self.tablemodel.setHeaderData(1, Qt.Orientation.Horizontal, <span class="stringliteral">&quot;Attribute&quot;</span>)</div>
+<div class="line"><span class="lineno">   75</span>        self.tablemodel.setHeaderData(2, Qt.Orientation.Horizontal, <span class="stringliteral">&quot;Sample Instances&quot;</span>)</div>
+<div class="line"><span class="lineno">   76</span>        self.tablemodel.insertRow(0)</div>
+<div class="line"><span class="lineno">   77</span>        self.filter_proxy_model = QSortFilterProxyModel()</div>
+<div class="line"><span class="lineno">   78</span>        self.filter_proxy_model.setSourceModel(self.tablemodel)</div>
+<div class="line"><span class="lineno">   79</span>        self.filter_proxy_model.setFilterKeyColumn(1)</div>
+<div class="line"><span class="lineno">   80</span>        self.searchResult.setModel(self.filter_proxy_model)</div>
+<div class="line"><span class="lineno">   81</span>        self.tablemodel2=QStandardItemModel()</div>
+<div class="line"><span class="lineno">   82</span>        self.tablemodel2.setHeaderData(0, Qt.Orientation.Horizontal, <span class="stringliteral">&quot;Concept&quot;</span>)</div>
+<div class="line"><span class="lineno">   83</span>        self.tablemodel2.setHeaderData(1, Qt.Orientation.Horizontal, <span class="stringliteral">&quot;Matching Attribute&quot;</span>)</div>
+<div class="line"><span class="lineno">   84</span>        self.tablemodel2.insertRow(0)</div>
+<div class="line"><span class="lineno">   85</span>        self.selected=<span class="keyword">True</span></div>
+<div class="line"><span class="lineno">   86</span>        self.toggleSelectionButton.clicked.connect(self.toggleSelect)</div>
+<div class="line"><span class="lineno">   87</span>        self.filter_proxy_model2 = QSortFilterProxyModel()</div>
+<div class="line"><span class="lineno">   88</span>        self.filter_proxy_model2.setSourceModel(self.tablemodel2)</div>
+<div class="line"><span class="lineno">   89</span>        self.filter_proxy_model2.setFilterKeyColumn(1)</div>
+<div class="line"><span class="lineno">   90</span>        self.backToMatchingSearchButton.clicked.connect(<span class="keyword">lambda</span>: self.stackedWidget.setCurrentWidget(self.stackedWidget.widget(1)))</div>
+<div class="line"><span class="lineno">   91</span>        self.matchingConceptsResult.setModel(self.filter_proxy_model2)</div>
+<div class="line"><span class="lineno">   92</span>        self.idCBox.setLayer(layer)</div>
+<div class="line"><span class="lineno">   93</span>        item = QStandardItem()</div>
+<div class="line"><span class="lineno">   94</span>        item.setText(<span class="stringliteral">&quot;Loading...&quot;</span>)</div>
+<div class="line"><span class="lineno">   95</span>        self.matchConceptsButton.clicked.connect(self.matchConceptsForIdentifier)</div>
+<div class="line"><span class="lineno">   96</span>        self.matchingGroupBox.hide()</div>
+<div class="line"><span class="lineno">   97</span>        self.tablemodel.setItem(0,0,item)</div>
+<div class="line"><span class="lineno">   98</span>        self.searchResult.entered.connect(</div>
+<div class="line"><span class="lineno">   99</span>            <span class="keyword">lambda</span> modelindex: UIUtils.showTableURI(modelindex, self.searchResult, self.statusBarLabel))</div>
+<div class="line"><span class="lineno">  100</span>        self.searchResult.doubleClicked.connect(</div>
+<div class="line"><span class="lineno">  101</span>            <span class="keyword">lambda</span> modelindex: UIUtils.openTableURL(modelindex, self.searchResult))</div>
+<div class="line"><span class="lineno">  102</span>        self.matchingConceptsResult.doubleClicked.connect(</div>
+<div class="line"><span class="lineno">  103</span>            <span class="keyword">lambda</span> modelindex: UIUtils.openTableURL(modelindex, self.matchingConceptsResult))</div>
+<div class="line"><span class="lineno">  104</span>        self.matchingConceptsResult.entered.connect(</div>
+<div class="line"><span class="lineno">  105</span>            <span class="keyword">lambda</span> modelindex: UIUtils.showTableURI(modelindex, self.matchingConceptsResult, self.statusBarLabel))</div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">for</span> triplestore <span class="keywordflow">in</span> self.triplestoreconf:</div>
+<div class="line"><span class="lineno">  107</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;File&quot;</span> == triplestore[<span class="stringliteral">&quot;name&quot;</span>]:</div>
+<div class="line"><span class="lineno">  108</span>                self.tripleStoreEdit.addItem(triplestore[<span class="stringliteral">&quot;name&quot;</span>])</div>
+<div class="line"><span class="lineno">  109</span>        self.searchButton.clicked.connect(self.getAttributeStatistics)</div>
+<div class="line"><span class="lineno">  110</span>        self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)</div>
+<div class="line"><span class="lineno">  111</span>        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegularExpression)</div>
+<div class="line"><span class="lineno">  112</span>        self.filterMatchingConceptsTableEdit.textChanged.connect(self.filter_proxy_model2.setFilterRegularExpression)</div>
+<div class="line"><span class="lineno">  113</span>        self.conceptSearchEdit.textChanged.connect(self.searchResultObtained)</div>
+<div class="line"><span class="lineno">  114</span>        self.filterTableComboBox.currentIndexChanged.connect(</div>
+<div class="line"><span class="lineno">  115</span>            <span class="keyword">lambda</span>: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))</div>
+<div class="line"><span class="lineno">  116</span>        self.filterMatchingConceptsComboBox.currentIndexChanged.connect(</div>
+<div class="line"><span class="lineno">  117</span>            <span class="keyword">lambda</span>: self.filter_proxy_model2.setFilterKeyColumn(self.filterMatchingConceptsComboBox.currentIndex()))</div>
+<div class="line"><span class="lineno">  118</span>        self.applyButton.clicked.connect(self.applyConceptToColumn)</div>
+<div class="line"><span class="lineno">  119</span>        header =self.searchResult.horizontalHeader()</div>
+<div class="line"><span class="lineno">  120</span>        header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)</div>
+<div class="line"><span class="lineno">  121</span>        self.searchResult.clicked.connect(self.loadSamples)</div>
+<div class="line"><span class="lineno">  122</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01165.html#a2b751c7ff0870929445b392520b5b07e">EnrichmentDialog.__init__()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a2b751c7ff0870929445b392520b5b07e">EnrichmentDialog.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a092511d1d39fd4e00c22c9f1073d3289" name="a092511d1d39fd4e00c22c9f1073d3289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a092511d1d39fd4e00c22c9f1073d3289">&#9670;&#160;</a></span>applyConceptToColumn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">applyConceptToColumn </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>costumURI</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a chosen concept to the calling dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The object pointer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">costumURI</td><td>indicates whether a URI has been entered by the user or if a URI should be selected in the result list widget </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A URI and possibly its label as a String </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  228</span>    <span class="keyword">def </span>applyConceptToColumn(self, costumURI=False):</div>
+<div class="line"><span class="lineno">  229</span>        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> self.layer.fields()]</div>
+<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.tablemodel.rowCount()):</div>
+<div class="line"><span class="lineno">  231</span>            <span class="keywordflow">if</span> self.tablemodel.item(row, 0).checkState()==Qt.CheckState.Checked:</div>
+<div class="line"><span class="lineno">  232</span>                relation = self.tablemodel.item(row, 1).data(UIUtils.dataslot_conceptURI)</div>
+<div class="line"><span class="lineno">  233</span>                text=self.tablemodel.item(row, 1).text()</div>
+<div class="line"><span class="lineno">  234</span>                item = QTableWidgetItem(</div>
+<div class="line"><span class="lineno">  235</span>                    text[0:text.rfind(<span class="stringliteral">&#39;(&#39;</span>) - 1])</div>
+<div class="line"><span class="lineno">  236</span>                <span class="comment"># item.setFlags(QtCore.Qt.ItemIsEnabled)</span></div>
+<div class="line"><span class="lineno">  237</span>                row = self.enrichtable.rowCount()</div>
+<div class="line"><span class="lineno">  238</span>                self.enrichtable.insertRow(row)</div>
+<div class="line"><span class="lineno">  239</span>                self.enrichtable.setItem(row, 0, item)</div>
+<div class="line"><span class="lineno">  240</span>                item = QTableWidgetItem()</div>
+<div class="line"><span class="lineno">  241</span>                item.setData(UIUtils.dataslot_conceptURI, relation)</div>
+<div class="line"><span class="lineno">  242</span>                item.setText(text)</div>
+<div class="line"><span class="lineno">  243</span>                self.enrichtable.setItem(row, 1, item)</div>
+<div class="line"><span class="lineno">  244</span>                item = QTableWidgetItem()</div>
+<div class="line"><span class="lineno">  245</span>                item.setText(str(self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>]))</div>
+<div class="line"><span class="lineno">  246</span>                self.enrichtable.setItem(row, 2, item)</div>
+<div class="line"><span class="lineno">  247</span>                cbox = QComboBox()</div>
+<div class="line"><span class="lineno">  248</span>                cbox.addItem(<span class="stringliteral">&quot;Get Remote&quot;</span>)</div>
+<div class="line"><span class="lineno">  249</span>                cbox.addItem(<span class="stringliteral">&quot;No Enrichment&quot;</span>)</div>
+<div class="line"><span class="lineno">  250</span>                cbox.addItem(<span class="stringliteral">&quot;Exclude&quot;</span>)</div>
+<div class="line"><span class="lineno">  251</span>                self.enrichtable.setCellWidget(row, 3, cbox)</div>
+<div class="line"><span class="lineno">  252</span>                cbox = QComboBox()</div>
+<div class="line"><span class="lineno">  253</span>                cbox.addItem(<span class="stringliteral">&quot;Enrich Value&quot;</span>)</div>
+<div class="line"><span class="lineno">  254</span>                cbox.addItem(<span class="stringliteral">&quot;Enrich URI&quot;</span>)</div>
+<div class="line"><span class="lineno">  255</span>                cbox.addItem(<span class="stringliteral">&quot;Enrich Both&quot;</span>)</div>
+<div class="line"><span class="lineno">  256</span>                self.enrichtable.setCellWidget(row, 4, cbox)</div>
+<div class="line"><span class="lineno">  257</span>                cbox = QComboBox()</div>
+<div class="line"><span class="lineno">  258</span>                <span class="keywordflow">for</span> fieldd <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><span class="lineno">  259</span>                    cbox.addItem(fieldd)</div>
+<div class="line"><span class="lineno">  260</span>                self.enrichtable.setCellWidget(row, 5, cbox)</div>
+<div class="line"><span class="lineno">  261</span>                cbox.setCurrentIndex(self.idCBox.currentIndex())</div>
+<div class="line"><span class="lineno">  262</span>                itemm = QTableWidgetItem(<span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>)</div>
+<div class="line"><span class="lineno">  263</span>                self.enrichtable.setItem(row, 6, itemm)</div>
+<div class="line"><span class="lineno">  264</span>                itemm = QTableWidgetItem(self.conceptSearchEdit.text())</div>
+<div class="line"><span class="lineno">  265</span>                self.enrichtable.setItem(row, 7, itemm)</div>
+<div class="line"><span class="lineno">  266</span>                itemm = QTableWidgetItem(self.languageComboBox.currentText())</div>
+<div class="line"><span class="lineno">  267</span>                itemm.setData(UIUtils.dataslot_language,self.languageComboBox.currentData(UIUtils.dataslot_language))</div>
+<div class="line"><span class="lineno">  268</span>                self.enrichtable.setItem(row, 8, itemm)</div>
+<div class="line"><span class="lineno">  269</span>        self.close()</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01081.html#a12e1f53c847d07ce9e58df470087c0fa">PreferencesDialog.close</a>, <a class="el" href="a01085.html#a12e1f53c847d07ce9e58df470087c0fa">SettingsDialog.close</a>, <a class="el" href="a01113.html#a12e1f53c847d07ce9e58df470087c0fa">DetectTripleStoreResultDialog.close</a>, <a class="el" href="a01177.html#a12e1f53c847d07ce9e58df470087c0fa">ExampleQueryDialog.close</a>, <a class="el" href="a01193.html#a12e1f53c847d07ce9e58df470087c0fa">QueryLimitedInstancesDialog.close</a>, <a class="el" href="a01165.html#aef8693315516631fd8a8106a654055d2">EnrichmentDialog.conceptSearchEdit</a>, <a class="el" href="a01165.html#afa736d201198c3312f2d2c6f7f534880">EnrichmentDialog.enrichtable</a>, <a class="el" href="a01165.html#a29599b806d279b922daaba0fd2517fee">EnrichmentDialog.languageComboBox</a>, <a class="el" href="a01165.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentDialog.layer</a>, <a class="el" href="a01229.html#a95f2e9e3b2b2d837f962bcfb58a2011e">ConvertLayerTask.layer</a>, <a class="el" href="a01309.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentQueryTask.layer</a>, <a class="el" href="a01093.html#a9f0c3e689661481a4da4ddb082c013f4">DataSchemaDialog.tablemodel</a>, <a class="el" href="a01097.html#a9f0c3e689661481a4da4ddb082c013f4">GraphRelationViewDialog.tablemodel</a>, <a class="el" href="a01101.html#a9f0c3e689661481a4da4ddb082c013f4">InstanceDataDialog.tablemodel</a>, <a class="el" href="a01105.html#a9f0c3e689661481a4da4ddb082c013f4">PropertySchemaDialog.tablemodel</a>, <a class="el" href="a01133.html#a9f0c3e689661481a4da4ddb082c013f4">AdvancedQueryDialog.tablemodel</a>, <a class="el" href="a01165.html#a9f0c3e689661481a4da4ddb082c013f4">EnrichmentDialog.tablemodel</a>, <a class="el" href="a01245.html#a9f0c3e689661481a4da4ddb082c013f4">LayerMatchingTask.tablemodel</a>, <a class="el" href="a01089.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a01093.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a01097.html#a330d24be0afd5a96238ca9e128328a2d">GraphRelationViewDialog.triplestoreconf</a>, <a class="el" href="a01101.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a01105.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaDialog.triplestoreconf</a>, <a class="el" href="a01113.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreResultDialog.triplestoreconf</a>, <a class="el" href="a01121.html#a330d24be0afd5a96238ca9e128328a2d">ConceptContextMenu.triplestoreconf</a>, <a class="el" href="a01125.html#a330d24be0afd5a96238ca9e128328a2d">TabContextMenu.triplestoreconf</a>, <a class="el" href="a01129.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a01133.html#a330d24be0afd5a96238ca9e128328a2d">AdvancedQueryDialog.triplestoreconf</a>, <a class="el" href="a01137.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a01141.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a01145.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a01149.html#a330d24be0afd5a96238ca9e128328a2d">ImportRDFLayerDialog.triplestoreconf</a>, <a class="el" href="a01153.html#a330d24be0afd5a96238ca9e128328a2d">OntDocDialog.triplestoreconf</a>, <a class="el" href="a01157.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a01161.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepoDialog.triplestoreconf</a>, <a class="el" href="a01165.html#a3c8f4911b6ff46c324750495bb9d7315">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a01173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a01193.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a01197.html#a3c8f4911b6ff46c324750495bb9d7315">SearchDialog.triplestoreconf</a>, <a class="el" href="a01201.html#a3c8f4911b6ff46c324750495bb9d7315">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a01205.html#a3c8f4911b6ff46c324750495bb9d7315">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a01213.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a01233.html#a330d24be0afd5a96238ca9e128328a2d">ExtractLayerTask.triplestoreconf</a>, <a class="el" href="a01241.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationTask.triplestoreconf</a>, <a class="el" href="a01245.html#a330d24be0afd5a96238ca9e128328a2d">LayerMatchingTask.triplestoreconf</a>, <a class="el" href="a01249.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphTask.triplestoreconf</a>, <a class="el" href="a01261.html#a330d24be0afd5a96238ca9e128328a2d">QueryLayerTask.triplestoreconf</a>, <a class="el" href="a01265.html#a330d24be0afd5a96238ca9e128328a2d">QuerySubGraphTask.triplestoreconf</a>, <a class="el" href="a01269.html#a330d24be0afd5a96238ca9e128328a2d">ClassTreeQueryTask.triplestoreconf</a>, <a class="el" href="a01273.html#a330d24be0afd5a96238ca9e128328a2d">DataSampleQueryTask.triplestoreconf</a>, <a class="el" href="a01277.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaQueryTask.triplestoreconf</a>, <a class="el" href="a01281.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInBBOXTask.triplestoreconf</a>, <a class="el" href="a01285.html#a330d24be0afd5a96238ca9e128328a2d">FindRelatedConceptQueryTask.triplestoreconf</a>, <a class="el" href="a01289.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a01293.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a01297.html#a330d24be0afd5a96238ca9e128328a2d">InstanceSampleQueryTask.triplestoreconf</a>, <a class="el" href="a01301.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaQueryTask.triplestoreconf</a>, <a class="el" href="a01305.html#a330d24be0afd5a96238ca9e128328a2d">SubClassQueryTask.triplestoreconf</a>, <a class="el" href="a01309.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentQueryTask.triplestoreconf</a>, <a class="el" href="a01313.html#a330d24be0afd5a96238ca9e128328a2d">WhatToEnrichQueryTask.triplestoreconf</a>, <a class="el" href="a01317.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInAreaTask.triplestoreconf</a>, <a class="el" href="a01321.html#a330d24be0afd5a96238ca9e128328a2d">InstanceAmountQueryTask.triplestoreconf</a>, <a class="el" href="a01325.html#a330d24be0afd5a96238ca9e128328a2d">InstanceListQueryTask.triplestoreconf</a>, <a class="el" href="a01329.html#a330d24be0afd5a96238ca9e128328a2d">InstanceQueryTask.triplestoreconf</a>, <a class="el" href="a01333.html#a330d24be0afd5a96238ca9e128328a2d">SearchTask.triplestoreconf</a>, <a class="el" href="a01337.html#a330d24be0afd5a96238ca9e128328a2d">FindStyleQueryTask.triplestoreconf</a>, <a class="el" href="a01341.html#a330d24be0afd5a96238ca9e128328a2d">GetStyleQueryTask.triplestoreconf</a>, <a class="el" href="a01345.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a01349.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepositorySyncTask.triplestoreconf</a>, <a class="el" href="a01601.html#a330d24be0afd5a96238ca9e128328a2d">PointMapTool.triplestoreconf</a>, <a class="el" href="a01621.html#a330d24be0afd5a96238ca9e128328a2d">ToolTipPlainText.triplestoreconf</a>, <a class="el" href="a01089.html#a2f954fc5a00f58cea3af99dea474bab7">TripleStoreDialog.tripleStoreEdit</a>, <a class="el" href="a01157.html#a2f954fc5a00f58cea3af99dea474bab7">TripleStoreQuickAddDialog.tripleStoreEdit</a>, <a class="el" href="a01197.html#a2f954fc5a00f58cea3af99dea474bab7">SearchDialog.tripleStoreEdit</a>, and <a class="el" href="a01333.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
+
+</div>
+</div>
+<a id="a57b9f50e7466961f1a162b3ed7c87037" name="a57b9f50e7466961f1a162b3ed7c87037"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57b9f50e7466961f1a162b3ed7c87037">&#9670;&#160;</a></span>buildSearchDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">buildSearchDialog </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>interlinkOrEnrich</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>table</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds the search dialog for the concept search. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+    <tr><td class="paramname">row</td><td>The row for enrichment </td></tr>
+    <tr><td class="paramname">column</td><td>The column for enrichment </td></tr>
+    <tr><td class="paramname">interlinkOrEnrich</td><td>Indicates if enrichment or interlinking is calling this dialog </td></tr>
+    <tr><td class="paramname">table</td><td>The UI element used for displaying results </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><span class="lineno">  184</span>    <span class="keyword">def </span>buildSearchDialog(self, row, column, interlinkOrEnrich, table):</div>
+<div class="line"><span class="lineno">  185</span>        self.currentcol = column</div>
+<div class="line"><span class="lineno">  186</span>        self.currentrow = row</div>
+<div class="line"><span class="lineno">  187</span>        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, self.languagemap, interlinkOrEnrich, table,</div>
+<div class="line"><span class="lineno">  188</span>                                            <span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  189</span>        self.interlinkdialog.setMinimumSize(650, 500)</div>
+<div class="line"><span class="lineno">  190</span>        self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Search Property or Class&quot;</span>)</div>
+<div class="line"><span class="lineno">  191</span>        self.interlinkdialog.exec()</div>
+<div class="line"><span class="lineno">  192</span> </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a01621.html#a696eab5a4fa439c62e62525d716742e2">ToolTipPlainText.keyPressEvent()</a>.</p>
+
+</div>
+</div>
+<a id="a851b78d2c5e3e167443f05d1f4cd0aa2" name="a851b78d2c5e3e167443f05d1f4cd0aa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a851b78d2c5e3e167443f05d1f4cd0aa2">&#9670;&#160;</a></span>createValueMappingSearchDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">createValueMappingSearchDialog </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  149</span>    <span class="keyword">def </span>createValueMappingSearchDialog(self, row=-1, column=-1):</div>
+<div class="line"><span class="lineno">  150</span>        self.buildSearchDialog(row, column, -1, self.conceptSearchEdit)</div>
+<div class="line"><span class="lineno">  151</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a32036992c6b701e352e0567902eb1a04" name="a32036992c6b701e352e0567902eb1a04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32036992c6b701e352e0567902eb1a04">&#9670;&#160;</a></span>getAttributeStatistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getAttributeStatistics </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>concept</em> = <code>&quot;wd:Q3914&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>endpoint_url</em> = <code>&quot;https://query.wikidata.org/sparql&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>labellang</em> = <code>&quot;en&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>inarea</em> = <code>&quot;wd:Q183&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gives statistics about most commonly occuring properties from a certain class in a given triple store. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The object pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of properties with their occurance given in percent </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  199</span>                               labellang=<span class="stringliteral">&quot;en&quot;</span>, inarea=<span class="stringliteral">&quot;wd:Q183&quot;</span>):</div>
+<div class="line"><span class="lineno">  200</span>        self.stackedWidget.setCurrentWidget(self.stackedWidget.widget(2))</div>
+<div class="line"><span class="lineno">  201</span>        <span class="keywordflow">if</span> self.conceptSearchEdit.text() == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  202</span>            <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  203</span>        progress = QProgressDialog(<span class="stringliteral">&quot;Executing enrichment search query....&quot;</span>, <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><span class="lineno">  204</span>        progress.setWindowModality(Qt.WindowModality.WindowModal)</div>
+<div class="line"><span class="lineno">  205</span>        progress.setWindowIcon(UIUtils.sparqlunicornicon)</div>
+<div class="line"><span class="lineno">  206</span>        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><span class="lineno">  207</span>        conceptstoenrich=[]</div>
+<div class="line"><span class="lineno">  208</span>        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.tablemodel2.rowCount(self.matchingConceptsResult.rootIndex())):</div>
+<div class="line"><span class="lineno">  209</span>            child_index = self.tablemodel2.index(row, 0, self.matchingConceptsResult.rootIndex())</div>
+<div class="line"><span class="lineno">  210</span>            conceptstoenrich.append(child_index.data(0))</div>
+<div class="line"><span class="lineno">  211</span>        self.qtask = DataSchemaQueryTask(f<span class="stringliteral">&quot;Get Property Enrichment Candidates ({self.conceptSearchEdit.text()})&quot;</span>,</div>
+<div class="line"><span class="lineno">  212</span>                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><span class="lineno">  213</span>                                           SPARQLUtils.queryPreProcessing(self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;whattoenrichquery&quot;</span>],self.triplestoreconf,self.conceptSearchEdit.text(),<span class="keyword">False</span>),</div>
+<div class="line"><span class="lineno">  214</span>                                           self.conceptSearchEdit.text(),</div>
+<div class="line"><span class="lineno">  215</span>                                           self.prefixes[self.tripleStoreEdit.currentIndex()] <span class="keywordflow">if</span> self.tripleStoreEdit.currentIndex() <span class="keywordflow">in</span> self.prefixes <span class="keywordflow">else</span> <span class="keywordtype">None</span>,</div>
+<div class="line"><span class="lineno">  216</span>                                           self.tablemodel,</div>
+<div class="line"><span class="lineno">  217</span>                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex()],</div>
+<div class="line"><span class="lineno">  218</span>                                           progress,</div>
+<div class="line"><span class="lineno">  219</span>                                           self,<span class="keywordtype">None</span>,conceptstoenrich)</div>
+<div class="line"><span class="lineno">  220</span>        QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><span class="lineno">  221</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01165.html#aef8693315516631fd8a8106a654055d2">EnrichmentDialog.conceptSearchEdit</a>, <a class="el" href="a01165.html#a4ddd9dada5f49804b3cd0a8f67002a7d">EnrichmentDialog.matchingConceptsResult</a>, <a class="el" href="a01089.html#a302e350558edcbbd7b85927b33550548">TripleStoreDialog.prefixes</a>, <a class="el" href="a01093.html#a302e350558edcbbd7b85927b33550548">DataSchemaDialog.prefixes</a>, <a class="el" href="a01101.html#a302e350558edcbbd7b85927b33550548">InstanceDataDialog.prefixes</a>, <a class="el" href="a01105.html#a302e350558edcbbd7b85927b33550548">PropertySchemaDialog.prefixes</a>, <a class="el" href="a01113.html#a302e350558edcbbd7b85927b33550548">DetectTripleStoreResultDialog.prefixes</a>, <a class="el" href="a01121.html#a302e350558edcbbd7b85927b33550548">ConceptContextMenu.prefixes</a>, <a class="el" href="a01129.html#a302e350558edcbbd7b85927b33550548">SPARQLunicornDialog.prefixes</a>, <a class="el" href="a01133.html#a302e350558edcbbd7b85927b33550548">AdvancedQueryDialog.prefixes</a>, <a class="el" href="a01137.html#a302e350558edcbbd7b85927b33550548">ConvertCRSDialog.prefixes</a>, <a class="el" href="a01141.html#a302e350558edcbbd7b85927b33550548">ConvertLayerDialog.prefixes</a>, <a class="el" href="a01145.html#a302e350558edcbbd7b85927b33550548">GraphValidationDialog.prefixes</a>, <a class="el" href="a01149.html#a302e350558edcbbd7b85927b33550548">ImportRDFLayerDialog.prefixes</a>, <a class="el" href="a01153.html#a302e350558edcbbd7b85927b33550548">OntDocDialog.prefixes</a>, <a class="el" href="a01157.html#a302e350558edcbbd7b85927b33550548">TripleStoreQuickAddDialog.prefixes</a>, <a class="el" href="a01161.html#a302e350558edcbbd7b85927b33550548">TripleStoreRepoDialog.prefixes</a>, <a class="el" href="a01165.html#a302e350558edcbbd7b85927b33550548">EnrichmentDialog.prefixes</a>, <a class="el" href="a01197.html#a302e350558edcbbd7b85927b33550548">SearchDialog.prefixes</a>, <a class="el" href="a01213.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>, <a class="el" href="a01229.html#a302e350558edcbbd7b85927b33550548">ConvertLayerTask.prefixes</a>, <a class="el" href="a01233.html#a302e350558edcbbd7b85927b33550548">ExtractLayerTask.prefixes</a>, <a class="el" href="a01237.html#a302e350558edcbbd7b85927b33550548">ExtractNamespaceTask.prefixes</a>, <a class="el" href="a01257.html#a302e350558edcbbd7b85927b33550548">OntDocTask.prefixes</a>, <a class="el" href="a01277.html#a302e350558edcbbd7b85927b33550548">DataSchemaQueryTask.prefixes</a>, <a class="el" href="a01301.html#a302e350558edcbbd7b85927b33550548">PropertySchemaQueryTask.prefixes</a>, <a class="el" href="a01313.html#a302e350558edcbbd7b85927b33550548">WhatToEnrichQueryTask.prefixes</a>, <a class="el" href="a01329.html#a302e350558edcbbd7b85927b33550548">InstanceQueryTask.prefixes</a>, <a class="el" href="a01333.html#a302e350558edcbbd7b85927b33550548">SearchTask.prefixes</a>, <a class="el" href="a01345.html#a302e350558edcbbd7b85927b33550548">DetectTripleStoreTask.prefixes</a>, <a class="el" href="a01621.html#a302e350558edcbbd7b85927b33550548">ToolTipPlainText.prefixes</a>, <a class="el" href="a01089.html#a09dec5fb4a23fd0028407eddbe26cc16">TripleStoreDialog.qtask</a>, <a class="el" href="a01093.html#a09dec5fb4a23fd0028407eddbe26cc16">DataSchemaDialog.qtask</a>, <a class="el" href="a01097.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphRelationViewDialog.qtask</a>, <a class="el" href="a01101.html#a09dec5fb4a23fd0028407eddbe26cc16">InstanceDataDialog.qtask</a>, <a class="el" href="a01105.html#a09dec5fb4a23fd0028407eddbe26cc16">PropertySchemaDialog.qtask</a>, <a class="el" href="a01129.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicornDialog.qtask</a>, <a class="el" href="a01133.html#a09dec5fb4a23fd0028407eddbe26cc16">AdvancedQueryDialog.qtask</a>, <a class="el" href="a01137.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a01141.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertLayerDialog.qtask</a>, <a class="el" href="a01145.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphValidationDialog.qtask</a>, <a class="el" href="a01149.html#a09dec5fb4a23fd0028407eddbe26cc16">ImportRDFLayerDialog.qtask</a>, <a class="el" href="a01153.html#a09dec5fb4a23fd0028407eddbe26cc16">OntDocDialog.qtask</a>, <a class="el" href="a01157.html#a09dec5fb4a23fd0028407eddbe26cc16">TripleStoreQuickAddDialog.qtask</a>, <a class="el" href="a01161.html#a09dec5fb4a23fd0028407eddbe26cc16">TripleStoreRepoDialog.qtask</a>, <a class="el" href="a01165.html#a09dec5fb4a23fd0028407eddbe26cc16">EnrichmentDialog.qtask</a>, <a class="el" href="a01197.html#a09dec5fb4a23fd0028407eddbe26cc16">SearchDialog.qtask</a>, <a class="el" href="a01201.html#a09dec5fb4a23fd0028407eddbe26cc16">UploadRDFDialog.qtask</a>, <a class="el" href="a01213.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a01217.html#a09dec5fb4a23fd0028407eddbe26cc16">EnrichmentTab.qtask</a>, <a class="el" href="a01221.html#a09dec5fb4a23fd0028407eddbe26cc16">InterlinkingTab.qtask</a>, <a class="el" href="a01093.html#a9f0c3e689661481a4da4ddb082c013f4">DataSchemaDialog.tablemodel</a>, <a class="el" href="a01097.html#a9f0c3e689661481a4da4ddb082c013f4">GraphRelationViewDialog.tablemodel</a>, <a class="el" href="a01101.html#a9f0c3e689661481a4da4ddb082c013f4">InstanceDataDialog.tablemodel</a>, <a class="el" href="a01105.html#a9f0c3e689661481a4da4ddb082c013f4">PropertySchemaDialog.tablemodel</a>, <a class="el" href="a01133.html#a9f0c3e689661481a4da4ddb082c013f4">AdvancedQueryDialog.tablemodel</a>, <a class="el" href="a01165.html#a9f0c3e689661481a4da4ddb082c013f4">EnrichmentDialog.tablemodel</a>, <a class="el" href="a01245.html#a9f0c3e689661481a4da4ddb082c013f4">LayerMatchingTask.tablemodel</a>, <a class="el" href="a01165.html#a6137aef73caf41c68c2be3550f14aba1">EnrichmentDialog.tablemodel2</a>, <a class="el" href="a01089.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a01093.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a01097.html#a330d24be0afd5a96238ca9e128328a2d">GraphRelationViewDialog.triplestoreconf</a>, <a class="el" href="a01101.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a01105.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaDialog.triplestoreconf</a>, <a class="el" href="a01113.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreResultDialog.triplestoreconf</a>, <a class="el" href="a01121.html#a330d24be0afd5a96238ca9e128328a2d">ConceptContextMenu.triplestoreconf</a>, <a class="el" href="a01125.html#a330d24be0afd5a96238ca9e128328a2d">TabContextMenu.triplestoreconf</a>, <a class="el" href="a01129.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a01133.html#a330d24be0afd5a96238ca9e128328a2d">AdvancedQueryDialog.triplestoreconf</a>, <a class="el" href="a01137.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a01141.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a01145.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a01149.html#a330d24be0afd5a96238ca9e128328a2d">ImportRDFLayerDialog.triplestoreconf</a>, <a class="el" href="a01153.html#a330d24be0afd5a96238ca9e128328a2d">OntDocDialog.triplestoreconf</a>, <a class="el" href="a01157.html#a3c8f4911b6ff46c324750495bb9d7315">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a01161.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepoDialog.triplestoreconf</a>, <a class="el" href="a01165.html#a3c8f4911b6ff46c324750495bb9d7315">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a01173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a01193.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a01197.html#a3c8f4911b6ff46c324750495bb9d7315">SearchDialog.triplestoreconf</a>, <a class="el" href="a01201.html#a3c8f4911b6ff46c324750495bb9d7315">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a01205.html#a3c8f4911b6ff46c324750495bb9d7315">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a01213.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a01233.html#a330d24be0afd5a96238ca9e128328a2d">ExtractLayerTask.triplestoreconf</a>, <a class="el" href="a01241.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationTask.triplestoreconf</a>, <a class="el" href="a01245.html#a330d24be0afd5a96238ca9e128328a2d">LayerMatchingTask.triplestoreconf</a>, <a class="el" href="a01249.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphTask.triplestoreconf</a>, <a class="el" href="a01261.html#a330d24be0afd5a96238ca9e128328a2d">QueryLayerTask.triplestoreconf</a>, <a class="el" href="a01265.html#a330d24be0afd5a96238ca9e128328a2d">QuerySubGraphTask.triplestoreconf</a>, <a class="el" href="a01269.html#a330d24be0afd5a96238ca9e128328a2d">ClassTreeQueryTask.triplestoreconf</a>, <a class="el" href="a01273.html#a330d24be0afd5a96238ca9e128328a2d">DataSampleQueryTask.triplestoreconf</a>, <a class="el" href="a01277.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaQueryTask.triplestoreconf</a>, <a class="el" href="a01281.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInBBOXTask.triplestoreconf</a>, <a class="el" href="a01285.html#a330d24be0afd5a96238ca9e128328a2d">FindRelatedConceptQueryTask.triplestoreconf</a>, <a class="el" href="a01289.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a01293.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a01297.html#a330d24be0afd5a96238ca9e128328a2d">InstanceSampleQueryTask.triplestoreconf</a>, <a class="el" href="a01301.html#a330d24be0afd5a96238ca9e128328a2d">PropertySchemaQueryTask.triplestoreconf</a>, <a class="el" href="a01305.html#a330d24be0afd5a96238ca9e128328a2d">SubClassQueryTask.triplestoreconf</a>, <a class="el" href="a01309.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentQueryTask.triplestoreconf</a>, <a class="el" href="a01313.html#a330d24be0afd5a96238ca9e128328a2d">WhatToEnrichQueryTask.triplestoreconf</a>, <a class="el" href="a01317.html#a330d24be0afd5a96238ca9e128328a2d">FindFeaturesInAreaTask.triplestoreconf</a>, <a class="el" href="a01321.html#a330d24be0afd5a96238ca9e128328a2d">InstanceAmountQueryTask.triplestoreconf</a>, <a class="el" href="a01325.html#a330d24be0afd5a96238ca9e128328a2d">InstanceListQueryTask.triplestoreconf</a>, <a class="el" href="a01329.html#a330d24be0afd5a96238ca9e128328a2d">InstanceQueryTask.triplestoreconf</a>, <a class="el" href="a01333.html#a330d24be0afd5a96238ca9e128328a2d">SearchTask.triplestoreconf</a>, <a class="el" href="a01337.html#a330d24be0afd5a96238ca9e128328a2d">FindStyleQueryTask.triplestoreconf</a>, <a class="el" href="a01341.html#a330d24be0afd5a96238ca9e128328a2d">GetStyleQueryTask.triplestoreconf</a>, <a class="el" href="a01345.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a01349.html#a330d24be0afd5a96238ca9e128328a2d">TripleStoreRepositorySyncTask.triplestoreconf</a>, <a class="el" href="a01601.html#a330d24be0afd5a96238ca9e128328a2d">PointMapTool.triplestoreconf</a>, <a class="el" href="a01621.html#a330d24be0afd5a96238ca9e128328a2d">ToolTipPlainText.triplestoreconf</a>, <a class="el" href="a01089.html#a2f954fc5a00f58cea3af99dea474bab7">TripleStoreDialog.tripleStoreEdit</a>, <a class="el" href="a01157.html#a2f954fc5a00f58cea3af99dea474bab7">TripleStoreQuickAddDialog.tripleStoreEdit</a>, <a class="el" href="a01197.html#a2f954fc5a00f58cea3af99dea474bab7">SearchDialog.tripleStoreEdit</a>, and <a class="el" href="a01333.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
+
+</div>
+</div>
+<a id="a9e6600341cffb10c7cda6509ec87e3f9" name="a9e6600341cffb10c7cda6509ec87e3f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e6600341cffb10c7cda6509ec87e3f9">&#9670;&#160;</a></span>loadSamples()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">loadSamples </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>modelindex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  161</span>    <span class="keyword">def </span>loadSamples(self,modelindex):</div>
+<div class="line"><span class="lineno">  162</span>        row=modelindex.row()</div>
+<div class="line"><span class="lineno">  163</span>        column=modelindex.column()</div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">if</span> column==2 <span class="keywordflow">and</span> row <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.alreadyloadedSample <span class="keywordflow">and</span> row!=self.searchResult.model().rowCount()-1:</div>
+<div class="line"><span class="lineno">  165</span>            relation = str(self.searchResult.model().index(row, column-1).data(256))</div>
+<div class="line"><span class="lineno">  166</span>            self.qtask2 = DataSampleQueryTask(f<span class="stringliteral">&quot;Querying data sample.... ({relation})&quot;</span>,</div>
+<div class="line"><span class="lineno">  167</span>                                             self.triplestoreurl,</div>
+<div class="line"><span class="lineno">  168</span>                                             self,</div>
+<div class="line"><span class="lineno">  169</span>                                             self.conceptSearchEdit.text(),</div>
+<div class="line"><span class="lineno">  170</span>                                             relation,</div>
+<div class="line"><span class="lineno">  171</span>                                             column,row,self.triplestoreconf[self.tripleStoreEdit.currentIndex()],</div>
+<div class="line"><span class="lineno">  172</span>                                              self.tablemodel,<span class="keywordtype">None</span>,SPARQLUtils.geoclassnode)</div>
+<div class="line"><span class="lineno">  173</span>            QgsApplication.taskManager().addTask(self.qtask2)</div>
+<div class="line"><span class="lineno">  174</span>            self.alreadyloadedSample.append(row)</div>
+<div class="line"><span class="lineno">  175</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01093.html#acf65a34531091c482d3844fac8a32f6d">DataSchemaDialog.alreadyloadedSample</a>, <a class="el" href="a01101.html#acf65a34531091c482d3844fac8a32f6d">InstanceDataDialog.alreadyloadedSample</a>, <a class="el" href="a01105.html#acf65a34531091c482d3844fac8a32f6d">PropertySchemaDialog.alreadyloadedSample</a>, <a class="el" href="a01165.html#acf65a34531091c482d3844fac8a32f6d">EnrichmentDialog.alreadyloadedSample</a>, <a class="el" href="a01165.html#a0e243f776f08c4dd077c3bca68a755a2">EnrichmentDialog.searchResult</a>, <a class="el" href="a01197.html#a0e243f776f08c4dd077c3bca68a755a2">SearchDialog.searchResult</a>, <a class="el" href="a01285.html#a0e243f776f08c4dd077c3bca68a755a2">FindRelatedConceptQueryTask.searchResult</a>, <a class="el" href="a01313.html#a0e243f776f08c4dd077c3bca68a755a2">WhatToEnrichQueryTask.searchResult</a>, and <a class="el" href="a01333.html#a0e243f776f08c4dd077c3bca68a755a2">SearchTask.searchResult</a>.</p>
+
+</div>
+</div>
+<a id="a778227560be40bd575cbf42e7ef0d404" name="a778227560be40bd575cbf42e7ef0d404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a778227560be40bd575cbf42e7ef0d404">&#9670;&#160;</a></span>matchConceptsForIdentifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">matchConceptsForIdentifier </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  133</span>    <span class="keyword">def </span>matchConceptsForIdentifier(self):</div>
+<div class="line"><span class="lineno">  134</span>        self.qtask3 = LayerMatchingTask(<span class="stringliteral">&quot;Matching candidates for chosen layer....&quot;</span>,</div>
+<div class="line"><span class="lineno">  135</span>                                          <span class="keywordtype">None</span>,</div>
+<div class="line"><span class="lineno">  136</span>                                          self.layer,</div>
+<div class="line"><span class="lineno">  137</span>                                          self.idCBox.currentIndex(),</div>
+<div class="line"><span class="lineno">  138</span>                                          self.matchCBox.currentText(),</div>
+<div class="line"><span class="lineno">  139</span>                                          self, self.triplestoreconf[self.tripleStoreEdit.currentIndex()],</div>
+<div class="line"><span class="lineno">  140</span>                                          self.conceptSearchEdit.text(),self.tablemodel2,self.languageComboBox.currentData(UIUtils.dataslot_language))</div>
+<div class="line"><span class="lineno">  141</span>        QgsApplication.taskManager().addTask(self.qtask3)</div>
+<div class="line"><span class="lineno">  142</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a72a4c9d48a23002ca9e44644841bd891" name="a72a4c9d48a23002ca9e44644841bd891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72a4c9d48a23002ca9e44644841bd891">&#9670;&#160;</a></span>searchResultObtained()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">searchResultObtained </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  123</span>    <span class="keyword">def </span>searchResultObtained(self,text):</div>
+<div class="line"><span class="lineno">  124</span>        QgsMessageLog.logMessage(<span class="stringliteral">&quot;FILEPATH: &quot;</span> + str(text), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">if</span> text[0].isdigit():</div>
+<div class="line"><span class="lineno">  126</span>            spl=text.split(<span class="stringliteral">&quot;_&quot;</span>)</div>
+<div class="line"><span class="lineno">  127</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;FILEPATH: &quot;</span> + str(spl), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  128</span>            self.tripleStoreEdit.setCurrentIndex(int(spl[0]))</div>
+<div class="line"><span class="lineno">  129</span>            self.conceptSearchEdit.setText(spl[1])</div>
+<div class="line"><span class="lineno">  130</span>            self.matchingGroupBox.show()</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01165.html#aef8693315516631fd8a8106a654055d2">EnrichmentDialog.conceptSearchEdit</a>, <a class="el" href="a01089.html#a2f954fc5a00f58cea3af99dea474bab7">TripleStoreDialog.tripleStoreEdit</a>, <a class="el" href="a01157.html#a2f954fc5a00f58cea3af99dea474bab7">TripleStoreQuickAddDialog.tripleStoreEdit</a>, <a class="el" href="a01197.html#a2f954fc5a00f58cea3af99dea474bab7">SearchDialog.tripleStoreEdit</a>, and <a class="el" href="a01333.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
+
+</div>
+</div>
+<a id="a5f9ed403d1ada1a07cefed6a1ea34ce1" name="a5f9ed403d1ada1a07cefed6a1ea34ce1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f9ed403d1ada1a07cefed6a1ea34ce1">&#9670;&#160;</a></span>toggleSelect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">toggleSelect </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><span class="lineno">  152</span>    <span class="keyword">def </span>toggleSelect(self):</div>
+<div class="line"><span class="lineno">  153</span>        self.selected=<span class="keywordflow">not</span> self.selected</div>
+<div class="line"><span class="lineno">  154</span>        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.tablemodel.rowCount()):</div>
+<div class="line"><span class="lineno">  155</span>            <span class="keywordflow">if</span> self.selected:</div>
+<div class="line"><span class="lineno">  156</span>                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Checked)</div>
+<div class="line"><span class="lineno">  157</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  158</span>                self.tablemodel.item(row, 0).setCheckState(Qt.CheckState.Unchecked)</div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span> </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a01093.html#a2224ec0958a602aef926b6a3715e094e">DataSchemaDialog.selected</a>, <a class="el" href="a01101.html#a2224ec0958a602aef926b6a3715e094e">InstanceDataDialog.selected</a>, <a class="el" href="a01105.html#a2224ec0958a602aef926b6a3715e094e">PropertySchemaDialog.selected</a>, <a class="el" href="a01165.html#a2224ec0958a602aef926b6a3715e094e">EnrichmentDialog.selected</a>, <a class="el" href="a01093.html#a9f0c3e689661481a4da4ddb082c013f4">DataSchemaDialog.tablemodel</a>, <a class="el" href="a01097.html#a9f0c3e689661481a4da4ddb082c013f4">GraphRelationViewDialog.tablemodel</a>, <a class="el" href="a01101.html#a9f0c3e689661481a4da4ddb082c013f4">InstanceDataDialog.tablemodel</a>, <a class="el" href="a01105.html#a9f0c3e689661481a4da4ddb082c013f4">PropertySchemaDialog.tablemodel</a>, <a class="el" href="a01133.html#a9f0c3e689661481a4da4ddb082c013f4">AdvancedQueryDialog.tablemodel</a>, <a class="el" href="a01165.html#a9f0c3e689661481a4da4ddb082c013f4">EnrichmentDialog.tablemodel</a>, and <a class="el" href="a01245.html#a9f0c3e689661481a4da4ddb082c013f4">LayerMatchingTask.tablemodel</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="acf65a34531091c482d3844fac8a32f6d" name="acf65a34531091c482d3844fac8a32f6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf65a34531091c482d3844fac8a32f6d">&#9670;&#160;</a></span>alreadyloadedSample</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">alreadyloadedSample</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01093.html#a9e6600341cffb10c7cda6509ec87e3f9">DataSchemaDialog.loadSamples()</a>, <a class="el" href="a01105.html#a9e6600341cffb10c7cda6509ec87e3f9">PropertySchemaDialog.loadSamples()</a>, and <a class="el" href="a01165.html#a9e6600341cffb10c7cda6509ec87e3f9">EnrichmentDialog.loadSamples()</a>.</p>
+
+</div>
+</div>
+<a id="ae2a61e8c946cec446e022b7e62b54768" name="ae2a61e8c946cec446e022b7e62b54768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2a61e8c946cec446e022b7e62b54768">&#9670;&#160;</a></span>applyConceptToColumn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">applyConceptToColumn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a89f25b52ad6e937437ba0b4585d05d78" name="a89f25b52ad6e937437ba0b4585d05d78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89f25b52ad6e937437ba0b4585d05d78">&#9670;&#160;</a></span>classid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">classid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef8693315516631fd8a8106a654055d2" name="aef8693315516631fd8a8106a654055d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8693315516631fd8a8106a654055d2">&#9670;&#160;</a></span>conceptSearchEdit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">conceptSearchEdit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a01197.html#ad810e5eabf892aaec027a16a9534a8e5">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a01205.html#ad810e5eabf892aaec027a16a9534a8e5">ValueMappingDialog.getClassesFromLabel()</a>, and <a class="el" href="a01165.html#a72a4c9d48a23002ca9e44644841bd891">EnrichmentDialog.searchResultObtained()</a>.</p>
+
+</div>
+</div>
+<a id="ae807eb1a257f835894d74bf70f2ff883" name="ae807eb1a257f835894d74bf70f2ff883"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae807eb1a257f835894d74bf70f2ff883">&#9670;&#160;</a></span>createValueMappingSearchDialog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">createValueMappingSearchDialog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a486aeee0a5d3170bc193bc29caf8a7b8" name="a486aeee0a5d3170bc193bc29caf8a7b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486aeee0a5d3170bc193bc29caf8a7b8">&#9670;&#160;</a></span>currentcol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">currentcol</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a01205.html#ab4a0ff7ecb35358bb38cbc0f1e5e8090">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a01205.html#a57b9f50e7466961f1a162b3ed7c87037">ValueMappingDialog.buildSearchDialog()</a>, <a class="el" href="a01129.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>, and <a class="el" href="a01205.html#ad810e5eabf892aaec027a16a9534a8e5">ValueMappingDialog.getClassesFromLabel()</a>.</p>
+
+</div>
+</div>
+<a id="a93c11e539824b92f020be72e4a876617" name="a93c11e539824b92f020be72e4a876617"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c11e539824b92f020be72e4a876617">&#9670;&#160;</a></span>currentrow <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -158,29 +944,477 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">_</td>
+          <td class="memname">str currentrow = &quot;&quot;</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p class="reference">Referenced by <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a01205.html#ab4a0ff7ecb35358bb38cbc0f1e5e8090">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a01205.html#a57b9f50e7466961f1a162b3ed7c87037">ValueMappingDialog.buildSearchDialog()</a>, and <a class="el" href="a01129.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>.</p>
+
 </div>
 </div>
-<a id="a0357d3c7a5047524e1543f2f43bc3e38" name="a0357d3c7a5047524e1543f2f43bc3e38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0357d3c7a5047524e1543f2f43bc3e38">&#9670;&#160;</a></span>FORM_CLASS</h2>
+<a id="a086f47cacf997373ef862200fcfb4612" name="a086f47cacf997373ef862200fcfb4612"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a086f47cacf997373ef862200fcfb4612">&#9670;&#160;</a></span>currentrow <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a07553.html">FORM_CLASS</a></td>
+          <td class="memname">currentrow</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a01205.html#ab4a0ff7ecb35358bb38cbc0f1e5e8090">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a01205.html#a57b9f50e7466961f1a162b3ed7c87037">ValueMappingDialog.buildSearchDialog()</a>, and <a class="el" href="a01129.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>.</p>
+
+</div>
+</div>
+<a id="afa736d201198c3312f2d2c6f7f534880" name="afa736d201198c3312f2d2c6f7f534880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa736d201198c3312f2d2c6f7f534880">&#9670;&#160;</a></span>enrichtable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichtable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>.</p>
+
+</div>
+</div>
+<a id="a6d828fa188e4fc612101d64e2c7de582" name="a6d828fa188e4fc612101d64e2c7de582"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d828fa188e4fc612101d64e2c7de582">&#9670;&#160;</a></span>filter_proxy_model</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">filter_proxy_model</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab48b62232dd874a44c51d15d0da4b913" name="ab48b62232dd874a44c51d15d0da4b913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab48b62232dd874a44c51d15d0da4b913">&#9670;&#160;</a></span>filter_proxy_model2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">filter_proxy_model2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4de6785e4c52a306fbecb8ff7bb882fa" name="a4de6785e4c52a306fbecb8ff7bb882fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de6785e4c52a306fbecb8ff7bb882fa">&#9670;&#160;</a></span>getAttributeStatistics</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getAttributeStatistics</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a816bebaf94e989ec4293bfee7a615a98" name="a816bebaf94e989ec4293bfee7a615a98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816bebaf94e989ec4293bfee7a615a98">&#9670;&#160;</a></span>interlinkdialog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">interlinkdialog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01129.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>, and <a class="el" href="a01621.html#af447b71a2e187f5fee44cba451b564e8">ToolTipPlainText.createVarInputDialog()</a>.</p>
+
+</div>
+</div>
+<a id="a22becd814f00141dbdbb9167f5b9551f" name="a22becd814f00141dbdbb9167f5b9551f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22becd814f00141dbdbb9167f5b9551f">&#9670;&#160;</a></span>interlinkOrEnrich</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool interlinkOrEnrich = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>.</p>
+
+</div>
+</div>
+<a id="a29599b806d279b922daaba0fd2517fee" name="a29599b806d279b922daaba0fd2517fee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29599b806d279b922daaba0fd2517fee">&#9670;&#160;</a></span>languageComboBox</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">languageComboBox</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>.</p>
+
+</div>
+</div>
+<a id="a399a9e2610a521ee23b0655ac3324037" name="a399a9e2610a521ee23b0655ac3324037"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a399a9e2610a521ee23b0655ac3324037">&#9670;&#160;</a></span>languagemap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">languagemap</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01621.html#af447b71a2e187f5fee44cba451b564e8">ToolTipPlainText.createVarInputDialog()</a>, and <a class="el" href="a01213.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>.</p>
+
+</div>
+</div>
+<a id="a95f2e9e3b2b2d837f962bcfb58a2011e" name="a95f2e9e3b2b2d837f962bcfb58a2011e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95f2e9e3b2b2d837f962bcfb58a2011e">&#9670;&#160;</a></span>layer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">layer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a01309.html#a2df94208700932ceb7ae3b3fda36840c">EnrichmentQueryTask.finished()</a>, <a class="el" href="a01229.html#a08060e0924949738f75a0cdd8b49cef4">ConvertLayerTask.run()</a>, and <a class="el" href="a01309.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="aec96fd78e346ce7c64f88869b2124688" name="aec96fd78e346ce7c64f88869b2124688"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec96fd78e346ce7c64f88869b2124688">&#9670;&#160;</a></span>loadSamples</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">loadSamples</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a89996d0afe7fabbb3cd6c81ce7b85d51" name="a89996d0afe7fabbb3cd6c81ce7b85d51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89996d0afe7fabbb3cd6c81ce7b85d51">&#9670;&#160;</a></span>matchConceptsForIdentifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">matchConceptsForIdentifier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4ddd9dada5f49804b3cd0a8f67002a7d" name="a4ddd9dada5f49804b3cd0a8f67002a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ddd9dada5f49804b3cd0a8f67002a7d">&#9670;&#160;</a></span>matchingConceptsResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">matchingConceptsResult</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>.</p>
+
+</div>
+</div>
+<a id="a302e350558edcbbd7b85927b33550548" name="a302e350558edcbbd7b85927b33550548"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a302e350558edcbbd7b85927b33550548">&#9670;&#160;</a></span>prefixes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">prefixes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01153.html#a3b4df4651f038dc28a3b345e0f4d930e">OntDocDialog.__init__()</a>, <a class="el" href="a01153.html#a19afc0a374d5594d9e65c16cd9ad0349">OntDocDialog.createDocumentation()</a>, <a class="el" href="a01129.html#a34182ed155a2611f2df9112ff50f2ad7">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a01089.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01157.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreQuickAddDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01213.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a01153.html#a1ef7834e9e71c2cf7434f1610f3d2e50">OntDocDialog.extractNamespaces()</a>, <a class="el" href="a01329.html#a2df94208700932ceb7ae3b3fda36840c">InstanceQueryTask.finished()</a>, <a class="el" href="a01345.html#a2df94208700932ceb7ae3b3fda36840c">DetectTripleStoreTask.finished()</a>, <a class="el" href="a01237.html#a307fc43bfd5900d0e5869440be17077a">ExtractNamespaceTask.finishedCheckableComboBox()</a>, <a class="el" href="a01237.html#ac7eea24b5fa1c707c805a00e81984342">ExtractNamespaceTask.finishedExtractNS()</a>, <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a01621.html#a72e5f097890f4d49eef0b8cc7d9017c2">ToolTipPlainText.insertCompletion()</a>, <a class="el" href="a01197.html#ac2dbb23fc33c7a6b4e14205e5d63110d">SearchDialog.onContext()</a>, <a class="el" href="a01213.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a01229.html#a08060e0924949738f75a0cdd8b49cef4">ConvertLayerTask.run()</a>, <a class="el" href="a01237.html#a08060e0924949738f75a0cdd8b49cef4">ExtractNamespaceTask.run()</a>, <a class="el" href="a01277.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a01141.html#ac4445b598ac9e85920ce138b586f4fa4">ConvertLayerDialog.startConversion()</a>, and <a class="el" href="a01129.html#a4d10de6439952a678109cde5a5e56c1a">SPARQLunicornDialog.validateSPARQL()</a>.</p>
+
+</div>
+</div>
+<a id="a09dec5fb4a23fd0028407eddbe26cc16" name="a09dec5fb4a23fd0028407eddbe26cc16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09dec5fb4a23fd0028407eddbe26cc16">&#9670;&#160;</a></span>qtask</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qtask = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01153.html#a19afc0a374d5594d9e65c16cd9ad0349">OntDocDialog.createDocumentation()</a>, <a class="el" href="a01089.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01157.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreQuickAddDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01217.html#aaa94069381ac845fbd6592b15a9764c5">EnrichmentTab.enrichLayerProcess()</a>, <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a01129.html#a5f47fed089eefda414b6cbc628573625">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a01133.html#afa7300f08d42ea44583ecac17f64b9d7">AdvancedQueryDialog.getRelatedClassStatistics()</a>, <a class="el" href="a01137.html#ade98bf54803773dc57e906ccefc6fe3c">ConvertCRSDialog.loadURI()</a>, <a class="el" href="a01145.html#ade98bf54803773dc57e906ccefc6fe3c">GraphValidationDialog.loadURI()</a>, <a class="el" href="a01137.html#ac4445b598ac9e85920ce138b586f4fa4">ConvertCRSDialog.startConversion()</a>, <a class="el" href="a01141.html#ac4445b598ac9e85920ce138b586f4fa4">ConvertLayerDialog.startConversion()</a>, and <a class="el" href="a01145.html#a7968bc80759dca0838e6c2c666f880d4">GraphValidationDialog.startValidation()</a>.</p>
+
+</div>
+</div>
+<a id="a39b0b293840045c1835cdd6fe7fd92bb" name="a39b0b293840045c1835cdd6fe7fd92bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39b0b293840045c1835cdd6fe7fd92bb">&#9670;&#160;</a></span>qtask2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">qtask2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d50eb3cf3371553e18aeea38638af8f" name="a6d50eb3cf3371553e18aeea38638af8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d50eb3cf3371553e18aeea38638af8f">&#9670;&#160;</a></span>qtask3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">qtask3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e243f776f08c4dd077c3bca68a755a2" name="a0e243f776f08c4dd077c3bca68a755a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e243f776f08c4dd077c3bca68a755a2">&#9670;&#160;</a></span>searchResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">searchResult</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a01313.html#a2df94208700932ceb7ae3b3fda36840c">WhatToEnrichQueryTask.finished()</a>, <a class="el" href="a01333.html#a2df94208700932ceb7ae3b3fda36840c">SearchTask.finished()</a>, <a class="el" href="a01197.html#ad810e5eabf892aaec027a16a9534a8e5">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a01205.html#ad810e5eabf892aaec027a16a9534a8e5">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a01165.html#a9e6600341cffb10c7cda6509ec87e3f9">EnrichmentDialog.loadSamples()</a>, <a class="el" href="a01197.html#ac2dbb23fc33c7a6b4e14205e5d63110d">SearchDialog.onContext()</a>, <a class="el" href="a01285.html#a8c1f19a7d84895ca4d31275e09a73046">FindRelatedConceptQueryTask.processClassResult()</a>, and <a class="el" href="a01285.html#a4de73dcf93c5bf94647640e65cdebce7">FindRelatedConceptQueryTask.processPropertyResult()</a>.</p>
+
+</div>
+</div>
+<a id="a3479004228edd023d5781a2f76918942" name="a3479004228edd023d5781a2f76918942"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3479004228edd023d5781a2f76918942">&#9670;&#160;</a></span>searchResultObtained</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">searchResultObtained</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2224ec0958a602aef926b6a3715e094e" name="a2224ec0958a602aef926b6a3715e094e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2224ec0958a602aef926b6a3715e094e">&#9670;&#160;</a></span>selected</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">selected</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01093.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">DataSchemaDialog.toggleSelect()</a>, <a class="el" href="a01101.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">InstanceDataDialog.toggleSelect()</a>, <a class="el" href="a01105.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">PropertySchemaDialog.toggleSelect()</a>, and <a class="el" href="a01165.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">EnrichmentDialog.toggleSelect()</a>.</p>
+
+</div>
+</div>
+<a id="a3b17a1723250cdd4893939874c1f91bb" name="a3b17a1723250cdd4893939874c1f91bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b17a1723250cdd4893939874c1f91bb">&#9670;&#160;</a></span>statusBarLabel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">statusBarLabel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab31a20ab07de26623b45757ffb619144" name="ab31a20ab07de26623b45757ffb619144"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab31a20ab07de26623b45757ffb619144">&#9670;&#160;</a></span>table</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool table = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a01205.html#ab4a0ff7ecb35358bb38cbc0f1e5e8090">ValueMappingDialog.applyMapping()</a>, and <a class="el" href="a01309.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="a9f0c3e689661481a4da4ddb082c013f4" name="a9f0c3e689661481a4da4ddb082c013f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f0c3e689661481a4da4ddb082c013f4">&#9670;&#160;</a></span>tablemodel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tablemodel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a01245.html#a2df94208700932ceb7ae3b3fda36840c">LayerMatchingTask.finished()</a>, <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a01133.html#afa7300f08d42ea44583ecac17f64b9d7">AdvancedQueryDialog.getRelatedClassStatistics()</a>, <a class="el" href="a01093.html#a1ee3456df6b5523633cf98aa12f15c17">DataSchemaDialog.queryAllInstances()</a>, <a class="el" href="a01101.html#af9da4847fef9b28dbaee5a2f164bef71">InstanceDataDialog.queryInstance()</a>, <a class="el" href="a01097.html#aca092fde8acae610a332ae69c0ebf9d8">GraphRelationViewDialog.showRelated()</a>, <a class="el" href="a01097.html#a43b70dc0391e6b96c9c67e1154d3c01f">GraphRelationViewDialog.showRelatedFromIndex()</a>, <a class="el" href="a01093.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">DataSchemaDialog.toggleSelect()</a>, <a class="el" href="a01101.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">InstanceDataDialog.toggleSelect()</a>, <a class="el" href="a01105.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">PropertySchemaDialog.toggleSelect()</a>, and <a class="el" href="a01165.html#a5f9ed403d1ada1a07cefed6a1ea34ce1">EnrichmentDialog.toggleSelect()</a>.</p>
+
+</div>
+</div>
+<a id="a6137aef73caf41c68c2be3550f14aba1" name="a6137aef73caf41c68c2be3550f14aba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6137aef73caf41c68c2be3550f14aba1">&#9670;&#160;</a></span>tablemodel2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tablemodel2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>.</p>
+
+</div>
+</div>
+<a id="a6f355b6c9536ccb798ea8e8f70959809" name="a6f355b6c9536ccb798ea8e8f70959809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f355b6c9536ccb798ea8e8f70959809">&#9670;&#160;</a></span>toggleSelect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">toggleSelect</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c8f4911b6ff46c324750495bb9d7315" name="a3c8f4911b6ff46c324750495bb9d7315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c8f4911b6ff46c324750495bb9d7315">&#9670;&#160;</a></span>triplestoreconf <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str triplestoreconf = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01153.html#a3b4df4651f038dc28a3b345e0f4d930e">OntDocDialog.__init__()</a>, <a class="el" href="a01137.html#a0943f2316c45b026a538cc2dde4d16bb">ConvertCRSDialog.__init__()</a>, <a class="el" href="a01149.html#a2279f2c59f04eb88e7a7172a95de68c6">ImportRDFLayerDialog.__init__()</a>, <a class="el" href="a01145.html#a1720ce736ec93942b433303070d4d071">GraphValidationDialog.__init__()</a>, <a class="el" href="a01141.html#a4762a4377b526aa6de5d7728bf1e8bef">ConvertLayerDialog.__init__()</a>, <a class="el" href="a01113.html#a7febfed45e71a05ff9f1911d85c1d034">DetectTripleStoreResultDialog.addConfiguration()</a>, <a class="el" href="a01121.html#a3f8d897f78b6f08cdaba36d958c646e5">ConceptContextMenu.advancedQueryDialog()</a>, <a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a01089.html#acc0184adf686baf607167733cf8f7120">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a01157.html#acc0184adf686baf607167733cf8f7120">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a01129.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a01129.html#a640f83a139093e4cd7c0c0edc07880f3">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a01129.html#a488b082deca106964ac586bb4c06a3a3">SPARQLunicornDialog.create_unicorn_layer()</a>, <a class="el" href="a01129.html#a34182ed155a2611f2df9112ff50f2ad7">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a01089.html#a096646c55405ee0d7b533f4fcc1e7d22">TripleStoreDialog.createVarInfoDialog()</a>, <a class="el" href="a01129.html#adab0cda44548df35e3e7dd3049580865">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a01129.html#a80cfcaa85177e2170e6e64b8c3e062ad">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a01089.html#a7352515ec350bb0b730110a61cadd8b4">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a01089.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01157.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreQuickAddDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01129.html#a59f6e6b65a1e6932f071d4a6d7e82704">SPARQLunicornDialog.endpointselectaction()</a>, <a class="el" href="a01213.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a01285.html#af82cea2e7e5c0866e0ab3d4c03545bbd">FindRelatedConceptQueryTask.findConnectedConceptsFromProperty()</a>, <a class="el" href="a01249.html#a2df94208700932ceb7ae3b3fda36840c">LoadGraphTask.finished()</a>, <a class="el" href="a01273.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a01277.html#a2df94208700932ceb7ae3b3fda36840c">DataSchemaQueryTask.finished()</a>, <a class="el" href="a01297.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, <a class="el" href="a01301.html#a2df94208700932ceb7ae3b3fda36840c">PropertySchemaQueryTask.finished()</a>, <a class="el" href="a01329.html#a2df94208700932ceb7ae3b3fda36840c">InstanceQueryTask.finished()</a>, <a class="el" href="a01345.html#a2df94208700932ceb7ae3b3fda36840c">DetectTripleStoreTask.finished()</a>, <a class="el" href="a01349.html#a2df94208700932ceb7ae3b3fda36840c">TripleStoreRepositorySyncTask.finished()</a>, <a class="el" href="a01093.html#af6fc7691a4185345920dec151e768519">DataSchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a01105.html#af6fc7691a4185345920dec151e768519">PropertySchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a01121.html#a1a170acdb9bb6d501a7f308df45fe29a">ConceptContextMenu.getBBOX()</a>, <a class="el" href="a01197.html#ad810e5eabf892aaec027a16a9534a8e5">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a01205.html#ad810e5eabf892aaec027a16a9534a8e5">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a01129.html#a735ba8a407edd44f0e0664d083bf34f1">SPARQLunicornDialog.getClassTree()</a>, <a class="el" href="a01129.html#a5f47fed089eefda414b6cbc628573625">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a01133.html#afa7300f08d42ea44583ecac17f64b9d7">AdvancedQueryDialog.getRelatedClassStatistics()</a>, <a class="el" href="a01121.html#a2299e0112dd3533c6c5d3d674683aa92">ConceptContextMenu.instanceList()</a>, <a class="el" href="a01093.html#a63fae44558f7db151e7bd3f23f5ecfd7">DataSchemaDialog.loadBBOXDialog()</a>, <a class="el" href="a01129.html#ab83f6f0cdb299fad1d892b60cae1f9ea">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a01121.html#a6c3997d35d6e2ecfd61db7ee7dea8683">ConceptContextMenu.loadSubClasses()</a>, <a class="el" href="a01089.html#a8883f2e619c89b4ae0e9a35d11897f0c">TripleStoreDialog.loadTripleStoreConfig()</a>, <a class="el" href="a01137.html#ade98bf54803773dc57e906ccefc6fe3c">ConvertCRSDialog.loadURI()</a>, <a class="el" href="a01145.html#ade98bf54803773dc57e906ccefc6fe3c">GraphValidationDialog.loadURI()</a>, <a class="el" href="a01213.html#a6395e96c45122b751122be67664ba078">SPARQLunicorn.manageTripleStoreConfFiles()</a>, <a class="el" href="a01621.html#afef2a2ce1328b91e34947d787bd3faa9">ToolTipPlainText.mouseMoveEvent()</a>, <a class="el" href="a01197.html#ac2dbb23fc33c7a6b4e14205e5d63110d">SearchDialog.onContext()</a>, <a class="el" href="a01213.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a01285.html#a8c1f19a7d84895ca4d31275e09a73046">FindRelatedConceptQueryTask.processClassResult()</a>, <a class="el" href="a01285.html#a4de73dcf93c5bf94647640e65cdebce7">FindRelatedConceptQueryTask.processPropertyResult()</a>, <a class="el" href="a01261.html#acb7053177b11f28b6b17c02808a56968">QueryLayerTask.processResults()</a>, <a class="el" href="a01121.html#ada9d9cc85990b2b1a34ac736f53d9081">ConceptContextMenu.queryLimitedInstances()</a>, <a class="el" href="a01121.html#a596d815be0af493a0fcf3cdcaad45ab4">ConceptContextMenu.queryLinkedGeoConcept()</a>, <a class="el" href="a01121.html#a02a7045518d1c2760cc109e40fa49f5a">ConceptContextMenu.queryLinkedGeoInstance()</a>, <a class="el" href="a01193.html#a6a48f5bcb68530e2db6f6848a6bad031">QueryLimitedInstancesDialog.queryWithLimit()</a>, <a class="el" href="a01121.html#a0823c8cd08444168cdfd7c81fa18e859">ConceptContextMenu.relatedGeoConcepts()</a>, <a class="el" href="a01213.html#a8088d0909d308fa97732e9eadb9cde10">SPARQLunicorn.resetTripleStoreConfig()</a>, <a class="el" href="a01089.html#ad215d5be96adb33d4a32a437348e1266">TripleStoreDialog.restoreFactory()</a>, <a class="el" href="a01213.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a01233.html#a08060e0924949738f75a0cdd8b49cef4">ExtractLayerTask.run()</a>, <a class="el" href="a01245.html#a08060e0924949738f75a0cdd8b49cef4">LayerMatchingTask.run()</a>, <a class="el" href="a01261.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a01265.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a01269.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a01273.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>, <a class="el" href="a01277.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a01289.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a01293.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a01297.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a01301.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a01305.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, <a class="el" href="a01309.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>, <a class="el" href="a01313.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a01317.html#a08060e0924949738f75a0cdd8b49cef4">FindFeaturesInAreaTask.run()</a>, <a class="el" href="a01321.html#a08060e0924949738f75a0cdd8b49cef4">InstanceAmountQueryTask.run()</a>, <a class="el" href="a01325.html#a08060e0924949738f75a0cdd8b49cef4">InstanceListQueryTask.run()</a>, <a class="el" href="a01329.html#a08060e0924949738f75a0cdd8b49cef4">InstanceQueryTask.run()</a>, <a class="el" href="a01337.html#a08060e0924949738f75a0cdd8b49cef4">FindStyleQueryTask.run()</a>, <a class="el" href="a01341.html#a08060e0924949738f75a0cdd8b49cef4">GetStyleQueryTask.run()</a>, <a class="el" href="a01125.html#aa0c42df67fab84c774728eb3b4e11cfe">TabContextMenu.saveClassesTreeToRDF()</a>, <a class="el" href="a01089.html#a360afb2538072215a837e29e905fd802">TripleStoreDialog.saveConfigurationAsJSON()</a>, <a class="el" href="a01129.html#adda3daeac9ce97c8a4afe703d5bf5e64">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a01125.html#a5a73b076bbb46fc96ace34fa96292f06">TabContextMenu.saveTreeToRDF()</a>, <a class="el" href="a01213.html#a7298f06e56968fbd9b0d9dceac26fb2d">SPARQLunicorn.saveTripleStoreConfig()</a>, <a class="el" href="a01125.html#a1b206dd1d79b2f3ca4fc445ef929cc1b">TabContextMenu.saveVisibleTreeToRDF()</a>, <a class="el" href="a01097.html#a1ba28a48c651e68536b3adf707d8b491">GraphRelationViewDialog.startSchemaDialog()</a>, <a class="el" href="a01145.html#a7968bc80759dca0838e6c2c666f880d4">GraphValidationDialog.startValidation()</a>, <a class="el" href="a01129.html#adfc267ff822e0bd0394155be4a1f66b9">SPARQLunicornDialog.subclassQuerySelectAction()</a>, <a class="el" href="a01213.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>, <a class="el" href="a01129.html#a2fcd56fef625d562a0cbc6256e5c775a">SPARQLunicornDialog.tripleStoreInfoDialog()</a>, and <a class="el" href="a01089.html#a03e367be043b65521e14bf72d74f1a2e">TripleStoreDialog.writeConfiguration()</a>.</p>
+
+</div>
+</div>
+<a id="a330d24be0afd5a96238ca9e128328a2d" name="a330d24be0afd5a96238ca9e128328a2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a330d24be0afd5a96238ca9e128328a2d">&#9670;&#160;</a></span>triplestoreconf <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">triplestoreconf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01153.html#a3b4df4651f038dc28a3b345e0f4d930e">OntDocDialog.__init__()</a>, <a class="el" href="a01137.html#a0943f2316c45b026a538cc2dde4d16bb">ConvertCRSDialog.__init__()</a>, <a class="el" href="a01149.html#a2279f2c59f04eb88e7a7172a95de68c6">ImportRDFLayerDialog.__init__()</a>, <a class="el" href="a01145.html#a1720ce736ec93942b433303070d4d071">GraphValidationDialog.__init__()</a>, <a class="el" href="a01141.html#a4762a4377b526aa6de5d7728bf1e8bef">ConvertLayerDialog.__init__()</a>, <a class="el" href="a01113.html#a7febfed45e71a05ff9f1911d85c1d034">DetectTripleStoreResultDialog.addConfiguration()</a>, <a class="el" href="a01121.html#a3f8d897f78b6f08cdaba36d958c646e5">ConceptContextMenu.advancedQueryDialog()</a>, <a class="el" href="a01165.html#a092511d1d39fd4e00c22c9f1073d3289">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a01197.html#a092511d1d39fd4e00c22c9f1073d3289">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a01089.html#acc0184adf686baf607167733cf8f7120">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a01157.html#acc0184adf686baf607167733cf8f7120">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a01129.html#aa931d2e02e4ac72ce20b6440128ef042">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a01129.html#a640f83a139093e4cd7c0c0edc07880f3">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a01129.html#a488b082deca106964ac586bb4c06a3a3">SPARQLunicornDialog.create_unicorn_layer()</a>, <a class="el" href="a01129.html#a34182ed155a2611f2df9112ff50f2ad7">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a01089.html#a096646c55405ee0d7b533f4fcc1e7d22">TripleStoreDialog.createVarInfoDialog()</a>, <a class="el" href="a01129.html#adab0cda44548df35e3e7dd3049580865">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a01129.html#a80cfcaa85177e2170e6e64b8c3e062ad">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a01089.html#a7352515ec350bb0b730110a61cadd8b4">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a01089.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01157.html#a389c3ee9524a952ad8c1ec0669049816">TripleStoreQuickAddDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a01129.html#a59f6e6b65a1e6932f071d4a6d7e82704">SPARQLunicornDialog.endpointselectaction()</a>, <a class="el" href="a01213.html#a5b0406049b3532ffda4d6556e3341fad">SPARQLunicorn.exportLayer()</a>, <a class="el" href="a01285.html#af82cea2e7e5c0866e0ab3d4c03545bbd">FindRelatedConceptQueryTask.findConnectedConceptsFromProperty()</a>, <a class="el" href="a01249.html#a2df94208700932ceb7ae3b3fda36840c">LoadGraphTask.finished()</a>, <a class="el" href="a01273.html#a2df94208700932ceb7ae3b3fda36840c">DataSampleQueryTask.finished()</a>, <a class="el" href="a01277.html#a2df94208700932ceb7ae3b3fda36840c">DataSchemaQueryTask.finished()</a>, <a class="el" href="a01297.html#a2df94208700932ceb7ae3b3fda36840c">InstanceSampleQueryTask.finished()</a>, <a class="el" href="a01301.html#a2df94208700932ceb7ae3b3fda36840c">PropertySchemaQueryTask.finished()</a>, <a class="el" href="a01329.html#a2df94208700932ceb7ae3b3fda36840c">InstanceQueryTask.finished()</a>, <a class="el" href="a01345.html#a2df94208700932ceb7ae3b3fda36840c">DetectTripleStoreTask.finished()</a>, <a class="el" href="a01349.html#a2df94208700932ceb7ae3b3fda36840c">TripleStoreRepositorySyncTask.finished()</a>, <a class="el" href="a01093.html#af6fc7691a4185345920dec151e768519">DataSchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a01105.html#af6fc7691a4185345920dec151e768519">PropertySchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a01165.html#a32036992c6b701e352e0567902eb1a04">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a01121.html#a1a170acdb9bb6d501a7f308df45fe29a">ConceptContextMenu.getBBOX()</a>, <a class="el" href="a01197.html#ad810e5eabf892aaec027a16a9534a8e5">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a01205.html#ad810e5eabf892aaec027a16a9534a8e5">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a01129.html#a735ba8a407edd44f0e0664d083bf34f1">SPARQLunicornDialog.getClassTree()</a>, <a class="el" href="a01129.html#a5f47fed089eefda414b6cbc628573625">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a01133.html#afa7300f08d42ea44583ecac17f64b9d7">AdvancedQueryDialog.getRelatedClassStatistics()</a>, <a class="el" href="a01121.html#a2299e0112dd3533c6c5d3d674683aa92">ConceptContextMenu.instanceList()</a>, <a class="el" href="a01093.html#a63fae44558f7db151e7bd3f23f5ecfd7">DataSchemaDialog.loadBBOXDialog()</a>, <a class="el" href="a01129.html#ab83f6f0cdb299fad1d892b60cae1f9ea">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a01121.html#a6c3997d35d6e2ecfd61db7ee7dea8683">ConceptContextMenu.loadSubClasses()</a>, <a class="el" href="a01089.html#a8883f2e619c89b4ae0e9a35d11897f0c">TripleStoreDialog.loadTripleStoreConfig()</a>, <a class="el" href="a01137.html#ade98bf54803773dc57e906ccefc6fe3c">ConvertCRSDialog.loadURI()</a>, <a class="el" href="a01145.html#ade98bf54803773dc57e906ccefc6fe3c">GraphValidationDialog.loadURI()</a>, <a class="el" href="a01213.html#a6395e96c45122b751122be67664ba078">SPARQLunicorn.manageTripleStoreConfFiles()</a>, <a class="el" href="a01621.html#afef2a2ce1328b91e34947d787bd3faa9">ToolTipPlainText.mouseMoveEvent()</a>, <a class="el" href="a01197.html#ac2dbb23fc33c7a6b4e14205e5d63110d">SearchDialog.onContext()</a>, <a class="el" href="a01213.html#a916db34bc4117ee1c05886480ac1c0dd">SPARQLunicorn.onTSInfo()</a>, <a class="el" href="a01285.html#a8c1f19a7d84895ca4d31275e09a73046">FindRelatedConceptQueryTask.processClassResult()</a>, <a class="el" href="a01285.html#a4de73dcf93c5bf94647640e65cdebce7">FindRelatedConceptQueryTask.processPropertyResult()</a>, <a class="el" href="a01261.html#acb7053177b11f28b6b17c02808a56968">QueryLayerTask.processResults()</a>, <a class="el" href="a01121.html#ada9d9cc85990b2b1a34ac736f53d9081">ConceptContextMenu.queryLimitedInstances()</a>, <a class="el" href="a01121.html#a596d815be0af493a0fcf3cdcaad45ab4">ConceptContextMenu.queryLinkedGeoConcept()</a>, <a class="el" href="a01121.html#a02a7045518d1c2760cc109e40fa49f5a">ConceptContextMenu.queryLinkedGeoInstance()</a>, <a class="el" href="a01193.html#a6a48f5bcb68530e2db6f6848a6bad031">QueryLimitedInstancesDialog.queryWithLimit()</a>, <a class="el" href="a01121.html#a0823c8cd08444168cdfd7c81fa18e859">ConceptContextMenu.relatedGeoConcepts()</a>, <a class="el" href="a01213.html#a8088d0909d308fa97732e9eadb9cde10">SPARQLunicorn.resetTripleStoreConfig()</a>, <a class="el" href="a01089.html#ad215d5be96adb33d4a32a437348e1266">TripleStoreDialog.restoreFactory()</a>, <a class="el" href="a01213.html#a08060e0924949738f75a0cdd8b49cef4">SPARQLunicorn.run()</a>, <a class="el" href="a01233.html#a08060e0924949738f75a0cdd8b49cef4">ExtractLayerTask.run()</a>, <a class="el" href="a01245.html#a08060e0924949738f75a0cdd8b49cef4">LayerMatchingTask.run()</a>, <a class="el" href="a01261.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a01265.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a01269.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a01273.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>, <a class="el" href="a01277.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a01289.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a01293.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a01297.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a01301.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a01305.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, <a class="el" href="a01309.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>, <a class="el" href="a01313.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a01317.html#a08060e0924949738f75a0cdd8b49cef4">FindFeaturesInAreaTask.run()</a>, <a class="el" href="a01321.html#a08060e0924949738f75a0cdd8b49cef4">InstanceAmountQueryTask.run()</a>, <a class="el" href="a01325.html#a08060e0924949738f75a0cdd8b49cef4">InstanceListQueryTask.run()</a>, <a class="el" href="a01329.html#a08060e0924949738f75a0cdd8b49cef4">InstanceQueryTask.run()</a>, <a class="el" href="a01337.html#a08060e0924949738f75a0cdd8b49cef4">FindStyleQueryTask.run()</a>, <a class="el" href="a01341.html#a08060e0924949738f75a0cdd8b49cef4">GetStyleQueryTask.run()</a>, <a class="el" href="a01125.html#aa0c42df67fab84c774728eb3b4e11cfe">TabContextMenu.saveClassesTreeToRDF()</a>, <a class="el" href="a01089.html#a360afb2538072215a837e29e905fd802">TripleStoreDialog.saveConfigurationAsJSON()</a>, <a class="el" href="a01129.html#adda3daeac9ce97c8a4afe703d5bf5e64">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a01125.html#a5a73b076bbb46fc96ace34fa96292f06">TabContextMenu.saveTreeToRDF()</a>, <a class="el" href="a01213.html#a7298f06e56968fbd9b0d9dceac26fb2d">SPARQLunicorn.saveTripleStoreConfig()</a>, <a class="el" href="a01125.html#a1b206dd1d79b2f3ca4fc445ef929cc1b">TabContextMenu.saveVisibleTreeToRDF()</a>, <a class="el" href="a01097.html#a1ba28a48c651e68536b3adf707d8b491">GraphRelationViewDialog.startSchemaDialog()</a>, <a class="el" href="a01145.html#a7968bc80759dca0838e6c2c666f880d4">GraphValidationDialog.startValidation()</a>, <a class="el" href="a01129.html#adfc267ff822e0bd0394155be4a1f66b9">SPARQLunicornDialog.subclassQuerySelectAction()</a>, <a class="el" href="a01213.html#a95a01e7063204f3ffb6ae573e332465b">SPARQLunicorn.syncTripleStoreConfig()</a>, <a class="el" href="a01129.html#a2fcd56fef625d562a0cbc6256e5c775a">SPARQLunicornDialog.tripleStoreInfoDialog()</a>, and <a class="el" href="a01089.html#a03e367be043b65521e14bf72d74f1a2e">TripleStoreDialog.writeConfiguration()</a>.</p>
+
+</div>
+</div>
+<a id="a9b8734be629bbc1f64723d90a67861ab" name="a9b8734be629bbc1f64723d90a67861ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b8734be629bbc1f64723d90a67861ab">&#9670;&#160;</a></span>triplestoreurl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">triplestoreurl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a01285.html#af82cea2e7e5c0866e0ab3d4c03545bbd">FindRelatedConceptQueryTask.findConnectedConceptsFromProperty()</a>, <a class="el" href="a01245.html#a08060e0924949738f75a0cdd8b49cef4">LayerMatchingTask.run()</a>, <a class="el" href="a01261.html#a08060e0924949738f75a0cdd8b49cef4">QueryLayerTask.run()</a>, <a class="el" href="a01265.html#a08060e0924949738f75a0cdd8b49cef4">QuerySubGraphTask.run()</a>, <a class="el" href="a01269.html#a08060e0924949738f75a0cdd8b49cef4">ClassTreeQueryTask.run()</a>, <a class="el" href="a01273.html#a08060e0924949738f75a0cdd8b49cef4">DataSampleQueryTask.run()</a>, <a class="el" href="a01277.html#a08060e0924949738f75a0cdd8b49cef4">DataSchemaQueryTask.run()</a>, <a class="el" href="a01289.html#a08060e0924949738f75a0cdd8b49cef4">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a01293.html#a08060e0924949738f75a0cdd8b49cef4">GeoConceptsQueryTask.run()</a>, <a class="el" href="a01297.html#a08060e0924949738f75a0cdd8b49cef4">InstanceSampleQueryTask.run()</a>, <a class="el" href="a01301.html#a08060e0924949738f75a0cdd8b49cef4">PropertySchemaQueryTask.run()</a>, <a class="el" href="a01305.html#a08060e0924949738f75a0cdd8b49cef4">SubClassQueryTask.run()</a>, <a class="el" href="a01309.html#a08060e0924949738f75a0cdd8b49cef4">EnrichmentQueryTask.run()</a>, <a class="el" href="a01313.html#a08060e0924949738f75a0cdd8b49cef4">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a01317.html#a08060e0924949738f75a0cdd8b49cef4">FindFeaturesInAreaTask.run()</a>, <a class="el" href="a01321.html#a08060e0924949738f75a0cdd8b49cef4">InstanceAmountQueryTask.run()</a>, <a class="el" href="a01325.html#a08060e0924949738f75a0cdd8b49cef4">InstanceListQueryTask.run()</a>, <a class="el" href="a01329.html#a08060e0924949738f75a0cdd8b49cef4">InstanceQueryTask.run()</a>, <a class="el" href="a01337.html#a08060e0924949738f75a0cdd8b49cef4">FindStyleQueryTask.run()</a>, <a class="el" href="a01341.html#a08060e0924949738f75a0cdd8b49cef4">GetStyleQueryTask.run()</a>, and <a class="el" href="a01345.html#a08060e0924949738f75a0cdd8b49cef4">DetectTripleStoreTask.run()</a>.</p>
 
 </div>
 </div>
@@ -190,7 +1424,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01132.html">dialogs</a></li><li class="navelem"><a class="el" href="a01160.html">util</a></li><li class="navelem"><a class="el" href="a01165.html">loginwindowdialog</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00912.html">dialogs</a></li><li class="navelem"><a class="el" href="a00929.html">tool</a></li><li class="navelem"><a class="el" href="a00938.html">whattoenrichdialog</a></li><li class="navelem"><a class="el" href="a01165.html">EnrichmentDialog</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

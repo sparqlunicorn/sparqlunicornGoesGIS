@@ -1,4 +1,4 @@
 var a01022 =
 [
-    [ "DCMITYPE", "a02000.html", "a02000" ]
+    [ "TemplateUtils", "a01421.html", "a01421" ]
 ];

@@ -1,0 +1,28 @@
+var a01345 =
+[
+    [ "__init__", "a01345.html#a2828af22a74a920752c337633293f152", null ],
+    [ "finished", "a01345.html#a2df94208700932ceb7ae3b3fda36840c", null ],
+    [ "run", "a01345.html#a08060e0924949738f75a0cdd8b49cef4", null ],
+    [ "authmethod", "a01345.html#af7f23c6cca9466eeb595e3f6ad66350b", null ],
+    [ "configuration", "a01345.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
+    [ "credentialPassword", "a01345.html#af47ef99ec07c965212f8b2a4bb8561ca", null ],
+    [ "credentialUserName", "a01345.html#a8060ccbd094595273ba83ec05c23b55a", null ],
+    [ "description", "a01345.html#a2661f439a4a94ffdcd5e47ae1da0bb1d", null ],
+    [ "detectnamespaces", "a01345.html#a7a6b1696fa7494898c29bf9463a9e73c", null ],
+    [ "exception", "a01345.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "feasibleConfiguration", "a01345.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
+    [ "gutils", "a01345.html#ab12bc51f8501ab832fce8f046512e317", null ],
+    [ "mainWin", "a01345.html#af785a4cc6239976ff4ee8be13af1c05b", null ],
+    [ "message", "a01345.html#ab8140947611504abcb64a4c277effcf5", null ],
+    [ "parentdialog", "a01345.html#aefbd5e6894d890da2d9989fbaf3a5c6c", null ],
+    [ "permanentAdd", "a01345.html#aea3053601e14e410bef3021defeb1164", null ],
+    [ "prefixes", "a01345.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "prefixstore", "a01345.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
+    [ "progress", "a01345.html#a991fd2c404665f13f536fc7791e53504", null ],
+    [ "testConfiguration", "a01345.html#a85bc3b1af75c36188c69b04fcf8dd8b7", null ],
+    [ "testURL", "a01345.html#aacac69f65111f90a0c0d4749ff99a530", null ],
+    [ "tripleStoreChooser", "a01345.html#afe1b0b3e2a930a83eeaf4fb19f9a6969", null ],
+    [ "triplestoreconf", "a01345.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "triplestorename", "a01345.html#a0b7a6d6691bd92b2f5c8a6cab2a03dda", null ],
+    [ "triplestoreurl", "a01345.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+];

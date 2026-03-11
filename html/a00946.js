@@ -1,5 +1,6 @@
 var a00946 =
 [
-    [ "sparql_based_constraint_components", "a00947.html", "a00947" ],
-    [ "sparql_based_constraints", "a00948.html", "a00948" ]
+    [ "PrefixDialog", "a01189.html", "a01189" ],
+    [ "_", "a00946.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00946.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

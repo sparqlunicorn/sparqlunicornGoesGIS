@@ -1,14 +1,15 @@
 var searchData=
 [
-  ['fileinputsource_0',['FileInputSource',['../a02116.html',1,'rdflib::parser']]],
-  ['findfeaturesinareatask_1',['FindFeaturesInAreaTask',['../a03032.html',1,'sparqlunicornGoesGIS::tasks::query::findfeaturesinareatask']]],
-  ['findfeaturesinbboxtask_2',['FindFeaturesInBBOXTask',['../a02996.html',1,'sparqlunicornGoesGIS::tasks::query::discovery::findfeaturesinbbox']]],
-  ['findrelatedconceptquerytask_3',['FindRelatedConceptQueryTask',['../a03000.html',1,'sparqlunicornGoesGIS::tasks::query::discovery::findrelatedconceptquerytask']]],
-  ['findstylequerytask_4',['FindStyleQueryTask',['../a03052.html',1,'sparqlunicornGoesGIS::tasks::query::style::findstylestask']]],
-  ['fixedoffset_5',['FixedOffset',['../a01320.html',1,'isodate::tzinfo']]],
-  ['foaf_6',['FOAF',['../a02012.html',1,'rdflib::namespace::_FOAF']]],
-  ['form_5fclass_7',['FORM_CLASS',['../a07553.html',1,'']]],
-  ['formula_8',['Formula',['../a02184.html',1,'rdflib::plugins::parsers::notation3']]],
-  ['frozenbindings_9',['FrozenBindings',['../a02512.html',1,'rdflib::plugins::sparql::sparql']]],
-  ['frozendict_10',['FrozenDict',['../a02508.html',1,'rdflib::plugins::sparql::sparql']]]
+  ['geocodingutils_0',['GeocodingUtils',['../a01549.html',1,'sparqlunicornGoesGIS::util::geocodingutils']]],
+  ['geocollectionsquerytask_1',['GeoCollectionsQueryTask',['../a01289.html',1,'sparqlunicornGoesGIS::tasks::query::discovery::geocollectionsquerytask']]],
+  ['geoconceptsquerytask_2',['GeoConceptsQueryTask',['../a01293.html',1,'sparqlunicornGoesGIS::tasks::query::discovery::geoconceptsquerytask']]],
+  ['geocrs_3',['GEOCRS',['../a01633.html',1,'sparqlunicornGoesGIS::util::vocab::GEOCRS']]],
+  ['geoexporter_4',['GeoExporter',['../a01449.html',1,'sparqlunicornGoesGIS::util::export::data::geoexporter']]],
+  ['geometryviewpage_5',['GeometryViewPage',['../a01493.html',1,'sparqlunicornGoesGIS::util::export::pages::geometryviewpage']]],
+  ['getstylequerytask_6',['GetStyleQueryTask',['../a01341.html',1,'sparqlunicornGoesGIS::tasks::query::style::getstyletask']]],
+  ['graphexporter_7',['GraphExporter',['../a01453.html',1,'sparqlunicornGoesGIS::util::export::data::graphexporter']]],
+  ['graphrelationviewdialog_8',['GraphRelationViewDialog',['../a01097.html',1,'sparqlunicornGoesGIS::dialogs::dataview::graphrelationviewdialog']]],
+  ['graphutils_9',['graphutils',['../a01409.html',1,'GraphUtils'],['../a01553.html',1,'GraphUtils']]],
+  ['graphvalidationdialog_10',['GraphValidationDialog',['../a01145.html',1,'sparqlunicornGoesGIS::dialogs::tool::graphvalidationdialog']]],
+  ['graphvalidationtask_11',['GraphValidationTask',['../a01241.html',1,'sparqlunicornGoesGIS::tasks::processing::graphvalidationtask']]]
 ];

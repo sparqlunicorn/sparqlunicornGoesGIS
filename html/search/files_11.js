@@ -1,9 +1,27 @@
 var searchData=
 [
-  ['qgis_5finterface_2epy_0',['qgis_interface.py',['../a00515.html',1,'']]],
-  ['qstandardclasstreeitem_2epy_1',['qstandardclasstreeitem.py',['../a00752.html',1,'']]],
-  ['query_2epy_2',['query.py',['../a00248.html',1,'']]],
-  ['querylayertask_2epy_3',['querylayertask.py',['../a00671.html',1,'']]],
-  ['querylimitedinstancesdialog_2epy_4',['querylimitedinstancesdialog.py',['../a00611.html',1,'']]],
-  ['querysubgraphtask_2epy_5',['querysubgraphtask.py',['../a00668.html',1,'']]]
+  ['tabcontextmenu_2epy_0',['tabcontextmenu.py',['../a00608.html',1,'']]],
+  ['tasks_2f_5f_5finit_5f_5f_2epy_1',['__init__.py',['../a02542.html',1,'']]],
+  ['tasks_2fprocessing_2f_5f_5finit_5f_5f_2epy_2',['__init__.py',['../a02545.html',1,'']]],
+  ['tasks_2fquery_2f_5f_5finit_5f_5f_2epy_3',['__init__.py',['../a02548.html',1,'']]],
+  ['tasks_2fquery_2fdata_2f_5f_5finit_5f_5f_2epy_4',['__init__.py',['../a02551.html',1,'']]],
+  ['tasks_2fquery_2fdiscovery_2f_5f_5finit_5f_5f_2epy_5',['__init__.py',['../a02554.html',1,'']]],
+  ['tasks_2fquery_2fenrichment_2f_5f_5finit_5f_5f_2epy_6',['__init__.py',['../a02557.html',1,'']]],
+  ['tasks_2fquery_2finstance_2f_5f_5finit_5f_5f_2epy_7',['__init__.py',['../a02560.html',1,'']]],
+  ['tasks_2fquery_2fstyle_2f_5f_5finit_5f_5f_2epy_8',['__init__.py',['../a02563.html',1,'']]],
+  ['tasks_2fquery_2futil_2f_5f_5finit_5f_5f_2epy_9',['__init__.py',['../a02566.html',1,'']]],
+  ['templateutils_2epy_10',['templateutils.py',['../a00881.html',1,'']]],
+  ['test_2f_5f_5finit_5f_5f_2epy_11',['__init__.py',['../a02569.html',1,'']]],
+  ['test_5finit_2epy_12',['test_init.py',['../a00518.html',1,'']]],
+  ['test_5fqgis_5fenvironment_2epy_13',['test_qgis_environment.py',['../a00533.html',1,'']]],
+  ['test_5fresources_2epy_14',['test_resources.py',['../a00527.html',1,'']]],
+  ['test_5fsparql_5funicorn_5fdialog_2epy_15',['test_sparql_unicorn_dialog.py',['../a00530.html',1,'']]],
+  ['test_5ftranslations_2epy_16',['test_translations.py',['../a00524.html',1,'']]],
+  ['textannopage_2epy_17',['textannopage.py',['../a00821.html',1,'']]],
+  ['tooltipplaintext_2epy_18',['tooltipplaintext.py',['../a00764.html',1,'']]],
+  ['triplestoredialog_2epy_19',['triplestoredialog.py',['../a00596.html',1,'']]],
+  ['triplestorequickadddialog_2epy_20',['triplestorequickadddialog.py',['../a00560.html',1,'']]],
+  ['triplestorerepodialog_2epy_21',['triplestorerepodialog.py',['../a00581.html',1,'']]],
+  ['triplestorereposynctask_2epy_22',['triplestorereposynctask.py',['../a00677.html',1,'']]],
+  ['triplestorerepotask_2epy_23',['triplestorerepotask.py',['../a00680.html',1,'']]]
 ];

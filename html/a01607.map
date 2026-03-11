@@ -1,9 +1,9 @@
-<map id="CustomRDFSOWLRLSemantics" name="CustomRDFSOWLRLSemantics">
-<area shape="rect" id="Node000001" title=" " alt="" coords="73,152,293,177"/>
-<area shape="rect" id="Node000002" href="$a01604.html" title=" " alt="" coords="5,79,180,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,110,170,150,167,154,117,115"/>
-<area shape="rect" id="Node000003" href="$a07527.html" title=" " alt="" coords="17,5,168,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="95,44,95,79,90,79,90,44"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="204,79,347,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="252,114,200,154,197,150,248,110"/>
+<map id="SPARQLHighlighter" name="SPARQLHighlighter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="128,123,272,148"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,155,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,38,190,121,186,125,100,42"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="179,5,221,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,44,203,123,197,123,197,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="274,5,313,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,45,282,73,266,100,250,115,232,125,229,120,247,110,262,97,277,71,286,43"/>
 </map>

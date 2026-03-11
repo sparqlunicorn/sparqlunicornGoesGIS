@@ -1,7 +1,0 @@
-<map id="TriXHandler" name="TriXHandler">
-<area shape="rect" id="Node000001" title=" " alt="" coords="81,108,179,133"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,129,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,41,125,107,121,109,79,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="154,5,231,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,44,139,109,135,107,176,41"/>
-</map>

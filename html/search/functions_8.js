@@ -1,22 +1,13 @@
 var searchData=
 [
-  ['handle_5fdata_0',['handle_data',['../a02340.html#a53c92aeef8cb9947b075ab96ccd9bc1c',1,'rdflib::plugins::shared::jsonld::util::HTMLJSONParser']]],
-  ['handle_5fstarttag_1',['handle_starttag',['../a02340.html#a68507be91caeee312fd7f6de9846cc44',1,'rdflib::plugins::shared::jsonld::util::HTMLJSONParser']]],
-  ['handleannotation_2',['handleAnnotation',['../a01864.html#ad345cc474570da311762c8e7266bf383',1,'rdflib::extras::infixowl::AnnotatableTerms']]],
-  ['handleexception_3',['handleException',['../a03288.html#a224800e9d5a4d5818a42d9d83a2601eb',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
-  ['handlegeojsonfile_4',['handleGeoJSONFile',['../a03288.html#ad9c2b5cb75221b89727a06d7332d630a',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
-  ['handleresponse_5',['handleResponse',['../a03264.html#a1cd17e30249e90985fefe345368b6311',1,'sparqlunicornGoesGIS::util::geocodingutils::GeocodingUtils']]],
-  ['handleuriliteral_6',['handleURILiteral',['../a03288.html#a69ebacfc5797d0eb9469e598e0618a7c',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
-  ['has_5faccepted_5fchildren_7',['has_accepted_children',['../a03300.html#a634350d8d28dba1debde3e3a4772b272',1,'sparqlunicornGoesGIS::util::ui::classtreesortproxymodel::ClassTreeSortProxyModel']]],
-  ['hash_5fcolor_8',['hash_color',['../a01708.html#ad0f0047e220ffe63ebda62d2edad0873',1,'rdflib::compare::Color']]],
-  ['hashtriples_9',['hashtriples',['../a02720.html#af23eb2ac9d944072b0291e78ebdc1419',1,'rdflib::tools::graphisomorphism::IsomorphicTestableGraph']]],
-  ['hcardtohtmltable_10',['hcardToHTMLTable',['../a03240.html#a668d43098e845109585b4bb509174f56',1,'sparqlunicornGoesGIS::util::export::pages::personpage::PersonPage']]],
-  ['hcardtohtmltablerow_11',['hcardToHTMLTableRow',['../a03240.html#ac4e4dbe150386b53474bbd48a26cfcba',1,'sparqlunicornGoesGIS::util::export::pages::personpage::PersonPage']]],
-  ['health_12',['health',['../a01736.html#a933c333099653d4ba45677a89cfd6792',1,'rdflib.contrib.graphdb.client.Repository.health()'],['../a01764.html#aaef96f5b798ec8c54ca7ae6ca7f2d7f3',1,'rdflib.contrib.rdf4j.client.Repository.health()']]],
-  ['here_13',['here',['../a02176.html#abd72cee1f42395d265eacc5a2674ac1c',1,'rdflib::plugins::parsers::notation3::SinkParser']]],
-  ['hexify_14',['hexify',['../a01052.html#a46cfb58ff76ee4d7d9e9aabe13bd3c37',1,'rdflib::plugins::parsers::notation3']]],
-  ['hide_5fpassword_15',['hide_password',['../a01173.html#abd851b3f86266ab43a076eae2d768f03',1,'sparqlunicornGoesGIS::plugin_upload']]],
-  ['highlightblock_16',['highlightBlock',['../a03324.html#a7e4c6e204742b7fcec6919a3b5713cac',1,'sparqlunicornGoesGIS::util::ui::sparqlhighlighter::SPARQLHighlighter']]],
-  ['highlightcurrentline_17',['highlightCurrentLine',['../a03336.html#a7d0d4f8c2a860e1de74e1a5037ff6240',1,'sparqlunicornGoesGIS::util::ui::tooltipplaintext::ToolTipPlainText']]],
-  ['http_5fclient_18',['http_client',['../a01752.html#aecf55e0bd16cbcd06ae8bb240a74aa7f',1,'rdflib.contrib.rdf4j.client.RDF4JNamespaceManager.http_client()'],['../a01756.html#aecf55e0bd16cbcd06ae8bb240a74aa7f',1,'rdflib.contrib.rdf4j.client.GraphStoreManager.http_client()'],['../a01764.html#aecf55e0bd16cbcd06ae8bb240a74aa7f',1,'rdflib.contrib.rdf4j.client.Repository.http_client()'],['../a01772.html#aecf55e0bd16cbcd06ae8bb240a74aa7f',1,'rdflib.contrib.rdf4j.client.RepositoryManager.http_client()'],['../a01776.html#aecf55e0bd16cbcd06ae8bb240a74aa7f',1,'rdflib.contrib.rdf4j.client.RDF4JClient.http_client()']]]
+  ['handleexception_0',['handleException',['../a01573.html#a224800e9d5a4d5818a42d9d83a2601eb',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
+  ['handlegeojsonfile_1',['handleGeoJSONFile',['../a01573.html#ad9c2b5cb75221b89727a06d7332d630a',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
+  ['handleresponse_2',['handleResponse',['../a01549.html#a1cd17e30249e90985fefe345368b6311',1,'sparqlunicornGoesGIS::util::geocodingutils::GeocodingUtils']]],
+  ['handleuriliteral_3',['handleURILiteral',['../a01573.html#a69ebacfc5797d0eb9469e598e0618a7c',1,'sparqlunicornGoesGIS::util::sparqlutils::SPARQLUtils']]],
+  ['has_5faccepted_5fchildren_4',['has_accepted_children',['../a01585.html#a634350d8d28dba1debde3e3a4772b272',1,'sparqlunicornGoesGIS::util::ui::classtreesortproxymodel::ClassTreeSortProxyModel']]],
+  ['hcardtohtmltable_5',['hcardToHTMLTable',['../a01525.html#a668d43098e845109585b4bb509174f56',1,'sparqlunicornGoesGIS::util::export::pages::personpage::PersonPage']]],
+  ['hcardtohtmltablerow_6',['hcardToHTMLTableRow',['../a01525.html#ac4e4dbe150386b53474bbd48a26cfcba',1,'sparqlunicornGoesGIS::util::export::pages::personpage::PersonPage']]],
+  ['hide_5fpassword_7',['hide_password',['../a00953.html#abd851b3f86266ab43a076eae2d768f03',1,'sparqlunicornGoesGIS::plugin_upload']]],
+  ['highlightblock_8',['highlightBlock',['../a01609.html#a7e4c6e204742b7fcec6919a3b5713cac',1,'sparqlunicornGoesGIS::util::ui::sparqlhighlighter::SPARQLHighlighter']]],
+  ['highlightcurrentline_9',['highlightCurrentLine',['../a01621.html#a7d0d4f8c2a860e1de74e1a5037ff6240',1,'sparqlunicornGoesGIS::util::ui::tooltipplaintext::ToolTipPlainText']]]
 ];

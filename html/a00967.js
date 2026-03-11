@@ -1,6 +1,6 @@
 var a00967 =
 [
-    [ "SPARQLQueryHelper", "a01600.html", "a01600" ],
-    [ "invalid_parameter_names", "a00967.html#a9ca72651b7512b7890cf15f0b1d6dde1", null ],
-    [ "SH_declare", "a00967.html#a43e624918433e8f664ee730365af623a", null ]
+    [ "LoadGraphTask", "a01249.html", "a01249" ],
+    [ "__location__", "a00967.html#a4e694fe358598ca0a8e995e3e683c655", null ],
+    [ "MESSAGE_CATEGORY", "a00967.html#ae3349e13b3993e2c87c18074a77fb8f9", null ]
 ];

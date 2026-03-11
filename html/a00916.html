@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: isodate.isoduration Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.dialogs.conf.triplestoredialog Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -129,218 +129,59 @@ $(document).ready(function(){initNavTree('a00916.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">isodate.isoduration Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.dialogs.conf.triplestoredialog Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ab1dd543d131ede367f7adf591aac0cf7" id="r_ab1dd543d131ede367f7adf591aac0cf7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00916.html#ab1dd543d131ede367f7adf591aac0cf7">parse_duration</a> (datestring)</td></tr>
-<tr class="separator:ab1dd543d131ede367f7adf591aac0cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e84e76f538d0c87011bcc69b17fec1" id="r_af5e84e76f538d0c87011bcc69b17fec1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00916.html#af5e84e76f538d0c87011bcc69b17fec1">duration_isoformat</a> (tduration, format=D_DEFAULT)</td></tr>
-<tr class="separator:af5e84e76f538d0c87011bcc69b17fec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01089.html">TripleStoreDialog</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ad5298d298d349021ce9dd7c6213f85e0" id="r_ad5298d298d349021ce9dd7c6213f85e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00916.html#ad5298d298d349021ce9dd7c6213f85e0">ISO8601_PERIOD_REGEX</a></td></tr>
-<tr class="separator:ad5298d298d349021ce9dd7c6213f85e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0357d3c7a5047524e1543f2f43bc3e38" id="r_a0357d3c7a5047524e1543f2f43bc3e38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00916.html#a0357d3c7a5047524e1543f2f43bc3e38">FORM_CLASS</a></td></tr>
+<tr class="separator:a0357d3c7a5047524e1543f2f43bc3e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f05aeddc212b523b40818fa2b87b33" id="r_a18f05aeddc212b523b40818fa2b87b33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00916.html#a18f05aeddc212b523b40818fa2b87b33">_</a></td></tr>
+<tr class="separator:a18f05aeddc212b523b40818fa2b87b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="af5e84e76f538d0c87011bcc69b17fec1" name="af5e84e76f538d0c87011bcc69b17fec1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e84e76f538d0c87011bcc69b17fec1">&#9670;&#160;</a></span>duration_isoformat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">duration_isoformat </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>tduration</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>format</em> = <code>D_DEFAULT</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">Format duration strings.
-
-This method is just a wrapper around isodate.isostrf.strftime and uses
-P%P (D_DEFAULT) as default format.
-</pre> <div class="fragment"><div class="line"><span class="lineno">  133</span><span class="keyword">def </span>duration_isoformat(tduration, format=D_DEFAULT):</div>
-<div class="line"><span class="lineno">  134</span>    <span class="stringliteral">&#39;&#39;&#39;</span></div>
-<div class="line"><span class="lineno">  135</span><span class="stringliteral">    Format duration strings.</span></div>
-<div class="line"><span class="lineno">  136</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  137</span><span class="stringliteral">    This method is just a wrapper around isodate.isostrf.strftime and uses</span></div>
-<div class="line"><span class="lineno">  138</span><span class="stringliteral">    P%P (D_DEFAULT) as default format.</span></div>
-<div class="line"><span class="lineno">  139</span><span class="stringliteral">    &#39;&#39;&#39;</span></div>
-<div class="line"><span class="lineno">  140</span>    <span class="comment"># TODO: implement better decision for negative Durations.</span></div>
-<div class="line"><span class="lineno">  141</span>    <span class="comment">#       should be done in Duration class in consistent way with timedelta.</span></div>
-<div class="line"><span class="lineno">  142</span>    <span class="keywordflow">if</span> (((isinstance(tduration, Duration) <span class="keywordflow">and</span></div>
-<div class="line"><span class="lineno">  143</span>          (tduration.years &lt; 0 <span class="keywordflow">or</span> tduration.months &lt; 0 <span class="keywordflow">or</span></div>
-<div class="line"><span class="lineno">  144</span>           tduration.tdelta &lt; timedelta(0))) <span class="keywordflow">or</span></div>
-<div class="line"><span class="lineno">  145</span>        (isinstance(tduration, timedelta) <span class="keywordflow">and</span></div>
-<div class="line"><span class="lineno">  146</span>         (tduration &lt; timedelta(0))))):</div>
-<div class="line"><span class="lineno">  147</span>        ret = <span class="stringliteral">&#39;-&#39;</span></div>
-<div class="line"><span class="lineno">  148</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  149</span>        ret = <span class="stringliteral">&#39;&#39;</span></div>
-<div class="line"><span class="lineno">  150</span>    ret += strftime(tduration, format)</div>
-<div class="line"><span class="lineno">  151</span>    <span class="keywordflow">return</span> ret</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ab1dd543d131ede367f7adf591aac0cf7" name="ab1dd543d131ede367f7adf591aac0cf7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1dd543d131ede367f7adf591aac0cf7">&#9670;&#160;</a></span>parse_duration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">parse_duration </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>datestring</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">Parses an ISO 8601 durations into datetime.timedelta or Duration objects.
-
-If the ISO date string does not contain years or months, a timedelta
-instance is returned, else a Duration instance is returned.
-
-The following duration formats are supported:
-  -PnnW                  duration in weeks
-  -PnnYnnMnnDTnnHnnMnnS  complete duration specification
-  -PYYYYMMDDThhmmss      basic alternative complete date format
-  -PYYYY-MM-DDThh:mm:ss  extended alternative complete date format
-  -PYYYYDDDThhmmss       basic alternative ordinal date format
-  -PYYYY-DDDThh:mm:ss    extended alternative ordinal date format
-
-The '-' is optional.
-
-Limitations:  ISO standard defines some restrictions about where to use
-  fractional numbers and which component and format combinations are
-  allowed. This parser implementation ignores all those restrictions and
-  returns something when it is able to find all necessary components.
-  In detail:
-    it does not check, whether only the last component has fractions.
-    it allows weeks specified with all other combinations
-
-  The alternative format does not support durations with years, months or
-  days set to 0.
-</pre> <div class="fragment"><div class="line"><span class="lineno">   57</span><span class="keyword">def </span>parse_duration(datestring):</div>
-<div class="line"><span class="lineno">   58</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   59</span><span class="stringliteral">    Parses an ISO 8601 durations into datetime.timedelta or Duration objects.</span></div>
-<div class="line"><span class="lineno">   60</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   61</span><span class="stringliteral">    If the ISO date string does not contain years or months, a timedelta</span></div>
-<div class="line"><span class="lineno">   62</span><span class="stringliteral">    instance is returned, else a Duration instance is returned.</span></div>
-<div class="line"><span class="lineno">   63</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   64</span><span class="stringliteral">    The following duration formats are supported:</span></div>
-<div class="line"><span class="lineno">   65</span><span class="stringliteral">      -PnnW                  duration in weeks</span></div>
-<div class="line"><span class="lineno">   66</span><span class="stringliteral">      -PnnYnnMnnDTnnHnnMnnS  complete duration specification</span></div>
-<div class="line"><span class="lineno">   67</span><span class="stringliteral">      -PYYYYMMDDThhmmss      basic alternative complete date format</span></div>
-<div class="line"><span class="lineno">   68</span><span class="stringliteral">      -PYYYY-MM-DDThh:mm:ss  extended alternative complete date format</span></div>
-<div class="line"><span class="lineno">   69</span><span class="stringliteral">      -PYYYYDDDThhmmss       basic alternative ordinal date format</span></div>
-<div class="line"><span class="lineno">   70</span><span class="stringliteral">      -PYYYY-DDDThh:mm:ss    extended alternative ordinal date format</span></div>
-<div class="line"><span class="lineno">   71</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   72</span><span class="stringliteral">    The &#39;-&#39; is optional.</span></div>
-<div class="line"><span class="lineno">   73</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   74</span><span class="stringliteral">    Limitations:  ISO standard defines some restrictions about where to use</span></div>
-<div class="line"><span class="lineno">   75</span><span class="stringliteral">      fractional numbers and which component and format combinations are</span></div>
-<div class="line"><span class="lineno">   76</span><span class="stringliteral">      allowed. This parser implementation ignores all those restrictions and</span></div>
-<div class="line"><span class="lineno">   77</span><span class="stringliteral">      returns something when it is able to find all necessary components.</span></div>
-<div class="line"><span class="lineno">   78</span><span class="stringliteral">      In detail:</span></div>
-<div class="line"><span class="lineno">   79</span><span class="stringliteral">        it does not check, whether only the last component has fractions.</span></div>
-<div class="line"><span class="lineno">   80</span><span class="stringliteral">        it allows weeks specified with all other combinations</span></div>
-<div class="line"><span class="lineno">   81</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   82</span><span class="stringliteral">      The alternative format does not support durations with years, months or</span></div>
-<div class="line"><span class="lineno">   83</span><span class="stringliteral">      days set to 0.</span></div>
-<div class="line"><span class="lineno">   84</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> isinstance(datestring, string_types):</div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">raise</span> TypeError(<span class="stringliteral">&quot;Expecting a string %r&quot;</span> % datestring)</div>
-<div class="line"><span class="lineno">   87</span>    match = ISO8601_PERIOD_REGEX.match(datestring)</div>
-<div class="line"><span class="lineno">   88</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> match:</div>
-<div class="line"><span class="lineno">   89</span>        <span class="comment"># try alternative format:</span></div>
-<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">if</span> datestring.startswith(<span class="stringliteral">&quot;P&quot;</span>):</div>
-<div class="line"><span class="lineno">   91</span>            durdt = parse_datetime(datestring[1:])</div>
-<div class="line"><span class="lineno">   92</span>            <span class="keywordflow">if</span> durdt.year != 0 <span class="keywordflow">or</span> durdt.month != 0:</div>
-<div class="line"><span class="lineno">   93</span>                <span class="comment"># create Duration</span></div>
-<div class="line"><span class="lineno">   94</span>                ret = Duration(days=durdt.day, seconds=durdt.second,</div>
-<div class="line"><span class="lineno">   95</span>                               microseconds=durdt.microsecond,</div>
-<div class="line"><span class="lineno">   96</span>                               minutes=durdt.minute, hours=durdt.hour,</div>
-<div class="line"><span class="lineno">   97</span>                               months=durdt.month, years=durdt.year)</div>
-<div class="line"><span class="lineno">   98</span>            <span class="keywordflow">else</span>:  <span class="comment"># FIXME: currently not possible in alternative format</span></div>
-<div class="line"><span class="lineno">   99</span>                <span class="comment"># create timedelta</span></div>
-<div class="line"><span class="lineno">  100</span>                ret = timedelta(days=durdt.day, seconds=durdt.second,</div>
-<div class="line"><span class="lineno">  101</span>                                microseconds=durdt.microsecond,</div>
-<div class="line"><span class="lineno">  102</span>                                minutes=durdt.minute, hours=durdt.hour)</div>
-<div class="line"><span class="lineno">  103</span>            <span class="keywordflow">return</span> ret</div>
-<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">raise</span> ISO8601Error(<span class="stringliteral">&quot;Unable to parse duration string %r&quot;</span> % datestring)</div>
-<div class="line"><span class="lineno">  105</span>    groups = match.groupdict()</div>
-<div class="line"><span class="lineno">  106</span>    <span class="keywordflow">for</span> key, val <span class="keywordflow">in</span> groups.items():</div>
-<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">if</span> key <span class="keywordflow">not</span> <span class="keywordflow">in</span> (<span class="stringliteral">&#39;separator&#39;</span>, <span class="stringliteral">&#39;sign&#39;</span>):</div>
-<div class="line"><span class="lineno">  108</span>            <span class="keywordflow">if</span> val <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  109</span>                groups[key] = <span class="stringliteral">&quot;0n&quot;</span></div>
-<div class="line"><span class="lineno">  110</span>            <span class="comment"># print groups[key]</span></div>
-<div class="line"><span class="lineno">  111</span>            <span class="keywordflow">if</span> key <span class="keywordflow">in</span> (<span class="stringliteral">&#39;years&#39;</span>, <span class="stringliteral">&#39;months&#39;</span>):</div>
-<div class="line"><span class="lineno">  112</span>                groups[key] = Decimal(groups[key][:-1].replace(<span class="stringliteral">&#39;,&#39;</span>, <span class="stringliteral">&#39;.&#39;</span>))</div>
-<div class="line"><span class="lineno">  113</span>            <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  114</span>                <span class="comment"># these values are passed into a timedelta object,</span></div>
-<div class="line"><span class="lineno">  115</span>                <span class="comment"># which works with floats.</span></div>
-<div class="line"><span class="lineno">  116</span>                groups[key] = float(groups[key][:-1].replace(<span class="stringliteral">&#39;,&#39;</span>, <span class="stringliteral">&#39;.&#39;</span>))</div>
-<div class="line"><span class="lineno">  117</span>    <span class="keywordflow">if</span> groups[<span class="stringliteral">&quot;years&quot;</span>] == 0 <span class="keywordflow">and</span> groups[<span class="stringliteral">&quot;months&quot;</span>] == 0:</div>
-<div class="line"><span class="lineno">  118</span>        ret = timedelta(days=groups[<span class="stringliteral">&quot;days&quot;</span>], hours=groups[<span class="stringliteral">&quot;hours&quot;</span>],</div>
-<div class="line"><span class="lineno">  119</span>                        minutes=groups[<span class="stringliteral">&quot;minutes&quot;</span>], seconds=groups[<span class="stringliteral">&quot;seconds&quot;</span>],</div>
-<div class="line"><span class="lineno">  120</span>                        weeks=groups[<span class="stringliteral">&quot;weeks&quot;</span>])</div>
-<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">if</span> groups[<span class="stringliteral">&quot;sign&quot;</span>] == <span class="stringliteral">&#39;-&#39;</span>:</div>
-<div class="line"><span class="lineno">  122</span>            ret = timedelta(0) - ret</div>
-<div class="line"><span class="lineno">  123</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  124</span>        ret = Duration(years=groups[<span class="stringliteral">&quot;years&quot;</span>], months=groups[<span class="stringliteral">&quot;months&quot;</span>],</div>
-<div class="line"><span class="lineno">  125</span>                       days=groups[<span class="stringliteral">&quot;days&quot;</span>], hours=groups[<span class="stringliteral">&quot;hours&quot;</span>],</div>
-<div class="line"><span class="lineno">  126</span>                       minutes=groups[<span class="stringliteral">&quot;minutes&quot;</span>], seconds=groups[<span class="stringliteral">&quot;seconds&quot;</span>],</div>
-<div class="line"><span class="lineno">  127</span>                       weeks=groups[<span class="stringliteral">&quot;weeks&quot;</span>])</div>
-<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">if</span> groups[<span class="stringliteral">&quot;sign&quot;</span>] == <span class="stringliteral">&#39;-&#39;</span>:</div>
-<div class="line"><span class="lineno">  129</span>            ret = Duration(0) - ret</div>
-<div class="line"><span class="lineno">  130</span>    <span class="keywordflow">return</span> ret</div>
-<div class="line"><span class="lineno">  131</span> </div>
-<div class="line"><span class="lineno">  132</span> </div>
-</div><!-- fragment -->
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ad5298d298d349021ce9dd7c6213f85e0" name="ad5298d298d349021ce9dd7c6213f85e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5298d298d349021ce9dd7c6213f85e0">&#9670;&#160;</a></span>ISO8601_PERIOD_REGEX</h2>
+<a id="a18f05aeddc212b523b40818fa2b87b33" name="a18f05aeddc212b523b40818fa2b87b33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18f05aeddc212b523b40818fa2b87b33">&#9670;&#160;</a></span>_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0357d3c7a5047524e1543f2f43bc3e38" name="a0357d3c7a5047524e1543f2f43bc3e38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0357d3c7a5047524e1543f2f43bc3e38">&#9670;&#160;</a></span>FORM_CLASS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ISO8601_PERIOD_REGEX</td>
+          <td class="memname"><a class="el" href="a02509.html">FORM_CLASS</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  re.compile(</div>
-<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">r&quot;^(?P&lt;sign&gt;[+-])?&quot;</span></div>
-<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">r&quot;P(?!\b)&quot;</span></div>
-<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">r&quot;(?P&lt;years&gt;[0-9]+([,.][0-9]+)?Y)?&quot;</span></div>
-<div class="line"><span class="lineno">    5</span>    <span class="stringliteral">r&quot;(?P&lt;months&gt;[0-9]+([,.][0-9]+)?M)?&quot;</span></div>
-<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">r&quot;(?P&lt;weeks&gt;[0-9]+([,.][0-9]+)?W)?&quot;</span></div>
-<div class="line"><span class="lineno">    7</span>    <span class="stringliteral">r&quot;(?P&lt;days&gt;[0-9]+([,.][0-9]+)?D)?&quot;</span></div>
-<div class="line"><span class="lineno">    8</span>    <span class="stringliteral">r&quot;((?P&lt;separator&gt;T)(?P&lt;hours&gt;[0-9]+([,.][0-9]+)?H)?&quot;</span></div>
-<div class="line"><span class="lineno">    9</span>    <span class="stringliteral">r&quot;(?P&lt;minutes&gt;[0-9]+([,.][0-9]+)?M)?&quot;</span></div>
-<div class="line"><span class="lineno">   10</span>    <span class="stringliteral">r&quot;(?P&lt;seconds&gt;[0-9]+([,.][0-9]+)?S)?)?$&quot;</span>)</div>
-</div><!-- fragment -->
+
 </div>
 </div>
 </div><!-- contents -->
@@ -349,7 +190,7 @@ Limitations:  ISO standard defines some restrictions about where to use
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00912.html">isodate</a></li><li class="navelem"><a class="el" href="a00916.html">isoduration</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00912.html">dialogs</a></li><li class="navelem"><a class="el" href="a00913.html">conf</a></li><li class="navelem"><a class="el" href="a00916.html">triplestoredialog</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

@@ -1,4 +1,4 @@
 var a01017 =
 [
-    [ "BRICK", "a01980.html", "a01980" ]
+    [ "DocDefaults", "a01401.html", "a01401" ]
 ];

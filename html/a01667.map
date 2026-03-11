@@ -1,9 +1,0 @@
-<map id="SHACLTargetType" name="SHACLTargetType">
-<area shape="rect" id="Node000001" title=" " alt="" coords="63,79,198,104"/>
-<area shape="rect" id="Node000003" href="$a01588.html" title=" " alt="" coords="5,152,109,177"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="111,116,71,154,67,150,107,112"/>
-<area shape="rect" id="Node000004" href="$a01684.html" title=" " alt="" coords="133,152,275,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,112,194,150,190,154,151,116"/>
-<area shape="rect" id="Node000002" href="$a07484.html" title=" " alt="" coords="99,5,162,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,44,133,79,128,79,128,44"/>
-</map>

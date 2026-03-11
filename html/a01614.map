@@ -1,9 +1,0 @@
-<map id="SHACLExecutor" name="SHACLExecutor">
-<area shape="rect" id="Node000001" title=" " alt="" coords="99,181,221,207"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,83,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="44,44,48,100,56,129,71,156,87,169,106,179,104,184,84,174,67,159,51,131,42,100,39,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="135,5,185,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="163,44,163,181,157,181,157,44"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="279,5,318,31"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="303,45,298,101,289,132,271,159,248,177,222,187,220,182,246,172,267,156,284,130,293,100,298,44"/>
-</map>

@@ -1,5 +1,5 @@
 var a00988 =
 [
-    [ "Shape", "a01660.html", "a01660" ],
-    [ "module", "a00988.html#a96e5f0eca87c2426370e0897ac7b8ca6", null ]
+    [ "FindFeaturesInAreaTask", "a01317.html", "a01317" ],
+    [ "MESSAGE_CATEGORY", "a00988.html#ae3349e13b3993e2c87c18074a77fb8f9", null ]
 ];

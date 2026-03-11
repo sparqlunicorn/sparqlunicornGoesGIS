@@ -1,4 +1,4 @@
 var a01043 =
 [
-    [ "WGS", "a02084.html", "a02084" ]
+    [ "BuildLogPage", "a01485.html", "a01485" ]
 ];

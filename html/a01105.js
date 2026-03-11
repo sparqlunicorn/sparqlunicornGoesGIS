@@ -1,8 +1,28 @@
 var a01105 =
 [
-    [ "REGEXMatching", "a02564.html", "a02564" ],
-    [ "REGEXTerm", "a02560.html", "a02560" ],
-    [ "regexCompareQuad", "a01105.html#a0d04823e7ada5bdc638ab7dcc2b9ae11", null ],
-    [ "NATIVE_REGEX", "a01105.html#a9623476fe4d97990f26bd54377c706ab", null ],
-    [ "PYTHON_REGEX", "a01105.html#ab5be486a65b90fe02ad4ba640d65800b", null ]
+    [ "__init__", "a01105.html#a432995069fc10da790a721b014692c59", null ],
+    [ "getAttributeStatistics", "a01105.html#af6fc7691a4185345920dec151e768519", null ],
+    [ "loadSamples", "a01105.html#a9e6600341cffb10c7cda6509ec87e3f9", null ],
+    [ "toggleSelect", "a01105.html#a5f9ed403d1ada1a07cefed6a1ea34ce1", null ],
+    [ "alreadyloadedSample", "a01105.html#acf65a34531091c482d3844fac8a32f6d", null ],
+    [ "concept", "a01105.html#a8797c550322dd66573e3ff76efea346e", null ],
+    [ "concepttype", "a01105.html#ad341a2945e04315008627d9d24aba557", null ],
+    [ "dataSchemaTableView", "a01105.html#abf4b37a56936bf1276d7dba65f5fd1fb", null ],
+    [ "filter_proxy_model", "a01105.html#a6d828fa188e4fc612101d64e2c7de582", null ],
+    [ "label", "a01105.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
+    [ "loadSamples", "a01105.html#aec96fd78e346ce7c64f88869b2124688", null ],
+    [ "map_canvas", "a01105.html#aee60670247b05b378b16b953ae07da95", null ],
+    [ "mts_layer", "a01105.html#a90dc809bbf3ab04604a3662090a747bc", null ],
+    [ "prefixes", "a01105.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qtask", "a01105.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "qtask2", "a01105.html#a39b0b293840045c1835cdd6fe7fd92bb", null ],
+    [ "selected", "a01105.html#a2224ec0958a602aef926b6a3715e094e", null ],
+    [ "statusBarLabel", "a01105.html#a3b17a1723250cdd4893939874c1f91bb", null ],
+    [ "styleprop", "a01105.html#a1451318d493b1d82979d80601a4b8b98", null ],
+    [ "tablemodel", "a01105.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
+    [ "toggleSelect", "a01105.html#a6f355b6c9536ccb798ea8e8f70959809", null ],
+    [ "toolPan", "a01105.html#af85acd51bc896510da060834a7b6b890", null ],
+    [ "triplestoreconf", "a01105.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "triplestoreurl", "a01105.html#a9b8734be629bbc1f64723d90a67861ab", null ],
+    [ "vl", "a01105.html#a3b8faf024ce1e723b98817e20cd69ff6", null ]
 ];

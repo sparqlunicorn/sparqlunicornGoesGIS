@@ -1,9 +1,0 @@
-<map id="UIUtils" name="UIUtils">
-<area shape="rect" id="Node000001" title=" " alt="" coords="115,181,182,207"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,44,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="25,44,28,100,37,129,52,156,65,168,81,176,116,187,114,192,79,181,62,172,48,159,32,132,23,101,20,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="129,5,168,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,44,151,181,146,181,146,44"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="345,5,392,31"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,44,374,71,370,102,360,133,341,159,313,174,271,183,182,193,182,188,270,178,311,169,338,155,355,130,364,101,368,71,368,44"/>
-</map>

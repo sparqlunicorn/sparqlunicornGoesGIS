@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: rdflib.contrib.graphdb.client Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.test.qgis_interface Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -129,27 +129,157 @@ $(document).ready(function(){initNavTree('a01002.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">rdflib.contrib.graphdb.client Namespace Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.test.qgis_interface Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01744.html">GraphDBClient</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html">QgisInterface</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01736.html">Repository</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01740.html">RepositoryManager</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6d83c2c29b6966a3000f7becd492d5e8" id="r_a6d83c2c29b6966a3000f7becd492d5e8"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01002.html#a6d83c2c29b6966a3000f7becd492d5e8">__author__</a> = 'tim@linfiniti.com'</td></tr>
+<tr class="separator:a6d83c2c29b6966a3000f7becd492d5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae404f5796f4df2edf532436b28009c30" id="r_ae404f5796f4df2edf532436b28009c30"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01002.html#ae404f5796f4df2edf532436b28009c30">__revision__</a> = '$Format:%H$'</td></tr>
+<tr class="separator:ae404f5796f4df2edf532436b28009c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd371d4f3266d21d2e70cc1b4742edd" id="r_a8dd371d4f3266d21d2e70cc1b4742edd"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01002.html#a8dd371d4f3266d21d2e70cc1b4742edd">__date__</a> = '10/01/2011'</td></tr>
+<tr class="separator:a8dd371d4f3266d21d2e70cc1b4742edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd6c6c19c418fb86063895621d2723c6" id="r_afd6c6c19c418fb86063895621d2723c6"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01002.html#afd6c6c19c418fb86063895621d2723c6">__copyright__</a></td></tr>
+<tr class="separator:afd6c6c19c418fb86063895621d2723c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8584d053884ac6d108fdf93861b51cd0" id="r_a8584d053884ac6d108fdf93861b51cd0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01002.html#a8584d053884ac6d108fdf93861b51cd0">LOGGER</a> = logging.getLogger('QGIS')</td></tr>
+<tr class="separator:a8584d053884ac6d108fdf93861b51cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">QGIS plugin implementation.
+
+.. note:: This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation; either version 2 of the License, or
+     (at your option) any later version.
+
+.. note:: This source code was copied from the 'postgis viewer' application
+     with original authors:
+     Copyright (c) 2010 by Ivan Mincik, ivan.mincik@gista.sk
+     Copyright (c) 2011 German Carrillo, geotux_tuxman@linuxmail.org
+     Copyright (c) 2014 Tim Sutton, tim@linfiniti.com</pre> </div><h2 class="groupheader">Variable Documentation</h2>
+<a id="a6d83c2c29b6966a3000f7becd492d5e8" name="a6d83c2c29b6966a3000f7becd492d5e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d83c2c29b6966a3000f7becd492d5e8">&#9670;&#160;</a></span>__author__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str __author__ = 'tim@linfiniti.com'</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd6c6c19c418fb86063895621d2723c6" name="afd6c6c19c418fb86063895621d2723c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd6c6c19c418fb86063895621d2723c6">&#9670;&#160;</a></span>__copyright__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple __copyright__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  (</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&#39;Copyright (c) 2010 by Ivan Mincik, ivan.mincik@gista.sk and &#39;</span></div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&#39;Copyright (c) 2011 German Carrillo, geotux_tuxman@linuxmail.org&#39;</span></div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&#39;Copyright (c) 2014 Tim Sutton, tim@linfiniti.com&#39;</span></div>
+<div class="line"><span class="lineno">    5</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8dd371d4f3266d21d2e70cc1b4742edd" name="a8dd371d4f3266d21d2e70cc1b4742edd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dd371d4f3266d21d2e70cc1b4742edd">&#9670;&#160;</a></span>__date__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str __date__ = '10/01/2011'</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae404f5796f4df2edf532436b28009c30" name="ae404f5796f4df2edf532436b28009c30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae404f5796f4df2edf532436b28009c30">&#9670;&#160;</a></span>__revision__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">str __revision__ = '$Format:%H$'</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8584d053884ac6d108fdf93861b51cd0" name="a8584d053884ac6d108fdf93861b51cd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8584d053884ac6d108fdf93861b51cd0">&#9670;&#160;</a></span>LOGGER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LOGGER = logging.getLogger('QGIS')</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00993.html">rdflib</a></li><li class="navelem"><a class="el" href="a01000.html">contrib</a></li><li class="navelem"><a class="el" href="a01001.html">graphdb</a></li><li class="navelem"><a class="el" href="a01002.html">client</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a01001.html">test</a></li><li class="navelem"><a class="el" href="a01002.html">qgis_interface</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

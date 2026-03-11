@@ -1,6 +1,6 @@
 var a00764 =
 [
-    [ "SPARQLCompleter", "a03328.html", "a03328" ],
-    [ "LineNumberArea", "a03332.html", "a03332" ],
-    [ "ToolTipPlainText", "a03336.html", "a03336" ]
+    [ "SPARQLCompleter", "a01613.html", "a01613" ],
+    [ "LineNumberArea", "a01617.html", "a01617" ],
+    [ "ToolTipPlainText", "a01621.html", "a01621" ]
 ];

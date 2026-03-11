@@ -1,11 +1,5 @@
-<map id="MaxCountConstraintComponent" name="MaxCountConstraintComponent">
-<area shape="rect" id="Node000001" title=" " alt="" coords="21,152,252,177"/>
-<area shape="rect" id="Node000002" href="$a01336.html" title=" " alt="" coords="55,79,219,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,118,139,152,134,152,134,118"/>
-<area shape="rect" id="Node000003" href="$a07484.html" title=" " alt="" coords="5,5,68,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="65,36,122,76,119,81,62,41"/>
-<area shape="rect" id="Node000004" href="$a07514.html" title=" " alt="" coords="92,5,181,31"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="139,44,139,79,134,79,134,44"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="206,5,289,31"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="219,40,156,81,153,76,217,36"/>
+<map id="TripleStoreRepositoryTask" name="TripleStoreRepositoryTask">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,196,104"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="63,5,139,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,44,103,79,98,79,98,44"/>
 </map>

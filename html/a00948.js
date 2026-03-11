@@ -1,6 +1,6 @@
 var a00948 =
 [
-    [ "SPARQLBasedConstraint", "a01484.html", "a01484" ],
-    [ "SH_sparql", "a00948.html#a8b3f4a30e7ba22ac32b670681e547ac6", null ],
-    [ "SH_SPARQLConstraintComponent", "a00948.html#a9c8278a094f9f8994146147643342b1d", null ]
+    [ "SearchDialog", "a01197.html", "a01197" ],
+    [ "_", "a00948.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00948.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

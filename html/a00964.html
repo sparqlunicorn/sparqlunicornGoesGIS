@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>SPARQL Unicorn QGIS Plugin: pyshacl.helper Namespace Reference</title>
+<title>SPARQL Unicorn QGIS Plugin: sparqlunicornGoesGIS.tasks.processing.extractnamespacetask Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -129,70 +129,32 @@ $(document).ready(function(){initNavTree('a00964.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">pyshacl.helper Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">sparqlunicornGoesGIS.tasks.processing.extractnamespacetask Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00965" id="r_a00965"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00965.html">expression_helper</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01237.html">ExtractNamespaceTask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a graph from an RDF file either by providing an internet address or a file path.  <a href="a01237.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00966" id="r_a00966"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html">path_helper</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00967" id="r_a00967"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00967.html">sparql_query_helper</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ac61c889649ac4eb6bddc5e9ec341940b" id="r_ac61c889649ac4eb6bddc5e9ec341940b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00964.html#ac61c889649ac4eb6bddc5e9ec341940b">get_query_helper_cls</a> ()</td></tr>
-<tr class="separator:ac61c889649ac4eb6bddc5e9ec341940b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a4b97eb97db2365148a5c3a5070f0cdd1" id="r_a4b97eb97db2365148a5c3a5070f0cdd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00964.html#a4b97eb97db2365148a5c3a5070f0cdd1">mod</a> = sys.modules[__name__]</td></tr>
-<tr class="separator:a4b97eb97db2365148a5c3a5070f0cdd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3349e13b3993e2c87c18074a77fb8f9" id="r_ae3349e13b3993e2c87c18074a77fb8f9"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00964.html#ae3349e13b3993e2c87c18074a77fb8f9">MESSAGE_CATEGORY</a> = '<a class="el" href="a01237.html">ExtractNamespaceTask</a>'</td></tr>
+<tr class="separator:ae3349e13b3993e2c87c18074a77fb8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ac61c889649ac4eb6bddc5e9ec341940b" name="ac61c889649ac4eb6bddc5e9ec341940b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac61c889649ac4eb6bddc5e9ec341940b">&#9670;&#160;</a></span>get_query_helper_cls()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_query_helper_cls </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">    7</span><span class="keyword">def </span>get_query_helper_cls():</div>
-<div class="line"><span class="lineno">    8</span>    <span class="comment"># The SPARQLQueryHelper file is expensive to load due to regex compilation steps</span></div>
-<div class="line"><span class="lineno">    9</span>    <span class="comment"># so we do it this way so its only loaded when something actually needs to use</span></div>
-<div class="line"><span class="lineno">   10</span>    <span class="comment"># a SPARQLQueryHelper</span></div>
-<div class="line"><span class="lineno">   11</span>    SPARQLQueryHelperCls = getattr(mod, <span class="stringliteral">&#39;SPARQLQueryHelperCls&#39;</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><span class="lineno">   12</span>    <span class="keywordflow">if</span> SPARQLQueryHelperCls <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">   13</span>        <span class="keyword">from</span> .sparql_query_helper <span class="keyword">import</span> SPARQLQueryHelper</div>
-<div class="line"><span class="lineno">   14</span> </div>
-<div class="line"><span class="lineno">   15</span>        SPARQLQueryHelperCls = SPARQLQueryHelper</div>
-<div class="line"><span class="lineno">   16</span>        setattr(mod, <span class="stringliteral">&#39;SPARQLQueryHelperCls&#39;</span>, SPARQLQueryHelperCls)</div>
-<div class="line"><span class="lineno">   17</span>    <span class="keywordflow">return</span> SPARQLQueryHelperCls</div>
-</div><!-- fragment -->
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a4b97eb97db2365148a5c3a5070f0cdd1" name="a4b97eb97db2365148a5c3a5070f0cdd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b97eb97db2365148a5c3a5070f0cdd1">&#9670;&#160;</a></span>mod</h2>
+<a id="ae3349e13b3993e2c87c18074a77fb8f9" name="ae3349e13b3993e2c87c18074a77fb8f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3349e13b3993e2c87c18074a77fb8f9">&#9670;&#160;</a></span>MESSAGE_CATEGORY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">mod = sys.modules[__name__]</td>
+          <td class="memname">str MESSAGE_CATEGORY = '<a class="el" href="a01237.html">ExtractNamespaceTask</a>'</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -205,7 +167,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00929.html">pyshacl</a></li><li class="navelem"><a class="el" href="a00964.html">helper</a></li>
+    <li class="navelem"><a class="el" href="a00911.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00959.html">tasks</a></li><li class="navelem"><a class="el" href="a00960.html">processing</a></li><li class="navelem"><a class="el" href="a00964.html">extractnamespacetask</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.8 </li>

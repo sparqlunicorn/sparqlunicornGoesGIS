@@ -1,11 +1,6 @@
 var a00937 =
 [
-    [ "cardinality_constraints", "a00938.html", "a00938" ],
-    [ "logical_constraints", "a00939.html", "a00939" ],
-    [ "other_constraints", "a00940.html", "a00940" ],
-    [ "property_pair_constraints", "a00941.html", "a00941" ],
-    [ "shape_based_constraints", "a00942.html", "a00942" ],
-    [ "string_based_constraints", "a00943.html", "a00943" ],
-    [ "value_constraints", "a00944.html", "a00944" ],
-    [ "value_range_constraints", "a00945.html", "a00945" ]
+    [ "TripleStoreRepoDialog", "a01161.html", "a01161" ],
+    [ "_", "a00937.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00937.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

@@ -1,0 +1,7 @@
+var a00920 =
+[
+    [ "InstanceDataDialog", "a01101.html", "a01101" ],
+    [ "_", "a00920.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00920.html#a0357d3c7a5047524e1543f2f43bc3e38", null ],
+    [ "MESSAGE_CATEGORY", "a00920.html#ae3349e13b3993e2c87c18074a77fb8f9", null ]
+];
