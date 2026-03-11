@@ -1168,12 +1168,12 @@ HTML_STYLESHEET        =
 # list). For an example see the documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  = doxygen-awesome.css \
-                         doxygen-custom/custom.css \
-                         doxygen-awesome-sidebar-only.css \
-                         doxygen-awesome-sidebar-only-darkmode-toggle.css \
-                         doxygen-custom/theme-round.css \
-                         doxygen-custom/theme-robot.css
+HTML_EXTRA_STYLESHEET  = css/doxygen-awesome.css \
+                         css/doxygen-custom/custom.css \
+                         css/doxygen-awesome-sidebar-only.css \
+                         css/doxygen-awesome-sidebar-only-darkmode-toggle.css \
+                         css/doxygen-custom/theme-round.css \
+                         css/doxygen-custom/theme-robot.css
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note
@@ -1183,12 +1183,12 @@ HTML_EXTRA_STYLESHEET  = doxygen-awesome.css \
 # files will be copied as-is; there are no commands or markers available.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_FILES       = doxygen-awesome-darkmode-toggle.js \
-                         doxygen-awesome-fragment-copy-button.js \
-                         doxygen-awesome-paragraph-link.js \
-                         doxygen-custom/toggle-alternative-theme.js \
-                         doxygen-awesome-interactive-toc.js \
-                         doxygen-awesome-tabs.js
+HTML_EXTRA_FILES       = css/doxygen-awesome-darkmode-toggle.js \
+                         css/doxygen-awesome-fragment-copy-button.js \
+                         css/doxygen-awesome-paragraph-link.js \
+                         css/doxygen-custom/toggle-alternative-theme.js \
+                         css/doxygen-awesome-interactive-toc.js \
+                         css/doxygen-awesome-tabs.js
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. Doxygen
 # will adjust the colors in the style sheet and background images according to
