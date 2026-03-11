@@ -24,37 +24,12 @@
 */
 var NAVTREE =
 [
-  [ "SPARQLing Unicorn QGIS Plugin", "index.html", [
-    [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ],
-      [ "Package Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Variables", "namespacemembers_vars.html", null ]
-      ] ]
-    ] ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
-    ] ]
-  ] ]
+  [ "SPARQL Uniorn QGIS Plugin", "index.html", ]
 ];
 
 var NAVTREEINDEX =
 [
-"a00002.html",
-"a00064.html#a486aeee0a5d3170bc193bc29caf8a7b8",
-"a00072.html#afe27f37e04aafb99a9b48eae8506bc9a",
-"a00108.html#ad02d9cf049ff6e840c98736b199b0bb2"
+"index.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
